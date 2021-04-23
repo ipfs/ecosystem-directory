@@ -18,7 +18,7 @@
             {{ excerpt }}
           </p>
           <div class="img-container">
-            <img :src="$relativity(image)" style="width: 100%;" alt="" />
+            <img :src="$relativity('/images/icons.png')" style="width: 100%;" alt="" />
           </div>
         </div>
       </transition>
@@ -32,12 +32,10 @@
 </template>
 
 <script>
-// ===================================================================== Imports
-import icons from '@/components/SegmentSliderChart/icons.png'
-
 // ====================================================================== Export
 export default {
   name: 'Slider',
+
   props: {
     selectedCat: {
       type: String,
@@ -60,11 +58,7 @@ export default {
       default: () => []
     }
   },
-  data () {
-    return {
-      image: icons
-    }
-  },
+
   methods: {
     incrementSelection (seg) {
       this.$emit('update-slider', seg)
@@ -144,7 +138,7 @@ export default {
   margin-right: auto;
   left: 0;
   right: 0;
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   font-weight: 700;
   text-align: center;
   padding: 0.5em 2.0em;
