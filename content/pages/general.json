@@ -1,10 +1,10 @@
 {
   "seo": {
-    "title": "PoC AU Nuxt",
-    "description": "Proof of concepts for AU web frontend implementations in NuxtJS"
+    "title": "IPFS Ecosystem Directory",
+    "description": "Interactive IPFS ecosystem directory and showcase"
   },
   "og": {
-    "site_name": "PoC AU Nuxt",
+    "site_name": "IPFS Ecosystem Directory",
     "url": "",
     "type": "website",
     "image": ""

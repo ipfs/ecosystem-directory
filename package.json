@@ -1,7 +1,7 @@
 {
-  "name": "poc-au-nuxt",
+  "name": "ipfs-ecosystem-directory",
   "version": "1.0.0",
-  "description": "Proof of concepts for AU web frontend implementations in NuxtJS",
+  "description": "Interactive IPFS ecosystem directory and showcase",
   "author": {
     "name": "Nauras Jabari",
     "email": "nauras@agencyundone.com"
@@ -12,8 +12,8 @@
     "start": "nuxt start",
     "build": "nuxt build",
     "generate": "nuxt generate",
-    "launch": "nuxt build && pm2 restart poc-au-nuxt",
-    "reload": "pm2 restart poc-au-nuxt"
+    "launch": "nuxt build && pm2 restart ipfs-ecosystem-directoryt",
+    "reload": "pm2 restart ipfs-ecosystem-directory"
   },
   "engines": {
     "node": "12.21.0"
