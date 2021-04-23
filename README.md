@@ -8,7 +8,7 @@ Interactive IPFS ecosystem directory and showcase.
 
 This repo is currently deployed to Fleek on the following URL:
 
-
+_Insert URL here_
 
 Pushes made to the `master` branch of this repo will automatically be reflected in the URL above. Please allow 2-5 minutes for the application to re-build before seeing changes in your browser.
 
