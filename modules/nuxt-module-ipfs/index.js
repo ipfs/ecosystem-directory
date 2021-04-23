@@ -17,7 +17,7 @@ const MethodsPlugin = Path.resolve(__dirname, 'plugin.js')
 // ------------------------------------------------------------- registerPlugins
 const registerPlugins = (instance, next) => {
   const plugins = {
-    Methods: { src: MethodsPlugin, fileName: 'nuxt-plugin-ipfs/methods.js' }
+    Methods: { src: MethodsPlugin, fileName: 'nuxt-module-ipfs/methods.js' }
   }
   Object.keys(plugins).map((key) => {
     const plugin = plugins[key]
