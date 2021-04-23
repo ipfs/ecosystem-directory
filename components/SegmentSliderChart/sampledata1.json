@@ -1,0 +1,21 @@
+{
+  "categories": [
+      { "cat": "Persistence & Archiving", "count": 3 },
+      { "cat": "DeFi", "count": 2 },
+      { "cat": "Social Media", "count": 2 },
+      { "cat": "Streaming", "count": 4 },
+      { "cat": "E-Commerce", "count": 8 },
+      { "cat": "Games & VR/AR", "count": 2 },
+      { "cat": "Content", "count": 3 },
+      { "cat": "Mobile", "count": 3 },
+      { "cat": "Gaming", "count": 5 },
+      { "cat": "Self-Sovereign Identity", "count": 9 },
+      { "cat": "Data Markets", "count": 6 },
+      { "cat": "Data Governance", "count": 6 },
+      { "cat": "Non-Fungible Tokens", "count": 3 },
+      { "cat": "Iot", "count": 6 },
+      { "cat": "Academic", "count": 1 },
+      { "cat": "Mesh Networks", "count": 2 },
+      { "cat": "Machine Learning & Big Data", "count": 9 }
+    ]
+}

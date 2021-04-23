@@ -1,0 +1,20 @@
+{
+  "seo": {
+    "title": "PoC AU Nuxt",
+    "description": "Proof of concepts for AU web frontend implementations in NuxtJS"
+  },
+  "og": {
+    "site_name": "PoC AU Nuxt",
+    "url": "",
+    "type": "website",
+    "image": ""
+  },
+  "navigation": [
+    {
+      "type": "nuxt-link",
+      "href": "/",
+      "label": "Home"
+    }
+  ],
+  "404_error_message": "Not Found"
+}
