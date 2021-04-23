@@ -18,7 +18,7 @@
             {{ excerpt }}
           </p>
           <div class="img-container">
-            <img :src="image" style="width:100%;" alt="">
+            <img :src="$relativity(image)" style="width: 100%;" alt="" />
           </div>
         </div>
       </transition>

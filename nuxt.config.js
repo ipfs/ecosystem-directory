@@ -93,7 +93,8 @@ export default {
     '@nuxtjs/style-resources',
     '~/modules/Core',
     '~/modules/Pagination',
-    '~/modules/Apollo'
+    '~/modules/Apollo',
+    '~/modules/nuxt-module-ipfs'
   ],
   // ///////////////////////////////////////////////////////// [Module] MomentJS
   // ---------------------- Doc: https://github.com/nuxt-community/moment-module
