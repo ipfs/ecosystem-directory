@@ -34,8 +34,8 @@
 // ===================================================================== Imports
 import Config from '@/nuxt.config'
 
-import IconCheckmark from '@/modules/Core/Components/Icons/Checkmark'
-import IconCaution from '@/modules/Core/Components/Icons/Caution'
+import IconCheckmark from '@/modules/zero/core/Components/Icons/Checkmark'
+import IconCaution from '@/modules/zero/core/Components/Icons/Caution'
 
 // ====================================================================== Export
 export default {

@@ -16,7 +16,7 @@
 import { mapGetters } from 'vuex'
 import Cookie from 'cookie'
 
-import Toast from '@/modules/Core/Components/Toast'
+import Toast from '@/modules/zero/core/Components/Toast'
 
 // ====================================================================== Export
 export default {

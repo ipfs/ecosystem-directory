@@ -45,8 +45,8 @@ const runHttps = (instance, next) => {
   if (process.env.NODE_ENV === 'development' && typeof instance.options.server === 'object') {
     const rootPath = instance.options.alias['@']
     instance.options.server.https = {
-      key: Fs.readFileSync(Path.resolve(__dirname, '../../localhost_key.pem')),
-      cert: Fs.readFileSync(Path.resolve(__dirname, '../../localhost_cert.pem'))
+      key: Fs.readFileSync(Path.resolve(__dirname, '../../../localhost_key.pem')),
+      cert: Fs.readFileSync(Path.resolve(__dirname, '../../../localhost_cert.pem'))
     }
   }
   if (next) { return next() }

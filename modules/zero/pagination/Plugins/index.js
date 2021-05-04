@@ -1,22 +1,20 @@
 /*
  *
- * 🔌 [Plugin | Core] Core
+ * 🔌 [Plugin | Pagination] Pagination
  *
  */
 
 // ///////////////////////////////////////////////////////////////////// Imports
 // -----------------------------------------------------------------------------
 // ///////////////////////////////////////////////////////////////////// General
-import Store from '@/modules/Core/Store'
-
-// This resolves to .nuxt/middleware.js
-import NuxtMiddleware from '../middleware'
+import Vue from 'vue'
+import Store from '@/modules/zero/pagination/Store'
 
 // /////////////////////////////////////////////////////////////////// Functions
 // -----------------------------------------------------------------------------
 // ///////////////////////////////////////////////////////// registerGlobalStore
-const registerGlobalStore = (App, next) => {
-  App.store.registerModule('core', Object.assign({
+const registerStore = (App, next) => {
+  App.store.registerModule('pagination', Object.assign({
     namespaced: true
   }, Store))
   if (next) { return next() }
@@ -25,7 +23,7 @@ const registerGlobalStore = (App, next) => {
 // ////////////////////////////////////////////////////////////////////// Export
 // -----------------------------------------------------------------------------
 export default ({ app }, inject) => {
-  registerGlobalStore(app, () => {
-    console.log(`🔌 [Plugin | Core] Core`)
+  registerStore(app, () => {
+    console.log(`🔌 [Plugin | Pagination] Pagination`)
   })
 }

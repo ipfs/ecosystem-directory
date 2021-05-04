@@ -89,9 +89,10 @@ export default {
     '@nuxtjs/axios',
     // Doc: https://github.com/nuxt-community/style-resources-module/
     '@nuxtjs/style-resources',
-    '~/modules/Core',
-    '~/modules/Pagination',
-    '~/modules/Apollo',
+    // Collection of helper modules, plugins and functions
+    '~/modules/zero/core',
+    '~/modules/zero/pagination',
+    // Doc: https://github.com/agency-undone/nuxt-module-ipfs
     '~/modules/nuxt-module-ipfs'
   ],
   // ///////////////////////////////////////////////////////// [Module] MomentJS
@@ -100,26 +101,25 @@ export default {
     timezone: true,
     defaultTimezone: 'UTC'
   },
-  // ///////////////////////////////////////////////////////////// [Module] Core
+  // ///////////////////////////////////////////////////////////// [Module] Zero
   // ---------------------------------------------------------------------------
-  core: {},
+  zero: {
+    // -------------------------------------------------------- [Plugin] Toaster
+    toaster: {
+      display: 10,
+      timeout: 5000
+    }
+  },
   // //////////////////////////////////////////////////////////// [Module] Axios
   // -------------------------------------- See https://axios.nuxtjs.org/options
   axios: {},
   // /////////////////////////////////// Plugins to load before mounting the App
   // ---------------------------------------------------------------------------
   plugins: [
-    '~/api/index',
     '~/plugins/directives',
     '~/plugins/global-methods',
     '~/plugins/scroll-to'
   ],
-  // ////////////////////////////////////////////////////////// [Plugin] Toaster
-  // ---------------------------------------------------------------------------
-  toaster: {
-    display: 10,
-    timeout: 5000
-  },
   // /////////////////////////////////////////////////////// Router + Middleware
   // ---------------------------------------------------------------------------
   router: {

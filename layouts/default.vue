@@ -10,7 +10,7 @@
 
 <script>
 // ===================================================================== Imports
-import Toaster from '@/modules/Core/Components/Toaster'
+import Toaster from '@/modules/zero/core/Components/Toaster'
 
 // ====================================================================== Export
 export default {
