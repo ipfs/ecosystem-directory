@@ -80,12 +80,16 @@ $ultraLarge: 140.625rem; // 2250px
 
 // ////////////////////////////////////////////////////////////////////// Mixins
 // ------------------------------------------------------ Typography | Font Size
-@mixin fontSize_Tiny {
-  font-size: 0.625rem;
-}
+// fontSize_Mini | 11pt
+// fontSize_Small | 14pt
+// fontSize_Regular | 16pt
+// fontSize_Medium | 18pt
+// fontSize_Large | 20pt
+// fontSize_ExtraLarge | 24pt
+// fontSize_ExtraExtraLarge | 50pt
 
 @mixin fontSize_Mini {
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
 }
 
 @mixin fontSize_Small {
@@ -97,19 +101,19 @@ $ultraLarge: 140.625rem; // 2250px
 }
 
 @mixin fontSize_Medium {
-  font-size: 1.5rem;
+  font-size: 1.125rem;
 }
 
 @mixin fontSize_Large {
-  font-size: 2rem;
+  font-size: 1.25rem;
 }
 
 @mixin fontSize_ExtraLarge {
-  font-size: 2.5rem;
+  font-size: 1.5rem;
 }
 
 @mixin fontSize_ExtraExtraLarge {
-  font-size: 3rem;
+  font-size: 3.125rem;
 }
 
 // -------------------------------------------------------- Typography | Leading

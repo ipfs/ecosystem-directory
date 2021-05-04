@@ -83,6 +83,7 @@ ul,
 li,
 div,
 nav,
+pre,
 span,
 input,
 label,
@@ -246,9 +247,10 @@ h6, .h6 {
 }
 
 h1, .h1 {
-  @include fontSize_ExtraExtraLarge;
+  @include fontSize_ExtraLarge;
+  font-weight: 600;
   @include small {
-    @include fontSize_ExtraLarge;
+    @include fontSize_Large;
   }
 }
 
@@ -379,7 +381,7 @@ li {
     border-bottom: 0.375rem solid $gray800;
   }
   &:after {
-    @include fontSize_Tiny;
+    @include fontSize_Mini;
     content: attr(data-tooltip);
     top: calc(100% + 0.5rem);
     background-color: $gray800;
