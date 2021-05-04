@@ -65,13 +65,11 @@ export default {
   // /////////////////////////////////////////////////////////// Global CSS/SCSS
   // ---------------------------------------------------------------------------
   css: [
-    '~/assets/scss/normalize.scss',
-    '~/assets/scss/gridlex-2.7.1/gridlex.scss',
-    '~/assets/scss/main.scss'
+    '~/assets/theme/main.scss'
   ],
   styleResources: {
     scss: [
-      '~/assets/scss/variables.scss'
+      '~/assets/theme/variables.scss'
     ]
   },
   // /////////////////////////////////////////////////////// Nuxt.js Dev Modules

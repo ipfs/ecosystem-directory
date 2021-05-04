@@ -1,6 +1,11 @@
+// ///////////////////////////////////////////////////////////////////// Imports
+// -----------------------------------------------------------------------------
+@import 'normalize';
+@import 'gridlex-2.7.1/gridlex';
+
 // /////////////////////////////////////////////////////////////////////// Fonts
 // -----------------------------------------------------------------------------
-$fontAssetPath: '~assets/fonts';
+$fontAssetPath: '~assets/theme/fonts';
 
 // ///////////////////////////////////////////////////////////////////// General
 // -----------------------------------------------------------------------------
@@ -344,10 +349,10 @@ li {
     border-bottom: 0.375rem solid $gray800;
   }
   &:after {
+    @include fontSize_Tiny;
     content: attr(data-tooltip);
     top: calc(100% + 0.5rem);
     background-color: $gray800;
-    font-size: 0.625rem;
     white-space: nowrap;
     padding: 0.5rem 0.75rem;
     border-radius: 0.125rem;
@@ -426,7 +431,7 @@ li {
   }
 
   h3, .h3 {
-    font-size: 1.2rem;
+    @include fontSize_Medium;
   }
 
   p, li, span {
@@ -601,11 +606,8 @@ li {
     @include small {
       margin-right: 0;
     }
-    @include tiny {
-      font-size: 1rem;
-    }
     + figcaption {
-      font-size: 0.9rem;
+      @include fontSize_Small;
       font-weight: 500;
       text-transform: uppercase;
       padding-top: 2rem;
