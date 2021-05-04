@@ -7,6 +7,35 @@
 // -----------------------------------------------------------------------------
 $fontAssetPath: '~assets/theme/fonts';
 
+///////////////////////////////////////////////////////////////////// Montserrat
+@font-face {
+  font-family: 'Montserrat';
+  src: url('#{$fontAssetPath}/Montserrat/Montserrat-Regular.ttf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('#{$fontAssetPath}/Montserrat/Montserrat-SemiBold.ttf') format('opentype');
+  font-weight: 600;
+  font-style: bold;
+}
+
+////////////////////////////////////////////////////////////////////////// Inter
+@font-face {
+  font-family: 'Inter';
+  src: url('#{$fontAssetPath}/Inter/Inter-Regular.ttf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('#{$fontAssetPath}/Inter/Inter-SemiBold.ttf') format('opentype');
+  font-weight: 600;
+  font-style: bold;
+}
 // ///////////////////////////////////////////////////////////////////// General
 // -----------------------------------------------------------------------------
 html, body {
@@ -15,7 +44,7 @@ html, body {
   margin: 0;
   height: auto;
   background-color: white;
-  font-family: $fontHelvetica;
+  font-family: $fontInter;
   color: $mineShaft;
   font-size: 16px;
   letter-spacing: 0px;
@@ -213,6 +242,7 @@ h4, .h4,
 h5, .h5,
 h6, .h6 {
   display: block;
+  font-family: $fontMontserrat;
 }
 
 h1, .h1 {
