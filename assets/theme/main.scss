@@ -217,8 +217,21 @@ button, .button {
   height: 25rem;
   margin: 1rem 0;
   background-color: $gray300;
-  border-radius: 1rem;
+  color: $gray900;
+  border-radius: 0.5rem;
   font-weight: 600;
+  &.tiny {
+    height: 3rem;
+  }
+  &.mini {
+    height: 5rem;
+  }
+  &.small {
+    height: 10rem;
+  }
+  &.no-margin {
+    margin: 0;
+  }
 }
 
 // /////////////////////////////////////////////////////////////////////// Fonts
