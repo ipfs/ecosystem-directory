@@ -40,9 +40,7 @@
         </div>
 
         <div class="col-4">
-          <div class="placeholder-section no-margin tiny">
-            Icons
-          </div>
+          <div class="icons-row" v-html="pageData.icons_row"></div>
         </div>
 
       </div>
@@ -121,6 +119,25 @@ export default {
 .footer-navigation-link {
   &:not(:last-child) {
     margin-right: 1.6875rem;
+  }
+}
+
+::v-deep .icons-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  a {
+    width: 2rem;
+    &:not(:last-child) {
+      margin-right: 1rem;
+    }
+  }
+  svg {
+    width: 100%;
+    path {
+      fill: white;
+    }
   }
 }
 
