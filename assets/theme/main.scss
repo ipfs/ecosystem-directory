@@ -43,9 +43,9 @@ html, body {
   padding: 0;
   margin: 0;
   height: auto;
-  background-color: white;
+  background-color: $blackHaze;
   font-family: $fontInter;
-  color: $mineShaft;
+  color: $codGray;
   font-size: 16px;
   letter-spacing: 0px;
   -moz-osx-font-smoothing: grayscale;
@@ -141,7 +141,7 @@ input[type=week] {
     font-size: inherit;
     font-weight: inherit;
     font-style: inherit;
-    color: black;
+    color: inherit;
   }
   &:hover, &:active, &:focus {
     background-color: transparent;
@@ -247,10 +247,9 @@ h6, .h6 {
 }
 
 h1, .h1 {
-  @include fontSize_ExtraLarge;
-  font-weight: 600;
+  @include fontSize_ExtraExtraLarge;
   @include small {
-    @include fontSize_Large;
+    @include fontSize_ExtraLarge;
   }
 }
 
@@ -346,7 +345,7 @@ li {
 }
 
 .toast {
-  background-color: $mineShaft;
+  background-color: $gray800;
   color: white;
   .message {
     font-weight: 500;
@@ -426,10 +425,6 @@ li {
     &:not(:first-child) {
       margin-top: 1.5rem;
       padding: 1.25rem 0 0.75rem;
-      &:target {
-        margin-top: calc(#{-$siteHeaderHeight} - 1.5rem);
-        padding-top: calc(#{$siteHeaderHeight} + 2rem);
-      }
       .anchor {
         bottom: 0.75rem;
       }
@@ -440,9 +435,6 @@ li {
     + h1, h2, h3, h4, h5, h6 {
       &:not(:first-child) {
         margin-top: -2rem;
-        &:target {
-          padding-top: calc(#{$siteHeaderHeight} + 0.5rem);
-        }
       }
     }
     .anchor {

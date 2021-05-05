@@ -9,12 +9,49 @@
     "type": "website",
     "image": ""
   },
-  "navigation": [
-    {
+  "navigation": {
+    "index": {
       "type": "nuxt-link",
-      "href": "/",
-      "label": "Home"
-    }
-  ],
+      "href": "/"
+    },
+    "header": [
+      {
+        "type": "a",
+        "href": "https://ipfs.io/#why",
+        "target": "_blank",
+        "label": "About"
+      },
+      {
+        "type": "a",
+        "href": "https://ipfs.io/#install",
+        "target": "_blank",
+        "label": "Install"
+      },
+      {
+        "type": "a",
+        "href": "https://docs.ipfs.io/",
+        "target": "_blank",
+        "label": "Docs"
+      },
+      {
+        "type": "a",
+        "href": "https://ipfs.io/team",
+        "target": "_blank",
+        "label": "Team"
+      },
+      {
+        "type": "a",
+        "href": "https://blog.ipfs.io/",
+        "target": "_blank",
+        "label": "Blog"
+      },
+      {
+        "type": "a",
+        "href": "https://ipfs.io/help",
+        "target": "_blank",
+        "label": "Help"
+      }
+    ]
+  },
   "404_error_message": "Not Found"
 }
