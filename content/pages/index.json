@@ -1,0 +1,30 @@
+{
+  "seo": {
+    "title": "IPFS Ecosystem Directory",
+    "description": "Interactive IPFS ecosystem directory and showcase"
+  },
+  "og": {
+    "site_name": "IPFS Ecosystem Directory",
+    "url": "",
+    "type": "website",
+    "image": ""
+  },
+  "404_error_message": "Not Found",
+  "page_content": {
+    "breadcrumbs": [
+      {
+        "type": "nuxt-link",
+        "href": "https://ipfs.io",
+        "target": "_blank",
+        "label": "Home"
+      },
+      {
+        "type": "div",
+        "label": "IPFS Ecosystem",
+        "selected": true
+      }
+    ],
+    "heading": "Ecosystem Explorer",
+    "subheading": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor. Incididunt ut labore et dolore magna aliqua."
+  }
+}

@@ -1,6 +1,7 @@
 // ///////////////////////////////////////////////////////// Imports & Variables
 // -----------------------------------------------------------------------------
 import GeneralSiteData from '@/content/pages/general.json'
+import IndexSiteData from '@/content/pages/index.json'
 
 // /////////////////////////////////////////////////////////////////////// State
 // -----------------------------------------------------------------------------
@@ -11,7 +12,14 @@ const state = () => ({
 // ///////////////////////////////////////////////////////////////////// Getters
 // -----------------------------------------------------------------------------
 const getters = {
-  siteContent: state => state.siteContent
+  siteContent: state => state.siteContent,
+  navigation: (state) => {
+    const siteContent = state.siteContent
+    if (siteContent.hasOwnProperty('general')) {
+      return siteContent.general.navigation
+    }
+    return false
+  }
 }
 
 // ///////////////////////////////////////////////////////////////////// Actions
@@ -27,6 +35,7 @@ const actions = {
     let data = false
     switch (key) {
       case 'general': data = GeneralSiteData; break
+      case 'index': data = IndexSiteData; break
       default : data = payload.data; break
     }
     if (data) {

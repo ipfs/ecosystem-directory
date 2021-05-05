@@ -2,7 +2,6 @@
 // -----------------------------------------------------------------------------
 $containerWidth: 75rem;
 $standardGutter: 0.75rem;
-$siteHeaderHeight: 5rem;
 
 $fontHelvetica: 'Helvetica', sans-serif, monospace;
 $fontInter: 'Inter', sans-serif, monospace;
@@ -10,7 +9,12 @@ $fontMontserrat: 'Montserrat', sans-serif, monospace;
 
 // ////////////////////////////////////////////////////////////////////// Colors
 // -----------------------------------------------------------------------------
-$mineShaft: #292929;
+$blackPearl: #04192A; // Dark blue/black
+$tiber: #052437;  // Very dark blue/black
+$paradiso: #3D8F96; // Teal
+
+$tundora: #494949; // Medium gray
+$codGray: #181818; // Dark gray
 
 $gray50: #FAFAFA;
 $gray100: #F5F5F5;
