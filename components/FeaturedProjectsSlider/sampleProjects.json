@@ -1,0 +1,12 @@
+{
+  "projects": [
+      { "name": "Actyx", "description": "Operating system for manufacturing applications", "logo": "actyx.svg" },
+      { "name": "Alpress", "description": "Self-governing ENS + IPFS publishing platform", "logo": "alpress.svg" },
+      { "name": "Berty", "description": "Secure peer-to-peer messaging app", "logo": "berty.svg" },
+      { "name": "Audius", "description": "Decentralized music streaming platform", "logo": "audius.svg" },
+      { "name": "Pinata", "description": "Pinning service that aims to make IPFS as easy as possible", "logo": "pinata.svg" },
+      { "name": "Brave Browser", "description": "Making IPFS easy for enterprises and consumers alike", "logo": "bravebrowser.svg" },
+      { "name": "Anytype", "description": "Operating system for a user-owned digital world", "logo": "anytype.svg" },
+      { "name": "Actyx", "description": "Operating system for manufacturing applications", "logo": "actyx.svg" }
+    ]
+}

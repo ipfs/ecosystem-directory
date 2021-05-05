@@ -15,10 +15,8 @@
           </div>
         </div>
 
-        <div class="col-10">
-          <div class="placeholder-section">
-            Featured Slider
-          </div>
+        <div class="col-11">
+          <FeaturedProjectsSlider />
         </div>
 
       </div>
@@ -36,7 +34,7 @@
           </div>
         </div>
 
-        <div class="col-10">
+        <div class="col-11">
           <div class="placeholder-section">
             Project Filters
           </div>
@@ -53,13 +51,15 @@
 import { mapGetters } from 'vuex'
 
 import SegmentSliderChart from '@/components/SegmentSliderChart/SegmentSliderChart'
+import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
 
 // ====================================================================== Export
 export default {
   name: 'HomePage',
 
   components: {
-    SegmentSliderChart
+    SegmentSliderChart,
+    FeaturedProjectsSlider
   },
 
   data () {

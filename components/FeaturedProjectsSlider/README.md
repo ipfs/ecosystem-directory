@@ -1,0 +1,3 @@
+FeatureSlider Component for IPFS
+
+This component imports a JSON file with data about each project to display. It then creates a series of cards from each item in the projects array with the project logo, name and a short description. Cards are displayed in a row using a flexbox and a wrapper div only allows four to be displayed at a time using overflow: hidden. The slider value at the bottom then sets the left position of this flexbox with a CSS transition to flip through successive cards. The input range slider is continuous and uses a simple formula in watch to map a range of the slider to a discreet display position based on the index of the left-most visible card.
