@@ -1,9 +1,48 @@
 <template>
   <div :class="`page page-${tag} container`">
 
-    <section>
-      <h3>Segment Slider Chart</h3>
-      <SegmentSliderChart />
+    <SegmentSliderChart />
+
+    <section v-if="pageData" id="section-featured-slider">
+      <div class="grid-center">
+
+        <div class="col-12">
+          <h3 class="heading">
+            {{ pageData.section_featured_slider.heading }}
+          </h3>
+          <div class="description">
+            {{ pageData.section_featured_slider.description }}
+          </div>
+        </div>
+
+        <div class="col-10">
+          <div class="placeholder-section">
+            Featured Slider
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section v-if="pageData" id="section-filter">
+      <div class="grid-center">
+
+        <div class="col-12">
+          <h3 class="heading">
+            {{ pageData.section_filter.heading }}
+          </h3>
+          <div class="description">
+            {{ pageData.section_filter.description }}
+          </div>
+        </div>
+
+        <div class="col-10">
+          <div class="placeholder-section">
+            Project Filters
+          </div>
+        </div>
+
+      </div>
     </section>
 
   </div>
@@ -12,6 +51,7 @@
 <script>
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
+
 import SegmentSliderChart from '@/components/SegmentSliderChart/SegmentSliderChart'
 
 // ====================================================================== Export
@@ -63,6 +103,14 @@ export default {
     // SEO
     seo () {
       return this.$getSeo(this.tag)
+    },
+    // Page Content
+    pageData () {
+      const siteContent = this.siteContent
+      if (siteContent.hasOwnProperty('index')) {
+        return siteContent.index.page_content
+      }
+      return false
     }
   }
 }
@@ -72,5 +120,19 @@ export default {
 // ///////////////////////////////////////////////////////////////////// General
 .page {
   margin: 1rem;
+}
+
+.heading {
+  margin-bottom: 1rem;
+}
+
+#segment-slider-chart,
+#section-featured-slider,
+#section-filter {
+  margin-bottom: 5rem;
+}
+
+#segment-slider-chart {
+  margin-top: 3rem;
 }
 </style>
