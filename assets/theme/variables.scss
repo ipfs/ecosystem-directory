@@ -5,6 +5,8 @@ $standardGutter: 0.75rem;
 $siteHeaderHeight: 5rem;
 
 $fontHelvetica: 'Helvetica', sans-serif, monospace;
+$fontInter: 'Inter', sans-serif, monospace;
+$fontMontserrat: 'Montserrat', sans-serif, monospace;
 
 // ////////////////////////////////////////////////////////////////////// Colors
 // -----------------------------------------------------------------------------
@@ -77,11 +79,74 @@ $ultraLarge: 140.625rem; // 2250px
 }
 
 // ////////////////////////////////////////////////////////////////////// Mixins
-// --------------------------------------------------------------------- General
-@mixin centerImage {
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+// ------------------------------------------------------ Typography | Font Size
+// fontSize_Mini | 11pt
+// fontSize_Small | 14pt
+// fontSize_Regular | 16pt
+// fontSize_Medium | 18pt
+// fontSize_Large | 20pt
+// fontSize_ExtraLarge | 24pt
+// fontSize_ExtraExtraLarge | 50pt
+
+@mixin fontSize_Mini {
+  font-size: 0.6875rem;
+}
+
+@mixin fontSize_Small {
+  font-size: 0.875rem;
+}
+
+@mixin fontSize_Regular {
+  font-size: 1rem;
+}
+
+@mixin fontSize_Medium {
+  font-size: 1.125rem;
+}
+
+@mixin fontSize_Large {
+  font-size: 1.25rem;
+}
+
+@mixin fontSize_ExtraLarge {
+  font-size: 1.5rem;
+}
+
+@mixin fontSize_ExtraExtraLarge {
+  font-size: 3.125rem;
+}
+
+// -------------------------------------------------------- Typography | Leading
+@mixin leading_Tiny {
+  line-height: 1;
+}
+
+@mixin leading_Mini {
+  line-height: 1.2;
+}
+
+@mixin leading_Small {
+  line-height: 1.4;
+}
+
+@mixin leading_Regular {
+  line-height: 1.6;
+}
+
+@mixin leading_Medium {
+  line-height: 1.8;
+}
+
+@mixin leading_Large {
+  line-height: 2;
+}
+
+@mixin leading_ExtraLarge {
+  line-height: 2.2;
+}
+
+@mixin leading_ExtraExtraLarge {
+  line-height: 2.4;
 }
 
 // --------------------------------------------------------------------- Styling
@@ -134,19 +199,25 @@ $ultraLarge: 140.625rem; // 2250px
   ::selection { background: transparent; color: transparent; }
 }
 
+@mixin centerImage {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
 // ------------------------------------------------------------------ Components
 @mixin subtitle {
-	font-size: 0.75rem;
-	line-height: 0.75rem;
+	@include fontSize_Mini;
+	@include leading_Mini;
+  font-weight: 700;
 	text-transform: uppercase;
-	font-weight: 700;
 }
 
 @mixin label {
-  font-size: 0.75rem;
+  @include fontSize_Mini;
   font-weight: 500;
-  text-transform: uppercase;
   letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 @mixin button {
@@ -211,71 +282,6 @@ $ultraLarge: 140.625rem; // 2250px
 	@include optional-at-root(':-ms-input-placeholder') { @content; }
 	@include optional-at-root('::-ms-input-placeholder') { @content; }
   @include optional-at-root('::placeholder') { @content; }
-}
-
-// ------------------------------------------------------------------ Typography
-@mixin fontSize_Tiny {
-  font-size: 0.625rem;
-}
-
-@mixin fontSize_Mini {
-  font-size: 0.75rem;
-}
-
-@mixin fontSize_Small {
-  font-size: 0.875rem;
-}
-
-@mixin fontSize_Regular {
-  font-size: 1rem;
-}
-
-@mixin fontSize_Medium {
-  font-size: 1.5rem;
-}
-
-@mixin fontSize_Large {
-  font-size: 2rem;
-}
-
-@mixin fontSize_ExtraLarge {
-  font-size: 2.5rem;
-}
-
-@mixin fontSize_ExtraExtraLarge {
-  font-size: 3rem;
-}
-
-@mixin leading_Tiny {
-  line-height: 1;
-}
-
-@mixin leading_Mini {
-  line-height: 1.2;
-}
-
-@mixin leading_Small {
-  line-height: 1.4;
-}
-
-@mixin leading_Regular {
-  line-height: 1.6;
-}
-
-@mixin leading_Medium {
-  line-height: 1.8;
-}
-
-@mixin leading_Large {
-  line-height: 2;
-}
-
-@mixin leading_ExtraLarge {
-  line-height: 2.2;
-}
-
-@mixin leading_ExtraExtraLarge {
-  line-height: 2.4;
 }
 
 // ------------------------------------------------------------------- Animation
