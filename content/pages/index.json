@@ -13,15 +13,14 @@
   "page_content": {
     "breadcrumbs": [
       {
-        "type": "nuxt-link",
+        "type": "a",
         "href": "https://ipfs.io",
         "target": "_blank",
         "label": "Home"
       },
       {
         "type": "div",
-        "label": "IPFS Ecosystem",
-        "selected": true
+        "label": "IPFS Ecosystem"
       }
     ],
     "heading": "Ecosystem Explorer",

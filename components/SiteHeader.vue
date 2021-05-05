@@ -28,7 +28,13 @@
       </div>
     </section>
 
-    <!-- <Breadcrumbs /> -->
+    <section v-if="pageData" class="panel-middle">
+      <div class="grid-noGutter">
+        <div class="col">
+          <Breadcrumbs :breadcrumbs="pageData.breadcrumbs" />
+        </div>
+      </div>
+    </section>
 
     <section v-if="pageData" class="panel-bottom">
       <div class="grid-noGutter">
@@ -53,9 +59,15 @@
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
 
+import Breadcrumbs from '@/modules/zero/core/Components/Breadcrumbs'
+
 // ====================================================================== Export
 export default {
   name: 'SiteHeader',
+
+  components: {
+    Breadcrumbs
+  },
 
   computed: {
     ...mapGetters({
@@ -69,21 +81,6 @@ export default {
       }
       return false
     }
-    // heading () {
-    //   const pageData = this.pageData
-    //   if (pageData) { return pageData.heading }
-    //   return false
-    // },
-    // heading () {
-    //   const pageData = this.pageData
-    //   if (pageData) { return pageData.heading }
-    //   return false
-    // },
-    // heading () {
-    //   const pageData = this.pageData
-    //   if (pageData) { return pageData.heading }
-    //   return false
-    // }
   }
 }
 </script>
