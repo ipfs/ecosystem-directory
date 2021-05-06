@@ -98,19 +98,6 @@ export default {
   margin-bottom: 0.5rem;
 }
 
-// .panel-top-content {
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-between;
-//   align-items: center;
-// }
-//
-// #header-logo {
-//   img {
-//     width: 8.625rem;
-//   }
-// }
-
 // ////////////////////////////////////////////////////////////// [Panel] Bottom
 #footer-navigation {
   margin-bottom: 3rem;
@@ -147,12 +134,4 @@ export default {
     width: 16px;
   }
 }
-
-// .heading {
-//   font-weight: 600;
-// }
-//
-// .subheading {
-//   @include fontSize_Large;
-// }
 </style>

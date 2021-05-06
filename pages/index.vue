@@ -118,10 +118,6 @@ export default {
 
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
-.page {
-  margin: 1rem;
-}
-
 .heading {
   margin-bottom: 1rem;
 }

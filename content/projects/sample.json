@@ -1,0 +1,10 @@
+{
+  "logo": "https://bestwebbrowser.net/wp-content/uploads/2020/09/brave-logo.png",
+  "name": "Brave Browser",
+  "company": "Brave Software",
+  "description": "Making IPFS easy for enterprises and consumers alike, offering scalable plug-and-play to APIs used by some of the most trusted names in blockchain.",
+  "project_website": {
+    "url": "https://ipfs.io/",
+    "text": "Project Website"
+  }
+}
