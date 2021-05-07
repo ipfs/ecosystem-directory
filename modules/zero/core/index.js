@@ -10,6 +10,9 @@
 import Path from 'path'
 import Fs from 'fs'
 
+// /////////////////////////////////////////////////////////////////////// Pages
+const KitchenSinkPage = Path.resolve(__dirname, 'Pages/kitchen-sink.vue')
+
 // ///////////////////////////////////////////////////////////////////// Plugins
 const CorePlugin = Path.resolve(__dirname, 'Plugins/index.js')
 const HelpersPlugin = Path.resolve(__dirname, 'Plugins/helpers.js')
@@ -19,6 +22,22 @@ const VueLsPlugin = Path.resolve(__dirname, 'Plugins/vue-ls.js')
 
 // /////////////////////////////////////////////////////////////////// Functions
 // -----------------------------------------------------------------------------
+// ////////////////////////////////////////////////////////////// registerRoutes
+const registerRoutes = (instance, next) => {
+  const additions = [
+    {
+      name: 'kitchen-sink',
+      path: '/kitchen-sink',
+      component: KitchenSinkPage,
+      chunkName: 'zero/core/kitchen-sink'
+    }
+  ]
+  instance.extendRoutes((routes) => {
+    additions.forEach(route => routes.push(route))
+  })
+  if (next) { return next() }
+}
+
 // ///////////////////////////////////////////////////////////// registerPlugins
 const registerPlugins = (instance, next) => {
   const plugins = {
@@ -55,9 +74,11 @@ const runHttps = (instance, next) => {
 // ///////////////////////////////////////////////////////////////////// Liftoff
 // -----------------------------------------------------------------------------
 function CoreModule () {
-  registerPlugins(this, () => {
-    runHttps(this, () => {
-      console.log(`📦 [Module] Core`)
+  registerRoutes(this, () => {
+    registerPlugins(this, () => {
+      runHttps(this, () => {
+        console.log(`📦 [Module] Core`)
+      })
     })
   })
 }
