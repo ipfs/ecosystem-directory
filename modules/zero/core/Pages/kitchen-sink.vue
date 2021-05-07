@@ -1,13 +1,35 @@
 <template>
   <div :class="`page page-${tag} container`">
 
-    <h2>Typography</h2>
+    <div class="grid">
+      <div class="col">
+        <div class="outline">
+          <h2>Typography</h2>
+          <p>Currently used fonts are <code>Montserrat</code> for headings and <code>Inter</code> for body</p>
+        </div>
+        <Typography />
+      </div>
+    </div>
 
-    <Typography />
+    <div class="grid">
+      <div class="col">
+        <div class="outline">
+          <h2>Global Methods</h2>
+          <p>A collection of helpful functions found in <code>@/plugins/global-methods</code></p>
+        </div>
+        <GlobalMethods />
+      </div>
+    </div>
 
-    <h2>SegmentSliderChart</h2>
-
-    <SegmentSliderChart />
+    <div class="grid">
+      <div class="col">
+        <div class="outline">
+          <h2>Accordion</h2>
+          <p>The Accordion is a semi-renderless component that consists of a few sub-components. Click on a panel below to toggle the accordion.</p>
+        </div>
+        <Accordion />
+      </div>
+    </div>
 
   </div>
 </template>
@@ -16,8 +38,9 @@
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
 
-import Typography from '@/components/KitchenSink/Typography'
-import SegmentSliderChart from '@/components/SegmentSliderChart/SegmentSliderChart'
+import Typography from '@/modules/zero/core/Components/KitchenSink/Typography'
+import GlobalMethods from '@/modules/zero/core/Components/KitchenSink/GlobalMethods'
+import Accordion from '@/modules/zero/core/Components/KitchenSink/Accordion'
 
 // ====================================================================== Export
 export default {
@@ -25,7 +48,8 @@ export default {
 
   components: {
     Typography,
-    SegmentSliderChart
+    GlobalMethods,
+    Accordion
   },
 
   data () {
@@ -79,32 +103,49 @@ export default {
   margin: 1rem;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  margin: 3rem 0;
-  &:first-child {
-    margin-top: 0;
+.outline {
+  background: $gray800;
+  color: white;
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
   }
-  &:last-child {
-    margin-bottom: 0;
+  pre, code {
+    color: $gray900;
   }
 }
 
-::v-deep pre {
+::v-deep .nested-outline {
+  background: $gray300;
   display: inline-block;
-  background: $gray100;
+  border-radius: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  margin: 2rem 0;
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+  }
+}
+
+::v-deep pre,
+::v-deep code {
+  display: inline-block;
+  background: $gray200;
   font-weight: 600;
   border-radius: 0.25rem;
-  padding: 0.25rem 0.5rem;
+  padding: 0.25rem 0.75rem;
 }
 
-::v-deep section {
-  h1, h2, h3, h4, h5, h6 {
-    margin: 1rem 0;
-    &:first-child {
-      margin-top: 0;
-    }
-    &:last-child {
-      margin-bottom: 0;
+::v-deep .content {
+  &.inline {
+    p {
+      display: inline;
+      &:not(:last-child) {
+        margin-right: 1rem;
+      }
     }
   }
 }

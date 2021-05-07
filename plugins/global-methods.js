@@ -143,6 +143,20 @@ export default ({ store, app }, inject) => {
     if (RegExp.$3.includes('vimeo')) { type = 'vimeo' }
     return { type, id: RegExp.$6, time: parsed.searchParams.get('t') }
   })
+  // ///////////////////////////////////////////////////// Generate an embed URL
+  // ---------------------------------------------------------- Youtube or Vimeo
+  inject('buildVideoEmbedUrl', (parsed) => {
+    const type = parsed.type
+    const id = parsed.id
+    const time = parsed.time
+    let url
+    switch (type) {
+      case 'youtube' : url = `//www.youtube.com/embed/${id}${(time ? `?start=${time}` : '')}`; break
+      case 'vimeo' : url = `//player.vimeo.com/video/${id}${(time ? `/#=${time}` : '')}`; break
+      default : url = false
+    }
+    return url
+  })
   // //////////////////////////////// Get the height of the entire page Document
   // ---------------------------------------------------------------------------
   inject('getDocHeight', () => {
