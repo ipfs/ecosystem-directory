@@ -5,12 +5,12 @@
       <button
         class="control-button first"
         @click="navigateToPage(1)">
-        First
+        {{ first }}
       </button>
       <button
         class="control-button prev"
         @click="navigateToPage(page - 1)">
-        Prev
+        {{ prev }}
       </button>
       <div class="breaker">
         {{ breaker }}
@@ -32,12 +32,12 @@
       <button
         class="control-button next"
         @click="navigateToPage(page + 1)">
-        Next
+        {{ next }}
       </button>
       <button
         class="control-button last"
         @click="navigateToPage(totalPages)">
-        Last
+        {{ last }}
       </button>
     </template>
 
@@ -57,6 +57,26 @@ export default {
       type: String,
       required: false,
       default: '⋯'
+    },
+    first: {
+      type: String,
+      required: false,
+      default: 'First'
+    },
+    prev: {
+      type: String,
+      required: false,
+      default: 'Prev'
+    },
+    next: {
+      type: String,
+      required: false,
+      default: 'Next'
+    },
+    last: {
+      type: String,
+      required: false,
+      default: 'Last'
     }
   },
 
@@ -92,7 +112,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 $dimension: 2.5rem;
 
 // ///////////////////////////////////////////////////////////////////// General
@@ -112,17 +132,19 @@ $dimension: 2.5rem;
   align-items: center;
   width: $dimension;
   height: $dimension;
-  color: $dodgerBlue;
+  color: grey;
 }
 
 .breaker {
   display: flex;
-  font-weight: 500;
-  color: $mineShaft;
+  // font-weight: 500;
+  color: black;
   opacity: 0.25;
 }
 
 .page-button {
+  // font-family: $fontInter;
+  // font-weight: 600;
   display: none;
   &:not(.current) {
     &:hover {
@@ -133,14 +155,14 @@ $dimension: 2.5rem;
     display: flex;
   }
   &.current {
-    background-color: $dodgerBlue;
+    background-color: grey;
     color: white;
     cursor: default;
   }
 }
 
 .control-button {
-  color: $dodgerBlue;
+  color: grey;
   &:hover {
     text-decoration: underline;
   }

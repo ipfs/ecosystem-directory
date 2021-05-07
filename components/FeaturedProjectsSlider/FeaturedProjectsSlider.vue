@@ -40,7 +40,7 @@
 
 <script>
 // ===================================================================== Imports
-import SampleProjects from './sampleProjects.json'
+import SampleProjects from '~/content/projects/sampleFeaturedProjects.json'
 
 // ===================================================================== Functions
 const handleFeatureSliderResize = (instance) => {
@@ -88,7 +88,7 @@ export default {
 
   methods: {
     logos (path) {
-      return require('./assets/logos/' + path)
+      return require('~/assets/logos/' + path)
     },
     setSliderPosition () {
       // 22 is the left and right margin on the card added together
