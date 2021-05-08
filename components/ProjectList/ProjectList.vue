@@ -5,7 +5,7 @@
       <Paginate
         v-if="ProjectList"
         v-slot="{ paginated }"
-        :display="paginationDisplay"
+        :display="display"
         :collection="ProjectList"
         class="card-grid">
         <template v-for="(project, index) in paginated">
@@ -28,8 +28,14 @@
         </template>
       </Paginate>
 
-      <PaginationControls />
-
+      <div class="page-navigation-controls">
+        <PaginationControls />
+        <div class="results-selector-wrapper">
+          <ResultsPerPageSelector
+            :collection="ProjectList"
+            class="results-per-page" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -39,13 +45,14 @@
 import { mapGetters, mapActions } from 'vuex'
 
 import Paginate from '@/modules/zero/pagination/Components/Paginate'
+import ResultsPerPageSelector from '@/modules/zero/pagination/Components/ResultsPerPageSelector'
 import PaginationControls from './PaginationControls'
 
 import SampleProjects from '~/content/projects/sampleProjects.json'
 
 // ===================================================================== Functions
 const processProjects = (instance) => {
-  instance.projects = SampleProjects.projects
+  instance.projects = instance.collection
 }
 
 // ====================================================================== Export
@@ -54,41 +61,32 @@ export default {
 
   components: {
     Paginate,
-    PaginationControls
-  },
-
-  props: {
-    paginationDisplay: {
-      type: Number,
-      required: false,
-      default: 20
-    }
+    PaginationControls,
+    ResultsPerPageSelector
   },
 
   data () {
     return {
-      projects: false
+      projects: false,
+      paginationDisplay: 20
     }
   },
 
   computed: {
     ...mapGetters({
       page: 'pagination/page',
-      totalPages: 'pagination/totalPages'
+      totalPages: 'pagination/totalPages',
+      display: 'pagination/display',
+      collection: 'pagination/collection'
     }),
-    ProjectList () {
+    ProjectList () { // this needs to be updated from store to trigger collection change *********
       const projects = this.projects
-      // let filtered = rankings.filter((obj) => {
-      //     const name = obj.name ? obj.name.toLowerCase() : ''
-      //     const filter = this.filterValue.toLowerCase()
-      //     if (name.includes(filter)) { return obj }
-      //     return false
-      //   })
       return projects
     }
   },
 
   mounted () {
+    this.setCollection(SampleProjects.projects)
     processProjects(this) // fill projects collection
   },
 
@@ -108,7 +106,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
 
   h4 { font-weight: 400; }
 
@@ -134,6 +132,8 @@ export default {
     grid-column: 1;
     grid-row: 1;
     height: 250px;
+    margin-bottom: 1rem;
+    display: inline-block;
   }
 
   .card {
@@ -164,5 +164,26 @@ export default {
 
   label { font-weight: bold; }
   p { font-size: 10pt; }
+
+  .page-navigation-controls {
+    display: flex;
+    margin-top: 3rem;
+    justify-content: center;
+  }
+
+  .results-selector-wrapper {
+    height: 2.5rem;
+  }
+
+  .results-per-page {
+    position: relative;
+    top: 1.25rem;
+    transform: translateY(-50%);
+    font-family: $fontInter;
+    font-weight: 400;
+    background-color: #FFFFFF;
+    border-radius: 6px;
+    padding: 0.25rem 1.0rem;
+  }
 
 </style>

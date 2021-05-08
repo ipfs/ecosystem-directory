@@ -121,7 +121,7 @@ $dimension: 2.5rem;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-top: 3rem;
+  margin-right: 2rem;
 }
 
 // /////////////////////////////////////////////////////////// Buttons & Breaker
@@ -155,8 +155,7 @@ $dimension: 2.5rem;
     display: flex;
   }
   &.current {
-    background-color: grey;
-    color: white;
+    color: black;
     cursor: default;
   }
 }

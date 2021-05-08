@@ -4,6 +4,7 @@ const state = {
   page: 1,
   totalPages: 0,
   display: 20,
+  displayOptions: false,
   collection: []
 }
 
@@ -13,6 +14,7 @@ const getters = {
   page: state => state.page,
   totalPages: state => state.totalPages,
   display: state => state.display,
+  displayOptions: state => state.displayOptions,
   collection: state => state.collection
 }
 
@@ -34,6 +36,10 @@ const actions = {
   // //////////////////////////////////////////////////////////////// setDisplay
   setDisplay ({ commit }, display) {
     commit('SET_DISPLAY', display)
+  },
+  // //////////////////////////////////////////////////////////////// setDisplayOptions
+  setDisplayOptions ({ commit }, displayOptions) {
+    commit('SET_DISPLAY_OPTIONS', displayOptions)
   },
   // ///////////////////////////////////////////////////////////// setCollection
   setCollection ({ commit }, collection) {
@@ -58,6 +64,9 @@ const mutations = {
   },
   SET_DISPLAY (state, display) {
     state.display = display
+  },
+  SET_DISPLAY_OPTIONS (state, displayOptions) {
+    state.display = displayOptions
   },
   SET_COLLECTION (state, collection) {
     state.collection = collection
