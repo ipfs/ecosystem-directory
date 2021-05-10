@@ -88,3 +88,86 @@ SERVER_ENV=development
 ```bash
 $ npm run dev
 ```
+
+## Project Model
+
+Below if an outline of the Project Model. An empty JSON file can be found in `@/content/projects/template.json`. This template file can be duplicated, filled out and renamed to create a new project. It is not necessary to generate a project ID since the filename of each project will serve as a project `slug`.
+
+`display`: toggle whether or not to display or hide the project from the results
+
+`sortNumbers`: these labels and numbers will be used in the sort-by filter
+
+`logo`: all logos will be in SVG format and must be placed in the `static` directory
+
+`name`: name of the product
+
+`org`: a product can belong to multiple organizations
+
+`description`: 2 descriptions are needed. A long description that will be visible on the Project Single page and  short description that is visible in the card format (such as the Featured slider). If none provided, a truncated version of the long description will be used.
+
+`primaryLink`: this is the 1st link found directly under the project description
+
+`secondaryLink`: this is the 2nd link found directly under the project description
+
+`links`: these links will always appear at the top of the **Key Info** section
+
+`keyInfo`: these key/value pairs will always appear below the links in the **Key Info** section
+
+`video`: can be a URL to either a YouTube or Vimeo video
+
+`stats`:  general statistics with short descriptions
+
+`ctaCard`: this card will always be displayed as the last block in the stats section. The button text can be changed in `@/content/pages/project.json`
+
+`taxonomies`: the taxonomies contain a `slug` that will match a master taxonomy object (found in: `@/content/pages/general.json`). If none match, this taxonomy and its tags will not be displayed.
+
+```js
+{
+  display: Boolean,
+  sortNumbers: [{
+    label: number
+  }],
+  logo: {
+    icon: String,
+    full: String
+  },
+  name: String,
+  org: [String],
+  description: {
+    short: String,
+    long: String,
+  },
+  primaryCta: {
+    url: String,
+    text: String
+  },
+  links: [{
+    label: String,
+    links: [{
+      url: String,
+      text: String
+    }]
+  }],
+  keyInfo: [{
+    label: String,
+    value: String
+  }],
+  video: String,
+  stats: [{
+    label: String,
+    value: String
+  }],
+  ctaCard: {
+    title: String,
+    description: String,
+    url: String
+  },
+  taxonomies: {
+    slug: String,
+    tags: [{
+      url: String,
+      text: String
+    }]
+  }
+}
+```
