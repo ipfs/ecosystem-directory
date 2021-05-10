@@ -79,7 +79,7 @@ export default {
       display: 'pagination/display',
       collection: 'pagination/collection'
     }),
-    ProjectList () { // this needs to be updated from store to trigger collection change *********
+    ProjectList () {
       const projects = this.projects
       return projects
     }

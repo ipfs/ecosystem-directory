@@ -1,22 +1,78 @@
 <template>
-  <div>
-    <label>{{ msg }}</label>
-    <select v-model="selected" class="results-per-page-selector">
-      <template v-for="(option, index) in options">
-        <option
+  <div class="dropdown dropdown-selector-wrapper">
+    <label
+      v-if="selected">
+      {{ msg + (selected === totalItems ? 'All' : selected) }}
+    </label>
+    <label
+      v-else>
+      {{ msg + display }}
+    </label>
+
+    <svg
+      class="dropdown dropdown-button"
+      xmlns="http://www.w3.org/2000/svg"
+      width="8.841"
+      height="5.798"
+      viewBox="0 0 8.841 5.798"
+      @click="toggleDropDown()">
+      <g id="Group_632" class="dropdown" data-name="Group 632" transform="translate(7.781 1.06) rotate(90)" opacity="1.0">
+        <path
+          id="Path_8"
+          class="dropdown"
+          data-name="Path 8"
+          d="M0,0,3.679,3.36"
+          fill="none"
+          stroke="#181818"
+          stroke-linecap="round"
+          stroke-width="1.5" />
+        <path
+          id="Path_9"
+          class="dropdown"
+          data-name="Path 9"
+          d="M0,3.36,3.679,0"
+          transform="translate(0 3.362)"
+          fill="none"
+          stroke="#181818"
+          stroke-linecap="round"
+          stroke-width="1.5" />
+      </g>
+    </svg>
+
+    <div
+      class="dropdown dropdown-list"
+      :class="{ hidden: closed }">
+      <template v-for="option in options">
+        <div
           v-if="!isNaN(option)"
-          :key="`option-${index}`"
-          :value="{option}">
+          :key="`div-option-${option}`"
+          :value="{option}"
+          class="dropdown dropdown-item"
+          :class="{ highlighted: (display === option) }"
+          @click="optionSelected(option)">
           {{ (option === totalItems ? 'All' : option) }}
-        </option>
+        </div>
       </template>
-    </select>
+    </div>
+
   </div>
 </template>
 
 <script>
 // ===================================================================== Imports
 import { mapGetters, mapActions } from 'vuex'
+
+// ===================================================================== Functions
+const closeAllSelect = (e, instance) => {
+  const options = document.getElementsByClassName('dropdown')
+  const results = []
+  for (let i = 0; i < options.length; i++) {
+    results.push(options[i] !== e.target)
+  }
+  if (results.every(bool => bool)) {
+    instance.closed = true
+  }
+}
 
 // ====================================================================== Export
 export default {
@@ -26,7 +82,7 @@ export default {
     msg: {
       type: String,
       required: false,
-      default: 'Results per page:'
+      default: 'Results per page: '
     },
     displayOptions: {
       type: Array,
@@ -42,7 +98,9 @@ export default {
 
   data () {
     return {
-      selected: this.display
+      selected: this.display,
+      closed: true,
+      unfocus: false
     }
   },
 
@@ -70,18 +128,13 @@ export default {
     }
   },
 
-  watch: {
-    selected (val) {
-      const selection = parseInt(val.option)
-      const amount = selection < 0 ? this.totalItems : selection
-      this.setDisplay(amount)
-      this.calculateTotalPages()
-      if (this.page > this.totalPages) {
-        this.$router.push({
-          query: { page: this.totalPages }
-        })
-      }
-    }
+  mounted () {
+    this.unfocus = (e) => { closeAllSelect(e, this) }
+    window.addEventListener('click', this.unfocus)
+  },
+
+  beforeDestroy () {
+    if (this.unfocus) { window.removeEventListener('click', this.unfocus) }
   },
 
   methods: {
@@ -92,6 +145,23 @@ export default {
     calculateTotalPages () {
       const total = Math.ceil(this.collection.length / this.display)
       this.setTotalPages(total)
+    },
+    toggleDropDown () {
+      this.closed = !this.closed
+    },
+    optionSelected (val) {
+      const selection = parseInt(val)
+      if (!isNaN(selection)) {
+        this.selected = selection
+        this.setDisplay(selection)
+        this.calculateTotalPages()
+        if (this.page > this.totalPages) {
+          this.$router.push({
+            query: { page: this.totalPages }
+          })
+        }
+      }
+      this.closed = true
     }
   }
 }
@@ -99,8 +169,51 @@ export default {
 
 <style lang="scss" scoped>
 
-  select {
-    border: none;
+  ::selection {
+    color: none;
+    background: none;
   }
-  
+
+  ::-moz-selection {
+    color: none;
+    background: none;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .dropdown-button {
+    transform: translateY(-30%);
+    opacity: 0.5;
+  }
+
+  .dropdown-button:hover {
+    cursor: pointer;
+    opacity: 1.0;
+  }
+
+  .dropdown-list {
+    background-color: #ffffff;
+    position: absolute;
+    right: 1.0rem;
+    top: 2.5rem;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .dropdown-item {
+    padding: 0.25rem 0.75rem;
+  }
+
+  .dropdown-item:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .highlighted {
+    background-color: #6BC4CE;
+    color: white;
+  }
+
 </style>
