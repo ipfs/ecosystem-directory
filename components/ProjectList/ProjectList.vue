@@ -29,12 +29,19 @@
       </Paginate>
 
       <div class="page-navigation-controls">
+
         <PaginationControls />
+
         <div class="results-selector-wrapper">
-          <ResultsPerPageSelector
-            :collection="ProjectList"
-            class="results-per-page" />
+          <ResultsPerPageSelector :collection="ProjectList" class="results-per-page">
+
+            <template #dropdown-icon>
+              <SelectorToggle />
+            </template>
+
+          </ResultsPerPageSelector>
         </div>
+
       </div>
     </div>
   </div>
@@ -46,6 +53,7 @@ import { mapGetters, mapActions } from 'vuex'
 
 import Paginate from '@/modules/zero/pagination/Components/Paginate'
 import ResultsPerPageSelector from '@/modules/zero/pagination/Components/ResultsPerPageSelector'
+import SelectorToggle from '@/modules/zero/core/Components/Icons/SelectorToggle'
 import PaginationControls from './PaginationControls'
 
 import SampleProjects from '~/content/projects/sampleProjects.json'
@@ -62,7 +70,8 @@ export default {
   components: {
     Paginate,
     PaginationControls,
-    ResultsPerPageSelector
+    ResultsPerPageSelector,
+    SelectorToggle
   },
 
   data () {
