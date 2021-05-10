@@ -10,7 +10,7 @@ $fontAssetPath: '~assets/theme/fonts';
 ///////////////////////////////////////////////////////////////////// Montserrat
 @font-face {
   font-family: 'Montserrat';
-  src: url('#{$fontAssetPath}/Montserrat/Montserrat-Regular.ttf') format('opentype');
+  src: url('#{$fontAssetPath}/Montserrat/Montserrat-Medium.ttf') format('opentype');
   font-weight: 400;
   font-style: normal;
 }
@@ -20,6 +20,12 @@ $fontAssetPath: '~assets/theme/fonts';
   src: url('#{$fontAssetPath}/Montserrat/Montserrat-SemiBold.ttf') format('opentype');
   font-weight: 600;
   font-style: bold;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('#{$fontAssetPath}/Montserrat/Montserrat-Bold.ttf') format('opentype');
+  font-weight: 700;
 }
 
 ////////////////////////////////////////////////////////////////////////// Inter
