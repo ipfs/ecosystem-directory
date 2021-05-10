@@ -3,11 +3,11 @@
 
     <Accordion
       v-if="panels"
-      v-slot="{ selected }">
+      v-slot="{ active }">
       <AccordionSection
         v-for="(panel, index) in panels"
         :key="index"
-        :selected="selected"
+        :active="active"
         class="accordion-section">
         <AccordionHeader>
           <div class="accordion-header-content">
