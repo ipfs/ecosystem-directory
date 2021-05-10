@@ -231,11 +231,13 @@ export default ({ store, app }, inject) => {
   })
   // ///////////////////////////////////////////////////////// Truncate a string
   // -------------------------------------------- Default: len = 30, end = '...'
-  inject('truncateString', (string, len = 30, end = '...', type = 'single') => {
-    if (type === 'single') {
-      return string.length > len + 3 ? `${string.slice(0, len)}${end}` : string
+  inject('truncateString', (string, len = 30, delimiter = '...', type = 'double', endLen = 8) => {
+    let stringLen = len + delimiter.length
+    if (type === 'double') {
+      stringLen += endLen
+      return string.length > stringLen ? `${string.slice(0, len)}${delimiter}${string.slice(-endLen)}` : string
     } else {
-      return string.length > len + 3 ? `${string.slice(0, len)}${end}${string.slice(-8)}` : string
+      return string.length > stringLen ? `${string.slice(0, len)}${delimiter}` : string
     }
   })
   // ////////////////////////////////////////////// Convert number to have zeros
