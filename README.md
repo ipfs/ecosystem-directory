@@ -95,7 +95,7 @@ Below if an outline of the Project Model. An empty JSON file can be found in `@/
 
 `display`: toggle whether or not to display or hide the project from the results
 
-`sortNumbers`:
+`sortNumbers`: these labels and numbers will be used in the sort-by filter
 
 `logo`: all logos will be in SVG format and must be placed in the `static` directory
 
@@ -119,14 +119,14 @@ Below if an outline of the Project Model. An empty JSON file can be found in `@/
 
 `ctaCard`: this card will always be displayed as the last block in the stats section. The button text can be changed in `@/content/pages/project.json`
 
-`taxonomies`:
+`taxonomies`: the taxonomies contain a `slug` that will match a master taxonomy object (found in: `@/content/pages/general.json`). If none match, this taxonomy and its tags will not be displayed.
 
 ```js
 {
   display: Boolean,
-  sortNumbers: { // these are numbers that can be used in sorting, in the case of the ecosystem, there is just one: Years on IPFS
-    [ "label": number ]
-  },
+  sortNumbers: [{
+    label: number
+  }],
   logo: {
     icon: String,
     full: String
@@ -137,11 +137,7 @@ Below if an outline of the Project Model. An empty JSON file can be found in `@/
     short: String,
     long: String,
   },
-  primaryLink: {
-    url: String,
-    text: String
-  },
-  secondaryLink: {
+  primaryCta: {
     url: String,
     text: String
   },
@@ -161,13 +157,17 @@ Below if an outline of the Project Model. An empty JSON file can be found in `@/
     label: String,
     value: String
   }],
-  ctaCard {
+  ctaCard: {
     title: String,
     description: String,
     url: String
-  }
+  },
   taxonomies: {
-    [ "category": [ string ] ] // these are the categories and their values, but the master object for the whole project should also define them, so as to avoid typos
+    slug: String,
+    tags: [{
+      url: String,
+      text: String
+    }]
   }
 }
 ```
