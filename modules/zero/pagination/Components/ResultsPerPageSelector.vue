@@ -1,5 +1,6 @@
 <template>
   <div class="dropdown dropdown-selector-wrapper">
+    
     <label
       v-if="selected">
       {{ msg + (selected === totalItems ? 'All' : selected) }}
@@ -9,35 +10,34 @@
       {{ msg + display }}
     </label>
 
-    <svg
+    <button
       class="dropdown dropdown-button"
-      xmlns="http://www.w3.org/2000/svg"
-      width="8.841"
-      height="5.798"
-      viewBox="0 0 8.841 5.798"
       @click="toggleDropDown()">
-      <g id="Group_632" class="dropdown" data-name="Group 632" transform="translate(7.781 1.06) rotate(90)" opacity="1.0">
-        <path
-          id="Path_8"
+      <svg
+        class="dropdown"
+        xmlns="http://www.w3.org/2000/svg"
+        width="8.841"
+        height="5.798"
+        viewBox="0 0 8.841 5.798">
+        <g
           class="dropdown"
-          data-name="Path 8"
-          d="M0,0,3.679,3.36"
-          fill="none"
-          stroke="#181818"
-          stroke-linecap="round"
-          stroke-width="1.5" />
-        <path
-          id="Path_9"
-          class="dropdown"
-          data-name="Path 9"
-          d="M0,3.36,3.679,0"
-          transform="translate(0 3.362)"
-          fill="none"
-          stroke="#181818"
-          stroke-linecap="round"
-          stroke-width="1.5" />
-      </g>
-    </svg>
+          transform="translate(7.781 1.06) rotate(90)">
+          <path
+            class="dropdown"
+            d="M0,0,3.679,3.36"
+            stroke="#181818"
+            stroke-linecap="round"
+            stroke-width="1.5" />
+          <path
+            class="dropdown"
+            d="M0,3.36,3.679,0"
+            transform="translate(0 3.362)"
+            stroke="#181818"
+            stroke-linecap="round"
+            stroke-width="1.5" />
+        </g>
+      </svg>
+    </button>
 
     <div
       class="dropdown dropdown-list"
@@ -184,7 +184,7 @@ export default {
   }
 
   .dropdown-button {
-    transform: translateY(-30%);
+    transform: translateY(-5%);
     opacity: 0.5;
   }
 
