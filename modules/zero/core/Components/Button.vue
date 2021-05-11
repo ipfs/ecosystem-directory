@@ -10,13 +10,15 @@
 
     <div :class="['button-content', { hide: loading }]">
 
-      <div v-if="iconBefore" class="button-icon-before">
+      <div v-if="iconBefore">
         <slot name="icon-before"></slot>
       </div>
 
-      {{ text }}
+      <p v-if="text" class="item-after">
+        {{ text }}
+      </p>
 
-      <div v-if="iconAfter" class="button-icon-after">
+      <div v-if="iconAfter" class="item-after">
         <slot name="icon-after"></slot>
       </div>
 
@@ -69,7 +71,8 @@ export default {
     },
     text: {
       type: String,
-      required: true
+      required: false,
+      default: ''
     },
     disabled: {
       type: Boolean,
@@ -147,14 +150,8 @@ export default {
   }
 }
 
-.button-icon-before {
-  // margin-left: 0.5rem;
-  margin-right: 0.75rem;
-}
-
-.button-icon-after {
+.item-after {
   margin-left: 0.75rem;
-  // margin-right: 0.5rem;
 }
 
 // /////////////////////////////////////////////////////////////// [Type] Common
@@ -166,15 +163,15 @@ export default {
   white-space: nowrap;
   padding: 0 0.75rem;
   &:not(:disabled) {
-    &:hover {
-      transform: scale(1.05);
-    }
-    &:focus {
-      @include focus_BoxShadow_Regular;
-    }
-    &:active {
-      transform: scale(0.95);
-    }
+    // &:hover {
+    //   transform: scale(1.05);
+    // }
+    // &:focus {
+    //   @include focus_BoxShadow_Regular;
+    // }
+    // &:active {
+    //   transform: scale(0.95);
+    // }
   }
   &:disabled {
     background-color: $gray300;

@@ -3,34 +3,34 @@
 
     <g fill="none" :stroke="stroke" stroke-linejoin="round" stroke-width="1">
 
-      <rect width="5" height="5" stroke="none"/>
+      <rect width="5" height="5" stroke="none" />
 
-      <rect x="0.5" y="0.5" width="4" height="4" fill="none"/>
+      <rect x="0.5" y="0.5" width="4" height="4" fill="none" />
 
     </g>
 
     <g transform="translate(0 6)" fill="none" :stroke="stroke" stroke-linejoin="round" stroke-width="1">
 
-      <rect width="5" height="5" stroke="none"/>
+      <rect width="5" height="5" stroke="none" />
 
-      <rect x="0.5" y="0.5" width="4" height="4" fill="none"/>
+      <rect x="0.5" y="0.5" width="4" height="4" fill="none" />
 
     </g>
 
     <g transform="translate(6)" fill="none" :stroke="stroke" stroke-linejoin="round" stroke-width="1">
 
-      <rect width="5" height="5" stroke="none"/>
+      <rect width="5" height="5" stroke="none" />
 
-      <rect x="0.5" y="0.5" width="4" height="4" fill="none"/>
+      <rect x="0.5" y="0.5" width="4" height="4" fill="none" />
 
     </g>
 
     <g transform="translate(6 6)" fill="none" :stroke="stroke" stroke-linejoin="round" stroke-width="1">
 
-      <rect width="5" height="5" stroke="none"/>
+      <rect width="5" height="5" stroke="none" />
 
-      <rect x="0.5" y="0.5" width="4" height="4" fill="none"/>
-      
+      <rect x="0.5" y="0.5" width="4" height="4" fill="none" />
+
     </g>
 
   </svg>

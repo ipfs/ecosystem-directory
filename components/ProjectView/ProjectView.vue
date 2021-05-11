@@ -3,19 +3,29 @@
 
     <div id="card-filters-toggle">
 
-      <Button type="C" text="Filters">
+      <Button type="C" text="Filters" :class="{ activeButton: filterActive }" @clicked="toggleFilterPanel">
 
         <template #icon-before>
-          <FiltersToggle class="font-inter"/>
+          <FiltersToggle
+            class="font-inter"
+            :stroke="filterActive ? '#ffffff' : '#052437'" />
         </template>
 
       </Button>
 
-      <div id="view-toggle">
+      <div id="radio-view-toggle">
 
-        <ListView />
+        <Button type="C" :class="{ activeButton: listActive }" @clicked="toggleListGridView">
+          <template #icon-before>
+            <ListView :stroke="listActive ? '#ffffff' : '#052437'" />
+          </template>
+        </Button>
 
-        <GridView />
+        <Button type="C" :class="{ activeButton: !listActive }" @clicked="toggleListGridView">
+          <template #icon-before>
+            <GridView :stroke="!listActive ? '#ffffff' : '#052437'" />
+          </template>
+        </Button>
 
       </div>
 
@@ -90,7 +100,7 @@ const processProjects = (instance) => {
 
 // ====================================================================== Export
 export default {
-  name: 'ProjectList',
+  name: 'ProjectView',
 
   components: {
     Paginate,
@@ -106,7 +116,9 @@ export default {
   data () {
     return {
       projects: false,
-      paginationDisplay: 20
+      paginationDisplay: 20,
+      filterActive: false,
+      listActive: false
     }
   },
 
@@ -138,6 +150,12 @@ export default {
     }),
     logos (path) {
       return require('~/assets/logos/' + path)
+    },
+    toggleFilterPanel () {
+      this.filterActive = !this.filterActive
+    },
+    toggleListGridView () {
+      this.listActive = !this.listActive
     }
   }
 }
@@ -145,6 +163,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+
+  // FILTER VIEW TOGGLES
+
+  .activeButton {
+    background-color: #052437;
+    color: #ffffff;
+  }
 
   h4 { font-weight: 400; }
 
@@ -155,17 +180,17 @@ export default {
   }
 
   #card-filters-toggle {
-    background-color: rgba(0, 255, 0, 0.1);
+    // background-color: rgba(0, 255, 0, 0.1);
     margin-top: 1rem;
     margin-bottom: 3rem;
     display: flex;
     justify-content: space-between;
   }
 
-  #view-toggle {
+  #radio-view-toggle {
     background-color: #ffffff;
-    // position: relative;
-    // right: 0px;
+    border-radius: 6px;
+    display: flex;
   }
 
   #card-display {
@@ -216,6 +241,8 @@ export default {
 
   label { font-weight: bold; }
   p { font-size: 10pt; }
+
+  // PAGINATION CONTROLS
 
   .font-inter {
     font-family: $fontInter;

@@ -35,7 +35,7 @@
         </div>
 
         <div class="col-11">
-          <ProjectList />
+          <ProjectView />
         </div>
 
       </div>
@@ -50,7 +50,7 @@ import { mapGetters } from 'vuex'
 
 import SegmentSliderChart from '@/components/SegmentSliderChart/SegmentSliderChart'
 import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
-import ProjectList from '@/components/ProjectList/ProjectList'
+import ProjectView from '@/components/ProjectView/ProjectView'
 
 // ====================================================================== Export
 export default {
@@ -59,7 +59,7 @@ export default {
   components: {
     SegmentSliderChart,
     FeaturedProjectsSlider,
-    ProjectList
+    ProjectView
   },
 
   data () {
