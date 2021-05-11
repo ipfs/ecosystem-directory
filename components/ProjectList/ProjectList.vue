@@ -1,5 +1,26 @@
 <template>
   <div id="card-display-wrapper">
+
+    <div id="card-filters-toggle">
+
+      <Button type="C" text="Filters">
+
+        <template #icon-before>
+          <FiltersToggle class="font-inter"/>
+        </template>
+
+      </Button>
+
+      <div id="view-toggle">
+
+        <ListView />
+
+        <GridView />
+
+      </div>
+
+    </div>
+
     <div id="card-display">
 
       <Paginate
@@ -33,7 +54,7 @@
         <PaginationControls />
 
         <div class="results-selector-wrapper">
-          <ResultsPerPageSelector :collection="ProjectList" class="results-per-page">
+          <ResultsPerPageSelector :collection="ProjectList" class="results-per-page font-inter">
 
             <template #dropdown-icon>
               <SelectorToggle />
@@ -53,7 +74,11 @@ import { mapGetters, mapActions } from 'vuex'
 
 import Paginate from '@/modules/zero/pagination/Components/Paginate'
 import ResultsPerPageSelector from '@/modules/zero/pagination/Components/ResultsPerPageSelector'
+import Button from '@/modules/zero/core/Components/Button'
 import SelectorToggle from '@/modules/zero/core/Components/Icons/SelectorToggle'
+import FiltersToggle from '@/modules/zero/core/Components/Icons/FiltersToggle'
+import ListView from '@/modules/zero/core/Components/Icons/ListView'
+import GridView from '@/modules/zero/core/Components/Icons/GridView'
 import PaginationControls from './PaginationControls'
 
 import SampleProjects from '~/content/projects/sampleProjects.json'
@@ -71,7 +96,11 @@ export default {
     Paginate,
     PaginationControls,
     ResultsPerPageSelector,
-    SelectorToggle
+    SelectorToggle,
+    FiltersToggle,
+    ListView,
+    GridView,
+    Button
   },
 
   data () {
@@ -125,6 +154,20 @@ export default {
     min-width: 600px;
   }
 
+  #card-filters-toggle {
+    background-color: rgba(0, 255, 0, 0.1);
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #view-toggle {
+    background-color: #ffffff;
+    // position: relative;
+    // right: 0px;
+  }
+
   #card-display {
     margin: 0 5%;
   }
@@ -174,6 +217,11 @@ export default {
   label { font-weight: bold; }
   p { font-size: 10pt; }
 
+  .font-inter {
+    font-family: $fontInter;
+    font-weight: 400;
+  }
+
   .page-navigation-controls {
     display: flex;
     margin-top: 3rem;
@@ -188,8 +236,6 @@ export default {
     position: relative;
     top: 1.25rem;
     transform: translateY(-50%);
-    font-family: $fontInter;
-    font-weight: 400;
     background-color: #FFFFFF;
     border-radius: 6px;
     padding: 0.25rem 1.0rem;

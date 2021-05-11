@@ -9,8 +9,17 @@
     <LoaderTripleDot :class="{ show: loading }" />
 
     <div :class="['button-content', { hide: loading }]">
+
+      <div v-if="iconBefore" class="button-icon-before">
+        <slot name="icon-before"></slot>
+      </div>
+
       {{ text }}
-      <slot />
+
+      <div v-if="iconAfter" class="button-icon-after">
+        <slot name="icon-after"></slot>
+      </div>
+
     </div>
 
   </component>
@@ -21,6 +30,13 @@
 import { mapGetters, mapActions } from 'vuex'
 
 import LoaderTripleDot from '@/components/Spinners/TripleDot'
+
+// ===================================================================== Functions
+const checkSlots = (instance) => {
+  const slots = instance.$slots
+  if (slots.hasOwnProperty('icon-before') && slots['icon-before']) { instance.iconBefore = true }
+  if (slots.hasOwnProperty('icon-after') && slots['icon-after']) { instance.iconAfter = true }
+}
 
 // ====================================================================== Export
 export default {
@@ -62,6 +78,13 @@ export default {
     }
   },
 
+  data () {
+    return {
+      iconBefore: false,
+      iconAfter: false
+    }
+  },
+
   computed: {
     ...mapGetters({
       loaders: 'core/loaders'
@@ -69,6 +92,10 @@ export default {
     loading () {
       return this.loaders.find(obj => obj === this.loader)
     }
+  },
+
+  mounted () {
+    checkSlots(this)
   },
 
   methods: {
@@ -90,7 +117,7 @@ export default {
 // ///////////////////////////////////////////////////////////////////// General
 .button {
   position: relative;
-  height: 2.5rem;
+  height: 2.25rem;
   cursor: pointer;
 }
 
@@ -114,9 +141,20 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding: 0.5rem;
   &.hide {
     opacity: 0;
   }
+}
+
+.button-icon-before {
+  // margin-left: 0.5rem;
+  margin-right: 0.75rem;
+}
+
+.button-icon-after {
+  margin-left: 0.75rem;
+  // margin-right: 0.5rem;
 }
 
 // /////////////////////////////////////////////////////////////// [Type] Common
@@ -132,7 +170,7 @@ export default {
       transform: scale(1.05);
     }
     &:focus {
-      @include focusBoxShadow;
+      @include focus_BoxShadow_Regular;
     }
     &:active {
       transform: scale(0.95);
@@ -146,8 +184,8 @@ export default {
 
 // //////////////////////////////////////////////////////////////////// [Type] A
 .type-A {
-  @include shadow6;
-  background-color: $dodgerBlue;
+  @include shadow1;
+  // background-color: blue;
   &:disabled {
     box-shadow: none;
   }
@@ -155,8 +193,8 @@ export default {
 
 // //////////////////////////////////////////////////////////////////// [Type] B
 .type-B {
-  color: $dodgerBlue;
-  border: 2px solid $dodgerBlue;
+  color: blue;
+  border: 2px solid blue;
   &:not(:disabled) {
     &:hover {
       text-decoration: underline;
@@ -170,13 +208,14 @@ export default {
 
 // //////////////////////////////////////////////////////////////////// [Type] A
 .type-C {
-  background-color: $dodgerBlue;
+  background-color: #ffffff;
+  border-radius: 6px;
 }
 
 // //////////////////////////////////////////////////////////////////// [Type] A
 .type-D {
-  color: $dodgerBlue;
-  border: 1px solid $dodgerBlue;
+  color: blue;
+  border: 1px solid blue;
   padding: 0 0.375rem;
   height: auto;
 }
