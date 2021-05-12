@@ -1,5 +1,5 @@
 <template>
-  <div id="project-view-container">
+  <div id="project-view-container" ref="projectViewCtn">
 
     <!-- Filter Panel / List View controls -->
 
@@ -235,21 +235,17 @@ export default {
 
   #project-filter-container {
     position: relative;
-    // background-color: rgba(0, 0, 255, 0.1);
-    // margin-left: 12%;
-    height: 100%;
     margin-right: 12%;
     display: flex;
   }
 
   #filter-panel-wrapper {
     width: 0%;
-    height: 100%;
+    // height: 100%;
     background-color: #ffffff;
     transition: width 500ms ease-in-out;
     overflow: visible;
     border-radius: 0px 6px 6px 0px;
-    // margin-right: 5%;
   }
 
   .filter-panel {
@@ -257,20 +253,16 @@ export default {
     &.inner-wrapper {
       position: relative;
       width: 64%;
-      height: 100%;
       margin-left: 36%;
-      // background-color: rgba(255, 255, 255, 0.4);
       overflow: hidden;
     }
     &.content {
       margin-top: 2rem;
       white-space: nowrap;
-      height: 150vh;
     }
   }
 
   #card-display {
-    // background-color: rgba(0, 255, 0, 0.1);
     margin-left: 18%;
     margin-right: 4%;
     transition: all 500ms ease-in-out;
@@ -280,8 +272,6 @@ export default {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 22px;
-    // margin: 0 11px;
-    /* grid-auto-rows: minmax(100px, auto); */
   }
 
   .card-container {
@@ -336,6 +326,7 @@ export default {
 
   .results-selector-wrapper {
     height: 2.5rem;
+    margin-bottom: 5rem;
   }
 
   .results-per-page {

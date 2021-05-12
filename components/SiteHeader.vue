@@ -28,20 +28,23 @@
       </div>
     </section>
 
-    <section v-if="pageData" class="panel-middle">
-      <div class="grid-noGutter">
+    <section v-if="pageData" class="panel-middle transition" :class="{ allprojects: allActive }">
+      <div class="grid-noGutter transition" :class="{ projectview: allActive }">
         <div class="col">
           <Breadcrumbs :breadcrumbs="pageData.breadcrumbs" />
         </div>
       </div>
     </section>
 
-    <section v-if="pageData" class="panel-bottom">
+    <section v-if="pageData" class="panel-bottom transition" :class="{ allprojects: allActive }">
       <div class="grid-noGutter">
         <div class="col-6">
 
-          <h1 class="heading">
+          <h1 v-if="!allActive" class="heading">
             {{ pageData.heading }}
+          </h1>
+          <h1 v-else class="project-heading">
+            All Projects
           </h1>
 
           <div class="subheading">
@@ -69,6 +72,12 @@ export default {
     Breadcrumbs
   },
 
+  data () {
+    return {
+      allActive: false
+    }
+  },
+
   computed: {
     ...mapGetters({
       siteContent: 'global/siteContent',
@@ -81,6 +90,12 @@ export default {
       }
       return false
     }
+  },
+
+  created () {
+    this.$nuxt.$on('changeHeader', (val) => {
+      this.allActive = val
+    })
   }
 }
 </script>
@@ -88,16 +103,17 @@ export default {
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
 #site-header {
-  padding: 3rem 0;
+  padding: 3rem 0 0 0;
   background-color: $blackPearl;
   color: white;
 }
 
-// ///////////////////////////////////////////////////////////////// [Panel] Top
-.panel-top {
-  margin-bottom: 3rem;
+.transition {
+  transition: all 0.5s ease;
+  transition-delay: 500ms;
 }
 
+// ///////////////////////////////////////////////////////////////// [Panel] Top
 .panel-top-content {
   display: flex;
   flex-direction: row;
@@ -117,12 +133,37 @@ export default {
   }
 }
 
+// ////////////////////////////////////////////////////////////// [Panel] Middle
+.panel-middle {
+  margin-top: 3rem;
+}
+
+.projectview {
+  padding: 5rem 0 3rem 0;
+}
+
 // ////////////////////////////////////////////////////////////// [Panel] Bottom
+.panel-bottom {
+  padding: 0 0 3rem 0;
+}
+
 .heading {
   font-weight: 600;
+}
+
+.project-heading {
+  font-weight: 500;
 }
 
 .subheading {
   @include fontSize_Large;
 }
+
+// ////////////////////////////////////////////////////////////// All Projects View
+
+.allprojects {
+  background-color: $blackHaze;
+  color: $tiber;
+}
+
 </style>

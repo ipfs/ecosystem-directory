@@ -36,6 +36,16 @@
 </template>
 
 <script>
+// ====================================================================== Functions
+const handleLoad = (instance) => {
+  instance.handleResize()
+}
+
+const initResize = (instance) => {
+  clearTimeout(instance.timeOutFunction)
+  instance.timeOutFunction = setTimeout(() => { instance.handleResize() }, 250)
+}
+
 // ====================================================================== Export
 export default {
   name: 'Chart',
@@ -59,18 +69,24 @@ export default {
     return {
       segmentHeight: 40,
       segments: this.chartItems,
-      timeOutFunction: null
+      timeOutFunction: null,
+      load: false,
+      resize: false
     }
   },
 
   mounted () {
-    window.addEventListener('load', () => {
-      this.handleResize()
-    })
-    window.addEventListener('resize', () => {
-      clearTimeout(this.timeOutFunction)
-      this.timeOutFunction = setTimeout(() => { this.handleResize() }, 250)
-    })
+    this.load = () => { handleLoad(this) }
+    window.addEventListener('load', this.load )
+    this.resize = () => { initResize(this) }
+    window.addEventListener('resize', this.resize)
+
+    this.handleResize()
+  },
+
+  beforeDestroy() {
+    if (this.load) { window.removeEventListener('resize', this.load) }
+    if (this.resize) { window.removeEventListener('resize', this.resize) }
   },
 
   methods: {
@@ -187,14 +203,14 @@ export default {
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
 .chart-container {
-  background-color: #F5F5F5;
+  // background-color: #F5F5F5;
   width: 70%;
   padding: 20px;
   padding-right: 50px;
 }
 
 .chart-flex {
-  background-color: #F5F5F5;
+  // background-color: #F5F5F5;
   flex-grow: 3;
   flex-shrink: 0;
   flex-basis: 33.3333%;

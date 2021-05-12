@@ -1,18 +1,13 @@
 <template>
   <div :class="`page page-${tag} container`">
 
-    <transition name="fade">
-      <template v-if="showSegmentChart">
+    <div ref="collapsibleSection" class="collapse">
+      <transition-group name="fade" tag="section">
+        <section v-if="showSegmentFeatured" key="segment">
+          <SegmentSliderChart v-if="showSegmentFeatured" class="grid-center" />
+        </section>
 
-        <SegmentSliderChart />
-
-      </template>
-    </transition>
-
-    <transition name="fade">
-      <template v-if="showSegmentChart">
-
-        <section v-if="pageData" id="section-featured-slider">
+        <section v-if="showSegmentFeatured && pageData" id="section-featured-slider" key="featured">
           <div class="grid-center">
 
             <div class="col-12">
@@ -31,24 +26,26 @@
           </div>
         </section>
 
-      </template>
-    </transition>
+        <section v-if="showSegmentFeatured && pageData" id="section-filter" key="heading">
+          <div class="grid-center">
 
-    <section v-if="pageData" id="section-filter">
-      <div class="grid-center">
+            <div class="col-12">
+              <h3 class="heading">
+                {{ pageData.section_filter.heading }}
+              </h3>
+              <div class="description">
+                {{ pageData.section_filter.description }}
+              </div>
+            </div>
 
-        <div class="col-12">
-          <h3 class="heading">
-            {{ pageData.section_filter.heading }}
-          </h3>
-          <div class="description">
-            {{ pageData.section_filter.description }}
           </div>
-        </div>
+        </section>
+      </transition-group>
+    </div>
 
-      </div>
+    <section>
 
-      <div>
+      <div class="grid-center full maxed">
         <ProjectView
           @hide-segment-chart="toggleProjectView" />
       </div>
@@ -79,8 +76,8 @@ export default {
   data () {
     return {
       tag: 'home',
-      showSegmentChart: true,
-      hideFeatured: false
+      showSegmentFeatured: true,
+      collapseHeight: 2000
     }
   },
 
@@ -130,9 +127,21 @@ export default {
     }
   },
 
+  mounted () {
+    // console.log(this.$refs.collapsibleSection.getBoundingClientRect().height)
+    // this.collapseHeight = Math.floor(this.$refs.collapsibleSection.getBoundingClientRect().height)
+  },
+
   methods: {
     toggleProjectView (val) {
-      this.showSegmentChart = !val
+      this.showSegmentFeatured = !val
+      if (val) {
+        this.$refs.collapsibleSection.style.height = '0px'
+        window.scrollTo(0, 0)
+      } else {
+        this.$refs.collapsibleSection.style.height = '1200px'
+      }
+      this.$nuxt.$emit('changeHeader', val)
     }
   }
 }
@@ -148,6 +157,10 @@ export default {
   visibility: hidden;
 }
 
+.test {
+  width: 78rem;
+}
+
 #segment-slider-chart,
 #section-featured-slider,
 #section-filter {
@@ -158,11 +171,29 @@ export default {
   margin-top: 3rem;
 }
 
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+.fade {
+  &-enter-active {
+    transition: opacity .5s;
+    transition-delay: 500ms;
+  }
+  &-leave-active {
+    transition: opacity .5s;
+  }
+  &-enter-to,
+  &-leave {
+    opacity: 1.0;
+  }
+  &-enter,
+  &-leave-to {
+    opacity: 0.0;
+  }
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
+
+.collapse {
+  height: 1200px;
+  overflow: hidden;
+  transition: height .5s;
+  transition-delay: 500ms;
 }
 
 </style>
