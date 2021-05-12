@@ -20,18 +20,18 @@
       },
       {
         "type": "div",
-        "label": "IPFS Ecosystem"
+        "label": "Ecosystem Directory"
       }
     ],
-    "heading": "Ecosystem Explorer",
-    "subheading": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor. Incididunt ut labore et dolore magna aliqua.",
+    "heading": "Ecosystem Directory",
+    "subheading": "Explore the world of projects and products built on IPFS in this interactive showcase filterable by industry, tooling, and more.",
     "section_featured_slider": {
-      "heading": "Featured",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt."
+      "heading": "Featured projects",
+      "description": "Check out some new and notable additions to the IPFS ecosystem directory."
     },
     "section_filter": {
-      "heading": "Who’s using IPFS?",
-      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      "heading": "All projects",
+      "description": "Explore the entire IPFS ecosystem, or use the filters to drill down by factors like industry, focus area, and tooling."
     }
   }
 }
