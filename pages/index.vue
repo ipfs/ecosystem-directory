@@ -1,26 +1,38 @@
 <template>
   <div :class="`page page-${tag} container`">
 
-    <SegmentSliderChart />
+    <transition name="fade">
+      <template v-if="showSegmentChart">
 
-    <section v-if="pageData" id="section-featured-slider">
-      <div class="grid-center">
+        <SegmentSliderChart />
 
-        <div class="col-12">
-          <h3 class="heading">
-            {{ pageData.section_featured_slider.heading }}
-          </h3>
-          <div class="description">
-            {{ pageData.section_featured_slider.description }}
+      </template>
+    </transition>
+
+    <transition name="fade">
+      <template v-if="showSegmentChart">
+
+        <section v-if="pageData" id="section-featured-slider">
+          <div class="grid-center">
+
+            <div class="col-12">
+              <h3 class="heading">
+                {{ pageData.section_featured_slider.heading }}
+              </h3>
+              <div class="description">
+                {{ pageData.section_featured_slider.description }}
+              </div>
+            </div>
+
+            <div class="col-11">
+              <FeaturedProjectsSlider />
+            </div>
+
           </div>
-        </div>
+        </section>
 
-        <div class="col-11">
-          <FeaturedProjectsSlider />
-        </div>
-
-      </div>
-    </section>
+      </template>
+    </transition>
 
     <section v-if="pageData" id="section-filter">
       <div class="grid-center">
@@ -34,11 +46,13 @@
           </div>
         </div>
 
-        <div class="col-11">
-          <ProjectView />
-        </div>
-
       </div>
+
+      <div>
+        <ProjectView
+          @hide-segment-chart="toggleProjectView" />
+      </div>
+
     </section>
 
   </div>
@@ -64,7 +78,9 @@ export default {
 
   data () {
     return {
-      tag: 'home'
+      tag: 'home',
+      showSegmentChart: true,
+      hideFeatured: false
     }
   },
 
@@ -112,6 +128,12 @@ export default {
       }
       return false
     }
+  },
+
+  methods: {
+    toggleProjectView (val) {
+      this.showSegmentChart = !val
+    }
   }
 }
 </script>
@@ -120,6 +142,10 @@ export default {
 // ///////////////////////////////////////////////////////////////////// General
 .heading {
   margin-bottom: 1rem;
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 #segment-slider-chart,
@@ -131,4 +157,12 @@ export default {
 #segment-slider-chart {
   margin-top: 3rem;
 }
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
 </style>

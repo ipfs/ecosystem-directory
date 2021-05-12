@@ -1,5 +1,7 @@
 <template>
-  <div id="card-display-wrapper">
+  <div id="project-view-container">
+
+    <!-- Filter Panel / List View controls -->
 
     <div id="card-filters-toggle">
 
@@ -31,50 +33,67 @@
 
     </div>
 
-    <div id="card-display">
+    <div id="project-filter-container">
+      <!-- Filter Panel Component -->
 
-      <Paginate
-        v-if="ProjectList"
-        v-slot="{ paginated }"
-        :display="display"
-        :collection="ProjectList"
-        class="card-grid">
-        <template v-for="(project, index) in paginated">
-          <div
-            v-if="paginated"
-            :key="index"
-            class="card-container"
-            :style="`grid-column: ${index % 4 + 1}; grid-row: ${Math.ceil((1 + index) / 4)};`">
-
-            <div class="card">
-              <div class="card-logo">
-                <img :src="logos(project.logo)" />
-              </div>
-            </div>
-
-            <label>{{ project.name }}</label>
-
-            <p>{{ project.description }}</p>
-          </div>
-        </template>
-      </Paginate>
-
-      <div class="page-navigation-controls">
-
-        <PaginationControls />
-
-        <div class="results-selector-wrapper">
-          <ResultsPerPageSelector :collection="ProjectList" class="results-per-page font-inter">
-
-            <template #dropdown-icon>
-              <SelectorToggle />
-            </template>
-
-          </ResultsPerPageSelector>
+      <div id="filter-panel-wrapper" ref="filterWrap">
+        <div class="filter-panel inner-wrapper">
+          <Filters
+            class="filter-panel content">
+            <h4>All Filters</h4>
+          </Filters>
         </div>
-
       </div>
+
+      <!-- Paginated List Component -->
+
+      <div id="card-display" ref="cardDisplay">
+
+        <Paginate
+          v-if="ProjectList"
+          v-slot="{ paginated }"
+          :display="display"
+          :collection="ProjectList"
+          class="card-grid">
+          <template v-for="(project, index) in paginated">
+            <div
+              v-if="paginated"
+              :key="index"
+              class="card-container"
+              :style="`grid-column: ${index % 4 + 1}; grid-row: ${Math.ceil((1 + index) / 4)};`">
+
+              <div class="card">
+                <div class="card-logo">
+                  <img :src="logos(project.logo)" />
+                </div>
+              </div>
+
+              <label>{{ project.name }}</label>
+
+              <p>{{ project.description }}</p>
+            </div>
+          </template>
+        </Paginate>
+
+        <div class="page-navigation-controls">
+
+          <PaginationControls />
+
+          <div class="results-selector-wrapper">
+            <ResultsPerPageSelector :collection="ProjectList" class="results-per-page font-inter">
+
+              <template #dropdown-icon>
+                <SelectorToggle />
+              </template>
+
+            </ResultsPerPageSelector>
+          </div>
+
+        </div>
+      </div>
+
     </div>
+
   </div>
 </template>
 
@@ -86,9 +105,10 @@ import Paginate from '@/modules/zero/pagination/Components/Paginate'
 import ResultsPerPageSelector from '@/modules/zero/pagination/Components/ResultsPerPageSelector'
 import Button from '@/modules/zero/core/Components/Button'
 import SelectorToggle from '@/modules/zero/core/Components/Icons/SelectorToggle'
-import FiltersToggle from '@/modules/zero/core/Components/Icons/FiltersToggle'
 import ListView from '@/modules/zero/core/Components/Icons/ListView'
 import GridView from '@/modules/zero/core/Components/Icons/GridView'
+import FiltersToggle from '@/modules/zero/core/Components/Icons/FiltersToggle'
+import Filters from '@/modules/zero/filters/Components/Filters'
 import PaginationControls from './PaginationControls'
 
 import SampleProjects from '~/content/projects/sampleProjects.json'
@@ -110,7 +130,8 @@ export default {
     FiltersToggle,
     ListView,
     GridView,
-    Button
+    Button,
+    Filters
   },
 
   data () {
@@ -118,7 +139,8 @@ export default {
       projects: false,
       paginationDisplay: 20,
       filterActive: false,
-      listActive: false
+      listActive: false,
+      resize: false
     }
   },
 
@@ -132,6 +154,21 @@ export default {
     ProjectList () {
       const projects = this.projects
       return projects
+    }
+  },
+
+  watch: {
+    filterActive (val) {
+      if (val) {
+        this.$refs.filterWrap.style.width = '80%'
+        this.$refs.cardDisplay.style.marginLeft = '5%'
+        this.$refs.cardDisplay.style.marginRight = '0%'
+      } else {
+        this.$refs.filterWrap.style.width = '0%'
+        this.$refs.cardDisplay.style.marginLeft = '18%'
+        this.$refs.cardDisplay.style.marginRight = '4%'
+      }
+      this.$emit('hide-segment-chart', val)
     }
   },
 
@@ -175,14 +212,17 @@ export default {
 
   /* CARDS */
 
-  #card-display-wrapper {
+  #project-view-container {
     min-width: 600px;
+    // background-color: rgba(255, 0, 255, 0.1);
   }
 
   #card-filters-toggle {
-    // background-color: rgba(0, 255, 0, 0.1);
+    // background-color: rgba(255, 255, 0, 0.1);
     margin-top: 1rem;
     margin-bottom: 3rem;
+    margin-left: 12%;
+    margin-right: 12%;
     display: flex;
     justify-content: space-between;
   }
@@ -193,15 +233,54 @@ export default {
     display: flex;
   }
 
+  #project-filter-container {
+    position: relative;
+    // background-color: rgba(0, 0, 255, 0.1);
+    // margin-left: 12%;
+    height: 100%;
+    margin-right: 12%;
+    display: flex;
+  }
+
+  #filter-panel-wrapper {
+    width: 0%;
+    height: 100%;
+    background-color: #ffffff;
+    transition: width 500ms ease-in-out;
+    overflow: visible;
+    border-radius: 0px 6px 6px 0px;
+    // margin-right: 5%;
+  }
+
+  .filter-panel {
+    font-family: $fontInter;
+    &.inner-wrapper {
+      position: relative;
+      width: 64%;
+      height: 100%;
+      margin-left: 36%;
+      // background-color: rgba(255, 255, 255, 0.4);
+      overflow: hidden;
+    }
+    &.content {
+      margin-top: 2rem;
+      white-space: nowrap;
+      height: 150vh;
+    }
+  }
+
   #card-display {
-    margin: 0 5%;
+    // background-color: rgba(0, 255, 0, 0.1);
+    margin-left: 18%;
+    margin-right: 4%;
+    transition: all 500ms ease-in-out;
   }
 
   .card-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 22px;
-    margin: 11px 11px;
+    // margin: 0 11px;
     /* grid-auto-rows: minmax(100px, auto); */
   }
 
