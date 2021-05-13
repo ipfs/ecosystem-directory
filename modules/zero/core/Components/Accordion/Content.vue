@@ -14,6 +14,7 @@ export default {
   data () {
     return {
       content: false,
+      childType: false, // 'component' or 'element'
       height: '0px',
       resize: false
     }
@@ -21,22 +22,25 @@ export default {
 
   mounted () {
     this.$nextTick(() => {
-      this.content = this.$children[0].$el
+      this.childType = this.$children.length > 0 ? 'component' : 'element'
+      this.content = this.childType === 'component' ? this.$children[0].$el : this.$slots.default[0].elm
       this.resize = this.$throttle(() => {
         if (this.height !== '0px') {
           this.height = this.content.clientHeight + 'px'
         }
       }, 100)
       window.addEventListener('resize', this.resize)
-      // Resize the content IF the content has changed and emits the changed event
-      this.$children[0].$on('changed', () => {
-        this.$nextTick(() => {
-          const height = this.content.clientHeight + 'px'
-          if (height !== this.height) {
-            this.height = height
-          }
+      // Resize the content IF the content is a component and the content has changed and emits the changed event
+      if (this.childType === 'component') {
+        this.content.$on('changed', () => {
+          this.$nextTick(() => {
+            const height = this.content.clientHeight + 'px'
+            if (height !== this.height) {
+              this.height = height
+            }
+          })
         })
-      })
+      }
     })
   },
 

@@ -2,7 +2,9 @@
   <section id="typography">
 
     <section id="font-sizing">
-      <h4>Font Sizing</h4>
+      <div class="nested-outline">
+        <h3>Font Sizing</h3>
+      </div>
       <ul>
         <li
           v-for="size in sizes"
@@ -20,7 +22,7 @@
 <script>
 // ====================================================================== Export
 export default {
-  name: 'Typography',
+  name: 'KitchenSinkTypography',
 
   data () {
     return {
