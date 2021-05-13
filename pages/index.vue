@@ -1,14 +1,16 @@
 <template>
   <div :class="`page page-${tag} container`">
 
-    <div ref="collapsibleSection" class="collapse">
+    <div ref="collapsibleSection" class="collapse" :style="`height: ${sectionHeight}px;`">
       <transition-group name="fade" tag="section">
         <section v-if="showSegmentFeatured" key="segment">
-          <SegmentSliderChart v-if="showSegmentFeatured" class="grid-center" />
+          <div ref="segmentSlider">
+            <SegmentSliderChart v-if="showSegmentFeatured" class="grid-center" />
+          </div>
         </section>
 
         <section v-if="showSegmentFeatured && pageData" id="section-featured-slider" key="featured">
-          <div class="grid-center">
+          <div ref="featuredSection" class="grid-center">
 
             <div class="col-12">
               <h3 class="heading">
@@ -27,7 +29,7 @@
         </section>
 
         <section v-if="showSegmentFeatured && pageData" id="section-filter" key="heading">
-          <div class="grid-center">
+          <div ref="filterHeading" class="grid-center">
 
             <div class="col-12">
               <h3 class="heading">
@@ -63,6 +65,14 @@ import SegmentSliderChart from '@/components/SegmentSliderChart/SegmentSliderCha
 import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
 import ProjectView from '@/components/ProjectView/ProjectView'
 
+// ====================================================================== Functions
+const resetSectionHeight = (instance) => {
+  const x = instance.$refs.segmentSlider.offsetHeight
+  const y = instance.$refs.featuredSection.offsetHeight
+  const z = instance.$refs.filterHeading.offsetHeight
+  instance.sectionHeight = Math.ceil(x + y + z) + 210
+}
+
 // ====================================================================== Export
 export default {
   name: 'HomePage',
@@ -77,7 +87,8 @@ export default {
     return {
       tag: 'home',
       showSegmentFeatured: true,
-      collapseHeight: 2000
+      sectionHeight: false,
+      resize: false
     }
   },
 
@@ -127,6 +138,17 @@ export default {
     }
   },
 
+  mounted () {
+    this.resize = () => { resetSectionHeight(this) }
+    window.addEventListener('resize', this.resize)
+
+    resetSectionHeight(this)
+  },
+
+  beforeDestroy() {
+    if (this.resize) { window.removeEventListener('resize', this.resize) }
+  },
+
   methods: {
     toggleProjectView (val) {
       this.showSegmentFeatured = !val
@@ -134,7 +156,7 @@ export default {
         this.$refs.collapsibleSection.style.height = '0px'
         window.scrollTo(0, 0)
       } else {
-        this.$refs.collapsibleSection.style.height = '1200px'
+        this.$refs.collapsibleSection.style.height = this.sectionHeight + 'px'
       }
       this.$nuxt.$emit('changeHeader', val)
     }
@@ -183,7 +205,6 @@ export default {
 }
 
 .collapse {
-  height: 1200px;
   overflow: hidden;
   transition: height .5s;
   transition-delay: 500ms;
