@@ -1,20 +1,24 @@
 <template>
-  <div class="dropdown dropdown-selector-wrapper">
+  <component :is="rootNode">
 
-    <label
-      v-if="selected">
-      {{ msg + (selected === totalItems ? 'All' : selected) }}
-    </label>
-    <label
-      v-else>
-      {{ msg + display }}
-    </label>
+    <div class="dropdown dropdown-selector-wrapper" @click.stop="toggleDropDown()">
 
-    <button class="dropdown dropdown-button" @click="toggleDropDown()">
+      <label
+        v-if="selected">
+        {{ msg + (selected === totalItems ? 'All' : selected) }}
+      </label>
+      <label
+        v-else>
+        {{ msg + display }}
+      </label>
 
-      <slot name="dropdown-icon"></slot>
+      <button class="dropdown dropdown-button">
 
-    </button>
+        <slot name="dropdown-icon"></slot>
+
+      </button>
+
+    </div>
 
     <div
       class="dropdown dropdown-list"
@@ -32,7 +36,7 @@
       </template>
     </div>
 
-  </div>
+  </component>
 </template>
 
 <script>
@@ -56,6 +60,11 @@ export default {
   name: 'ResultsPerPageSelector',
 
   props: {
+    rootNode: {
+      type: String,
+      required: false,
+      default: 'div'
+    },
     msg: {
       type: String,
       required: false,
@@ -163,11 +172,10 @@ export default {
   .dropdown-button {
     transform: translateY(-5%);
     opacity: 0.5;
-  }
-
-  .dropdown-button:hover {
-    cursor: pointer;
-    opacity: 1.0;
+    &:hover {
+      cursor: pointer;
+      opacity: 1.0;
+    }
   }
 
   .dropdown-list {
@@ -181,11 +189,10 @@ export default {
 
   .dropdown-item {
     padding: 0.25rem 0.75rem;
-  }
-
-  .dropdown-item:hover {
-    cursor: pointer;
-    text-decoration: underline;
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
   }
 
   .highlighted {

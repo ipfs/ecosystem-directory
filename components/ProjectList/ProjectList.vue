@@ -6,14 +6,9 @@
         v-if="ProjectList"
         v-slot="{ paginated }"
         :display="display"
-        :collection="ProjectList"
-        class="card-grid">
-        <template v-for="(project, index) in paginated">
-          <div
-            v-if="paginated"
-            :key="index"
-            class="card-container"
-            :style="`grid-column: ${index % 4 + 1}; grid-row: ${Math.ceil((1 + index) / 4)};`">
+        :collection="ProjectList">
+        <div v-if="paginated" class="grid">
+          <div v-for="(project, index) in paginated" :key="index" class="col-3 card-container">
 
             <div class="card">
               <div class="card-logo">
@@ -24,8 +19,9 @@
             <label>{{ project.name }}</label>
 
             <p>{{ project.description }}</p>
+
           </div>
-        </template>
+        </div>
       </Paginate>
 
       <div class="page-navigation-controls">
@@ -114,7 +110,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 
   h4 { font-weight: 400; }
@@ -123,18 +118,11 @@ export default {
 
   #card-display-wrapper {
     min-width: 600px;
+    margin-top: 1rem;
   }
 
   #card-display {
     margin: 0 5%;
-  }
-
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 22px;
-    margin: 11px 11px;
-    /* grid-auto-rows: minmax(100px, auto); */
   }
 
   .card-container {
@@ -151,10 +139,9 @@ export default {
     border-radius: 6px;
     background-color: #FFFFFF;
     margin-bottom: 16px;
-  }
-
-  .card:hover {
-    cursor: pointer;
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   .card-logo {
