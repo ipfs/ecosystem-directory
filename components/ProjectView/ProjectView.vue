@@ -1,7 +1,7 @@
 <template>
   <div id="project-view-container" ref="projectViewCtn">
 
-    <!-- Filter Panel / List View controls -->
+    <!-- Filter Toggle / List View controls -->
 
     <div id="card-filters-toggle">
 
@@ -201,24 +201,18 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 
-  // FILTER VIEW TOGGLES
+  #project-view-container {
+    min-width: 600px;
+  }
+
+  // ////////////////////////////////////////////////////////////// [TOGGLE CONTROLS]
 
   .activeButton {
     background-color: #052437;
     color: #ffffff;
   }
 
-  h4 { font-weight: 400; }
-
-  /* CARDS */
-
-  #project-view-container {
-    min-width: 600px;
-    // background-color: rgba(255, 0, 255, 0.1);
-  }
-
   #card-filters-toggle {
-    // background-color: rgba(255, 255, 0, 0.1);
     margin-top: 1rem;
     margin-bottom: 3rem;
     margin-left: 12%;
@@ -232,6 +226,8 @@ export default {
     border-radius: 6px;
     display: flex;
   }
+
+  // ////////////////////////////////////////////////////////////// [FILTER PANEL]
 
   #project-filter-container {
     position: relative;
@@ -248,6 +244,8 @@ export default {
     border-radius: 0px 6px 6px 0px;
   }
 
+  h4 { font-weight: 400; }
+
   .filter-panel {
     font-family: $fontInter;
     &.inner-wrapper {
@@ -261,6 +259,8 @@ export default {
       white-space: nowrap;
     }
   }
+
+  // ////////////////////////////////////////////////////////////// [PROJECT CARDS]
 
   #card-display {
     margin-left: 18%;
@@ -311,7 +311,7 @@ export default {
   label { font-weight: bold; }
   p { font-size: 10pt; }
 
-  // PAGINATION CONTROLS
+  // /////////////////////////////////////////////////////////// [PAGINATION CONTROLS]
 
   .font-inter {
     font-family: $fontInter;

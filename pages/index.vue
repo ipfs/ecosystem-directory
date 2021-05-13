@@ -127,11 +127,6 @@ export default {
     }
   },
 
-  mounted () {
-    // console.log(this.$refs.collapsibleSection.getBoundingClientRect().height)
-    // this.collapseHeight = Math.floor(this.$refs.collapsibleSection.getBoundingClientRect().height)
-  },
-
   methods: {
     toggleProjectView (val) {
       this.showSegmentFeatured = !val
@@ -157,10 +152,6 @@ export default {
   visibility: hidden;
 }
 
-.test {
-  width: 78rem;
-}
-
 #segment-slider-chart,
 #section-featured-slider,
 #section-filter {
@@ -170,6 +161,8 @@ export default {
 #segment-slider-chart {
   margin-top: 3rem;
 }
+
+// ///////////////////////////////////////////////////////////////////// Transitions
 
 .fade {
   &-enter-active {

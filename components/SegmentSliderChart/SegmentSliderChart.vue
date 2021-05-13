@@ -30,7 +30,8 @@
 // ===================================================================== Imports
 import Slider from '@/components/SegmentSliderChart/Slider.vue'
 import Chart from '@/components/SegmentSliderChart/Chart.vue'
-import SampleData from '@/components/SegmentSliderChart/sampledata0.json'
+
+import SampleData from '@/content/projects/sampleData.json'
 
 // ====================================================================== Export
 export default {
