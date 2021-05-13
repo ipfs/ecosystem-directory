@@ -1,6 +1,10 @@
 # IPFS Ecosystem Directory
 
-Interactive IPFS ecosystem directory and showcase.
+Interactive IPFS ecosystem directory and showcase
+
+_(in the future this readme may be split into multiple Github wiki files)_
+
+***
 
 ## General Information
 
@@ -12,6 +16,7 @@ This repo is currently deployed to Fleek on the following URLs:
 `develop` branch: https://ipfs-ecosystem-develop.on.fleek.co/
 
 Pushes made to the `main` or `develop` branches of this repo will automatically be reflected in the URLs above. Please allow 2-5 minutes for the application to re-build before seeing changes in your browser.
+
 
 ### Server
 
@@ -31,6 +36,8 @@ production: 20002
 NODE_ENV → development|production
 SERVER_ENV → development|stable|production
 ```
+
+***
 
 ## Getting Started
 
@@ -89,43 +96,53 @@ SERVER_ENV=development
 $ npm run dev
 ```
 
+***
+
 ## Project Model
 
 Below if an outline of the Project Model. An empty JSON file can be found in `@/content/projects/template.json`. This template file can be duplicated, filled out and renamed to create a new project. It is not necessary to generate a project ID since the filename of each project will serve as a project `slug`.
 
-`display`: toggle whether or not to display or hide the project from the results
+### Naming Convention
 
-`sortNumbers`: these labels and numbers will be used in the sort-by filter
+This means that file names must be named after project names, and use lowercase and kebab-case. For example, an appropriate project `slug` would be `world-wide-web`, and therefore the corresponding file would be `world-wide-web.json`. It's important to not deviate between the file name and the `name` of the project.
 
-`logo`: all logos will be in SVG format and must be placed in the `static` directory
+### Keys
 
-`name`: name of the product
+- `display`: toggle whether or not to display or hide the project from the results
 
-`org`: a product can belong to multiple organizations
+- `featured`: toggle whether this appears in the featured slider
 
-`description`: 2 descriptions are needed. A long description that will be visible on the Project Single page and  short description that is visible in the card format (such as the Featured slider). If none provided, a truncated version of the long description will be used.
+- `sortNumbers`: these labels and numbers will be used in the sort-by filter
 
-`primaryLink`: this is the 1st link found directly under the project description
+- `logo`: all logos will be in SVG format and must be placed in the `static` directory
 
-`secondaryLink`: this is the 2nd link found directly under the project description
+- `name`: name of the product
 
-`links`: these links will always appear at the top of the **Key Info** section
+- `org`: a product can belong to multiple organizations
 
-`keyInfo`: these key/value pairs will always appear below the links in the **Key Info** section
+- `description`: 2 descriptions are needed. A long description that will be visible on the Project Single page and a short description that is visible in the card format (such as the Featured slider). If none provided, a truncated version of the long description will be used.
 
-`video`: can be a URL to either a YouTube or Vimeo video
+- `primaryLink`: this is the 1st link found directly under the project description
 
-`stats`:  general statistics with short descriptions
+- `links`: these links will always appear at the top of the **Key Info** section, however, these links could be extended to use elsewhere in the future
 
-`ctaCard`: this card will always be displayed as the last block in the stats section. The button text can be changed in `@/content/pages/project.json`
+- `keyInfo`: these key/value pairs will always appear below the links in the **Key Info** section
 
-`taxonomies`: the taxonomies contain a `slug` that will match a master taxonomy object (found in: `@/content/pages/general.json`). If none match, this taxonomy and its tags will not be displayed.
+- `video`: can be a URL to either a YouTube or Vimeo video, the video must be publicly accessible and embeddable
 
-```js
+- `stats`:  general statistics with short descriptions, also known as "big numbers"
+
+- `ctaCard`: this card will always be displayed as the last block in the stats section. The button text can be changed in `@/content/pages/project.json`
+
+- `taxonomies`: the taxonomies contain a `slug` that will match a master taxonomy object (found in: `@/content/pages/general.json`); if none match, this taxonomy and its tags will not be displayed
+### Schema
+
+```ts
 {
   display: Boolean,
+  featured: Boolean,
   sortNumbers: [{
-    label: number
+    label: Number
   }],
   logo: {
     icon: String,
@@ -160,14 +177,15 @@ Below if an outline of the Project Model. An empty JSON file can be found in `@/
   ctaCard: {
     title: String,
     description: String,
+    buttonText: String,
     url: String
   },
-  taxonomies: {
+  taxonomies: { [
     slug: String,
     tags: [{
       url: String,
       text: String
     }]
-  }
+  ]}
 }
 ```
