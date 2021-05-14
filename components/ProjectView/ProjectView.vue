@@ -198,7 +198,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 
   #project-view-container {
@@ -288,12 +287,11 @@ export default {
     border-radius: 6px;
     background-color: #FFFFFF;
     margin-bottom: 16px;
+    &:hover {
+      cursor: pointer;
+    }
   }
-
-  .card:hover {
-    cursor: pointer;
-  }
-
+  
   .card-logo {
     position: relative;
     width: 50%;
