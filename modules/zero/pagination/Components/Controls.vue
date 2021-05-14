@@ -66,6 +66,26 @@ export default {
       type: String,
       required: false,
       default: '⋯'
+    },
+    first: {
+      type: String,
+      required: false,
+      default: 'First'
+    },
+    prev: {
+      type: String,
+      required: false,
+      default: 'Prev'
+    },
+    next: {
+      type: String,
+      required: false,
+      default: 'Next'
+    },
+    last: {
+      type: String,
+      required: false,
+      default: 'Last'
     }
   },
 

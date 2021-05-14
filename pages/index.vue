@@ -1,44 +1,57 @@
 <template>
   <div :class="`page page-${tag} container`">
 
-    <SegmentSliderChart />
-
-    <section v-if="pageData" id="section-featured-slider">
-      <div class="grid-center">
-
-        <div class="col-12">
-          <h3 class="heading">
-            {{ pageData.section_featured_slider.heading }}
-          </h3>
-          <div class="description">
-            {{ pageData.section_featured_slider.description }}
+    <div ref="collapsibleSection" class="collapse" :style="`height: ${sectionHeight}px;`">
+      <transition-group name="fade" tag="section">
+        <section v-if="showSegmentFeatured" key="segment">
+          <div ref="segmentSlider">
+            <SegmentSliderChart v-if="showSegmentFeatured" class="grid-center" />
           </div>
-        </div>
+        </section>
 
-        <div class="col-11">
-          <FeaturedProjectsSlider />
-        </div>
+        <section v-if="showSegmentFeatured && pageData" id="section-featured-slider" key="featured">
+          <div ref="featuredSection" class="grid-center">
 
-      </div>
-    </section>
+            <div class="col-12">
+              <h3 class="heading">
+                {{ pageData.section_featured_slider.heading }}
+              </h3>
+              <div class="description">
+                {{ pageData.section_featured_slider.description }}
+              </div>
+            </div>
 
-    <section v-if="pageData" id="section-filter">
-      <div class="grid-center">
+            <div class="col-11">
+              <FeaturedProjectsSlider />
+            </div>
 
-        <div class="col-12">
-          <h3 class="heading">
-            {{ pageData.section_filter.heading }}
-          </h3>
-          <div class="description">
-            {{ pageData.section_filter.description }}
           </div>
-        </div>
+        </section>
 
-        <div class="col-11">
-          <ProjectList />
-        </div>
+        <section v-if="showSegmentFeatured && pageData" id="section-filter" key="heading">
+          <div ref="filterHeading" class="grid-center">
 
+            <div class="col-12">
+              <h3 class="heading">
+                {{ pageData.section_filter.heading }}
+              </h3>
+              <div class="description">
+                {{ pageData.section_filter.description }}
+              </div>
+            </div>
+
+          </div>
+        </section>
+      </transition-group>
+    </div>
+
+    <section>
+
+      <div class="grid-center full maxed">
+        <ProjectView
+          @hide-segment-chart="toggleProjectView" />
       </div>
+
     </section>
 
   </div>
@@ -50,7 +63,15 @@ import { mapGetters } from 'vuex'
 
 import SegmentSliderChart from '@/components/SegmentSliderChart/SegmentSliderChart'
 import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
-import ProjectList from '@/components/ProjectList/ProjectList'
+import ProjectView from '@/components/ProjectView/ProjectView'
+
+// ====================================================================== Functions
+const resetSectionHeight = (instance) => {
+  const x = instance.$refs.segmentSlider.offsetHeight
+  const y = instance.$refs.featuredSection.offsetHeight
+  const z = instance.$refs.filterHeading.offsetHeight
+  instance.sectionHeight = Math.ceil(x + y + z) + 210
+}
 
 // ====================================================================== Export
 export default {
@@ -59,12 +80,15 @@ export default {
   components: {
     SegmentSliderChart,
     FeaturedProjectsSlider,
-    ProjectList
+    ProjectView
   },
 
   data () {
     return {
-      tag: 'home'
+      tag: 'home',
+      showSegmentFeatured: true,
+      sectionHeight: false,
+      resize: false
     }
   },
 
@@ -112,6 +136,30 @@ export default {
       }
       return false
     }
+  },
+
+  mounted () {
+    this.resize = () => { resetSectionHeight(this) }
+    window.addEventListener('resize', this.resize)
+
+    resetSectionHeight(this)
+  },
+
+  beforeDestroy() {
+    if (this.resize) { window.removeEventListener('resize', this.resize) }
+  },
+
+  methods: {
+    toggleProjectView (val) {
+      this.showSegmentFeatured = !val
+      if (val) {
+        this.$refs.collapsibleSection.style.height = '0px'
+        window.scrollTo(0, 0)
+      } else {
+        this.$refs.collapsibleSection.style.height = this.sectionHeight + 'px'
+      }
+      this.$nuxt.$emit('changeHeader', val)
+    }
   }
 }
 </script>
@@ -120,6 +168,10 @@ export default {
 // ///////////////////////////////////////////////////////////////////// General
 .heading {
   margin-bottom: 1rem;
+}
+
+.hidden {
+  visibility: hidden;
 }
 
 #segment-slider-chart,
@@ -131,4 +183,31 @@ export default {
 #segment-slider-chart {
   margin-top: 3rem;
 }
+
+// ///////////////////////////////////////////////////////////////////// Transitions
+
+.fade {
+  &-enter-active {
+    transition: opacity .5s;
+    transition-delay: 500ms;
+  }
+  &-leave-active {
+    transition: opacity .5s;
+  }
+  &-enter-to,
+  &-leave {
+    opacity: 1.0;
+  }
+  &-enter,
+  &-leave-to {
+    opacity: 0.0;
+  }
+}
+
+.collapse {
+  overflow: hidden;
+  transition: height .5s;
+  transition-delay: 500ms;
+}
+
 </style>

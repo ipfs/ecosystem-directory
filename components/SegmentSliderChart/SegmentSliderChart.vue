@@ -1,10 +1,11 @@
 <template>
   <div
     id="segment-slider-chart"
+    ref="segmentSlider"
     @keyup.left="setSliderContent(selected - 1)"
     @keyup.right="setSliderContent(selected + 1)">
 
-    <div class="main-container">
+    <div class="main-container grid-center">
 
       <Slider
         :selected-cat="chartItemsArray[selected].cat"
@@ -29,7 +30,8 @@
 // ===================================================================== Imports
 import Slider from '@/components/SegmentSliderChart/Slider.vue'
 import Chart from '@/components/SegmentSliderChart/Chart.vue'
-import SampleData from '@/components/SegmentSliderChart/sampledata0.json'
+
+import SampleData from '@/content/projects/sampleData.json'
 
 // ====================================================================== Export
 export default {
@@ -130,22 +132,11 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background-color: #f5f5f5;
-  width: 100%;
-  height: 100%;
-}
-
-.main-wrapper {
-  height: 100vh;
-  width: 100vw;
-  padding-top: 60px;
-  overflow-y: scroll;
 }
 
 .main-container {
   display: flex;
   flex-wrap: wrap-reverse;
-  width: 90%;
   align-items: center;
   margin: 0 auto;
 }
