@@ -5,12 +5,16 @@
       <button
         class="control-button first"
         @click="navigateToPage(1)">
-        {{ first }}
+
+        <slot name="first-page"></slot>
+
       </button>
       <button
         class="control-button prev"
         @click="navigateToPage(page - 1)">
-        {{ prev }}
+
+        <slot name="prev-page"></slot>
+
       </button>
       <div class="breaker">
         {{ breaker }}
@@ -32,13 +36,18 @@
       <button
         class="control-button next"
         @click="navigateToPage(page + 1)">
-        {{ next }}
+
+        <slot name="next-page"></slot>
+
       </button>
       <button
         class="control-button last"
         @click="navigateToPage(totalPages)">
-        {{ last }}
+
+        <slot name="last-page"></slot>
+
       </button>
+
     </template>
 
   </div>
@@ -162,6 +171,7 @@ $dimension: 2.5rem;
 
 .control-button {
   color: grey;
+  padding: 0.5rem;
   &:hover {
     text-decoration: underline;
   }
@@ -175,6 +185,13 @@ $dimension: 2.5rem;
   }
   &.first,
   &.last {
+    opacity: 0.5;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  &.prev,
+  &.next {
     opacity: 0.5;
     &:hover {
       opacity: 1;
