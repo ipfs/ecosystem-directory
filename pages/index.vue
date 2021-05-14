@@ -145,7 +145,7 @@ export default {
     resetSectionHeight(this)
   },
 
-  beforeDestroy() {
+  beforeDestroy () {
     if (this.resize) { window.removeEventListener('resize', this.resize) }
   },
 
