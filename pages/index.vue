@@ -67,10 +67,12 @@ import ProjectView from '@/components/ProjectView/ProjectView'
 
 // ====================================================================== Functions
 const resetSectionHeight = (instance) => {
-  const x = instance.$refs.segmentSlider.offsetHeight
-  const y = instance.$refs.featuredSection.offsetHeight
-  const z = instance.$refs.filterHeading.offsetHeight
-  instance.sectionHeight = Math.ceil(x + y + z) + 210
+  if (instance.showSegmentFeatured) {
+    const x = instance.$refs.segmentSlider.offsetHeight
+    const y = instance.$refs.featuredSection.offsetHeight
+    const z = instance.$refs.filterHeading.offsetHeight
+    instance.sectionHeight = Math.ceil(x + y + z) + 210
+  }
 }
 
 // ====================================================================== Export
@@ -145,7 +147,7 @@ export default {
     resetSectionHeight(this)
   },
 
-  beforeDestroy() {
+  beforeDestroy () {
     if (this.resize) { window.removeEventListener('resize', this.resize) }
   },
 

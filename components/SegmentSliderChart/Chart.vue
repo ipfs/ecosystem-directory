@@ -77,14 +77,14 @@ export default {
 
   mounted () {
     this.load = () => { handleLoad(this) }
-    window.addEventListener('load', this.load )
+    window.addEventListener('load', this.load)
     this.resize = () => { initResize(this) }
     window.addEventListener('resize', this.resize)
 
     this.handleResize()
   },
 
-  beforeDestroy() {
+  beforeDestroy () {
     if (this.load) { window.removeEventListener('resize', this.load) }
     if (this.resize) { window.removeEventListener('resize', this.resize) }
   },
