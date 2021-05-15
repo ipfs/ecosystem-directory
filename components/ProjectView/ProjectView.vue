@@ -54,11 +54,15 @@
           v-slot="{ paginated }"
           :display="display"
           :collection="ProjectList">
-          <div v-if="paginated" class="grid paginate-cards">
-            <div v-for="(project, index) in paginated" :key="index" class="col-3 card-container">
 
-              <div class="card">
-                <div class="card-logo">
+          <div v-if="!listActive" class="grid paginate-cards">
+            <div
+              v-for="(project, index) in paginated"
+              :key="`grid-${index}`"
+              class="col-3 card-container-grid">
+
+              <div class="card-grid">
+                <div class="card-logo-grid">
                   <img :src="logos(project.logo)" />
                 </div>
               </div>
@@ -69,6 +73,26 @@
 
             </div>
           </div>
+
+          <div v-else>
+            <div
+              v-for="(project, index) in paginated"
+              :key="`list-${index}`"
+              class="col-3 card-container-list">
+
+              <div class="card-list">
+                <div class="card-logo-list">
+                  <img :src="logos(project.logo)" />
+                </div>
+                <div class="card-project-list">
+                  <label>{{ project.name }}</label>
+                  <p>{{ project.description }}</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </Paginate>
 
         <div class="page-navigation-controls">
@@ -156,7 +180,7 @@ export default {
   watch: {
     filterActive (val) {
       if (val) {
-        this.$refs.filterWrap.style.width = '70%' 
+        this.$refs.filterWrap.style.width = '70%'
         this.$refs.cardDisplay.style.marginLeft = '5%'
         this.$refs.cardDisplay.style.marginRight = '12%'
       } else {
@@ -267,20 +291,25 @@ export default {
     transition: all 500ms ease-in-out;
   }
 
-  .paginate-cards{
+  .paginate-cards {
     justify-content: flex-start;
+    align-content: flex-start;
   }
 
-  .card-container {
+  // ////////////////////////////////////////////////////////////// [GRID VIEW]
+
+  .card-container-grid {
     height: 250px;
     margin-bottom: 1rem;
     display: inline-block;
     flex-grow: 1;
     flex-shrink: 1;
     min-width: 140px;
+    & label { font-weight: bold; }
+    & p { font-size: 10pt; }
   }
 
-  .card {
+  .card-grid {
     width: 100%;
     height: 64%;
     border-radius: 6px;
@@ -291,7 +320,7 @@ export default {
     }
   }
 
-  .card-logo {
+  .card-logo-grid {
     position: relative;
     width: 50%;
     height: 60%;
@@ -300,13 +329,60 @@ export default {
     transform: translateY(-50%);
   }
 
+  // ////////////////////////////////////////////////////////////// [LIST VIEW]
+  .card-container-list {
+    display: inline-block;
+    flex-grow: 1;
+    flex-shrink: 1;
+    // min-width: 350px;
+    max-width: 500px;
+    width: 50%;
+    height: 120px;
+    margin-bottom: 0;
+  }
+
+  .card-list {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+    background-color: #FFFFFF;
+    margin-bottom: 16px;
+    display: flex;
+    position: relative;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .card-logo-list {
+    position: relative;
+    padding: 1.0rem;
+    margin-left: 0.5rem;
+    width: 80px;
+    max-height: 80%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .card-project-list {
+    position: absolute;
+    vertical-align: middle;
+    padding: 1rem;
+    margin-left: 5.0rem;
+    vertical-align: middle;
+    & label {
+      font-size: 16pt;
+      font-weight: bold;
+    }
+    & p {
+      font-size: 10pt;
+    }
+  }
+
   img {
     width: 100%;
     height: 100%;
   }
-
-  label { font-weight: bold; }
-  p { font-size: 10pt; }
 
   // /////////////////////////////////////////////////////////// [PAGINATION CONTROLS]
 
