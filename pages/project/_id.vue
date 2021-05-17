@@ -3,103 +3,105 @@
 
     <div class="grid-noGutter">
       <div class="col">
-        <section v-if="project.breadcrumbs" id="section-breadcrumbs">
-          <Breadcrumbs :breadcrumbs="project.breadcrumbs" />
+        <section v-if="breadcrumbs" id="section-breadcrumbs">
+          <Breadcrumbs :breadcrumbs="breadcrumbs" />
         </section>
       </div>
     </div>
 
     <div class="grid">
-
       <div class="col-5">
-        <section v-if="project.section_project_info" id="section-project-info">
-          <img v-if="project.section_project_info.logo" class="logo" :src="project.section_project_info.logo" :alt="`${project.section_project_info.name} logo`">
+        <section id="section-project-info">
+          <img v-if="project.logo && project.logo.full" class="logo" :src="$relativity(`/images/${project.logo.full}`)" :alt="`${project.name} logo`">
 
-          <h1 v-if="project.section_project_info.name" class="name">
-            {{ project.section_project_info.name }}
+          <h1 v-if="project.name" class="name">
+            {{ project.name }}
           </h1>
-          <h2 v-if="project.section_project_info.company" class="company">
-            {{ project.section_project_info.company }}
+          <h2 v-if="project.org && project.org.length" class="company">
+            {{ project.org[0] }}
           </h2>
-          <p v-if="project.section_project_info.description" class="description">
-            {{ project.section_project_info.description }}
+          <p v-if="project.description && project.description.long" class="description">
+            {{ project.description.long }}
           </p>
           <div class="ctas">
-            <a v-if="project.section_project_info.primary_cta" :href="project.section_project_info.primary_cta.url" :target="project.section_project_info.primary_cta.target || '_self'" class="primary-cta">
-              {{ project.section_project_info.primary_cta.text }}
+            <a v-if="project.primaryCta" :href="project.primaryCta.url" target="_blank" class="primary-cta">
+              {{ project.primaryCta.text }}
             </a>
-            <a v-if="project.section_project_info.secondary_cta" :href="project.section_project_info.secondary_cta.url" :target="project.section_project_info.secondary_cta.target || '_self'" class="secondary-cta">
-              {{ project.section_project_info.secondary_cta.text }}
+            <a href="/" class="secondary-cta">
+              Explore Ecosystem
             </a>
           </div>
         </section>
       </div>
 
       <div class="col-6" data-push-left="off-1">
-        <section v-if="project.section_statistics" id="section-statistics">
-          <div v-for="(item, i) in project.section_statistics" :key="i" :class="`card ${item.type}`">
-            <template v-if="item.type=='big-number'">
-              <p v-if="item.statistic" class="statistic">
-                {{ item.statistic }}
-              </p>
-              <p v-if="item.description" class="description">
-                {{ item.description }}
-              </p>
-            </template>
-            <template v-else-if="item.type=='case-study'">
-              <p v-if="item.title" class="title">
-                {{ item.title }}
-              </p>
-              <p v-if="item.description" class="description">
-                {{ item.description }}
-              </p>
-              <a v-if="item.link" class="cta" href="item.link.url" target="_blank">
-                {{ item.link.text }}
-              </a>
-            </template>
+        <section id="section-statistics">
+          <div v-for="(stat, i) in project.stats" :key="i" :class="`card big-number`">
+            <p v-if="stat.value" class="statistic">
+              {{ stat.value }}
+            </p>
+            <p v-if="stat.label" class="description">
+              {{ stat.label }}
+            </p>
+          </div>
+          <div v-if="project.ctaCard" class="card case-study">
+            <p v-if="project.ctaCard.title" class="title">
+              {{ project.ctaCard.title }}
+            </p>
+            <p v-if="project.ctaCard.description" class="description">
+              {{ project.ctaCard.description }}
+            </p>
+            <a v-if="project.ctaCard.url" class="cta" :href="project.ctaCard.url" target="_blank">
+              {{ project.ctaCard.buttonText }}
+            </a>
           </div>
         </section>
       </div>
-
     </div>
 
     <div class="grid">
       <div class="col-5">
-        <section v-if="project.section_key_info" id="section-key-info">
+        <section v-if="project.links || project.keyInfo" id="section-key-info">
           <h3 class="heading">
-            {{ project.section_key_info.heading }}
+            Key info
           </h3>
 
-          <dl v-if="project.section_key_info.values" class="values">
-            <template v-for="(item, i) in project.section_key_info.values">
+          <dl v-if="project.links" class="values">
+            <template v-for="(linkGroup, i) in project.links">
               <dt :key="`key-${i}`" class="name">
-                {{ item.name }}
+                {{ linkGroup.label }}
               </dt>
 
-              <dd v-if="item.type == 'links'" :key="`val-${i}`">
+              <dd :key="`val-${i}`">
                 <ul class="links">
-                  <li v-for="(link, j) in item.value" :key="j">
-                    <a href="link" target="_blank">
-                      {{ $truncateString(link, 12, '...', type = 'double') }}
+                  <li v-for="(link, j) in linkGroup.links" :key="j">
+                    <a href="link.url" target="_blank">
+                      {{ $truncateString(link.text, 12, '...', type = 'double') }}
                     </a>
-                    <div v-if="link.length > 23" class="link-tooltip" :data-tooltip="link" data-tooltip-theme="dark">
+                    <div v-if="link.text.length > 23" class="link-tooltip" :data-tooltip="link.text" data-tooltip-theme="dark">
                       ?
                     </div>
                   </li>
                 </ul>
               </dd>
+            </template>
+
+            <template v-for="(info, i) in project.keyInfo">
+              <dt :key="`key-${i}`" class="name">
+                {{ info.label }}
+              </dt>
               
-              <dd v-else :key="`val-${i}`" class="text">
-                {{ item.value }}
+              <dd :key="`val-${i}`" class="text">
+                {{ info.value }}
               </dd>
             </template>
           </dl>
         </section>
 
-        <section v-if="project.section_video.url" id="section-video">
+        <section v-if="project.video" id="section-video">
           <div class="video-wrapper">
             <iframe
-              :src="$buildVideoEmbedUrl($parseVideoUrl(project.section_video.url))"
+              :src="$buildVideoEmbedUrl($parseVideoUrl(project.video))"
               class="video"
               allow="autoplay; encrypted-media"
               allowfullscreen>
@@ -110,26 +112,29 @@
       </div>
 
       <div class="col-6" data-push-left="off-1">
-        <section v-if="project.section_filters" id="section-filters">
+        <section v-if="project.taxonomies" id="section-filters">
           <Accordion
             v-slot="{ active }"
             :multiple="true">
             <AccordionSection
-              v-for="(filterGroup, i) in project.section_filters.filters"
+              v-for="(taxonomy, i) in project.taxonomies"
               :key="i"
               :active="active"
               :selected="true"
               class="filters">
               <AccordionHeader>
                 <h3 class="heading">
-                  {{ filterGroup.title }}
+                  {{ taxonomy.slug }}
                 </h3>
               </AccordionHeader>
               <AccordionContent>
                 <div class="chicklet-container">
-                  <button v-for="(filter, j) in filterGroup.filters" :key="j" class="chicklet">
-                    {{ filter }}
+                  <button v-for="(taxonomyTag, j) in taxonomy.tags" :key="j" class="chicklet">
+                    {{ taxonomyTag.text }}
                   </button>
+                  <a v-for="(taxonomyTag, j) in taxonomy.tags" :key="j" :href="taxonomyTag.url" class="chicklet">
+                    {{ taxonomyTag.text }}
+                  </a>
                 </div>
               </AccordionContent>
             </AccordionSection>
@@ -138,15 +143,15 @@
       </div>
     </div>
 
-    <section v-if="project.section_featured_slider" id="section-featured-slider">
+    <section id="section-featured-slider">
       <div class="grid-center">
 
         <div class="col-12">
-          <h3 v-if="project.section_featured_slider.heading" class="heading">
-            {{ project.section_featured_slider.heading }}
+          <h3 class="heading">
+            Featured
           </h3>
-          <div v-if="project.section_featured_slider.description" class="description">
-            {{ project.section_featured_slider.description }}
+          <div class="description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
           </div>
         </div>
 
@@ -156,12 +161,6 @@
 
       </div>
     </section>
-
-    <!-- <div class="grid">
-      <div class="col">
-        <pre><code>{{ project }}</code></pre>
-      </div>
-    </div> -->
 
   </div>
 </template>
@@ -242,6 +241,30 @@ export default {
     // SEO
     seo () {
       return this.$getSeo(this.tag)
+    },
+    breadcrumbs () {
+      return [
+        {
+          type: 'a',
+          href: 'https://ipfs.io',
+          target: '_blank',
+          label: 'Home'
+        },
+        {
+          type: 'a',
+          href: '/',
+          label: 'IPFS Ecosystem'
+        },
+        {
+          type: 'a',
+          href: '/projects',
+          label: 'All projects'
+        },
+        {
+          type: 'div',
+          label: this.project.name
+        }
+      ]
     },
     // Project Content
     project () {
@@ -486,6 +509,7 @@ export default {
   .chicklet {
     background: $blackHaze;
     border-radius: 5px;
+    color: $blackPearl;
     font-size: 12px;
     padding: 5px 14px;
   }
