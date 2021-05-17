@@ -55,7 +55,7 @@
           :display="display"
           :collection="ProjectList">
 
-          <div v-if="!listActive" class="grid paginate-cards">
+          <div v-if="!listActive" class="grid">
             <div
               v-for="(project, index) in paginated"
               :key="`grid-${index}`"
@@ -74,7 +74,7 @@
             </div>
           </div>
 
-          <div v-else>
+          <div v-else class="card-list-flex">
             <div
               v-for="(project, index) in paginated"
               :key="`list-${index}`"
@@ -182,7 +182,7 @@ export default {
       if (val) {
         this.$refs.filterWrap.style.width = '70%'
         this.$refs.cardDisplay.style.marginLeft = '5%'
-        this.$refs.cardDisplay.style.marginRight = '12%'
+        this.$refs.cardDisplay.style.marginRight = '10%'
       } else {
         this.$refs.filterWrap.style.width = '0%'
         this.$refs.cardDisplay.style.marginLeft = '16%'
@@ -291,20 +291,13 @@ export default {
     transition: all 500ms ease-in-out;
   }
 
-  .paginate-cards {
-    justify-content: flex-start;
-    align-content: flex-start;
-  }
-
   // ////////////////////////////////////////////////////////////// [GRID VIEW]
-
   .card-container-grid {
     height: 250px;
     margin-bottom: 1rem;
-    display: inline-block;
-    flex-grow: 1;
-    flex-shrink: 1;
-    min-width: 140px;
+    align-self: flex-start;
+    flex: 1 1 25%;
+    min-width: 150px;
     & label { font-weight: bold; }
     & p { font-size: 10pt; }
   }
@@ -330,13 +323,15 @@ export default {
   }
 
   // ////////////////////////////////////////////////////////////// [LIST VIEW]
+
+  .card-list-flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
   .card-container-list {
-    display: inline-block;
-    flex-grow: 1;
-    flex-shrink: 1;
-    // min-width: 350px;
-    max-width: 500px;
-    width: 50%;
+    flex: 1 1 50%;
+    min-width: 332px;
     height: 120px;
     margin-bottom: 0;
   }
