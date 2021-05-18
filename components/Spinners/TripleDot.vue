@@ -44,7 +44,7 @@ export default {
   }
   &.theme-dark {
     .dot {
-      background-color: $mineShaft;
+      background-color: gray;
     }
   }
 }

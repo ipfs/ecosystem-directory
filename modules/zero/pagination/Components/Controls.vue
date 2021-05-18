@@ -5,12 +5,16 @@
       <button
         class="control-button first"
         @click="navigateToPage(1)">
-        First
+
+        <slot name="first-page"></slot>
+
       </button>
       <button
         class="control-button prev"
         @click="navigateToPage(page - 1)">
-        Prev
+
+        <slot name="prev-page"></slot>
+
       </button>
       <div class="breaker">
         {{ breaker }}
@@ -32,13 +36,18 @@
       <button
         class="control-button next"
         @click="navigateToPage(page + 1)">
-        Next
+
+        <slot name="next-page"></slot>
+
       </button>
       <button
         class="control-button last"
         @click="navigateToPage(totalPages)">
-        Last
+
+        <slot name="last-page"></slot>
+
       </button>
+
     </template>
 
   </div>
@@ -57,6 +66,26 @@ export default {
       type: String,
       required: false,
       default: '⋯'
+    },
+    first: {
+      type: String,
+      required: false,
+      default: 'First'
+    },
+    prev: {
+      type: String,
+      required: false,
+      default: 'Prev'
+    },
+    next: {
+      type: String,
+      required: false,
+      default: 'Next'
+    },
+    last: {
+      type: String,
+      required: false,
+      default: 'Last'
     }
   },
 
@@ -92,7 +121,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 $dimension: 2.5rem;
 
 // ///////////////////////////////////////////////////////////////////// General
@@ -101,7 +130,7 @@ $dimension: 2.5rem;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-top: 3rem;
+  margin-right: 2rem;
 }
 
 // /////////////////////////////////////////////////////////// Buttons & Breaker
@@ -112,17 +141,19 @@ $dimension: 2.5rem;
   align-items: center;
   width: $dimension;
   height: $dimension;
-  color: $dodgerBlue;
+  color: grey;
 }
 
 .breaker {
   display: flex;
-  font-weight: 500;
-  color: $mineShaft;
+  // font-weight: 500;
+  color: black;
   opacity: 0.25;
 }
 
 .page-button {
+  // font-family: $fontInter;
+  // font-weight: 600;
   display: none;
   &:not(.current) {
     &:hover {
@@ -133,14 +164,14 @@ $dimension: 2.5rem;
     display: flex;
   }
   &.current {
-    background-color: $dodgerBlue;
-    color: white;
+    color: black;
     cursor: default;
   }
 }
 
 .control-button {
-  color: $dodgerBlue;
+  color: grey;
+  padding: 0.5rem;
   &:hover {
     text-decoration: underline;
   }
@@ -154,6 +185,13 @@ $dimension: 2.5rem;
   }
   &.first,
   &.last {
+    opacity: 0.5;
+    &:hover {
+      opacity: 1;
+    }
+  }
+  &.prev,
+  &.next {
     opacity: 0.5;
     &:hover {
       opacity: 1;

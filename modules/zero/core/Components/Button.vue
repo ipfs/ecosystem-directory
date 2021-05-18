@@ -9,8 +9,19 @@
     <LoaderTripleDot :class="{ show: loading }" />
 
     <div :class="['button-content', { hide: loading }]">
-      {{ text }}
-      <slot />
+
+      <div v-if="iconBefore">
+        <slot name="icon-before"></slot>
+      </div>
+
+      <p v-if="text" class="item-after">
+        {{ text }}
+      </p>
+
+      <div v-if="iconAfter" class="item-after">
+        <slot name="icon-after"></slot>
+      </div>
+
     </div>
 
   </component>
@@ -21,6 +32,13 @@
 import { mapGetters, mapActions } from 'vuex'
 
 import LoaderTripleDot from '@/components/Spinners/TripleDot'
+
+// ===================================================================== Functions
+const checkSlots = (instance) => {
+  const slots = instance.$slots
+  if (slots.hasOwnProperty('icon-before') && slots['icon-before']) { instance.iconBefore = true }
+  if (slots.hasOwnProperty('icon-after') && slots['icon-after']) { instance.iconAfter = true }
+}
 
 // ====================================================================== Export
 export default {
@@ -53,12 +71,20 @@ export default {
     },
     text: {
       type: String,
-      required: true
+      required: false,
+      default: ''
     },
     disabled: {
       type: Boolean,
       required: false,
       default: false
+    }
+  },
+
+  data () {
+    return {
+      iconBefore: false,
+      iconAfter: false
     }
   },
 
@@ -69,6 +95,10 @@ export default {
     loading () {
       return this.loaders.find(obj => obj === this.loader)
     }
+  },
+
+  mounted () {
+    checkSlots(this)
   },
 
   methods: {
@@ -90,7 +120,7 @@ export default {
 // ///////////////////////////////////////////////////////////////////// General
 .button {
   position: relative;
-  height: 2.5rem;
+  height: 2.25rem;
   cursor: pointer;
 }
 
@@ -114,9 +144,14 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
+  padding: 0.5rem;
   &.hide {
     opacity: 0;
   }
+}
+
+.item-after {
+  margin-left: 0.75rem;
 }
 
 // /////////////////////////////////////////////////////////////// [Type] Common
@@ -128,15 +163,15 @@ export default {
   white-space: nowrap;
   padding: 0 0.75rem;
   &:not(:disabled) {
-    &:hover {
-      transform: scale(1.05);
-    }
-    &:focus {
-      @include focusBoxShadow;
-    }
-    &:active {
-      transform: scale(0.95);
-    }
+    // &:hover {
+    //   transform: scale(1.05);
+    // }
+    // &:focus {
+    //   @include focus_BoxShadow_Regular;
+    // }
+    // &:active {
+    //   transform: scale(0.95);
+    // }
   }
   &:disabled {
     background-color: $gray300;
@@ -146,8 +181,8 @@ export default {
 
 // //////////////////////////////////////////////////////////////////// [Type] A
 .type-A {
-  @include shadow6;
-  background-color: $dodgerBlue;
+  @include shadow1;
+  // background-color: blue;
   &:disabled {
     box-shadow: none;
   }
@@ -155,8 +190,8 @@ export default {
 
 // //////////////////////////////////////////////////////////////////// [Type] B
 .type-B {
-  color: $dodgerBlue;
-  border: 2px solid $dodgerBlue;
+  color: blue;
+  border: 2px solid blue;
   &:not(:disabled) {
     &:hover {
       text-decoration: underline;
@@ -170,13 +205,14 @@ export default {
 
 // //////////////////////////////////////////////////////////////////// [Type] A
 .type-C {
-  background-color: $dodgerBlue;
+  background-color: #ffffff;
+  border-radius: 6px;
 }
 
 // //////////////////////////////////////////////////////////////////// [Type] A
 .type-D {
-  color: $dodgerBlue;
-  border: 1px solid $dodgerBlue;
+  color: blue;
+  border: 1px solid blue;
   padding: 0 0.375rem;
   height: auto;
 }

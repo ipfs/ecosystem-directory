@@ -40,7 +40,7 @@
 
 <script>
 // ===================================================================== Imports
-import SampleProjects from './sampleProjects.json'
+import SampleProjects from '~/content/projects/sampleFeaturedProjects.json'
 
 // ===================================================================== Functions
 const handleFeatureSliderResize = (instance) => {
@@ -88,7 +88,7 @@ export default {
 
   methods: {
     logos (path) {
-      return require('./assets/logos/' + path)
+      return require('~/assets/logos/' + path)
     },
     setSliderPosition () {
       // 22 is the left and right margin on the card added together
@@ -99,8 +99,7 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
 
   /* .main-wrapper {
     height: 100vh;
@@ -163,10 +162,9 @@ export default {
     border-radius: 6px;
     background-color: #FFFFFF;
     margin-bottom: 16px;
-  }
-
-  .card:hover {
-    cursor: pointer;
+    &:hover{
+      cursor: pointer;
+    }
   }
 
   .card-logo {
