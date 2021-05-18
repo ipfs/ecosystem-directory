@@ -1,0 +1,44 @@
+{
+  "categories": [
+    {
+      "label": "Foo & Bar",
+      "slug": "foo-bar",
+      "tags": [
+        { 
+          "label": "Tag One",
+          "slug": "tag-one"
+        },
+        { 
+          "label": "Tag Two",
+          "slug": "tag-two"
+        },
+        {
+          "label": "Tag Three",
+          "slug": "tag-three"
+        }
+      ]
+    },
+    {
+      "label": "Baz",
+      "slug": "baz",
+      "tags": [
+        { 
+          "label": "Property One",
+          "slug": "property-one"
+        },
+        { 
+          "label": "Property Two",
+          "slug": "property-two"
+        },
+        {
+          "label": "property Three",
+          "slug": "property-three"
+        },
+        {
+          "label": "property Four",
+          "slug": "property-four"
+        }
+      ]
+    }
+  ]
+}
