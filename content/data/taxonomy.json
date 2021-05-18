@@ -1,42 +1,250 @@
 {
   "categories": [
     {
-      "label": "Foo & Bar",
-      "slug": "foo-bar",
+      "label": "Industry",
+      "slug": "industry",
       "tags": [
-        { 
-          "label": "Tag One",
-          "slug": "tag-one"
-        },
-        { 
-          "label": "Tag Two",
-          "slug": "tag-two"
+        {
+          "label": "Browsers",
+          "slug": "browsers"
         },
         {
-          "label": "Tag Three",
-          "slug": "tag-three"
+          "label": "Content (incl hosting, streaming, CDNs)",
+          "slug": "content"
+        },
+        {
+          "label": "Data (incl machine learning)",
+          "slug": "data"
+        },
+        {
+          "label": "Data governance",
+          "slug": "data-governance"
+        },
+        {
+          "label": "DeFi",
+          "slug": "defi"
+        },
+        {
+          "label": "Ecommerce & marketplaces",
+          "slug": "ecommerce-marketplaces"
+        },
+        {
+          "label": "Games & VR/AR",
+          "slug": "games-vr-ar"
+        },
+        {
+          "label": "Identity",
+          "slug": "identity"
+        },
+        {
+          "label": "Integrations",
+          "slug": "integrations"
+        },
+        {
+          "label": "IoT",
+          "slug": "iot"
+        },
+        {
+          "label": "NFTs",
+          "slug": "nfts"
+        },
+        {
+          "label": "Other",
+          "slug": "other"
+        },
+        {
+          "label": "Persistence & archiving (incl pinning)",
+          "slug": "persistence-archiving"
+        },
+        {
+          "label": "Prediction",
+          "slug": "prediction"
+        },
+        {
+          "label": "Social media",
+          "slug": "social-media"
         }
       ]
     },
     {
-      "label": "Baz",
-      "slug": "baz",
+      "label": "Product Focus",
+      "slug": "focus",
       "tags": [
-        { 
-          "label": "Property One",
-          "slug": "property-one"
-        },
-        { 
-          "label": "Property Two",
-          "slug": "property-two"
+        {
+          "label": "Academic/research data",
+          "slug": "academic-research"
         },
         {
-          "label": "property Three",
-          "slug": "property-three"
+          "label": "Community/mesh networks",
+          "slug": "community-mesh-networks"
         },
         {
-          "label": "property Four",
-          "slug": "property-four"
+          "label": "Dev tools",
+          "slug": "dev-tools"
+        },
+        {
+          "label": "Education",
+          "slug": "education"
+        },
+        {
+          "label": "File sharing",
+          "slug": "file-sharing"
+        },
+        {
+          "label": "GLAM",
+          "slug": "glam"
+        },
+        {
+          "label": "Infrastructure",
+          "slug": "infrastructure"
+        },
+        {
+          "label": "IP/reputation management",
+          "slug": "ip-reputation"
+        },
+        {
+          "label": "Medical data",
+          "slug": "medical"
+        },
+        {
+          "label": "Mobile",
+          "slug": "mobile"
+        },
+        {
+          "label": "Music",
+          "slug": "music"
+        },
+        {
+          "label": "Package managers",
+          "slug": "package-managers"
+        },
+        {
+          "label": "Pinning & object storage",
+          "slug": "pinning-object-storage"
+        },
+        {
+          "label": "Public/community data",
+          "slug": "public-community-data"
+        },
+        {
+          "label": "Streaming",
+          "slug": "streaming"
+        },
+        {
+          "label": "Supply chain",
+          "slug": "supply-chain"
+        },
+        {
+          "label": "Video",
+          "slug": "video"
+        },
+        {
+          "label": "Web hosting/publishing",
+          "slug": "web-hosting-publishing"
+        }
+      ]
+    },
+    {
+      "label": "IPFS Enablers/Benefits",
+      "slug": "enablers-benefits",
+      "tags": [
+        {
+          "label": "Data integrity",
+          "slug": "data integrity"
+        },
+        {
+          "label": "Disaster resilience/recovery",
+          "slug": "disaster resilience/recovery"
+        },
+        {
+          "label": "Freedom from corp/gov interference",
+          "slug": "freedom from corp/gov interference"
+        },
+        {
+          "label": "Interoperability",
+          "slug": "interoperability"
+        },
+        {
+          "label": "Local-first programming model",
+          "slug": "local-first programming model"
+        },
+        {
+          "label": "Product/project couldn't exist without IPFS",
+          "slug": "product/project couldn't exist without ipfs"
+        },
+        {
+          "label": "Self-sovereign data",
+          "slug": "self-sovereign data"
+        }
+      ]
+    },
+    {
+      "label": "Tools/implementations",
+      "slug": "tools-implementations",
+      "tags": [
+        {
+          "label": "Bitswap",
+          "slug": "bitswap"
+        },
+        {
+          "label": "cljs-ipfs",
+          "slug": "cljs-ipfs"
+        },
+        {
+          "label": "Filecoin",
+          "slug": "filecoin"
+        },
+        {
+          "label": "go-ipfs",
+          "slug": "go-ipfs"
+        },
+        {
+          "label": "go-libp2p",
+          "slug": "go-libp2p"
+        },
+        {
+          "label": "HTTP gateway (public or private)",
+          "slug": "http-gateway"
+        },
+        {
+          "label": "IPFS Cluster",
+          "slug": "ipfs cluster"
+        },
+        {
+          "label": "ipfs-embed",
+          "slug": "ipfs-embed"
+        },
+        {
+          "label": "IPLD",
+          "slug": "ipld"
+        },
+        {
+          "label": "js-ipfs",
+          "slug": "js-ipfs"
+        },
+        {
+          "label": "js-ipfs-https-client",
+          "slug": "js-ipfs-https-client"
+        },
+        {
+          "label": "js-libp2p",
+          "slug": "js-libp2p"
+        },
+        {
+          "label": "pinning services",
+          "slug": "pinning-services"
+        },
+        {
+          "label": "py-ipfs-http-client",
+          "slug": "py-ipfs-http-client"
+        },
+        {
+          "label": "rust-libp2p",
+          "slug": "rust-libp2p"
+        },
+        {
+          "label": "3rd-party tooling providers",
+          "slug": "third-party-tooling"
         }
       ]
     }
