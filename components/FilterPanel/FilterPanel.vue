@@ -23,20 +23,24 @@
               </span>
             </div>
 
-            <div class="filter-category toggle" :class="{ flip: !activeCats[index] }">
+            <div class="filter-category toggle" :class="{ flip: !catsActive[index] }">
               <ToggleArrow stroke="#494949" />
             </div>
 
           </div>
 
-          <div class="collapsible-tags" :class="{ expanded: activeCats[index], collapsed : !activeCats[index] }">
+          <div ref="cats" class="collapsible-tags" :class="{ collapsed : !catsActive[index] }">
 
             <h5 class="filter-category sub-heading">
               Filter by {{ heading.label }}
             </h5>
 
             <div class="filter-category tag-list">
-              <div v-for="tag in heading.tags" :key="tag.label" class="filter-category tag">
+              <div
+                v-for="tag in heading.tags"
+                :key="tag.label"
+                :class="`filter-category tag ${selected.includes(tag.label) ? 'active-button' : 'not-selected'}`"
+                @click="applyFilter(tag.label)">
                 {{ tag.label }}
               </div>
             </div>
@@ -56,7 +60,36 @@ import Filters from '@/modules/zero/filters/Components/Filters'
 import ToggleArrow from '@/components/Icons/ToggleArrow'
 
 // ===================================================================== Functions
+const elementEnter = (element) => {
+  const width = getComputedStyle(element).width
 
+  element.style.width = width
+  element.style.position = 'absolute'
+  element.style.visibility = 'hidden'
+  element.style.height = 'auto'
+
+  const height = getComputedStyle(element).height
+
+  element.style.width = null
+  element.style.position = null
+  element.style.visibility = null
+  element.style.height = 0
+
+  requestAnimationFrame(() => {
+    element.style.height = height
+    setTimeout(() => { element.style.height = 'auto' }, 500)
+  })
+}
+
+const elementLeave = (element) => {
+  const height = getComputedStyle(element).height
+
+  element.style.height = height
+
+  requestAnimationFrame(() => {
+    element.style.height = 0
+  })
+}
 // ====================================================================== Export
 
 export default {
@@ -77,7 +110,9 @@ export default {
 
   data () {
     return {
-      activeCats: []
+      catsActive: [],
+      heights: [],
+      selected: []
     }
   },
 
@@ -93,13 +128,25 @@ export default {
   },
 
   mounted () {
-    this.activeCats = this.initToggles
-    console.log(this.activeCats)
+    this.catsActive = this.initToggles
   },
 
   methods: {
     toggleCat (ind) {
-      this.$set(this.activeCats, ind, !this.activeCats[ind])
+      this.$set(this.catsActive, ind, !this.catsActive[ind])
+
+      if (this.catsActive[ind]) {
+        elementEnter(this.$refs.cats[ind])
+      } else {
+        elementLeave(this.$refs.cats[ind])
+      }
+    },
+    applyFilter (tag) {
+      if (this.selected.includes(tag)) {
+        this.selected = this.selected.filter(item => item !== tag)
+      } else {
+        this.selected.push(tag)
+      }
     }
   }
 }
@@ -107,13 +154,36 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+// ///////////////////////////////////////////////////////////////////// General
   .filter-panel-content {
     margin-top: 2rem;
     margin-right: 2rem;
     white-space: nowrap;
   }
 
+  .flip {
+    transform: scaleY(-1);
+  }
+
+  .collapsible-tags {
+    transition: height 500ms ease-in-out;
+    overflow: hidden;
+  }
+
+  .collapsed {
+    height: 0px;
+  }
+
+  .active-button {
+    background-color: $tiber;
+    color: #ffffff;
+  }
+
+  .not-selected {
+    background-color: $blackHaze;
+  }
+
+// //////////////////////////////////////////////////////////////// Filter Panel
   .filter-category {
     &:hover {
       cursor: pointer;
@@ -159,26 +229,11 @@ export default {
       font-size: 8pt;
       padding: 0.5rem 1rem;
       max-width: 100%;
-      background-color: $blackHaze;
       border-radius: 6px;
     }
     &.tag-list > .tag {
       margin: 6px;
     }
-  }
-
-  .flip {
-    transform: scaleY(-1);
-  }
-
-  .collapsible-tags {
-    transition: height 500ms ease-in-out;
-    overflow: hidden;
-    height: 0px;
-  }
-
-  .expanded {
-    height: auto;
   }
 
 </style>
