@@ -2,8 +2,9 @@
   <Filters
     v-if="ProjectFilters"
     v-slot="{ filtered }"
-    :headings="ProjectFilters"
+    :projects="collection"
     :filters="ProjectFilters"
+    :selected="selected"
     class="filter-panel-content">
 
     <h4 class="filter-panel title">
@@ -59,6 +60,7 @@
 import Filters from '@/modules/zero/filters/Components/Filters'
 import ToggleArrow from '@/components/Icons/ToggleArrow'
 
+import Taxonomy from '~/content/data/taxonomy.json'
 // ===================================================================== Functions
 const elementEnter = (element) => {
   const width = getComputedStyle(element).width
@@ -101,7 +103,7 @@ export default {
   },
 
   props: {
-    categories: {
+    collection: {
       type: [Boolean, Array],
       default: false,
       required: false
@@ -118,11 +120,11 @@ export default {
 
   computed: {
     ProjectFilters () {
-      const filters = this.categories
+      const filters = Taxonomy.categories
       return filters
     },
     initToggles () {
-      const arr = Array(this.categories.length).fill(false)
+      const arr = Array(Taxonomy.categories.length).fill(false)
       return arr
     }
   },

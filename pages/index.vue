@@ -5,7 +5,10 @@
       <transition-group name="fade" tag="section">
         <section v-if="showSegmentFeatured" key="segment">
           <div ref="segmentSlider">
-            <SegmentSliderChart v-if="showSegmentFeatured" class="grid-center" />
+            <SegmentSliderChart
+              v-if="showSegmentFeatured"
+              :all-projects="projects"
+              class="grid-center" />
           </div>
         </section>
 
@@ -22,7 +25,8 @@
             </div>
 
             <div class="col-11">
-              <FeaturedProjectsSlider />
+              <FeaturedProjectsSlider
+                :all-projects="projects" />
             </div>
 
           </div>
@@ -49,6 +53,7 @@
 
       <div class="grid-center full maxed">
         <ProjectView
+          :all-projects="projects"
           @hide-segment-chart="toggleProjectView" />
       </div>
 
@@ -95,8 +100,12 @@ export default {
   },
 
   async fetch ({ store, req }) {
+    const projectObjects = []
+    const obj = require('@/content/projects/international-standard-content-number.json')
+    projectObjects.push(obj)
     await store.dispatch('global/getBaseData', 'general')
     await store.dispatch('global/getBaseData', 'index')
+    await store.dispatch('projects/getAllProjects', projectObjects)
   },
 
   head () {
@@ -124,7 +133,8 @@ export default {
 
   computed: {
     ...mapGetters({
-      siteContent: 'global/siteContent'
+      siteContent: 'global/siteContent',
+      projects: 'projects/projects'
     }),
     // SEO
     seo () {

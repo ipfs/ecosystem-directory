@@ -39,7 +39,7 @@
       <div id="filter-panel-wrapper" ref="filterWrap">
         <div class="filter-panel inner-wrapper">
           <FilterPanel
-            :categories="ProjectFilters" />
+            :collection="allProjects" />
         </div>
       </div>
 
@@ -48,10 +48,10 @@
       <div id="card-display" ref="cardDisplay">
 
         <Paginate
-          v-if="ProjectList"
+          v-if="allProjects"
           v-slot="{ paginated }"
           :display="display"
-          :collection="ProjectList"
+          :collection="allProjects"
           class="card-grid">
           <template v-for="(project, index) in paginated">
             <div
@@ -62,13 +62,13 @@
 
               <div class="card">
                 <div class="card-logo">
-                  <img :src="logos(project.logo)" />
+                  <img :src="logos(project.logo.icon)" :alt="project.name" />
                 </div>
               </div>
 
               <label>{{ project.name }}</label>
 
-              <p>{{ project.description }}</p>
+              <p>{{ project.description.short }}</p>
             </div>
           </template>
         </Paginate>
@@ -78,7 +78,7 @@
           <PaginationControls />
 
           <div class="results-selector-wrapper">
-            <ResultsPerPageSelector :collection="ProjectList" class="results-per-page font-inter">
+            <ResultsPerPageSelector :collection="allProjects" class="results-per-page font-inter">
 
               <template #dropdown-icon>
                 <SelectorToggle />
@@ -109,8 +109,7 @@ import FiltersToggle from '@/modules/zero/core/Components/Icons/FiltersToggle'
 import FilterPanel from '../FilterPanel/FilterPanel'
 import PaginationControls from './PaginationControls'
 
-import SampleProjects from '~/content/projects/sampleProjects.json'
-import Taxonomy from '~/content/data/taxonomy.json'
+import SampleProjects from '~/content/sample/sampleProjects.json'
 
 // ===================================================================== Functions
 const processProjects = (instance) => {
@@ -131,6 +130,14 @@ export default {
     GridView,
     Button,
     FilterPanel
+  },
+
+  props: {
+    allProjects: {
+      type: [Boolean, Array],
+      default: false,
+      required: false
+    }
   },
 
   data () {
@@ -154,10 +161,6 @@ export default {
     ProjectList () {
       const projects = this.projects
       return projects
-    },
-    ProjectFilters () {
-      const filters = Taxonomy.categories
-      return filters
     }
   },
 
@@ -190,7 +193,13 @@ export default {
       clearStore: 'pagination/clearStore'
     }),
     logos (path) {
-      return require('~/assets/logos/' + path)
+      let icon
+      try {
+        icon = require('~/assets/logos/' + path)
+      } catch (e) {
+        console.log(e)
+      }
+      if (icon) { return icon }
     },
     toggleFilterPanel () {
       this.filterActive = !this.filterActive

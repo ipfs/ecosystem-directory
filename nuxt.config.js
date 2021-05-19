@@ -92,6 +92,7 @@ export default {
     // Collection of helper modules, plugins and functions
     '~/modules/zero/core',
     '~/modules/zero/pagination',
+    '~/modules/zero/filters',
     // Doc: https://github.com/agency-undone/nuxt-module-ipfs
     '~/modules/nuxt-module-ipfs'
   ],
