@@ -20,7 +20,7 @@ export default {
       required: false,
       default: 'div'
     },
-    collection: {
+    filters: {
       type: [Boolean, Array],
       required: false,
       default: false
@@ -28,9 +28,13 @@ export default {
   },
 
   computed: {
+    headings () {
+      const filters = this.filters
+      return filters
+    },
     filtered () {
-      const collection = this.collection
-      return collection
+      const filters = this.filters
+      return filters
     }
   },
 

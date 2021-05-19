@@ -1,13 +1,13 @@
 // /////////////////////////////////////////////////////////////////////// State
 // -----------------------------------------------------------------------------
 const state = {
-  headings: []
+  tags: []
 }
 
 // ///////////////////////////////////////////////////////////////////// Getters
 // -----------------------------------------------------------------------------
 const getters = {
-  headings: state => state.headings
+  tags: state => state.tags
 }
 
 // ///////////////////////////////////////////////////////////////////// Actions
@@ -18,8 +18,8 @@ const actions = {
     commit('CLEAR_STORE')
   },
   // /////////////////////////////////////////////////////////////////// setPage
-  setHeadings ({ commit }, headings) {
-    commit('SET_HEADINGS', headings)
+  setTags ({ commit }, tags) {
+    commit('SET_TAGS', tags)
   }
 }
 
@@ -27,10 +27,10 @@ const actions = {
 // -----------------------------------------------------------------------------
 const mutations = {
   CLEAR_STORE (state) {
-    state.headings = []
+    state.tags = []
   },
-  SET_HEADINGS (state, headings) {
-    state.headings = headings
+  SET_TAGS (state, tags) {
+    state.tags = tags
   }
 }
 

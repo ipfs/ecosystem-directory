@@ -38,10 +38,8 @@
 
       <div id="filter-panel-wrapper" ref="filterWrap">
         <div class="filter-panel inner-wrapper">
-          <Filters
-            class="filter-panel content">
-            <h4>All Filters</h4>
-          </Filters>
+          <FilterPanel
+            :categories="ProjectFilters" />
         </div>
       </div>
 
@@ -108,10 +106,11 @@ import SelectorToggle from '@/modules/zero/core/Components/Icons/SelectorToggle'
 import ListView from '@/modules/zero/core/Components/Icons/ListView'
 import GridView from '@/modules/zero/core/Components/Icons/GridView'
 import FiltersToggle from '@/modules/zero/core/Components/Icons/FiltersToggle'
-import Filters from '@/modules/zero/filters/Components/Filters'
+import FilterPanel from '../FilterPanel/FilterPanel'
 import PaginationControls from './PaginationControls'
 
 import SampleProjects from '~/content/projects/sampleProjects.json'
+import Taxonomy from '~/content/data/taxonomy.json'
 
 // ===================================================================== Functions
 const processProjects = (instance) => {
@@ -131,13 +130,14 @@ export default {
     ListView,
     GridView,
     Button,
-    Filters
+    FilterPanel
   },
 
   data () {
     return {
       projects: false,
       paginationDisplay: 20,
+      filters: false,
       filterActive: false,
       listActive: false,
       resize: false
@@ -154,13 +154,17 @@ export default {
     ProjectList () {
       const projects = this.projects
       return projects
+    },
+    ProjectFilters () {
+      const filters = Taxonomy.categories
+      return filters
     }
   },
 
   watch: {
     filterActive (val) {
       if (val) {
-        this.$refs.filterWrap.style.width = '80%'
+        this.$refs.filterWrap.style.width = '100%'
         this.$refs.cardDisplay.style.marginLeft = '5%'
         this.$refs.cardDisplay.style.marginRight = '0%'
       } else {
@@ -237,26 +241,23 @@ export default {
 
   #filter-panel-wrapper {
     width: 0%;
-    // height: 100%;
     background-color: #ffffff;
     transition: width 500ms ease-in-out;
     overflow: visible;
     border-radius: 0px 6px 6px 0px;
   }
 
-  h4 { font-weight: 400; }
-
   .filter-panel {
     font-family: $fontInter;
+    &.title {
+      font-weight: 400;
+      margin: 6px;
+    }
     &.inner-wrapper {
       position: relative;
       width: 64%;
       margin-left: 36%;
       overflow: hidden;
-    }
-    &.content {
-      margin-top: 2rem;
-      white-space: nowrap;
     }
   }
 
