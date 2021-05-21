@@ -48,10 +48,10 @@
       <div id="card-display" ref="cardDisplay">
 
         <Paginate
-          v-if="allProjects"
+          v-if="filteredProjects"
           v-slot="{ paginated }"
           :display="display"
-          :collection="allProjects"
+          :collection="filteredProjects"
           class="card-grid">
           <template v-for="(project, index) in paginated">
             <div
@@ -78,7 +78,7 @@
           <PaginationControls />
 
           <div class="results-selector-wrapper">
-            <ResultsPerPageSelector :collection="allProjects" class="results-per-page font-inter">
+            <ResultsPerPageSelector :collection="filteredProjects" class="results-per-page font-inter">
 
               <template #dropdown-icon>
                 <SelectorToggle />
@@ -109,12 +109,12 @@ import FiltersToggle from '@/modules/zero/core/Components/Icons/FiltersToggle'
 import FilterPanel from '../FilterPanel/FilterPanel'
 import PaginationControls from './PaginationControls'
 
-import SampleProjects from '~/content/sample/sampleProjects.json'
+// import SampleProjects from '~/content/sample/sampleProjects.json'
 
 // ===================================================================== Functions
-const processProjects = (instance) => {
-  instance.projects = instance.collection
-}
+// const processProjects = (instance) => {
+//   instance.projects = instance.collection
+// }
 
 // ====================================================================== Export
 export default {
@@ -156,12 +156,13 @@ export default {
       page: 'pagination/page',
       totalPages: 'pagination/totalPages',
       display: 'pagination/display',
-      collection: 'pagination/collection'
-    }),
-    ProjectList () {
-      const projects = this.projects
-      return projects
-    }
+      // collection: 'pagination/collection',
+      filteredProjects: 'filters/collection'
+    })
+    // ProjectList () {
+    //   const projects = this.projects
+    //   return projects
+    // }
   },
 
   watch: {
@@ -179,10 +180,10 @@ export default {
     }
   },
 
-  mounted () {
-    this.setCollection(SampleProjects.projects)
-    processProjects(this) // fill projects collection
-  },
+  // mounted () {
+  //   this.setCollection(SampleProjects.projects)
+  //   processProjects(this) // fill projects collection
+  // },
 
   methods: {
     ...mapActions({
@@ -197,7 +198,7 @@ export default {
       try {
         icon = require('~/assets/logos/' + path)
       } catch (e) {
-        console.log(e)
+        // console.log(e)
       }
       if (icon) { return icon }
     },
@@ -250,6 +251,7 @@ export default {
 
   #filter-panel-wrapper {
     width: 0%;
+    // max-width: 40vw;
     background-color: #ffffff;
     transition: width 500ms ease-in-out;
     overflow: visible;
@@ -275,6 +277,7 @@ export default {
   #card-display {
     margin-left: 18%;
     margin-right: 4%;
+    min-width: 40vw;
     transition: all 500ms ease-in-out;
   }
 

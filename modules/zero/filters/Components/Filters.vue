@@ -41,10 +41,6 @@ export default {
     ...mapGetters({
       activeTags: 'filters/activeTags'
     }),
-    headings () {
-      const filters = this.filters
-      return filters
-    },
     filtered () {
       let collection = []
       if (this.selected.length) {

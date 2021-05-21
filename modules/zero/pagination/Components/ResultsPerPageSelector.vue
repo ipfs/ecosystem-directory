@@ -25,13 +25,13 @@
       :class="{ hidden: closed }">
       <template v-for="option in options">
         <div
-          v-if="!isNaN(option)"
-          :key="`div-option-${option}`"
-          :value="{option}"
+          v-if="!isNaN(option.amount)"
+          :key="`div-option-${option.amount}`"
+          :value="option.text"
           class="dropdown dropdown-item"
-          :class="{ highlighted: (display === option) }"
-          @click="optionSelected(option)">
-          {{ (option === totalItems ? 'All' : option) }}
+          :class="{ highlighted: (display === option.amount) }"
+          @click="optionSelected(option.amount)">
+          {{ option.text }}
         </div>
       </template>
     </div>
@@ -45,10 +45,10 @@ import { mapGetters, mapActions } from 'vuex'
 
 // ===================================================================== Functions
 const closeAllSelect = (e, instance) => {
-  const options = document.getElementsByClassName('dropdown')
+  const opt = document.getElementsByClassName('dropdown')
   const results = []
-  for (let i = 0; i < options.length; i++) {
-    results.push(options[i] !== e.target)
+  for (let i = 0; i < opt.length; i++) {
+    results.push(opt[i] !== e.target)
   }
   if (results.every(bool => bool)) {
     instance.closed = true
@@ -100,16 +100,32 @@ export default {
       return this.collection.length
     },
     options () {
-      const displayOptions = this.displayOptions
-      const current = this.display
+      const displayOptions = []
+      for (let i = 0; i < this.displayOptions.length; i++) {
+        displayOptions.push({
+          amount: this.displayOptions[i],
+          text: this.displayOptions[i]
+        })
+      }
+      // const current = this.display
       const total = this.collection.length
-      if (!displayOptions.includes(current)) {
-        displayOptions.push(current)
+      if (total <= displayOptions[0].amount) {
+        return [{
+          amount: total,
+          text: 'All'
+        }]
       }
-      if (!displayOptions.includes(total)) {
-        displayOptions.push(total)
-      }
-      displayOptions.sort((a, b) => a - b)
+      // if (!displayOptions.includes(current)) {
+      //   displayOptions.push(current)
+      // }
+      // if (!displayOptions.includes(total)) {
+      //   displayOptions.push(total)
+      // }
+      // displayOptions.sort((a, b) => a - b)
+      displayOptions.push({
+        amount: total,
+        text: 'All'
+      })
       return displayOptions
     }
   },

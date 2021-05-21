@@ -100,9 +100,10 @@ export default {
   },
 
   async fetch ({ store, req }) {
-    const projectObjects = []
-    const obj = require('@/content/projects/international-standard-content-number.json')
-    projectObjects.push(obj)
+    // const projectObjects = []
+    const sample = require('@/content/sample/sampleTaxonomies.json')
+    const projectObjects = sample.projects
+
     await store.dispatch('global/getBaseData', 'general')
     await store.dispatch('global/getBaseData', 'index')
     await store.dispatch('projects/getAllProjects', projectObjects)

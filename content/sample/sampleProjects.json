@@ -1,6 +1,117 @@
 {
   "projects": [
-      { "name": "Actyx", "description": "Operating system for manufacturing applications", "logo": "actyx.svg" },
+      {
+        "logo": {
+          "icon": "actyx.svg",
+          "full": ""
+        },
+        "name": "Actyx",
+        "description": {
+          "short": "Operating system for manufacturing applications",
+          "long": ""
+        },
+        "taxonomies": [
+          {
+            "slug": "industry",
+            "tags": [
+              {
+                "url": "",
+                "text": "Integrations"
+              },
+              {
+                "url": "",
+                "text": "Other"
+              }
+            ]
+          },
+          {
+            "slug": "product-focus",
+            "tags": [
+              {
+                "url": "",
+                "text": "Infrastructure"
+              },
+              {
+                "url": "",
+                "text": "Supply chain"
+              },
+              {
+                "url": "",
+                "text": "Dev tools"
+              }
+            ]
+          },
+          {
+            "slug": "enablers-benefits",
+            "tags": [
+              {
+                "url": "",
+                "text": "Interoperability"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "logo": {
+          "icon": "alpress.svg",
+          "full": ""
+        },
+        "name": "Alpress",
+        "description": {
+          "short": "Self-governing ENS + IPFS publishing platform", "logo",
+          "long": ""
+        },
+        "taxonomies": [
+          {
+            "slug": "industry",
+            "tags": [
+              {
+                "url": "",
+                "text": "Integrations"
+              },
+              {
+                "url": "",
+                "text": "Other"
+              }
+            ]
+          },
+          {
+            "slug": "product-focus",
+            "tags": [
+              {
+                "url": "",
+                "text": "Infrastructure"
+              },
+              {
+                "url": "",
+                "text": "Supply chain"
+              },
+              {
+                "url": "",
+                "text": "Dev tools"
+              }
+            ]
+          },
+          {
+            "slug": "enablers-benefits",
+            "tags": [
+              {
+                "url": "",
+                "text": "Freedom from corp/gov interference"
+              },
+              {
+                "url": "",
+                "text": "Product/project couldn't exist without IPFS"
+              },
+              {
+                "url": "",
+                "text": "Self-sovereign data"
+              }
+            ]
+          }
+        ]
+      },
       { "name": "Alpress", "description": "Self-governing ENS + IPFS publishing platform", "logo": "alpress.svg" },
       { "name": "Berty", "description": "Secure peer-to-peer messaging app", "logo": "berty.svg" },
       { "name": "Audius", "description": "Decentralized music streaming platform", "logo": "audius.svg" },

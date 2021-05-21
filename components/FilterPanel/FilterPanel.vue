@@ -1,7 +1,6 @@
 <template>
   <Filters
     v-if="ProjectFilters"
-    v-slot="{ filtered }"
     :projects="collection"
     :filters="ProjectFilters"
     :selected="selected"
@@ -128,6 +127,12 @@ export default {
       return arr
     }
   },
+
+  // watch: {
+  //   filtered (val) {
+  //     console.log(val)
+  //   }
+  // },
 
   mounted () {
     this.catsActive = this.initToggles
