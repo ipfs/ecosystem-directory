@@ -3,13 +3,8 @@
 
     <div class="dropdown dropdown-selector-wrapper" @click.stop="toggleDropDown()">
 
-      <label
-        v-if="selected">
-        {{ msg + (selected === totalItems ? 'All' : selected) }}
-      </label>
-      <label
-        v-else>
-        {{ msg + display }}
+      <label>
+        {{ msg + (display === totalItems ? 'All' : display) }}
       </label>
 
       <button class="dropdown dropdown-button">
@@ -25,13 +20,13 @@
       :class="{ hidden: closed }">
       <template v-for="option in options">
         <div
-          v-if="!isNaN(option.amount)"
-          :key="`div-option-${option.amount}`"
-          :value="option.text"
+          v-if="!isNaN(option)"
+          :key="`div-option-${option}`"
+          :value="option"
           class="dropdown dropdown-item"
-          :class="{ highlighted: (display === option.amount) }"
-          @click="optionSelected(option.amount)">
-          {{ option.text }}
+          :class="{ highlighted: (display === option) }"
+          @click="optionSelected(option)">
+          {{ option === totalItems ? 'All' : option }}
         </div>
       </template>
     </div>
@@ -84,7 +79,6 @@ export default {
 
   data () {
     return {
-      selected: this.display,
       closed: true,
       unfocus: false
     }
@@ -101,31 +95,16 @@ export default {
     },
     options () {
       const displayOptions = []
-      for (let i = 0; i < this.displayOptions.length; i++) {
-        displayOptions.push({
-          amount: this.displayOptions[i],
-          text: this.displayOptions[i]
-        })
-      }
-      // const current = this.display
       const total = this.collection.length
-      if (total <= displayOptions[0].amount) {
-        return [{
-          amount: total,
-          text: 'All'
-        }]
+
+      for (let i = 0; i < this.displayOptions.length; i++) {
+        displayOptions.push(this.displayOptions[i])
       }
-      // if (!displayOptions.includes(current)) {
-      //   displayOptions.push(current)
-      // }
-      // if (!displayOptions.includes(total)) {
-      //   displayOptions.push(total)
-      // }
+      if (total <= displayOptions[0].amount) {
+        return [total]
+      }
       // displayOptions.sort((a, b) => a - b)
-      displayOptions.push({
-        amount: total,
-        text: 'All'
-      })
+      displayOptions.push(total)
       return displayOptions
     }
   },
@@ -154,7 +133,6 @@ export default {
     optionSelected (val) {
       const selection = parseInt(val)
       if (!isNaN(selection)) {
-        this.selected = selection
         this.setDisplay(selection)
         this.calculateTotalPages()
         if (this.page > this.totalPages) {
