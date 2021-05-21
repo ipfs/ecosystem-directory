@@ -117,23 +117,20 @@
             v-slot="{ active }"
             :multiple="true">
             <AccordionSection
-              v-for="(taxonomy, i) in project.taxonomies"
+              v-for="(taxonomy, i) in taxonomies"
               :key="i"
               :active="active"
               :selected="true"
               class="filters">
               <AccordionHeader>
                 <h3 class="heading">
-                  {{ taxonomy.slug }}
+                  {{ $getTaxonomyCategoryLabel(taxonomy.slug) }}
                 </h3>
               </AccordionHeader>
               <AccordionContent>
                 <div class="chicklet-container">
-                  <button v-for="(taxonomyTag, j) in taxonomy.tags" :key="j" class="chicklet">
-                    {{ taxonomyTag.text }}
-                  </button>
-                  <a v-for="(taxonomyTag, j) in taxonomy.tags" :key="j" :href="taxonomyTag.url" class="chicklet">
-                    {{ taxonomyTag.text }}
+                  <a v-for="(taxonomyTag, j) in filterTags(taxonomy.slug, taxonomy.tags)" :key="j" :href="taxonomyTag" class="chicklet">
+                    {{ $getTaxonomyTagLabel(taxonomy.slug, taxonomyTag) }}
                   </a>
                 </div>
               </AccordionContent>
@@ -202,6 +199,7 @@ export default {
     try {
       const project = require(`@/content/projects/${id}.json`)
       await store.dispatch('global/getBaseData', 'general')
+      await store.dispatch('global/getBaseData', 'taxonomy')
       await store.dispatch('global/getBaseData', {
         key: `project-${id}`,
         data: project
@@ -271,6 +269,15 @@ export default {
       const siteContent = this.siteContent
       const id = this.id
       return siteContent.hasOwnProperty(id) ? siteContent[id] : false
+    },
+    taxonomies () {
+      return this.project.taxonomies.filter(tax => this.$checkTaxonomyCategoryExists(tax.slug))
+    }
+  },
+
+  methods: {
+    filterTags (categorySlug, tags = []) {
+      return tags.filter(tag => this.$checkTaxonomyTagExists(categorySlug, tag))
     }
   }
 }
