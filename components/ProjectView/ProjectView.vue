@@ -39,7 +39,8 @@
       <div id="filter-panel-wrapper" ref="filterWrap">
         <div class="filter-panel inner-wrapper">
           <FilterPanel
-            :collection="allProjects" />
+            :collection="allProjects"
+            :is-active="filterActive" />
         </div>
       </div>
 

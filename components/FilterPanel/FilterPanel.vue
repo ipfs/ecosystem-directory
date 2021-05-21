@@ -6,50 +6,52 @@
     :selected="selected"
     class="filter-panel-content">
 
-    <h4 class="filter-panel title">
-      All Filters
-    </h4>
+    <template v-if="isActive">
+      <h4 class="filter-panel title">
+        All Filters
+      </h4>
 
-    <div id="filter-headings">
-      <template v-for="(heading, index) in ProjectFilters">
-        <div :key="heading.label" class="filter-category container">
+      <div id="filter-headings">
+        <template v-for="(heading, index) in ProjectFilters">
+          <div :key="heading.label" class="filter-category container">
 
-          <div class="filter-category heading-wrapper" @click.stop="toggleCat(index)">
+            <div class="filter-category heading-wrapper" @click.stop="toggleCat(index)">
 
-            <div class="filter-category heading">
-              {{ heading.label }}
-              <span class="filter-category number-active">
-                (0 of {{ heading.tags.length }})
-              </span>
-            </div>
-
-            <div class="filter-category toggle" :class="{ flip: !catsActive[index] }">
-              <ToggleArrow stroke="#494949" />
-            </div>
-
-          </div>
-
-          <div ref="cats" class="collapsible-tags" :class="{ collapsed : !catsActive[index] }">
-
-            <h5 class="filter-category sub-heading">
-              Filter by {{ heading.label }}
-            </h5>
-
-            <div class="filter-category tag-list">
-              <div
-                v-for="tag in heading.tags"
-                :key="tag.label"
-                :class="`filter-category tag ${selected.includes(tag.label) ? 'active-button' : 'not-selected'}`"
-                @click="applyFilter(tag.label)">
-                {{ tag.label }}
+              <div class="filter-category heading">
+                {{ heading.label }}
+                <span v-if="count.length" class="filter-category number-active">
+                  ({{ count[index] }} of {{ heading.tags.length }})
+                </span>
               </div>
+
+              <div class="filter-category toggle" :class="{ flip: !catsActive[index] }">
+                <ToggleArrow stroke="#494949" />
+              </div>
+
+            </div>
+
+            <div ref="cats" class="collapsible-tags" :class="{ collapsed : !catsActive[index] }">
+
+              <h5 class="filter-category sub-heading">
+                Filter by {{ heading.label }}
+              </h5>
+
+              <div class="filter-category tag-list">
+                <div
+                  v-for="tag in heading.tags"
+                  :key="tag.label"
+                  :class="`filter-category tag ${selected.includes(tag.label) ? 'active-button' : 'not-selected'}`"
+                  @click="applyFilter(tag.label, index)">
+                  {{ tag.label }}
+                </div>
+              </div>
+
             </div>
 
           </div>
-
-        </div>
-      </template>
-    </div>
+        </template>
+      </div>
+    </template>
 
   </Filters>
 </template>
@@ -106,6 +108,11 @@ export default {
       type: [Boolean, Array],
       default: false,
       required: false
+    },
+    isActive: {
+      type: Boolean,
+      default: false,
+      required: false
     }
   },
 
@@ -113,7 +120,8 @@ export default {
     return {
       catsActive: [],
       heights: [],
-      selected: []
+      selected: [],
+      count: []
     }
   },
 
@@ -128,14 +136,11 @@ export default {
     }
   },
 
-  // watch: {
-  //   filtered (val) {
-  //     console.log(val)
-  //   }
-  // },
-
   mounted () {
     this.catsActive = this.initToggles
+    for (let i = 0; i < this.ProjectFilters.length; i++) {
+      this.count.push(0)
+    }
   },
 
   methods: {
@@ -148,11 +153,13 @@ export default {
         elementLeave(this.$refs.cats[ind])
       }
     },
-    applyFilter (tag) {
+    applyFilter (tag, ind) {
       if (this.selected.includes(tag)) {
         this.selected = this.selected.filter(item => item !== tag)
+        this.count[ind] -= 1
       } else {
         this.selected.push(tag)
+        this.count[ind] += 1
       }
     }
   }
