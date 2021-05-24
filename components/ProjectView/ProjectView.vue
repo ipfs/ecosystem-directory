@@ -110,13 +110,6 @@ import FiltersToggle from '@/modules/zero/core/Components/Icons/FiltersToggle'
 import FilterPanel from '../FilterPanel/FilterPanel'
 import PaginationControls from './PaginationControls'
 
-// import SampleProjects from '~/content/sample/sampleProjects.json'
-
-// ===================================================================== Functions
-// const processProjects = (instance) => {
-//   instance.projects = instance.collection
-// }
-
 // ====================================================================== Export
 export default {
   name: 'ProjectView',
@@ -157,13 +150,8 @@ export default {
       page: 'pagination/page',
       totalPages: 'pagination/totalPages',
       display: 'pagination/display',
-      // collection: 'pagination/collection',
       filteredProjects: 'filters/collection'
     })
-    // ProjectList () {
-    //   const projects = this.projects
-    //   return projects
-    // }
   },
 
   watch: {
@@ -181,10 +169,13 @@ export default {
     }
   },
 
-  // mounted () {
-  //   this.setCollection(SampleProjects.projects)
-  //   processProjects(this) // fill projects collection
-  // },
+  mounted () {
+    if (this.$route.query.filters === 'enabled') {
+      this.filterActive = true
+    } else {
+      this.filterActive = false
+    }
+  },
 
   methods: {
     ...mapActions({
@@ -205,6 +196,11 @@ export default {
     },
     toggleFilterPanel () {
       this.filterActive = !this.filterActive
+      if (this.filterActive) {
+        this.$router.push({ path: '/', query: { filters: 'enabled' } })
+      } else {
+        this.$router.push(this.$route.path)
+      }
     },
     toggleListGridView () {
       this.listActive = !this.listActive
@@ -213,7 +209,6 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 
   #project-view-container {

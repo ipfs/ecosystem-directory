@@ -3,16 +3,17 @@
 
     <div ref="collapsibleSection" class="collapse" :style="`height: ${sectionHeight}px;`">
       <transition-group name="fade" tag="section">
-        <section v-if="showSegmentFeatured" key="segment">
+        <section v-if="!(this.$route.query.filters === 'enabled')" key="segment">
           <div ref="segmentSlider">
             <SegmentSliderChart
-              v-if="showSegmentFeatured"
+              v-if="!(this.$route.query.filters === 'enabled')"
               :all-projects="projects"
-              class="grid-center" />
+              class="grid-center"
+              @init="segment" />
           </div>
         </section>
 
-        <section v-if="showSegmentFeatured && pageData" id="section-featured-slider" key="featured">
+        <section v-if="!(this.$route.query.filters === 'enabled') && pageData" id="section-featured-slider" key="featured">
           <div ref="featuredSection" class="grid-center">
 
             <div class="col-12">
@@ -26,13 +27,14 @@
 
             <div class="col-11">
               <FeaturedProjectsSlider
-                :all-projects="projects" />
+                :all-projects="projects"
+                @init="featured" />
             </div>
 
           </div>
         </section>
 
-        <section v-if="showSegmentFeatured && pageData" id="section-filter" key="heading">
+        <section v-if="!(this.$route.query.filters === 'enabled') && pageData" id="section-filter" key="heading">
           <div ref="filterHeading" class="grid-center">
 
             <div class="col-12">
@@ -72,11 +74,12 @@ import ProjectView from '@/components/ProjectView/ProjectView'
 
 // ====================================================================== Functions
 const resetSectionHeight = (instance) => {
-  if (instance.showSegmentFeatured) {
+  if (instance.segmentSlider && instance.featuredProjects) {
     const x = instance.$refs.segmentSlider.offsetHeight
     const y = instance.$refs.featuredSection.offsetHeight
     const z = instance.$refs.filterHeading.offsetHeight
     instance.sectionHeight = Math.ceil(x + y + z) + 210
+    console.log(instance.sectionHeight)
   }
 }
 
@@ -93,9 +96,10 @@ export default {
   data () {
     return {
       tag: 'home',
-      showSegmentFeatured: true,
       sectionHeight: false,
-      resize: false
+      resize: false,
+      segmentSlider: false,
+      featuredProjects: false
     }
   },
 
@@ -164,14 +168,20 @@ export default {
 
   methods: {
     toggleProjectView (val) {
-      this.showSegmentFeatured = !val
       if (val) {
         this.$refs.collapsibleSection.style.height = '0px'
         window.scrollTo(0, 0)
       } else {
+        console.log(this.sectionHeight)
         this.$refs.collapsibleSection.style.height = this.sectionHeight + 'px'
       }
       this.$nuxt.$emit('changeHeader', val)
+    },
+    segment () {
+      this.segmentSlider = true
+    },
+    featured () {
+      this.featuredProjects = true
     }
   }
 }

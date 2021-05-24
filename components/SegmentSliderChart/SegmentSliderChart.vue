@@ -80,6 +80,10 @@ export default {
     }
   },
 
+  mounted () {
+    this.$emit('init')
+  },
+
   methods: {
     setSliderContent (seg) {
       if (seg < 0) { seg = SampleData.categories.length - 1 }

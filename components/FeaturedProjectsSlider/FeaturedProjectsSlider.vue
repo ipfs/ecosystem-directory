@@ -88,6 +88,7 @@ export default {
   mounted () {
     this.resize = () => { handleFeatureSliderResize(this) }
     window.addEventListener('resize', this.resize)
+    this.$emit('init')
   },
 
   beforeDestroy () {
