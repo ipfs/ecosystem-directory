@@ -74,12 +74,11 @@ import ProjectView from '@/components/ProjectView/ProjectView'
 
 // ====================================================================== Functions
 const resetSectionHeight = (instance) => {
-  if (instance.segmentSlider && instance.featuredProjects) {
+  if (!(instance.$route.query.filters === 'enabled') && instance.segmentSlider && instance.featuredProjects) {
     const x = instance.$refs.segmentSlider.offsetHeight
     const y = instance.$refs.featuredSection.offsetHeight
     const z = instance.$refs.filterHeading.offsetHeight
     instance.sectionHeight = Math.ceil(x + y + z) + 210
-    console.log(instance.sectionHeight)
   }
 }
 
@@ -172,7 +171,6 @@ export default {
         this.$refs.collapsibleSection.style.height = '0px'
         window.scrollTo(0, 0)
       } else {
-        console.log(this.sectionHeight)
         this.$refs.collapsibleSection.style.height = this.sectionHeight + 'px'
       }
       this.$nuxt.$emit('changeHeader', val)
