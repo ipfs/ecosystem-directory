@@ -162,20 +162,20 @@ export default {
     if (this.$route.query.filters === 'enabled' && this.$route.query.tag) {
       const qry = this.$route.query.tag.split('&')
       slugs = qry.filter(Boolean)
-    }
 
-    const arr = []
-    for (let i = 0; i < this.ProjectFilters.length; i++) {
-      for (let j = 0; j < this.ProjectFilters[i].tags.length; j++) {
-        if (slugs.includes(this.ProjectFilters[i].tags[j].slug)) {
-          arr.push(this.ProjectFilters[i].tags[j])
-          this.count[i] += 1
-          this.catsActive[i] = true
+      const arr = []
+      for (let i = 0; i < this.ProjectFilters.length; i++) {
+        for (let j = 0; j < this.ProjectFilters[i].tags.length; j++) {
+          if (slugs.includes(this.ProjectFilters[i].tags[j].slug)) {
+            arr.push(this.ProjectFilters[i].tags[j])
+            this.count[i] += 1
+            this.catsActive[i] = true
+          }
         }
       }
-    }
 
-    this.selected = arr
+      this.selected = arr
+    }
   },
 
   methods: {
