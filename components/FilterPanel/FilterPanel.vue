@@ -3,7 +3,7 @@
     v-if="ProjectFilters"
     :projects="collection"
     :filters="ProjectFilters"
-    :selected="selected"
+    :selected="selectedLabels"
     class="filter-panel-content">
 
     <template v-if="isActive">
@@ -40,8 +40,8 @@
                 <div
                   v-for="tag in heading.tags"
                   :key="tag.label"
-                  :class="`filter-category tag ${selected.includes(tag.label) ? 'active-button' : 'not-selected'}`"
-                  @click="applyFilter(tag.label, index)">
+                  :class="`filter-category tag ${selected.includes(tag) ? 'active-button' : 'not-selected'}`"
+                  @click="applyFilter(tag, index)">
                   {{ tag.label }}
                 </div>
               </div>
@@ -93,6 +93,15 @@ const elementLeave = (element) => {
     element.style.height = 0
   })
 }
+
+const appendFilters2URL = (instance) => {
+  let slug = ''
+  for (let i = 0; i < instance.selected.length; i++) {
+    slug = slug + instance.selected[i].slug + '&'
+  }
+  instance.$router.replace({ query: { filters: 'enabled', tag: slug } })
+}
+
 // ====================================================================== Export
 
 export default {
@@ -133,6 +142,13 @@ export default {
     initToggles () {
       const arr = Array(Taxonomy.categories.length).fill(false)
       return arr
+    },
+    selectedLabels () {
+      const arr = []
+      for (let i = 0; i < this.selected.length; i++) {
+        arr.push(this.selected[i].label)
+      }
+      return arr
     }
   },
 
@@ -141,6 +157,25 @@ export default {
     for (let i = 0; i < this.ProjectFilters.length; i++) {
       this.count.push(0)
     }
+
+    let slugs
+    if (this.$route.query.filters === 'enabled' && this.$route.query.tag) {
+      const qry = this.$route.query.tag.split('&')
+      slugs = qry.filter(Boolean)
+    }
+
+    const arr = []
+    for (let i = 0; i < this.ProjectFilters.length; i++) {
+      for (let j = 0; j < this.ProjectFilters[i].tags.length; j++) {
+        if (slugs.includes(this.ProjectFilters[i].tags[j].slug)) {
+          arr.push(this.ProjectFilters[i].tags[j])
+          this.count[i] += 1
+          this.catsActive[i] = true
+        }
+      }
+    }
+
+    this.selected = arr
   },
 
   methods: {
@@ -161,6 +196,7 @@ export default {
         this.selected.push(tag)
         this.count[ind] += 1
       }
+      appendFilters2URL(this)
     }
   }
 }
