@@ -1,0 +1,107 @@
+{
+    "display": true,
+    "featured": false,
+    "sortNumbers": [
+      {
+        "since": 2019
+      }
+    ],
+    "logo": {
+      "icon": "likecoin-icon.svg",
+      "full": "likecoin-full.svg"
+    },
+    "name": "International Standard Content Number (ISCN)",
+    "org": [
+      "LikeCoin"
+    ],
+    "description": {
+      "short": "Decentralized, incentivized publishing infrastructure",
+      "long": "LikeCoin is a decentralized publishing infrastructure based around ISCN, an immutable and censorship-resilient digital content registry that functions like an International Standard Book Number (ISBN) for digital content."
+    },
+    "primaryCta": {
+      "url": "//iscn.io",
+      "text": "Project Website"
+    },
+    "links": [
+      {
+        "label": "Website",
+        "links": [
+          {
+            "url": "//iscn.io",
+            "text": "iscn.io"
+          },
+          {
+            "url": "//like.co",
+            "text": "like.co"
+          }
+        ]
+      },
+      {
+        "label": "Repo",
+        "links": [
+          {
+            "url": "//github.com/likecoin/iscn-specs",
+            "text": "github.com/likecoin/iscn-specs"
+          },
+          {
+            "url": "https://github.com/likecoin",
+            "text": "github.com/likecoin"
+          }
+        ]
+      },
+      {
+        "label": "Docs",
+        "links": [
+          {
+            "url": "//docs.ipfs.io/concepts/case-study-likecoin/",
+            "text": "docs.ipfs.io/concepts/case-study-likecoin/"
+          }
+        ]
+      }
+    ],
+    "keyInfo": [
+      {
+        "label": "Using IPFS since",
+        "value": "2019"
+      }
+    ],
+    "video": "",
+    "stats": [
+      {
+        "label": "Pieces of content on LikeCoin",
+        "value": ">300K"
+      },
+      {
+        "label": "Likers using the LikeCoin platform",
+        "value": ">80K"
+      },
+      {
+        "label": "Creators sharing content on LikeCoin",
+        "value": ">11k"
+      }
+    ],
+    "ctaCard": {
+      "title": "LikeCoin Case Study",
+      "description": "Read about how LikeCoin relies on IPFS for storing and serving ISCN-linked content.",
+      "buttonText": "Case Study",
+      "url": "//docs.ipfs.io/concepts/case-study-likecoin/"
+    },
+    "taxonomies": [
+      {
+        "slug": "industry",
+        "tags": [ "persistence-archiving" ]
+      },
+      {
+        "slug": "product-focus",
+        "tags": [ "infrastructure", "dev-tools", "ip-reputation-management", "public-data"]
+     },
+      {
+        "slug": "enablers-benefits",
+        "tags": ["data-integrity", "interoperability", "freedom-from-corp-gov", "self-sovereign-data"]
+     },
+     {
+        "slug": "tools-implementations",
+        "tags": [ "go-ipfs", "ipld" ]
+      }
+    ]
+  }

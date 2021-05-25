@@ -118,6 +118,7 @@ export default {
   plugins: [
     '~/plugins/directives',
     '~/plugins/global-methods',
+    '~/plugins/taxonomy-methods',
     '~/plugins/scroll-to'
   ],
   // /////////////////////////////////////////////////////// Router + Middleware

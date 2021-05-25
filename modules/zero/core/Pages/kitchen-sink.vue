@@ -25,7 +25,7 @@
       <div class="col">
         <div class="outline">
           <h2>Accordion</h2>
-          <p>The Accordion is a semi-renderless component that consists of a few sub-components. Click on a panel below to toggle the accordion.</p>
+          <p>The Accordion is a semi-renderless component that consists of a few sub-components. Click on a panel below to toggle the accordion. Accordion accepts <code>multiple: Boolean </code> prop to enable concurrent panel toggling and AccordionSection accepts <code>selected: Boolean</code> prop to open a panel by default.</p>
         </div>
         <Accordion />
       </div>
