@@ -52,23 +52,24 @@
           v-if="filteredProjects"
           v-slot="{ paginated }"
           :display="display"
-          :collection="filteredProjects"
-          class="card-grid">
-          <template v-for="(project, index) in paginated">
+          :collection="filteredProjects">
+
+          <div v-if="!listActive" class="grid">
             <div
               v-for="(project, index) in paginated"
               :key="`grid-${index}`"
               class="col-3 card-container-grid">
 
-              <div class="card">
-                <div class="card-logo">
-                  <img :src="logos(project.logo.icon)" :alt="project.name" />
+              <div class="card-grid">
+                <div class="card-logo-grid">
+                  <img :src="logos(project.logo.icon)" />
                 </div>
               </div>
 
               <label>{{ project.name }}</label>
 
               <p>{{ project.description.short }}</p>
+
             </div>
           </div>
 
@@ -80,11 +81,11 @@
 
               <div class="card-list">
                 <div class="card-logo-list">
-                  <img :src="logos(project.logo)" />
+                  <img :src="logos(project.logo.icon)" />
                 </div>
                 <div class="card-project-list">
                   <label>{{ project.name }}</label>
-                  <p>{{ project.description }}</p>
+                  <p>{{ project.description.short }}</p>
                 </div>
               </div>
 
