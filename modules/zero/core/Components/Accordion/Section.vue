@@ -12,9 +12,13 @@ export default {
   name: 'AccordionSection',
 
   props: {
+    active: {
+      type: [Boolean, Number, Array],
+      default: false
+    },
     selected: {
-      type: [Boolean, Number],
-      required: true
+      type: Boolean,
+      default: false
     }
   },
 
@@ -26,13 +30,24 @@ export default {
 
   computed: {
     open () {
-      return this.selected === this.id
+      if (Array.isArray(this.active)) {
+        return this.active.includes(this.id)
+      }
+      return this.active === this.id
     }
   },
 
   watch: {
     open () {
       this.$children[1].toggleOpen()
+    }
+  },
+
+  created () {
+    if (this.selected) {
+      setTimeout(() => {
+        this.$parent.setSelected(this.id)
+      }, 1)
     }
   }
 }

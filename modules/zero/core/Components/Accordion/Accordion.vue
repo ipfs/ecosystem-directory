@@ -1,7 +1,7 @@
 <template>
   <div class="accordion">
 
-    <slot :selected="selected" />
+    <slot :active="active" />
 
   </div>
 </template>
@@ -12,6 +12,10 @@ export default {
   name: 'Accordion',
 
   props: {
+    multiple: {
+      type: Boolean,
+      default: false
+    },
     toggleOnLoad: {
       type: Boolean,
       required: false,
@@ -31,23 +35,43 @@ export default {
 
   data () {
     return {
-      selected: false,
+      active: this.multiple ? [] : false,
       childCount: 0
     }
   },
 
   created () {
     this.$on('toggle', (id) => {
-      if (this.selected === id) {
-        this.selected = false
+      if (this.multiple) {
+        // Open multiple panels
+        if (this.active.includes(id)) {
+          this.active = this.active.filter(_id => _id !== id)
+        } else {
+          this.active.push(id)
+        }
       } else {
-        this.selected = id
+        // Open single panel
+        if (this.active === id) {
+          this.active = false
+        } else {
+          this.active = id
+        }
       }
     })
   },
 
   mounted () {
     this.childCount = this.$children.length
+  },
+
+  methods: {
+    setSelected (id) {
+      if (this.multiple) {
+        this.active.push(id)
+      } else {
+        this.active = id
+      }
+    }
   }
 }
 </script>

@@ -89,67 +89,19 @@
     "taxonomies": [
       {
         "slug": "industry",
-        "tags": [
-          {
-            "url": "",
-            "text": "Persistence & archiving"
-          }
-        ]
+        "tags": [ "persistence-archiving" ]
       },
       {
         "slug": "product-focus",
-        "tags": [
-          {
-            "url": "",
-            "text": "Infrastructure"
-          },
-          {
-            "url": "",
-            "text": "Dev tools"
-          },
-          {
-            "url": "",
-            "text": "IP/reputation management"
-          },
-          {
-            "url": "",
-            "text": "Public/community data"
-          }
-        ]
-      },
+        "tags": [ "infrastructure", "dev-tools", "ip-reputation-management", "public-data"]
+     },
       {
         "slug": "enablers-benefits",
-        "tags": [
-          {
-            "url": "",
-            "text": "Data integrity"
-          },
-          {
-            "url": "",
-            "text": "Interoperability"
-          },
-          {
-            "url": "",
-            "text": "Freedom from corp/gov interference"
-          },
-          {
-            "url": "",
-            "text": "Self-sovereign data"
-          }
-        ]
-      },
-      {
+        "tags": ["data-integrity", "interoperability", "freedom-from-corp-gov", "self-sovereign-data"]
+     },
+     {
         "slug": "tools-implementations",
-        "tags": [
-          {
-            "url": "",
-            "text": "go-ipfs"
-          },
-          {
-            "url": "",
-            "text": "IPLD"
-          }
-        ]
+        "tags": [ "go-ipfs", "ipld" ]
       }
     ]
   }

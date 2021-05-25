@@ -53,7 +53,7 @@
 
     <section>
 
-      <div class="grid-center full maxed">
+      <div class="grid-center full maxed project-filters">
         <ProjectView
           :all-projects="projects"
           @hide-segment-chart="toggleProjectView" />
@@ -203,6 +203,10 @@ export default {
 
 #segment-slider-chart {
   margin-top: 3rem;
+}
+
+.project-filters {
+  padding: 0;
 }
 
 // ///////////////////////////////////////////////////////////////////// Transitions

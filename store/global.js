@@ -2,6 +2,7 @@
 // -----------------------------------------------------------------------------
 import GeneralSiteData from '@/content/pages/general.json'
 import IndexSiteData from '@/content/pages/index.json'
+import TaxonomyData from '@/content/data/taxonomy.json'
 
 // /////////////////////////////////////////////////////////////////////// State
 // -----------------------------------------------------------------------------
@@ -34,6 +35,7 @@ const actions = {
     const key = typeof payload === 'string' ? payload : payload.key
     let data = false
     switch (key) {
+      case 'taxonomy': data = TaxonomyData; break
       case 'general': data = GeneralSiteData; break
       case 'index': data = IndexSiteData; break
       default : data = payload.data; break
