@@ -31,7 +31,7 @@
 import Slider from '@/components/SegmentSliderChart/Slider.vue'
 import Chart from '@/components/SegmentSliderChart/Chart.vue'
 
-import SampleData from '@/content/projects/sampleData.json'
+import SampleData from '@/content/sample/sampleData.json'
 
 // ====================================================================== Export
 export default {
@@ -41,6 +41,14 @@ export default {
   components: {
     Slider,
     Chart
+  },
+
+  props: {
+    allProjects: {
+      type: [Boolean, Array],
+      default: false,
+      required: false
+    }
   },
 
   data () {
@@ -70,6 +78,10 @@ export default {
       }
       return flexItems
     }
+  },
+
+  mounted () {
+    this.$emit('init')
   },
 
   methods: {

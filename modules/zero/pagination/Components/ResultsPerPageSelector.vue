@@ -3,13 +3,8 @@
 
     <div class="dropdown dropdown-selector-wrapper" @click.stop="toggleDropDown()">
 
-      <label
-        v-if="selected">
-        {{ msg + (selected === totalItems ? 'All' : selected) }}
-      </label>
-      <label
-        v-else>
-        {{ msg + display }}
+      <label>
+        {{ msg + (display === totalItems ? 'All' : display) }}
       </label>
 
       <button class="dropdown dropdown-button">
@@ -27,11 +22,11 @@
         <div
           v-if="!isNaN(option)"
           :key="`div-option-${option}`"
-          :value="{option}"
+          :value="option"
           class="dropdown dropdown-item"
           :class="{ highlighted: (display === option) }"
           @click="optionSelected(option)">
-          {{ (option === totalItems ? 'All' : option) }}
+          {{ option === totalItems ? 'All' : option }}
         </div>
       </template>
     </div>
@@ -45,10 +40,10 @@ import { mapGetters, mapActions } from 'vuex'
 
 // ===================================================================== Functions
 const closeAllSelect = (e, instance) => {
-  const options = document.getElementsByClassName('dropdown')
+  const opt = document.getElementsByClassName('dropdown')
   const results = []
-  for (let i = 0; i < options.length; i++) {
-    results.push(options[i] !== e.target)
+  for (let i = 0; i < opt.length; i++) {
+    results.push(opt[i] !== e.target)
   }
   if (results.every(bool => bool)) {
     instance.closed = true
@@ -84,7 +79,6 @@ export default {
 
   data () {
     return {
-      selected: this.display,
       closed: true,
       unfocus: false
     }
@@ -100,16 +94,17 @@ export default {
       return this.collection.length
     },
     options () {
-      const displayOptions = this.displayOptions
-      const current = this.display
+      const displayOptions = []
       const total = this.collection.length
-      if (!displayOptions.includes(current)) {
-        displayOptions.push(current)
+
+      for (let i = 0; i < this.displayOptions.length; i++) {
+        displayOptions.push(this.displayOptions[i])
       }
-      if (!displayOptions.includes(total)) {
-        displayOptions.push(total)
+      if (total <= displayOptions[0].amount) {
+        return [total]
       }
-      displayOptions.sort((a, b) => a - b)
+      // displayOptions.sort((a, b) => a - b)
+      displayOptions.push(total)
       return displayOptions
     }
   },
@@ -138,7 +133,6 @@ export default {
     optionSelected (val) {
       const selection = parseInt(val)
       if (!isNaN(selection)) {
-        this.selected = selection
         this.setDisplay(selection)
         this.calculateTotalPages()
         if (this.page > this.totalPages) {

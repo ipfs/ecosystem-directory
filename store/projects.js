@@ -1,15 +1,13 @@
 // /////////////////////////////////////////////////////////////////////// State
 // -----------------------------------------------------------------------------
-const state = {
-  activeTags: [],
-  collection: []
-}
+const state = () => ({
+  projects: []
+})
 
 // ///////////////////////////////////////////////////////////////////// Getters
 // -----------------------------------------------------------------------------
 const getters = {
-  activeTags: state => state.activeTags,
-  collection: state => state.collection
+  projects: state => state.projects
 }
 
 // ///////////////////////////////////////////////////////////////////// Actions
@@ -19,13 +17,15 @@ const actions = {
   clearStore ({ commit }) {
     commit('CLEAR_STORE')
   },
-  // /////////////////////////////////////////////////////////////////// setPage
-  setActiveTags ({ commit }, tags) {
-    commit('SET_ACTIVE_TAGS', tags)
+  // //////////////////////////////////////////////////////////// getAllProjects
+  async getAllProjects ({ commit }, payload) {
+    if (payload) {
+      await this.dispatch('projects/setProjects', payload)
+    }
   },
-  // /////////////////////////////////////////////////////////////////// setPage
-  setCollection ({ commit }, collection) {
-    commit('SET_COLLECTION', collection)
+  // /////////////////////////////////////////////////////////////// setProjects
+  setProjects ({ commit }, payload) {
+    commit('SET_PROJECTS', payload)
   }
 }
 
@@ -33,14 +33,10 @@ const actions = {
 // -----------------------------------------------------------------------------
 const mutations = {
   CLEAR_STORE (state) {
-    state.activeTags = []
-    state.collection = []
+    state.projects = []
   },
-  SET_ACTIVE_TAGS (state, tags) {
-    state.activeTags = tags
-  },
-  SET_COLLECTION (state, collection) {
-    state.collection = collection
+  SET_PROJECTS (state, payload) {
+    state.projects = payload
   }
 }
 

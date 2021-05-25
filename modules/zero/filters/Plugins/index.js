@@ -1,6 +1,6 @@
 /*
  *
- * 🔌 [Plugin | Pagination] Pagination
+ * 🔌 [Plugin | Filters] Filters
  *
  */
 

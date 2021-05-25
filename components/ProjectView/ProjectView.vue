@@ -38,10 +38,9 @@
 
       <div id="filter-panel-wrapper" ref="filterWrap">
         <div class="filter-panel inner-wrapper">
-          <Filters
-            class="filter-panel content">
-            <h4>All Filters</h4>
-          </Filters>
+          <FilterPanel
+            :collection="allProjects"
+            :is-active="filterActive" />
         </div>
       </div>
 
@@ -50,27 +49,26 @@
       <div id="card-display" ref="cardDisplay">
 
         <Paginate
-          v-if="ProjectList"
+          v-if="filteredProjects"
           v-slot="{ paginated }"
           :display="display"
-          :collection="ProjectList">
-
-          <div v-if="!listActive" class="grid">
+          :collection="filteredProjects"
+          class="card-grid">
+          <template v-for="(project, index) in paginated">
             <div
               v-for="(project, index) in paginated"
               :key="`grid-${index}`"
               class="col-3 card-container-grid">
 
-              <div class="card-grid">
-                <div class="card-logo-grid">
-                  <img :src="logos(project.logo)" />
+              <div class="card">
+                <div class="card-logo">
+                  <img :src="logos(project.logo.icon)" :alt="project.name" />
                 </div>
               </div>
 
               <label>{{ project.name }}</label>
 
-              <p>{{ project.description }}</p>
-
+              <p>{{ project.description.short }}</p>
             </div>
           </div>
 
@@ -100,7 +98,7 @@
           <PaginationControls />
 
           <div class="results-selector-wrapper">
-            <ResultsPerPageSelector :collection="ProjectList" class="results-per-page font-inter">
+            <ResultsPerPageSelector :collection="filteredProjects" class="results-per-page font-inter">
 
               <template #dropdown-icon>
                 <SelectorToggle />
@@ -128,15 +126,8 @@ import SelectorToggle from '@/modules/zero/core/Components/Icons/SelectorToggle'
 import ListView from '@/modules/zero/core/Components/Icons/ListView'
 import GridView from '@/modules/zero/core/Components/Icons/GridView'
 import FiltersToggle from '@/modules/zero/core/Components/Icons/FiltersToggle'
-import Filters from '@/modules/zero/filters/Components/Filters'
+import FilterPanel from '../FilterPanel/FilterPanel'
 import PaginationControls from './PaginationControls'
-
-import SampleProjects from '~/content/projects/sampleProjects.json'
-
-// ===================================================================== Functions
-const processProjects = (instance) => {
-  instance.projects = instance.collection
-}
 
 // ====================================================================== Export
 export default {
@@ -151,13 +142,22 @@ export default {
     ListView,
     GridView,
     Button,
-    Filters
+    FilterPanel
+  },
+
+  props: {
+    allProjects: {
+      type: [Boolean, Array],
+      default: false,
+      required: false
+    }
   },
 
   data () {
     return {
       projects: false,
       paginationDisplay: 20,
+      filters: false,
       filterActive: false,
       listActive: false,
       resize: false
@@ -169,18 +169,14 @@ export default {
       page: 'pagination/page',
       totalPages: 'pagination/totalPages',
       display: 'pagination/display',
-      collection: 'pagination/collection'
-    }),
-    ProjectList () {
-      const projects = this.projects
-      return projects
-    }
+      filteredProjects: 'filters/collection'
+    })
   },
 
   watch: {
     filterActive (val) {
       if (val) {
-        this.$refs.filterWrap.style.width = '70%'
+        this.$refs.filterWrap.style.width = '100%'
         this.$refs.cardDisplay.style.marginLeft = '5%'
         this.$refs.cardDisplay.style.marginRight = '10%'
       } else {
@@ -193,8 +189,11 @@ export default {
   },
 
   mounted () {
-    this.setCollection(SampleProjects.projects)
-    processProjects(this) // fill projects collection
+    if (this.$route.query.filters === 'enabled') {
+      this.filterActive = true
+    } else {
+      this.filterActive = false
+    }
   },
 
   methods: {
@@ -206,10 +205,21 @@ export default {
       clearStore: 'pagination/clearStore'
     }),
     logos (path) {
-      return require('~/assets/logos/' + path)
+      let icon
+      try {
+        icon = require('~/assets/logos/' + path)
+      } catch (e) {
+        // console.log(e)
+      }
+      if (icon) { return icon }
     },
     toggleFilterPanel () {
       this.filterActive = !this.filterActive
+      if (this.filterActive) {
+        this.$router.push({ path: '/', query: { filters: 'enabled' } })
+      } else {
+        this.$router.push(this.$route.path)
+      }
     },
     toggleListGridView () {
       this.listActive = !this.listActive
@@ -259,6 +269,7 @@ export default {
 
   #filter-panel-wrapper {
     width: 0%;
+    // max-width: 40vw;
     background-color: #ffffff;
     transition: width 500ms ease-in-out;
     flex-basis: content;
@@ -266,28 +277,26 @@ export default {
     border-radius: 0px 6px 6px 0px;
   }
 
-  h4 { font-weight: 400; }
-
   .filter-panel {
     font-family: $fontInter;
+    &.title {
+      font-weight: 400;
+      margin: 6px;
+    }
     &.inner-wrapper {
       position: relative;
       width: 100%;
       margin-left: 36%;
       overflow: hidden;
     }
-    &.content {
-      margin-top: 2rem;
-      white-space: nowrap;
-    }
   }
 
   // ////////////////////////////////////////////////////////////// [PROJECT CARDS]
 
   #card-display {
-    margin-left: 16%;
-    margin-right: 16%;
-    width: 84%;
+    margin-left: 18%;
+    margin-right: 4%;
+    min-width: 40vw;
     transition: all 500ms ease-in-out;
   }
 

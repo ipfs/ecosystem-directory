@@ -40,7 +40,7 @@
 
 <script>
 // ===================================================================== Imports
-import SampleProjects from '~/content/projects/sampleFeaturedProjects.json'
+import SampleProjects from '~/content/sample/sampleFeaturedProjects.json'
 
 // ===================================================================== Functions
 const handleFeatureSliderResize = (instance) => {
@@ -51,6 +51,14 @@ const handleFeatureSliderResize = (instance) => {
 // ====================================================================== Export
 export default {
   name: 'Main',
+
+  props: {
+    allProjects: {
+      type: [Boolean, Array],
+      default: false,
+      required: false
+    }
+  },
 
   data () {
     return {
@@ -80,6 +88,7 @@ export default {
   mounted () {
     this.resize = () => { handleFeatureSliderResize(this) }
     window.addEventListener('resize', this.resize)
+    this.$emit('init')
   },
 
   beforeDestroy () {
