@@ -53,17 +53,16 @@
           v-if="ProjectList"
           v-slot="{ paginated }"
           :display="display"
-          :collection="ProjectList"
-          class="card-grid">
-          <template v-for="(project, index) in paginated">
-            <div
-              v-if="paginated"
-              :key="index"
-              class="card-container"
-              :style="`grid-column: ${index % 4 + 1}; grid-row: ${Math.ceil((1 + index) / 4)};`">
+          :collection="ProjectList">
 
-              <div class="card">
-                <div class="card-logo">
+          <div v-if="!listActive" class="grid">
+            <div
+              v-for="(project, index) in paginated"
+              :key="`grid-${index}`"
+              class="col-3 card-container-grid">
+
+              <div class="card-grid">
+                <div class="card-logo-grid">
                   <img :src="logos(project.logo)" />
                 </div>
               </div>
@@ -71,8 +70,29 @@
               <label>{{ project.name }}</label>
 
               <p>{{ project.description }}</p>
+
             </div>
-          </template>
+          </div>
+
+          <div v-else class="card-list-flex">
+            <div
+              v-for="(project, index) in paginated"
+              :key="`list-${index}`"
+              class="col-3 card-container-list">
+
+              <div class="card-list">
+                <div class="card-logo-list">
+                  <img :src="logos(project.logo)" />
+                </div>
+                <div class="card-project-list">
+                  <label>{{ project.name }}</label>
+                  <p>{{ project.description }}</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </Paginate>
 
         <div class="page-navigation-controls">
@@ -160,13 +180,13 @@ export default {
   watch: {
     filterActive (val) {
       if (val) {
-        this.$refs.filterWrap.style.width = '80%'
+        this.$refs.filterWrap.style.width = '70%'
         this.$refs.cardDisplay.style.marginLeft = '5%'
-        this.$refs.cardDisplay.style.marginRight = '0%'
+        this.$refs.cardDisplay.style.marginRight = '10%'
       } else {
         this.$refs.filterWrap.style.width = '0%'
-        this.$refs.cardDisplay.style.marginLeft = '18%'
-        this.$refs.cardDisplay.style.marginRight = '4%'
+        this.$refs.cardDisplay.style.marginLeft = '16%'
+        this.$refs.cardDisplay.style.marginRight = '16%'
       }
       this.$emit('hide-segment-chart', val)
     }
@@ -198,11 +218,12 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 
   #project-view-container {
+    width: 100%;
     min-width: 600px;
+    padding: 0;
   }
 
   // ////////////////////////////////////////////////////////////// [TOGGLE CONTROLS]
@@ -230,17 +251,18 @@ export default {
   // ////////////////////////////////////////////////////////////// [FILTER PANEL]
 
   #project-filter-container {
+    width: 100%;
     position: relative;
-    margin-right: 12%;
     display: flex;
+    justify-content: center;
   }
 
   #filter-panel-wrapper {
     width: 0%;
-    // height: 100%;
     background-color: #ffffff;
     transition: width 500ms ease-in-out;
-    overflow: visible;
+    flex-basis: content;
+    overflow: hidden;
     border-radius: 0px 6px 6px 0px;
   }
 
@@ -250,7 +272,7 @@ export default {
     font-family: $fontInter;
     &.inner-wrapper {
       position: relative;
-      width: 64%;
+      width: 100%;
       margin-left: 36%;
       overflow: hidden;
     }
@@ -263,38 +285,35 @@ export default {
   // ////////////////////////////////////////////////////////////// [PROJECT CARDS]
 
   #card-display {
-    margin-left: 18%;
-    margin-right: 4%;
+    margin-left: 16%;
+    margin-right: 16%;
+    width: 84%;
     transition: all 500ms ease-in-out;
   }
 
-  .card-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 22px;
-  }
-
-  .card-container {
-    grid-column: 1;
-    grid-row: 1;
+  // ////////////////////////////////////////////////////////////// [GRID VIEW]
+  .card-container-grid {
     height: 250px;
     margin-bottom: 1rem;
-    display: inline-block;
+    align-self: flex-start;
+    flex: 1 1 25%;
+    min-width: 150px;
+    & label { font-weight: bold; }
+    & p { font-size: 10pt; }
   }
 
-  .card {
+  .card-grid {
     width: 100%;
     height: 64%;
     border-radius: 6px;
     background-color: #FFFFFF;
     margin-bottom: 16px;
+    &:hover {
+      cursor: pointer;
+    }
   }
 
-  .card:hover {
-    cursor: pointer;
-  }
-
-  .card-logo {
+  .card-logo-grid {
     position: relative;
     width: 50%;
     height: 60%;
@@ -303,13 +322,62 @@ export default {
     transform: translateY(-50%);
   }
 
+  // ////////////////////////////////////////////////////////////// [LIST VIEW]
+
+  .card-list-flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .card-container-list {
+    flex: 1 1 50%;
+    min-width: 332px;
+    height: 120px;
+    margin-bottom: 0;
+  }
+
+  .card-list {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+    background-color: #FFFFFF;
+    margin-bottom: 16px;
+    display: flex;
+    position: relative;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .card-logo-list {
+    position: relative;
+    padding: 1.0rem;
+    margin-left: 0.5rem;
+    width: 80px;
+    max-height: 80%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .card-project-list {
+    position: absolute;
+    vertical-align: middle;
+    padding: 1rem;
+    margin-left: 5.0rem;
+    vertical-align: middle;
+    & label {
+      font-size: 16pt;
+      font-weight: bold;
+    }
+    & p {
+      font-size: 10pt;
+    }
+  }
+
   img {
     width: 100%;
     height: 100%;
   }
-
-  label { font-weight: bold; }
-  p { font-size: 10pt; }
 
   // /////////////////////////////////////////////////////////// [PAGINATION CONTROLS]
 
