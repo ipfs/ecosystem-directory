@@ -28,6 +28,6 @@ export default {
 // ///////////////////////////////////////////////////////////////////// General
 #site-header {
   color: white;
-  background: linear-gradient(180deg,#041727 0,#062B3F);
+  background: linear-gradient(180deg, #041727 0, #062B3F);
 }
 </style>
