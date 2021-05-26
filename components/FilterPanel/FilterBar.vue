@@ -2,7 +2,7 @@
   <div :class="['filter-bar', { focused }]">
 
     <div class="icon-container">
-      <slot name="icon"/>
+      <slot name="icon" />
     </div>
 
     <input
@@ -70,8 +70,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$dimensions: 2.75rem;
-$dodgerBlue: #1E90FF;
+$dimensions: 2.25rem;
 
 // ///////////////////////////////////////////////////////////////////// General
 .filter-bar {
@@ -79,39 +78,11 @@ $dodgerBlue: #1E90FF;
   flex-direction: row;
   align-items: center;
   flex: 1;
-  width: 20rem;
+  width: 100%;
   height: calc(#{$dimensions} - 2px);
   margin-right: 1rem;
-  @include mini {
-    width: auto;
-    max-width: 20rem;
-  }
-  @include tiny {
-    max-width: none;
-  }
-  .input {
-    padding: 0.66rem;
-    background-color: $blackHaze;
-    -webkit-appearance: none
-  }
-  &.focused {
-    .icon-container,
-    .input {
-      transition: 250ms ease-in;
-    }
-    ::v-deep .icon-container {
-      // background-color: $dodgerBlue;
-      .search-svg-circle,
-      .search-svg-line {
-        transition: 250ms ease-in;
-        stroke: $blackHaze;;
-      }
-    }
-    .input {
-      // border-color: $dodgerBlue;
-      padding: 0.66rem 0.75rem;
-    }
-  }
+  @include borderRadius3;
+  background-color: $blackHaze;
 }
 
 .icon-container {
@@ -121,31 +92,24 @@ $dodgerBlue: #1E90FF;
   align-items: center;
   width: calc(#{$dimensions} - 2px);
   height: calc(#{$dimensions} - 2px);
-  background-color: $blackHaze;;
-  border-radius: 0.125rem 0 0 0.125rem;
+  background-color: $blackHaze;
+  border-radius: 0.25rem 0 0 0.25rem;
   transition: 250ms ease-out;
-  ::v-deep .search-icon {
-    width: 1rem;
-    .search-svg-circle,
-    .search-svg-line {
-      transition: 250ms ease-out;
-    }
-  }
 }
 
 .input {
-  // @include font14;
-  width: calc(100% - (#{$dimensions} - 2px));
   height: 100%;
-  padding: 0;
-  font-weight: 500;
-  border: 2px solid $blackHaze;;
-  background-color: $blackHaze;;
-  border-radius: 0 0.125rem 0.125rem 0;
+  padding: 0.66rem 0;
+  font-family: $fontMontserrat;
+  font-size: 10pt;
+  font-weight: 300;
+  background-color: $blackHaze;
+  border-radius: 0 0.25rem 0.25rem 0;
   transition: 250ms ease-out;
+  -webkit-appearance: none;
   &:hover {
     transition: 250ms ease-in;
-    background-color: $blackHaze;;
+    background-color: $blackHaze;
   }
 }
 </style>

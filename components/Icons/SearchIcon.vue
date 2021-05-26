@@ -7,9 +7,9 @@
 
         <g transform="translate(0)" fill="none" stroke="#bfbfbf" stroke-linecap="round" stroke-width="1.5">
 
-          <circle cx="5.98" cy="5.98" r="5.98" stroke="none"/>
+          <circle cx="5.98" cy="5.98" r="5.98" stroke="none" />
 
-          <circle cx="5.98" cy="5.98" r="5.23" fill="none"/>
+          <circle cx="5.98" cy="5.98" r="5.23" fill="none" />
 
         </g>
 
@@ -19,7 +19,7 @@
           transform="translate(9.757 10.386)"
           stroke="#bfbfbf"
           stroke-linecap="round"
-          stroke-width="1.5"/>
+          stroke-width="1.5" />
 
       </g>
 

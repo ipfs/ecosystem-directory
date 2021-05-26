@@ -6,23 +6,37 @@
     <div class="grid-center">
       <div id="card-filters-toggle" class="col-12">
 
-        <Button
-          type="C"
-          text="Filters"
-          :class="{ activeButton: filterActive }"
-          @clicked="toggleFilterPanel">
+        <div class="filter-panel-controls">
+          <Button
+            type="C"
+            text="Filters"
+            :class="{ activeButton: filterActive }"
+            @clicked="toggleFilterPanel">
 
-          <template #icon-before>
-            <FiltersToggle
-              class="font-inter"
-              :stroke="filterActive ? '#ffffff' : '#052437'" />
-          </template>
+            <template #icon-before>
+              <FiltersToggle
+                class="font-inter"
+                :stroke="filterActive ? '#ffffff' : '#052437'" />
+            </template>
 
-        </Button>
+          </Button>
+
+          <Button
+            v-if="totalFilters"
+            type="C"
+            :text="`Clear (${totalFilters}) Selected`"
+            class="clear-selected"
+            @clicked="clearSelectedFilters">
+            <template #icon-after>
+              <Close />
+            </template>
+          </Button>
+
+        </div>
 
         <div id="radio-view-toggle" @click.stop="toggleListGridView">
 
-          <div class="selected-blackground" ref="radio"></div>
+          <div ref="radio" class="selected-blackground"></div>
 
           <ListView
             class="radio-toggle-item"
@@ -44,8 +58,15 @@
 
       <div id="filter-panel-wrapper" ref="filterWrap">
         <div class="filter-panel inner-wrapper">
+
           <div
-            v-if="filterActive"
+            class="close-icon"
+            @click="toggleFilterPanel">
+            <Close />
+          </div>
+
+          <div
+            v-if="filterPanel"
             class="filter-panel-heading">
 
             <h4 class="title">
@@ -59,10 +80,14 @@
             </FilterBar>
 
           </div>
+
           <FilterPanel
+            ref="filterPanel"
             :collection="allProjects"
-            :is-active="filterActive"
-            @closeFilters="closeFilterPanel"/>
+            :is-active="filterPanel"
+            @closeFilters="toggleFilterPanel"
+            @totalSelected="updateTotalFilters" />
+
         </div>
       </div>
 
@@ -87,7 +112,7 @@
 
               <div class="card-grid">
                 <div class="card-logo-grid">
-                  <img :src="logos(project.logo.icon)" />
+                  <img :src="$relativity(`/images/logos/${project.logo.icon}`)" />
                 </div>
               </div>
 
@@ -106,7 +131,7 @@
 
               <div class="card-list">
                 <div class="card-logo-list">
-                  <img :src="logos(project.logo.icon)" />
+                  <img :src="$relativity(`/images/logos/${project.logo.icon}`)" />
                 </div>
                 <div class="card-project-list">
                   <label>{{ project.name }}</label>
@@ -129,7 +154,7 @@
               class="results-per-page font-inter">
 
               <template #dropdown-icon>
-                <SelectorToggle stroke="#052437"/>
+                <SelectorToggle stroke="#052437" />
               </template>
 
             </ResultsPerPageSelector>
@@ -156,6 +181,7 @@ import ListView from '@/components/Icons/ListView'
 import GridView from '@/components/Icons/GridView'
 import FilterBar from '@/components/FilterPanel/FilterBar'
 import SearchIcon from '@/components/Icons/SearchIcon'
+import Close from '@/components/Icons/Close'
 import FilterPanel from '@/components/FilterPanel/FilterPanel'
 import PaginationControls from '@/components/ProjectView/PaginationControls'
 
@@ -186,7 +212,8 @@ export default {
     Button,
     FilterBar,
     FilterPanel,
-    SearchIcon
+    SearchIcon,
+    Close
   },
 
   props: {
@@ -203,6 +230,8 @@ export default {
       paginationDisplay: 20,
       filters: false,
       filterActive: false,
+      filterPanel: false,
+      totalFilters: 0,
       listActive: false,
       resize: false
     }
@@ -218,7 +247,7 @@ export default {
   },
 
   watch: {
-    filterActive (val) {
+    filterPanel (val) {
       if (val) {
         this.$refs.filterWrap.style.width = '34%'
         this.$refs.cardDisplay.style.width = '66%'
@@ -231,7 +260,7 @@ export default {
         this.$refs.cardDisplay.style.marginRight = '16%'
         setTimeout(() => { resetCardDisplayMargin(this.$refs.cardDisplay) }, 500)
       }
-      this.$emit('hide-segment-chart', val)
+      this.$emit('hide-segment-chart', this.filterActive)
     }
   },
 
@@ -253,34 +282,27 @@ export default {
       setCollection: 'pagination/setCollection',
       clearStore: 'pagination/clearStore'
     }),
-    logos (path) {
-      // return require(`~/assets/logos/${path}`) ** replace with this when logos available
-      let icon
-      try {
-        return require(`~/assets/logos/${path}`)
-      } catch (e) {
-        console.log(e)
-      }
-      if (icon) { return icon }
-    },
     toggleFilterPanel () {
-      this.filterActive = !this.filterActive
-      if (this.filterActive) {
-        this.$router.push({ path: '/', query: { filters: 'enabled' } })
-      } else {
-        this.$router.push(this.$route.path)
+      this.filterPanel = !this.filterPanel
+      if (!this.totalFilters) {
+        this.filterActive = this.filterPanel
+        if (this.filterActive) {
+          this.$router.push({ path: '/', query: { filters: 'enabled' } })
+          window.scrollTo(0, 0) // not sure where to trigger this
+        } else {
+          this.$router.push(this.$route.path)
+        }
       }
     },
     toggleListGridView () {
       this.listActive = !this.listActive
       this.$refs.radio.style.left = this.listActive ? '0%' : '50%'
     },
-    closeFilterPanel () {
-      console.log('hola')
-    //   this.$refs.filterWrap.style.width = '0'
-    //   this.$refs.cardDisplay.style.width = '84%'
-    //   this.$refs.cardDisplay.style.marginLeft = '16%'
-    //   this.$refs.cardDisplay.style.marginRight = '16%'
+    updateTotalFilters (val) {
+      this.totalFilters = val
+    },
+    clearSelectedFilters () {
+      this.$refs.filterPanel.clearSelected()
     }
   }
 }
@@ -324,6 +346,21 @@ export default {
   }
 }
 
+.filter-panel-controls {
+  display: flex;
+  position: relative;
+  .clear-selected {
+    position: relative;
+    height: 2.25rem;
+    cursor: pointer;
+    background-color: #ffffff;
+    @include borderRadius3;
+    white-space: nowrap;
+    padding: 0 0.75rem;
+    margin: 0 0.75rem;
+  }
+}
+
 .radio-toggle-item {
   border-radius: 0.25rem;
   width: 100%;
@@ -364,7 +401,8 @@ export default {
 }
 
 .filter-panel-heading {
-  margin: 2rem 0;
+  margin: 2.5rem 0;
+  margin-right: 2.5rem;
   .title {
     font-family: $fontMontserrat;
     font-weight: 400;
@@ -380,6 +418,13 @@ export default {
     height: 100%;
     margin-left: 24%;
     overflow: hidden;
+  }
+  .close-icon {
+    position: absolute;
+    right: 0.75rem;
+    top: 0.25rem;
+    padding: 0.25rem;
+    cursor: pointer;
   }
 }
 

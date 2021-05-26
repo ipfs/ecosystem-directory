@@ -167,7 +167,6 @@ export default {
     toggleProjectView (val) {
       if (val) {
         this.$refs.collapsibleSection.style.height = '0px'
-        window.scrollTo(0, 0)
       } else {
         this.$refs.collapsibleSection.style.height = this.sectionHeight + 'px'
       }

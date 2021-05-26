@@ -11,7 +11,7 @@
 
             <div class="card">
               <div class="card-logo">
-                <img :src="logos(item.logo)" />
+                <img :src="$relativity(`/images/logos/${item.logo}`)" />
               </div>
             </div>
 
@@ -96,9 +96,6 @@ export default {
   },
 
   methods: {
-    logos (path) {
-      return require('~/assets/logos/' + path)
-    },
     setSliderPosition () {
       const amt = this.$refs.cardFlex.firstChild.clientWidth
       this.$refs.cardFlex.style.left = (-1 * this.currentIndex) * amt + 'px'

@@ -61,6 +61,7 @@
         <div class="bottom-buttons">
 
           <button
+            v-if="selected.length"
             class="clear-selected"
             @click="clearSelected">
             Clear ({{ selected.length }}) Selected
@@ -176,6 +177,12 @@ export default {
     }
   },
 
+  watch: {
+    selected () {
+      this.$emit('totalSelected', this.selected.length)
+    }
+  },
+
   mounted () {
     this.catsActive = this.initToggles
     for (let i = 0; i < this.ProjectFilters.length; i++) {
@@ -251,32 +258,32 @@ export default {
 
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
-  .filter-panel-content {
-    margin-right: 2rem;
-    white-space: nowrap;
-  }
+.filter-panel-content {
+  margin-right: 2.5rem;
+  white-space: nowrap;
+}
 
-  .flip {
-    transform: scaleY(-1);
-  }
+.flip {
+  transform: scaleY(-1);
+}
 
-  .collapsible-tags {
-    transition: height 500ms ease-in-out;
-    overflow: hidden;
-  }
+.collapsible-tags {
+  transition: height 500ms ease-in-out;
+  overflow: hidden;
+}
 
-  .collapsed {
-    height: 0px;
-  }
+.collapsed {
+  height: 0px;
+}
 
-  .active-button {
-    background-color: $tiber;
-    color: #ffffff;
-  }
+.active-button {
+  background-color: $tiber;
+  color: #ffffff;
+}
 
-  .not-selected {
-    background-color: $blackHaze;
-  }
+.not-selected {
+  background-color: $blackHaze;
+}
 
 .bottom-buttons{
   margin-top: 2rem;
@@ -301,60 +308,60 @@ export default {
 }
 
 // //////////////////////////////////////////////////////////////// Filter Panel
-  .filter-category {
-    &:hover {
-      cursor: pointer;
-    }
-    &.heading-wrapper {
-      display: flex;
-      justify-content: space-between;
-      // line-height: 2.0;
-      margin-top: 1rem;
-    }
-    &.heading {
-      font-family: $fontMontserrat;
-      font-weight: 500;
-      // padding: 0.5rem 0rem;
+.filter-category {
+  &:hover {
+    cursor: pointer;
+  }
+  &.heading-wrapper {
+    display: flex;
+    justify-content: space-between;
+    // line-height: 2.0;
+    margin-top: 1rem;
+  }
+  &.heading {
+    font-family: $fontMontserrat;
+    font-weight: 500;
+    // padding: 0.5rem 0rem;
 
-      margin: 0 6px;
-    }
-    &.number-active {
-      font-size: 8pt;
-    }
-    &.toggle {
-      display: inline-block;
-      // padding: 0.5rem;
-      // margin: 6px;
-      vertical-align: middle;
-      height: 100%;
-      position: relative;
-      top: 0.5rem;
-      opacity: 0.5;
-      &:hover {
-        opacity: 1.0;
-      }
-    }
-    &.sub-heading {
-      font-family: $fontInter;
-      margin: 6px;
-      margin-bottom: 1rem;
-    }
-    &.tag-list {
-      display: flex;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
-    }
-    &.tag {
-      font-family: $fontInter;
-      font-weight: 500;
-      font-size: 9pt;
-      padding: 0.4rem 1.2rem;
-      max-width: 100%;
-      @include borderRadius3;
-    }
-    &.tag-list > .tag {
-      margin: 5px;
+    margin: 0 6px;
+  }
+  &.number-active {
+    font-size: 8pt;
+  }
+  &.toggle {
+    display: inline-block;
+    // padding: 0.5rem;
+    // margin: 6px;
+    vertical-align: middle;
+    height: 100%;
+    position: relative;
+    top: 0.5rem;
+    opacity: 0.5;
+    &:hover {
+      opacity: 1.0;
     }
   }
+  &.sub-heading {
+    font-family: $fontInter;
+    margin: 6px;
+    margin-bottom: 2rem;
+  }
+  &.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+  &.tag {
+    font-family: $fontInter;
+    font-weight: 500;
+    font-size: 9pt;
+    padding: 0.3rem 1.2rem;
+    max-width: 100%;
+    @include borderRadius3;
+  }
+  &.tag-list > .tag {
+    margin: 5px;
+  }
+}
 
 </style>

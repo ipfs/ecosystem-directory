@@ -1,5 +1,5 @@
 <template>
-  <div ref="chartFlex" class="chart-container chart-flex" >
+  <div ref="chartFlex" class="chart-container chart-flex">
 
     <div
       v-for="(item, index) in segments"

@@ -1,5 +1,5 @@
 <template>
-  <div class="slider-container" >
+  <div class="slider-container">
     <div class="slider-card">
 
       <div class="slide-nav">
@@ -35,11 +35,11 @@
 
           <div v-if="iconPaths.length" class="logo-wrapper">
 
-            <img :src="fetchLogo()" />
+            <img :src="$relativity(`/images/logos/${iconPaths[Math.floor(Math.random() * iconPaths.length)]}`)" />
 
-            <img :src="fetchLogo()" />
+            <img :src="$relativity(`/images/logos/${iconPaths[Math.floor(Math.random() * iconPaths.length)]}`)" />
 
-            <img :src="fetchLogo()" />
+            <img :src="$relativity(`/images/logos/${iconPaths[Math.floor(Math.random() * iconPaths.length)]}`)" />
 
           </div>
 
@@ -117,13 +117,6 @@ export default {
   methods: {
     incrementSelection (seg) {
       this.$emit('update-slider', seg)
-    },
-    fetchLogo () {
-      try {
-        return require('~/assets/logos/' + this.iconPaths[Math.floor(Math.random() * this.iconPaths.length)])
-      } catch (e) {
-        console.log(e)
-      }
     }
   }
 }

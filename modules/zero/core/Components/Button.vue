@@ -10,11 +10,11 @@
 
     <div :class="['button-content', { hide: loading }]">
 
-      <div v-if="iconBefore">
+      <div v-if="iconBefore" class="icon">
         <slot name="icon-before"></slot>
       </div>
 
-      <p v-if="text" class="item-after">
+      <p v-if="text" :class="{ 'item-after': iconBefore }">
         {{ text }}
       </p>
 
@@ -152,6 +152,12 @@ export default {
 
 .item-after {
   margin-left: 0.75rem;
+}
+
+.icon {
+  display: inline-block;
+  height: 0.7rem;
+  margin: auto;
 }
 
 // /////////////////////////////////////////////////////////////// [Type] Common
