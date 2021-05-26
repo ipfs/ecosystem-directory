@@ -35,8 +35,6 @@ import { mapGetters } from 'vuex'
 import Slider from '@/components/SegmentSliderChart/Slider.vue'
 import Chart from '@/components/SegmentSliderChart/Chart.vue'
 
-import Taxonomy from '@/content/data/taxonomy.json'
-
 // =================================================================== Functions
 const createLabels = (projects) => {
   const tags = []
@@ -58,7 +56,7 @@ const createLabels = (projects) => {
     tags.forEach((tag) => { if (tag === categories[i]) { count++ } })
     items.push({
       cat: categories[i],
-      count: count,
+      count,
       size: count * 10,
       chars: l,
       above: Math.round(Math.random() * 1.4),
