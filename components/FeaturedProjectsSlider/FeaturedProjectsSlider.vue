@@ -5,19 +5,19 @@
       <div id="card-display">
         <div id="card-flex" ref="cardFlex" :class="{ sliding: animate }">
           <div
-            v-for="(item, index) in projects"
+            v-for="(proj, index) in featured"
             :key="index"
             class="card-container">
 
             <div class="card">
               <div class="card-logo">
-                <img :src="logos(item.logo)" />
+                <img :src="logos(proj.logo.icon)" />
               </div>
             </div>
 
-            <label>{{ item.name }}</label>
+            <label>{{ proj.name }}</label>
 
-            <p>{{ item.description }}</p>
+            <p>{{ proj.description.short }}</p>
           </div>
         </div>
       </div>
@@ -40,7 +40,7 @@
 
 <script>
 // ===================================================================== Imports
-import SampleProjects from '~/content/sample/sampleFeaturedProjects.json'
+import { mapGetters } from 'vuex'
 
 // ===================================================================== Functions
 const handleFeatureSliderResize = (instance) => {
@@ -52,17 +52,8 @@ const handleFeatureSliderResize = (instance) => {
 export default {
   name: 'Main',
 
-  props: {
-    allProjects: {
-      type: [Boolean, Array],
-      default: false,
-      required: false
-    }
-  },
-
   data () {
     return {
-      projects: SampleProjects.projects,
       currentIndex: 0,
       range: 0,
       resize: false,
@@ -71,8 +62,20 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      projects: 'projects/projects'
+    }),
+    featured () {
+      const arr = []
+      for (let i = 0; i < this.projects.length; i++) {
+        if (this.projects[i].featured) {
+          arr.push(this.projects[i])
+        }
+      }
+      return arr
+    },
     indices () {
-      return this.projects.length - 4
+      return this.featured.length - 4
     }
   },
 
