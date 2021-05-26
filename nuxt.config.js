@@ -1,7 +1,25 @@
-// ////////////////////////////////////////////////////////////////////// Export
-// -----------------------------------------------------------------------------
+import Projects from './content/projects/manifest.json'
+
 export default {
+  // //////////////////////////////////////////// Static Site Generation Options
+  // ---------------------------------------------------------------------------
   target: 'static',
+  generate: {
+    routes (a, b) {
+      return new Promise((resolve, reject) => {
+        if (Projects.length > 0) {
+          resolve(Projects.map((slug) => {
+            return {
+              route: `/project/${slug}`,
+              payload: require(`./content/projects/${slug}`)
+            }
+          }))
+        } else {
+          reject(Error('Unable to generate Project routes because no projects exist'))
+        }
+      })
+    }
+  },
   // ///////////////////////////////////////////////////// Runtime Configuration
   // ---------------------------------------------------------------------------
   // ---------------------------------------------------------- [Runtime] Public
