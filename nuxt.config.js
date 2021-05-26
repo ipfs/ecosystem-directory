@@ -1,3 +1,5 @@
+/* eslint require-await: "off" */
+
 import Projects from './content/projects/manifest.json'
 
 export default {
@@ -5,19 +7,32 @@ export default {
   // ---------------------------------------------------------------------------
   target: 'static',
   generate: {
-    routes (a, b) {
-      return new Promise((resolve, reject) => {
-        if (Projects.length > 0) {
-          resolve(Projects.map((slug) => {
-            return {
-              route: `/project/${slug}`,
-              payload: require(`./content/projects/${slug}`)
+    async routes (a, b) {
+      const routes = []
+      try {
+        const len = Projects.length
+        if (len === 0) { throw new Error('[nuxt.config.js] Unable to generate Project routes because no projects exist') }
+        for (let i = 0; i < len; i++) {
+          try {
+            const slug = Projects[i]
+            const route = `/project/${slug}`
+            const payload = require(`./content/projects/${slug}`)
+            routes.push({ route, payload })
+          } catch (e) {
+            if (e.code === 'MODULE_NOT_FOUND') {
+              const slug = e.message.split('\'')[1].split('/').pop()
+              console.log(`========== Attempting to generate route /project/${slug} that does not have a corresponding project file`)
+              continue
+            } else {
+              throw e
             }
-          }))
-        } else {
-          reject(Error('Unable to generate Project routes because no projects exist'))
+          }
         }
-      })
+        return routes
+      } catch (e) {
+        console.log(e)
+        return routes
+      }
     }
   },
   // ///////////////////////////////////////////////////// Runtime Configuration
