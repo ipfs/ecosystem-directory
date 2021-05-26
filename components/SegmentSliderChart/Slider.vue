@@ -12,8 +12,8 @@
       </div>
 
       <transition name="slide-fade" mode="out-in">
-        <div :key="selectedCat">
-          <h3>{{ selectedCat }}</h3>
+        <div :key="selectedCat.cat">
+          <h3>{{ selectedCat.cat }}</h3>
           <p class="slider-card-text">
             {{ excerpt }}
           </p>
@@ -24,7 +24,7 @@
       </transition>
 
       <button class="project-view button noselect">
-        View 53 Projects
+        View {{ selectedCat.count }} Projects
       </button>
 
     </div>
@@ -38,8 +38,8 @@ export default {
 
   props: {
     selectedCat: {
-      type: String,
-      default: ''
+      type: Object,
+      required: true
     },
     selectedSeg: {
       type: Number,

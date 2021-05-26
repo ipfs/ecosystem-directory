@@ -1,11 +1,11 @@
 <template>
   <div ref="chartFlex" class="chart-container chart-flex" :style="`height: ${containerHeight}px;`">
-
+    <!-- style width on segments may need to be changed back to px values when category sizes grow! -->
     <div
       v-for="(item, index) in segments"
       :key="index"
       :class="setForegrounded(index)"
-      :style="`width: ${item.size}px; height: ${segmentHeight}px;`"
+      :style="`width: ${item.size}%; height: ${segmentHeight}px;`"
       @click="updateParent(index)">
 
       <span
