@@ -7,8 +7,8 @@
     }
   ],
   "logo": {
-    "icon": "bit-song-logo-sistemato-01.png",
-    "full": "bitsong.jpg"
+    "icon": "bitsong.jpg",
+    "full": "bit-song-logo-sistemato-01.png"
   },
   "name": "BitSong",
   "org": [

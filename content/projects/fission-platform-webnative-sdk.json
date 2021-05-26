@@ -7,8 +7,8 @@
     }
   ],
   "logo": {
-    "icon": "fission-logo-dark-colored.svg",
-    "full": "fission.png"
+    "icon": "fission.svg",
+    "full": "fission-logo-dark-colored.svg"
   },
   "name": "Fission Platform, Webnative SDK",
   "org": [

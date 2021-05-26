@@ -7,8 +7,8 @@
     }
   ],
   "logo": {
-    "icon": "textile-logo-dark.png",
-    "full": "textile.png"
+    "icon": "textile.png",
+    "full": "textile-logo-dark.png"
   },
   "name": "Hub, ThreadDB, Buckets, Powergate",
   "org": [

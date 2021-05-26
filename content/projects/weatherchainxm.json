@@ -7,8 +7,8 @@
     }
   ],
   "logo": {
-    "icon": "EXM_LOGO_KIT-13.png",
-    "full": "exmachina.png"
+    "icon": "exmachina.png",
+    "full": "EXM_LOGO_KIT-13.png"
   },
   "name": "WeatherChainXM",
   "org": [

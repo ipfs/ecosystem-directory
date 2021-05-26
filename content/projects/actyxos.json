@@ -7,8 +7,8 @@
     }
   ],
   "logo": {
-    "icon": "actyx-logo.svg",
-    "full": "actyx.png"
+    "icon": "actyx.png",
+    "full": "actyx-logo.svg"
   },
   "name": "ActyxOS",
   "org": [

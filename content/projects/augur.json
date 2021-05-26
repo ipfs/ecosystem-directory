@@ -7,8 +7,8 @@
     }
   ],
   "logo": {
-    "icon": "augur-logo.png",
-    "full": "augur.png"
+    "icon": "augur.png",
+    "full": "augur-logo.png"
   },
   "name": "Augur",
   "org": [

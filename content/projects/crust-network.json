@@ -7,8 +7,8 @@
     }
   ],
   "logo": {
-    "icon": "",
-    "full": "C-logo.svg"
+    "icon": "c-logo.svg",
+    "full": "c-logo.svg"
   },
   "name": "Crust Network",
   "org": [

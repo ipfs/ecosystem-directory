@@ -7,8 +7,8 @@
     }
   ],
   "logo": {
-    "icon": "zinc.svg",
-    "full": "zinc.png"
+    "icon": "zinc.png",
+    "full": "zinc.svg"
   },
   "name": "Zinc",
   "org": [

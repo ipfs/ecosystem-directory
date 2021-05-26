@@ -7,7 +7,7 @@
     }
   ],
   "logo": {
-    "icon": "",
+    "icon": "infura_logo_red.png",
     "full": "infura_logo_red.png"
   },
   "name": "Infura IPFS API",

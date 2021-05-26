@@ -7,8 +7,8 @@
     }
   ],
   "logo": {
-    "icon": "kiwix-logo-995x200-1.png",
-    "full": "kiwix.jpg"
+    "icon": "kiwix.jpg",
+    "full": "kiwix-logo-995x200-1.png"
   },
   "name": "Wikipedia on IPFS",
   "org": [

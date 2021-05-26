@@ -7,8 +7,8 @@
     }
   ],
   "logo": {
-    "icon": "",
-    "full": "name-bazaar-logo@2x.png"
+    "icon": "logo-name-bazaar.png",
+    "full": "logo-name-bazaar.png"
   },
   "name": "Name Bazaar",
   "org": [

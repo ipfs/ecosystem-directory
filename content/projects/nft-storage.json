@@ -7,8 +7,8 @@
     }
   ],
   "logo": {
-    "icon": "logo-nft.storage.svg",
-    "full": ""
+    "icon": "logo-nft-storage.svg",
+    "full": "logo-nft-storage.svg"
   },
   "name": "nft.storage",
   "org": [

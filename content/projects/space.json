@@ -7,8 +7,8 @@
     }
   ],
   "logo": {
-    "icon": "",
-    "full": "Space.svg"
+    "icon": "logo-space.svg",
+    "full": "logo-space.svg"
   },
   "name": "Space",
   "org": [

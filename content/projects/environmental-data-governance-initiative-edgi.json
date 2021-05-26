@@ -7,8 +7,8 @@
     }
   ],
   "logo": {
-    "icon": "EDGI_Logo-Horiz_Hi-Res_Transp.png",
-    "full": "edgi.png"
+    "icon": "edgi.png",
+    "full": "EDGI_Logo-Horiz_Hi-Res_Transp.png"
   },
   "name": "Environmental Data & Governance Initiative (EDGI)",
   "org": [

@@ -7,7 +7,7 @@
     }
   ],
   "logo": {
-    "icon": "",
+    "icon": "ipfs-clusterandroid-chrome-192x192.png",
     "full": "ipfs-clusterandroid-chrome-192x192.png"
   },
   "name": "IPFS Cluster",

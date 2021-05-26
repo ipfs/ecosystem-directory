@@ -7,8 +7,8 @@
     }
   ],
   "logo": {
-    "icon": "orbit_db_logo_color.png",
-    "full": "orbitdb.png"
+    "icon": "orbitdb.png",
+    "full": "orbit_db_logo_color.png"
   },
   "name": "OrbitDB",
   "org": [

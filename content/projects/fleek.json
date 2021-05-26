@@ -7,8 +7,8 @@
     }
   ],
   "logo": {
-    "icon": "FleekForLight.png",
-    "full": "fleek.png"
+    "icon": "fleek.png",
+    "full": "FleekForLight.png"
   },
   "name": "Fleek",
   "org": [

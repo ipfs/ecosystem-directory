@@ -7,8 +7,8 @@
     }
   ],
   "logo": {
-    "icon": "bloom-protocol.png",
-    "full": "bloom.png"
+    "icon": "bloom.png",
+    "full": "bloom-protocol.png"
   },
   "name": "Decentralized Identity Wallet",
   "org": [

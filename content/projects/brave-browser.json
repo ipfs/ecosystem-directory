@@ -7,7 +7,7 @@
     }
   ],
   "logo": {
-    "icon": "",
+    "icon": "brave-logo.png",
     "full": "brave-logo.png"
   },
   "name": "Brave Browser",

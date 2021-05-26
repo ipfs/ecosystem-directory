@@ -7,7 +7,7 @@
     }
   ],
   "logo": {
-    "icon": "",
+    "icon": "qri-apple-touch-icon.png",
     "full": "qri-apple-touch-icon.png"
   },
   "name": "Qri",

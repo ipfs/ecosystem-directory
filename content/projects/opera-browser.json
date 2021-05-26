@@ -7,8 +7,8 @@
     }
   ],
   "logo": {
-    "icon": "logo-header-opera2x_51a1322c5662.png",
-    "full": "opera.png"
+    "icon": "opera.png",
+    "full": "logo-header-opera2x_51a1322c5662.png"
   },
   "name": "Opera Browser",
   "org": [

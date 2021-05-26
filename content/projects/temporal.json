@@ -7,8 +7,8 @@
     }
   ],
   "logo": {
-    "icon": "temporal-logo.png",
-    "full": "temporal.jpg"
+    "icon": "temporal.jpg",
+    "full": "temporal-logo.png"
   },
   "name": "Temporal",
   "org": [

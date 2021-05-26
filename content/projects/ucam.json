@@ -7,8 +7,8 @@
     }
   ],
   "logo": {
-    "icon": "iotex_logo_repo-card.png",
-    "full": "iotex.png"
+    "icon": "iotex.png",
+    "full": "iotex_logo_repo-card.png"
   },
   "name": "Ucam",
   "org": [

@@ -7,8 +7,8 @@
     }
   ],
   "logo": {
-    "icon": "request-banner-logo.png",
-    "full": "request.png"
+    "icon": "request.png",
+    "full": "request-banner-logo.png"
   },
   "name": "Request Invoicing",
   "org": [
