@@ -19,9 +19,7 @@
               :to="link.disabled ? '' : link.href"
               :disabled="link.disabled"
               :target="link.target"
-              class="link">
-              {{ link.label }}
-            </component>
+              class="link">{{ link.label }}</component>
           </nav>
 
         </div>
@@ -54,15 +52,57 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin: 1rem 0;
+}
+
+@media (min-width: 768px) {
+  #navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 32rem;
+  }
+}
+
+.logo,
+.link {
+  cursor: pointer;
 }
 
 .logo {
   width: 8.625rem;
+  opacity: 1.0;
+  transition: opacity 0.3s cubic-bezier(.4,0,.2,1);
+  &:hover {
+    opacity: 0.75;
+  }
 }
 
 .link {
+  font-family: $fontMontserrat;
+  line-height: 1.5;
   &:not(:last-child) {
     margin-right: 1.6875rem;
   }
+  &:after {
+    content: "";
+    height: 1px;
+    bottom: -7px;
+    background-color: currentColor;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    opacity: 0;
+    transition: all .2s cubic-bezier(.4,0,.2,1);
+  }
+  &:hover:after{
+    opacity: 1;
+    box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
+    border-color: #e5e7eb;
+  }
 }
+
 </style>
