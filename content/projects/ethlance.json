@@ -1,0 +1,104 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": [
+    {
+      "since": 2017
+    }
+  ],
+  "logo": {
+    "icon": "ethlance.png",
+    "full": ""
+  },
+  "name": "Ethlance",
+  "org": [
+    "district0x"
+  ],
+  "description": {
+    "short": "Marketplace for freelance talent",
+    "long": "A decentralized, user-governed marketplace for freelance talent. Built on Ethereum, Aragon, and IPFS."
+  },
+  "primaryCta": {
+    "url": "//ethlance.com",
+    "text": "Project Website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//ethlance.com",
+          "text": "ethlance.com"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/district0x",
+          "text": "github.com/district0x"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2017"
+    }
+  ],
+  "video": "",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "",
+    "description": "",
+    "buttonText": "",
+    "url": ""
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "marketplaces-ecommerce"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "community-networks"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "couldnt-exist-without-ipfs",
+        "disaster-resilience",
+        "corporate-government-independence",
+        "interoperability",
+        "self-sovereign-data"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "cljs-ipfs",
+        "js-ipfs"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": [
+    {
+      "since": 2017
+    }
+  ],
+  "logo": {
+    "icon": "",
+    "full": "memefactory-mememouth.png"
+  },
+  "name": "Meme Factory",
+  "org": [
+    "district0x"
+  ],
+  "description": {
+    "short": "Decentralized registry and marketplace for meme NFTs",
+    "long": "A decentralized registry and marketplace for the creation, exchange, and collection of provably rare digital assets."
+  },
+  "primaryCta": {
+    "url": "//memefactory.io",
+    "text": "Project Website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//memefactory.io",
+          "text": "memefactory.io"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/district0x",
+          "text": "github.com/district0x"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2017"
+    }
+  ],
+  "video": "",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "",
+    "description": "",
+    "buttonText": "",
+    "url": ""
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "nfts"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "community-networks"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "couldnt-exist-without-ipfs",
+        "disaster-resilience",
+        "corporate-government-independence",
+        "interoperability",
+        "self-sovereign-data"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "cljs-ipfs",
+        "js-ipfs"
+      ]
+    }
+  ]
+}
