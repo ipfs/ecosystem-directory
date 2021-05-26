@@ -1,7 +1,40 @@
-// ////////////////////////////////////////////////////////////////////// Export
-// -----------------------------------------------------------------------------
+/* eslint require-await: "off" */
+
+import Projects from './content/projects/manifest.json'
+
 export default {
+  // //////////////////////////////////////////// Static Site Generation Options
+  // ---------------------------------------------------------------------------
   target: 'static',
+  generate: {
+    async routes (a, b) {
+      const routes = []
+      try {
+        const len = Projects.length
+        if (len === 0) { throw new Error('[nuxt.config.js] Unable to generate Project routes because no projects exist') }
+        for (let i = 0; i < len; i++) {
+          try {
+            const slug = Projects[i]
+            const route = `/project/${slug}`
+            const payload = require(`./content/projects/${slug}`)
+            routes.push({ route, payload })
+          } catch (e) {
+            if (e.code === 'MODULE_NOT_FOUND') {
+              const slug = e.message.split('\'')[1].split('/').pop()
+              console.log(`========== Attempting to generate route /project/${slug} that does not have a corresponding project file`)
+              continue
+            } else {
+              throw e
+            }
+          }
+        }
+        return routes
+      } catch (e) {
+        console.log(e)
+        return routes
+      }
+    }
+  },
   // ///////////////////////////////////////////////////// Runtime Configuration
   // ---------------------------------------------------------------------------
   // ---------------------------------------------------------- [Runtime] Public
