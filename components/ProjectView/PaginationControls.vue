@@ -1,6 +1,8 @@
 <template>
   <div class="pagination-control-wrapper">
-    <Controls class="pagination-font">
+    <Controls
+      class="pagination-font"
+      breaker="...">
 
       <template #first-page>
         <FirstArrow stroke="#494949" />
@@ -46,10 +48,10 @@ export default {
 
 <style lang="scss">
 
-  .pagination-font,
-  .pagination-control-wrapper {
-    font-family: $fontInter;
-    font-weight: 600;
-  }
+.pagination-font,
+.pagination-control-wrapper {
+  font-family: $fontInter;
+  font-weight: 600;
+}
 
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <svg class="svg-icon svg-dropdown dropdown" xmlns="http://www.w3.org/2000/svg" width="8.841" height="5.798" viewBox="0 0 8.841 5.798">
+  <svg class="svg-dropdown dropdown" xmlns="http://www.w3.org/2000/svg" width="11" height="8" viewBox="0 0 8.841 5.798">
 
     <g
       class="dropdown"
@@ -39,15 +39,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-// ///////////////////////////////////////////////////////////////////// General
-.svg-icon {
-  display: block;
-}
-
-.svg-dropdown {
-  transform: translateY(-25%);
-}
-
-</style>

@@ -25,7 +25,7 @@
               </div>
             </div>
 
-            <div class="col-11">
+            <div class="col-12">
               <FeaturedProjectsSlider
                 :all-projects="projects"
                 @init="featured" />
@@ -53,11 +53,9 @@
 
     <section>
 
-      <div class="grid-center full maxed project-filters">
-        <ProjectView
-          :all-projects="projects"
-          @hide-segment-chart="toggleProjectView" />
-      </div>
+      <ProjectView
+        :all-projects="projects"
+        @hide-segment-chart="toggleProjectView" />
 
     </section>
 
@@ -78,7 +76,7 @@ const resetSectionHeight = (instance) => {
     const x = instance.$refs.segmentSlider.offsetHeight
     const y = instance.$refs.featuredSection.offsetHeight
     const z = instance.$refs.filterHeading.offsetHeight
-    instance.sectionHeight = Math.ceil(x + y + z) + 210
+    instance.sectionHeight = Math.ceil(x + y + z) + 140
   }
 }
 
@@ -187,18 +185,22 @@ export default {
 
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
-.heading {
-  margin-bottom: 1rem;
+.heading,
+.description {
+  margin-bottom: 0.75rem;
 }
 
 .hidden {
   visibility: hidden;
 }
 
-#segment-slider-chart,
-#section-featured-slider,
-#section-filter {
+#segment-slider-chart {
   margin-bottom: 5rem;
+}
+
+#section-filter,
+#section-featured-slider {
+  margin-bottom: 1rem;
 }
 
 #segment-slider-chart {

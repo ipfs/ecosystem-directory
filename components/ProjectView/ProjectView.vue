@@ -1,50 +1,74 @@
 <template>
   <div id="project-view-container" ref="projectViewCtn">
 
-    <!-- Filter Toggle / List View controls -->
+    <!-- //////////////////////////////// Filter Toggle / List View controls -->
 
-    <div id="card-filters-toggle">
+    <div class="grid-center">
+      <div id="card-filters-toggle" class="col-12">
 
-      <Button type="C" text="Filters" :class="{ activeButton: filterActive }" @clicked="toggleFilterPanel">
+        <Button
+          type="C"
+          text="Filters"
+          :class="{ activeButton: filterActive }"
+          @clicked="toggleFilterPanel">
 
-        <template #icon-before>
-          <FiltersToggle
-            class="font-inter"
-            :stroke="filterActive ? '#ffffff' : '#052437'" />
-        </template>
-
-      </Button>
-
-      <div id="radio-view-toggle">
-
-        <Button type="C" :class="{ activeButton: listActive }" @clicked="toggleListGridView">
           <template #icon-before>
-            <ListView :stroke="listActive ? '#ffffff' : '#052437'" />
+            <FiltersToggle
+              class="font-inter"
+              :stroke="filterActive ? '#ffffff' : '#052437'" />
           </template>
+
         </Button>
 
-        <Button type="C" :class="{ activeButton: !listActive }" @clicked="toggleListGridView">
-          <template #icon-before>
-            <GridView :stroke="!listActive ? '#ffffff' : '#052437'" />
-          </template>
-        </Button>
+        <div id="radio-view-toggle" @click.stop="toggleListGridView">
+
+          <div class="selected-blackground" ref="radio"></div>
+
+          <ListView
+            class="radio-toggle-item"
+            :stroke="listActive ? '#ffffff' : '#052437'" />
+
+          <GridView
+            class="radio-toggle-item"
+            :stroke="!listActive ? '#ffffff' : '#052437'" />
+
+        </div>
 
       </div>
-
     </div>
 
+    <!-- //////////////////////////////// Filter Toggle / List View controls -->
+
     <div id="project-filter-container">
-      <!-- Filter Panel Component -->
+      <!-- ========================================== Filter Panel Component -->
 
       <div id="filter-panel-wrapper" ref="filterWrap">
         <div class="filter-panel inner-wrapper">
+          <div
+            v-if="filterActive"
+            class="filter-panel-heading">
+
+            <h4 class="title">
+              All Filters
+            </h4>
+
+            <FilterBar filter-value="">
+              <template #icon>
+                <SearchIcon />
+              </template>
+            </FilterBar>
+
+          </div>
           <FilterPanel
             :collection="allProjects"
-            :is-active="filterActive" />
+            :is-active="filterActive"
+            @closeFilters="closeFilterPanel"/>
         </div>
       </div>
 
-      <!-- Paginated List Component -->
+      <!-- ========================================== Filter Panel Component -->
+
+      <!-- /////////////////////////////////////////Paginated List Component -->
 
       <div id="card-display" ref="cardDisplay">
 
@@ -52,13 +76,14 @@
           v-if="filteredProjects"
           v-slot="{ paginated }"
           :display="display"
-          :collection="filteredProjects">
+          :collection="filteredProjects"
+          class="paginate-root">
 
-          <div v-if="!listActive" class="grid">
+          <div v-if="!listActive" class="paginated-grid">
             <div
               v-for="(project, index) in paginated"
               :key="`grid-${index}`"
-              class="col-3 card-container-grid">
+              class="card-container-grid">
 
               <div class="card-grid">
                 <div class="card-logo-grid">
@@ -99,10 +124,12 @@
           <PaginationControls />
 
           <div class="results-selector-wrapper">
-            <ResultsPerPageSelector :collection="filteredProjects" class="results-per-page font-inter">
+            <ResultsPerPageSelector
+              :collection="filteredProjects"
+              class="results-per-page font-inter">
 
               <template #dropdown-icon>
-                <SelectorToggle />
+                <SelectorToggle stroke="#052437"/>
               </template>
 
             </ResultsPerPageSelector>
@@ -110,7 +137,7 @@
 
         </div>
       </div>
-
+      <!-- /////////////////////////////////////////Paginated List Component -->
     </div>
 
   </div>
@@ -124,11 +151,25 @@ import Paginate from '@/modules/zero/pagination/Components/Paginate'
 import ResultsPerPageSelector from '@/modules/zero/pagination/Components/ResultsPerPageSelector'
 import Button from '@/modules/zero/core/Components/Button'
 import SelectorToggle from '@/modules/zero/core/Components/Icons/SelectorToggle'
-import ListView from '@/modules/zero/core/Components/Icons/ListView'
-import GridView from '@/modules/zero/core/Components/Icons/GridView'
 import FiltersToggle from '@/modules/zero/core/Components/Icons/FiltersToggle'
-import FilterPanel from '../FilterPanel/FilterPanel'
-import PaginationControls from './PaginationControls'
+import ListView from '@/components/Icons/ListView'
+import GridView from '@/components/Icons/GridView'
+import FilterBar from '@/components/FilterPanel/FilterBar'
+import SearchIcon from '@/components/Icons/SearchIcon'
+import FilterPanel from '@/components/FilterPanel/FilterPanel'
+import PaginationControls from '@/components/ProjectView/PaginationControls'
+
+// =================================================================== Functions
+const resetCardDisplayMargin = (element) => {
+  element.style.marginLeft = 'auto'
+  element.style.marginRight = 'auto'
+
+  const ml = getComputedStyle(element).marginLeft
+  const mr = getComputedStyle(element).marginRight
+
+  element.style.marginLeft = ml
+  element.style.marginRight = mr
+}
 
 // ====================================================================== Export
 export default {
@@ -143,7 +184,9 @@ export default {
     ListView,
     GridView,
     Button,
-    FilterPanel
+    FilterBar,
+    FilterPanel,
+    SearchIcon
   },
 
   props: {
@@ -177,13 +220,16 @@ export default {
   watch: {
     filterActive (val) {
       if (val) {
-        this.$refs.filterWrap.style.width = '100%'
-        this.$refs.cardDisplay.style.marginLeft = '5%'
-        this.$refs.cardDisplay.style.marginRight = '10%'
+        this.$refs.filterWrap.style.width = '34%'
+        this.$refs.cardDisplay.style.width = '66%'
+        this.$refs.cardDisplay.style.marginLeft = '3%'
+        this.$refs.cardDisplay.style.marginRight = '8%'
       } else {
-        this.$refs.filterWrap.style.width = '0%'
+        this.$refs.filterWrap.style.width = '0'
+        this.$refs.cardDisplay.style.width = '67.5rem'
         this.$refs.cardDisplay.style.marginLeft = '16%'
         this.$refs.cardDisplay.style.marginRight = '16%'
+        setTimeout(() => { resetCardDisplayMargin(this.$refs.cardDisplay) }, 500)
       }
       this.$emit('hide-segment-chart', val)
     }
@@ -195,6 +241,8 @@ export default {
     } else {
       this.filterActive = false
     }
+
+    resetCardDisplayMargin(this.$refs.cardDisplay)
   },
 
   methods: {
@@ -206,11 +254,12 @@ export default {
       clearStore: 'pagination/clearStore'
     }),
     logos (path) {
+      // return require(`~/assets/logos/${path}`) ** replace with this when logos available
       let icon
       try {
-        icon = require('~/assets/logos/' + path)
+        return require(`~/assets/logos/${path}`)
       } catch (e) {
-        // console.log(e)
+        console.log(e)
       }
       if (icon) { return icon }
     },
@@ -224,6 +273,14 @@ export default {
     },
     toggleListGridView () {
       this.listActive = !this.listActive
+      this.$refs.radio.style.left = this.listActive ? '0%' : '50%'
+    },
+    closeFilterPanel () {
+      console.log('hola')
+    //   this.$refs.filterWrap.style.width = '0'
+    //   this.$refs.cardDisplay.style.width = '84%'
+    //   this.$refs.cardDisplay.style.marginLeft = '16%'
+    //   this.$refs.cardDisplay.style.marginRight = '16%'
     }
   }
 }
@@ -231,189 +288,244 @@ export default {
 
 <style lang="scss" scoped>
 
-  #project-view-container {
-    width: 100%;
-    min-width: 600px;
-    padding: 0;
+#project-view-container {
+  width: 100%;
+  min-width: 600px;
+  padding: 0;
+  margin-bottom: 3rem;
+}
+
+// /////////////////////////////////////////////////////////// [TOGGLE CONTROLS]
+
+.activeButton {
+  background-color: #052437;
+  color: #ffffff;
+}
+
+#card-filters-toggle {
+  padding: 0 0.0rem 1rem;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+#radio-view-toggle {
+  display: flex;
+  position: relative;
+  height: 2.25rem;
+  cursor: pointer;
+  background-color: #ffffff;
+  border-radius: 0.25rem;
+  flex-direction: row;
+  align-items: center;
+  &.hide {
+    opacity: 0;
   }
+}
 
-  // ////////////////////////////////////////////////////////////// [TOGGLE CONTROLS]
+.radio-toggle-item {
+  border-radius: 0.25rem;
+  width: 100%;
+  height: 100%;
+  white-space: nowrap;
+  padding: 0 1.0rem;
+  z-index: 10;
+}
 
-  .activeButton {
-    background-color: #052437;
-    color: #ffffff;
-  }
+.selected-blackground {
+  display: inline-block;
+  position: absolute;
+  width: 50%;
+  left: 50%;
+  min-height: 2.25rem;
+  background-color: $tiber;
+  border-radius: 0.25rem;
+  transition: left 300ms cubic-bezier(.61,1.6,.64,.88);
+}
 
-  #card-filters-toggle {
-    margin-top: 1rem;
-    margin-bottom: 3rem;
-    margin-left: 12%;
-    margin-right: 12%;
-    display: flex;
-    justify-content: space-between;
-  }
+// ////////////////////////////////////////////////////////////// [FILTER PANEL]
 
-  #radio-view-toggle {
-    background-color: #ffffff;
-    border-radius: 6px;
-    display: flex;
-  }
+#project-filter-container {
+  width: 100vw;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
 
-  // ////////////////////////////////////////////////////////////// [FILTER PANEL]
+#filter-panel-wrapper {
+  display: block;
+  width: 0%;
+  background-color: #ffffff;
+  transition: width 500ms ease-in-out;
+  flex-basis: content;
+  overflow: hidden;
+  border-radius: 0 0.25rem 0.25rem 0;
+}
 
-  #project-filter-container {
-    width: 100%;
-    position: relative;
-    display: flex;
-    justify-content: center;
-  }
-
-  #filter-panel-wrapper {
-    width: 0%;
-    // max-width: 40vw;
-    background-color: #ffffff;
-    transition: width 500ms ease-in-out;
-    flex-basis: content;
-    overflow: hidden;
-    border-radius: 0px 6px 6px 0px;
-  }
-
-  .filter-panel {
-    font-family: $fontInter;
-    &.title {
-      font-weight: 400;
-      margin: 6px;
-    }
-    &.inner-wrapper {
-      position: relative;
-      width: 100%;
-      margin-left: 36%;
-      overflow: hidden;
-    }
-  }
-
-  // ////////////////////////////////////////////////////////////// [PROJECT CARDS]
-
-  #card-display {
-    margin-left: 18%;
-    margin-right: 4%;
-    min-width: 40vw;
-    transition: all 500ms ease-in-out;
-  }
-
-  // ////////////////////////////////////////////////////////////// [GRID VIEW]
-  .card-container-grid {
-    height: 250px;
-    margin-bottom: 1rem;
-    align-self: flex-start;
-    flex: 1 1 25%;
-    min-width: 150px;
-    & label { font-weight: bold; }
-    & p { font-size: 10pt; }
-  }
-
-  .card-grid {
-    width: 100%;
-    height: 64%;
-    border-radius: 6px;
-    background-color: #FFFFFF;
-    margin-bottom: 16px;
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  .card-logo-grid {
-    position: relative;
-    width: 50%;
-    height: 60%;
-    margin: 0 auto;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  // ////////////////////////////////////////////////////////////// [LIST VIEW]
-
-  .card-list-flex {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .card-container-list {
-    flex: 1 1 50%;
-    min-width: 332px;
-    height: 120px;
-    margin-bottom: 0;
-  }
-
-  .card-list {
-    width: 100%;
-    height: 100%;
-    border-radius: 6px;
-    background-color: #FFFFFF;
-    margin-bottom: 16px;
-    display: flex;
-    position: relative;
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  .card-logo-list {
-    position: relative;
-    padding: 1.0rem;
-    margin-left: 0.5rem;
-    width: 80px;
-    max-height: 80%;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  .card-project-list {
-    position: absolute;
-    vertical-align: middle;
-    padding: 1rem;
-    margin-left: 5.0rem;
-    vertical-align: middle;
-    & label {
-      font-size: 16pt;
-      font-weight: bold;
-    }
-    & p {
-      font-size: 10pt;
-    }
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
-  }
-
-  // /////////////////////////////////////////////////////////// [PAGINATION CONTROLS]
-
-  .font-inter {
-    font-family: $fontInter;
+.filter-panel-heading {
+  margin: 2rem 0;
+  .title {
+    font-family: $fontMontserrat;
     font-weight: 400;
+    margin: 6px;
   }
+}
 
-  .page-navigation-controls {
-    display: flex;
-    margin-top: 3rem;
-    justify-content: center;
-  }
-
-  .results-selector-wrapper {
-    height: 2.5rem;
-    margin-bottom: 5rem;
-  }
-
-  .results-per-page {
+.filter-panel {
+  font-family: $fontInter;
+  &.inner-wrapper {
     position: relative;
-    top: 1.25rem;
-    transform: translateY(-50%);
-    background-color: #FFFFFF;
-    border-radius: 6px;
-    padding: 0.25rem 1.0rem;
+    width: 76%;
+    height: 100%;
+    margin-left: 24%;
+    overflow: hidden;
   }
+}
+
+// ///////////////////////////////////////////////////////////// [PROJECT CARDS]
+
+#card-display {
+  width: 67.5rem;
+  margin: 0 auto;
+  transition: all 500ms ease-in-out;
+}
+
+.paginate-root {
+  width: 100%;
+}
+
+.card-container-grid,
+.card-project-list {
+  label {
+    @include leading_Small;
+    font-weight: 600;
+    font-size: 15pt;
+    font-family: $fontMontserrat;
+    color: $tiber;
+  }
+  p {
+    @include leading_Small;
+    color: $tundora;
+    font-size: 10pt;
+  }
+}
+
+// ///////////////////////////////////////////////////////////////// [GRID VIEW]
+
+.paginated-grid {
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: row wrap;
+  margin: 0 auto;
+}
+
+.card-container-grid {
+  height: 250px;
+  padding: 0 0.5rem 1rem;
+  margin-bottom: 2rem;
+  align-self: flex-start;
+  flex: 1 1 25%;
+  min-width: 220px;
+  max-width: 300px;
+}
+
+.card-grid {
+  width: 100%;
+  height: 64%;
+  @include borderRadius3;
+  background-color: #FFFFFF;
+  margin-bottom: 16px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.card-logo-grid {
+  position: relative;
+  width: 50%;
+  height: 60%;
+  margin: 0 auto;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+// ///////////////////////////////////////////////////////////////// [LIST VIEW]
+
+.card-list-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card-container-list {
+  flex: 1 1 50%;
+  min-width: 332px;
+  height: 120px;
+  margin-bottom: 0;
+  padding-bottom: 0.75rem;
+}
+
+.card-list {
+  width: 100%;
+  height: 100%;
+  @include borderRadius3;
+  background-color: #FFFFFF;
+  // margin-bottom: 16px;
+  display: flex;
+  position: relative;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.card-logo-list {
+  position: relative;
+  padding: 1.0rem;
+  margin-left: 0.5rem;
+  width: 80px;
+  max-height: 80%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.card-project-list {
+  position: absolute;
+  vertical-align: middle;
+  padding: 1rem;
+  margin-left: 5.0rem;
+  vertical-align: middle;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+}
+
+// /////////////////////////////////////////////////////// [PAGINATION CONTROLS]
+
+.font-inter {
+  font-family: $fontInter;
+  font-weight: 400;
+}
+
+.page-navigation-controls {
+  display: flex;
+  margin-top: 3rem;
+  justify-content: center;
+}
+
+.results-selector-wrapper {
+  height: 2.5rem;
+  margin-bottom: 5rem;
+}
+
+.results-per-page {
+  position: relative;
+  top: 1.25rem;
+  transform: translateY(-50%);
+  background-color: #FFFFFF;
+  @include borderRadius3;
+  padding: 0.25rem 1.0rem;
+}
 
 </style>
