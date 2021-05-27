@@ -27,20 +27,19 @@
       <transition name="slide-fade" mode="out-in">
 
         <div :key="selectedCat.cat">
-        
+
           <h3>{{ selectedCat.cat }}</h3>
 
           <p class="slider-card-text">
             {{ excerpt }}
           </p>
 
-          <div v-if="iconPaths.length" class="logo-wrapper">
+          <div v-if="logos" class="logo-wrapper">
 
-            <img :src="$relativity(`/images/logos/${iconPaths[Math.floor(Math.random() * iconPaths.length)]}`)" />
-
-            <img :src="$relativity(`/images/logos/${iconPaths[Math.floor(Math.random() * iconPaths.length)]}`)" />
-
-            <img :src="$relativity(`/images/logos/${iconPaths[Math.floor(Math.random() * iconPaths.length)]}`)" />
+            <img
+              v-for="path in logos"
+              :key="path"
+              :src="$relativity(`/images/${path}`)" />
 
           </div>
 
@@ -108,6 +107,15 @@ export default {
   data () {
     return {
       iconPaths: []
+    }
+  },
+
+  computed: {
+    logos () {
+      if (this.selectedCat.logos.length) {
+        return this.selectedCat.logos
+      }
+      return false
     }
   },
 
@@ -188,7 +196,7 @@ export default {
 .logo-wrapper {
   position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   width: 80%;
   max-width: 300px;
@@ -206,7 +214,7 @@ export default {
 
 .logo-wrapper {
   > img {
-    margin: 0 0.25rem;
+    margin: 0 0.75rem;
     max-width: 25%;
     max-height: 2.5rem;
   }

@@ -3,23 +3,27 @@
 
     <div id="card-display-wrapper">
       <div id="card-display">
-        <div id="card-flex" ref="cardFlex" :class="{ sliding: animate }">
+        <div
+          v-if="featured"
+          id="card-flex"
+          ref="cardFlex"
+          :class="{ sliding: animate }">
           <div
-            v-for="(proj, index) in featured"
+            v-for="(project, index) in featured"
             :key="index"
             class="col-3 card-container">
 
             <div class="card">
               <div class="card-logo">
 
-                <img :src="$relativity(`/images/logos/${proj.logo.icon}`)" />
+                <img :src="$relativity(`/images/${project.logo.icon}`)" />
 
               </div>
             </div>
 
-            <label>{{ proj.name }}</label>
+            <label>{{ (typeof project.name === 'string') ? project.name : '' }}</label>
 
-            <p>{{ proj.description.short }}</p>
+            <p>{{ (typeof project.description.short === 'string') ? project.description.short : '' }}</p>
           </div>
         </div>
       </div>
@@ -74,7 +78,10 @@ export default {
           arr.push(this.projects[i])
         }
       }
-      return arr
+      if (arr.length) {
+        return arr
+      }
+      return false
     },
     indices () {
       return this.featured.length - 4
@@ -102,8 +109,10 @@ export default {
 
   methods: {
     setSliderPosition () {
-      const amt = this.$refs.cardFlex.firstChild.clientWidth
-      this.$refs.cardFlex.style.left = (-1 * this.currentIndex) * amt + 'px'
+      if (this.$refs.cardFlex) {
+        const amt = this.$refs.cardFlex.firstChild.clientWidth
+        this.$refs.cardFlex.style.left = (-1 * this.currentIndex) * amt + 'px'
+      }
     }
   }
 }
@@ -170,16 +179,14 @@ export default {
 
   .card-logo {
     position: relative;
-    width: 50%;
+    max-width: 6rem;
     height: 60%;
     margin: 0 auto;
     top: 50%;
     transform: translateY(-50%);
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
+    img {
+      height: 100%;
+    }
   }
 
   /* SLIDER */

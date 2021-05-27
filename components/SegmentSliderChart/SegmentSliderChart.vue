@@ -35,36 +35,97 @@ import { mapGetters } from 'vuex'
 import Slider from '@/components/SegmentSliderChart/Slider.vue'
 import Chart from '@/components/SegmentSliderChart/Chart.vue'
 
+import Taxonomy from '@/content/data/taxonomy.json'
+
 // =================================================================== Functions
+const loadTaxonomies = () => {
+  const industry = {}
+  const tax = Taxonomy.categories
+  let categories
+  for (let i = 0; i < tax.length; i++) {
+    if (tax[i].label === 'Industry') {
+      categories = tax[i].tags
+    }
+  }
+  for (let i = 0; i < categories.length; i++) {
+    industry[categories[i].slug] = categories[i].label
+  }
+  return industry
+}
+
+const initCategoryLogos = () => {
+  const logos = {}
+  const tax = Taxonomy.categories
+  let categories
+  for (let i = 0; i < tax.length; i++) {
+    if (tax[i].label === 'Industry') {
+      categories = tax[i].tags
+    }
+  }
+  for (let i = 0; i < categories.length; i++) {
+    logos[categories[i].slug] = []
+  }
+  return logos
+}
+
 const createLabels = (projects) => {
   const tags = []
+  const len = projects.length
+  const industry = loadTaxonomies()
+  const logos = initCategoryLogos()
 
-  for (let i = 0; i < projects.length; i++) {
+  for (let i = 0; i < len; i++) {
     const industryTags = projects[i].taxonomies[0].tags
-    for (let j = 0; j < industryTags.length; j++) {
-      tags.push(industryTags[j].text)
+    if (Array.isArray(industryTags)) {
+      for (let j = 0; j < industryTags.length; j++) {
+        if (typeof projects[i].logo.icon === 'string') {
+          logos[industryTags[j]].push(projects[i].logo.icon)
+        }
+        tags.push(industryTags[j])
+      }
     }
   }
 
-  const categories = [...new Set(tags)]
-  const items = []
+  if (tags.length) {
+    const categories = [...new Set(tags)]
+    const items = []
 
-  for (let i = 0; i < categories.length; i++) {
-    const l = categories[i].split('').length
-    const frc = (0.9 * i - l) * 0.1
-    let count = 0
-    tags.forEach((tag) => { if (tag === categories[i]) { count++ } })
-    items.push({
-      cat: categories[i],
-      count,
-      size: count * 10,
-      chars: l,
-      above: Math.round(Math.random() * 1.4),
-      force: frc
-    })
+    for (let i = 0; i < categories.length; i++) {
+      if (industry.hasOwnProperty(categories[i])) {
+        let count = 0
+        let selection = []
+        const label = industry[categories[i]]
+        const l = label.split('').length
+        const frc = (0.9 * i - l) * 0.1
+        const icons = logos[categories[i]]
+
+        if (icons.length) {
+          if (icons.length > 3) {
+            for (let j = 0; j < 3; j++) {
+              const index = Math.floor(Math.random() * icons.length)
+              selection.push(icons[index])
+              icons.splice(index, 1)
+            }
+          } else {
+            selection = icons
+          }
+        }
+
+        tags.forEach((tag) => { if (tag === categories[i]) { count++ } })
+        items.push({
+          cat: label,
+          count,
+          size: count * 10,
+          chars: l,
+          above: Math.round(Math.random() * 1.4),
+          force: frc,
+          logos: selection
+        })
+      }
+    }
+    return addInitialOffsets(items)
   }
-
-  return addInitialOffsets(items)
+  return false
 }
 
 const addInitialOffsets = (categories) => {
