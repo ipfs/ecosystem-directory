@@ -120,9 +120,12 @@ const elementLeave = (element) => {
 
 const appendFilters2URL = (instance) => {
   let slug = ''
-  for (let i = 0; i < instance.selected.length; i++) {
-    slug = slug + instance.selected[i].slug + ','
+  const len = instance.selected.length
+  for (let i = 0; i < len; i++) {
+    const delimiter = i === len - 1 ? '' : ','
+    slug = slug + instance.selected[i].slug + delimiter
   }
+
   if (slug) {
     instance.$router.replace({ query: { filters: 'enabled', tag: slug } })
   } else {
