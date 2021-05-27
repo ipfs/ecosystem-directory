@@ -264,6 +264,12 @@ export default {
     }
   },
 
+  created () {
+    this.$nuxt.$on('view-all-projects', () => {
+      this.toggleFilterPanel()
+    })
+  },
+
   mounted () {
     if (this.$route.query.filters === 'enabled') {
       this.filterActive = true
