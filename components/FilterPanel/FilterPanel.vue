@@ -121,9 +121,13 @@ const elementLeave = (element) => {
 const appendFilters2URL = (instance) => {
   let slug = ''
   for (let i = 0; i < instance.selected.length; i++) {
-    slug = slug + instance.selected[i].slug + '&'
+    slug = slug + instance.selected[i].slug + ','
   }
-  instance.$router.replace({ query: { filters: 'enabled', tag: slug } })
+  if (slug) {
+    instance.$router.replace({ query: { filters: 'enabled', tag: slug } })
+  } else {
+    instance.$router.replace({ query: { filters: 'enabled'} })
+  }
 }
 
 // ====================================================================== Export
@@ -192,7 +196,7 @@ export default {
 
     let slugs
     if (this.$route.query.filters === 'enabled' && this.$route.query.tag) {
-      const qry = this.$route.query.tag.split('&')
+      const qry = this.$route.query.tag.split(',')
       slugs = qry.filter(Boolean)
 
       const arr = []
