@@ -20,8 +20,8 @@
               :disabled="link.disabled"
               :target="link.target"
               class="link">
-                {{ link.label }}
-              </component>
+              {{ link.label }}
+            </component>
           </nav>
 
         </div>

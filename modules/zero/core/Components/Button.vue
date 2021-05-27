@@ -1,8 +1,10 @@
 <template>
   <component
     :is="tag"
-    :to="tag === 'nuxt-link' ? to : false"
-    :class="['button', `type-${type}`]"
+    :to="getTo()"
+    :href="getHref()"
+    :target="getTarget()"
+    :class="['button', getType()]"
     :disabled="disabled"
     @click="clickHandler">
 
@@ -64,6 +66,11 @@ export default {
       required: false,
       default: false
     },
+    target: {
+      type: [String, Boolean],
+      required: false,
+      default: false
+    },
     loader: {
       type: [String, Boolean],
       required: false,
@@ -111,6 +118,19 @@ export default {
         this.addLoader(loader)
       }
       this.$emit('clicked')
+    },
+    getTo () {
+      return this.tag === 'nuxt-link' ? this.to : false
+    },
+    getHref () {
+      return this.tag === 'a' ? this.to : false
+    },
+    getTarget () {
+      const tag = this.tag
+      return (tag === 'nuxt-link' || tag === 'a') ? this.target : false
+    },
+    getType () {
+      return `type-${this.type}`
     }
   }
 }
