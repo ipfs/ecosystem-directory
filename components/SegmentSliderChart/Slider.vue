@@ -126,19 +126,18 @@ export default {
 // ////////////////////////////////////////////////////////////////////// Slider
 .slider-container {
   display: flex;
-  flex-grow: 1;
-  flex-shrink: 0;
-  flex-basis: 200px;
+  width: 17rem;
   align-items: center;
   padding: 1.0rem 1.5rem;
+  padding-left: 0.5rem;
 }
 
 .slider-card {
+  @include borderRadius3;
   background-color: #ffffff;
   width: 100%;
   min-height: 20rem;
   padding: 1rem;
-  @include borderRadius3;
   position: relative;
   align-items: center;
   h3 {
@@ -149,23 +148,33 @@ export default {
 }
 
 .slider-card-text {
-  padding: 10px;
-  font-size: 11pt;
+  @include fontSize_Small;
   font-weight: 400;
   margin-bottom: 1rem;
   line-height: 1.2;
   color: #494949;
 }
 
+.slide-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0.75rem 0;
+}
+
 .nav-arrow {
+  @include borderRadius3;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
   margin: 0.5rem;
   color: rgba(0, 0, 0, 0.5);
-  background-color: #ffffff;
+  background-color: #FFFFFF;
   border: none;
-  @include borderRadius3;
   font-weight: 900;
-  font-size: 16pt;
-  width: 40px;
+  width: 3.75rem;
   &:hover {
     color: rgb(2, 28, 54);
   }
@@ -194,9 +203,12 @@ export default {
   }
 }
 
-.logo-wrapper > img {
-  margin: 0 0.25rem;
-  width: 25%;
+.logo-wrapper {
+  > img {
+    margin: 0 0.25rem;
+    max-width: 25%;
+    max-height: 2.5rem;
+  }
 }
 
 .view-all {
