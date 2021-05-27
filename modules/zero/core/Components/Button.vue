@@ -10,11 +10,11 @@
 
     <div :class="['button-content', { hide: loading }]">
 
-      <div v-if="iconBefore">
+      <div v-if="iconBefore" class="icon">
         <slot name="icon-before"></slot>
       </div>
 
-      <p v-if="text" class="item-after">
+      <p v-if="text" :class="{ 'item-after': iconBefore }">
         {{ text }}
       </p>
 
@@ -154,6 +154,12 @@ export default {
   margin-left: 0.75rem;
 }
 
+.icon {
+  display: inline-block;
+  height: 0.7rem;
+  margin: auto;
+}
+
 // /////////////////////////////////////////////////////////////// [Type] Common
 .type-A,
 .type-B,
@@ -206,7 +212,7 @@ export default {
 // //////////////////////////////////////////////////////////////////// [Type] A
 .type-C {
   background-color: #ffffff;
-  border-radius: 6px;
+  @include borderRadius3;
 }
 
 // //////////////////////////////////////////////////////////////////// [Type] A

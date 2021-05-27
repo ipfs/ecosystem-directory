@@ -149,49 +149,51 @@ export default {
 
 <style lang="scss" scoped>
 
-  ::selection {
-    color: none;
-    background: none;
-  }
+::selection {
+  color: none;
+  background: none;
+}
 
-  ::-moz-selection {
-    color: none;
-    background: none;
-  }
+::-moz-selection {
+  color: none;
+  background: none;
+}
 
-  .hidden {
-    display: none;
-  }
+.hidden {
+  display: none;
+}
 
-  .dropdown-button {
-    transform: translateY(-5%);
-    opacity: 0.5;
-    &:hover {
-      cursor: pointer;
-      opacity: 1.0;
-    }
+.dropdown-button {
+  transform: translateY(-5%);
+  opacity: 0.5;
+  margin-left: 0.5rem;
+  &:hover {
+    cursor: pointer;
+    opacity: 1.0;
   }
+}
 
-  .dropdown-list {
-    background-color: #ffffff;
-    position: absolute;
-    right: 1.0rem;
-    top: 2.5rem;
-    border-radius: 6px;
-    overflow: hidden;
-  }
+.dropdown-list {
+  background-color: #ffffff;
+  position: absolute;
+  right: 1.0rem;
+  top: 2.5rem;
+  @include borderRadius3;
+  overflow: hidden;
+  z-index: 1000;
+}
 
-  .dropdown-item {
-    padding: 0.25rem 0.75rem;
-    &:hover {
-      cursor: pointer;
-      text-decoration: underline;
-    }
+.dropdown-item {
+  padding: 0.25rem 0.75rem;
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
   }
+}
 
-  .highlighted {
-    background-color: #6BC4CE;
-    color: white;
-  }
+.highlighted {
+  background-color: #6BC4CE;
+  color: white;
+}
 
 </style>

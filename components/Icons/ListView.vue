@@ -1,5 +1,5 @@
 <template>
-  <svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" width="13.617" height="9.352" viewBox="0 0 13.617 9.352">
+  <svg xmlns="http://www.w3.org/2000/svg" width="13.617" height="9.352" viewBox="0 0 13.617 9.352">
 
     <line x2="9.117" transform="translate(3.75 0.75)" :stroke="stroke" stroke-linecap="round" stroke-width="1.5" />
 
@@ -30,11 +30,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-// ///////////////////////////////////////////////////////////////////// General
-.svg-icon {
-  display: block;
-}
-
-</style>

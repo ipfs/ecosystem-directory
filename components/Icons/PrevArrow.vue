@@ -1,5 +1,5 @@
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg" width="7.818" height="11.336" viewBox="0 0 7.818 11.336">
+  <svg xmlns="http://www.w3.org/2000/svg" :width="width" :height="height" viewBox="0 0 7.818 11.336">
 
     <g transform="translate(1.41 9.926) rotate(-90)">
 
@@ -32,6 +32,16 @@ export default {
     stroke: {
       type: String,
       default: '#FFFFFF',
+      required: false
+    },
+    width: {
+      type: String,
+      default: '7.818',
+      required: false
+    },
+    height: {
+      type: String,
+      default: '11.336',
       required: false
     }
   }

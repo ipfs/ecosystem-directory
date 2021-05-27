@@ -148,8 +148,9 @@ export default {
 
 .main-container {
   display: flex;
+  position: relative;
   flex-wrap: wrap-reverse;
-  align-items: center;
+  align-items: space-between;
   margin: 0 auto;
 }
 </style>
