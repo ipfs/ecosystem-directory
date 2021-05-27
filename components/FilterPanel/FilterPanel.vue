@@ -165,7 +165,7 @@ export default {
       return filters
     },
     initToggles () {
-      const arr = Array(Taxonomy.categories.length).fill(false)
+      const arr = Array(Taxonomy.categories.length).fill(true)
       return arr
     },
     selectedLabels () {
