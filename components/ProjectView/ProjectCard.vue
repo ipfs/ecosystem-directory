@@ -1,41 +1,49 @@
 <template>
-    <div
-      :class="`${format === 'list-view' ? 'col-3' : ''} card-container-${format}`">
-      <NuxtLink :to="`project/${slug}`">
+  <div
+    :class="`${format === 'list-view' ? 'col-3' : ''} card-container-${format}`">
+    <NuxtLink :to="`project/${slug}`">
 
-        <template v-if="(format === 'grid-view')">
+      <template v-if="(format === 'grid-view')">
 
-          <div class="card-grid">
-            <div class="card-logo-grid">
-              <img :src="$relativity(`/images/logos/${logo}`)" />
-            </div>
+        <div class="card-grid">
+          <div class="card-logo-grid">
+            <img :src="$relativity(`/images/logos/${logo}`)" />
+          </div>
+        </div>
+
+        <p class="title">
+          {{ title }}
+        </p>
+
+        <p class="description">
+          {{ description }}
+        </p>
+      </template>
+
+      <template v-if="(format === 'list-view')">
+        <div class="card-list">
+
+          <div class="card-logo-list">
+            <img :src="$relativity(`/images/logos/${logo}`)" />
           </div>
 
-          <p class="title">{{ title }}</p>
+          <div class="card-project-list">
 
-          <p class="description">{{ description }}</p>
-        </template>
+            <p class="title">
+              {{ title }}
+            </p>
 
-        <template v-if="(format === 'list-view')">
-          <div class="card-list">
-
-            <div class="card-logo-list">
-              <img :src="$relativity(`/images/logos/${logo}`)" />
-            </div>
-
-            <div class="card-project-list">
-
-              <p class="title">{{ title }}</p>
-
-              <p class="description">{{ description }}</p>
-
-            </div>
+            <p class="description">
+              {{ description }}
+            </p>
 
           </div>
-        </template>
 
-      </NuxtLink>
-    </div>
+        </div>
+      </template>
+
+    </NuxtLink>
+  </div>
 </template>
 
 <script>
