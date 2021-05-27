@@ -7,7 +7,6 @@
           <div ref="segmentSlider">
             <SegmentSliderChart
               v-if="!(this.$route.query.filters === 'enabled')"
-              :all-projects="projects"
               class="grid-center"
               @init="segment" />
           </div>
@@ -26,9 +25,7 @@
             </div>
 
             <div class="col-12">
-              <FeaturedProjectsSlider
-                :all-projects="projects"
-                @init="featured" />
+              <FeaturedProjectsSlider @init="featured" />
             </div>
 
           </div>
@@ -70,6 +67,7 @@ import SegmentSliderChart from '@/components/SegmentSliderChart/SegmentSliderCha
 import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
 import ProjectView from '@/components/ProjectView/ProjectView'
 
+import Projects from '@/content/projects/manifest.json'
 // ====================================================================== Functions
 const resetSectionHeight = (instance) => {
   if (!(instance.$route.query.filters === 'enabled') && instance.segmentSlider && instance.featuredProjects) {
@@ -101,13 +99,20 @@ export default {
   },
 
   async fetch ({ store, req }) {
-    // const projectObjects = []
-    const sample = require('@/content/sample/sampleTaxonomies.json')
-    const projectObjects = sample.projects
-
+    const collection = []
+    const len = Projects.length
+    for (let i = 0; i < len; i++) {
+      const id = Projects[i]
+      try {
+        const project = require(`@/content/projects/${id}.json`)
+        collection.push(project)
+      } catch (e) {
+        console.log(e)
+      }
+    }
     await store.dispatch('global/getBaseData', 'general')
     await store.dispatch('global/getBaseData', 'index')
-    await store.dispatch('projects/getAllProjects', projectObjects)
+    await store.dispatch('projects/getAllProjects', collection)
   },
 
   head () {
