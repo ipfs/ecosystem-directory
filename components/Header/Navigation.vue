@@ -5,11 +5,11 @@
       <div class="col">
         <div class="navigation-content">
 
-          <nuxt-link :to="navigation.index.href">
+          <a :href="navigation.index.href">
             <img
               class="logo"
               :src="$relativity('/images/logo-horizontal.png')" />
-          </nuxt-link>
+          </a>
 
           <nav id="navigation">
             <component
@@ -17,11 +17,12 @@
               v-for="(link, index) in navigation.header"
               :key="index"
               :to="link.disabled ? '' : link.href"
+              :href="link.disabled ? '' : link.href"
               :disabled="link.disabled"
               :target="link.target"
               class="link">
-                {{ link.label }}
-              </component>
+              {{ link.label }}
+            </component>
           </nav>
 
         </div>
@@ -82,6 +83,7 @@ export default {
 
 .link {
   font-family: $fontMontserrat;
+  color: white;
   line-height: 1.5;
   &:not(:last-child) {
     margin-right: 2.75rem;

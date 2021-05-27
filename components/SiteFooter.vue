@@ -30,6 +30,7 @@
               v-for="(link, index) in navigation.footer"
               :key="index"
               :to="link.disabled ? '' : link.href"
+              :href="link.disabled ? '' : link.href"
               :disabled="link.disabled"
               :target="link.target"
               class="footer-navigation-link">

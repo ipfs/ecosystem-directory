@@ -11,58 +11,50 @@
   },
   "navigation": {
     "index": {
-      "type": "nuxt-link",
-      "href": "/"
+      "type": "a",
+      "href": "https://ipfs.io"
     },
     "header": [
       {
         "type": "a",
         "href": "https://ipfs.io/#why",
-        "target": "_blank",
         "label": "About"
       },
       {
         "type": "a",
         "href": "https://ipfs.io/#install",
-        "target": "_blank",
         "label": "Install"
       },
       {
         "type": "a",
-        "href": "https://docs.ipfs.io/",
-        "target": "_blank",
+        "href": "https://docs.ipfs.io",
         "label": "Docs"
       },
       {
         "type": "a",
         "href": "https://ipfs.io/team",
-        "target": "_blank",
         "label": "Team"
       },
       {
         "type": "a",
-        "href": "https://blog.ipfs.io/",
-        "target": "_blank",
+        "href": "https://blog.ipfs.io",
         "label": "Blog"
       },
       {
         "type": "a",
         "href": "https://ipfs.io/help",
-        "target": "_blank",
         "label": "Help"
       }
     ],
     "footer": [
       {
         "type": "a",
-        "href": "https://blog.ipfs.io/",
-        "target": "_blank",
+        "href": "https://blog.ipfs.io",
         "label": "Blog & news"
       },
       {
         "type": "a",
-        "href": "https://ipfs.io/media/",
-        "target": "_blank",
+        "href": "https://ipfs.io/media",
         "label": "Press"
       },
       {
