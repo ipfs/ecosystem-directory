@@ -17,6 +17,7 @@
               v-for="(link, index) in navigation.header"
               :key="index"
               :to="link.disabled ? '' : link.href"
+              :href="link.disabled ? '' : link.href"
               :disabled="link.disabled"
               :target="link.target"
               class="link">
@@ -82,6 +83,7 @@ export default {
 
 .link {
   font-family: $fontMontserrat;
+  color: white;
   line-height: 1.5;
   &:not(:last-child) {
     margin-right: 2.75rem;
