@@ -7,11 +7,13 @@
           <div
             v-for="(proj, index) in featured"
             :key="index"
-            class="card-container">
+            class="col-3 card-container">
 
             <div class="card">
               <div class="card-logo">
-                <img :src="logos(proj.logo.icon)" />
+
+                <img :src="$relativity(`/images/logos/${proj.logo.icon}`)" />
+
               </div>
             </div>
 
@@ -99,12 +101,8 @@ export default {
   },
 
   methods: {
-    logos (path) {
-      return require('~/assets/logos/' + path)
-    },
     setSliderPosition () {
-      // 22 is the left and right margin on the card added together
-      const amt = this.$refs.cardFlex.firstChild.clientWidth + 22
+      const amt = this.$refs.cardFlex.firstChild.clientWidth
       this.$refs.cardFlex.style.left = (-1 * this.currentIndex) * amt + 'px'
     }
   }
@@ -112,23 +110,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-  /* .main-wrapper {
-    height: 100vh;
-    width: 100vw;
-    padding-top: 60px;
-    overflow-y: scroll;
-  }
-
-  .main-container {
-    width: 80%;
-    margin: 0 auto;
-  } */
-
-  /* #featured-title {
-    margin-bottom: 16px;
-    min-width: 600px;
-  } */
 
   h4 { font-weight: 400; }
 
@@ -151,10 +132,6 @@ export default {
     left: 0px;
   }
 
-  #card-flex > div {
-    margin: 11px;
-  }
-
   .sliding {
     transition: left 300ms ease-in-out;
   }
@@ -166,12 +143,24 @@ export default {
     max-width: calc(50% - 22px);
     flex-basis: auto;
     flex-grow: 1;
+    label {
+      @include leading_Small;
+      font-weight: 600;
+      font-size: 15pt;
+      font-family: $fontMontserrat;
+      color: $tiber;
+    }
+    p {
+      @include leading_Small;
+      color: $tundora;
+      font-size: 10pt;
+    }
   }
 
   .card {
     width: 100%;
     height: 64%;
-    border-radius: 6px;
+    @include borderRadius3;
     background-color: #FFFFFF;
     margin-bottom: 16px;
     &:hover{
@@ -193,13 +182,10 @@ export default {
     height: 100%;
   }
 
-  label { font-weight: bold; }
-  p { font-size: 10pt; }
-
   /* SLIDER */
 
   #slider {
-    margin: 2% auto;
+    margin: 1.5rem auto;
     display: flex;
     justify-content: center;
     min-width: 600px;
@@ -222,10 +208,10 @@ export default {
   }
   input[type=range]::-webkit-slider-runnable-track {
     width: 100%;
-    height: 4px;
+    height: 3px;
     cursor: pointer;
     animate: 0.2s;
-    background: #D4D4D4;
+    background: #D7D9D8;
     border-radius: 20px;
     border: 0px solid #000101;
   }
@@ -239,10 +225,10 @@ export default {
   }
   input[type=range]::-moz-range-track {
     width: 100%;
-    height: 4px;
+    height: 3px;
     cursor: pointer;
     animate: 0.2s;
-    background: #D4D4D4;
+    background: #D7D9D8;
     border-radius: 20px;
     border: 0px solid #000101;
   }
@@ -254,17 +240,17 @@ export default {
 
   input[type=range]::-ms-track {
     width: 100%;
-    height: 4px;
+    height: 3px;
     cursor: pointer;
     background: transparent;
     border-color: transparent;
     color: transparent;
   }
   input[type=range]::-ms-fill-lower {
-    background: #D4D4D4;
+    background: #D7D9D8;
   }
   input[type=range]::-ms-fill-upper {
-    background: #D4D4D4;
+    background: #D7D9D8;
     border-radius: 20px;
   }
   input[type=range]::-ms-thumb {

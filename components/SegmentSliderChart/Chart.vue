@@ -1,22 +1,26 @@
 <template>
-  <div ref="chartFlex" class="chart-container chart-flex" :style="`height: ${containerHeight}px;`">
+  <div ref="chartFlex" class="chart-container chart-flex">
 
     <div
       v-for="(item, index) in segments"
       :key="index"
       :class="setForegrounded(index)"
-      :style="`width: ${item.size}px; height: ${segmentHeight}px;`"
+      :style="`width: ${item.size}%; height: ${segH}px;`"
       @click="updateParent(index)">
 
       <span
         v-if="item.above"
         class="segment-label noselect"
-        :style="`width: ${Math.min(item.chars, 15) * 8}px; top: ${item.pos - (item.chars < 16 ? 0 : 21)}px`">{{ item.cat }}</span>
+        :style="`width: ${Math.min(item.chars, 15) * 8}px; top: ${item.pos - (item.chars < 16 ? 0 : 21)}px`">
+        {{ item.cat }}
+      </span>
 
       <span
         v-else
         class="segment-label noselect"
-        :style="`width: ${Math.min(item.chars, 15) * 8}px; top: ${-1 * (item.pos) + segmentHeight / 2}px`">{{ item.cat }}</span>
+        :style="`width: ${Math.min(item.chars, 15) * 8}px; top: ${-1 * (item.pos) + segH / 2}px`">
+        {{ item.cat }}
+      </span>
 
       <div
         v-if="item.above"
@@ -27,7 +31,7 @@
       <div
         v-else
         class="segment-line"
-        :style="`transform: translateY(${48}px); height: ${-1 * (item.pos + 48) + segmentHeight / 2}px`">
+        :style="`transform: translateY(${segH + 8}px); height: ${-1 * (item.pos + segH + 8) + segH / 2}px`">
       </div>
 
     </div>
@@ -58,16 +62,12 @@ export default {
     selectedSeg: {
       type: Number,
       default: 0
-    },
-    containerHeight: {
-      type: Number,
-      default: 440
     }
   },
 
   data () {
     return {
-      segmentHeight: 40,
+      segH: 30,
       segments: this.chartItems,
       timeOutFunction: null,
       load: false,
@@ -118,8 +118,8 @@ export default {
         const mirror = {
           left: label.left,
           right: label.right,
-          top: label.top + 2 * (this.segments[ind].pos) + this.segmentHeight,
-          bottom: label.bottom + 2 * (this.segments[ind].pos) + this.segmentHeight
+          top: label.top + 2 * (this.segments[ind].pos) + this.segH,
+          bottom: label.bottom + 2 * (this.segments[ind].pos) + this.segH
         }
         for (let j = ind + 1; j < Math.min(labels.length, ind + 4); j++) {
           const test1 = labels[j].getBoundingClientRect()
@@ -203,14 +203,15 @@ export default {
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
 .chart-container {
-  // background-color: #F5F5F5;
-  width: 70%;
+  width: 75%;
+  min-height: 24rem;
   padding: 20px;
   padding-right: 50px;
 }
 
 .chart-flex {
-  // background-color: #F5F5F5;
+  position: relative;
+  top: 20px;
   flex-grow: 3;
   flex-shrink: 0;
   flex-basis: 33.3333%;
@@ -238,7 +239,7 @@ export default {
 }
 
 .block-segment {
-  border-radius: 6px;
+  @include borderRadius2;
   position: relative;
   max-width: 20%;
   min-width: 7px;
@@ -250,6 +251,7 @@ export default {
   white-space: normal;
   font-size: 10pt;
   text-align: left;
+  transform: translateX(-3px)
 }
 
 .segment-line {

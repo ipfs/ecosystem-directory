@@ -1,30 +1,54 @@
 <template>
-  <div class="slider-container slider-flex" :style="{ height: `${containerHeight}px` }">
+  <div class="slider-container">
     <div class="slider-card">
 
-      <div class="aside-nav">
+      <div class="slide-nav">
+
         <button
           class="nav-arrow"
-          @click="incrementSelection(selectedSeg - 1)">&#8249;</button>
+          @click="incrementSelection(selectedSeg - 1)">
+          <PrevArrow
+            stroke="#052437"
+            width="10"
+            height="15" />
+        </button>
+
         <button
           class="nav-arrow"
-          @click="incrementSelection(selectedSeg + 1)">&#8250;</button>
+          @click="incrementSelection(selectedSeg + 1)">
+          <NextArrow
+            stroke="#052437"
+            width="10"
+            height="15" />
+        </button>
+
       </div>
 
       <transition name="slide-fade" mode="out-in">
-        <div :key="selectedCat">
-          <h3>{{ selectedCat }}</h3>
+
+        <div :key="selectedCat.cat">
+        
+          <h3>{{ selectedCat.cat }}</h3>
+
           <p class="slider-card-text">
             {{ excerpt }}
           </p>
-          <div class="img-container">
-            <img :src="$relativity('/images/icons.png')" style="width: 100%;" alt="" />
+
+          <div v-if="iconPaths.length" class="logo-wrapper">
+
+            <img :src="$relativity(`/images/logos/${iconPaths[Math.floor(Math.random() * iconPaths.length)]}`)" />
+
+            <img :src="$relativity(`/images/logos/${iconPaths[Math.floor(Math.random() * iconPaths.length)]}`)" />
+
+            <img :src="$relativity(`/images/logos/${iconPaths[Math.floor(Math.random() * iconPaths.length)]}`)" />
+
           </div>
+
         </div>
       </transition>
 
-      <button class="project-view button noselect">
-        View 53 Projects
+      <button class="view-all button noselect">
+        View All
       </button>
 
     </div>
@@ -32,14 +56,36 @@
 </template>
 
 <script>
+// ===================================================================== Imports
+import PrevArrow from '@/components/Icons/PrevArrow'
+import NextArrow from '@/components/Icons/NextArrow'
+
+// =================================================================== Functions
+const getLogoPaths = (instance) => {
+  instance.iconPaths = [
+    'actyx.svg',
+    'alpress.svg',
+    'anytype.svg',
+    'audius.svg',
+    'berty.svg',
+    'bravebrowser.svg',
+    'pinata.svg'
+  ]
+}
+
 // ====================================================================== Export
 export default {
   name: 'Slider',
 
+  components: {
+    PrevArrow,
+    NextArrow
+  },
+
   props: {
     selectedCat: {
-      type: String,
-      default: ''
+      type: Object,
+      required: true
     },
     selectedSeg: {
       type: Number,
@@ -59,6 +105,16 @@ export default {
     }
   },
 
+  data () {
+    return {
+      iconPaths: []
+    }
+  },
+
+  mounted () {
+    getLogoPaths(this)
+  },
+
   methods: {
     incrementSelection (seg) {
       this.$emit('update-slider', seg)
@@ -70,46 +126,56 @@ export default {
 <style lang="scss" scoped>
 // ////////////////////////////////////////////////////////////////////// Slider
 .slider-container {
-  width: 30%;
   display: flex;
-  justify-content: center;
+  width: 17rem;
   align-items: center;
-  padding: 0em 1.0em;
-}
-
-.slider-flex {
-  flex-grow: 1;
-  flex-shrink: 0;
-  flex-basis: 270px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  padding: 1.0rem 1.5rem;
+  padding-left: 0.5rem;
 }
 
 .slider-card {
+  @include borderRadius3;
   background-color: #ffffff;
-  width: 80%;
-  height: 80%;
-  padding: 20px;
-  border-radius: 10px;
+  width: 100%;
+  min-height: 20rem;
+  padding: 1rem;
   position: relative;
   align-items: center;
+  h3 {
+    line-height: 1.5;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
 }
 
 .slider-card-text {
-  padding: 10px;
-  font-size: 10pt;
-  font-weight: 500;
+  @include fontSize_Small;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  color: #494949;
+}
+
+.slide-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0.75rem 0;
 }
 
 .nav-arrow {
+  @include borderRadius3;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem;
   color: rgba(0, 0, 0, 0.5);
-  background-color: #ffffff;
+  background-color: #FFFFFF;
   border: none;
-  border-radius: 6px;
   font-weight: 900;
-  font-size: 16pt;
-  width: 40px;
+  width: 3.75rem;
   &:hover {
     color: rgb(2, 28, 54);
   }
@@ -119,13 +185,35 @@ export default {
   }
 }
 
-.img-container {
-  width: 70%;
+.logo-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
   max-width: 300px;
   margin: 0 auto;
+  margin-bottom: 1.5rem;
+  img {
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 }
 
-.project-view {
+.logo-wrapper {
+  > img {
+    margin: 0 0.25rem;
+    max-width: 25%;
+    max-height: 2.5rem;
+  }
+}
+
+.view-all {
+  width: 70%;
   color: white;
   background-color: rgb(2, 28, 54);
   bottom: 0px;
@@ -139,12 +227,12 @@ export default {
   left: 0;
   right: 0;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  font-weight: 700;
+  font-weight: 500;
   text-align: center;
-  padding: 0.5em 2.0em;
+  padding: 0.25em 2.0em;
   text-decoration: none;
   border: none;
-  border-radius: 6px;
+  @include borderRadius3;
   &:focus {
     outline: none;
     box-shadow: none;

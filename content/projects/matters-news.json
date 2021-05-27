@@ -1,0 +1,99 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": [
+    {
+      "since": 2018
+    }
+  ],
+  "logo": {
+    "icon": "matters-31415379.png",
+    "full": "matters-31415379.png"
+  },
+  "name": "Matters News",
+  "org": [
+    "Matters"
+  ],
+  "description": {
+    "short": "Social publication platform that returns ownership to creators by integrating Web3 technologies and services",
+    "long": "Matters enables writers, journalists, novelists, and other creators to publish and monetize in a decentralized, censorship-resilient way."
+  },
+  "primaryCta": {
+    "url": "//matters.news",
+    "text": "Project Website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//matters.news",
+          "text": "matters.news"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/thematters/developer-resource",
+          "text": "github.com/thematters/developer-resource"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2018"
+    }
+  ],
+  "video": "",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "",
+    "description": "",
+    "buttonText": "",
+    "url": ""
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "social-media"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "web-hosting-publishing"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "corporate-government-independence",
+        "data-integrity"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs"
+      ]
+    }
+  ]
+}

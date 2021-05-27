@@ -25,6 +25,7 @@
       v-for="page in pages"
       :key="`page-${page.num}`"
       :class="['page-button', { current: page.current, display: page.display }]"
+      :style="{ opacity: page.current ? 1.0 : 0.5 }"
       @click="navigateToPage(page.num)">
       {{ page.num }}
     </button>
@@ -122,7 +123,6 @@ export default {
 </script>
 
 <style lang="scss">
-$dimension: 2.5rem;
 
 // ///////////////////////////////////////////////////////////////////// General
 .pagination-controls {
@@ -135,53 +135,37 @@ $dimension: 2.5rem;
 
 // /////////////////////////////////////////////////////////// Buttons & Breaker
 .page-button,
-.breaker {
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: $dimension;
-  height: $dimension;
-  color: grey;
-}
-
-.breaker {
-  display: flex;
-  // font-weight: 500;
-  color: black;
-  opacity: 0.25;
+.breaker,
+.control-button {
+  padding: 0.5rem;
+  margin-right: 0.25rem;
+  margin-left: 0.25rem;
+  color: $tiber;
+  opacity: 0.5;
+  font-weight: 600;
 }
 
 .page-button {
-  // font-family: $fontInter;
-  // font-weight: 600;
   display: none;
   &:not(.current) {
     &:hover {
       text-decoration: underline;
+      opacity: 1.0;
     }
   }
   &.display {
     display: flex;
   }
   &.current {
-    color: black;
+    color: $tiber;
     cursor: default;
   }
 }
 
 .control-button {
-  color: grey;
-  padding: 0.5rem;
+  color: $tiber;
   &:hover {
     text-decoration: underline;
-  }
-  &.first,
-  &.prev {
-    margin-right: 1rem;
-  }
-  &.next,
-  &.last {
-    margin-left: 1rem;
   }
   &.first,
   &.last {
