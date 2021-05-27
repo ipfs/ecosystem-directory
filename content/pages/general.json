@@ -11,8 +11,8 @@
   },
   "navigation": {
     "index": {
-      "type": "nuxt-link",
-      "href": "/"
+      "type": "a",
+      "href": "https://ipfs.io"
     },
     "header": [
       {

@@ -5,11 +5,11 @@
       <div class="col">
         <div class="navigation-content">
 
-          <nuxt-link :to="navigation.index.href">
+          <a :href="navigation.index.href">
             <img
               class="logo"
               :src="$relativity('/images/logo-horizontal.png')" />
-          </nuxt-link>
+          </a>
 
           <nav id="navigation">
             <component
