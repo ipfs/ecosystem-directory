@@ -50,11 +50,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-// ///////////////////////////////////////////////////////////////////// General
-.svg-icon {
-  display: block;
-}
-
-</style>

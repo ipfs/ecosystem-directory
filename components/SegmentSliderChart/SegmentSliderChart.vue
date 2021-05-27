@@ -168,13 +168,13 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
 }
 
 .main-container {
   display: flex;
+  position: relative;
   flex-wrap: wrap-reverse;
-  align-items: center;
+  align-items: space-between;
   margin: 0 auto;
 }
 </style>

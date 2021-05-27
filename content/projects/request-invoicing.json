@@ -1,0 +1,98 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": [
+    {
+      "since": 2017
+    }
+  ],
+  "logo": {
+    "icon": "request.png",
+    "full": "request-banner-logo.png"
+  },
+  "name": "Request Invoicing",
+  "org": [
+    "REQUEST"
+  ],
+  "description": {
+    "short": "Blockchain-based invoicing solution for crypto-friendly organizations",
+    "long": "Compliant invoicing tools for paying and getting paid in cryptocurrency as a freelancer or business. Uses IPFS private networks on self-hosted nodes, delivered as Docker images for others to run."
+  },
+  "primaryCta": {
+    "url": "//request.network/en/invoicing",
+    "text": "Project Website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//request.network/en/invoicing",
+          "text": "request.network/en/invoicing"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/RequestNetwork/requestNetwork",
+          "text": "github.com/RequestNetwork/requestNetwork"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2017"
+    }
+  ],
+  "video": "",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "",
+    "description": "",
+    "buttonText": "",
+    "url": ""
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "defi"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "file-sharing"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "interoperability"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs"
+      ]
+    }
+  ]
+}
