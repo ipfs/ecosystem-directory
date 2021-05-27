@@ -153,9 +153,9 @@ export default {
     return {
       catsActive: [],
       allApplied: [],
-      heights: [],
+      count: [],
       selected: [],
-      count: []
+      heights: []
     }
   },
 
@@ -245,6 +245,10 @@ export default {
       appendFilters2URL(this)
     },
     clearSelected () {
+      for (let i = 0; i < this.ProjectFilters.length; i++) {
+        this.allApplied[i] = false
+        this.count[i] = 0
+      }
       this.selected = []
       appendFilters2URL(this)
     },
