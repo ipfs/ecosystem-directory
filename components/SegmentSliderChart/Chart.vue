@@ -5,7 +5,7 @@
       v-for="(item, index) in segments"
       :key="index"
       :class="setForegrounded(index)"
-      :style="`width: ${item.size}px; height: ${segH}px;`"
+      :style="`width: ${item.size}%; height: ${segH}px;`"
       @click="updateParent(index)">
 
       <span

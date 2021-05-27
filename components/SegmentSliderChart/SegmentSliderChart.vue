@@ -8,14 +8,16 @@
     <div class="main-container grid-center">
 
       <Slider
-        :selected-cat="chartItemsArray[selected].cat"
+        v-if="chartItems"
+        :selected-cat="chartItems[selected]"
         :selected-seg="selected"
         :container-height="containerHeight"
         excerpt="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         @update-slider="setSliderContent" />
 
       <Chart
-        :chart-items="chartItemsArray"
+        v-if="chartItems"
+        :chart-items="chartItems"
         :selected-seg="selected"
         :container-height="containerHeight"
         @update-slider="setSliderContent"
@@ -28,10 +30,94 @@
 
 <script>
 // ===================================================================== Imports
+import { mapGetters } from 'vuex'
+
 import Slider from '@/components/SegmentSliderChart/Slider.vue'
 import Chart from '@/components/SegmentSliderChart/Chart.vue'
 
-import SampleData from '@/content/sample/sampleData.json'
+// =================================================================== Functions
+const createLabels = (projects) => {
+  const tags = []
+
+  for (let i = 0; i < projects.length; i++) {
+    const industryTags = projects[i].taxonomies[0].tags
+    for (let j = 0; j < industryTags.length; j++) {
+      tags.push(industryTags[j].text)
+    }
+  }
+
+  const categories = [...new Set(tags)]
+  const items = []
+
+  for (let i = 0; i < categories.length; i++) {
+    const l = categories[i].split('').length
+    const frc = (0.9 * i - l) * 0.1
+    let count = 0
+    tags.forEach((tag) => { if (tag === categories[i]) { count++ } })
+    items.push({
+      cat: categories[i],
+      count,
+      size: count * 10,
+      chars: l,
+      above: Math.round(Math.random() * 1.4),
+      force: frc
+    })
+  }
+
+  return addInitialOffsets(items)
+}
+
+const addInitialOffsets = (categories) => {
+  for (let i = 0; i < categories.length; i++) {
+    const offset = calculateOffset(categories, categories[i].chars, i)
+    categories[i].offset = offset
+    categories[i].pos = offset
+  }
+  return categories
+}
+
+const calculateOffset = (cats, l, i) => {
+  const len = cats.length
+  const lev1 = (
+    (cats[i].size / 2 +
+    cats[Math.min(i + 1, len - 1)].size / 2) * 8
+  )
+  const lev2 = (
+    (cats[i].size / 2 +
+    cats[Math.min(i + 1, len - 1)].size +
+    cats[Math.min(i + 2, len - 1)].size / 2) * 8
+  )
+  const lev3 = (
+    (cats[i].size / 2 +
+    cats[Math.min(i + 1, len - 1)].size +
+    cats[Math.min(i + 2, len - 1)].size +
+    cats[Math.min(i + 3, len - 1)].size / 2) * 8
+  )
+  const lev4 = (
+    (cats[i].size / 2 +
+    cats[Math.min(i + 1, len - 1)].size +
+    cats[Math.min(i + 2, len - 1)].size +
+    cats[Math.min(i + 3, len - 1)].size +
+    cats[Math.min(i + 4, len - 1)].size / 2) * 8
+  )
+  if (l < lev1 || i === len - 1) {
+    return -50
+  } else {
+    if (l < lev2) {
+      return -75
+    } else {
+      if (l < lev3) {
+        return -100
+      } else {
+        if (l < lev4) {
+          return -125
+        } else {
+          return -150
+        }
+      }
+    }
+  }
+}
 
 // ====================================================================== Export
 export default {
@@ -43,14 +129,6 @@ export default {
     Chart
   },
 
-  props: {
-    allProjects: {
-      type: [Boolean, Array],
-      default: false,
-      required: false
-    }
-  },
-
   data () {
     return {
       selected: 0,
@@ -59,24 +137,12 @@ export default {
   },
 
   computed: {
-    chartItemsArray () {
-      const flexItems = []
-      const len = SampleData.categories.length
-      for (let i = 0; i < len; i++) {
-        const l = SampleData.categories[i].cat.split('').length
-        const frc = (0.9 * i - SampleData.categories[i].cat.split('').length) * 0.1
-        const item = {
-          cat: SampleData.categories[i].cat,
-          size: SampleData.categories[i].count * 10,
-          chars: l,
-          above: Math.round(Math.random() * 1.4),
-          offset: this.setOffset(l * 8, i, len),
-          pos: this.setOffset(l * 8, i, len),
-          force: frc
-        }
-        flexItems.push(item)
-      }
-      return flexItems
+    ...mapGetters({
+      projects: 'projects/projects'
+    }),
+    chartItems () {
+      const data = createLabels(this.projects)
+      return data
     }
   },
 
@@ -86,50 +152,9 @@ export default {
 
   methods: {
     setSliderContent (seg) {
-      if (seg < 0) { seg = SampleData.categories.length - 1 }
-      const mod = seg % SampleData.categories.length
+      if (seg < 0) { seg = this.chartItems.length - 1 }
+      const mod = seg % this.chartItems.length
       this.selected = mod
-    },
-    setOffset (l, i, len) {
-      const lev1 = (
-        (SampleData.categories[i].count / 2 +
-        SampleData.categories[Math.min(i + 1, len - 1)].count / 2) * 8
-      )
-      const lev2 = (
-        (SampleData.categories[i].count / 2 +
-        SampleData.categories[Math.min(i + 1, len - 1)].count +
-        SampleData.categories[Math.min(i + 2, len - 1)].count / 2) * 8
-      )
-      const lev3 = (
-        (SampleData.categories[i].count / 2 +
-        SampleData.categories[Math.min(i + 1, len - 1)].count +
-        SampleData.categories[Math.min(i + 2, len - 1)].count +
-        SampleData.categories[Math.min(i + 3, len - 1)].count / 2) * 8
-      )
-      const lev4 = (
-        (SampleData.categories[i].count / 2 +
-        SampleData.categories[Math.min(i + 1, len - 1)].count +
-        SampleData.categories[Math.min(i + 2, len - 1)].count +
-        SampleData.categories[Math.min(i + 3, len - 1)].count +
-        SampleData.categories[Math.min(i + 4, len - 1)].count / 2) * 8
-      )
-      if (l < lev1 || i === len - 1) {
-        return -50
-      } else {
-        if (l < lev2) {
-          return -75
-        } else {
-          if (l < lev3) {
-            return -100
-          } else {
-            if (l < lev4) {
-              return -125
-            } else {
-              return -150
-            }
-          }
-        }
-      }
     }
   }
 }
