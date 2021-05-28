@@ -7,7 +7,7 @@
 
         <div class="card-grid">
           <div class="card-logo-grid">
-            <img :src="$relativity(`/images/logos/${logo}`)" />
+            <img :src="$relativity(`/images/projects/${logo}`)" />
           </div>
         </div>
 
@@ -24,7 +24,7 @@
         <div class="card-list">
 
           <div class="card-logo-list">
-            <img :src="$relativity(`/images/logos/${logo}`)" />
+            <img :src="$relativity(`/images/projects/${logo}`)" />
           </div>
 
           <div class="card-project-list">
