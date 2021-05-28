@@ -251,13 +251,14 @@ export default {
           label: 'Home'
         },
         {
-          type: 'a',
+          type: 'nuxt-link',
           href: '/',
           label: 'IPFS Ecosystem'
         },
         {
-          type: 'a',
-          href: '/projects',
+          type: 'nuxt-link',
+          href: '/',
+          query: { filters: 'enabled', foo: 'bar' },
           label: 'All projects'
         },
         {
