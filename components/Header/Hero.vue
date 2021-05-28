@@ -54,8 +54,9 @@
 
           <div v-if="(headerState === 'filters-applied')" class="subheading">
             <ul>
-              <li>Blue cheese</li>
-              <li>Feta</li>
+              <li v-for="item in categories" :key="item">
+                {{ item }}
+              </li>
             </ul>
           </div>
 
@@ -73,6 +74,7 @@ import { mapGetters } from 'vuex'
 
 import Breadcrumbs from '@/modules/zero/core/Components/Breadcrumbs'
 
+import Taxonomy from '@/content/data/taxonomy.json'
 // ====================================================================== Export
 export default {
   name: 'HeaderHero',
@@ -92,6 +94,7 @@ export default {
       siteContent: 'global/siteContent',
       navigation: 'global/navigation',
       projects: 'projects/projects',
+      activeTags: 'filters/activeTags',
       filteredCollection: 'filters/collection',
       filtersActive: 'filters/filtersActive',
       totalFilters: 'filters/totalFilters'
@@ -112,14 +115,19 @@ export default {
         }
       }
       return 'index-view'
+    },
+    categories () {
+      const filters = Taxonomy.categories
+      const arr = []
+      for (let i = 0; i < filters.length; i++) {
+        const tags = this.activeTags[filters[i].label]
+        if (tags.length) {
+          arr.push(filters[i].label + ': ' + tags.join(', '))
+        }
+      }
+      return arr
     }
   }
-  //
-  // created () {
-  //   this.$nuxt.$on('changeHeader', (val) => {
-  //     this.allActive = val
-  //   })
-  // }
 }
 </script>
 
@@ -128,11 +136,6 @@ export default {
 .transition {
   transition: all 0.5s ease;
   transition-delay: 500ms;
-}
-
-// ///////////////////////////////////////////////////////////////// [Panel] Top
-.panel-top {
-  margin-top: 3rem;
 }
 
 // ////////////////////////////////////////////////////////////// [Panel] Bottom
@@ -144,6 +147,8 @@ export default {
   @include fontSize_Large;
   li {
     list-style: none;
+    line-height: 2.0;
+    color: $codGray;
   }
 }
 // ////////////////////////////////////////////////////////////////// Index View

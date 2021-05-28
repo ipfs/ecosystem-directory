@@ -50,6 +50,10 @@ export default {
 
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
+#header-navigation {
+  padding: 1rem 0;
+}
+
 .navigation-content {
   display: flex;
   flex-direction: row;
