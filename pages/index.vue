@@ -3,7 +3,7 @@
 
     <div ref="collapsibleSection" class="collapse" :style="`height: ${sectionHeight}px;`">
       <transition-group name="fade" tag="section">
-        <section v-if="!(this.$route.query.filters === 'enabled')" key="segment">
+        <section v-if="!filtersActive" key="segment">
           <div ref="segmentSlider">
             <SegmentSliderChart
               v-if="!(this.$route.query.filters === 'enabled')"
@@ -12,7 +12,7 @@
           </div>
         </section>
 
-        <section v-if="!(this.$route.query.filters === 'enabled') && pageData" id="section-featured-slider" key="featured">
+        <section v-if="!filtersActive && pageData" id="section-featured-slider" key="featured">
           <div ref="featuredSection" class="grid-center">
 
             <div class="col-12">
@@ -141,7 +141,8 @@ export default {
   computed: {
     ...mapGetters({
       siteContent: 'global/siteContent',
-      projects: 'projects/projects'
+      projects: 'projects/projects',
+      filtersActive: 'filters/filtersActive'
     }),
     // SEO
     seo () {
