@@ -258,7 +258,7 @@ export default {
         {
           type: 'nuxt-link',
           href: '/',
-          query: { filters: 'enabled', foo: 'bar' },
+          query: { filters: 'enabled' },
           label: 'All projects'
         },
         {
