@@ -13,17 +13,12 @@
             :key="index"
             class="col-3 card-container">
 
-            <div class="card">
-              <div class="card-logo">
+            <ProjectCard
+              :title="project.name"
+              :description="project.description.short"
+              :logo="project.logo.icon"
+              format="grid-view" />
 
-                <img :src="$relativity(`/images/projects/${project.logo.icon}`)" />
-
-              </div>
-            </div>
-
-            <label>{{ (typeof project.name === 'string') ? project.name : '' }}</label>
-
-            <p>{{ (typeof project.description.short === 'string') ? project.description.short : '' }}</p>
           </div>
         </div>
       </div>
@@ -48,7 +43,9 @@
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
 
-// ===================================================================== Functions
+import ProjectCard from '@/components/ProjectView/ProjectCard'
+
+// =================================================================== Functions
 const handleFeatureSliderResize = (instance) => {
   instance.animate = false
   instance.setSliderPosition()
@@ -57,6 +54,10 @@ const handleFeatureSliderResize = (instance) => {
 // ====================================================================== Export
 export default {
   name: 'Main',
+
+  components: {
+    ProjectCard
+  },
 
   data () {
     return {
