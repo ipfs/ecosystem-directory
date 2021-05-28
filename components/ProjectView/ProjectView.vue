@@ -106,7 +106,7 @@
 
           <div :class="(listActive ? 'card-list-flex' : 'paginated-grid')">
             <ProjectCard
-              v-for="(project, index) in paginated"
+              v-for="project in paginated"
               :key="project.name"
               :format="(listActive ? 'list-view' : 'grid-view')"
               :title="project.name"
