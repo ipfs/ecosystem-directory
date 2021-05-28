@@ -6,9 +6,7 @@
       <template v-if="(format === 'grid-view')">
 
         <div class="card-grid">
-          <div class="card-logo-grid">
-            <img :src="$relativity(`/images/projects/${logo}`)" />
-          </div>
+          <img :src="$relativity(`/images/projects/${logo}`)" />
         </div>
 
         <p class="title">
@@ -88,11 +86,6 @@ a {
   height: 100%;
 }
 
-img {
-  width: 100%;
-  height: 100%;
-}
-
 .card-container-grid-view,
 .card-project-list {
   .title {
@@ -121,13 +114,24 @@ img {
 }
 
 .card-grid {
+  @include borderRadius3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   height: 64%;
-  @include borderRadius3;
   background-color: #FFFFFF;
   margin-bottom: 16px;
   &:hover {
     cursor: pointer;
+  }
+  img {
+    min-width: 25%;
+    min-height: 50%;
+    max-width: 75%;
+    max-height: 60%;
+    width: auto;
   }
 }
 
@@ -151,11 +155,10 @@ img {
 }
 
 .card-list {
+  @include borderRadius3;
   width: 100%;
   height: 100%;
-  @include borderRadius3;
   background-color: #FFFFFF;
-  // margin-bottom: 16px;
   display: flex;
   position: relative;
   &:hover {
@@ -164,22 +167,29 @@ img {
 }
 
 .card-logo-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   position: relative;
   padding: 1.0rem;
   margin-left: 0.5rem;
-  width: 80px;
+  width: 6.25rem;
   max-height: 80%;
   top: 50%;
   transform: translateY(-50%);
-
+  img {
+    width: 100%;
+    max-height: 100%;
+    max-width: 80%;
+  }
 }
 
 .card-project-list {
   position: absolute;
   vertical-align: middle;
   padding: 1rem;
-  margin-left: 5.0rem;
+  margin-left: 6.25rem;
   vertical-align: middle;
 }
-
 </style>
