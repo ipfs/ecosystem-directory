@@ -17,19 +17,19 @@
 
                 {{ heading.label }}
 
-                <span v-if="count.length" class="filter-category number-active">
-                  ({{ count[index] }} of {{ heading.tags.length }})
+                <span class="filter-category number-active">
+                  ({{ activeTags[heading.label].length }} of {{ heading.tags.length }})
                 </span>
 
               </div>
 
-              <div class="filter-category toggle" :class="{ flip: !catsActive[index] }">
+              <div class="filter-category toggle" :class="{ flip: !catsOpen[index] }">
                 <ToggleArrow stroke="#494949" />
               </div>
 
             </div>
 
-            <div ref="cats" class="collapsible-tags" :class="{ collapsed : !catsActive[index] }">
+            <div ref="cats" class="collapsible-tags" :class="{ collapsed : !catsOpen[index] }">
 
               <h5 class="filter-category sub-heading">
                 Filter by {{ heading.label }}
@@ -38,8 +38,8 @@
               <div class="filter-category tag-list">
 
                 <div
-                  :class="`filter-category tag ${allApplied[index] ? 'active-button' : 'not-selected'}`"
-                  @click="toggleAll(index)">
+                  :class="`filter-category tag ${(activeTags[heading.label].length === heading.tags.length) ? 'active-button' : 'not-selected'}`"
+                  @click="toggleAll(index, heading.label)">
                   All
                 </div>
 
@@ -47,7 +47,7 @@
                   v-for="tag in heading.tags"
                   :key="tag.label"
                   :class="`filter-category tag ${selected.includes(tag) ? 'active-button' : 'not-selected'}`"
-                  @click="applyFilter(tag, index)">
+                  @click="applyFilter(tag, index, heading.label)">
                   {{ tag.label }}
                 </div>
 
@@ -82,10 +82,14 @@
 
 <script>
 // ===================================================================== Imports
+import { mapGetters, mapActions } from 'vuex'
+import CloneDeep from 'lodash/cloneDeep'
+
 import Filters from '@/modules/zero/filters/Components/Filters'
 import ToggleArrow from '@/components/Icons/ToggleArrow'
 
 import Taxonomy from '~/content/data/taxonomy.json'
+
 // ===================================================================== Functions
 const elementEnter = (element) => {
   const width = getComputedStyle(element).width
@@ -129,7 +133,7 @@ const appendFilters2URL = (instance) => {
   if (slug) {
     instance.$router.replace({ query: { filters: 'enabled', tag: slug } })
   } else {
-    instance.$router.replace({ query: { filters: 'enabled'} })
+    instance.$router.replace({ query: { filters: 'enabled' } })
   }
 }
 
@@ -158,15 +162,16 @@ export default {
 
   data () {
     return {
-      catsActive: [],
-      allApplied: [],
-      count: [],
+      catsOpen: [],
       selected: [],
       heights: []
     }
   },
 
   computed: {
+    ...mapGetters({
+      activeTags: 'filters/activeTags'
+    }),
     ProjectFilters () {
       const filters = Taxonomy.categories
       return filters
@@ -191,11 +196,8 @@ export default {
   },
 
   mounted () {
-    this.catsActive = this.initToggles
-    for (let i = 0; i < this.ProjectFilters.length; i++) {
-      this.count.push(0)
-      this.allApplied.push(false)
-    }
+    this.setActiveTags(this.resetCategories())
+    this.catsOpen = this.initToggles
 
     let slugs
     if (this.$route.query.filters === 'enabled' && this.$route.query.tag) {
@@ -207,8 +209,7 @@ export default {
         for (let j = 0; j < this.ProjectFilters[i].tags.length; j++) {
           if (slugs.includes(this.ProjectFilters[i].tags[j].slug)) {
             arr.push(this.ProjectFilters[i].tags[j])
-            this.count[i] += 1
-            this.catsActive[i] = true
+            this.catsOpen[i] = true
           }
         }
       }
@@ -218,46 +219,82 @@ export default {
   },
 
   methods: {
+    ...mapActions({
+      setActiveTags: 'filters/setActiveTags'
+    }),
     toggleCat (ind) {
-      this.$set(this.catsActive, ind, !this.catsActive[ind])
+      this.$set(this.catsOpen, ind, !this.catsOpen[ind])
 
-      if (this.catsActive[ind]) {
+      if (this.catsOpen[ind]) {
         elementEnter(this.$refs.cats[ind])
       } else {
         elementLeave(this.$refs.cats[ind])
       }
     },
-    applyFilter (tag, ind) {
-      if (this.selected.includes(tag)) {
-        this.selected = this.selected.filter(item => item !== tag)
-        this.count[ind] -= 1
-        this.allApplied[ind] = false
-      } else {
-        this.selected.push(tag)
-        this.count[ind] += 1
-      }
-      appendFilters2URL(this)
-    },
-    toggleAll (ind) {
-      this.allApplied[ind] = !this.allApplied[ind]
-      const filters = this.ProjectFilters
-      if (this.allApplied[ind]) {
-        for (let i = 0; i < filters[ind].tags.length; i++) {
-          if (!this.selected.includes(filters[ind].tags[i])) {
-            this.selected.push(filters[ind].tags[i])
-            this.count[ind] += 1
+    applyFilter (tag, ind, heading) {
+      const cloned = CloneDeep(this.activeTags)
+
+      if (cloned) {
+        if (cloned.hasOwnProperty(heading)) {
+          if (cloned[heading].includes(tag.label)) {
+            cloned[heading] = cloned[heading].filter(item => item !== tag.label)
+          } else {
+            cloned[heading].push(tag.label)
           }
         }
+        this.setActiveTags(cloned)
+      } else {
+        this.setActiveTags(this.resetCategories())
       }
+
+      if (this.selected.includes(tag)) {
+        this.selected = this.selected.filter(item => item !== tag)
+      } else {
+        this.selected.push(tag)
+      }
+
+      appendFilters2URL(this)
+    },
+    toggleAll (ind, heading) {
+      const filters = this.ProjectFilters
+      const cloned = CloneDeep(this.activeTags)
+
+      if (cloned.hasOwnProperty(heading)) {
+        for (let i = 0; i < filters.length; i++) {
+          if (filters[i].label === heading) {
+            const tags = filters[i].tags
+            for (let j = 0; j < tags.length; j++) {
+              if (!cloned[heading].includes(tags[j].label)) {
+                cloned[heading].push(tags[j].label)
+              }
+            }
+            this.setActiveTags(cloned)
+          }
+        }
+      } else {
+        this.setActiveTags(this.resetCategories())
+      }
+
+      for (let i = 0; i < filters[ind].tags.length; i++) {
+        if (!this.selected.includes(filters[ind].tags[i])) {
+          this.selected.push(filters[ind].tags[i])
+        }
+      }
+
       appendFilters2URL(this)
     },
     clearSelected () {
-      for (let i = 0; i < this.ProjectFilters.length; i++) {
-        this.allApplied[i] = false
-        this.count[i] = 0
-      }
       this.selected = []
+      this.setActiveTags(this.resetCategories())
       appendFilters2URL(this)
+    },
+    resetCategories () {
+      const cats = {}
+      for (let i = 0; i < this.ProjectFilters.length; i++) {
+        const name = this.ProjectFilters[i].label
+        cats[name] = []
+      }
+      return cats
     },
     closePanel () {
       this.$emit('closeFilters')

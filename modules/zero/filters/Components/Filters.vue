@@ -8,7 +8,7 @@
 
 <script>
 // ===================================================================== Imports
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions } from 'vuex'
 
 // ====================================================================== Export
 export default {
@@ -38,9 +38,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters({
-      activeTags: 'filters/activeTags'
-    }),
     filtered () {
       let collection = []
       if (this.selected.length) {

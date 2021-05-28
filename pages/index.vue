@@ -175,7 +175,7 @@ export default {
       } else {
         this.$refs.collapsibleSection.style.height = this.sectionHeight + 'px'
       }
-      this.$nuxt.$emit('changeHeader', val)
+      // this.$nuxt.$emit('changeHeader', val)
     },
     segment () {
       this.segmentSlider = true

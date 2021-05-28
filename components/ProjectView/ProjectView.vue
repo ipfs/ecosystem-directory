@@ -250,7 +250,7 @@ export default {
     } else {
       this.filterActive = false
     }
-
+    this.setFiltersActive(this.filterActive)
     resetCardDisplayMargin(this.$refs.cardDisplay)
   },
 
@@ -260,12 +260,15 @@ export default {
       setTotalPages: 'pagination/setTotalPages',
       setDisplay: 'pagination/setDisplay',
       setCollection: 'pagination/setCollection',
-      clearStore: 'pagination/clearStore'
+      clearStore: 'pagination/clearStore',
+      setFiltersActive: 'filters/setFiltersActive',
+      setTotalFilters: 'filters/setTotalFilters'
     }),
     toggleFilterPanel () {
       this.filterPanel = !this.filterPanel
       if (!this.totalFilters) {
         this.filterActive = this.filterPanel
+        this.setFiltersActive(this.filterPanel)
         if (this.filterActive) {
           this.$router.push({ path: '/', query: { filters: 'enabled' } })
           window.scrollTo(0, 0) // not sure where to trigger this
@@ -280,6 +283,7 @@ export default {
     },
     updateTotalFilters (val) {
       this.totalFilters = val
+      this.setTotalFilters(val)
     },
     clearSelectedFilters () {
       this.$refs.filterPanel.clearSelected()
