@@ -16,7 +16,7 @@ export default {
           try {
             const slug = Projects[i]
             const route = `/project/${slug}`
-            const payload = require(`./content/projects/${slug}`)
+            const payload = require(`./content/projects/${slug}.json`)
             routes.push({ route, payload })
           } catch (e) {
             if (e.code === 'MODULE_NOT_FOUND') {

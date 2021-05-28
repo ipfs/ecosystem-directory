@@ -129,7 +129,7 @@ const appendFilters2URL = (instance) => {
   if (slug) {
     instance.$router.replace({ query: { filters: 'enabled', tag: slug } })
   } else {
-    instance.$router.replace({ query: { filters: 'enabled'} })
+    instance.$router.replace({ query: { filters: 'enabled' } })
   }
 }
 

@@ -31,9 +31,31 @@ const GetCookie = (string, key) => {
   return cookies.hasOwnProperty(key) ? cookies[key] : false
 }
 
+// ////////////////////////////////////////////////////////// CompileQueryString
+const CompileQueryString = (query) => {
+  let compiled = ''
+  if (!query || typeof query !== 'object') { return '' }
+  let len = Object.keys(query).length
+  for (const param in query) {
+    const value = query[param]
+    if (typeof value === 'string') {
+      compiled += `${param}=${value}&`
+    }
+  }
+  if (compiled !== '') {
+    compiled = `?${compiled}`
+  }
+  len = compiled.length
+  if (compiled.charAt(len - 1) === '&') {
+    compiled = compiled.slice(0, len - 1)
+  }
+  return compiled
+}
+
 // ////////////////////////////////////////////////////////////////////// Export
 // -----------------------------------------------------------------------------
 export default ({}, inject) => {
   inject('OmitDeep', OmitDeep)
   inject('GetCookie', GetCookie)
+  inject('CompileQueryString', CompileQueryString)
 }
