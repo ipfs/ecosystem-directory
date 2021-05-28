@@ -39,7 +39,7 @@
             <img
               v-for="path in logos"
               :key="path"
-              :src="$relativity(`/images/${path}`)" />
+              :src="$relativity(`/images/projects/${path}`)" />
 
           </div>
 

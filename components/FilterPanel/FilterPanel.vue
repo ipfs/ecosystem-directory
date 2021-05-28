@@ -178,7 +178,7 @@ export default {
     selectedLabels () {
       const arr = []
       for (let i = 0; i < this.selected.length; i++) {
-        arr.push(this.selected[i].label)
+        arr.push(this.selected[i].slug)
       }
       return arr
     }

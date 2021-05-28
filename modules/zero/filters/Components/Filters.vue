@@ -51,7 +51,7 @@ export default {
           for (let j = 0; j < proj.taxonomies.length; j++) {
             const tax = proj.taxonomies[j]
             for (let k = 0; k < tax.tags.length; k++) {
-              projTags.push(tax.tags[k].text)
+              projTags.push(tax.tags[k])
             }
           }
 

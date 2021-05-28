@@ -16,7 +16,7 @@
             <div class="card">
               <div class="card-logo">
 
-                <img :src="$relativity(`/images/${project.logo.icon}`)" />
+                <img :src="$relativity(`/images/projects/${project.logo.icon}`)" />
 
               </div>
             </div>
