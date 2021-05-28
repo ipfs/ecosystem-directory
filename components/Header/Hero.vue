@@ -1,5 +1,5 @@
 <template>
-  <section id="header-hero">
+  <section v-if="headerState" id="header-hero">
 
     <section
       v-if="pageData"
@@ -55,7 +55,7 @@
           <div v-if="(headerState === 'filters-applied')" class="subheading">
             <ul>
               <li v-for="item in categories" :key="item">
-                {{ item }}
+                {{ item.category }} <span class="tags">{{ item.tags }}</span>
               </li>
             </ul>
           </div>
@@ -107,14 +107,17 @@ export default {
       return false
     },
     headerState () {
-      if (this.filtersActive) {
-        if (this.totalFilters) {
-          return 'filters-applied'
-        } else {
-          return 'filters-view'
+      if (this.$route.name === 'index') {
+        if (this.filtersActive) {
+          if (this.totalFilters) {
+            return 'filters-applied'
+          } else {
+            return 'filters-view'
+          }
         }
+        return 'index-view'
       }
-      return 'index-view'
+      return false
     },
     categories () {
       const filters = Taxonomy.categories
@@ -122,7 +125,10 @@ export default {
       for (let i = 0; i < filters.length; i++) {
         const tags = this.activeTags[filters[i].label]
         if (tags.length) {
-          arr.push(filters[i].label + ': ' + tags.join(', '))
+          arr.push({
+            category: filters[i].label + ':',
+            tags: tags.join(', ')
+          })
         }
       }
       return arr
@@ -150,6 +156,9 @@ export default {
     line-height: 2.0;
     color: $codGray;
   }
+  .tags {
+    font-weight: bold;
+  }
 }
 // ////////////////////////////////////////////////////////////////// Index View
 .index-view {
@@ -162,7 +171,7 @@ export default {
 .filters-applied,
 .filters-view {
   background-color: $blackHaze;
-  color: $tiber;
+  color: #181818;
   h1 {
     font-weight: 500;
   }
@@ -178,7 +187,7 @@ export default {
   .display-total {
     @include fontSize_Medium;
     font-weight: 300;
-    color: $tundora;
+    color: #181818;
   }
 }
 
