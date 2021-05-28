@@ -46,7 +46,9 @@
         </div>
       </transition>
 
-      <button class="view-all button noselect">
+      <button
+        class="view-all button noselect"
+        @click="jump2Filters">
         View All
       </button>
 
@@ -126,6 +128,9 @@ export default {
   methods: {
     incrementSelection (seg) {
       this.$emit('update-slider', seg)
+    },
+    jump2Filters () {
+      this.$nuxt.$emit('view-all-projects')
     }
   }
 }
