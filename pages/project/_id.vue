@@ -90,7 +90,7 @@
               <dt :key="`key-${i}`" class="name">
                 {{ info.label }}
               </dt>
-              
+
               <dd :key="`val-${i}`" class="text">
                 {{ info.value }}
               </dd>
@@ -98,10 +98,12 @@
           </dl>
         </section>
 
-        <section v-if="project.video" id="section-video">
+        <section
+          v-if="project.video && getEmbedUrl(project.video).id"
+          id="section-video">
           <div class="video-wrapper">
             <iframe
-              :src="$buildVideoEmbedUrl($parseVideoUrl(project.video))"
+              :src="getEmbedUrl(project.video)"
               class="video"
               allow="autoplay; encrypted-media"
               allowfullscreen>
@@ -249,13 +251,14 @@ export default {
           label: 'Home'
         },
         {
-          type: 'a',
+          type: 'nuxt-link',
           href: '/',
           label: 'IPFS Ecosystem'
         },
         {
-          type: 'a',
-          href: '/projects',
+          type: 'nuxt-link',
+          href: '/',
+          query: { filters: 'enabled' },
           label: 'All projects'
         },
         {
@@ -278,6 +281,9 @@ export default {
   methods: {
     filterTags (categorySlug, tags = []) {
       return tags.filter(tag => this.$checkTaxonomyTagExists(categorySlug, tag))
+    },
+    getEmbedUrl (url) {
+      return this.$buildVideoEmbedUrl(this.$parseVideoUrl(url))
     }
   }
 }
@@ -400,7 +406,7 @@ export default {
         margin-top: 30px;
       }
     }
-    
+
   }
 }
 

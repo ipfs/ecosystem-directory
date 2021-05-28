@@ -31,7 +31,8 @@
     },
     "section_filter": {
       "heading": "All projects",
-      "description": "Explore the entire IPFS ecosystem, or use the filters to drill down by factors like industry, focus area, and tooling."
+      "description": "Explore the entire IPFS ecosystem, or use the filters to drill down by factors like industry, focus area, and tooling.",
+      "results_empty_placeholder": "No results found that match the selected filters"
     }
   }
 }

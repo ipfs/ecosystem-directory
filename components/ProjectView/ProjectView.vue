@@ -93,7 +93,7 @@
 
       <!-- ========================================== Filter Panel Component -->
 
-      <!-- /////////////////////////////////////////Paginated List Component -->
+      <!-- //////////////////////////////////////// Paginated List Component -->
 
       <div id="card-display" ref="cardDisplay">
 
@@ -116,7 +116,11 @@
 
         </Paginate>
 
-        <div class="page-navigation-controls">
+        <div v-else class="placeholder-results-empty">
+          {{ pageData.section_filter.results_empty_placeholder }}
+        </div>
+
+        <div v-if="filteredProjects" class="page-navigation-controls">
 
           <PaginationControls />
 
@@ -213,11 +217,19 @@ export default {
 
   computed: {
     ...mapGetters({
+      siteContent: 'global/siteContent',
       page: 'pagination/page',
       totalPages: 'pagination/totalPages',
       display: 'pagination/display',
       filteredProjects: 'filters/collection'
-    })
+    }),
+    pageData () {
+      const siteContent = this.siteContent
+      if (siteContent.hasOwnProperty('index')) {
+        return siteContent.index.page_content
+      }
+      return false
+    }
   },
 
   watch: {
@@ -439,6 +451,14 @@ img {
 .card-list-flex {
   display: flex;
   flex-wrap: wrap;
+}
+
+.placeholder-results-empty {
+  @include borderRadius3;
+  padding: 2rem;
+  font-weight: 600;
+  text-align: center;
+  background-color: white;
 }
 
 // /////////////////////////////////////////////////////// [PAGINATION CONTROLS]
