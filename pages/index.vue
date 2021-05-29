@@ -3,7 +3,7 @@
 
     <div ref="collapsibleSection" class="collapse" :style="`height: ${sectionHeight}px;`">
       <transition-group name="fade" tag="section">
-        <section v-if="!(this.$route.query.filters === 'enabled')" key="segment">
+        <section v-if="!filtersActive" key="segment">
           <div ref="segmentSlider">
             <SegmentSliderChart
               v-if="!(this.$route.query.filters === 'enabled')"
@@ -12,7 +12,7 @@
           </div>
         </section>
 
-        <section v-if="!(this.$route.query.filters === 'enabled') && pageData" id="section-featured-slider" key="featured">
+        <section v-if="!filtersActive && pageData" id="section-featured-slider" key="featured">
           <div ref="featuredSection" class="grid-center">
 
             <div class="col-12">
@@ -50,9 +50,7 @@
 
     <section>
 
-      <ProjectView
-        :all-projects="projects"
-        @hide-segment-chart="toggleProjectView" />
+      <ProjectView :all-projects="projects" />
 
     </section>
 
@@ -61,7 +59,7 @@
 
 <script>
 // ===================================================================== Imports
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 import SegmentSliderChart from '@/components/SegmentSliderChart/SegmentSliderChart'
 import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
@@ -70,7 +68,7 @@ import ProjectView from '@/components/ProjectView/ProjectView'
 import Projects from '@/content/projects/manifest.json'
 // ====================================================================== Functions
 const resetSectionHeight = (instance) => {
-  if (!(instance.$route.query.filters === 'enabled') && instance.segmentSlider && instance.featuredProjects) {
+  if (!instance.filtersActive) {
     const x = instance.$refs.segmentSlider.offsetHeight
     const y = instance.$refs.featuredSection.offsetHeight
     const z = instance.$refs.filterHeading.offsetHeight
@@ -141,7 +139,8 @@ export default {
   computed: {
     ...mapGetters({
       siteContent: 'global/siteContent',
-      projects: 'projects/projects'
+      projects: 'projects/projects',
+      filtersActive: 'filters/filtersActive'
     }),
     // SEO
     seo () {
@@ -157,7 +156,21 @@ export default {
     }
   },
 
+  watch: {
+    filtersActive (val) {
+      setTimeout(() => { resetSectionHeight(this) }, 500)
+      if (val) {
+        this.$refs.collapsibleSection.style.height = '0px'
+      } else {
+        this.$refs.collapsibleSection.style.height = this.sectionHeight + 'px'
+      }
+    }
+  },
+
   mounted () {
+    const filterEnabled = (this.$route.query.filters === 'enabled')
+    this.setFiltersActive(filterEnabled)
+
     this.resize = () => { resetSectionHeight(this) }
     window.addEventListener('resize', this.resize)
 
@@ -169,14 +182,9 @@ export default {
   },
 
   methods: {
-    toggleProjectView (val) {
-      if (val) {
-        this.$refs.collapsibleSection.style.height = '0px'
-      } else {
-        this.$refs.collapsibleSection.style.height = this.sectionHeight + 'px'
-      }
-      this.$nuxt.$emit('changeHeader', val)
-    },
+    ...mapActions({
+      setFiltersActive: 'filters/setFiltersActive'
+    }),
     segment () {
       this.segmentSlider = true
     },

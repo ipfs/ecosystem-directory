@@ -40,6 +40,7 @@ export default {
 .breadcrumb-button {
   display: inline-block;
   font-size: inherit;
+  font-weight: 600;
   &:not(:last-child) {
     &:after {
       content: '/';
