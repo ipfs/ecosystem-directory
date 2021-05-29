@@ -1,5 +1,7 @@
 <template>
-  <section v-if="navigation" id="header-navigation">
+  <section
+    v-if="navigation"
+    id="header-navigation">
 
     <div class="grid-noGutter">
       <div class="col">
@@ -42,7 +44,8 @@ export default {
 
   computed: {
     ...mapGetters({
-      navigation: 'global/navigation'
+      navigation: 'global/navigation',
+      filtersActive: 'filters/filtersActive'
     })
   }
 }
@@ -50,6 +53,15 @@ export default {
 
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
+#header-navigation {
+  padding: 1rem 0;
+  transition: background-color 500ms ease-in-out;
+}
+
+.filters-view {
+  background: linear-gradient(180deg, #041727 0, #062B3F);
+}
+
 .navigation-content {
   display: flex;
   flex-direction: row;
