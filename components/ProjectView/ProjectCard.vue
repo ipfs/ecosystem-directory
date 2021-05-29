@@ -1,47 +1,24 @@
 <template>
-  <div
-    :class="`${format === 'list-view' ? 'col-3' : ''} card-container-${format}`">
-    <NuxtLink :to="`project/${slug}`">
+  <NuxtLink
+    :to="`project/${slug}`"
+    :class="['project-card', format]">
+    <div class="card-inner-wrapper">
 
-      <template v-if="(format === 'grid-view')">
+      <div class="thumbnail">
+        <img :src="$relativity(`/images/projects/${logo}`)" />
+      </div>
 
-        <div class="card-grid">
-          <img :src="$relativity(`/images/projects/${logo}`)" />
-        </div>
-
+      <div class="content">
         <p class="title">
           {{ title }}
         </p>
-
         <p class="description">
           {{ description }}
         </p>
-      </template>
+      </div>
 
-      <template v-if="(format === 'list-view')">
-        <div class="card-list">
-
-          <div class="card-logo-list">
-            <img :src="$relativity(`/images/projects/${logo}`)" />
-          </div>
-
-          <div class="card-project-list">
-
-            <p class="title">
-              {{ title }}
-            </p>
-
-            <p class="description">
-              {{ description }}
-            </p>
-
-          </div>
-
-        </div>
-      </template>
-
-    </NuxtLink>
-  </div>
+    </div>
+  </NuxtLink>
 </template>
 
 <script>
@@ -66,7 +43,7 @@ export default {
     },
     format: {
       type: String,
-      default: 'grid-view',
+      default: 'block-view',
       required: false
     }
   },
@@ -80,116 +57,60 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// //////////////////////////////////////////////////////////////////// [COMMON]
-a {
-  width: 100%;
-  height: 100%;
-}
-
-.card-container-grid-view,
-.card-project-list {
-  .title {
-    @include leading_Small;
-    font-weight: 600;
-    font-size: 15pt;
-    font-family: $fontMontserrat;
-    color: $tiber;
-  }
-  .description {
-    @include leading_Small;
-    color: $tundora;
-    font-size: 10pt;
-  }
-}
-
-// ///////////////////////////////////////////////////////////////// [GRID VIEW]
-.card-container-grid-view {
-  height: 250px;
+// ///////////////////////////////////////////////////////////////////// General
+.project-card {
   padding: 0 0.5rem 1rem;
-  margin-bottom: 2rem;
-  align-self: flex-start;
-  flex: 1 1 25%;
-  min-width: 220px;
-  max-width: 300px;
+  transition: width 0ms;
+  &.list-view {
+    .card-inner-wrapper {
+      @include borderRadius3;
+      display: flex;
+      flex-direction: row;
+      background-color: #FFFFFF;
+    }
+    .thumbnail {
+      width: 7rem;
+      height: 7rem;
+      margin-bottom: 0;
+    }
+    .content {
+      padding: 1rem 1rem 1rem 0;
+    }
+  }
 }
 
-.card-grid {
+.title {
+  @include fontSize_Large;
+  font-weight: 600;
+  font-family: $fontMontserrat;
+  color: $tiber;
+  margin-bottom: 0.25rem;
+}
+
+.description {
+  @include fontSize_Small;
+  @include leading_Small;
+  color: $tundora;
+}
+
+.thumbnail {
   @include borderRadius3;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 64%;
+  height: 11.25rem;
   background-color: #FFFFFF;
-  margin-bottom: 16px;
-  &:hover {
-    cursor: pointer;
-  }
+  margin-bottom: 1rem;
   img {
-    min-width: 25%;
-    min-height: 50%;
-    max-width: 75%;
-    max-height: 60%;
+    max-width: 40%;
+    max-height: 50%;
     width: auto;
   }
 }
 
-.card-logo-grid {
-  position: relative;
-  width: 50%;
-  height: 60%;
-  margin: 0 auto;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-// ///////////////////////////////////////////////////////////////// [LIST VIEW]
-
-.card-container-list-view {
-  flex: 1 1 50%;
-  min-width: 332px;
-  height: 120px;
-  margin-bottom: 0;
-  padding-bottom: 0.75rem;
-}
-
-.card-list {
-  @include borderRadius3;
-  width: 100%;
-  height: 100%;
-  background-color: #FFFFFF;
-  display: flex;
-  position: relative;
-  &:hover {
-    cursor: pointer;
-  }
-}
-
-.card-logo-list {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  padding: 1.0rem;
-  margin-left: 0.5rem;
-  width: 6.25rem;
-  max-height: 80%;
-  top: 50%;
-  transform: translateY(-50%);
-  img {
-    width: 100%;
-    max-height: 100%;
-    max-width: 80%;
-  }
-}
-
-.card-project-list {
-  position: absolute;
-  vertical-align: middle;
-  padding: 1rem;
-  margin-left: 6.25rem;
-  vertical-align: middle;
+.content {
+  flex: 1;
 }
 </style>

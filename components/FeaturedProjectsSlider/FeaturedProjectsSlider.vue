@@ -1,30 +1,30 @@
 <template>
-  <div id="featured-projects-slider">
+  <div v-if="featured.length > 0" id="featured-projects-slider">
 
-    <div id="card-display-wrapper">
-      <div id="card-display">
+    <div id="slider">
+      <div
+        id="card-row-container"
+        ref="cardRowContainer">
         <div
-          v-if="featured"
-          id="card-flex"
-          ref="cardFlex"
-          :class="{ sliding: animate }">
-          <div
+          id="card-row"
+          ref="cardRow"
+          :class="{ sliding: animate }"
+          :style="{ left: `${left}px`, width: slidingRowWidth }">
+
+          <ProjectCard
             v-for="(project, index) in featured"
             :key="index"
-            class="col-3 card-container">
+            :title="project.name"
+            :description="project.description.short"
+            :logo="project.logo.icon"
+            :style="{ width: `${cardWidth}px` }"
+            format="block-view" />
 
-            <ProjectCard
-              :title="project.name"
-              :description="project.description.short"
-              :logo="project.logo.icon"
-              format="grid-view" />
-
-          </div>
         </div>
       </div>
     </div>
 
-    <div id="slider">
+    <div id="slider-controls">
       <div id="slider-line">
         <input
           id="feature-range-slider"
@@ -47,7 +47,10 @@ import ProjectCard from '@/components/ProjectView/ProjectCard'
 
 // =================================================================== Functions
 const handleFeatureSliderResize = (instance) => {
+  const cardWidth = instance.$refs.cardRowContainer.clientWidth / 4
   instance.animate = false
+  instance.cardWidth = cardWidth
+  instance.slidingRowWidth = cardWidth * instance.featured.length + 'px'
   instance.setSliderPosition()
 }
 
@@ -64,7 +67,10 @@ export default {
       currentIndex: 0,
       range: 0,
       resize: false,
-      animate: true
+      animate: true,
+      left: 0,
+      cardWidth: 0,
+      slidingRowWidth: '100%'
     }
   },
 
@@ -73,16 +79,7 @@ export default {
       projects: 'projects/projects'
     }),
     featured () {
-      const arr = []
-      for (let i = 0; i < this.projects.length; i++) {
-        if (this.projects[i].featured) {
-          arr.push(this.projects[i])
-        }
-      }
-      if (arr.length) {
-        return arr
-      }
-      return false
+      return this.projects.filter(project => project.featured)
     },
     indices () {
       return this.featured.length - 4
@@ -99,6 +96,7 @@ export default {
   },
 
   mounted () {
+    handleFeatureSliderResize(this)
     this.resize = () => { handleFeatureSliderResize(this) }
     window.addEventListener('resize', this.resize)
     this.$emit('init')
@@ -110,162 +108,116 @@ export default {
 
   methods: {
     setSliderPosition () {
-      if (this.$refs.cardFlex) {
-        const amt = this.$refs.cardFlex.firstChild.clientWidth
-        this.$refs.cardFlex.style.left = (-1 * this.currentIndex) * amt + 'px'
-      }
+      this.left = (-1 * this.currentIndex) * this.cardWidth
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+// ///////////////////////////////////////////////////////////////////// General
+#slider {
+  margin: 0 5%;
+  overflow: hidden;
+}
 
-  h4 { font-weight: 400; }
+#card-row {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: flex-start;
+  box-sizing: border-box;
+  position: relative;
+  left: 0px;
+}
 
-  /* CARDS */
+#card-row-container {
+  width: 100%;
+}
 
-  #card-display-wrapper {
-    min-width: 600px;
-  }
+.sliding {
+  transition: left 300ms ease-in-out;
+}
 
-  #card-display {
-    margin: 0 5%;
-    overflow: hidden;
-  }
+// /////////////////////////////////////////////////////////////////////// Cards
+.project-card {
+  padding-bottom: 0;
+}
 
-  #card-flex {
-    display: flex;
-    flex-wrap: nowrap;
-    box-sizing: border-box;
-    position: relative;
-    left: 0px;
-  }
+// ///////////////////////////////////////////////////////////// Slider Controls
+#slider-controls {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem auto;
+}
 
-  .sliding {
-    transition: left 300ms ease-in-out;
-  }
+#slider-line {
+  display: inline-block;
+  width: 40%;
+}
 
-  .card-container {
-    height: 250px;
-    width: 25%;
-    min-width: calc(25% - 22px);
-    max-width: calc(50% - 22px);
-    flex-basis: auto;
-    flex-grow: 1;
-    label {
-      @include leading_Small;
-      font-weight: 600;
-      font-size: 15pt;
-      font-family: $fontMontserrat;
-      color: $tiber;
-    }
-    p {
-      @include leading_Small;
-      color: $tundora;
-      font-size: 10pt;
-    }
-  }
+#feature-range-slider {
+  width: 100%;
+}
 
-  .card {
-    width: 100%;
-    height: 64%;
-    @include borderRadius3;
-    background-color: #FFFFFF;
-    margin-bottom: 16px;
-    &:hover{
-      cursor: pointer;
-    }
-  }
-
-  .card-logo {
-    position: relative;
-    max-width: 6rem;
-    height: 60%;
-    margin: 0 auto;
-    top: 50%;
-    transform: translateY(-50%);
-    img {
-      height: 100%;
-    }
-  }
-
-  /* SLIDER */
-
-  #slider {
-    margin: 1.5rem auto;
-    display: flex;
-    justify-content: center;
-    min-width: 600px;
-  }
-
-  #slider-line {
-    display: inline-block;
-    width: 40%;
-  }
-
-  #feature-range-slider {
-    width: 100%;
-  }
-
-  input[type=range] {
+// ////////////////////////////////////////////////////////////////////// Inputs
+input {
+  &[type=range] {
     height: 28px;
     -webkit-appearance: none;
     margin: 10px 0;
     width: 100%;
+    &::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 3px;
+      cursor: pointer;
+      animate: 0.2s;
+      background: #D7D9D8;
+      border-radius: 20px;
+      border: 0px solid #000101;
+    }
+    &::-webkit-slider-thumb {
+      height: 20px;
+      width: 50px;
+      cursor: pointer;
+      -webkit-appearance: none;
+      margin-top: -9px;
+      background: url('./sliderthumb.svg') no-repeat;
+    }
+    &::-moz-range-track {
+      width: 100%;
+      height: 3px;
+      cursor: pointer;
+      animate: 0.2s;
+      background: #D7D9D8;
+      border-radius: 20px;
+      border: 0px solid #000101;
+    }
+    &::-moz-range-thumb {
+      height: 20px;
+      width: 50px;
+      cursor: pointer;
+    }
+    &::-ms-track {
+      width: 100%;
+      height: 3px;
+      cursor: pointer;
+      background: transparent;
+      border-color: transparent;
+      color: transparent;
+    }
+    &::-ms-fill-lower {
+      background: #D7D9D8;
+    }
+    &::-ms-fill-upper {
+      background: #D7D9D8;
+      border-radius: 20px;
+    }
+    &::-ms-thumb {
+      margin-top: 1px;
+      height: 20px;
+      width: 50px;
+      cursor: pointer;
+    }
   }
-  input[type=range]::-webkit-slider-runnable-track {
-    width: 100%;
-    height: 3px;
-    cursor: pointer;
-    animate: 0.2s;
-    background: #D7D9D8;
-    border-radius: 20px;
-    border: 0px solid #000101;
-  }
-  input[type=range]::-webkit-slider-thumb {
-    height: 20px;
-    width: 50px;
-    cursor: pointer;
-    -webkit-appearance: none;
-    margin-top: -9px;
-    background: url('./sliderthumb.svg') no-repeat;
-  }
-  input[type=range]::-moz-range-track {
-    width: 100%;
-    height: 3px;
-    cursor: pointer;
-    animate: 0.2s;
-    background: #D7D9D8;
-    border-radius: 20px;
-    border: 0px solid #000101;
-  }
-  input[type=range]::-moz-range-thumb {
-    height: 20px;
-    width: 50px;
-    cursor: pointer;
-  }
-
-  input[type=range]::-ms-track {
-    width: 100%;
-    height: 3px;
-    cursor: pointer;
-    background: transparent;
-    border-color: transparent;
-    color: transparent;
-  }
-  input[type=range]::-ms-fill-lower {
-    background: #D7D9D8;
-  }
-  input[type=range]::-ms-fill-upper {
-    background: #D7D9D8;
-    border-radius: 20px;
-  }
-  input[type=range]::-ms-thumb {
-    margin-top: 1px;
-    height: 20px;
-    width: 50px;
-    cursor: pointer;
-  }
-
+}
 </style>
