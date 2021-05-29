@@ -155,6 +155,9 @@ export default {
     list-style: none;
     line-height: 2.0;
     color: $codGray;
+    &:not(:last-child) {
+      margin-bottom: 0.25rem;
+    }
   }
   .tags {
     font-weight: bold;
