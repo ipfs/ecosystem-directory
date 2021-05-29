@@ -425,13 +425,16 @@ img {
   height: 100%;
 }
 
-.card-list {
+::v-deep .card-list {
   display: flex;
   flex-flow: row wrap;
   &.layout-filter-panel-open {
     .project-card {
       &.block-view {
         width: 33.333%;
+        .thumbnail {
+          height: 11.25rem;
+        }
       }
       &.list-view {
         width: 50%;
@@ -440,7 +443,7 @@ img {
   }
 }
 
-.project-card {
+::v-deep .project-card {
   &.block-view {
     width: 25%;
     margin-bottom: 1rem;

@@ -35,10 +35,10 @@
                 Filter by {{ heading.label }}
               </h5>
 
-              <div class="filter-category tag-list">
+              <div class="filter-category chiclet-list">
 
                 <div
-                  :class="`filter-category tag ${(activeTags[heading.label].length === heading.tags.length) ? 'active-button' : 'not-selected'}`"
+                  :class="['filter-category tag chiclet', { 'active-button': activeTags[heading.label].length === heading.tags.length }]"
                   @click="toggleAll(index, heading.label)">
                   All
                 </div>
@@ -46,7 +46,7 @@
                 <div
                   v-for="tag in heading.tags"
                   :key="tag.label"
-                  :class="`filter-category tag ${selected.includes(tag) ? 'active-button' : 'not-selected'}`"
+                  :class="['filter-category tag chiclet', { 'active-button': selected.includes(tag) }]"
                   @click="applyFilter(tag, index, heading.label)">
                   {{ tag.label }}
                 </div>
@@ -329,18 +329,14 @@ export default {
   color: #ffffff;
 }
 
-.not-selected {
-  background-color: $blackHaze;
-}
-
-.bottom-buttons{
+.bottom-buttons {
   margin-top: 2rem;
   margin-bottom: 4rem;
   font-family: $fontMontserrat;
   .clear-selected,
   .done {
-    padding: 0.4rem 1.2rem;
     @include borderRadius3;
+    padding: 0.4rem 1.2rem;
     font-size: 10pt;
   }
   .clear-selected {
@@ -393,22 +389,6 @@ export default {
     font-family: $fontInter;
     margin: 6px;
     margin-bottom: 2rem;
-  }
-  &.tag-list {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 2rem;
-  }
-  &.tag {
-    font-family: $fontInter;
-    font-weight: 500;
-    font-size: 9pt;
-    padding: 0.3rem 1.2rem;
-    max-width: 100%;
-    @include borderRadius3;
-  }
-  &.tag-list > .tag {
-    margin: 5px;
   }
 }
 

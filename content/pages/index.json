@@ -25,10 +25,6 @@
     ],
     "heading": "Ecosystem Directory",
     "subheading": "Explore the world of projects and products built on IPFS in this interactive showcase filterable by industry, tooling, and more.",
-    "section_featured_slider": {
-      "heading": "Featured projects",
-      "description": "Check out some new and notable additions to the IPFS ecosystem directory."
-    },
     "section_filter": {
       "heading": "All projects",
       "description": "Explore the entire IPFS ecosystem, or use the filters to drill down by factors like industry, focus area, and tooling.",
