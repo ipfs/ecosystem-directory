@@ -108,6 +108,8 @@ This means that file names must be named after project names, and use lowercase 
 
 ### Keys
 
+Keys should be retained when not in  use. This ensures that if anyone wants to add to the project, they immediately see all keys available in other projects, rather than searching for the model or accidentally using a data structure that doesn't match the model perfectly. This means empty and type checking is done by the app in a strict fashion.
+
 - `display`: toggle whether or not to display or hide the project from the results
 
 - `featured`: toggle whether this appears in the featured slider
