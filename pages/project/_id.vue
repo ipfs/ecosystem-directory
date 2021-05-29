@@ -1,9 +1,9 @@
 <template>
   <div :class="`page page-${tag} ${id} container`">
 
-    <div class="grid-noGutter">
+    <div v-if="breadcrumbs" class="grid-noGutter">
       <div class="col">
-        <section v-if="breadcrumbs" id="section-breadcrumbs">
+        <section id="section-breadcrumbs">
           <Breadcrumbs :breadcrumbs="breadcrumbs" />
         </section>
       </div>
@@ -12,7 +12,11 @@
     <div class="grid">
       <div class="col-5">
         <section id="section-project-info">
-          <img v-if="project.logo && project.logo.full" class="logo" :src="$relativity(`/images/${project.logo.full}`)" :alt="`${project.name} logo`">
+          <img
+            v-if="project.logo && project.logo.full"
+            class="logo"
+            :src="$relativity(`/images/${project.logo.full}`)"
+            :alt="`${project.name} logo`">
 
           <h1 v-if="project.name" class="name">
             {{ project.name }}
@@ -36,14 +40,19 @@
 
       <div class="col-6" data-push-left="off-1">
         <section id="section-statistics">
-          <div v-for="(stat, i) in project.stats" :key="i" :class="`card big-number`">
-            <p v-if="stat.value" class="statistic">
-              {{ stat.value }}
-            </p>
-            <p v-if="stat.label" class="description">
-              {{ stat.label }}
-            </p>
-          </div>
+          <template v-for="(stat, i) in project.stats">
+            <div
+              v-if="stat.value && stat.value !== '' && stat.label && stat.label !== ''"
+              :key="`big-number-${i}`"
+              class="card big-number">
+              <p class="statistic">
+                {{ stat.value }}
+              </p>
+              <p class="description">
+                {{ stat.label }}
+              </p>
+            </div>
+          </template>
           <div v-if="project.ctaCard" class="card case-study">
             <p v-if="project.ctaCard.title" class="title">
               {{ project.ctaCard.title }}
@@ -142,7 +151,7 @@
       </div>
     </div>
 
-    <section id="section-featured-slider">
+    <!-- <section id="section-featured-slider">
       <div class="grid-center">
 
         <div class="col-12">
@@ -159,7 +168,7 @@
         </div>
 
       </div>
-    </section>
+    </section> -->
 
   </div>
 </template>
@@ -173,7 +182,7 @@ import Accordion from '@/modules/zero/core/Components/Accordion/Accordion'
 import AccordionHeader from '@/modules/zero/core/Components/Accordion/Header'
 import AccordionSection from '@/modules/zero/core/Components/Accordion/Section'
 import AccordionContent from '@/modules/zero/core/Components/Accordion/Content'
-import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
+// import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
 
 // ====================================================================== Export
 export default {
@@ -184,8 +193,8 @@ export default {
     Accordion,
     AccordionHeader,
     AccordionSection,
-    AccordionContent,
-    FeaturedProjectsSlider
+    AccordionContent
+    // FeaturedProjectsSlider
   },
 
   data () {
