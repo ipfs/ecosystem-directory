@@ -16,7 +16,7 @@
             <template #icon-before>
               <FiltersToggle
                 class="font-inter"
-                :stroke="filtersActive ? '#ffffff' : '#052437'" />
+                :stroke="filtersActive ? '#FFFFFF' : '#052437'" />
             </template>
 
           </Button>
@@ -40,22 +40,20 @@
 
           <ListView
             class="radio-toggle-item"
-            :stroke="listActive ? '#ffffff' : '#052437'" />
+            :stroke="listActive ? '#FFFFFF' : '#052437'" />
 
           <GridView
             class="radio-toggle-item"
-            :stroke="!listActive ? '#ffffff' : '#052437'" />
+            :stroke="!listActive ? '#FFFFFF' : '#052437'" />
 
         </div>
 
       </div>
     </div>
 
-    <!-- //////////////////////////////// Filter Toggle / List View controls -->
+    <!-- ////////////////////////////////////////////////////// Filter Panel -->
 
     <div id="project-filter-container">
-      <!-- ========================================== Filter Panel Component -->
-
       <div id="filter-panel-wrapper" ref="filterWrap">
         <div class="filter-panel inner-wrapper">
 
@@ -91,9 +89,7 @@
         </div>
       </div>
 
-      <!-- ========================================== Filter Panel Component -->
-
-      <!-- //////////////////////////////////////// Paginated List Component -->
+      <!-- ////////////////////////////////////////////////// Paginated List -->
 
       <div id="card-display" ref="cardDisplay">
 
@@ -104,11 +100,11 @@
           :collection="filteredProjects"
           class="paginate-root">
 
-          <div :class="(listActive ? 'card-list-flex' : 'paginated-grid')">
+          <div :class="['card-list', listActive ? 'layout-list' : 'layout-grid', { 'layout-filter-panel-open': filterPanel }]">
             <ProjectCard
               v-for="project in paginated"
               :key="project.name"
-              :format="(listActive ? 'list-view' : 'grid-view')"
+              :format="(listActive ? 'list-view' : 'block-view')"
               :title="project.name"
               :description="project.description.short"
               :logo="project.logo.icon" />
@@ -138,7 +134,7 @@
 
         </div>
       </div>
-      <!-- /////////////////////////////////////////Paginated List Component -->
+
     </div>
 
   </div>
@@ -297,38 +293,36 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+// ///////////////////////////////////////////////////////////////////// General
 #project-view-container {
   width: 100%;
   min-width: 600px;
   padding: 0;
-  margin-bottom: 3rem;
 }
 
-// /////////////////////////////////////////////////////////// [TOGGLE CONTROLS]
-
+// ///////////////////////////////////////////////////////////// Toggle Controls
 .activeButton {
   background-color: #052437;
-  color: #ffffff;
+  color: #FFFFFF;
 }
 
 #card-filters-toggle {
+  display: flex;
+  justify-content: space-between;
   padding: 0 0.0rem 1rem;
   margin-top: 1rem;
   margin-bottom: 3rem;
-  display: flex;
-  justify-content: space-between;
 }
 
 #radio-view-toggle {
   display: flex;
-  position: relative;
-  height: 2.25rem;
-  cursor: pointer;
-  background-color: #ffffff;
-  border-radius: 0.25rem;
   flex-direction: row;
   align-items: center;
+  position: relative;
+  height: 2.25rem;
+  background-color: #FFFFFF;
+  border-radius: 0.25rem;
+  cursor: pointer;
   &.hide {
     opacity: 0;
   }
@@ -338,14 +332,14 @@ export default {
   display: flex;
   position: relative;
   .clear-selected {
+    @include borderRadius3;
     position: relative;
     height: 2.25rem;
-    cursor: pointer;
-    background-color: #ffffff;
-    @include borderRadius3;
+    background-color: #FFFFFF;
     white-space: nowrap;
     padding: 0 0.75rem;
     margin: 0 0.75rem;
+    cursor: pointer;
   }
 }
 
@@ -369,8 +363,7 @@ export default {
   transition: left 300ms cubic-bezier(.61,1.6,.64,.88);
 }
 
-// ////////////////////////////////////////////////////////////// [FILTER PANEL]
-
+// //////////////////////////////////////////////////////////////// Filter Panel
 #project-filter-container {
   width: 100vw;
   position: relative;
@@ -416,8 +409,7 @@ export default {
   }
 }
 
-// ///////////////////////////////////////////////////////////// [PROJECT CARDS]
-
+// /////////////////////////////////////////////////////////////// Project Cards
 #card-display {
   width: 67.5rem;
   margin: 0 auto;
@@ -433,16 +425,29 @@ img {
   height: 100%;
 }
 
-.paginated-grid {
-  box-sizing: border-box;
+.card-list {
   display: flex;
   flex-flow: row wrap;
-  margin: 0 auto;
+  &.layout-filter-panel-open {
+    .project-card {
+      &.block-view {
+        width: 33.333%;
+      }
+      &.list-view {
+        width: 50%;
+      }
+    }
+  }
 }
 
-.card-list-flex {
-  display: flex;
-  flex-wrap: wrap;
+.project-card {
+  &.block-view {
+    width: 25%;
+    margin-bottom: 1rem;
+  }
+  &.list-view {
+    width: 33.333%;
+  }
 }
 
 .placeholder-results-empty {
@@ -453,8 +458,7 @@ img {
   background-color: white;
 }
 
-// /////////////////////////////////////////////////////// [PAGINATION CONTROLS]
-
+// ///////////////////////////////////////////////////////// Pagination Controls
 .font-inter {
   font-family: $fontInter;
   font-weight: 400;
@@ -479,5 +483,4 @@ img {
   @include borderRadius3;
   padding: 0.25rem 1.0rem;
 }
-
 </style>
