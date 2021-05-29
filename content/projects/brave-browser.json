@@ -29,12 +29,20 @@
         {
           "url": "//brave.com",
           "text": "brave.com"
+        },
+        {
+          "url": "//brave.com",
+          "text": "brave.com"
         }
       ]
     },
     {
       "label": "Repo",
       "links": [
+        {
+          "url": "//github.com/brave/brave-browser",
+          "text": "github.com/brave/brave-browser"
+        },
         {
           "url": "//github.com/brave/brave-browser",
           "text": "github.com/brave/brave-browser"
@@ -51,16 +59,16 @@
   "video": "//youtube.com/watch?v=hpwh_zLpnCE",
   "stats": [
     {
-      "label": "",
-      "value": ""
+      "label": "Successful cross-border shipments using IPFS",
+      "value": "1K+"
     },
     {
-      "label": "",
-      "value": ""
+      "label": "Successful cross-border shipments using IPFS",
+      "value": "1K+"
     },
     {
-      "label": "",
-      "value": ""
+      "label": "Successful cross-border shipments using IPFS",
+      "value": "1K+"
     }
   ],
   "ctaCard": {

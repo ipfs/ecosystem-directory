@@ -100,7 +100,7 @@ export default {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 11.25rem;
+  height: 10rem;
   background-color: #FFFFFF;
   margin-bottom: 1rem;
   img {

@@ -43,12 +43,12 @@ export default {
     }
   },
 
-  created () {
-    if (this.selected) {
-      setTimeout(() => {
+  mounted () {
+    this.$nextTick(() => {
+      if (this.selected) {
         this.$parent.setSelected(this.id)
-      }, 1)
-    }
+      }
+    })
   }
 }
 </script>

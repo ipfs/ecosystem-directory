@@ -1,9 +1,9 @@
 <template>
   <div :class="`page page-${tag} ${id} container`">
 
-    <div class="grid-noGutter">
+    <div v-if="breadcrumbs" class="grid">
       <div class="col">
-        <section v-if="breadcrumbs" id="section-breadcrumbs">
+        <section id="section-breadcrumbs">
           <Breadcrumbs :breadcrumbs="breadcrumbs" />
         </section>
       </div>
@@ -12,7 +12,11 @@
     <div class="grid">
       <div class="col-5">
         <section id="section-project-info">
-          <img v-if="project.logo && project.logo.full" class="logo" :src="$relativity(`/images/${project.logo.full}`)" :alt="`${project.name} logo`">
+          <img
+            v-if="project.logo && project.logo.full"
+            class="logo"
+            :src="$relativity(`/images/projects/${project.logo.full}`)"
+            :alt="`${project.name} logo`">
 
           <h1 v-if="project.name" class="name">
             {{ project.name }}
@@ -36,14 +40,19 @@
 
       <div class="col-6" data-push-left="off-1">
         <section id="section-statistics">
-          <div v-for="(stat, i) in project.stats" :key="i" :class="`card big-number`">
-            <p v-if="stat.value" class="statistic">
-              {{ stat.value }}
-            </p>
-            <p v-if="stat.label" class="description">
-              {{ stat.label }}
-            </p>
-          </div>
+          <template v-for="(stat, i) in project.stats">
+            <div
+              v-if="stat.value && stat.value !== '' && stat.label && stat.label !== ''"
+              :key="`big-number-${i}`"
+              class="card big-number">
+              <p class="statistic">
+                {{ stat.value }}
+              </p>
+              <p class="description">
+                {{ stat.label }}
+              </p>
+            </div>
+          </template>
           <div v-if="project.ctaCard" class="card case-study">
             <p v-if="project.ctaCard.title" class="title">
               {{ project.ctaCard.title }}
@@ -68,13 +77,15 @@
 
           <dl v-if="project.links" class="values">
             <template v-for="(linkGroup, i) in project.links">
-              <dt :key="`key-${i}`" class="name">
+              <dt :key="`project-link-key-${i}`" class="name">
                 {{ linkGroup.label }}
               </dt>
 
-              <dd :key="`val-${i}`">
+              <dd :key="`project-val-${i}`">
                 <ul class="links">
-                  <li v-for="(link, j) in linkGroup.links" :key="j">
+                  <li
+                    v-for="(link, j) in linkGroup.links"
+                    :key="`link-group-${j}`">
                     <a href="link.url" target="_blank">
                       {{ $truncateString(link.text, 12, '...', type = 'double') }}
                     </a>
@@ -87,11 +98,11 @@
             </template>
 
             <template v-for="(info, i) in project.keyInfo">
-              <dt :key="`key-${i}`" class="name">
+              <dt :key="`keyinfo-key-${i}`" class="name">
                 {{ info.label }}
               </dt>
 
-              <dd :key="`val-${i}`" class="text">
+              <dd :key="`keyinfo-val-${i}`" class="text">
                 {{ info.value }}
               </dd>
             </template>
@@ -99,7 +110,7 @@
         </section>
 
         <section
-          v-if="project.video && getEmbedUrl(project.video).id"
+          v-if="project.video && getEmbedUrl(project.video)"
           id="section-video">
           <div class="video-wrapper">
             <iframe
@@ -120,7 +131,7 @@
             :multiple="true">
             <AccordionSection
               v-for="(taxonomy, i) in taxonomies"
-              :key="i"
+              :key="`taxonomy-category-${i}`"
               :active="active"
               :selected="true"
               class="filters">
@@ -130,10 +141,14 @@
                 </h3>
               </AccordionHeader>
               <AccordionContent>
-                <div class="chicklet-container">
-                  <a v-for="(taxonomyTag, j) in filterTags(taxonomy.slug, taxonomy.tags)" :key="j" :href="taxonomyTag" class="chicklet">
+                <div class="chiclet-list">
+                  <NuxtLink
+                    v-for="(taxonomyTag, j) in filterTags(taxonomy.slug, taxonomy.tags)"
+                    :key="`taxonomu-tag-${j}`"
+                    :to="{ path: '/', query: { tag: taxonomyTag } }"
+                    class="chiclet">
                     {{ $getTaxonomyTagLabel(taxonomy.slug, taxonomyTag) }}
-                  </a>
+                  </NuxtLink>
                 </div>
               </AccordionContent>
             </AccordionSection>
@@ -147,10 +162,10 @@
 
         <div class="col-12">
           <h3 class="heading">
-            Featured
+            {{ pageData.section_featured_slider.heading }}
           </h3>
           <div class="description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
+            {{ pageData.section_featured_slider.description }}
           </div>
         </div>
 
@@ -174,6 +189,8 @@ import AccordionHeader from '@/modules/zero/core/Components/Accordion/Header'
 import AccordionSection from '@/modules/zero/core/Components/Accordion/Section'
 import AccordionContent from '@/modules/zero/core/Components/Accordion/Content'
 import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
+
+import Projects from '@/content/projects/manifest.json'
 
 // ====================================================================== Export
 export default {
@@ -200,12 +217,24 @@ export default {
     const id = route.params.id
     try {
       const project = require(`@/content/projects/${id}.json`)
+      const compiled = []
+      const len = Projects.length
+      for (let i = 0; i < len; i++) {
+        const id = Projects[i]
+        try {
+          const project = require(`@/content/projects/${id}.json`)
+          compiled.push(project)
+        } catch (e) {
+          console.log(e)
+        }
+      }
       await store.dispatch('global/getBaseData', 'general')
       await store.dispatch('global/getBaseData', 'taxonomy')
       await store.dispatch('global/getBaseData', {
         key: `project-${id}`,
         data: project
       })
+      await store.dispatch('projects/getAllProjects', compiled)
     } catch (e) {
       return error('This project does not exist')
     }
@@ -268,6 +297,13 @@ export default {
       ]
     },
     // Project Content
+    pageData () {
+      const siteContent = this.siteContent
+      if (siteContent.hasOwnProperty('general')) {
+        return siteContent.general
+      }
+      return false
+    },
     project () {
       const siteContent = this.siteContent
       const id = this.id
@@ -295,240 +331,247 @@ export default {
   background-color: $white;
 }
 
+// /////////////////////////////////////////////////////// [Section] Breadcrumbs
 #section-breadcrumbs {
-  padding: 50px 0 36px;
+  padding: 3rem 0 1.75rem;
 }
 
+// ////////////////////////////////////////////////////// [Section] Project Info
 #section-project-info {
-  margin-bottom: 60px;
-
-  .logo {
-    width: auto;
-    height: auto;
-    max-height: 100px;
-    max-width: 100%;
-  }
-
+  margin-bottom: 3.75rem;
   .name {
+    @include fontSize_ExtraExtraLarge;
     font-weight: 700;
-    font-size: 50px;
   }
-
-  .company {
-    font-family: $fontInter;
-    font-size: 18px;
-    margin-bottom: 45px;
-  }
-
   .description {
-    line-height: 20px;
-    margin-bottom: 50px;
+    @include leading_Mini;
+    margin-bottom: 3rem;
+  }
+}
+
+.logo {
+  width: auto;
+  height: auto;
+  max-height: 6.5rem;
+  max-width: 60%;
+  margin-bottom: 1.25rem;
+}
+
+.company {
+  @include fontSize_Medium;
+  font-family: $fontInter;
+  margin-bottom: 2.5rem;
+}
+
+.ctas {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-weight: 600;
+    color: $blackPearl;
+    &.primary-cta {
+      @include borderRadius3;
+      border: 2px solid $tiber;
+      padding: 0.625rem 1.25rem;
+      margin-right: 1.5rem;
+    }
+    &.secondary-cta {
+      background: url('~assets/theme/svgs/chevronright.svg') no-repeat right center;
+      padding-right: 1rem;
+    }
+  }
+}
+
+// //////////////////////////////////////////////////////// [Section] Statistics
+#section-statistics {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.card {
+  @include borderRadius3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: calc(50% - 0.5rem);
+  padding: 3rem;
+  margin-bottom: 1rem;
+  &:nth-child(odd) {
+    margin-right: 1rem;
+  }
+  &.big-number {
+    color: $tiber;
+    background-color: $blackHaze;
+    .statistic {
+      font-size: 2.625rem;
+    }
+    .description {
+      @include fontSize_Large;
+      @include leading_Mini;
+    }
+  }
+  &.case-study {
+    border: 2px solid $tiber;
+    .title,
+    .description {
+      color: $tundora;
+    }
+    .title {
+      @include fontSize_Large;
+    }
+    .description {
+      @include fontSize_Small;
+      @include leading_Mini;
+    }
+    .cta {
+      @include borderRadius3;
+      @include fontSize_Small;
+      padding: 0.5rem 2rem;
+      margin-top: 2rem;
+      color: $white;
+      font-weight: 600;
+      background-color: $tiber;
+    }
+  }
+  .statistic,
+  .title {
+    font-family: $fontMontserrat;
+    margin-bottom: 1rem;
+  }
+}
+
+// ////////////////////////////////////////////////////////// [Section] Key Info
+#section-key-info {
+  .heading {
+    @include fontSize_ExtraLarge;
+    margin-bottom: 2rem;
+  }
+}
+
+.values {
+  display: grid;
+  grid-template-columns: 30% auto;
+  row-gap: 1rem;
+  column-gap: 5%;
+
+  dd {
+    margin: 0;
   }
 
-  .ctas {
-    display: flex;
-    column-gap: 24px;
+  dt,
+  li {
+    font-weight: 600;
+  }
+
+  .links {
+    list-style: none;
+    padding: 0;
+
+    li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.25rem;
+    }
 
     a {
-      color: $blackPearl;
-      padding: 10px 20px;
-
-      &.primary-cta {
-        border: 2px solid $blackPearl;
-        border-radius: 5px;
-      }
-      &.secondary-cta {
-        background: url('~assets/theme/svgs/chevronright.svg') no-repeat right center;
-        line-height: 28px;
-        padding-right: 25px;
-      }
-    }
-  }
-}
-
-#section-statistics {
-  margin-bottom: 60px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  row-gap: 10px;
-  column-gap: 14px;
-
-  .card {
-    border-radius: 5px;
-    text-align: center;
-    padding: 50px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    .description {
-      width: 200px;
+      color: $cerulean;
     }
 
-    &.big-number {
+    .link-tooltip {
+      @include borderRadius3;
+      @include fontSize_Mini;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       background-color: $blackHaze;
+      width: 1rem;
+      height: 1rem;
+      cursor: help;
 
-      .statistic {
-        font-family: $fontMontserrat;
-        font-weight: 600;
-        font-size: 42px;
-      }
-
-      .description {
-        font-size: 20px;
-        line-height: 24px;
-      }
-    }
-
-    &.case-study {
-      border: 2px solid $tiber;
-
-      .title {
-        font-family: $fontMontserrat;
-        font-size: 18px;
-        margin-bottom: 15px;
-      }
-
-      .description {
-        font-size: 13px;
-        line-height: 16px;
-        letter-spacing: 0.02em;
-      }
-
-      .cta {
-        border-radius: 5px;
-        background-color: $tiber;
-        font-size: 14px;
-        color: $white;
-        letter-spacing: 0.02em;
-        padding: 7px 30px;
-        margin-top: 30px;
-      }
-    }
-
-  }
-}
-
-#section-key-info {
-  margin-bottom: 60px;
-
-  .heading {
-    font-size: 24px;
-    margin-bottom: 35px;
-  }
-
-  .values {
-    display: grid;
-    grid-template-columns: 30% auto;
-    row-gap: 25px;
-    column-gap: 8%;
-
-    dd {
-      margin: 0;
-    }
-
-    .name {
-      letter-spacing: 0.02em;
-    }
-
-    .links {
-      list-style: none;
-      padding: 0;
-
-      li {
-        margin-bottom: 5px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-
-      a {
-        color: $cerulean;
-      }
-
-      .link-tooltip {
-        cursor: default;
-        background-color: $blackHaze;
-        border-radius: 3px;
-        font-size: 10px;
-        width: 15px;
-        height: 15px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-
-        &[data-tooltip] {
-          &:before,
-          &:after {
-            border-radius: 5px;
-            font-size: 14px;
-            z-index: 1;
-          }
+      &[data-tooltip] {
+        &:before,
+        &:after {
+          @include borderRadius3;
+          @include fontSize_Small;
+          z-index: 1;
         }
       }
     }
   }
 }
 
+// ///////////////////////////////////////////////////////////// [Section] Video
 #section-video {
-  .video {
-    border-radius: 7px;
+  margin-top: 4rem;
+}
+
+.video {
+  @include borderRadius3;
+}
+
+// /////////////////////////////////////////////////////////// [Section] Filters
+#section-filters {
+  .heading {
+    @include fontSize_Large;
   }
 }
 
-#section-filters {
-  .accordion-content {
-    padding: 0 5px;
+.accordion-header {
+  position: relative;
+  padding: 0 0.3125rem 1rem;
+  cursor: pointer;
+  &:after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: 0.3125rem;
+    width: 0.75rem;
+    height: 100%;
+    background: url('~assets/theme/svgs/chevrondown.svg') no-repeat right center;
   }
+}
 
-  .accordion-header {
-    cursor: pointer;
-    position: relative;
-    padding: 0 5px 15px;
-
-    &:after {
-      content: '';
-      background: url('~assets/theme/svgs/chevrondown.svg') no-repeat right center;
-      position: absolute;
-      top: 0;
-      right: 5px;
-      width: 13px;
-      height: 100%;
-      display: inline-block;
-    }
-  }
-
-  .accordion-section.open {
+.accordion-section {
+  &.open {
     .accordion-header {
       &:after {
         transform: rotate(180deg);
       }
     }
   }
-
-  .heading {
-    font-size: 20px;
-  }
-
-  .chicklet-container {
-    padding-bottom: 40px;
-    display: flex;
-    flex-wrap: wrap;
-    row-gap: 12px;
-    column-gap: 10px;
-  }
-
-  .chicklet {
-    background: $blackHaze;
-    border-radius: 5px;
-    color: $blackPearl;
-    font-size: 12px;
-    padding: 5px 14px;
-  }
 }
 
+.accordion-content {
+  padding: 0 0.3125rem;
+}
+
+.chiclet-list {
+  padding-bottom: 2rem;
+}
+
+// /////////////////////////////////////////////////// [Section] Featured Slider
 #section-featured-slider {
-  margin-top: 95px;
+  margin-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+#featured-projects-slider {
+  margin-top: 1rem;
+}
+
+::v-deep .project-card {
+  .thumbnail {
+    border: 2px solid #F5F4F4;
+  }
 }
 </style>

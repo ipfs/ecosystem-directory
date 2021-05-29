@@ -38,10 +38,18 @@ $fontAssetPath: '~assets/theme/fonts';
 
 @font-face {
   font-family: 'Inter';
+  src: url('#{$fontAssetPath}/Inter/Inter-Medium.ttf') format('opentype');
+  font-weight: 500;
+  font-style: bold;
+}
+
+@font-face {
+  font-family: 'Inter';
   src: url('#{$fontAssetPath}/Inter/Inter-SemiBold.ttf') format('opentype');
   font-weight: 600;
   font-style: bold;
 }
+
 // ///////////////////////////////////////////////////////////////////// General
 // -----------------------------------------------------------------------------
 html, body {
@@ -437,6 +445,21 @@ li {
       color: white;
       background-color: black;
     }
+  }
+}
+
+.chiclet-list {
+  display: flex;
+  flex-flow: row wrap;
+  row-gap: 0.75rem;
+  column-gap: 0.625rem;
+  .chiclet {
+    @include borderRadius3;
+    @include fontSize_Mini;
+    padding: 0.3125rem 0.75rem;
+    font-weight: 500;
+    color: $blackPearl;
+    background: $blackHaze;
   }
 }
 

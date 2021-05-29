@@ -1,5 +1,5 @@
 <template>
-  <header class="breadcrumbs">
+  <section class="breadcrumbs">
 
     <component
       :is="link.type"
@@ -13,7 +13,7 @@
       {{ link.label }}
     </component>
 
-  </header>
+  </section>
 </template>
 
 <script>

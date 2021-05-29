@@ -17,10 +17,10 @@
 
             <div class="col-12">
               <h3 class="heading">
-                {{ pageData.section_featured_slider.heading }}
+                {{ generalPageData.section_featured_slider.heading }}
               </h3>
               <div class="description">
-                {{ pageData.section_featured_slider.description }}
+                {{ generalPageData.section_featured_slider.description }}
               </div>
             </div>
 
@@ -66,7 +66,8 @@ import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/Featured
 import ProjectView from '@/components/ProjectView/ProjectView'
 
 import Projects from '@/content/projects/manifest.json'
-// ====================================================================== Functions
+
+// =================================================================== Functions
 const resetSectionHeight = (instance) => {
   if (!instance.filtersActive) {
     const x = instance.$refs.segmentSlider.offsetHeight
@@ -97,20 +98,20 @@ export default {
   },
 
   async fetch ({ store, req }) {
-    const collection = []
+    const compiled = []
     const len = Projects.length
     for (let i = 0; i < len; i++) {
       const id = Projects[i]
       try {
         const project = require(`@/content/projects/${id}.json`)
-        collection.push(project)
+        compiled.push(project)
       } catch (e) {
         console.log(e)
       }
     }
     await store.dispatch('global/getBaseData', 'general')
     await store.dispatch('global/getBaseData', 'index')
-    await store.dispatch('projects/getAllProjects', collection)
+    await store.dispatch('projects/getAllProjects', compiled)
   },
 
   head () {
@@ -147,6 +148,13 @@ export default {
       return this.$getSeo(this.tag)
     },
     // Page Content
+    generalPageData () {
+      const siteContent = this.siteContent
+      if (siteContent.hasOwnProperty('general')) {
+        return siteContent.general
+      }
+      return false
+    },
     pageData () {
       const siteContent = this.siteContent
       if (siteContent.hasOwnProperty('index')) {
