@@ -77,13 +77,15 @@
 
           <dl v-if="project.links" class="values">
             <template v-for="(linkGroup, i) in project.links">
-              <dt :key="`key-${i}`" class="name">
+              <dt :key="`project-link-key-${i}`" class="name">
                 {{ linkGroup.label }}
               </dt>
 
-              <dd :key="`val-${i}`">
+              <dd :key="`project-val-${i}`">
                 <ul class="links">
-                  <li v-for="(link, j) in linkGroup.links" :key="j">
+                  <li
+                    v-for="(link, j) in linkGroup.links"
+                    :key="`link-group-${j}`">
                     <a href="link.url" target="_blank">
                       {{ $truncateString(link.text, 12, '...', type = 'double') }}
                     </a>
@@ -96,11 +98,11 @@
             </template>
 
             <template v-for="(info, i) in project.keyInfo">
-              <dt :key="`key-${i}`" class="name">
+              <dt :key="`keyinfo-key-${i}`" class="name">
                 {{ info.label }}
               </dt>
 
-              <dd :key="`val-${i}`" class="text">
+              <dd :key="`keyinfo-val-${i}`" class="text">
                 {{ info.value }}
               </dd>
             </template>
@@ -129,7 +131,7 @@
             :multiple="true">
             <AccordionSection
               v-for="(taxonomy, i) in taxonomies"
-              :key="i"
+              :key="`taxonomy-category-${i}`"
               :active="active"
               :selected="true"
               class="filters">
@@ -139,8 +141,12 @@
                 </h3>
               </AccordionHeader>
               <AccordionContent>
-                <div class="chicklet-container">
-                  <a v-for="(taxonomyTag, j) in filterTags(taxonomy.slug, taxonomy.tags)" :key="j" :href="taxonomyTag" class="chicklet">
+                <div class="chiclet-container">
+                  <a
+                    v-for="(taxonomyTag, j) in filterTags(taxonomy.slug, taxonomy.tags)"
+                    :key="`taxonomu-tag-${j}`"
+                    :href="taxonomyTag"
+                    class="chiclet">
                     {{ $getTaxonomyTagLabel(taxonomy.slug, taxonomyTag) }}
                   </a>
                 </div>
@@ -520,7 +526,7 @@ export default {
     font-size: 20px;
   }
 
-  .chicklet-container {
+  .chiclet-container {
     padding-bottom: 40px;
     display: flex;
     flex-wrap: wrap;
@@ -528,7 +534,7 @@ export default {
     column-gap: 10px;
   }
 
-  .chicklet {
+  .chiclet {
     background: $blackHaze;
     border-radius: 5px;
     color: $blackPearl;
