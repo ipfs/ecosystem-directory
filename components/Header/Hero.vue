@@ -54,7 +54,7 @@
 
           <div v-if="(headerState === 'filters-applied')" class="subheading">
             <ul>
-              <li v-for="item in categories" :key="item">
+              <li v-for="item in categories" :key="item.category">
                 {{ item.category }} <span class="tags">{{ item.tags }}</span>
               </li>
             </ul>

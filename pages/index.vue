@@ -50,9 +50,7 @@
 
     <section>
 
-      <ProjectView
-        :all-projects="projects"
-        @hide-segment-chart="toggleProjectView" />
+      <ProjectView :all-projects="projects" />
 
     </section>
 
@@ -61,7 +59,7 @@
 
 <script>
 // ===================================================================== Imports
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 import SegmentSliderChart from '@/components/SegmentSliderChart/SegmentSliderChart'
 import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
@@ -70,7 +68,7 @@ import ProjectView from '@/components/ProjectView/ProjectView'
 import Projects from '@/content/projects/manifest.json'
 // ====================================================================== Functions
 const resetSectionHeight = (instance) => {
-  if (!(instance.$route.query.filters === 'enabled') && instance.segmentSlider && instance.featuredProjects) {
+  if (!instance.filtersActive) {
     const x = instance.$refs.segmentSlider.offsetHeight
     const y = instance.$refs.featuredSection.offsetHeight
     const z = instance.$refs.filterHeading.offsetHeight
@@ -158,7 +156,21 @@ export default {
     }
   },
 
+  watch: {
+    filtersActive (val) {
+      setTimeout(() => { resetSectionHeight(this) }, 500)
+      if (val) {
+        this.$refs.collapsibleSection.style.height = '0px'
+      } else {
+        this.$refs.collapsibleSection.style.height = this.sectionHeight + 'px'
+      }
+    }
+  },
+
   mounted () {
+    const filterEnabled = (this.$route.query.filters === 'enabled')
+    this.setFiltersActive(filterEnabled)
+
     this.resize = () => { resetSectionHeight(this) }
     window.addEventListener('resize', this.resize)
 
@@ -170,13 +182,9 @@ export default {
   },
 
   methods: {
-    toggleProjectView (val) {
-      if (val) {
-        this.$refs.collapsibleSection.style.height = '0px'
-      } else {
-        this.$refs.collapsibleSection.style.height = this.sectionHeight + 'px'
-      }
-    },
+    ...mapActions({
+      setFiltersActive: 'filters/setFiltersActive'
+    }),
     segment () {
       this.segmentSlider = true
     },

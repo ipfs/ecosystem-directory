@@ -10,13 +10,13 @@
           <Button
             type="C"
             text="Filters"
-            :class="{ activeButton: filterActive }"
+            :class="{ activeButton: filtersActive }"
             @clicked="toggleFilterPanel">
 
             <template #icon-before>
               <FiltersToggle
                 class="font-inter"
-                :stroke="filterActive ? '#ffffff' : '#052437'" />
+                :stroke="filtersActive ? '#ffffff' : '#052437'" />
             </template>
 
           </Button>
@@ -206,8 +206,6 @@ export default {
     return {
       projects: false,
       paginationDisplay: 20,
-      filters: false,
-      filterActive: false,
       filterPanel: false,
       totalFilters: 0,
       listActive: false,
@@ -221,7 +219,8 @@ export default {
       page: 'pagination/page',
       totalPages: 'pagination/totalPages',
       display: 'pagination/display',
-      filteredProjects: 'filters/collection'
+      filteredProjects: 'filters/collection',
+      filtersActive: 'filters/filtersActive'
     }),
     pageData () {
       const siteContent = this.siteContent
@@ -246,7 +245,6 @@ export default {
         this.$refs.cardDisplay.style.marginRight = '16%'
         setTimeout(() => { resetCardDisplayMargin(this.$refs.cardDisplay) }, 500)
       }
-      this.$emit('hide-segment-chart', this.filterActive)
     }
   },
 
@@ -257,13 +255,8 @@ export default {
   },
 
   mounted () {
-    if (this.$route.query.filters === 'enabled') {
-      this.filterActive = true
-    } else {
-      this.filterActive = false
-    }
-    this.setFiltersActive(this.filterActive)
     resetCardDisplayMargin(this.$refs.cardDisplay)
+    this.filterPanel = (this.$route.query.filters === 'enabled')
   },
 
   methods: {
@@ -279,9 +272,8 @@ export default {
     toggleFilterPanel () {
       this.filterPanel = !this.filterPanel
       if (!this.totalFilters) {
-        this.filterActive = this.filterPanel
         this.setFiltersActive(this.filterPanel)
-        if (this.filterActive) {
+        if (this.filterPanel) {
           this.$router.push({ path: '/', query: { filters: 'enabled' } })
           window.scrollTo(0, 0) // not sure where to trigger this
         } else {
