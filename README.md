@@ -108,6 +108,8 @@ This means that file names must be named after project names, and use lowercase 
 
 ### Keys
 
+Keys should be retained when not in  use. This ensures that if anyone wants to add to the project, they immediately see all keys available in other projects, rather than searching for the model or accidentally using a data structure that doesn't match the model perfectly. This means empty and type checking is done by the app in a strict fashion.
+
 - `display`: toggle whether or not to display or hide the project from the results
 
 - `featured`: toggle whether this appears in the featured slider
@@ -189,3 +191,33 @@ This means that file names must be named after project names, and use lowercase 
   ]}
 }
 ```
+
+***
+
+## Transforming Project Data
+
+Each project that is to be included in the ecosystem must have a `json` file in `content/projects`, with the project name in `kebab-case`. For instance, `content/projects/foo-bar.json`.
+
+#### Transferring a Project
+
+The primary source of truth for the Ecosystem Directory is a CRM, which has a field that indicates whether a project is ready for inclusion. A script has been added there, which converts that ecosystem entry to `json`, per the project model described. This script runs each time a project is checked for inclusion in the Ecosystem Directory.
+
+#### Inputting a Project
+
+Alternatively, any of the existing projects in `content/projects` can be copied, and the new `json` file can be altered to create a new project.
+
+### Process
+
+When either transferring or inputting a project from a copied `json`, the following process should be observed:
+
+- Copy the generated JSON output
+- Create a new file in `content/projects/.`. with the project name in `kebab-case` as the file name, (with a `.json` extension)
+- Make sure the project's contents look correct, and ideally ensure that `json` formatting is preserved, including an empty line at the end of the file
+  - Using a code editor's prettify function for `json` can correct this
+- Download the images (icon and full logo) from the CRM or from the project organization, and place them in `static/images/projects/.`
+- Ensure any of the `stat`s (also known as "big numbers") have the correct values, as the CRM script is not good at recognizing where to split the big number
+- Pull request the new projec(s) into the repository and use the build preview to see how it looks—or check locally
+
+_This process could be further automated with a variety of tooling at a later date._
+
+***
