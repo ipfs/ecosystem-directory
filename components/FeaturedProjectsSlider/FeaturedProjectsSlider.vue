@@ -47,7 +47,16 @@ import ProjectCard from '@/components/ProjectView/ProjectCard'
 
 // =================================================================== Functions
 const handleFeatureSliderResize = (instance) => {
-  const cardWidth = instance.$refs.cardRowContainer.clientWidth / 4
+  const w = window.innerWidth
+  if (w <= 850) {
+    instance.display = 3
+    if (w <= 640) {
+      instance.display = 2
+    }
+  } else {
+    instance.display = 4
+  }
+  const cardWidth = instance.$refs.cardRowContainer.clientWidth / instance.display
   instance.animate = false
   instance.cardWidth = cardWidth
   instance.slidingRowWidth = cardWidth * instance.featured.length + 'px'
@@ -70,6 +79,7 @@ export default {
       animate: true,
       left: 0,
       cardWidth: 0,
+      display: 4,
       slidingRowWidth: '100%'
     }
   },
@@ -82,7 +92,7 @@ export default {
       return this.projects.filter(project => project.featured)
     },
     indices () {
-      return this.featured.length - 4
+      return this.featured.length - this.display
     }
   },
 

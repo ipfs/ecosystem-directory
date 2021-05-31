@@ -376,7 +376,6 @@ export default {
   width: 0%;
   background-color: #ffffff;
   transition: width 500ms ease-in-out;
-  flex-basis: content;
   overflow: hidden;
   border-radius: 0 0.25rem 0.25rem 0;
 }
@@ -427,7 +426,12 @@ img {
 
 ::v-deep .card-list {
   display: flex;
-  flex-flow: row wrap;
+  &.layout-grid {
+    flex-flow: row wrap;
+  }
+  &.layout-list {
+    flex-flow: row wrap;
+  }
   &.layout-filter-panel-open {
     .project-card {
       &.block-view {
@@ -437,7 +441,7 @@ img {
         }
       }
       &.list-view {
-        width: 50%;
+        width: 25%;
       }
     }
   }
@@ -445,11 +449,18 @@ img {
 
 ::v-deep .project-card {
   &.block-view {
-    width: 25%;
+    // width: 25%;
+    min-width: 160px;
+    flex: 1 1 300px;
+    flex-basis: 25%;
     margin-bottom: 1rem;
   }
   &.list-view {
-    width: 33.333%;
+    // width: 33.333%;
+    flex: 1 1 300px;
+    flex-basis: 33.333%;
+    // height: 100%;
+    max-width: 50%;
   }
 }
 
