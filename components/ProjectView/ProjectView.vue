@@ -8,9 +8,10 @@
 
         <div class="filter-panel-controls">
           <Button
+            v-if="!tiny || !filterPanel"
             type="C"
             text="Filters"
-            :class="{ activeButton: filtersActive }"
+            :class="{ 'active-button': filtersActive, 'button-fixed': tiny }"
             @clicked="toggleFilterPanel">
 
             <template #icon-before>
@@ -326,9 +327,16 @@ export default {
 }
 
 // ///////////////////////////////////////////////////////////// Toggle Controls
-.activeButton {
+.active-button {
   background-color: #052437;
   color: #FFFFFF;
+}
+
+.button-fixed {
+  position: fixed;
+  bottom: 2rem;
+  left: calc(4.1665% + 0.5rem);
+  z-index: 1000;
 }
 
 #card-filters-toggle {
