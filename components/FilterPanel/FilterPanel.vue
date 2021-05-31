@@ -330,6 +330,8 @@ export default {
 }
 
 .bottom-buttons {
+  display: flex;
+  flex-wrap: wrap;
   margin-top: 2rem;
   margin-bottom: 4rem;
   font-family: $fontMontserrat;
@@ -338,11 +340,12 @@ export default {
     @include borderRadius3;
     padding: 0.4rem 1.2rem;
     font-size: 10pt;
+    margin: 0.5rem 1rem 0.5rem 0;
   }
   .clear-selected {
     background-color: $blackHaze;
     color: $tiber;
-    margin-right: 1rem;
+    margin-left: 0;
   }
   .done {
     background-color: $tiber;
@@ -353,20 +356,20 @@ export default {
 
 // //////////////////////////////////////////////////////////////// Filter Panel
 .filter-category {
+  &.container {
+    margin-bottom: 2rem;
+  }
   &:hover {
     cursor: pointer;
   }
   &.heading-wrapper {
     display: flex;
     justify-content: space-between;
-    // line-height: 2.0;
     margin-top: 1rem;
   }
   &.heading {
     font-family: $fontMontserrat;
     font-weight: 500;
-    // padding: 0.5rem 0rem;
-
     margin: 0 6px;
   }
   &.number-active {
@@ -374,8 +377,6 @@ export default {
   }
   &.toggle {
     display: inline-block;
-    // padding: 0.5rem;
-    // margin: 6px;
     vertical-align: middle;
     height: 100%;
     position: relative;

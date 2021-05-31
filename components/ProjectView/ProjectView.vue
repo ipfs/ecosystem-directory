@@ -54,14 +54,18 @@
     <!-- ////////////////////////////////////////////////////// Filter Panel -->
 
     <div id="project-filter-container">
-      <div id="filter-panel-wrapper" ref="filterWrap">
-        <div class="filter-panel inner-wrapper">
 
-          <div
-            class="close-icon"
-            @click="toggleFilterPanel">
-            <Close />
-          </div>
+      <div v-if="tiny && filterPanel" id="filter-modal-background"></div>
+
+      <div id="filter-panel-wrapper" ref="filterWrap" :class="{ 'filter-panel-modal': tiny, 'filter-side-menu': !tiny }">
+
+        <div
+          class="close-icon"
+          @click="toggleFilterPanel">
+          <Close />
+        </div>
+
+        <div ref="innerPanel" :class="(tiny ? 'inner-modal' : 'inner-wrapper')">
 
           <div
             v-if="filterPanel"
@@ -170,6 +174,14 @@ const resetCardDisplayMargin = (element) => {
   element.style.marginRight = mr
 }
 
+const tinyScreenView = (instance) => {
+  if (window.screen.width < 416) {
+    instance.tiny = true
+  } else {
+    instance.tiny = false
+  }
+}
+
 // ====================================================================== Export
 export default {
   name: 'ProjectView',
@@ -205,7 +217,8 @@ export default {
       filterPanel: false,
       totalFilters: 0,
       listActive: false,
-      resize: false
+      resize: false,
+      tiny: false
     }
   },
 
@@ -229,17 +242,28 @@ export default {
 
   watch: {
     filterPanel (val) {
-      if (val) {
-        this.$refs.filterWrap.style.width = '34%'
-        this.$refs.cardDisplay.style.width = '66%'
-        this.$refs.cardDisplay.style.marginLeft = '3%'
-        this.$refs.cardDisplay.style.marginRight = '8%'
+      if (this.tiny) {
+
+        if (val) {
+          this.$refs.filterWrap.classList.add = 'filter-panel-modal'
+          this.$refs.filterWrap.style.width = '75%'
+        }
+
       } else {
-        this.$refs.filterWrap.style.width = '0'
-        this.$refs.cardDisplay.style.width = '67.5rem'
-        this.$refs.cardDisplay.style.marginLeft = '16%'
-        this.$refs.cardDisplay.style.marginRight = '16%'
-        setTimeout(() => { resetCardDisplayMargin(this.$refs.cardDisplay) }, 500)
+
+        if (val) {
+          this.$refs.filterWrap.style.width = '34%'
+          this.$refs.cardDisplay.style.width = '66%'
+          this.$refs.cardDisplay.style.marginLeft = '3%'
+          this.$refs.cardDisplay.style.marginRight = '8%'
+        } else {
+          this.$refs.filterWrap.style.width = '0'
+          this.$refs.cardDisplay.style.width = '67.5rem'
+          this.$refs.cardDisplay.style.marginLeft = '16%'
+          this.$refs.cardDisplay.style.marginRight = '16%'
+          setTimeout(() => { resetCardDisplayMargin(this.$refs.cardDisplay) }, 500)
+        }
+
       }
     }
   },
@@ -251,6 +275,7 @@ export default {
   },
 
   mounted () {
+    tinyScreenView(this)
     resetCardDisplayMargin(this.$refs.cardDisplay)
     this.filterPanel = (this.$route.query.filters === 'enabled')
   },
@@ -372,12 +397,67 @@ export default {
 }
 
 #filter-panel-wrapper {
+  //
   display: block;
   width: 0%;
   background-color: #ffffff;
   transition: width 500ms ease-in-out;
   overflow: hidden;
   border-radius: 0 0.25rem 0.25rem 0;
+  &.filter-panel-modal {
+    @include borderRadius3;
+  }
+  .close-icon {
+    position: absolute;
+    right: 0.75rem;
+    top: 0.25rem;
+    padding: 0.25rem;
+    cursor: pointer;
+  }
+}
+
+.filter-side-menu {
+  position: relative;
+}
+
+.filter-panel-modal {
+  position: absolute;
+  z-index: 100;
+  width: 75%;
+  .inner-modal {
+    margin-left: 2.5rem;
+    overflow: auto;
+    .close-icon {
+      position: absolute;
+      right: 0.75rem;
+      top: 0.25rem;
+      padding: 0.25rem;
+      cursor: pointer;
+    }
+  }
+}
+
+.inner-wrapper {
+  font-family: $fontInter;
+  position: relative;
+  width: 76%;
+  height: 100%;
+  margin-left: 24%;
+}
+
+#filter-modal-background {
+  // position: absolute;
+  // display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 10; /* Sit on top */
+  // padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
 .filter-panel-heading {
@@ -387,24 +467,6 @@ export default {
     font-family: $fontMontserrat;
     font-weight: 400;
     margin: 6px;
-  }
-}
-
-.filter-panel {
-  font-family: $fontInter;
-  &.inner-wrapper {
-    position: relative;
-    width: 76%;
-    height: 100%;
-    margin-left: 24%;
-    overflow: hidden;
-  }
-  .close-icon {
-    position: absolute;
-    right: 0.75rem;
-    top: 0.25rem;
-    padding: 0.25rem;
-    cursor: pointer;
   }
 }
 
