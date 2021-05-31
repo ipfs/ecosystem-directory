@@ -13,6 +13,10 @@
             height="15" />
         </button>
 
+        <h3 v-if="tiny">
+          {{ selectedCat.cat }}
+        </h3>
+
         <button
           class="nav-arrow"
           @click="incrementSelection(selectedSeg + 1)">
@@ -28,7 +32,11 @@
 
         <div :key="selectedCat.cat">
 
-          <h3>{{ selectedCat.cat }}</h3>
+          <div v-if="!tiny" class="title-large-screen">
+            <h3>
+              {{ selectedCat.cat }}
+            </h3>
+          </div>
 
           <p class="slider-card-text">
             {{ excerpt }}
@@ -62,16 +70,12 @@ import PrevArrow from '@/components/Icons/PrevArrow'
 import NextArrow from '@/components/Icons/NextArrow'
 
 // =================================================================== Functions
-const getLogoPaths = (instance) => {
-  instance.iconPaths = [
-    'actyx.svg',
-    'alpress.svg',
-    'anytype.svg',
-    'audius.svg',
-    'berty.svg',
-    'bravebrowser.svg',
-    'pinata.svg'
-  ]
+const tinyScreenSlider = (instance) => {
+  if (window.screen.width < 416) {
+    instance.tiny = true
+  } else {
+    instance.tiny = false
+  }
 }
 
 // ====================================================================== Export
@@ -108,7 +112,9 @@ export default {
 
   data () {
     return {
-      iconPaths: []
+      load: false,
+      resize: false,
+      tiny: false
     }
   },
 
@@ -122,7 +128,15 @@ export default {
   },
 
   mounted () {
-    getLogoPaths(this)
+    this.load = () => { tinyScreenSlider(this) }
+    window.addEventListener('load', this.load)
+    this.resize = () => { tinyScreenSlider(this) }
+    window.addEventListener('resize', this.resize)
+  },
+
+  beforeDestroy () {
+    if (this.load) { window.removeEventListener('load', this.load) }
+    if (this.resize) { window.removeEventListener('resize', this.resize) }
   },
 
   methods: {
@@ -139,32 +153,33 @@ export default {
 <style lang="scss" scoped>
 // ////////////////////////////////////////////////////////////////////// Slider
 .slider-container {
+  min-width: 16rem;
+  flex: 1 1 10rem;
   display: flex;
-  width: 17rem;
   align-items: center;
-  padding: 1.0rem 1.5rem;
-  padding-left: 0.5rem;
 }
 
 .slider-card {
   @include borderRadius3;
   background-color: #ffffff;
   width: 100%;
-  min-height: 20rem;
   padding: 1rem;
   position: relative;
   align-items: center;
   h3 {
     line-height: 1.5;
     font-weight: 500;
-    margin-bottom: 1rem;
   }
+}
+
+.title-large-screen {
+  margin-bottom: 1rem;
 }
 
 .slider-card-text {
   @include fontSize_Small;
   font-weight: 400;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   line-height: 1.2;
   color: #494949;
 }

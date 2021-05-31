@@ -345,8 +345,6 @@ export default {
 
 .radio-toggle-item {
   border-radius: 0.25rem;
-  width: 100%;
-  height: 100%;
   white-space: nowrap;
   padding: 0 1.0rem;
   z-index: 10;
@@ -376,7 +374,6 @@ export default {
   width: 0%;
   background-color: #ffffff;
   transition: width 500ms ease-in-out;
-  flex-basis: content;
   overflow: hidden;
   border-radius: 0 0.25rem 0.25rem 0;
 }

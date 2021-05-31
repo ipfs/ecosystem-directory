@@ -1,41 +1,51 @@
 <template>
-  <div ref="chartFlex" class="chart-container chart-flex">
-
-    <div
-      v-for="(item, index) in segments"
-      :key="index"
-      :class="setForegrounded(index)"
-      :style="`width: ${item.size}%; height: ${segH}px;`"
-      @click="updateParent(index)">
-
-      <span
-        v-if="item.above"
-        class="segment-label noselect"
-        :style="`width: ${Math.min(item.chars, 15) * 8}px; top: ${item.pos - (item.chars < 16 ? 0 : 21)}px`">
-        {{ item.cat }}
-      </span>
-
-      <span
-        v-else
-        class="segment-label noselect"
-        :style="`width: ${Math.min(item.chars, 15) * 8}px; top: ${-1 * (item.pos) + segH / 2}px`">
-        {{ item.cat }}
-      </span>
-
-      <div
-        v-if="item.above"
-        class="segment-line"
-        :style="`transform: translateY(${item.pos + 21}px); height: ${-1 * (item.pos + 28)}px`">
+  <div ref="chartFlex" class="chart-container">
+    <div ref="segmentsCtn" class="segments-container">
+      <div ref="chartTitle" class="chart-title">
+        <h3>Explore IPFS</h3>
       </div>
 
-      <div
-        v-else
-        class="segment-line"
-        :style="`transform: translateY(${segH + 8}px); height: ${-1 * (item.pos + segH + 8) + segH / 2}px`">
-      </div>
+      <div class="segments-row">
+        <div
+          v-for="(item, index) in segments"
+          :key="index"
+          :class="setForegrounded(index)"
+          :style="`width: ${item.size}%; height: ${segH}px;`"
+          @click="updateParent(index)">
 
+          <template v-if="item.display">
+
+            <span
+              v-if="item.above"
+              class="segment-label noselect"
+              :style="`width: ${Math.min(item.chars, 15) * 8}px; top: ${item.pos - (item.chars < 16 ? 0 : 21)}px`">
+              {{ item.cat }}
+            </span>
+
+            <span
+              v-else
+              class="segment-label noselect"
+              :style="`width: ${Math.min(item.chars, 15) * 8}px; top: ${-1 * (item.pos) + segH / 2}px`">
+              {{ item.cat }}
+            </span>
+
+            <div
+              v-if="item.above"
+              class="segment-line"
+              :style="`transform: translateY(${item.pos + 21}px); height: ${-1 * (item.pos + 28)}px`">
+            </div>
+
+            <div
+              v-else
+              class="segment-line"
+              :style="`transform: translateY(${segH + 8}px); height: ${-1 * (item.pos + segH + 8) + segH / 2}px`">
+            </div>
+
+          </template>
+
+        </div>
+      </div>
     </div>
-
   </div>
 </template>
 
@@ -85,7 +95,7 @@ export default {
   },
 
   beforeDestroy () {
-    if (this.load) { window.removeEventListener('resize', this.load) }
+    if (this.load) { window.removeEventListener('load', this.load) }
     if (this.resize) { window.removeEventListener('resize', this.resize) }
   },
 
@@ -170,31 +180,48 @@ export default {
       return next()
     },
     handleResize () {
-      this.forceLabelsOut(() => {
-        this.repositionOverlappingLabels(() => {
-          this.reduceOffset(25, () => {
-            this.setMinOffsets(() => {
-              setTimeout(() => {
-                this.forceLabelsOut(() => {
-                  this.repositionOverlappingLabels(() => {
-                    setTimeout(() => {
-                      this.setMinOffsets(() => {
-                        for (let r = 0; r < 30; r++) {
-                          setTimeout(() => {
-                            this.reduceOffset(4, () => {
-                              this.setMinOffsets(() => null)
-                            })
-                          }, 10 * r)
-                        }
-                      })
-                    }, 10)
+      if (this.$refs.chartFlex.clientWidth > 415) {
+        this.$refs.segmentsCtn.classList.remove('segments-tiny')
+        this.$refs.segmentsCtn.classList.add('segments-large')
+        this.$refs.chartTitle.style.padding = '4.75rem 0'
+        this.$refs.chartTitle.style.visibility = 'hidden'
+        for (let i = 0; i < this.segments.length; i++) {
+          this.segments[i].display = true
+        }
+        this.forceLabelsOut(() => {
+          this.repositionOverlappingLabels(() => {
+            this.reduceOffset(25, () => {
+              this.setMinOffsets(() => {
+                setTimeout(() => {
+                  this.forceLabelsOut(() => {
+                    this.repositionOverlappingLabels(() => {
+                      setTimeout(() => {
+                        this.setMinOffsets(() => {
+                          for (let r = 0; r < 30; r++) {
+                            setTimeout(() => {
+                              this.reduceOffset(4, () => {
+                                this.setMinOffsets(() => null)
+                              })
+                            }, 10 * r)
+                          }
+                        })
+                      }, 10)
+                    })
                   })
-                })
-              }, 10)
+                }, 10)
+              })
             })
           })
         })
-      })
+      } else {
+        for (let i = 0; i < this.segments.length; i++) {
+          this.segments[i].display = false
+        }
+        this.$refs.segmentsCtn.classList.remove('segments-large')
+        this.$refs.segmentsCtn.classList.add('segments-tiny')
+        this.$refs.chartTitle.style.padding = '2rem 0'
+        this.$refs.chartTitle.style.visibility = 'visible'
+      }
     }
   }
 }
@@ -203,25 +230,44 @@ export default {
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
 .chart-container {
-  width: 75%;
-  min-height: 24rem;
-  padding: 20px;
-  padding-right: 50px;
+  position: relative;
+  flex: 4 1 $tiny;
 }
 
-.chart-flex {
+.segments-container {
+  @include borderRadius3;
   position: relative;
-  top: 20px;
-  flex-grow: 3;
-  flex-shrink: 0;
-  flex-basis: 33.3333%;
-  flex-basis: 200px;
+  padding: 0 2.5rem;
+  > div {
+    margin: 2px;
+  }
+}
+
+.chart-title {
+  font-family: $fontMontserrat;
+  color: #181818;
+  visibility: hidden;
+}
+
+.segments-row {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   > div {
     margin: 2px;
   }
+}
+
+.segments-large {
+  min-height: 24rem;
+  top: 0px;
+}
+
+.segments-tiny {
+  background-color: #ffffff;
+  min-height: 10rem;
+  top: 1.5rem;
 }
 
 .space-segment {
