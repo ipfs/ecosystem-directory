@@ -2,16 +2,16 @@
   <header v-if="pageData" id="site-footer">
 
     <section class="panel-top">
-      <div class="grid-noGutter-spaceBetween">
+      <div class="grid-spaceBetween">
 
-        <div class="col-6">
+        <div class="col-6_sm-8_mi-10_ti-12">
           <h2 class="heading">
             {{ pageData.heading }}
           </h2>
           <div class="subheading" v-html="pageData.subheading"></div>
         </div>
 
-        <div class="col-5">
+        <div class="col-5_sm-10_mi-12">
           <div class="mailchimp-form" v-html="pageData.mailchimp_form"></div>
         </div>
 
@@ -19,9 +19,9 @@
     </section>
 
     <section class="panel-bottom">
-      <div class="grid-noGutter-spaceBetween">
+      <div class="grid-spaceBetween">
 
-        <div v-if="navigation" class="col-7">
+        <div v-if="navigation" class="col-7_sm-12">
           <nav id="footer-navigation">
             <component
               :is="link.type"
@@ -35,11 +35,14 @@
               {{ link.label }}
             </component>
           </nav>
-          <div class="copyright" v-html="pageData.copyright"></div>
         </div>
 
-        <div class="col-4">
+        <div class="col-4_sm-12">
           <div class="icons-row" v-html="pageData.icons_row"></div>
+        </div>
+
+        <div class="col-12">
+          <div class="copyright" v-html="pageData.copyright"></div>
         </div>
 
       </div>
@@ -76,8 +79,11 @@ export default {
 // ///////////////////////////////////////////////////////////////////// General
 #site-footer {
   padding: 3rem 0;
-  background: linear-gradient(180deg,#041727 0,#062B3F);
+  background: linear-gradient(180deg, #041727 0, #062B3F);
   color: white;
+  @include small {
+    padding-bottom: 2rem;
+  }
 }
 
 ::v-deep .subheading,
@@ -90,6 +96,9 @@ export default {
 // ///////////////////////////////////////////////////////////////// [Panel] Top
 .panel-top {
   margin-bottom: 5rem;
+  @include small {
+    margin-bottom: 3rem;
+  }
 }
 
 .heading {
@@ -125,7 +134,10 @@ export default {
 
 // ////////////////////////////////////////////////////////////// [Panel] Bottom
 #footer-navigation {
-  margin-bottom: 3rem;
+  margin-bottom: 1.5rem;
+  @include small {
+    margin-bottom: 0;
+  }
 }
 
 .navigation-link {
@@ -141,6 +153,9 @@ export default {
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
+  @include small {
+    justify-content: flex-start;
+  }
   a {
     width: 2rem;
     &:not(:last-child) {
