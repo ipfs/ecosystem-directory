@@ -38,7 +38,7 @@
         </div>
 
         <div class="col-4_sm-12">
-          <div class="icons-row" v-html="pageData.icons_row"></div>
+          <SocialIcons />
         </div>
 
         <div class="col-12">
@@ -55,9 +55,15 @@
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
 
+import SocialIcons from '@/components/SocialIcons'
+
 // ====================================================================== Export
 export default {
   name: 'SiteFooter',
+
+  components: {
+    SocialIcons
+  },
 
   computed: {
     ...mapGetters({
@@ -145,28 +151,6 @@ export default {
   color: white;
   &:not(:last-child) {
     margin-right: 1.6875rem;
-  }
-}
-
-::v-deep .icons-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  @include small {
-    justify-content: flex-start;
-  }
-  a {
-    width: 2rem;
-    &:not(:last-child) {
-      margin-right: 1rem;
-    }
-  }
-  svg {
-    width: 100%;
-    path {
-      fill: white;
-    }
   }
 }
 
