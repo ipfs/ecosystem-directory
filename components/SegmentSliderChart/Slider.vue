@@ -163,12 +163,15 @@ export default {
   @include borderRadius3;
   background-color: #ffffff;
   width: 100%;
-  padding: 1rem;
+  padding: 2rem;
   position: relative;
   align-items: center;
   h3 {
-    line-height: 1.5;
+    @include leading_Small;
     font-weight: 500;
+    @include small {
+      @include fontSize_Small;
+    }
   }
 }
 
@@ -190,6 +193,9 @@ export default {
   align-items: center;
   justify-content: center;
   margin: 0.75rem 0;
+  @include small {
+    justify-content: space-between;
+  }
 }
 
 .nav-arrow {
@@ -204,6 +210,9 @@ export default {
   border: none;
   font-weight: 900;
   width: 3.75rem;
+  @include small {
+    width: auto;
+  }
   &:hover {
     color: rgb(2, 28, 54);
   }
@@ -235,6 +244,7 @@ export default {
 .logo-wrapper {
   > img {
     margin: 0 0.75rem;
+    width: auto;
     max-width: 25%;
     max-height: 2.5rem;
   }
