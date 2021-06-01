@@ -12,9 +12,7 @@
         </div>
 
         <div class="col-5">
-          <div class="placeholder-section no-margin tiny">
-            Form
-          </div>
+          <div class="mailchimp-form" v-html="pageData.mailchimp_form"></div>
         </div>
 
       </div>
@@ -97,6 +95,32 @@ export default {
 .heading {
   font-weight: 600;
   margin-bottom: 0.5rem;
+}
+
+::v-deep #mailchimp-form {
+  .panel-top {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.5rem;
+  }
+  input {
+    &[type="email"],
+    &[type="submit"] {
+      @include borderRadius3;
+    }
+    &[type="email"] {
+      flex: 1;
+      background-color: white;
+      padding: 0.5rem;
+      color: black;
+    }
+    &[type="submit"] {
+      padding: 0 0.75rem;
+      margin-left: 0.75rem;
+      font-weight: 600;
+      background-color: $paradiso;
+    }
+  }
 }
 
 // ////////////////////////////////////////////////////////////// [Panel] Bottom
