@@ -29,12 +29,32 @@
           </nav>
 
           <div v-if="collapsed" class="nav-toggle" @click="toggleNav">
-            <svg id="topline" ref="topline" xmlns="http://www.w3.org/2000/svg" width="38" height="15" viewBox="0 0 38 15">
-              <line x2="37.589" transform="translate(0 1.5)" stroke="#f1f3f2" stroke-width="3"/>
+            <svg
+              id="topline"
+              ref="topline"
+              xmlns="http://www.w3.org/2000/svg"
+              width="38"
+              height="15"
+              viewBox="0 0 38 15">
+              <line
+                x2="37.589"
+                transform="translate(0 1.5)"
+                stroke="#f1f3f2"
+                stroke-width="3" />
             </svg>
 
-            <svg id="bottomline" ref="bottomline" xmlns="http://www.w3.org/2000/svg" width="38" height="15" viewBox="0 0 38 15">
-              <line x2="37.589" transform="translate(0 13.5)" stroke="#f1f3f2" stroke-width="3"/>
+            <svg
+              id="bottomline"
+              ref="bottomline"
+              xmlns="http://www.w3.org/2000/svg"
+              width="38"
+              height="15"
+              viewBox="0 0 38 15">
+              <line
+                x2="37.589"
+                transform="translate(0 13.5)"
+                stroke="#f1f3f2"
+                stroke-width="3" />
             </svg>
           </div>
 
@@ -43,10 +63,11 @@
               <div class="modal-nav-container">
 
                 <ul>
-                  <li v-for="(link, index) in navigation.header">
+                  <li
+                    v-for="(link, index) in navigation.header"
+                    :key="index">
                     <component
                       :is="link.type"
-                      :key="index"
                       :to="link.disabled ? '' : link.href"
                       :href="link.disabled ? '' : link.href"
                       :disabled="link.disabled"
