@@ -275,4 +275,69 @@ export default ({ store, app }, inject) => {
     document.execCommand('copy')
     document.body.removeChild(container)
   })
+  // ///////////////////////////////////////////////////// Add text to clipboard
+  // ---------------------------------------------------------------------------
+  inject('setProjectDefaults', (projectJSON) => {
+    // Assign top-level defaults
+    projectJSON = Object.assign({
+      display: false,
+      featured: false,
+      sortNumbers: [],
+      logo: {},
+      name: '',
+      org: [],
+      description: {},
+      primaryCta: {},
+      links: [],
+      keyInfo: [],
+      video: '',
+      stats: [],
+      ctaCard: {},
+      taxonomies: []
+    }, projectJSON)
+
+    projectJSON.sortNumbers = projectJSON.sortNumbers.filter((obj) => {
+      if (typeof obj !== 'object') { return false }
+      Object.keys(obj).forEach((key) => {
+        if (typeof obj[key] !== 'number') { delete obj[key] }
+      })
+      return Object.keys(obj).length > 0
+    })
+
+    projectJSON.logo = Object.assign({
+      icon: '',
+      full: ''
+    }, projectJSON.logo)
+
+    projectJSON.org = projectJSON.org.filter(org => (typeof org === 'string'))
+
+    projectJSON.description = Object.assign({
+      short: '',
+      long: ''
+    }, projectJSON.description)
+
+    projectJSON.primaryCta = Object.assign({
+      url: '',
+      text: ''
+    }, projectJSON.primaryCta)
+
+    projectJSON.links = projectJSON.links.filter((obj) => {
+      return obj.label && obj.links && Array.isArray(obj.links) && obj.links.length > 0
+    }).map((obj) => {
+      obj.links = obj.links.map(link => Object.assign({
+        url: '',
+        text: ''
+      }, link))
+      return obj
+    })
+
+    projectJSON.ctaCard = Object.assign({
+      title: '',
+      description: '',
+      buttonText: '',
+      url: ''
+    }, projectJSON.ctaCard)
+
+    return projectJSON
+  })
 }
