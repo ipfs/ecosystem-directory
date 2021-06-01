@@ -144,6 +144,10 @@ export default {
   transition-delay: 500ms;
 }
 
+#header-hero {
+  background: linear-gradient(180deg, #041727 0, #062B3F);
+}
+
 // ////////////////////////////////////////////////////////////// [Panel] Bottom
 .panel-bottom {
   padding: 0 0 3rem 0;
