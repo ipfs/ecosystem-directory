@@ -10,7 +10,7 @@
     </div>
 
     <div class="grid">
-      <div class="col-5">
+      <div class="col-5_md-8_sm-10_ti-12">
         <section id="section-project-info">
           <img
             v-if="project.logo && project.logo.full"
@@ -38,7 +38,7 @@
         </section>
       </div>
 
-      <div class="col-6" data-push-left="off-1">
+      <div class="col-6_md-8_mi-10_ti-12" data-push-left="off-1_md-0">
         <section id="section-statistics">
           <template v-for="(stat, i) in project.stats">
             <div
@@ -69,7 +69,7 @@
     </div>
 
     <div class="grid">
-      <div class="col-5">
+      <div class="col-5_mi-10_ti-12">
         <section v-if="project.links || project.keyInfo" id="section-key-info">
           <h3 class="heading">
             Key info
@@ -124,7 +124,7 @@
 
       </div>
 
-      <div class="col-6" data-push-left="off-1">
+      <div class="col-6_sm-7_mi-12" data-push-left="off-1_sm-0">
         <section v-if="project.taxonomies" id="section-filters">
           <Accordion
             v-slot="{ active }"
@@ -169,7 +169,7 @@
           </div>
         </div>
 
-        <div class="col-11">
+        <div class="col-11_mi-12">
           <FeaturedProjectsSlider />
         </div>
 
@@ -190,8 +190,6 @@ import AccordionSection from '@/modules/zero/core/Components/Accordion/Section'
 import AccordionContent from '@/modules/zero/core/Components/Accordion/Content'
 import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
 
-import Projects from '@/content/projects/manifest.json'
-
 // ====================================================================== Export
 export default {
   name: 'ProjectSingularPage',
@@ -205,6 +203,16 @@ export default {
     FeaturedProjectsSlider
   },
 
+  asyncData ({ route, error, payload }) {
+    if (payload) { return { project: payload } }
+    try {
+      const id = route.params.id
+      return { project: require(`@/content/projects/${id}.json`) }
+    } catch (e) {
+      return error('This project does not exist')
+    }
+  },
+
   data () {
     const id = this.$route.params.id
     return {
@@ -214,30 +222,9 @@ export default {
   },
 
   async fetch ({ store, req, route, error }) {
-    const id = route.params.id
-    try {
-      const project = require(`@/content/projects/${id}.json`)
-      const compiled = []
-      const len = Projects.length
-      for (let i = 0; i < len; i++) {
-        const id = Projects[i]
-        try {
-          const project = require(`@/content/projects/${id}.json`)
-          compiled.push(project)
-        } catch (e) {
-          console.log(e)
-        }
-      }
-      await store.dispatch('global/getBaseData', 'general')
-      await store.dispatch('global/getBaseData', 'taxonomy')
-      await store.dispatch('global/getBaseData', {
-        key: `project-${id}`,
-        data: project
-      })
-      await store.dispatch('projects/getAllProjects', compiled)
-    } catch (e) {
-      return error('This project does not exist')
-    }
+    await store.dispatch('global/getBaseData', 'general')
+    await store.dispatch('global/getBaseData', 'taxonomy')
+    await store.dispatch('projects/getProjects')
   },
 
   head () {
@@ -304,11 +291,6 @@ export default {
       }
       return false
     },
-    project () {
-      const siteContent = this.siteContent
-      const id = this.id
-      return siteContent.hasOwnProperty(id) ? siteContent[id] : false
-    },
     taxonomies () {
       return this.project.taxonomies.filter(tax => this.$checkTaxonomyCategoryExists(tax.slug))
     }
@@ -339,9 +321,16 @@ export default {
 // ////////////////////////////////////////////////////// [Section] Project Info
 #section-project-info {
   margin-bottom: 3.75rem;
+  @include medium {
+    margin-bottom: 2rem;
+  }
   .name {
     @include fontSize_ExtraExtraLarge;
     font-weight: 700;
+    @include small {
+      @include leading_Mini;
+      margin-bottom: 0.5rem;
+    }
   }
   .description {
     @include leading_Mini;
@@ -367,6 +356,10 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
+  @include tiny {
+    flex-direction: column;
+    align-items: flex-start;
+  }
   a {
     display: flex;
     flex-direction: row;
@@ -378,6 +371,10 @@ export default {
       border: 2px solid $tiber;
       padding: 0.625rem 1.25rem;
       margin-right: 1.5rem;
+      @include tiny {
+        margin-right: 0;
+        margin-bottom: 1rem;
+      }
     }
     &.secondary-cta {
       background: url('~assets/theme/svgs/chevronright.svg') no-repeat right center;
@@ -404,18 +401,43 @@ export default {
   width: calc(50% - 0.5rem);
   padding: 3rem;
   margin-bottom: 1rem;
+  @include small {
+    padding: 2rem;
+  }
+  @include mini {
+    padding: 1rem;
+  }
+  @include tiny {
+    width: 100%;
+    padding: 2rem;
+  }
   &:nth-child(odd) {
     margin-right: 1rem;
+    @include tiny {
+      margin-right: 0;
+    }
   }
   &.big-number {
     color: $tiber;
     background-color: $blackHaze;
+    @include mini {
+      padding: 2rem 1rem;
+    }
+    @include tiny {
+      padding: 2rem;
+    }
     .statistic {
       font-size: 2.625rem;
+      @include small {
+        @include fontSize_ExtraLarge;
+      }
     }
     .description {
       @include fontSize_Large;
       @include leading_Mini;
+      @include small {
+        @include fontSize_Regular;
+      }
     }
   }
   &.case-study {
@@ -462,8 +484,16 @@ export default {
   row-gap: 1rem;
   column-gap: 5%;
 
+  @include small {
+    grid-template-columns: auto;
+    row-gap: 0;
+  }
+
   dd {
     margin: 0;
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
   }
 
   dt,
@@ -520,6 +550,9 @@ export default {
 
 // /////////////////////////////////////////////////////////// [Section] Filters
 #section-filters {
+  @include mini {
+    margin-top: 2rem;
+  }
   .heading {
     @include fontSize_Large;
   }
@@ -563,6 +596,10 @@ export default {
 #section-featured-slider {
   margin-top: 4rem;
   padding-bottom: 4rem;
+  @include mini {
+    margin-top: 2rem;
+    padding-bottom: 2rem;
+  }
 }
 
 #featured-projects-slider {

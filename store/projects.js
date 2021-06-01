@@ -1,3 +1,5 @@
+import Projects from '@/content/projects/manifest.json'
+
 // /////////////////////////////////////////////////////////////////////// State
 // -----------------------------------------------------------------------------
 const state = () => ({
@@ -17,15 +19,27 @@ const actions = {
   clearStore ({ commit }) {
     commit('CLEAR_STORE')
   },
-  // //////////////////////////////////////////////////////////// getAllProjects
-  async getAllProjects ({ commit }, payload) {
-    if (payload) {
-      await this.dispatch('projects/setProjects', payload)
+  // /////////////////////////////////////////////////////////////// getProjects
+  getProjects ({ commit }) {
+    try {
+      const compiled = []
+      const len = Projects.length
+      for (let i = 0; i < len; i++) {
+        const id = Projects[i]
+        try {
+          const project = require(`@/content/projects/${id}.json`)
+          compiled.push(project)
+        } catch (e) {
+          console.log(e)
+          continue
+        }
+      }
+      if (compiled.length > 0) {
+        commit('SET_PROJECTS', compiled)
+      }
+    } catch (e) {
+      // Silent fail
     }
-  },
-  // /////////////////////////////////////////////////////////////// setProjects
-  setProjects ({ commit }, payload) {
-    commit('SET_PROJECTS', payload)
   }
 }
 
