@@ -71,7 +71,9 @@
               All Filters
             </h4>
 
-            <FilterBar filter-value="">
+            <FilterBar
+              :filter-value="searchQuery"
+              @setFilterValue="setSearchQuery">
               <template #icon>
                 <SearchIcon />
               </template>
@@ -81,7 +83,7 @@
 
           <FilterPanel
             ref="filterPanel"
-            :collection="allProjects"
+            :collection="searchResults"
             :is-active="filterPanel"
             @closeFilters="toggleFilterPanel"
             @totalSelected="updateTotalFilters" />
@@ -205,7 +207,8 @@ export default {
       filterPanel: false,
       totalFilters: 0,
       listActive: false,
-      resize: false
+      resize: false,
+      searchQuery: ''
     }
   },
 
@@ -224,6 +227,25 @@ export default {
         return siteContent.index.page_content
       }
       return false
+    },
+    searchResults () {
+      const query = this.searchQuery
+      const regex = new RegExp(query, 'i')
+      const projects = this.allProjects
+      const len = projects.length
+      const arr = []
+      if (this.searchQuery) {
+        for (let i = 0; i < len; i++) {
+          const name = projects[i].name
+          if (typeof name === 'string') {
+            if (regex.test(name)) {
+              arr.push(projects[i])
+            }
+          }
+        }
+        return arr
+      }
+      return projects
     }
   },
 
@@ -287,6 +309,9 @@ export default {
     },
     clearSelectedFilters () {
       this.$refs.filterPanel.clearSelected()
+    },
+    setSearchQuery (val) {
+      this.searchQuery = val
     }
   }
 }
