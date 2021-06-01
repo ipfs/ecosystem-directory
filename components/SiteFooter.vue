@@ -33,7 +33,7 @@
               :href="link.disabled ? '' : link.href"
               :disabled="link.disabled"
               :target="link.target"
-              class="footer-navigation-link">
+              class="navigation-link">
               {{ link.label }}
             </component>
           </nav>
@@ -104,7 +104,9 @@ export default {
   margin-bottom: 3rem;
 }
 
-.footer-navigation-link {
+.navigation-link {
+  font-family: $fontMontserrat;
+  color: white;
   &:not(:last-child) {
     margin-right: 1.6875rem;
   }
@@ -132,7 +134,10 @@ export default {
 ::v-deep .copyright {
   @include fontSize_Small;
   svg {
-    width: 16px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 1rem;
+    margin-right: 0.25rem;
   }
 }
 </style>
