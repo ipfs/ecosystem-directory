@@ -190,8 +190,6 @@ import AccordionSection from '@/modules/zero/core/Components/Accordion/Section'
 import AccordionContent from '@/modules/zero/core/Components/Accordion/Content'
 import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
 
-import Projects from '@/content/projects/manifest.json'
-
 // ====================================================================== Export
 export default {
   name: 'ProjectSingularPage',
@@ -205,6 +203,16 @@ export default {
     FeaturedProjectsSlider
   },
 
+  asyncData ({ route, error, payload }) {
+    if (payload) { return { project: payload } }
+    try {
+      const id = route.params.id
+      return { project: require(`@/content/projects/${id}.json`) }
+    } catch (e) {
+      return error('This project does not exist')
+    }
+  },
+
   data () {
     const id = this.$route.params.id
     return {
@@ -214,30 +222,9 @@ export default {
   },
 
   async fetch ({ store, req, route, error }) {
-    const id = route.params.id
-    try {
-      const project = require(`@/content/projects/${id}.json`)
-      const compiled = []
-      const len = Projects.length
-      for (let i = 0; i < len; i++) {
-        const id = Projects[i]
-        try {
-          const project = require(`@/content/projects/${id}.json`)
-          compiled.push(project)
-        } catch (e) {
-          console.log(e)
-        }
-      }
-      await store.dispatch('global/getBaseData', 'general')
-      await store.dispatch('global/getBaseData', 'taxonomy')
-      await store.dispatch('global/getBaseData', {
-        key: `project-${id}`,
-        data: project
-      })
-      await store.dispatch('projects/getAllProjects', compiled)
-    } catch (e) {
-      return error('This project does not exist')
-    }
+    await store.dispatch('global/getBaseData', 'general')
+    await store.dispatch('global/getBaseData', 'taxonomy')
+    await store.dispatch('projects/getProjects')
   },
 
   head () {
@@ -303,11 +290,6 @@ export default {
         return siteContent.general
       }
       return false
-    },
-    project () {
-      const siteContent = this.siteContent
-      const id = this.id
-      return siteContent.hasOwnProperty(id) ? siteContent[id] : false
     },
     taxonomies () {
       return this.project.taxonomies.filter(tax => this.$checkTaxonomyCategoryExists(tax.slug))
