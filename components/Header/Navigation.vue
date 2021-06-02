@@ -60,25 +60,33 @@
 
           <transition name="landing">
             <div v-if="navOpen" id="modal-nav">
-              <div class="modal-nav-container">
 
-                <ul>
-                  <li
-                    v-for="(link, index) in navigation.header"
-                    :key="index">
-                    <component
-                      :is="link.type"
-                      :to="link.disabled ? '' : link.href"
-                      :href="link.disabled ? '' : link.href"
-                      :disabled="link.disabled"
-                      :target="link.target"
-                      class="link">
-                      {{ link.label }}
-                    </component>
-                  </li>
-                </ul>
+              <div class="modal-nav-wrapper">
+                <div class="modal-nav-container">
 
+                  <ul>
+                    <li
+                      v-for="(link, index) in navigation.header"
+                      :key="index">
+                      <component
+                        :is="link.type"
+                        :to="link.disabled ? '' : link.href"
+                        :href="link.disabled ? '' : link.href"
+                        :disabled="link.disabled"
+                        :target="link.target"
+                        class="navigation-link">
+                        {{ link.label }}
+                      </component>
+                    </li>
+                  </ul>
+
+                </div>
               </div>
+
+              <div class="social-icon-container">
+                <SocialIcons />
+              </div>
+
             </div>
           </transition>
 
@@ -93,9 +101,15 @@
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
 
+import SocialIcons from '@/components/SocialIcons'
+
 // ====================================================================== Export
 export default {
   name: 'HeaderNavigation',
+
+  components: {
+    SocialIcons
+  },
 
   data () {
     return {
@@ -163,7 +177,7 @@ export default {
 }
 
 .logo,
-.link {
+.navigation-link {
   cursor: pointer;
 }
 
@@ -196,11 +210,17 @@ export default {
   z-index: 999;
 }
 
+.modal-nav-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 75%;
+}
+
 .modal-nav-container {
   position: relative;
   margin: 0 3.5rem;
-  top: calc(50vh - 7.5rem);
-  transform: translateY(-50%);
+  margin-bottom: 3rem;
   li {
     font-family: $fontMontserrat;
     font-size: 2.1875rem;
@@ -208,6 +228,12 @@ export default {
     font-weight: 500;
     list-style: none;
   }
+}
+
+.social-icon-container {
+  position: fixed;
+  bottom: 0rem;
+  margin: 1.5rem 3.5rem;
 }
 
 .landing {

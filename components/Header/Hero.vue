@@ -18,9 +18,9 @@
       :class="`panel-bottom transition ${headerState}`">
 
       <div class="grid-noGutter">
-        <div class="headings-wrapper">
+        <div :class="{'headings-wrapper': true, 'results': (headerState === 'filters-applied')}">
 
-          <div v-if="(headerState === 'index-view')" class="heading">
+          <div v-if="(headerState === 'index-view')" class="index-heading">
             <h1>
               {{ pageData.heading }}
             </h1>
@@ -44,15 +44,15 @@
             </h1>
           </div>
 
-          <div v-if="(headerState === 'index-view')" class="subheading">
+          <div v-if="(headerState === 'index-view')" class="index-subheading">
             {{ pageData.subheading }}
           </div>
 
-          <div v-if="(headerState === 'filters-view')" class="subheading">
+          <div v-if="(headerState === 'filters-view')" class="filters-subheading">
             Showing all projects, no filters selected
           </div>
 
-          <div v-if="(headerState === 'filters-applied')" class="subheading">
+          <div v-if="(headerState === 'filters-applied')" class="filters-subheading">
             <ul>
               <li v-for="item in categories" :key="item.category">
                 {{ item.category }} <span class="tags">{{ item.tags }}</span>
@@ -156,19 +156,22 @@ export default {
 .headings-wrapper {
   flex-basis: 50%;
   max-width: 50%;
-  @include tiny {
-    margin: 0 1.5rem;
+  @include mini {
     flex-basis: 100%;
     max-width: 100%;
-    h1 {
-      @include fontSize_ExtraExtraLarge;
-      @include leading_Mini;
-      margin: 1rem 0;
+  }
+  &.results {
+    flex-basis: 50%;
+    max-width: 50%;
+    @include medium {
+      flex-basis: 100%;
+      max-width: 100%;
     }
   }
 }
 
-.subheading {
+.index-subheading,
+.filters-subheading {
   @include fontSize_Large;
   li {
     list-style: none;
@@ -182,13 +185,19 @@ export default {
     font-weight: bold;
   }
 }
+
+.index-subheading {
+  @include mini {
+    margin: 0 1.5rem;
+  }
+}
 // ////////////////////////////////////////////////////////////////// Index View
 .index-view {
   h1 {
     font-weight: 600;
   }
   &.hero-breadcrumbs {
-    @include tiny {
+    @include mini {
       margin: 0 1.5rem;
     }
   }
@@ -203,11 +212,22 @@ export default {
     font-weight: 500;
   }
   &.hero-breadcrumbs {
-    padding: 5rem 0 3rem 0;
+    padding-top: 5rem;
+    padding-bottom: 3rem;
   }
 }
 
-.filters-applied {
+.index-heading {
+  @include mini {
+    margin: 0 1.5rem;
+    flex-basis: 100%;
+    max-width: 100%;
+    h1 {
+      @include fontSize_ExtraExtraLarge;
+      @include leading_Mini;
+      margin: 1rem 0;
+    }
+  }
 }
 
 .filters-heading {
