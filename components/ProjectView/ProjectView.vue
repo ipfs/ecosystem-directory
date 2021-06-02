@@ -312,7 +312,7 @@ export default {
 }
 
 .filter-toggle {
-  @include tiny {
+  @include small {
     position: fixed;
     bottom: 2.5rem;
     left: 2.5rem;
@@ -354,6 +354,9 @@ export default {
     padding: 0 0.75rem;
     margin: 0 0.75rem;
     cursor: pointer;
+    @include small {
+      margin: 0;
+    }
   }
 }
 
@@ -400,7 +403,7 @@ export default {
     padding: 0.25rem;
     cursor: pointer;
   }
-  @include tiny {
+  @include small {
     position: fixed;
     overflow: scroll;
     height: 100vh;
@@ -414,7 +417,7 @@ export default {
   }
   &.filter-open {
     width: 28.75rem;
-    @include tiny {
+    @include small {
       width: 100vw;
     }
   }
@@ -424,9 +427,9 @@ export default {
   margin: 2.5rem 0;
   margin-right: 2.5rem;
   margin-left: 24%;
-  @include tiny {
+  @include small {
     margin: 0;
-    padding: 2.5rem;
+    padding: 1.5rem 2.5rem;
     width: 100vw;
     position: fixed;
     background-color: #ffffff;
@@ -443,21 +446,21 @@ export default {
   font-family: $fontInter;
   position: relative;
   margin-left: 24%;
-  @include tiny {
-    top: 8rem;
+  @include small {
+    top: 6rem;
     margin: 2.5rem;
     margin-bottom: 18rem;
   }
 }
 
 ::v-deep .bottom-buttons {
-  @include tiny {
+  @include small {
     position: fixed;
     bottom: 0;
     background-color: #ffffff;
     width: 100%;
     z-index: 100;
-    padding: 2.5rem 0;
+    padding: 1.0rem 0;
     margin: 0;
   }
 }
@@ -517,14 +520,20 @@ img {
 ::v-deep .project-card {
   &.block-view {
     min-width: 160px;
-    flex: 1 1 300px;
-    flex-basis: 25%;
+    flex: 1 1 250px;
     margin-bottom: 1rem;
+    @include tiny {
+      flex: 1 1 0;
+      max-width: 200px;
+    }
   }
   &.list-view {
     flex: 1 1 300px;
     flex-basis: 33.333%;
     max-width: 50%;
+    @include tiny {
+      max-width: 100%;
+    }
   }
 }
 

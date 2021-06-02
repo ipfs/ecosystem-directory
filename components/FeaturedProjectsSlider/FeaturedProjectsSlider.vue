@@ -49,10 +49,11 @@ import ProjectCard from '@/components/ProjectView/ProjectCard'
 const handleFeatureSliderResize = (instance) => {
   const display = instance.display
   if (window.matchMedia('(max-width: 53.125rem)').matches) { // small
-    if (display !== 3) { instance.display = 3 }
-  }
-  if (window.matchMedia('(max-width: 40rem)').matches) { // mini
-    if (display !== 2) { instance.display = 2 }
+    if (window.matchMedia('(max-width: 40rem)').matches) { // mini
+      if (display !== 2) { instance.display = 2 }
+    } else {
+      if (display !== 3) { instance.display = 3 }
+    }
   } else {
     if (display !== 4) { instance.display = 4 }
   }
@@ -129,7 +130,7 @@ export default {
 #slider {
   margin: 0 5%;
   overflow: hidden;
-  @include small {
+  @include medium {
     margin: 0;
   }
 }
