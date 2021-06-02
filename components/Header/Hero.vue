@@ -5,7 +5,7 @@
       v-if="pageData"
       :class="`panel-top transition ${headerState}`">
 
-      <div :class="`grid-noGutter transition ${headerState} breadcrumbs`">
+      <div :class="`grid-noGutter transition ${headerState} hero-breadcrumbs`">
         <div class="col">
           <Breadcrumbs :breadcrumbs="pageData.breadcrumbs" />
         </div>
@@ -18,7 +18,7 @@
       :class="`panel-bottom transition ${headerState}`">
 
       <div class="grid-noGutter">
-        <div class="col-6">
+        <div class="headings-wrapper">
 
           <div v-if="(headerState === 'index-view')" class="heading">
             <h1>
@@ -153,6 +153,21 @@ export default {
   padding: 0 0 3rem 0;
 }
 
+.headings-wrapper {
+  flex-basis: 50%;
+  max-width: 50%;
+  @include tiny {
+    margin: 0 1.5rem;
+    flex-basis: 100%;
+    max-width: 100%;
+    h1 {
+      @include fontSize_ExtraExtraLarge;
+      @include leading_Mini;
+      margin: 1rem 0;
+    }
+  }
+}
+
 .subheading {
   @include fontSize_Large;
   li {
@@ -172,6 +187,11 @@ export default {
   h1 {
     font-weight: 600;
   }
+  &.hero-breadcrumbs {
+    @include tiny {
+      margin: 0 1.5rem;
+    }
+  }
 }
 
 // /////////////////////////////// Filters View (All Projects) & Filters Applied
@@ -182,7 +202,7 @@ export default {
   h1 {
     font-weight: 500;
   }
-  &.breadcrumbs {
+  &.hero-breadcrumbs {
     padding: 5rem 0 3rem 0;
   }
 }

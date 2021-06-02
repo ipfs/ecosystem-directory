@@ -14,7 +14,7 @@
               :src="$relativity('/images/logo-horizontal.png')" />
           </a>
 
-          <nav v-if="!collapsed" id="navigation">
+          <nav id="navigation">
             <component
               :is="link.type"
               v-for="(link, index) in navigation.header"
@@ -28,7 +28,7 @@
             </component>
           </nav>
 
-          <div v-if="collapsed" class="nav-toggle" @click="toggleNav">
+          <div class="nav-toggle" @click="toggleNav">
             <svg
               id="topline"
               ref="topline"
@@ -93,24 +93,13 @@
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
 
-// =================================================================== Functions
-const resizeNavBar = (instance) => {
-  if (window.innerWidth <= 640) {
-    instance.collapsed = true
-  } else {
-    instance.collapsed = false
-  }
-}
-
 // ====================================================================== Export
 export default {
   name: 'HeaderNavigation',
 
   data () {
     return {
-      collapsed: false,
-      navOpen: false,
-      resize: false
+      navOpen: false
     }
   },
 
@@ -119,17 +108,6 @@ export default {
       navigation: 'global/navigation',
       filtersActive: 'filters/filtersActive'
     })
-  },
-
-  mounted () {
-    this.resize = () => { resizeNavBar(this) }
-    window.addEventListener('resize', this.resize)
-
-    resizeNavBar(this)
-  },
-
-  beforeDestroy () {
-    if (this.resize) { window.removeEventListener('resize', this.resize) }
   },
 
   methods: {
@@ -178,6 +156,9 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+  }
+  @include mini {
+    display: none;
   }
 }
 
@@ -270,6 +251,10 @@ export default {
 }
 
 .nav-toggle {
+  display: none;
+  @include mini {
+    display: inline;
+  }
   position: relative;
   z-index: 1000;
   top: -0.5rem;
