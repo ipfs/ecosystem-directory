@@ -51,16 +51,16 @@
   "video": "//youtube.com/watch?v=c50licHTOik",
   "stats": [
     {
-      "label": "5M content identifiers",
-      "value": ""
+      "label": "Content identifiers",
+      "value": "5M"
     },
     {
-      "label": "12 independent discovery and creator node providers",
-      "value": ""
+      "label": "Independent discovery and creator node providers",
+      "value": "12 "
     },
     {
-      "label": "40K registered users",
-      "value": ""
+      "label": "Registered users",
+      "value": "40K"
     }
   ],
   "ctaCard": {
