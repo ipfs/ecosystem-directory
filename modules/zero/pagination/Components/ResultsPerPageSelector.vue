@@ -103,7 +103,6 @@ export default {
       if (total <= displayOptions[0].amount) {
         return [total]
       }
-      // displayOptions.sort((a, b) => a - b)
       displayOptions.push(total)
       return displayOptions
     }
@@ -136,9 +135,13 @@ export default {
         this.setDisplay(selection)
         this.calculateTotalPages()
         if (this.page > this.totalPages) {
-          this.$router.push({
-            query: { page: this.totalPages }
-          })
+          if (this.totalPages !== 1) {
+            this.$router.push({
+              query: { page: this.totalPages }
+            })
+          } else {
+            this.$router.push('/')
+          }
         }
       }
       this.closed = true

@@ -114,9 +114,13 @@ export default {
 
   methods: {
     navigateToPage (page) {
-      this.$router.push({
-        query: { page }
-      })
+      if (page !== 1) {
+        this.$router.push({
+          query: { page }
+        })
+      } else {
+        this.$router.push('/')
+      }
     }
   }
 }

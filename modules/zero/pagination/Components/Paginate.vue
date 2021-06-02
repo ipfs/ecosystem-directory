@@ -70,9 +70,13 @@ export default {
     collection () {
       this.calculateTotalPages()
       if (this.page > this.totalPages) {
-        this.$router.push({
-          query: { page: this.totalPages }
-        })
+        if (this.totalPages !== 1) {
+          this.$router.push({
+            query: { page: this.totalPages }
+          })
+        } else {
+          this.$router.push('/')
+        }
       }
     }
   },
