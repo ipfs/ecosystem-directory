@@ -544,6 +544,7 @@ img {
 
 .page-navigation-controls {
   display: flex;
+  flex-wrap: wrap;
   margin-top: 3rem;
   justify-content: center;
 }
@@ -551,6 +552,9 @@ img {
 .results-selector-wrapper {
   height: 2.5rem;
   margin-bottom: 5rem;
+  @include tiny {
+    margin-top: 1rem;
+  }
 }
 
 .results-per-page {
