@@ -137,7 +137,10 @@ Keys should be retained when not in  use. This ensures that if anyone wants to a
 - `ctaCard`: this card will always be displayed as the last block in the stats section. The button text can be changed in `@/content/pages/project.json`
 
 - `taxonomies`: the taxonomies contain a `slug` that will match a master taxonomy object (found in: `@/content/pages/general.json`); if none match, this taxonomy and its tags will not be displayed
+
 ### Schema
+
+The schema can be found in `@/content/data/project-schema.js` and _must_ be updated if the schema ever changes. The `$setProjectDefaults()` global method (found in `@/plugins/global-methods.js`) uses `project-schema.js` in order to perform type checking.
 
 ```ts
 {
@@ -154,7 +157,7 @@ Keys should be retained when not in  use. This ensures that if anyone wants to a
   org: [String],
   description: {
     short: String,
-    long: String,
+    long: String
   },
   primaryCta: {
     url: String,
@@ -182,13 +185,10 @@ Keys should be retained when not in  use. This ensures that if anyone wants to a
     buttonText: String,
     url: String
   },
-  taxonomies: { [
+  taxonomies: [{
     slug: String,
-    tags: [{
-      url: String,
-      text: String
-    }]
-  ]}
+    tags: [String]
+  }]
 }
 ```
 
@@ -212,6 +212,7 @@ When either transferring or inputting a project from a copied `json`, the follow
 
 - Copy the generated JSON output
 - Create a new file in `content/projects/.`. with the project name in `kebab-case` as the file name, (with a `.json` extension)
+- Add the `kebab-case` project name (this _must_ match the filename) to the array in `content/projects/manifest.json`
 - Make sure the project's contents look correct, and ideally ensure that `json` formatting is preserved, including an empty line at the end of the file
   - Using a code editor's prettify function for `json` can correct this
 - Download the images (icon and full logo) from the CRM or from the project organization, and place them in `static/images/projects/.`

@@ -65,8 +65,6 @@ import SegmentSliderChart from '@/components/SegmentSliderChart/SegmentSliderCha
 import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
 import ProjectView from '@/components/ProjectView/ProjectView'
 
-import Projects from '@/content/projects/manifest.json'
-
 // =================================================================== Functions
 const resetSectionHeight = (instance) => {
   if (!instance.filtersActive) {
@@ -98,20 +96,9 @@ export default {
   },
 
   async fetch ({ store, req }) {
-    const compiled = []
-    const len = Projects.length
-    for (let i = 0; i < len; i++) {
-      const id = Projects[i]
-      try {
-        const project = require(`@/content/projects/${id}.json`)
-        compiled.push(project)
-      } catch (e) {
-        console.log(e)
-      }
-    }
     await store.dispatch('global/getBaseData', 'general')
     await store.dispatch('global/getBaseData', 'index')
-    await store.dispatch('projects/getAllProjects', compiled)
+    await store.dispatch('projects/getProjects')
   },
 
   head () {
@@ -215,16 +202,16 @@ export default {
 }
 
 #segment-slider-chart {
+  margin-top: 3rem;
   margin-bottom: 5rem;
+  @include small {
+    margin-top: calc(4.1665vw / 2);
+  }
 }
 
 #section-filter,
 #section-featured-slider {
   margin-bottom: 1rem;
-}
-
-#segment-slider-chart {
-  margin-top: 3rem;
 }
 
 .project-filters {

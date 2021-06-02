@@ -137,6 +137,27 @@ const appendFilters2URL = (instance) => {
   }
 }
 
+const applyFiltersFromURL = (instance) => {
+  const cloned = instance.resetCategories()
+  const qry = instance.$route.query.tag.split(',')
+  const slugs = qry.filter(Boolean)
+
+  const arr = []
+  const len = instance.ProjectFilters.length
+  for (let i = 0; i < len; i++) {
+    const category = instance.ProjectFilters[i]
+    for (let j = 0; j < category.tags.length; j++) {
+      if (slugs.includes(category.tags[j].slug)) {
+        arr.push(category.tags[j])
+        cloned[category.label].push(category.tags[j].label)
+      }
+    }
+  }
+
+  instance.setActiveTags(cloned)
+  instance.selected = arr
+}
+
 // ====================================================================== Export
 
 export default {
@@ -196,26 +217,12 @@ export default {
   },
 
   mounted () {
-    this.setActiveTags(this.resetCategories())
-    this.catsOpen = this.initToggles
-
-    let slugs
     if (this.$route.query.filters === 'enabled' && this.$route.query.tag) {
-      const qry = this.$route.query.tag.split(',')
-      slugs = qry.filter(Boolean)
-
-      const arr = []
-      for (let i = 0; i < this.ProjectFilters.length; i++) {
-        for (let j = 0; j < this.ProjectFilters[i].tags.length; j++) {
-          if (slugs.includes(this.ProjectFilters[i].tags[j].slug)) {
-            arr.push(this.ProjectFilters[i].tags[j])
-            this.catsOpen[i] = true
-          }
-        }
-      }
-
-      this.selected = arr
+      applyFiltersFromURL(this)
+    } else {
+      this.setActiveTags(this.resetCategories())
     }
+    this.catsOpen = this.initToggles
   },
 
   methods: {
@@ -263,11 +270,17 @@ export default {
         for (let i = 0; i < filters.length; i++) {
           if (filters[i].label === heading) {
             const tags = filters[i].tags
-            for (let j = 0; j < tags.length; j++) {
-              if (!cloned[heading].includes(tags[j].label)) {
-                cloned[heading].push(tags[j].label)
+
+            if (cloned[heading].length === filters[i].tags.length) {
+              cloned[heading] = []
+            } else {
+              for (let j = 0; j < tags.length; j++) {
+                if (!cloned[heading].includes(tags[j].label)) {
+                  cloned[heading].push(tags[j].label)
+                }
               }
             }
+
             this.setActiveTags(cloned)
           }
         }
@@ -275,9 +288,22 @@ export default {
         this.setActiveTags(this.resetCategories())
       }
 
+      const checker = []
       for (let i = 0; i < filters[ind].tags.length; i++) {
         if (!this.selected.includes(filters[ind].tags[i])) {
           this.selected.push(filters[ind].tags[i])
+          checker.push(false)
+        } else {
+          checker.push(true)
+        }
+      }
+      const success = checker.every((val) => { return val })
+      if (success) {
+        for (let i = 0; i < filters[ind].tags.length; i++) {
+          const tag = filters[ind].tags[i]
+          if (this.selected.includes(tag)) {
+            this.selected = this.selected.filter(item => item !== tag)
+          }
         }
       }
 

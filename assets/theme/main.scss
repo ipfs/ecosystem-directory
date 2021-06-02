@@ -302,9 +302,6 @@ h2, .h2 {
 
 h3, .h3 {
   @include fontSize_Large;
-  @include small {
-    @include fontSize_Medium;
-  }
 }
 
 h4, .h4 {
@@ -460,6 +457,29 @@ li {
     font-weight: 500;
     color: $blackPearl;
     background: $blackHaze;
+  }
+}
+
+.navigation-link {
+  @include leading_Small;
+  display: inline-block;
+  font-family: $fontMontserrat;
+  color: white;
+  &:hover {
+    &:after {
+      opacity: 1;
+    }
+  }
+  &:after {
+    content: "";
+    height: 1px;
+    bottom: -5px;
+    background-color: currentColor;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    opacity: 0;
+    transition: all .2s cubic-bezier(0.4, 0.0, 0.2, 1.0);
   }
 }
 

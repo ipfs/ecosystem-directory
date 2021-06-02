@@ -2,6 +2,8 @@
 // -----------------------------------------------------------------------------
 import Filesize from 'filesize'
 
+import ProjectSchema from '@/content/data/project-schema.json'
+
 // ///////////////////////////////////////////////////////////////////// Exports
 // -----------------------------------------------------------------------------
 export default ({ store, app }, inject) => {
@@ -235,6 +237,7 @@ export default ({ store, app }, inject) => {
   // ///////////////////////////////////////////////////////// Truncate a string
   // -------------------------------------------- Default: len = 30, end = '...'
   inject('truncateString', (string, len = 30, delimiter = '...', type = 'double', endLen = 8) => {
+    if (!string) { return string }
     let stringLen = len + delimiter.length
     if (type === 'double') {
       stringLen += endLen
@@ -274,5 +277,50 @@ export default ({ store, app }, inject) => {
     container.select()
     document.execCommand('copy')
     document.body.removeChild(container)
+  })
+  // ////////////////////////////////////// Set default project JSON file values
+  // ---------------------------------------------------------------------------
+  /*
+   * Checking for:
+   *  - special: isArray, Number(), Number.isFinite()
+   *  - typeof: object, string, boolean
+   *  - empty strings, empty arrays
+   */
+  inject('setProjectDefaults', (project) => {
+    const check = (schema, field) => {
+      for (const key in schema) {
+        if (field.hasOwnProperty(key)) {
+          const schemaValue = schema[key]
+          const fieldValue = field[key]
+          const schemaType = typeof schemaValue
+          const fieldType = typeof fieldValue
+          // Check for: booleans, strings, empty string values, and numbers
+          if ((fieldValue === '') || // empty string value
+              (schemaValue === 'boolean' && fieldType !== 'boolean') || // booleans
+              (schemaValue === 'string' && fieldType !== 'string') || // strings
+              (schemaValue === 'number' && fieldType !== 'number' && fieldValue === Number(fieldValue) && !Number.isFinite(fieldValue))) { // numbers
+            field[key] = null
+          // Check for: array and associative array
+          } else if (schemaType === 'object' && fieldType === 'object') {
+            if (!Array.isArray(fieldValue)) { // associative array
+              check(schemaValue, fieldValue)
+            } else { // regular array
+              if (fieldValue.length === 0) { // empty array
+                field[key] = null
+              } else {
+                fieldValue.forEach((item) => {
+                  if (typeof item === 'object' && !Array.isArray(item)) { // array of objects
+                    check(schemaValue[0], item)
+                  }
+                })
+              }
+            }
+          }
+        } else {
+          field[key] = null
+        }
+      }
+    }; check(ProjectSchema, project)
+    return project
   })
 }

@@ -83,7 +83,7 @@
 
           <FilterPanel
             ref="filterPanel"
-            :collection="allProjects"
+            :collection="searchResults"
             :is-active="filterPanel"
             @closeFilters="toggleFilterPanel"
             @totalSelected="updateTotalFilters" />
@@ -153,7 +153,7 @@ import SelectorToggle from '@/modules/zero/core/Components/Icons/SelectorToggle'
 import FiltersToggle from '@/modules/zero/core/Components/Icons/FiltersToggle'
 import ListView from '@/components/Icons/ListView'
 import GridView from '@/components/Icons/GridView'
-import FilterBar from '@/components/FilterPanel/FilterBar'
+import FilterBar from '@/modules/zero/core/Components/FilterBar'
 import SearchIcon from '@/components/Icons/SearchIcon'
 import Close from '@/components/Icons/Close'
 import FilterPanel from '@/components/FilterPanel/FilterPanel'
@@ -225,6 +225,25 @@ export default {
         return siteContent.index.page_content
       }
       return false
+    },
+    searchResults () {
+      const query = this.searchQuery
+      const regex = new RegExp(query, 'i')
+      const projects = this.allProjects
+      const len = projects.length
+      const arr = []
+      if (this.searchQuery) {
+        for (let i = 0; i < len; i++) {
+          const name = projects[i].name
+          if (typeof name === 'string') {
+            if (regex.test(name)) {
+              arr.push(projects[i])
+            }
+          }
+        }
+        return arr
+      }
+      return projects
     }
   },
 
@@ -293,6 +312,9 @@ export default {
     },
     clearSelectedFilters () {
       this.$refs.filterPanel.clearSelected()
+    },
+    setSearchQuery (val) {
+      this.searchQuery = val
     }
   }
 }
@@ -362,8 +384,6 @@ export default {
 
 .radio-toggle-item {
   border-radius: 0.25rem;
-  width: 100%;
-  height: 100%;
   white-space: nowrap;
   padding: 0 1.0rem;
   z-index: 10;
