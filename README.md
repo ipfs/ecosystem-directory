@@ -137,7 +137,10 @@ Keys should be retained when not in  use. This ensures that if anyone wants to a
 - `ctaCard`: this card will always be displayed as the last block in the stats section. The button text can be changed in `@/content/pages/project.json`
 
 - `taxonomies`: the taxonomies contain a `slug` that will match a master taxonomy object (found in: `@/content/pages/general.json`); if none match, this taxonomy and its tags will not be displayed
+
 ### Schema
+
+The schema can be found in `@/content/data/project-schema.js` and _must_ be updated if the schema ever changes. The `$setProjectDefaults()` global method (found in `@/plugins/global-methods.js`) uses `project-schema.js` in order to perform type checking.
 
 ```ts
 {
@@ -154,7 +157,7 @@ Keys should be retained when not in  use. This ensures that if anyone wants to a
   org: [String],
   description: {
     short: String,
-    long: String,
+    long: String
   },
   primaryCta: {
     url: String,
@@ -182,13 +185,10 @@ Keys should be retained when not in  use. This ensures that if anyone wants to a
     buttonText: String,
     url: String
   },
-  taxonomies: { [
+  taxonomies: [{
     slug: String,
-    tags: [{
-      url: String,
-      text: String
-    }]
-  ]}
+    tags: [String]
+  }]
 }
 ```
 

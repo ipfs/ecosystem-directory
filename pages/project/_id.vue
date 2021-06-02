@@ -21,14 +21,18 @@
           <h1 v-if="project.name" class="name">
             {{ project.name }}
           </h1>
-          <h2 v-if="project.org && project.org.length" class="company">
+          <h2 v-if="project.org" class="company">
             {{ project.org[0] }}
           </h2>
           <p v-if="project.description && project.description.long" class="description">
             {{ project.description.long }}
           </p>
           <div class="ctas">
-            <a v-if="project.primaryCta" :href="project.primaryCta.url" target="_blank" class="primary-cta">
+            <a
+              v-if="project.primaryCta && project.primaryCta.url && project.primaryCta.text"
+              :href="project.primaryCta.url"
+              target="_blank"
+              class="primary-cta">
               {{ project.primaryCta.text }}
             </a>
             <a href="/" class="secondary-cta">
@@ -39,10 +43,10 @@
       </div>
 
       <div class="col-6_md-8_mi-10_ti-12" data-push-left="off-1_md-0">
-        <section id="section-statistics">
+        <section v-if="project.stats" id="section-statistics">
           <template v-for="(stat, i) in project.stats">
             <div
-              v-if="stat.value && stat.value !== '' && stat.label && stat.label !== ''"
+              v-if="stat.value && stat.label"
               :key="`big-number-${i}`"
               class="card big-number">
               <p class="statistic">
@@ -53,14 +57,20 @@
               </p>
             </div>
           </template>
-          <div v-if="project.ctaCard" class="card case-study">
+          <div
+            v-if="project.ctaCard && project.ctaCard.title && project.ctaCard.description"
+            class="card case-study">
             <p v-if="project.ctaCard.title" class="title">
               {{ project.ctaCard.title }}
             </p>
             <p v-if="project.ctaCard.description" class="description">
               {{ project.ctaCard.description }}
             </p>
-            <a v-if="project.ctaCard.url" class="cta" :href="project.ctaCard.url" target="_blank">
+            <a
+              v-if="project.ctaCard.url && project.ctaCard.buttonText"
+              class="cta"
+              :href="project.ctaCard.url"
+              target="_blank">
               {{ project.ctaCard.buttonText }}
             </a>
           </div>
@@ -77,34 +87,44 @@
 
           <dl v-if="project.links" class="values">
             <template v-for="(linkGroup, i) in project.links">
-              <dt :key="`project-link-key-${i}`" class="name">
-                {{ linkGroup.label }}
-              </dt>
-
-              <dd :key="`project-val-${i}`">
-                <ul class="links">
-                  <li
-                    v-for="(link, j) in linkGroup.links"
-                    :key="`link-group-${j}`">
-                    <a href="link.url" target="_blank">
-                      {{ $truncateString(link.text, 12, '...', type = 'double') }}
-                    </a>
-                    <div v-if="link.text.length > 23" class="link-tooltip" :data-tooltip="link.text" data-tooltip-theme="dark">
-                      ?
-                    </div>
-                  </li>
-                </ul>
-              </dd>
+              <template v-if="linkGroup.label && checkIfArrayOfNullObjectValues(linkGroup.links)">
+                <dt :key="`project-link-key-${i}`" class="name">
+                  {{ linkGroup.label }}
+                </dt>
+                <dd :key="`project-val-${i}`">
+                  <ul class="links">
+                    <template v-for="(link, j) in linkGroup.links">
+                      <li
+                        v-if="link.text && link.url"
+                        :key="`link-group-${j}`">
+                        <a href="link.url" target="_blank">
+                          {{ $truncateString(link.text, 12, '...', type = 'double') }}
+                        </a>
+                        <div
+                          v-if="link.text.length > 23"
+                          class="link-tooltip"
+                          :data-tooltip="link.text"
+                          data-tooltip-theme="dark">
+                          ?
+                        </div>
+                      </li>
+                    </template>
+                  </ul>
+                </dd>
+              </template>
             </template>
 
-            <template v-for="(info, i) in project.keyInfo">
-              <dt :key="`keyinfo-key-${i}`" class="name">
-                {{ info.label }}
-              </dt>
-
-              <dd :key="`keyinfo-val-${i}`" class="text">
-                {{ info.value }}
-              </dd>
+            <template v-if="checkIfArrayOfNullObjectValues(project.keyInfo)">
+              <template v-for="(info, i) in project.keyInfo">
+                <template v-if="info.label && info.value">
+                  <dt :key="`keyinfo-key-${i}`" class="name">
+                    {{ info.label }}
+                  </dt>
+                  <dd :key="`keyinfo-val-${i}`" class="text">
+                    {{ info.value }}
+                  </dd>
+                </template>
+              </template>
             </template>
           </dl>
         </section>
@@ -125,33 +145,37 @@
       </div>
 
       <div class="col-6_sm-7_mi-12" data-push-left="off-1_sm-0">
-        <section v-if="project.taxonomies" id="section-filters">
+        <section
+          v-if="checkIfArrayOfNullObjectValues(project.taxonomies)"
+          id="section-filters">
           <Accordion
             v-slot="{ active }"
             :multiple="true">
-            <AccordionSection
-              v-for="(taxonomy, i) in taxonomies"
-              :key="`taxonomy-category-${i}`"
-              :active="active"
-              :selected="true"
-              class="filters">
-              <AccordionHeader>
-                <h3 class="heading">
-                  {{ $getTaxonomyCategoryLabel(taxonomy.slug) }}
-                </h3>
-              </AccordionHeader>
-              <AccordionContent>
-                <div class="chiclet-list">
-                  <NuxtLink
-                    v-for="(taxonomyTag, j) in filterTags(taxonomy.slug, taxonomy.tags)"
-                    :key="`taxonomu-tag-${j}`"
-                    :to="{ path: '/', query: { tag: taxonomyTag } }"
-                    class="chiclet">
-                    {{ $getTaxonomyTagLabel(taxonomy.slug, taxonomyTag) }}
-                  </NuxtLink>
-                </div>
-              </AccordionContent>
-            </AccordionSection>
+            <template v-for="(taxonomy, i) in taxonomies">
+              <AccordionSection
+                v-if="taxonomy.slug && taxonomy.tags"
+                :key="`taxonomy-category-${i}`"
+                :active="active"
+                :selected="true"
+                class="filters">
+                <AccordionHeader>
+                  <h3 class="heading">
+                    {{ $getTaxonomyCategoryLabel(taxonomy.slug) }}
+                  </h3>
+                </AccordionHeader>
+                <AccordionContent>
+                  <div class="chiclet-list">
+                    <NuxtLink
+                      v-for="(taxonomyTag, j) in filterTags(taxonomy.slug, taxonomy.tags)"
+                      :key="`taxonomu-tag-${j}`"
+                      :to="{ path: '/', query: { tag: taxonomyTag } }"
+                      class="chiclet">
+                      {{ $getTaxonomyTagLabel(taxonomy.slug, taxonomyTag) }}
+                    </NuxtLink>
+                  </div>
+                </AccordionContent>
+              </AccordionSection>
+            </template>
           </Accordion>
         </section>
       </div>
@@ -182,6 +206,7 @@
 <script>
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
+import CloneDeep from 'lodash/cloneDeep'
 
 import Breadcrumbs from '@/modules/zero/core/Components/Breadcrumbs'
 import Accordion from '@/modules/zero/core/Components/Accordion/Accordion'
@@ -203,11 +228,12 @@ export default {
     FeaturedProjectsSlider
   },
 
-  asyncData ({ route, error, payload }) {
-    if (payload) { return { project: payload } }
+  asyncData ({ app, route, error, payload }) {
+    if (payload) { return { project: CloneDeep(payload) } }
     try {
-      const id = route.params.id
-      return { project: require(`@/content/projects/${id}.json`) }
+      const project = CloneDeep(require(`@/content/projects/${route.params.id}.json`))
+      app.$setProjectDefaults(project)
+      return { project }
     } catch (e) {
       return error('This project does not exist')
     }
@@ -302,6 +328,27 @@ export default {
     },
     getEmbedUrl (url) {
       return this.$buildVideoEmbedUrl(this.$parseVideoUrl(url))
+    },
+    checkIfArrayOfNullObjectValues (array) {
+      if (!Array.isArray(array) || array.length === 0) { return false }
+      const compiled = []
+      let nullCount = 0
+      array.forEach((obj) => {
+        nullCount = 0
+        if (typeof obj === 'object' && !Array.isArray(obj)) {
+          const keys = Object.keys(obj)
+          const len = keys.length
+          for (const key in obj) {
+            if (obj[key] === null) {
+              nullCount += 1
+            }
+          }
+          if (len !== nullCount) {
+            compiled.push(obj)
+          }
+        }
+      })
+      return compiled.length > 0 ? compiled : false
     }
   }
 }
