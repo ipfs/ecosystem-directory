@@ -2,6 +2,8 @@
 // -----------------------------------------------------------------------------
 import Filesize from 'filesize'
 
+import ProjectSchema from '@/content/data/project-schema.json'
+
 // ///////////////////////////////////////////////////////////////////// Exports
 // -----------------------------------------------------------------------------
 export default ({ store, app }, inject) => {
@@ -235,6 +237,7 @@ export default ({ store, app }, inject) => {
   // ///////////////////////////////////////////////////////// Truncate a string
   // -------------------------------------------- Default: len = 30, end = '...'
   inject('truncateString', (string, len = 30, delimiter = '...', type = 'double', endLen = 8) => {
+    if (!string) { return string }
     let stringLen = len + delimiter.length
     if (type === 'double') {
       stringLen += endLen
@@ -275,69 +278,49 @@ export default ({ store, app }, inject) => {
     document.execCommand('copy')
     document.body.removeChild(container)
   })
-  // ///////////////////////////////////////////////////// Add text to clipboard
+  // ////////////////////////////////////// Set default project JSON file values
   // ---------------------------------------------------------------------------
-  inject('setProjectDefaults', (projectJSON) => {
-    // Assign top-level defaults
-    projectJSON = Object.assign({
-      display: false,
-      featured: false,
-      sortNumbers: [],
-      logo: {},
-      name: '',
-      org: [],
-      description: {},
-      primaryCta: {},
-      links: [],
-      keyInfo: [],
-      video: '',
-      stats: [],
-      ctaCard: {},
-      taxonomies: []
-    }, projectJSON)
-
-    projectJSON.sortNumbers = projectJSON.sortNumbers.filter((obj) => {
-      if (typeof obj !== 'object') { return false }
-      Object.keys(obj).forEach((key) => {
-        if (typeof obj[key] !== 'number') { delete obj[key] }
-      })
-      return Object.keys(obj).length > 0
-    })
-
-    projectJSON.logo = Object.assign({
-      icon: '',
-      full: ''
-    }, projectJSON.logo)
-
-    projectJSON.org = projectJSON.org.filter(org => (typeof org === 'string'))
-
-    projectJSON.description = Object.assign({
-      short: '',
-      long: ''
-    }, projectJSON.description)
-
-    projectJSON.primaryCta = Object.assign({
-      url: '',
-      text: ''
-    }, projectJSON.primaryCta)
-
-    projectJSON.links = projectJSON.links.filter((obj) => {
-      return obj.label && obj.links && Array.isArray(obj.links) && obj.links.length > 0
-    }).map((obj) => {
-      obj.links = obj.links.map(link => Object.assign({
-        url: '',
-        text: ''
-      }, link))
-      return obj
-    })
-
-    projectJSON.ctaCard = Object.assign({
-      title: '',
-      description: '',
-      buttonText: '',
-      url: ''
-    }, projectJSON.ctaCard)
-
-    return projectJSON
+  /*
+   * Checking for:
+   *  - special: isArray, Number(), Number.isFinite()
+   *  - typeof: object, string, boolean
+   *  - empty strings, empty arrays
+   */
+  inject('setProjectDefaults', (project) => {
+    const check = (schema, field) => {
+      for (const key in schema) {
+        if (field.hasOwnProperty(key)) {
+          const schemaValue = schema[key]
+          const fieldValue = field[key]
+          const schemaType = typeof schemaValue
+          const fieldType = typeof fieldValue
+          // Check for: booleans, strings, empty string values, and numbers
+          if ((fieldValue === '') || // empty string value
+              (schemaValue === 'boolean' && fieldType !== 'boolean') || // booleans
+              (schemaValue === 'string' && fieldType !== 'string') || // strings
+              (schemaValue === 'number' && fieldType !== 'number' && fieldValue === Number(fieldValue) && !Number.isFinite(fieldValue))) { // numbers
+            field[key] = null
+          // Check for: array and associative array
+          } else if (schemaType === 'object' && fieldType === 'object') {
+            if (!Array.isArray(fieldValue)) { // associative array
+              check(schemaValue, fieldValue)
+            } else { // regular array
+              if (fieldValue.length === 0) { // empty array
+                field[key] = null
+              } else {
+                fieldValue.forEach((item) => {
+                  if (typeof item === 'object' && !Array.isArray(item)) { // array of objects
+                    check(schemaValue[0], item)
+                  }
+                })
+              }
+            }
+          }
+        } else {
+          field[key] = null
+        }
+      }
+    }; check(ProjectSchema, project)
+    return project
   })
 }
