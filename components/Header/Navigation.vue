@@ -23,7 +23,7 @@
               :href="link.disabled ? '' : link.href"
               :disabled="link.disabled"
               :target="link.target"
-              class="link">
+              class="navigation-link">
               {{ link.label }}
             </component>
           </nav>
@@ -176,33 +176,12 @@ export default {
   }
 }
 
-.link {
-  font-family: $fontMontserrat;
-  color: white;
-  line-height: 1.5;
+.navigation-link {
   &:not(:last-child) {
     margin-right: 2.75rem;
     @include small {
       margin-right: 1rem;
     }
-  }
-  &:after {
-    content: "";
-    height: 1px;
-    bottom: -7px;
-    background-color: currentColor;
-    position: absolute;
-    width: 100%;
-    left: 0;
-    opacity: 0;
-    transition: all .2s cubic-bezier(0.4, 0.0, 0.2, 1.0);
-  }
-  &:hover:after {
-    opacity: 1;
-    box-sizing: border-box;
-    border-width: 0;
-    border-style: solid;
-    border-color: #e5e7eb;
   }
 }
 

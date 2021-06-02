@@ -10,7 +10,7 @@
     </div>
 
     <div class="grid">
-      <div class="col-5">
+      <div class="col-5_md-8_sm-10_ti-12">
         <section id="section-project-info">
           <img
             v-if="project.logo && project.logo.full"
@@ -21,14 +21,18 @@
           <h1 v-if="project.name" class="name">
             {{ project.name }}
           </h1>
-          <h2 v-if="project.org && project.org.length" class="company">
+          <h2 v-if="project.org" class="company">
             {{ project.org[0] }}
           </h2>
           <p v-if="project.description && project.description.long" class="description">
             {{ project.description.long }}
           </p>
           <div class="ctas">
-            <a v-if="project.primaryCta" :href="project.primaryCta.url" target="_blank" class="primary-cta">
+            <a
+              v-if="project.primaryCta && project.primaryCta.url && project.primaryCta.text"
+              :href="project.primaryCta.url"
+              target="_blank"
+              class="primary-cta">
               {{ project.primaryCta.text }}
             </a>
             <a href="/" class="secondary-cta">
@@ -38,11 +42,11 @@
         </section>
       </div>
 
-      <div class="col-6" data-push-left="off-1">
-        <section id="section-statistics">
+      <div class="col-6_md-8_mi-10_ti-12" data-push-left="off-1_md-0">
+        <section v-if="project.stats" id="section-statistics">
           <template v-for="(stat, i) in project.stats">
             <div
-              v-if="stat.value && stat.value !== '' && stat.label && stat.label !== ''"
+              v-if="stat.value && stat.label"
               :key="`big-number-${i}`"
               class="card big-number">
               <p class="statistic">
@@ -53,14 +57,20 @@
               </p>
             </div>
           </template>
-          <div v-if="project.ctaCard" class="card case-study">
+          <div
+            v-if="project.ctaCard && project.ctaCard.title && project.ctaCard.description"
+            class="card case-study">
             <p v-if="project.ctaCard.title" class="title">
               {{ project.ctaCard.title }}
             </p>
             <p v-if="project.ctaCard.description" class="description">
               {{ project.ctaCard.description }}
             </p>
-            <a v-if="project.ctaCard.url" class="cta" :href="project.ctaCard.url" target="_blank">
+            <a
+              v-if="project.ctaCard.url && project.ctaCard.buttonText"
+              class="cta"
+              :href="project.ctaCard.url"
+              target="_blank">
               {{ project.ctaCard.buttonText }}
             </a>
           </div>
@@ -69,7 +79,7 @@
     </div>
 
     <div class="grid">
-      <div class="col-5">
+      <div class="col-5_mi-10_ti-12">
         <section v-if="project.links || project.keyInfo" id="section-key-info">
           <h3 class="heading">
             Key info
@@ -77,34 +87,44 @@
 
           <dl v-if="project.links" class="values">
             <template v-for="(linkGroup, i) in project.links">
-              <dt :key="`project-link-key-${i}`" class="name">
-                {{ linkGroup.label }}
-              </dt>
-
-              <dd :key="`project-val-${i}`">
-                <ul class="links">
-                  <li
-                    v-for="(link, j) in linkGroup.links"
-                    :key="`link-group-${j}`">
-                    <a href="link.url" target="_blank">
-                      {{ $truncateString(link.text, 12, '...', type = 'double') }}
-                    </a>
-                    <div v-if="link.text.length > 23" class="link-tooltip" :data-tooltip="link.text" data-tooltip-theme="dark">
-                      ?
-                    </div>
-                  </li>
-                </ul>
-              </dd>
+              <template v-if="linkGroup.label && checkIfArrayOfNullObjectValues(linkGroup.links)">
+                <dt :key="`project-link-key-${i}`" class="name">
+                  {{ linkGroup.label }}
+                </dt>
+                <dd :key="`project-val-${i}`">
+                  <ul class="links">
+                    <template v-for="(link, j) in linkGroup.links">
+                      <li
+                        v-if="link.text && link.url"
+                        :key="`link-group-${j}`">
+                        <a href="link.url" target="_blank">
+                          {{ $truncateString(link.text, 12, '...', type = 'double') }}
+                        </a>
+                        <div
+                          v-if="link.text.length > 23"
+                          class="link-tooltip"
+                          :data-tooltip="link.text"
+                          data-tooltip-theme="dark">
+                          ?
+                        </div>
+                      </li>
+                    </template>
+                  </ul>
+                </dd>
+              </template>
             </template>
 
-            <template v-for="(info, i) in project.keyInfo">
-              <dt :key="`keyinfo-key-${i}`" class="name">
-                {{ info.label }}
-              </dt>
-
-              <dd :key="`keyinfo-val-${i}`" class="text">
-                {{ info.value }}
-              </dd>
+            <template v-if="checkIfArrayOfNullObjectValues(project.keyInfo)">
+              <template v-for="(info, i) in project.keyInfo">
+                <template v-if="info.label && info.value">
+                  <dt :key="`keyinfo-key-${i}`" class="name">
+                    {{ info.label }}
+                  </dt>
+                  <dd :key="`keyinfo-val-${i}`" class="text">
+                    {{ info.value }}
+                  </dd>
+                </template>
+              </template>
             </template>
           </dl>
         </section>
@@ -124,34 +144,38 @@
 
       </div>
 
-      <div class="col-6" data-push-left="off-1">
-        <section v-if="project.taxonomies" id="section-filters">
+      <div class="col-6_sm-7_mi-12" data-push-left="off-1_sm-0">
+        <section
+          v-if="checkIfArrayOfNullObjectValues(project.taxonomies)"
+          id="section-filters">
           <Accordion
             v-slot="{ active }"
             :multiple="true">
-            <AccordionSection
-              v-for="(taxonomy, i) in taxonomies"
-              :key="`taxonomy-category-${i}`"
-              :active="active"
-              :selected="true"
-              class="filters">
-              <AccordionHeader>
-                <h3 class="heading">
-                  {{ $getTaxonomyCategoryLabel(taxonomy.slug) }}
-                </h3>
-              </AccordionHeader>
-              <AccordionContent>
-                <div class="chiclet-list">
-                  <NuxtLink
-                    v-for="(taxonomyTag, j) in filterTags(taxonomy.slug, taxonomy.tags)"
-                    :key="`taxonomu-tag-${j}`"
-                    :to="{ path: '/', query: { tag: taxonomyTag } }"
-                    class="chiclet">
-                    {{ $getTaxonomyTagLabel(taxonomy.slug, taxonomyTag) }}
-                  </NuxtLink>
-                </div>
-              </AccordionContent>
-            </AccordionSection>
+            <template v-for="(taxonomy, i) in taxonomies">
+              <AccordionSection
+                v-if="taxonomy.slug && taxonomy.tags"
+                :key="`taxonomy-category-${i}`"
+                :active="active"
+                :selected="true"
+                class="filters">
+                <AccordionHeader>
+                  <h3 class="heading">
+                    {{ $getTaxonomyCategoryLabel(taxonomy.slug) }}
+                  </h3>
+                </AccordionHeader>
+                <AccordionContent>
+                  <div class="chiclet-list">
+                    <NuxtLink
+                      v-for="(taxonomyTag, j) in filterTags(taxonomy.slug, taxonomy.tags)"
+                      :key="`taxonomu-tag-${j}`"
+                      :to="{ path: '/', query: { tag: taxonomyTag } }"
+                      class="chiclet">
+                      {{ $getTaxonomyTagLabel(taxonomy.slug, taxonomyTag) }}
+                    </NuxtLink>
+                  </div>
+                </AccordionContent>
+              </AccordionSection>
+            </template>
           </Accordion>
         </section>
       </div>
@@ -169,7 +193,7 @@
           </div>
         </div>
 
-        <div class="col-11">
+        <div class="col-11_mi-12">
           <FeaturedProjectsSlider />
         </div>
 
@@ -182,6 +206,7 @@
 <script>
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
+import CloneDeep from 'lodash/cloneDeep'
 
 import Breadcrumbs from '@/modules/zero/core/Components/Breadcrumbs'
 import Accordion from '@/modules/zero/core/Components/Accordion/Accordion'
@@ -189,8 +214,6 @@ import AccordionHeader from '@/modules/zero/core/Components/Accordion/Header'
 import AccordionSection from '@/modules/zero/core/Components/Accordion/Section'
 import AccordionContent from '@/modules/zero/core/Components/Accordion/Content'
 import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
-
-import Projects from '@/content/projects/manifest.json'
 
 // ====================================================================== Export
 export default {
@@ -205,6 +228,17 @@ export default {
     FeaturedProjectsSlider
   },
 
+  asyncData ({ app, route, error, payload }) {
+    if (payload) { return { project: CloneDeep(payload) } }
+    try {
+      const project = CloneDeep(require(`@/content/projects/${route.params.id}.json`))
+      app.$setProjectDefaults(project)
+      return { project }
+    } catch (e) {
+      return error('This project does not exist')
+    }
+  },
+
   data () {
     const id = this.$route.params.id
     return {
@@ -214,30 +248,9 @@ export default {
   },
 
   async fetch ({ store, req, route, error }) {
-    const id = route.params.id
-    try {
-      const project = require(`@/content/projects/${id}.json`)
-      const compiled = []
-      const len = Projects.length
-      for (let i = 0; i < len; i++) {
-        const id = Projects[i]
-        try {
-          const project = require(`@/content/projects/${id}.json`)
-          compiled.push(project)
-        } catch (e) {
-          console.log(e)
-        }
-      }
-      await store.dispatch('global/getBaseData', 'general')
-      await store.dispatch('global/getBaseData', 'taxonomy')
-      await store.dispatch('global/getBaseData', {
-        key: `project-${id}`,
-        data: project
-      })
-      await store.dispatch('projects/getAllProjects', compiled)
-    } catch (e) {
-      return error('This project does not exist')
-    }
+    await store.dispatch('global/getBaseData', 'general')
+    await store.dispatch('global/getBaseData', 'taxonomy')
+    await store.dispatch('projects/getProjects')
   },
 
   head () {
@@ -304,11 +317,6 @@ export default {
       }
       return false
     },
-    project () {
-      const siteContent = this.siteContent
-      const id = this.id
-      return siteContent.hasOwnProperty(id) ? siteContent[id] : false
-    },
     taxonomies () {
       return this.project.taxonomies.filter(tax => this.$checkTaxonomyCategoryExists(tax.slug))
     }
@@ -320,6 +328,27 @@ export default {
     },
     getEmbedUrl (url) {
       return this.$buildVideoEmbedUrl(this.$parseVideoUrl(url))
+    },
+    checkIfArrayOfNullObjectValues (array) {
+      if (!Array.isArray(array) || array.length === 0) { return false }
+      const compiled = []
+      let nullCount = 0
+      array.forEach((obj) => {
+        nullCount = 0
+        if (typeof obj === 'object' && !Array.isArray(obj)) {
+          const keys = Object.keys(obj)
+          const len = keys.length
+          for (const key in obj) {
+            if (obj[key] === null) {
+              nullCount += 1
+            }
+          }
+          if (len !== nullCount) {
+            compiled.push(obj)
+          }
+        }
+      })
+      return compiled.length > 0 ? compiled : false
     }
   }
 }
@@ -339,9 +368,16 @@ export default {
 // ////////////////////////////////////////////////////// [Section] Project Info
 #section-project-info {
   margin-bottom: 3.75rem;
+  @include medium {
+    margin-bottom: 2rem;
+  }
   .name {
     @include fontSize_ExtraExtraLarge;
     font-weight: 700;
+    @include small {
+      @include leading_Mini;
+      margin-bottom: 0.5rem;
+    }
   }
   .description {
     @include leading_Mini;
@@ -367,6 +403,10 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
+  @include tiny {
+    flex-direction: column;
+    align-items: flex-start;
+  }
   a {
     display: flex;
     flex-direction: row;
@@ -378,6 +418,10 @@ export default {
       border: 2px solid $tiber;
       padding: 0.625rem 1.25rem;
       margin-right: 1.5rem;
+      @include tiny {
+        margin-right: 0;
+        margin-bottom: 1rem;
+      }
     }
     &.secondary-cta {
       background: url('~assets/theme/svgs/chevronright.svg') no-repeat right center;
@@ -404,18 +448,43 @@ export default {
   width: calc(50% - 0.5rem);
   padding: 3rem;
   margin-bottom: 1rem;
+  @include small {
+    padding: 2rem;
+  }
+  @include mini {
+    padding: 1rem;
+  }
+  @include tiny {
+    width: 100%;
+    padding: 2rem;
+  }
   &:nth-child(odd) {
     margin-right: 1rem;
+    @include tiny {
+      margin-right: 0;
+    }
   }
   &.big-number {
     color: $tiber;
     background-color: $blackHaze;
+    @include mini {
+      padding: 2rem 1rem;
+    }
+    @include tiny {
+      padding: 2rem;
+    }
     .statistic {
       font-size: 2.625rem;
+      @include small {
+        @include fontSize_ExtraLarge;
+      }
     }
     .description {
       @include fontSize_Large;
       @include leading_Mini;
+      @include small {
+        @include fontSize_Regular;
+      }
     }
   }
   &.case-study {
@@ -462,8 +531,16 @@ export default {
   row-gap: 1rem;
   column-gap: 5%;
 
+  @include small {
+    grid-template-columns: auto;
+    row-gap: 0;
+  }
+
   dd {
     margin: 0;
+    &:not(:last-child) {
+      margin-bottom: 1rem;
+    }
   }
 
   dt,
@@ -520,6 +597,9 @@ export default {
 
 // /////////////////////////////////////////////////////////// [Section] Filters
 #section-filters {
+  @include mini {
+    margin-top: 2rem;
+  }
   .heading {
     @include fontSize_Large;
   }
@@ -563,6 +643,10 @@ export default {
 #section-featured-slider {
   margin-top: 4rem;
   padding-bottom: 4rem;
+  @include mini {
+    margin-top: 2rem;
+    padding-bottom: 2rem;
+  }
 }
 
 #featured-projects-slider {
