@@ -8,10 +8,9 @@
 
         <div class="filter-panel-controls">
           <Button
-            v-if="!tiny || !filterPanel"
             type="C"
             text="Filters"
-            :class="{ 'active-button': filtersActive, 'button-fixed': tiny }"
+            :class="{ 'filter-toggle' : true, 'active-button': filtersActive }"
             @clicked="toggleFilterPanel">
 
             <template #icon-before>
@@ -37,7 +36,7 @@
 
         <div id="radio-view-toggle" @click.stop="toggleListGridView">
 
-          <div ref="radio" class="selected-blackground"></div>
+          <div ref="radio" class="selected-background"></div>
 
           <ListView
             class="radio-toggle-item"
@@ -56,33 +55,31 @@
 
     <div id="project-filter-container">
 
-      <div v-if="tiny && filterPanel" id="filter-modal-background"></div>
-
-      <div id="filter-panel-wrapper" ref="filterWrap" :class="{ 'filter-panel-modal': tiny, 'filter-side-menu': !tiny }">
+      <div id="filter-panel-wrapper" ref="filterWrap" class="filter-panel-modal">
 
         <div
-          class="close-icon"
-          @click="toggleFilterPanel">
-          <Close />
-        </div>
-
-        <div ref="innerPanel" :class="(tiny ? 'inner-modal' : 'inner-wrapper')">
+          v-if="filterPanel"
+          class="filter-panel-heading">
 
           <div
-            v-if="filterPanel"
-            class="filter-panel-heading">
-
-            <h4 class="title">
-              All Filters
-            </h4>
-
-            <FilterBar filter-value="">
-              <template #icon>
-                <SearchIcon />
-              </template>
-            </FilterBar>
-
+            class="close-icon"
+            @click="toggleFilterPanel">
+            <Close />
           </div>
+
+          <h4 class="title">
+            All Filters
+          </h4>
+
+          <FilterBar filter-value="">
+            <template #icon>
+              <SearchIcon />
+            </template>
+          </FilterBar>
+
+        </div>
+
+        <div ref="innerPanel" class="inner-wrapper">
 
           <FilterPanel
             ref="filterPanel"
@@ -96,7 +93,7 @@
 
       <!-- ////////////////////////////////////////////////// Paginated List -->
 
-      <div id="card-display" ref="cardDisplay">
+      <div id="card-display" ref="cardDisplay" class="card-display auto">
 
         <Paginate
           v-if="filteredProjects"
@@ -175,14 +172,6 @@ const resetCardDisplayMargin = (element) => {
   element.style.marginRight = mr
 }
 
-const tinyScreenView = (instance) => {
-  if (window.screen.width < 416) {
-    instance.tiny = true
-  } else {
-    instance.tiny = false
-  }
-}
-
 // ====================================================================== Export
 export default {
   name: 'ProjectView',
@@ -217,9 +206,7 @@ export default {
       paginationDisplay: 20,
       filterPanel: false,
       totalFilters: 0,
-      listActive: false,
-      resize: false,
-      tiny: false
+      listActive: false
     }
   },
 
@@ -243,28 +230,22 @@ export default {
 
   watch: {
     filterPanel (val) {
-      if (this.tiny) {
+      if (val) {
+        this.$refs.filterWrap.classList.remove('filter-closed')
+        this.$refs.filterWrap.classList.add('filter-open')
 
-        if (val) {
-          this.$refs.filterWrap.classList.add = 'filter-panel-modal'
-          this.$refs.filterWrap.style.width = '75%'
-        }
-
+        this.$refs.cardDisplay.style.marginLeft = null
+        this.$refs.cardDisplay.style.marginRight = null
+        this.$refs.cardDisplay.classList.remove('auto')
+        this.$refs.cardDisplay.classList.remove('panel-closed')
+        this.$refs.cardDisplay.classList.add('panel-open')
       } else {
+        this.$refs.filterWrap.classList.remove('filter-open')
+        this.$refs.filterWrap.classList.add('filter-closed')
 
-        if (val) {
-          this.$refs.filterWrap.style.width = '34%'
-          this.$refs.cardDisplay.style.width = '66%'
-          this.$refs.cardDisplay.style.marginLeft = '3%'
-          this.$refs.cardDisplay.style.marginRight = '8%'
-        } else {
-          this.$refs.filterWrap.style.width = '0'
-          this.$refs.cardDisplay.style.width = '67.5rem'
-          this.$refs.cardDisplay.style.marginLeft = '16%'
-          this.$refs.cardDisplay.style.marginRight = '16%'
-          setTimeout(() => { resetCardDisplayMargin(this.$refs.cardDisplay) }, 500)
-        }
-
+        this.$refs.cardDisplay.classList.remove('panel-open')
+        this.$refs.cardDisplay.classList.add('panel-closed')
+        setTimeout(() => { resetCardDisplayMargin(this.$refs.cardDisplay) }, 500)
       }
     }
   },
@@ -276,7 +257,6 @@ export default {
   },
 
   mounted () {
-    tinyScreenView(this)
     resetCardDisplayMargin(this.$refs.cardDisplay)
     this.filterPanel = (this.$route.query.filters === 'enabled')
   },
@@ -297,7 +277,7 @@ export default {
         this.setFiltersActive(this.filterPanel)
         if (this.filterPanel) {
           this.$router.push({ path: '/', query: { filters: 'enabled' } })
-          window.scrollTo(0, 0) // not sure where to trigger this
+          window.scrollTo(0, 0)
         } else {
           this.$router.push(this.$route.path)
         }
@@ -322,7 +302,6 @@ export default {
 // ///////////////////////////////////////////////////////////////////// General
 #project-view-container {
   width: 100%;
-  min-width: 600px;
   padding: 0;
 }
 
@@ -332,11 +311,13 @@ export default {
   color: #FFFFFF;
 }
 
-.button-fixed {
-  position: fixed;
-  bottom: 2rem;
-  left: calc(4.1665% + 0.5rem);
-  z-index: 1000;
+.filter-toggle {
+  @include tiny {
+    position: fixed;
+    bottom: 2.5rem;
+    left: 2.5rem;
+    z-index: 10;
+  }
 }
 
 #card-filters-toggle {
@@ -385,7 +366,7 @@ export default {
   z-index: 10;
 }
 
-.selected-blackground {
+.selected-background {
   display: inline-block;
   position: absolute;
   width: 50%;
@@ -405,16 +386,13 @@ export default {
 }
 
 #filter-panel-wrapper {
-  //
   display: block;
+  position: relative;
   width: 0%;
   background-color: #ffffff;
   transition: width 500ms ease-in-out;
   overflow: hidden;
   border-radius: 0 0.25rem 0.25rem 0;
-  &.filter-panel-modal {
-    @include borderRadius3;
-  }
   .close-icon {
     position: absolute;
     right: 0.75rem;
@@ -422,55 +400,38 @@ export default {
     padding: 0.25rem;
     cursor: pointer;
   }
-}
-
-.filter-side-menu {
-  position: relative;
-}
-
-.filter-panel-modal {
-  position: absolute;
-  z-index: 100;
-  width: 75%;
-  .inner-modal {
-    margin-left: 2.5rem;
-    overflow: auto;
-    .close-icon {
-      position: absolute;
-      right: 0.75rem;
-      top: 0.25rem;
-      padding: 0.25rem;
-      cursor: pointer;
+  @include tiny {
+    position: fixed;
+    overflow: scroll;
+    height: 100vh;
+    width: 0;
+    top: 0;
+    z-index: 100;
+    border-radius: 0;
+  }
+  &.filter-closed {
+    width: 0;
+  }
+  &.filter-open {
+    width: 28.75rem;
+    @include tiny {
+      width: 100vw;
     }
   }
-}
-
-.inner-wrapper {
-  font-family: $fontInter;
-  position: relative;
-  width: 76%;
-  height: 100%;
-  margin-left: 24%;
-}
-
-#filter-modal-background {
-  // position: absolute;
-  // display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 10; /* Sit on top */
-  // padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
 .filter-panel-heading {
   margin: 2.5rem 0;
   margin-right: 2.5rem;
+  margin-left: 24%;
+  @include tiny {
+    margin: 0;
+    padding: 2.5rem;
+    width: 100vw;
+    position: fixed;
+    background-color: #ffffff;
+    z-index: 100;
+  }
   .title {
     font-family: $fontMontserrat;
     font-weight: 400;
@@ -478,11 +439,47 @@ export default {
   }
 }
 
+.inner-wrapper {
+  font-family: $fontInter;
+  position: relative;
+  margin-left: 24%;
+  @include tiny {
+    top: 8rem;
+    margin: 2.5rem;
+    margin-bottom: 18rem;
+  }
+}
+
+::v-deep .bottom-buttons {
+  @include tiny {
+    position: fixed;
+    bottom: 0;
+    background-color: #ffffff;
+    width: 100%;
+    z-index: 100;
+    padding: 2.5rem 0;
+    margin: 0;
+  }
+}
+
 // /////////////////////////////////////////////////////////////// Project Cards
-#card-display {
-  width: 67.5rem;
-  margin: 0 auto;
+.card-display {
   transition: all 500ms ease-in-out;
+  &.auto {
+    width: 67.5rem;
+  }
+}
+
+.panel-open {
+  width: 66%;
+  margin-left: 3%;
+  margin-right: 8%;
+}
+
+.panel-closed {
+  width: 67.5rem;
+  margin-left: 16%;
+  margin-right: 16%;
 }
 
 .paginate-root {
@@ -519,17 +516,14 @@ img {
 
 ::v-deep .project-card {
   &.block-view {
-    // width: 25%;
     min-width: 160px;
     flex: 1 1 300px;
     flex-basis: 25%;
     margin-bottom: 1rem;
   }
   &.list-view {
-    // width: 33.333%;
     flex: 1 1 300px;
     flex-basis: 33.333%;
-    // height: 100%;
     max-width: 50%;
   }
 }

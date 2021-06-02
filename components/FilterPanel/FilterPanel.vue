@@ -309,6 +309,9 @@ export default {
 .filter-panel-content {
   margin-right: 2.5rem;
   white-space: nowrap;
+  @include tiny {
+    margin: 0;
+  }
 }
 
 .flip {

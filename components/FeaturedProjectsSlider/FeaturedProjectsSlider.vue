@@ -47,14 +47,14 @@ import ProjectCard from '@/components/ProjectView/ProjectCard'
 
 // =================================================================== Functions
 const handleFeatureSliderResize = (instance) => {
-  const w = window.innerWidth
-  if (w <= 850) {
-    instance.display = 3
-    if (w <= 640) {
-      instance.display = 2
-    }
+  const display = instance.display
+  if (window.matchMedia('(max-width: 53.125rem)').matches) { // small
+    if (display !== 3) { instance.display = 3 }
+  }
+  if (window.matchMedia('(max-width: 40rem)').matches) { // mini
+    if (display !== 2) { instance.display = 2 }
   } else {
-    instance.display = 4
+    if (display !== 4) { instance.display = 4 }
   }
   const cardWidth = instance.$refs.cardRowContainer.clientWidth / instance.display
   instance.animate = false
@@ -163,6 +163,9 @@ export default {
 #slider-line {
   display: inline-block;
   width: 40%;
+  @include tiny {
+    width: 75%;
+  }
 }
 
 #feature-range-slider {
