@@ -7,7 +7,7 @@
       }
     ],
     "logo": {
-      "icon": "",
+      "icon": "convo-space-icon.png",
       "full": "convo-space-icon.png"
     },
     "name": "The Convo Space",
@@ -79,20 +79,20 @@
       {
         "slug": "focus",
         "tags": [
-          "community-networks\", \"dev-tools\", \"infrastructure\", \"public-data\", \"reputation-ip\", \"storage-pinning"
+          "community-networks", "dev-tools", "infrastructure", "public-data", "reputation-ip", "storage-pinning"
         ]
       },
       {
         "slug": "benefits",
         "tags": [
-          "corporate-government-independence\", \"data-integrity\", \"disaster-resilience\", \"interoperability\", \"couldnt-exist-without-ipfs"
+          "corporate-government-independence", "data-integrity", "disaster-resilience", "interoperability", "couldnt-exist-without-ipfs"
         ]
       },
       {
         "slug": "tooling",
         "tags": [
-          "ecosystem-tools\", \"filecoin\", \"js-ipfs\", \"js-ipfs-https-client\", \"pinning-services"
+          "ecosystem-tools", "filecoin", "js-ipfs", "js-ipfs-https-client", "pinning-services"
         ]
       }
     ]
-  }
+}
