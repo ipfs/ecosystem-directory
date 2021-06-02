@@ -51,16 +51,16 @@
   "video": "",
   "stats": [
     {
-      "label": ">1K successful cross-border shipments using IPFS",
-      "value": ""
+      "label": "Successful cross-border shipments using IPFS",
+      "value": "> 1K"
     },
     {
-      "label": ">90% potential reduction in client email volume",
-      "value": ""
+      "label": "Potential reduction in client email volume",
+      "value": "> 90%"
     },
     {
-      "label": ">95% potential reduction in client manual errors",
-      "value": ""
+      "label": "Potential reduction in client manual errors",
+      "value": "> 95%"
     }
   ],
   "ctaCard": {
