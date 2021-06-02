@@ -13,6 +13,10 @@
             height="15" />
         </button>
 
+        <h3 class="title-between-buttons">
+          {{ selectedCat.cat }}
+        </h3>
+
         <button
           class="nav-arrow"
           @click="incrementSelection(selectedSeg + 1)">
@@ -28,11 +32,17 @@
 
         <div :key="selectedCat.cat">
 
-          <h3>{{ selectedCat.cat }}</h3>
+          <div class="title-large-screen">
+            <h3>
+              {{ selectedCat.cat }}
+            </h3>
+          </div>
 
-          <p class="slider-card-text">
-            {{ excerpt }}
-          </p>
+          <div class="slider-card-text">
+            <p>
+              {{ excerpt }}
+            </p>
+          </div>
 
           <div v-if="logos" class="logo-wrapper">
 
@@ -60,19 +70,6 @@
 // ===================================================================== Imports
 import PrevArrow from '@/components/Icons/PrevArrow'
 import NextArrow from '@/components/Icons/NextArrow'
-
-// =================================================================== Functions
-const getLogoPaths = (instance) => {
-  instance.iconPaths = [
-    'actyx.svg',
-    'alpress.svg',
-    'anytype.svg',
-    'audius.svg',
-    'berty.svg',
-    'bravebrowser.svg',
-    'pinata.svg'
-  ]
-}
 
 // ====================================================================== Export
 export default {
@@ -106,12 +103,6 @@ export default {
     }
   },
 
-  data () {
-    return {
-      iconPaths: []
-    }
-  },
-
   computed: {
     logos () {
       if (this.selectedCat.logos.length) {
@@ -121,8 +112,8 @@ export default {
     }
   },
 
-  mounted () {
-    getLogoPaths(this)
+  beforeDestroy () {
+    if (this.resize) { window.removeEventListener('resize', this.resize) }
   },
 
   methods: {
@@ -139,34 +130,58 @@ export default {
 <style lang="scss" scoped>
 // ////////////////////////////////////////////////////////////////////// Slider
 .slider-container {
+  min-width: 16rem;
+  flex: 1 1 10rem;
   display: flex;
-  width: 17rem;
   align-items: center;
-  padding: 1.0rem 1.5rem;
-  padding-left: 0.5rem;
 }
 
 .slider-card {
   @include borderRadius3;
   background-color: #ffffff;
   width: 100%;
-  min-height: 20rem;
-  padding: 1rem;
+  padding: 2rem;
   position: relative;
   align-items: center;
   h3 {
-    line-height: 1.5;
+    @include leading_Small;
     font-weight: 500;
-    margin-bottom: 1rem;
+    @include small {
+      @include fontSize_Small;
+    }
+  }
+}
+
+.title-large-screen {
+  margin-bottom: 1rem;
+  @include medium {
+    display: none;
+  }
+}
+
+.title-between-buttons {
+  display: none;
+  @include medium {
+    display: inline;
   }
 }
 
 .slider-card-text {
   @include fontSize_Small;
   font-weight: 400;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
   line-height: 1.2;
   color: #494949;
+  @include small {
+    max-width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @include tiny {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .slide-nav {
@@ -174,7 +189,13 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin: 0.75rem 0;
+  margin-bottom: 0.75rem;
+  @include small {
+    justify-content: space-between;
+    max-width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .nav-arrow {
@@ -189,6 +210,9 @@ export default {
   border: none;
   font-weight: 900;
   width: 3.75rem;
+  @include small {
+    width: auto;
+  }
   &:hover {
     color: rgb(2, 28, 54);
   }
@@ -220,32 +244,32 @@ export default {
 .logo-wrapper {
   > img {
     margin: 0 0.75rem;
+    width: auto;
     max-width: 25%;
     max-height: 2.5rem;
   }
 }
 
 .view-all {
-  width: 70%;
-  color: white;
-  background-color: rgb(2, 28, 54);
-  bottom: 0px;
-  transform: translateY(50%);
-}
-
-.button {
   position: absolute;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
+  padding: 0.25em 4.0em;
   left: 0;
   right: 0;
+  bottom: 0px;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   font-weight: 500;
   text-align: center;
-  padding: 0.25em 2.0em;
   text-decoration: none;
+  color: white;
+  background-color: rgb(2, 28, 54);
   border: none;
   @include borderRadius3;
+  transform: translateY(50%);
+  @include medium {
+    transform: translateY(0%);
+    position: relative;
+  }
   &:focus {
     outline: none;
     box-shadow: none;

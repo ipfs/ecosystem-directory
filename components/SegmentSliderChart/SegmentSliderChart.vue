@@ -119,7 +119,8 @@ const createLabels = (projects) => {
           chars: l,
           above: Math.round(Math.random() * 1.4),
           force: frc,
-          logos: selection
+          logos: selection,
+          display: true
         })
       }
     }

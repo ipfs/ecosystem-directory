@@ -302,9 +302,6 @@ h2, .h2 {
 
 h3, .h3 {
   @include fontSize_Large;
-  @include small {
-    @include fontSize_Medium;
-  }
 }
 
 h4, .h4 {
