@@ -202,16 +202,16 @@ export default {
 }
 
 #segment-slider-chart {
+  margin-top: 3rem;
   margin-bottom: 5rem;
+  @include small {
+    margin-top: calc(4.1665vw / 2);
+  }
 }
 
 #section-filter,
 #section-featured-slider {
   margin-bottom: 1rem;
-}
-
-#segment-slider-chart {
-  margin-top: 3rem;
 }
 
 .project-filters {

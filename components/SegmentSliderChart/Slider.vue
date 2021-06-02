@@ -113,7 +113,6 @@ export default {
   },
 
   beforeDestroy () {
-    if (this.load) { window.removeEventListener('load', this.load) }
     if (this.resize) { window.removeEventListener('resize', this.resize) }
   },
 
