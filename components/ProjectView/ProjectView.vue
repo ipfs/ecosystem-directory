@@ -326,9 +326,9 @@ export default {
 }
 
 // ///////////////////////////////////////////////////////////// Toggle Controls
-.activeButton {
-  background-color: #052437;
-  color: #FFFFFF;
+button.button.type-C.activeButton {
+  background-color: $tiber;
+  color: white;
 }
 
 #card-filters-toggle {
