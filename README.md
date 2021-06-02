@@ -140,7 +140,7 @@ Keys should be retained when not in  use. This ensures that if anyone wants to a
 
 ### Schema
 
-The schema can be found in `@/content/data/project-schema.js` and _must_ be updated if the schema every changes. The `$setProjectDefaults()` global method (found in `@/plugins/global-methods.js`) uses `project-schema.js` in order to perform type checking.
+The schema can be found in `@/content/data/project-schema.js` and _must_ be updated if the schema ever changes. The `$setProjectDefaults()` global method (found in `@/plugins/global-methods.js`) uses `project-schema.js` in order to perform type checking.
 
 ```ts
 {
