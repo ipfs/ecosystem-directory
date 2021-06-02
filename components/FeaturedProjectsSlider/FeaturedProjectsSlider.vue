@@ -129,6 +129,9 @@ export default {
 #slider {
   margin: 0 5%;
   overflow: hidden;
+  @include small {
+    margin: 0;
+  }
 }
 
 #card-row {
