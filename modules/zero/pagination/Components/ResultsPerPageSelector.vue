@@ -74,6 +74,11 @@ export default {
       type: [Boolean, Array],
       required: false,
       default: false
+    },
+    paramsOnLoad: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
 
@@ -134,17 +139,23 @@ export default {
       if (!isNaN(selection)) {
         this.setDisplay(selection)
         this.calculateTotalPages()
-        if (this.page > this.totalPages) {
-          if (this.totalPages !== 1) {
-            this.$router.push({
-              query: { page: this.totalPages }
-            })
+        let obj
+        if (this.totalPages !== 1) {
+          if (this.page !== 1) {
+            if (this.page > this.totalPages) {
+              obj = { query: { page: this.totalPages, resultsPerPage: this.display } }
+            } else {
+              obj = { query: { page: this.page, 'results-per-page': this.display } }
+            }
           } else {
-            this.$router.push('/')
+            obj = { query: { 'results-per-page': this.display } }
           }
+        } else {
+          obj = { query: { 'results-per-page': 'all' } }
         }
+        this.$router.push(obj)
+        this.closed = true
       }
-      this.closed = true
     }
   }
 }
