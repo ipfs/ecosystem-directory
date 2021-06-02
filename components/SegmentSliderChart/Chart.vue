@@ -1,7 +1,8 @@
 <template>
   <div ref="chartFlex" class="chart-container">
     <div ref="segmentsCtn" class="segments-container">
-      <div ref="chartTitle" class="chart-title">
+
+      <div class="chart-title">
         <h3>Explore IPFS</h3>
       </div>
 
@@ -45,6 +46,7 @@
 
         </div>
       </div>
+
     </div>
   </div>
 </template>
@@ -180,14 +182,12 @@ export default {
       return next()
     },
     handleResize () {
-      if (this.$refs.chartFlex.clientWidth > 415) {
+      if (window.matchMedia('(max-width: 64rem)').matches) {
+        this.$refs.segmentsCtn.classList.remove('segments-large')
+        this.$refs.segmentsCtn.classList.add('segments-tiny')
+      } else {
         this.$refs.segmentsCtn.classList.remove('segments-tiny')
         this.$refs.segmentsCtn.classList.add('segments-large')
-        this.$refs.chartTitle.style.padding = '4.75rem 0'
-        this.$refs.chartTitle.style.visibility = 'hidden'
-        for (let i = 0; i < this.segments.length; i++) {
-          this.segments[i].display = true
-        }
         this.forceLabelsOut(() => {
           this.repositionOverlappingLabels(() => {
             this.reduceOffset(25, () => {
@@ -213,14 +213,6 @@ export default {
             })
           })
         })
-      } else {
-        for (let i = 0; i < this.segments.length; i++) {
-          this.segments[i].display = false
-        }
-        this.$refs.segmentsCtn.classList.remove('segments-large')
-        this.$refs.segmentsCtn.classList.add('segments-tiny')
-        this.$refs.chartTitle.style.padding = '2rem 0'
-        this.$refs.chartTitle.style.visibility = 'visible'
       }
     }
   }
@@ -231,13 +223,19 @@ export default {
 // ///////////////////////////////////////////////////////////////////// General
 .chart-container {
   position: relative;
-  flex: 4 1 $tiny;
+  flex: 3 1 42.75rem;
 }
 
 .segments-container {
   @include borderRadius3;
   position: relative;
   padding: 0 2.5rem;
+  @include medium {
+    padding-bottom: 7rem;
+  }
+  @include small {
+    padding-bottom: 0;
+  }
   > div {
     margin: 2px;
   }
@@ -247,6 +245,14 @@ export default {
   font-family: $fontMontserrat;
   color: #181818;
   visibility: hidden;
+  padding: 4.75rem 0;
+  @include medium {
+    padding: 2.5rem 0;
+  }
+  @include small {
+    visibility: visible;
+    padding: 2rem 0;
+  }
 }
 
 .segments-row {
@@ -297,7 +303,10 @@ export default {
   white-space: normal;
   font-size: 10pt;
   text-align: left;
-  transform: translateX(-3px)
+  transform: translateX(-3px);
+  @include small {
+    display: none;
+  }
 }
 
 .segment-line {
@@ -305,6 +314,9 @@ export default {
   left: 50%;
   background-color: rgba(0, 0, 0, 0.1);
   width: 2px;
+  @include small {
+    display: none;
+  }
 }
 
 .noselect {

@@ -13,7 +13,7 @@
             height="15" />
         </button>
 
-        <h3 v-if="tiny">
+        <h3 class="title-between-buttons">
           {{ selectedCat.cat }}
         </h3>
 
@@ -32,15 +32,17 @@
 
         <div :key="selectedCat.cat">
 
-          <div v-if="!tiny" class="title-large-screen">
+          <div class="title-large-screen">
             <h3>
               {{ selectedCat.cat }}
             </h3>
           </div>
 
-          <p class="slider-card-text">
-            {{ excerpt }}
-          </p>
+          <div class="slider-card-text">
+            <p>
+              {{ excerpt }}
+            </p>
+          </div>
 
           <div v-if="logos" class="logo-wrapper">
 
@@ -68,15 +70,6 @@
 // ===================================================================== Imports
 import PrevArrow from '@/components/Icons/PrevArrow'
 import NextArrow from '@/components/Icons/NextArrow'
-
-// =================================================================== Functions
-const tinyScreenSlider = (instance) => {
-  if (window.screen.width < 416) {
-    instance.tiny = true
-  } else {
-    instance.tiny = false
-  }
-}
 
 // ====================================================================== Export
 export default {
@@ -110,14 +103,6 @@ export default {
     }
   },
 
-  data () {
-    return {
-      load: false,
-      resize: false,
-      tiny: false
-    }
-  },
-
   computed: {
     logos () {
       if (this.selectedCat.logos.length) {
@@ -125,13 +110,6 @@ export default {
       }
       return false
     }
-  },
-
-  mounted () {
-    this.load = () => { tinyScreenSlider(this) }
-    window.addEventListener('load', this.load)
-    this.resize = () => { tinyScreenSlider(this) }
-    window.addEventListener('resize', this.resize)
   },
 
   beforeDestroy () {
@@ -177,6 +155,16 @@ export default {
 
 .title-large-screen {
   margin-bottom: 1rem;
+  @include medium {
+    display: none;
+  }
+}
+
+.title-between-buttons {
+  display: none;
+  @include medium {
+    display: inline;
+  }
 }
 
 .slider-card-text {
@@ -185,6 +173,16 @@ export default {
   margin-bottom: 2rem;
   line-height: 1.2;
   color: #494949;
+  @include small {
+    max-width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @include tiny {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .slide-nav {
@@ -192,9 +190,12 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin: 0.75rem 0;
+  margin-bottom: 0.75rem;
   @include small {
     justify-content: space-between;
+    max-width: 50%;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
@@ -251,26 +252,25 @@ export default {
 }
 
 .view-all {
-  width: 70%;
-  color: white;
-  background-color: rgb(2, 28, 54);
-  bottom: 0px;
-  transform: translateY(50%);
-}
-
-.button {
   position: absolute;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
+  padding: 0.25em 4.0em;
   left: 0;
   right: 0;
+  bottom: 0px;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   font-weight: 500;
   text-align: center;
-  padding: 0.25em 2.0em;
   text-decoration: none;
+  color: white;
+  background-color: rgb(2, 28, 54);
   border: none;
   @include borderRadius3;
+  transform: translateY(50%);
+  @include medium {
+    transform: translateY(0%);
+    position: relative;
+  }
   &:focus {
     outline: none;
     box-shadow: none;
