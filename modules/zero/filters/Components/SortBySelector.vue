@@ -1,13 +1,13 @@
 <template>
   <component :is="rootNode">
 
-    <div class="dropdown dropdown-selector-wrapper" @click.stop="toggleDropDown()">
+    <div class="dropdown-button" @click.stop="toggleDropDown()">
 
       <label>
         {{ msg + selected }}
       </label>
 
-      <button class="dropdown dropdown-button">
+      <button class="dropdown dropdown-toggle">
 
         <slot name="dropdown-icon"></slot>
 
@@ -36,7 +36,8 @@
 
 <script>
 // ===================================================================== Imports
-// import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
+import CloneDeep from 'lodash/cloneDeep'
 
 // ===================================================================== Functions
 const closeAllSelect = (e, instance) => {
@@ -75,13 +76,29 @@ export default {
     return {
       closed: true,
       unfocus: false,
-      selected: ''
+      selected: 'none'
     }
   },
 
   computed: {
+    ...mapGetters({
+      collection: 'filters/collection'
+    }),
     options () {
-      return this.displayOptions
+      const displayOptions = []
+      for (let i = 0; i < this.displayOptions.length; i++) {
+        displayOptions.push(this.displayOptions[i])
+      }
+      displayOptions.push('none')
+      return displayOptions
+    }
+  },
+
+  watch: {
+    selected (val) {
+      if (val === 'A-Z') {
+        this.sortAlphabetically()
+      }
     }
   },
 
@@ -95,12 +112,20 @@ export default {
   },
 
   methods: {
+    ...mapActions({
+      setCollection: 'filters/setCollection'
+    }),
     toggleDropDown () {
       this.closed = !this.closed
     },
     optionSelected (val) {
       this.selected = val
       this.closed = true
+    },
+    sortAlphabetically () {
+      const cloned = CloneDeep(this.collection)
+      cloned.sort((a, b) => a.name.localeCompare(b.name))
+      this.setCollection(cloned)
     }
   }
 }
@@ -119,10 +144,14 @@ export default {
 }
 
 .hidden {
-  display: none;
+  visibility: hidden;
 }
 
 .dropdown-button {
+  padding: 0.25rem 1.0rem;
+}
+
+.dropdown-toggle {
   transform: translateY(-5%);
   opacity: 0.5;
   margin-left: 0.5rem;
@@ -133,17 +162,19 @@ export default {
 }
 
 .dropdown-list {
-  background-color: #ffffff;
-  position: absolute;
-  right: 0.5rem;
-  top: 2.5rem;
-  @include borderRadius3;
+  position: relative;
+  width: 100%;
+  top: -2px;
   overflow: hidden;
+  text-align: right;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border-radius: 0 0 0.3125rem 0.3125rem;
   z-index: 1000;
 }
 
 .dropdown-item {
-  padding: 0.25rem 0.75rem;
+  padding: 0.25rem 1.0rem;
   &:hover {
     cursor: pointer;
     text-decoration: underline;

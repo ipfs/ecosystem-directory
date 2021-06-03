@@ -38,7 +38,7 @@
 
           <SortBySelector
             class="sort-by-root"
-            :display-options="['A-Z', 'Time on IPFS', 'none']">
+            :display-options="['A-Z', 'Time on IPFS']">
             <template #dropdown-icon>
               <SelectorToggle stroke="#052437" />
             </template>
@@ -362,7 +362,6 @@ button.button.type-C.activeButton {
     height: 2.25rem;
     background-color: #FFFFFF;
     white-space: nowrap;
-    padding: 0.25rem 1.0rem;
     margin: 0 1rem;
     cursor: pointer;
     font-family: $fontInter;
