@@ -34,18 +34,29 @@
 
         </div>
 
-        <div id="radio-view-toggle" @click.stop="toggleListGridView">
+        <div class="radio-sort-wrapper">
 
-          <div ref="radio" class="selected-blackground"></div>
+          <SortBySelector
+            class="sort-by-root"
+            :display-options="['A-Z', 'Time on IPFS', 'none']">
+            <template #dropdown-icon>
+              <SelectorToggle stroke="#052437" />
+            </template>
+          </SortBySelector>
 
-          <ListView
-            class="radio-toggle-item"
-            :stroke="listActive ? '#FFFFFF' : '#052437'" />
+          <div id="radio-view-toggle" @click.stop="toggleListGridView">
 
-          <GridView
-            class="radio-toggle-item"
-            :stroke="!listActive ? '#FFFFFF' : '#052437'" />
+            <div ref="radio" class="selected-blackground"></div>
 
+            <ListView
+              class="radio-toggle-item"
+              :stroke="listActive ? '#FFFFFF' : '#052437'" />
+
+            <GridView
+              class="radio-toggle-item"
+              :stroke="!listActive ? '#FFFFFF' : '#052437'" />
+
+          </div>
         </div>
 
       </div>
@@ -154,6 +165,7 @@ import FiltersToggle from '@/modules/zero/core/Components/Icons/FiltersToggle'
 import ListView from '@/components/Icons/ListView'
 import GridView from '@/components/Icons/GridView'
 import FilterBar from '@/modules/zero/core/Components/FilterBar'
+import SortBySelector from '@/modules/zero/filters/Components/SortBySelector'
 import SearchIcon from '@/components/Icons/SearchIcon'
 import Close from '@/components/Icons/Close'
 import FilterPanel from '@/components/FilterPanel/FilterPanel'
@@ -189,7 +201,8 @@ export default {
     FilterPanel,
     SearchIcon,
     Close,
-    ProjectCard
+    ProjectCard,
+    SortBySelector
   },
 
   props: {
@@ -337,6 +350,25 @@ button.button.type-C.activeButton {
   padding: 0 0.0rem 1rem;
   margin-top: 1rem;
   margin-bottom: 3rem;
+}
+
+.radio-sort-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  .sort-by-root {
+    @include borderRadius3;
+    position: relative;
+    height: 2.25rem;
+    background-color: #FFFFFF;
+    white-space: nowrap;
+    padding: 0.25rem 1.0rem;
+    margin: 0 1rem;
+    cursor: pointer;
+    font-family: $fontInter;
+    font-weight: 400;
+    line-height: 1.7;
+  }
 }
 
 #radio-view-toggle {
