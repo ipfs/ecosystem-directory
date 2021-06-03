@@ -37,6 +37,7 @@
 <script>
 // ===================================================================== Imports
 import { mapGetters, mapActions } from 'vuex'
+import CloneDeep from 'lodash/cloneDeep'
 
 // ===================================================================== Functions
 const closeAllSelect = (e, instance) => {
@@ -75,7 +76,7 @@ export default {
       required: false,
       default: false
     },
-    paramsOnLoad: {
+    addParamOnLoad: {
       type: Boolean,
       required: false,
       default: false
@@ -114,6 +115,12 @@ export default {
   },
 
   mounted () {
+    if (this.$route.query.results) {
+      this.setDisplay(parseInt(this.$route.query.results))
+    }
+    if (this.addParamOnLoad && this.display) {
+      this.optionSelected(this.display)
+    }
     this.unfocus = (e) => { closeAllSelect(e, this) }
     window.addEventListener('click', this.unfocus)
   },
@@ -139,21 +146,15 @@ export default {
       if (!isNaN(selection)) {
         this.setDisplay(selection)
         this.calculateTotalPages()
-        let obj
-        if (this.totalPages !== 1) {
-          if (this.page !== 1) {
-            if (this.page > this.totalPages) {
-              obj = { query: { page: this.totalPages, resultsPerPage: this.display } }
-            } else {
-              obj = { query: { page: this.page, 'results-per-page': this.display } }
-            }
-          } else {
-            obj = { query: { 'results-per-page': this.display } }
-          }
-        } else {
-          obj = { query: { 'results-per-page': 'all' } }
+        const cloned = CloneDeep(this.$route.query)
+        if (this.page > this.totalPages) {
+          cloned.page = this.totalPages
         }
-        this.$router.push(obj)
+        if (cloned.page === 1) {
+          delete cloned.page
+        }
+        cloned.results = this.display
+        this.$router.push({ query: cloned })
         this.closed = true
       }
     }
