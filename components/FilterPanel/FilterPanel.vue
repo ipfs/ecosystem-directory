@@ -335,6 +335,9 @@ export default {
 .filter-panel-content {
   margin-right: 2.5rem;
   white-space: nowrap;
+  @include tiny {
+    margin: 0;
+  }
 }
 
 .flip {
@@ -356,6 +359,8 @@ export default {
 }
 
 .bottom-buttons {
+  display: flex;
+  flex-wrap: wrap;
   margin-top: 2rem;
   margin-bottom: 4rem;
   font-family: $fontMontserrat;
@@ -364,11 +369,12 @@ export default {
     @include borderRadius3;
     padding: 0.4rem 1.2rem;
     font-size: 10pt;
+    margin: 0.5rem 1rem 0.5rem 0;
   }
   .clear-selected {
     background-color: $blackHaze;
     color: $tiber;
-    margin-right: 1rem;
+    margin-left: 0;
   }
   .done {
     background-color: $tiber;
@@ -379,6 +385,9 @@ export default {
 
 // //////////////////////////////////////////////////////////////// Filter Panel
 .filter-category {
+  &.container {
+    margin-bottom: 2rem;
+  }
   &:hover {
     cursor: pointer;
   }

@@ -67,6 +67,8 @@ export default {
       display: flex;
       flex-direction: row;
       background-color: #FFFFFF;
+      height: 100%;
+      min-width: 160px;
     }
     .thumbnail {
       width: 7rem;
