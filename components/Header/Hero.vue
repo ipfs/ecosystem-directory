@@ -18,48 +18,50 @@
       :class="`panel-bottom transition ${headerState}`">
 
       <div class="grid-noGutter">
-        <div :class="{'headings-wrapper': true, 'results': (headerState === 'filters-applied')}">
+        <div class="col-9_sm-12">
+          <div :class="{'headings-wrapper': true, 'results': (headerState === 'filters-applied')}">
 
-          <div v-if="(headerState === 'index-view')" class="index-heading">
-            <h1>
-              {{ pageData.heading }}
-            </h1>
+            <div v-if="(headerState === 'index-view')" class="index-heading">
+              <h1>
+                {{ pageData.heading }}
+              </h1>
+            </div>
+
+            <div v-if="(headerState === 'filters-view')" class="filters-heading">
+              <h1>
+                All Projects
+                <span class="display-total">
+                  ({{ projects.length }})
+                </span>
+              </h1>
+            </div>
+
+            <div v-if="(headerState === 'filters-applied')" class="filters-heading">
+              <h1>
+                Filtered Results
+                <span class="display-total">
+                  ({{ filteredCollection.length ? filteredCollection.length : '0' }})
+                </span>
+              </h1>
+            </div>
+
+            <div v-if="(headerState === 'index-view')" class="index-subheading">
+              {{ pageData.subheading }}
+            </div>
+
+            <div v-if="(headerState === 'filters-view')" class="filters-subheading">
+              Showing all projects, no filters selected
+            </div>
+
+            <div v-if="(headerState === 'filters-applied')" class="filters-subheading">
+              <ul>
+                <li v-for="item in categories" :key="item.category">
+                  {{ item.category }} <span class="tags">{{ item.tags }}</span>
+                </li>
+              </ul>
+            </div>
+
           </div>
-
-          <div v-if="(headerState === 'filters-view')" class="filters-heading">
-            <h1>
-              All Projects
-              <span class="display-total">
-                ({{ projects.length }})
-              </span>
-            </h1>
-          </div>
-
-          <div v-if="(headerState === 'filters-applied')" class="filters-heading">
-            <h1>
-              Filtered Results
-              <span class="display-total">
-                ({{ filteredCollection.length ? filteredCollection.length : '0' }})
-              </span>
-            </h1>
-          </div>
-
-          <div v-if="(headerState === 'index-view')" class="index-subheading">
-            {{ pageData.subheading }}
-          </div>
-
-          <div v-if="(headerState === 'filters-view')" class="filters-subheading">
-            Showing all projects, no filters selected
-          </div>
-
-          <div v-if="(headerState === 'filters-applied')" class="filters-subheading">
-            <ul>
-              <li v-for="item in categories" :key="item.category">
-                {{ item.category }} <span class="tags">{{ item.tags }}</span>
-              </li>
-            </ul>
-          </div>
-
         </div>
       </div>
 
@@ -153,23 +155,6 @@ export default {
   padding: 0 0 3rem 0;
 }
 
-.headings-wrapper {
-  flex-basis: 50%;
-  max-width: 50%;
-  @include mini {
-    flex-basis: 100%;
-    max-width: 100%;
-  }
-  &.results {
-    flex-basis: 50%;
-    max-width: 50%;
-    @include medium {
-      flex-basis: 100%;
-      max-width: 100%;
-    }
-  }
-}
-
 .index-subheading,
 .filters-subheading {
   @include fontSize_Large;
@@ -186,20 +171,10 @@ export default {
   }
 }
 
-.index-subheading {
-  @include mini {
-    margin: 0 1.5rem;
-  }
-}
 // ////////////////////////////////////////////////////////////////// Index View
 .index-view {
   h1 {
     font-weight: 600;
-  }
-  &.hero-breadcrumbs {
-    @include mini {
-      margin: 0 1.5rem;
-    }
   }
 }
 
@@ -218,11 +193,8 @@ export default {
 }
 
 .index-heading {
-  @include mini {
-    margin: 0 1.5rem;
-    flex-basis: 100%;
-    max-width: 100%;
-    h1 {
+  h1 {
+    @include small {
       @include fontSize_ExtraExtraLarge;
       @include leading_Mini;
       margin: 1rem 0;
@@ -237,5 +209,4 @@ export default {
     color: #181818;
   }
 }
-
 </style>
