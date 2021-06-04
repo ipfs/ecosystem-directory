@@ -108,6 +108,7 @@
               :key="project.name"
               :format="(listActive ? 'list-view' : 'block-view')"
               :title="project.name"
+              :slug="project.slug"
               :description="project.description.short"
               :logo="project.logo.icon" />
           </div>
@@ -328,9 +329,9 @@ export default {
 }
 
 // ///////////////////////////////////////////////////////////// Toggle Controls
-.active-button {
-  background-color: #052437;
-  color: #FFFFFF;
+button.button.type-C.active-button {
+  background-color: $tiber;
+  color: white;
 }
 
 .filter-toggle {
