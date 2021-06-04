@@ -15,6 +15,7 @@
             v-for="(project, index) in featured"
             :key="index"
             :title="project.name"
+            :slug="project.slug"
             :description="project.description.short"
             :logo="project.logo.icon"
             :style="{ width: `${cardWidth}px` }"

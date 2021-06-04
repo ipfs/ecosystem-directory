@@ -28,6 +28,7 @@ const actions = {
         const id = Projects[i]
         try {
           const project = require(`@/content/projects/${id}.json`)
+          project.slug = id
           compiled.push(project)
         } catch (e) {
           console.log(e)
