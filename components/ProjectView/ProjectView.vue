@@ -71,7 +71,9 @@
             All Filters
           </h4>
 
-          <FilterBar filter-value="">
+          <FilterBar
+            :filter-value="searchQuery"
+            @setFilterValue="setSearchQuery">
             <template #icon>
               <SearchIcon />
             </template>
@@ -207,7 +209,9 @@ export default {
       paginationDisplay: 20,
       filterPanel: false,
       totalFilters: 0,
-      listActive: false
+      listActive: false,
+      resize: false,
+      searchQuery: ''
     }
   },
 
