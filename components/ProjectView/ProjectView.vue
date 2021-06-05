@@ -10,13 +10,13 @@
           <Button
             type="C"
             text="Filters"
-            :class="{ 'filter-toggle' : true, 'active-button': filtersActive }"
+            :class="{ 'filter-toggle' : true, 'active-button': filterPanel }"
             @clicked="toggleFilterPanel">
 
             <template #icon-before>
               <FiltersToggle
                 class="font-inter"
-                :stroke="filtersActive ? '#FFFFFF' : '#052437'" />
+                :stroke="filterPanel ? '#FFFFFF' : '#052437'" />
             </template>
 
           </Button>
@@ -293,14 +293,8 @@ export default {
     }),
     toggleFilterPanel () {
       this.filterPanel = !this.filterPanel
-      if (!this.totalFilters) {
-        this.setFiltersActive(this.filterPanel)
-        if (this.filterPanel) {
-          this.$router.push({ path: '/', query: { filters: 'enabled' } })
-          window.scrollTo(0, 0)
-        } else {
-          this.$router.push(this.$route.path)
-        }
+      if (!this.filtersActive) {
+        this.$emit('init-filters')
       }
     },
     toggleListGridView () {
