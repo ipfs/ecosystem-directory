@@ -108,7 +108,7 @@
               v-for="project in paginated"
               :key="project.name"
               :format="(listActive ? 'list-view' : 'block-view')"
-              :class="`col-${num * (listActive ? 2 : 1)}`"
+              :class="`col-${num}`"
               :title="project.name"
               :slug="project.slug"
               :description="project.description.short"
@@ -177,16 +177,23 @@ const resetCardDisplayMargin = (element) => {
 
 const setColumnWidth = (instance, element) => {
   if (element) {
+    if (instance.listActive) {
+      if (element.clientWidth <= 640) {
+        if (instance.num !== 12) { instance.num = 12 }
+      } else {
+        if (instance.num !== 6) { instance.num = 6 }
+      }
+    } else {
       if (element.clientWidth <= 850) {
         if (element.clientWidth <= 640) {
           if (instance.num !== 6) { instance.num = 6 }
         } else {
-          const num = instance.listActive ? 6 : 4
-          if (instance.num !== num) { instance.num = num }
+          if (instance.num !== 4) { instance.num = 4 }
         }
       } else {
         if (instance.num !== 3) { instance.num = 3 }
       }
+    }
   }
 }
 
@@ -321,6 +328,7 @@ export default {
     }),
     toggleFilterPanel () {
       this.filterPanel = !this.filterPanel
+      setTimeout(() => { setColumnWidth(this, this.$refs.cardDisplay) }, 500)
       if (!this.totalFilters) {
         this.setFiltersActive(this.filterPanel)
         if (this.filterPanel) {
@@ -333,6 +341,7 @@ export default {
     },
     toggleListGridView () {
       this.listActive = !this.listActive
+      setColumnWidth(this, this.$refs.cardDisplay)
       this.$refs.radio.style.left = this.listActive ? '0%' : '50%'
     },
     updateTotalFilters (val) {
@@ -551,34 +560,14 @@ img {
   &.layout-list {
     flex-flow: row wrap;
   }
-  &.layout-filter-panel-open {
-    .project-card {
-      &.block-view {
-        // width: 33.333%;
-        .thumbnail {
-          height: 11.25rem;
-        }
-      }
-      &.list-view {
-        // width: 25%;
-      }
-    }
-  }
 }
 
 ::v-deep .project-card {
   &.block-view {
-    // flex: 1 1 250px;
     margin-bottom: 1rem;
-    // @include tiny {
-    //   flex: 1 1 0;
-    // }
-  }
-  &.list-view {
-    // flex: 1 1 300px;
-    // flex-basis: 33.333%;
-    // @include tiny {
-    // }
+    .thumbnail {
+      height: 11.25rem;
+    }
   }
 }
 
