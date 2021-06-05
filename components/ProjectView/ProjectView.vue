@@ -240,8 +240,9 @@ export default {
       if (this.searchQuery) {
         for (let i = 0; i < len; i++) {
           const name = projects[i].name
+          const org = projects[i].org
           if (typeof name === 'string') {
-            if (regex.test(name)) {
+            if (regex.test(name) || regex.test(org)) {
               arr.push(projects[i])
             }
           }
