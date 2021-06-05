@@ -102,7 +102,6 @@
           :collection="filteredProjects"
           class="paginate-root">
 
-          <!-- <div :class="['card-list', listActive ? 'layout-list' : 'layout-grid', { 'layout-filter-panel-open': filterPanel }]"> -->
           <div class="card-list grid">
             <ProjectCard
               v-for="project in paginated"
@@ -310,7 +309,7 @@ export default {
     window.addEventListener('resize', this.resize)
 
     setColumnWidth(this, this.$refs.cardDisplay)
-    setTimeout(() => {setColumnWidth(this, this.$refs.cardDisplay)}, 500)
+    setTimeout(() => { setColumnWidth(this, this.$refs.cardDisplay) }, 500)
   },
 
   beforeDestroy () {
