@@ -6,7 +6,7 @@
         <section v-if="!filtersActive" key="segment">
           <div ref="segmentSlider">
             <SegmentSliderChart
-              v-if="!(this.$route.query.filters === 'enabled')"
+              v-if="!filtersActive"
               class="grid-center"
               @init="segment" />
           </div>
@@ -31,7 +31,7 @@
           </div>
         </section>
 
-        <section v-if="!(this.$route.query.filters === 'enabled') && pageData" id="section-filter" key="heading">
+        <section v-if="!filtersActive && pageData" id="section-filter" key="heading">
           <div ref="filterHeading" class="grid-center">
 
             <div class="col-12">
@@ -67,7 +67,7 @@ import ProjectView from '@/components/ProjectView/ProjectView'
 
 // =================================================================== Functions
 const resetSectionHeight = (instance) => {
-  if (!instance.filtersActive) {
+  if (!instance.filtersActive && instance.segmentSlider && instance.featuredSection) {
     const x = instance.$refs.segmentSlider.offsetHeight
     const y = instance.$refs.featuredSection.offsetHeight
     const z = instance.$refs.filterHeading.offsetHeight

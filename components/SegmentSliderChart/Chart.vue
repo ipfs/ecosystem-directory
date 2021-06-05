@@ -110,8 +110,10 @@ export default {
       return 'block-segment' + ' ' + x
     },
     forceLabelsOut (next) {
-      for (let ind = 0; ind < this.segments.length; ind++) {
-        this.segments[ind].pos = this.segments[ind].offset + this.segments[ind].force * (20000 / this.$refs.chartFlex.clientWidth)
+      if (this.$refs.chartFlex) {
+        for (let ind = 0; ind < this.segments.length; ind++) {
+          this.segments[ind].pos = this.segments[ind].offset + this.segments[ind].force * (20000 / this.$refs.chartFlex.clientWidth)
+        }
       }
       return next()
     },
