@@ -310,6 +310,7 @@ export default {
     window.addEventListener('resize', this.resize)
 
     setColumnWidth(this, this.$refs.cardDisplay)
+    setTimeout(() => {setColumnWidth(this, this.$refs.cardDisplay)}, 500)
   },
 
   beforeDestroy () {
