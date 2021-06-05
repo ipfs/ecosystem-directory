@@ -102,11 +102,13 @@
           :collection="filteredProjects"
           class="paginate-root">
 
-          <div :class="['card-list', listActive ? 'layout-list' : 'layout-grid', { 'layout-filter-panel-open': filterPanel }]">
+          <!-- <div :class="['card-list', listActive ? 'layout-list' : 'layout-grid', { 'layout-filter-panel-open': filterPanel }]"> -->
+          <div class="card-list grid">
             <ProjectCard
               v-for="project in paginated"
               :key="project.name"
               :format="(listActive ? 'list-view' : 'block-view')"
+              :class="`col-${num * (listActive ? 2 : 1)}`"
               :title="project.name"
               :slug="project.slug"
               :description="project.description.short"
@@ -173,6 +175,21 @@ const resetCardDisplayMargin = (element) => {
   element.style.marginRight = mr
 }
 
+const setColumnWidth = (instance, element) => {
+  if (element) {
+      if (element.clientWidth <= 850) {
+        if (element.clientWidth <= 640) {
+          if (instance.num !== 6) { instance.num = 6 }
+        } else {
+          const num = instance.listActive ? 6 : 4
+          if (instance.num !== num) { instance.num = num }
+        }
+      } else {
+        if (instance.num !== 3) { instance.num = 3 }
+      }
+  }
+}
+
 // ====================================================================== Export
 export default {
   name: 'ProjectView',
@@ -207,7 +224,9 @@ export default {
       paginationDisplay: 20,
       filterPanel: false,
       totalFilters: 0,
-      listActive: false
+      listActive: false,
+      resize: false,
+      num: 3
     }
   },
 
@@ -279,6 +298,15 @@ export default {
   mounted () {
     resetCardDisplayMargin(this.$refs.cardDisplay)
     this.filterPanel = (this.$route.query.filters === 'enabled')
+
+    this.resize = () => { setColumnWidth(this, this.$refs.cardDisplay) }
+    window.addEventListener('resize', this.resize)
+
+    setColumnWidth(this, this.$refs.cardDisplay)
+  },
+
+  beforeDestroy () {
+    if (this.resize) { window.removeEventListener('resize', this.resize) }
   },
 
   methods: {
@@ -516,7 +544,7 @@ img {
 }
 
 ::v-deep .card-list {
-  display: flex;
+  width: inherit;
   &.layout-grid {
     flex-flow: row wrap;
   }
@@ -526,13 +554,13 @@ img {
   &.layout-filter-panel-open {
     .project-card {
       &.block-view {
-        width: 33.333%;
+        // width: 33.333%;
         .thumbnail {
           height: 11.25rem;
         }
       }
       &.list-view {
-        width: 25%;
+        // width: 25%;
       }
     }
   }
@@ -540,21 +568,17 @@ img {
 
 ::v-deep .project-card {
   &.block-view {
-    min-width: 160px;
-    flex: 1 1 250px;
+    // flex: 1 1 250px;
     margin-bottom: 1rem;
-    @include tiny {
-      flex: 1 1 0;
-      max-width: 200px;
-    }
+    // @include tiny {
+    //   flex: 1 1 0;
+    // }
   }
   &.list-view {
-    flex: 1 1 300px;
-    flex-basis: 33.333%;
-    max-width: 50%;
-    @include tiny {
-      max-width: 100%;
-    }
+    // flex: 1 1 300px;
+    // flex-basis: 33.333%;
+    // @include tiny {
+    // }
   }
 }
 
