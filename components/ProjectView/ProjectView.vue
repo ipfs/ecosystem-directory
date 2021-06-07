@@ -37,7 +37,8 @@
         <div class="radio-sort-wrapper">
 
           <SortBySelector
-            class="sort-by-root"
+            class="sort-by-selector"
+            :sort-options="taxonomyData.sort"
             :display-options="['A-Z', 'Time on IPFS']">
             <template #dropdown-icon>
               <SelectorToggle stroke="#052437" />
@@ -240,6 +241,13 @@ export default {
       }
       return false
     },
+    taxonomyData () {
+      const siteContent = this.siteContent
+      if (siteContent.hasOwnProperty('taxonomy')) {
+        return siteContent.taxonomy
+      }
+      return false
+    },
     searchResults () {
       const query = this.searchQuery
       const regex = new RegExp(query, 'i')
@@ -368,17 +376,9 @@ button.button.type-C.active-button {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  .sort-by-root {
-    @include borderRadius3;
+  .sort-by-selector {
     position: relative;
-    height: 2.25rem;
-    background-color: #FFFFFF;
-    white-space: nowrap;
-    margin: 0 1rem;
-    cursor: pointer;
-    font-family: $fontInter;
-    font-weight: 400;
-    line-height: 1.7;
+    margin-right: 1rem;
   }
 }
 
