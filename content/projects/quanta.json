@@ -1,11 +1,9 @@
 {
   "display": true,
   "featured": false,
-  "sortNumbers": [
-    {
-      "since": 2018
-    }
-  ],
+  "sortNumbers": {
+    "since": 2018
+  },
   "logo": {
     "icon": "quanta.jpeg",
     "full": "quanta.jpeg"
@@ -79,19 +77,25 @@
     {
       "slug": "focus",
       "tags": [
-        "file-sharing", "storage-pinning", "public-data", "web-hosting-publishing"
+        "file-sharing",
+        "storage-pinning",
+        "public-data",
+        "web-hosting-publishing"
       ]
     },
     {
       "slug": "benefits",
       "tags": [
-        "data-integrity", "interoperability", "corporate-government-independence"
+        "data-integrity",
+        "interoperability",
+        "corporate-government-independence"
       ]
     },
     {
       "slug": "tooling",
       "tags": [
-        "go-ipfs", "http-gateway"
+        "go-ipfs",
+        "http-gateway"
       ]
     }
   ]

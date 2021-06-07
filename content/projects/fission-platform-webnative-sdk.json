@@ -1,11 +1,9 @@
 {
   "display": true,
   "featured": false,
-  "sortNumbers": [
-    {
-      "since": 2019
-    }
-  ],
+  "sortNumbers": {
+    "since": 2019
+  },
   "logo": {
     "icon": "fission.png",
     "full": "logo-fission.svg"

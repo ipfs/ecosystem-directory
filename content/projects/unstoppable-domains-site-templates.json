@@ -1,11 +1,9 @@
 {
   "display": true,
   "featured": false,
-  "sortNumbers": [
-    {
-      "since": 2020
-    }
-  ],
+  "sortNumbers": {
+    "since": 2020
+  },
   "logo": {
     "icon": "unstoppable-domains.png",
     "full": "unstoppable-logo.svg"

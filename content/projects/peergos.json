@@ -1,11 +1,9 @@
 {
   "display": true,
   "featured": false,
-  "sortNumbers": [
-    {
-      "since": 2015
-    }
-  ],
+  "sortNumbers": {
+    "since": 2015
+  },
   "logo": {
     "icon": "peergos-19786214.png",
     "full": "peergos-19786214.png"

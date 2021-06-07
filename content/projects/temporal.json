@@ -1,11 +1,9 @@
 {
   "display": true,
   "featured": false,
-  "sortNumbers": [
-    {
-      "since": 2016
-    }
-  ],
+  "sortNumbers": {
+    "since": 2016
+  },
   "logo": {
     "icon": "temporal.jpg",
     "full": "temporal-logo.png"

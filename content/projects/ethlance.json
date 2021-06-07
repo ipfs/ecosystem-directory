@@ -1,11 +1,9 @@
 {
   "display": true,
   "featured": false,
-  "sortNumbers": [
-    {
-      "since": 2017
-    }
-  ],
+  "sortNumbers": {
+    "since": 2017
+  },
   "logo": {
     "icon": "icon-ethlance.png",
     "full": "ethlance.png"
