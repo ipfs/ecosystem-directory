@@ -1,11 +1,9 @@
 {
   "display": true,
   "featured": false,
-  "sortNumbers": [
-    {
-      "since": 2019
-    }
-  ],
+  "sortNumbers": {
+    "since": 2019
+  },
   "logo": {
     "icon": "logo-morpheus_b5cf0557.png",
     "full": "logo-morpheus_b5cf0557.png"

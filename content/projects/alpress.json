@@ -1,11 +1,9 @@
 {
   "display": true,
   "featured": true,
-  "sortNumbers": [
-    {
-      "since": 2021
-    }
-  ],
+  "sortNumbers": {
+    "since": 2021
+  },
   "logo": {
     "icon": "almonit-logo.svg",
     "full": "almonit-logo.svg"

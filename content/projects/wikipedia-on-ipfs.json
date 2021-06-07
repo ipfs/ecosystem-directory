@@ -1,11 +1,9 @@
 {
   "display": true,
   "featured": false,
-  "sortNumbers": [
-    {
-      "since": 2021
-    }
-  ],
+  "sortNumbers": {
+    "since": 2021
+  },
   "logo": {
     "icon": "kiwix.jpg",
     "full": "kiwix-logo-995x200-1.png"

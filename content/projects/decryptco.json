@@ -1,11 +1,9 @@
 {
   "display": true,
   "featured": false,
-  "sortNumbers": [
-    {
-      "since": 2020
-    }
-  ],
+  "sortNumbers": {
+    "since": 2020
+  },
   "logo": {
     "icon": "decrypt-mark-100.png",
     "full": "decrypt-mark-100.png"

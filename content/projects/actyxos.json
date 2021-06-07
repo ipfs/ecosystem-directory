@@ -1,11 +1,9 @@
 {
   "display": true,
   "featured": true,
-  "sortNumbers": [
-    {
-      "since": 2017
-    }
-  ],
+  "sortNumbers": {
+    "since": 2017
+  },
   "logo": {
     "icon": "actyx.png",
     "full": "actyx-logo.svg"

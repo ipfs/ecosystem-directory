@@ -1,11 +1,9 @@
 {
   "display": true,
   "featured": false,
-  "sortNumbers": [
-    {
-      "since": 2016
-    }
-  ],
+  "sortNumbers": {
+    "since": 2016
+  },
   "logo": {
     "icon": "infura_logo_red.png",
     "full": "infura_logo_red.png"

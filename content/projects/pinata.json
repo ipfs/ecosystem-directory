@@ -1,11 +1,9 @@
 {
   "display": true,
   "featured": true,
-  "sortNumbers": [
-    {
-      "since": 2018
-    }
-  ],
+  "sortNumbers": {
+    "since": 2018
+  },
   "logo": {
     "icon": "pinataSVG_df766bc6.svg",
     "full": "pinataSVG_df766bc6.svg"

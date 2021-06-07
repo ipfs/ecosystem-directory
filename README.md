@@ -146,9 +146,9 @@ The schema can be found in `@/content/data/project-schema.js` and _must_ be upda
 {
   display: Boolean,
   featured: Boolean,
-  sortNumbers: [{
+  sortNumbers: {
     label: Number
-  }],
+  },
   logo: {
     icon: String,
     full: String

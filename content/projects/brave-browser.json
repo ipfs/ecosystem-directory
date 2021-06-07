@@ -1,11 +1,9 @@
 {
   "display": true,
   "featured": true,
-  "sortNumbers": [
-    {
-      "since": 2018
-    }
-  ],
+  "sortNumbers": {
+    "since": 2018
+  },
   "logo": {
     "icon": "brave-logo.png",
     "full": "brave-logo.png"
