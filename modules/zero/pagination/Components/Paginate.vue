@@ -9,6 +9,7 @@
 <script>
 // ===================================================================== Imports
 import { mapGetters, mapActions } from 'vuex'
+import CloneDeep from 'lodash/cloneDeep'
 
 // ===================================================================== Imports
 const setPageFromRoute = (instance) => {
@@ -69,15 +70,14 @@ export default {
     },
     collection () {
       this.calculateTotalPages()
+      const cloned = CloneDeep(this.$route.query)
       if (this.page > this.totalPages) {
-        if (this.totalPages !== 1) {
-          this.$router.push({
-            query: { page: this.totalPages }
-          })
-        } else {
-          this.$router.push('/')
-        }
+        cloned.page = this.totalPages
       }
+      if (cloned.page === 1) {
+        delete cloned.page
+      }
+      this.$router.push({ query: cloned })
     }
   },
 

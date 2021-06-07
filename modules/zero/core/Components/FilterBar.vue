@@ -98,6 +98,7 @@ $dimensions: 2.25rem;
 }
 
 .input {
+  flex: 1;
   height: 100%;
   padding: 0.66rem 0;
   font-family: $fontMontserrat;
