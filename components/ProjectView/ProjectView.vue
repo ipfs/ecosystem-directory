@@ -305,7 +305,10 @@ export default {
     resetCardDisplayMargin(this.$refs.cardDisplay)
     this.filterPanel = (this.$route.query.filters === 'enabled')
 
-    this.resize = () => { setColumnWidth(this, this.$refs.cardDisplay) }
+    this.resize = () => {
+      setColumnWidth(this, this.$refs.cardDisplay)
+      resetCardDisplayMargin(this.$refs.cardDisplay)
+    }
     window.addEventListener('resize', this.resize)
 
     setColumnWidth(this, this.$refs.cardDisplay)
