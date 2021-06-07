@@ -57,6 +57,7 @@
 <script>
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
+import CloneDeep from 'lodash/cloneDeep'
 
 // ====================================================================== Export
 export default {
@@ -114,13 +115,13 @@ export default {
 
   methods: {
     navigateToPage (page) {
+      const cloned = CloneDeep(this.$route.query)
       if (page !== 1) {
-        this.$router.push({
-          query: { page }
-        })
+        cloned.page = page
       } else {
-        this.$router.push('/')
+        delete cloned.page
       }
+      this.$router.push({ query: cloned })
     }
   }
 }

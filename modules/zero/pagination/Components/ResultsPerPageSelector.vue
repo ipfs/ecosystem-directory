@@ -37,6 +37,7 @@
 <script>
 // ===================================================================== Imports
 import { mapGetters, mapActions } from 'vuex'
+import CloneDeep from 'lodash/cloneDeep'
 
 // ===================================================================== Functions
 const closeAllSelect = (e, instance) => {
@@ -72,6 +73,11 @@ export default {
     },
     collection: {
       type: [Boolean, Array],
+      required: false,
+      default: false
+    },
+    addParamOnLoad: {
+      type: Boolean,
       required: false,
       default: false
     }
@@ -111,6 +117,12 @@ export default {
   },
 
   mounted () {
+    if (this.$route.query.results) {
+      this.setDisplay(parseInt(this.$route.query.results))
+    }
+    if (this.addParamOnLoad && this.display) {
+      this.optionSelected(this.display)
+    }
     this.unfocus = (e) => { closeAllSelect(e, this) }
     window.addEventListener('click', this.unfocus)
   },
@@ -136,17 +148,17 @@ export default {
       if (!isNaN(selection)) {
         this.setDisplay(selection)
         this.calculateTotalPages()
+        const cloned = CloneDeep(this.$route.query)
         if (this.page > this.totalPages) {
-          if (this.totalPages !== 1) {
-            this.$router.push({
-              query: { page: this.totalPages }
-            })
-          } else {
-            this.$router.push('/')
-          }
+          cloned.page = this.totalPages
         }
+        if (cloned.page === 1) {
+          delete cloned.page
+        }
+        cloned.results = this.display
+        this.$router.push({ query: cloned })
+        this.closed = true
       }
-      this.closed = true
     }
   }
 }
