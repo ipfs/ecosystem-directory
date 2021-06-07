@@ -103,6 +103,13 @@ import { mapGetters } from 'vuex'
 
 import SocialIcons from '@/components/SocialIcons'
 
+// =================================================================== Functions
+const checkScreenWidth = (instance) => {
+  if (!window.matchMedia('(max-width: 40rem)').matches && instance.navOpen) {
+    instance.toggleNav()
+  }
+}
+
 // ====================================================================== Export
 export default {
   name: 'HeaderNavigation',
@@ -113,7 +120,8 @@ export default {
 
   data () {
     return {
-      navOpen: false
+      navOpen: false,
+      resize: false
     }
   },
 
@@ -122,6 +130,15 @@ export default {
       navigation: 'global/navigation',
       filtersActive: 'filters/filtersActive'
     })
+  },
+
+  mounted () {
+    this.resize = () => { checkScreenWidth(this) }
+    window.addEventListener('resize', this.resize)
+  },
+
+  beforeDestroy () {
+    if (this.resize) { window.removeEventListener('resize', this.resize) }
   },
 
   methods: {
