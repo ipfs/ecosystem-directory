@@ -10,13 +10,13 @@
           <Button
             type="C"
             text="Filters"
-            :class="{ 'filter-toggle' : true, 'active-button': filtersActive }"
+            :class="{ 'filter-toggle' : true, 'active-button': filterPanel }"
             @clicked="toggleFilterPanel">
 
             <template #icon-before>
               <FiltersToggle
                 class="font-inter"
-                :stroke="filtersActive ? '#FFFFFF' : '#052437'" />
+                :stroke="filterPanel ? '#FFFFFF' : '#052437'" />
             </template>
 
           </Button>
@@ -71,7 +71,9 @@
             All Filters
           </h4>
 
-          <FilterBar filter-value="">
+          <FilterBar
+            :filter-value="searchQuery"
+            @setFilterValue="setSearchQuery">
             <template #icon>
               <SearchIcon />
             </template>
@@ -102,11 +104,12 @@
           :collection="filteredProjects"
           class="paginate-root">
 
-          <div :class="['card-list', listActive ? 'layout-list' : 'layout-grid', { 'layout-filter-panel-open': filterPanel }]">
+          <div class="card-list grid">
             <ProjectCard
               v-for="project in paginated"
               :key="project.name"
               :format="(listActive ? 'list-view' : 'block-view')"
+              :class="`col-${num}`"
               :title="project.name"
               :slug="project.slug"
               :description="project.description.short"
@@ -173,6 +176,28 @@ const resetCardDisplayMargin = (element) => {
   element.style.marginRight = mr
 }
 
+const setColumnWidth = (instance, element) => {
+  if (element) {
+    if (instance.listActive) {
+      if (element.clientWidth <= 640) {
+        if (instance.num !== 12) { instance.num = 12 }
+      } else {
+        if (instance.num !== 6) { instance.num = 6 }
+      }
+    } else {
+      if (element.clientWidth <= 850) {
+        if (element.clientWidth <= 640) {
+          if (instance.num !== 6) { instance.num = 6 }
+        } else {
+          if (instance.num !== 4) { instance.num = 4 }
+        }
+      } else {
+        if (instance.num !== 3) { instance.num = 3 }
+      }
+    }
+  }
+}
+
 // ====================================================================== Export
 export default {
   name: 'ProjectView',
@@ -207,7 +232,10 @@ export default {
       paginationDisplay: 20,
       filterPanel: false,
       totalFilters: 0,
-      listActive: false
+      listActive: false,
+      resize: false,
+      searchQuery: '',
+      num: 3
     }
   },
 
@@ -236,8 +264,9 @@ export default {
       if (this.searchQuery) {
         for (let i = 0; i < len; i++) {
           const name = projects[i].name
+          const org = projects[i].org
           if (typeof name === 'string') {
-            if (regex.test(name)) {
+            if (regex.test(name) || regex.test(org)) {
               arr.push(projects[i])
             }
           }
@@ -279,6 +308,19 @@ export default {
   mounted () {
     resetCardDisplayMargin(this.$refs.cardDisplay)
     this.filterPanel = (this.$route.query.filters === 'enabled')
+
+    this.resize = () => {
+      setColumnWidth(this, this.$refs.cardDisplay)
+      resetCardDisplayMargin(this.$refs.cardDisplay)
+    }
+    window.addEventListener('resize', this.resize)
+
+    setColumnWidth(this, this.$refs.cardDisplay)
+    setTimeout(() => { setColumnWidth(this, this.$refs.cardDisplay) }, 500)
+  },
+
+  beforeDestroy () {
+    if (this.resize) { window.removeEventListener('resize', this.resize) }
   },
 
   methods: {
@@ -293,18 +335,14 @@ export default {
     }),
     toggleFilterPanel () {
       this.filterPanel = !this.filterPanel
-      if (!this.totalFilters) {
-        this.setFiltersActive(this.filterPanel)
-        if (this.filterPanel) {
-          this.$router.push({ path: '/', query: { filters: 'enabled' } })
-          window.scrollTo(0, 0)
-        } else {
-          this.$router.push(this.$route.path)
-        }
+      setTimeout(() => { setColumnWidth(this, this.$refs.cardDisplay) }, 500)
+      if (!this.filtersActive) {
+        this.$emit('init-filters')
       }
     },
     toggleListGridView () {
       this.listActive = !this.listActive
+      setColumnWidth(this, this.$refs.cardDisplay)
       this.$refs.radio.style.left = this.listActive ? '0%' : '50%'
     },
     updateTotalFilters (val) {
@@ -516,44 +554,20 @@ img {
 }
 
 ::v-deep .card-list {
-  display: flex;
+  width: inherit;
   &.layout-grid {
     flex-flow: row wrap;
   }
   &.layout-list {
     flex-flow: row wrap;
   }
-  &.layout-filter-panel-open {
-    .project-card {
-      &.block-view {
-        width: 33.333%;
-        .thumbnail {
-          height: 11.25rem;
-        }
-      }
-      &.list-view {
-        width: 25%;
-      }
-    }
-  }
 }
 
 ::v-deep .project-card {
   &.block-view {
-    min-width: 160px;
-    flex: 1 1 250px;
     margin-bottom: 1rem;
-    @include tiny {
-      flex: 1 1 0;
-      max-width: 200px;
-    }
-  }
-  &.list-view {
-    flex: 1 1 300px;
-    flex-basis: 33.333%;
-    max-width: 50%;
-    @include tiny {
-      max-width: 100%;
+    .thumbnail {
+      height: 11.25rem;
     }
   }
 }
