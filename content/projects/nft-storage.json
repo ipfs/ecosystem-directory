@@ -1,11 +1,9 @@
 {
   "display": true,
   "featured": false,
-  "sortNumbers": [
-    {
-      "since": 2021
-    }
-  ],
+  "sortNumbers": {
+    "since": 2021
+  },
   "logo": {
     "icon": "logo-nft-storage.svg",
     "full": "logo-nft-storage.svg"

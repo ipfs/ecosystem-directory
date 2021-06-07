@@ -1,11 +1,9 @@
 {
   "display": true,
   "featured": false,
-  "sortNumbers": [
-    {
-      "since": 2015
-    }
-  ],
+  "sortNumbers": {
+    "since": 2015
+  },
   "logo": {
     "icon": "orbitdb.png",
     "full": "orbit_db_logo_color.png"

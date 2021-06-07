@@ -1,11 +1,9 @@
 {
   "display": true,
   "featured": false,
-  "sortNumbers": [
-    {
-      "since": 2018
-    }
-  ],
+  "sortNumbers": {
+    "since": 2018
+  },
   "logo": {
     "icon": "matters-31415379.png",
     "full": "matters-31415379.png"

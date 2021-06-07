@@ -1,11 +1,9 @@
 {
   "display": true,
   "featured": false,
-  "sortNumbers": [
-    {
-      "since": 2015
-    }
-  ],
+  "sortNumbers": {
+    "since": 2015
+  },
   "logo": {
     "icon": "partyshare-logo.png",
     "full": "partyshare-logo.png"

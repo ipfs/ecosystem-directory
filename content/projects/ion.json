@@ -1,11 +1,9 @@
 {
   "display": true,
   "featured": false,
-  "sortNumbers": [
-    {
-      "since": 2019
-    }
-  ],
+  "sortNumbers": {
+    "since": 2019
+  },
   "logo": {
     "icon": "ion-logo.png",
     "full": "ion-logo.png"

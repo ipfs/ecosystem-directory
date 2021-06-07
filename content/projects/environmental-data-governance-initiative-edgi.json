@@ -1,11 +1,9 @@
 {
   "display": true,
   "featured": false,
-  "sortNumbers": [
-    {
-      "since": 2019
-    }
-  ],
+  "sortNumbers": {
+    "since": 2019
+  },
   "logo": {
     "icon": "edgi.png",
     "full": "EDGI_Logo-Horiz_Hi-Res_Transp.png"

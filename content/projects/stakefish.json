@@ -1,11 +1,9 @@
 {
   "display": true,
   "featured": false,
-  "sortNumbers": [
-    {
-      "since": 2019
-    }
-  ],
+  "sortNumbers": {
+    "since": 2019
+  },
   "logo": {
     "icon": "stakefish-9e55d54e-cee8-4dc8-8956-5f5809ef15f0.png",
     "full": "stakefish-9e55d54e-cee8-4dc8-8956-5f5809ef15f0.png"

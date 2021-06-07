@@ -1,11 +1,9 @@
 {
   "display": true,
   "featured": false,
-  "sortNumbers": [
-    {
-      "since": 2021
-    }
-  ],
+  "sortNumbers": {
+    "since": 2021
+  },
   "logo": {
     "icon": "exmachina.png",
     "full": "EXM_LOGO_KIT-13.png"

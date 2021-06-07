@@ -1,11 +1,9 @@
 {
   "display": true,
   "featured": false,
-  "sortNumbers": [
-    {
-      "since": 2018
-    }
-  ],
+  "sortNumbers": {
+    "since": 2018
+  },
   "logo": {
     "icon": "anytype.png",
     "full": "anytype.png"
