@@ -1,6 +1,6 @@
 <template>
   <NuxtLink
-    :to="`project/${slug}`"
+    :to="`/project/${slug}`"
     :class="['project-card', format]">
     <div class="card-inner-wrapper">
 
@@ -31,6 +31,10 @@ export default {
       type: String,
       required: true
     },
+    slug: {
+      type: String,
+      required: true
+    },
     description: {
       type: String,
       default: '',
@@ -45,12 +49,6 @@ export default {
       type: String,
       default: 'block-view',
       required: false
-    }
-  },
-
-  computed: {
-    slug () {
-      return this.$slugify(this.title)
     }
   }
 }
@@ -67,6 +65,8 @@ export default {
       display: flex;
       flex-direction: row;
       background-color: #FFFFFF;
+      height: 100%;
+      min-width: 160px;
     }
     .thumbnail {
       width: 7rem;

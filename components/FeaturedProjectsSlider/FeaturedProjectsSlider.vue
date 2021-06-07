@@ -15,6 +15,7 @@
             v-for="(project, index) in featured"
             :key="index"
             :title="project.name"
+            :slug="project.slug"
             :description="project.description.short"
             :logo="project.logo.icon"
             :style="{ width: `${cardWidth}px` }"
@@ -47,7 +48,17 @@ import ProjectCard from '@/components/ProjectView/ProjectCard'
 
 // =================================================================== Functions
 const handleFeatureSliderResize = (instance) => {
-  const cardWidth = instance.$refs.cardRowContainer.clientWidth / 4
+  const display = instance.display
+  if (window.matchMedia('(max-width: 53.125rem)').matches) { // small
+    if (window.matchMedia('(max-width: 40rem)').matches) { // mini
+      if (display !== 2) { instance.display = 2 }
+    } else {
+      if (display !== 3) { instance.display = 3 }
+    }
+  } else {
+    if (display !== 4) { instance.display = 4 }
+  }
+  const cardWidth = instance.$refs.cardRowContainer.clientWidth / instance.display
   instance.animate = false
   instance.cardWidth = cardWidth
   instance.slidingRowWidth = cardWidth * instance.featured.length + 'px'
@@ -70,6 +81,7 @@ export default {
       animate: true,
       left: 0,
       cardWidth: 0,
+      display: 4,
       slidingRowWidth: '100%'
     }
   },
@@ -82,7 +94,7 @@ export default {
       return this.projects.filter(project => project.featured)
     },
     indices () {
-      return this.featured.length - 4
+      return this.featured.length - this.display
     }
   },
 
@@ -119,6 +131,9 @@ export default {
 #slider {
   margin: 0 5%;
   overflow: hidden;
+  @include medium {
+    margin: 0;
+  }
 }
 
 #card-row {
@@ -153,6 +168,9 @@ export default {
 #slider-line {
   display: inline-block;
   width: 40%;
+  @include tiny {
+    width: 75%;
+  }
 }
 
 #feature-range-slider {
@@ -177,7 +195,7 @@ input {
     }
     &::-webkit-slider-thumb {
       height: 20px;
-      width: 50px;
+      width: 51px;
       cursor: pointer;
       -webkit-appearance: none;
       margin-top: -9px;
@@ -194,8 +212,11 @@ input {
     }
     &::-moz-range-thumb {
       height: 20px;
-      width: 50px;
+      width: 51px;
       cursor: pointer;
+      background: url('./sliderthumb.svg') no-repeat;
+      border: none;
+      border-radius: 0px;
     }
     &::-ms-track {
       width: 100%;
@@ -215,8 +236,11 @@ input {
     &::-ms-thumb {
       margin-top: 1px;
       height: 20px;
-      width: 50px;
+      width: 51px;
       cursor: pointer;
+      background: url('./sliderthumb.svg') no-repeat;
+      border: none;
+      border-radius: 0px;
     }
   }
 }

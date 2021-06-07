@@ -109,7 +109,9 @@ export default {
       if (total <= displayOptions[0].amount) {
         return [total]
       }
-      displayOptions.push(total)
+      if (!this.displayOptions.includes(total)) {
+        displayOptions.push(total)
+      }
       return displayOptions
     }
   },

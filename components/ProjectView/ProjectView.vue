@@ -10,7 +10,7 @@
           <Button
             type="C"
             text="Filters"
-            :class="{ activeButton: filtersActive }"
+            :class="{ 'filter-toggle' : true, 'active-button': filtersActive }"
             @clicked="toggleFilterPanel">
 
             <template #icon-before>
@@ -36,7 +36,7 @@
 
         <div id="radio-view-toggle" @click.stop="toggleListGridView">
 
-          <div ref="radio" class="selected-blackground"></div>
+          <div ref="radio" class="selected-background"></div>
 
           <ListView
             class="radio-toggle-item"
@@ -54,8 +54,12 @@
     <!-- ////////////////////////////////////////////////////// Filter Panel -->
 
     <div id="project-filter-container">
-      <div id="filter-panel-wrapper" ref="filterWrap">
-        <div class="filter-panel inner-wrapper">
+
+      <div id="filter-panel-wrapper" ref="filterWrap" class="filter-panel-modal">
+
+        <div
+          v-if="filterPanel"
+          class="filter-panel-heading">
 
           <div
             class="close-icon"
@@ -63,25 +67,23 @@
             <Close />
           </div>
 
-          <div
-            v-if="filterPanel"
-            class="filter-panel-heading">
+          <h4 class="title">
+            All Filters
+          </h4>
 
-            <h4 class="title">
-              All Filters
-            </h4>
+          <FilterBar filter-value="">
+            <template #icon>
+              <SearchIcon />
+            </template>
+          </FilterBar>
 
-            <FilterBar filter-value="">
-              <template #icon>
-                <SearchIcon />
-              </template>
-            </FilterBar>
+        </div>
 
-          </div>
+        <div ref="innerPanel" class="inner-wrapper">
 
           <FilterPanel
             ref="filterPanel"
-            :collection="allProjects"
+            :collection="searchResults"
             :is-active="filterPanel"
             @closeFilters="toggleFilterPanel"
             @totalSelected="updateTotalFilters" />
@@ -91,7 +93,7 @@
 
       <!-- ////////////////////////////////////////////////// Paginated List -->
 
-      <div id="card-display" ref="cardDisplay">
+      <div id="card-display" ref="cardDisplay" class="card-display auto">
 
         <Paginate
           v-if="filteredProjects"
@@ -106,6 +108,7 @@
               :key="project.name"
               :format="(listActive ? 'list-view' : 'block-view')"
               :title="project.name"
+              :slug="project.slug"
               :description="project.description.short"
               :logo="project.logo.icon" />
           </div>
@@ -151,7 +154,7 @@ import SelectorToggle from '@/modules/zero/core/Components/Icons/SelectorToggle'
 import FiltersToggle from '@/modules/zero/core/Components/Icons/FiltersToggle'
 import ListView from '@/components/Icons/ListView'
 import GridView from '@/components/Icons/GridView'
-import FilterBar from '@/components/FilterPanel/FilterBar'
+import FilterBar from '@/modules/zero/core/Components/FilterBar'
 import SearchIcon from '@/components/Icons/SearchIcon'
 import Close from '@/components/Icons/Close'
 import FilterPanel from '@/components/FilterPanel/FilterPanel'
@@ -204,8 +207,7 @@ export default {
       paginationDisplay: 20,
       filterPanel: false,
       totalFilters: 0,
-      listActive: false,
-      resize: false
+      listActive: false
     }
   },
 
@@ -224,21 +226,45 @@ export default {
         return siteContent.index.page_content
       }
       return false
+    },
+    searchResults () {
+      const query = this.searchQuery
+      const regex = new RegExp(query, 'i')
+      const projects = this.allProjects
+      const len = projects.length
+      const arr = []
+      if (this.searchQuery) {
+        for (let i = 0; i < len; i++) {
+          const name = projects[i].name
+          if (typeof name === 'string') {
+            if (regex.test(name)) {
+              arr.push(projects[i])
+            }
+          }
+        }
+        return arr
+      }
+      return projects
     }
   },
 
   watch: {
     filterPanel (val) {
       if (val) {
-        this.$refs.filterWrap.style.width = '34%'
-        this.$refs.cardDisplay.style.width = '66%'
-        this.$refs.cardDisplay.style.marginLeft = '3%'
-        this.$refs.cardDisplay.style.marginRight = '8%'
+        this.$refs.filterWrap.classList.remove('filter-closed')
+        this.$refs.filterWrap.classList.add('filter-open')
+
+        this.$refs.cardDisplay.style.marginLeft = null
+        this.$refs.cardDisplay.style.marginRight = null
+        this.$refs.cardDisplay.classList.remove('auto')
+        this.$refs.cardDisplay.classList.remove('panel-closed')
+        this.$refs.cardDisplay.classList.add('panel-open')
       } else {
-        this.$refs.filterWrap.style.width = '0'
-        this.$refs.cardDisplay.style.width = '67.5rem'
-        this.$refs.cardDisplay.style.marginLeft = '16%'
-        this.$refs.cardDisplay.style.marginRight = '16%'
+        this.$refs.filterWrap.classList.remove('filter-open')
+        this.$refs.filterWrap.classList.add('filter-closed')
+
+        this.$refs.cardDisplay.classList.remove('panel-open')
+        this.$refs.cardDisplay.classList.add('panel-closed')
         setTimeout(() => { resetCardDisplayMargin(this.$refs.cardDisplay) }, 500)
       }
     }
@@ -271,7 +297,7 @@ export default {
         this.setFiltersActive(this.filterPanel)
         if (this.filterPanel) {
           this.$router.push({ path: '/', query: { filters: 'enabled' } })
-          window.scrollTo(0, 0) // not sure where to trigger this
+          window.scrollTo(0, 0)
         } else {
           this.$router.push(this.$route.path)
         }
@@ -287,6 +313,9 @@ export default {
     },
     clearSelectedFilters () {
       this.$refs.filterPanel.clearSelected()
+    },
+    setSearchQuery (val) {
+      this.searchQuery = val
     }
   }
 }
@@ -296,14 +325,22 @@ export default {
 // ///////////////////////////////////////////////////////////////////// General
 #project-view-container {
   width: 100%;
-  min-width: 600px;
   padding: 0;
 }
 
 // ///////////////////////////////////////////////////////////// Toggle Controls
-.activeButton {
-  background-color: #052437;
-  color: #FFFFFF;
+button.button.type-C.active-button {
+  background-color: $tiber;
+  color: white;
+}
+
+.filter-toggle {
+  @include small {
+    position: fixed;
+    bottom: 2.5rem;
+    left: 2.5rem;
+    z-index: 10;
+  }
 }
 
 #card-filters-toggle {
@@ -340,19 +377,20 @@ export default {
     padding: 0 0.75rem;
     margin: 0 0.75rem;
     cursor: pointer;
+    @include small {
+      margin: 0;
+    }
   }
 }
 
 .radio-toggle-item {
   border-radius: 0.25rem;
-  width: 100%;
-  height: 100%;
   white-space: nowrap;
   padding: 0 1.0rem;
   z-index: 10;
 }
 
-.selected-blackground {
+.selected-background {
   display: inline-block;
   position: absolute;
   width: 50%;
@@ -373,33 +411,12 @@ export default {
 
 #filter-panel-wrapper {
   display: block;
+  position: relative;
   width: 0%;
   background-color: #ffffff;
   transition: width 500ms ease-in-out;
-  flex-basis: content;
   overflow: hidden;
   border-radius: 0 0.25rem 0.25rem 0;
-}
-
-.filter-panel-heading {
-  margin: 2.5rem 0;
-  margin-right: 2.5rem;
-  .title {
-    font-family: $fontMontserrat;
-    font-weight: 400;
-    margin: 6px;
-  }
-}
-
-.filter-panel {
-  font-family: $fontInter;
-  &.inner-wrapper {
-    position: relative;
-    width: 76%;
-    height: 100%;
-    margin-left: 24%;
-    overflow: hidden;
-  }
   .close-icon {
     position: absolute;
     right: 0.75rem;
@@ -407,13 +424,86 @@ export default {
     padding: 0.25rem;
     cursor: pointer;
   }
+  @include small {
+    position: fixed;
+    overflow: scroll;
+    height: 100vh;
+    width: 0;
+    top: 0;
+    z-index: 100;
+    border-radius: 0;
+  }
+  &.filter-closed {
+    width: 0;
+  }
+  &.filter-open {
+    width: 28.75rem;
+    @include small {
+      width: 100vw;
+    }
+  }
+}
+
+.filter-panel-heading {
+  margin: 2.5rem 0;
+  margin-right: 2.5rem;
+  margin-left: 24%;
+  @include small {
+    margin: 0;
+    padding: 1.5rem 2.5rem;
+    width: 100vw;
+    position: fixed;
+    background-color: #ffffff;
+    z-index: 100;
+  }
+  .title {
+    font-family: $fontMontserrat;
+    font-weight: 400;
+    margin: 6px;
+  }
+}
+
+.inner-wrapper {
+  font-family: $fontInter;
+  position: relative;
+  margin-left: 24%;
+  @include small {
+    top: 6rem;
+    margin: 2.5rem;
+    margin-bottom: 18rem;
+  }
+}
+
+::v-deep .bottom-buttons {
+  @include small {
+    position: fixed;
+    bottom: 0;
+    background-color: #ffffff;
+    width: 100%;
+    z-index: 100;
+    padding: 1.0rem 0;
+    margin: 0;
+  }
 }
 
 // /////////////////////////////////////////////////////////////// Project Cards
-#card-display {
-  width: 67.5rem;
-  margin: 0 auto;
+.card-display {
   transition: all 500ms ease-in-out;
+  &.auto {
+    width: 67.5rem;
+  }
+}
+
+.panel-open {
+  width: 66%;
+  margin-left: 3%;
+  margin-right: 8%;
+}
+
+.panel-closed {
+  width: 67.5rem;
+  margin-left: 16%;
+  margin-right: 16%;
 }
 
 .paginate-root {
@@ -427,7 +517,12 @@ img {
 
 ::v-deep .card-list {
   display: flex;
-  flex-flow: row wrap;
+  &.layout-grid {
+    flex-flow: row wrap;
+  }
+  &.layout-list {
+    flex-flow: row wrap;
+  }
   &.layout-filter-panel-open {
     .project-card {
       &.block-view {
@@ -437,7 +532,7 @@ img {
         }
       }
       &.list-view {
-        width: 50%;
+        width: 25%;
       }
     }
   }
@@ -445,11 +540,21 @@ img {
 
 ::v-deep .project-card {
   &.block-view {
-    width: 25%;
+    min-width: 160px;
+    flex: 1 1 250px;
     margin-bottom: 1rem;
+    @include tiny {
+      flex: 1 1 0;
+      max-width: 200px;
+    }
   }
   &.list-view {
-    width: 33.333%;
+    flex: 1 1 300px;
+    flex-basis: 33.333%;
+    max-width: 50%;
+    @include tiny {
+      max-width: 100%;
+    }
   }
 }
 
@@ -469,6 +574,7 @@ img {
 
 .page-navigation-controls {
   display: flex;
+  flex-wrap: wrap;
   margin-top: 3rem;
   justify-content: center;
 }
@@ -476,6 +582,9 @@ img {
 .results-selector-wrapper {
   height: 2.5rem;
   margin-bottom: 5rem;
+  @include tiny {
+    margin-top: 1rem;
+  }
 }
 
 .results-per-page {

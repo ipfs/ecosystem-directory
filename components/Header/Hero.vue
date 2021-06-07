@@ -5,7 +5,7 @@
       v-if="pageData"
       :class="`panel-top transition ${headerState}`">
 
-      <div :class="`grid-noGutter transition ${headerState} breadcrumbs`">
+      <div :class="`grid-noGutter transition ${headerState} hero-breadcrumbs`">
         <div class="col">
           <Breadcrumbs :breadcrumbs="pageData.breadcrumbs" />
         </div>
@@ -18,48 +18,50 @@
       :class="`panel-bottom transition ${headerState}`">
 
       <div class="grid-noGutter">
-        <div class="col-6">
+        <div class="col-9_sm-12">
+          <div :class="{'headings-wrapper': true, 'results': (headerState === 'filters-applied')}">
 
-          <div v-if="(headerState === 'index-view')" class="heading">
-            <h1>
-              {{ pageData.heading }}
-            </h1>
+            <div v-if="(headerState === 'index-view')" class="index-heading">
+              <h1>
+                {{ pageData.heading }}
+              </h1>
+            </div>
+
+            <div v-if="(headerState === 'filters-view')" class="filters-heading">
+              <h1>
+                All Projects
+                <span class="display-total">
+                  ({{ projects.length }})
+                </span>
+              </h1>
+            </div>
+
+            <div v-if="(headerState === 'filters-applied')" class="filters-heading">
+              <h1>
+                Filtered Results
+                <span class="display-total">
+                  ({{ filteredCollection.length ? filteredCollection.length : '0' }})
+                </span>
+              </h1>
+            </div>
+
+            <div v-if="(headerState === 'index-view')" class="index-subheading">
+              {{ pageData.subheading }}
+            </div>
+
+            <div v-if="(headerState === 'filters-view')" class="filters-subheading">
+              Showing all projects, no filters selected
+            </div>
+
+            <div v-if="(headerState === 'filters-applied')" class="filters-subheading">
+              <ul>
+                <li v-for="item in categories" :key="item.category">
+                  {{ item.category }} <span class="tags">{{ item.tags }}</span>
+                </li>
+              </ul>
+            </div>
+
           </div>
-
-          <div v-if="(headerState === 'filters-view')" class="filters-heading">
-            <h1>
-              All Projects
-              <span class="display-total">
-                ({{ projects.length }})
-              </span>
-            </h1>
-          </div>
-
-          <div v-if="(headerState === 'filters-applied')" class="filters-heading">
-            <h1>
-              Filtered Results
-              <span class="display-total">
-                ({{ filteredCollection.length ? filteredCollection.length : '0' }})
-              </span>
-            </h1>
-          </div>
-
-          <div v-if="(headerState === 'index-view')" class="subheading">
-            {{ pageData.subheading }}
-          </div>
-
-          <div v-if="(headerState === 'filters-view')" class="subheading">
-            Showing all projects, no filters selected
-          </div>
-
-          <div v-if="(headerState === 'filters-applied')" class="subheading">
-            <ul>
-              <li v-for="item in categories" :key="item.category">
-                {{ item.category }} <span class="tags">{{ item.tags }}</span>
-              </li>
-            </ul>
-          </div>
-
         </div>
       </div>
 
@@ -144,12 +146,17 @@ export default {
   transition-delay: 500ms;
 }
 
+#header-hero {
+  background: linear-gradient(180deg, #041727 0, #062B3F);
+}
+
 // ////////////////////////////////////////////////////////////// [Panel] Bottom
 .panel-bottom {
   padding: 0 0 3rem 0;
 }
 
-.subheading {
+.index-subheading,
+.filters-subheading {
   @include fontSize_Large;
   li {
     list-style: none;
@@ -163,6 +170,7 @@ export default {
     font-weight: bold;
   }
 }
+
 // ////////////////////////////////////////////////////////////////// Index View
 .index-view {
   h1 {
@@ -178,12 +186,20 @@ export default {
   h1 {
     font-weight: 500;
   }
-  &.breadcrumbs {
-    padding: 5rem 0 3rem 0;
+  &.hero-breadcrumbs {
+    padding-top: 5rem;
+    padding-bottom: 3rem;
   }
 }
 
-.filters-applied {
+.index-heading {
+  h1 {
+    @include small {
+      @include fontSize_ExtraExtraLarge;
+      @include leading_Mini;
+      margin: 1rem 0;
+    }
+  }
 }
 
 .filters-heading {
@@ -193,5 +209,4 @@ export default {
     color: #181818;
   }
 }
-
 </style>

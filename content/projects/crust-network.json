@@ -51,16 +51,16 @@
   "video": "//ipfs.io/ipfs/QmTVxc7jwNMhxy9pEYjt7j5ADaJaJS4ziFAcdox6PNBanY",
   "stats": [
     {
-      "label": "2000+ IPFS storage nodes",
-      "value": ""
+      "label": "IPFS storage nodes",
+      "value": "2000+"
     },
     {
-      "label": "400+ PB storage space",
-      "value": ""
+      "label": "Storage space",
+      "value": "400+ PB"
     },
     {
-      "label": "101 average replicas for each file",
-      "value": ""
+      "label": "Average replicas for each file",
+      "value": "101"
     }
   ],
   "ctaCard": {
