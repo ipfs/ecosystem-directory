@@ -129,12 +129,13 @@ const appendFilters2URL = (instance) => {
     const delimiter = i === len - 1 ? '' : ','
     slug = slug + instance.selected[i].slug + delimiter
   }
-
+  const cloned = CloneDeep(instance.$route.query)
   if (slug) {
-    instance.$router.replace({ query: { filters: 'enabled', tag: slug } })
+    cloned.tags = slug
   } else {
-    instance.$router.replace({ query: { filters: 'enabled' } })
+    delete cloned.tags
   }
+  setTimeout(() => { instance.$router.push({ query: cloned }) }, 10)
 }
 
 const applyFiltersFromURL = (instance) => {
