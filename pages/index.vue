@@ -7,8 +7,7 @@
           <div ref="segmentSlider">
             <SegmentSliderChart
               v-if="!filtersActive"
-              class="grid-center"
-              @init="segment" />
+              class="grid-center" />
           </div>
         </section>
 
@@ -25,7 +24,7 @@
             </div>
 
             <div class="col-12">
-              <FeaturedProjectsSlider @init="featured" />
+              <FeaturedProjectsSlider />
             </div>
 
           </div>
@@ -50,7 +49,9 @@
 
     <section>
 
-      <ProjectView :all-projects="projects" />
+      <ProjectView
+        :all-projects="projects"
+        @init-filters="initFilters" />
 
     </section>
 
@@ -60,6 +61,7 @@
 <script>
 // ===================================================================== Imports
 import { mapGetters, mapActions } from 'vuex'
+import CloneDeep from 'lodash/cloneDeep'
 
 import SegmentSliderChart from '@/components/SegmentSliderChart/SegmentSliderChart'
 import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
@@ -67,7 +69,7 @@ import ProjectView from '@/components/ProjectView/ProjectView'
 
 // =================================================================== Functions
 const resetSectionHeight = (instance) => {
-  if (!instance.filtersActive && instance.segmentSlider && instance.featuredSection) {
+  if (instance.$refs.segmentSlider && instance.$refs.featuredSection && instance.$refs.filterHeading) {
     const x = instance.$refs.segmentSlider.offsetHeight
     const y = instance.$refs.featuredSection.offsetHeight
     const z = instance.$refs.filterHeading.offsetHeight
@@ -90,6 +92,7 @@ export default {
       tag: 'home',
       sectionHeight: false,
       resize: false,
+      load: false,
       segmentSlider: false,
       featuredProjects: false
     }
@@ -151,15 +154,10 @@ export default {
     }
   },
 
-  watch: {
-    filtersActive (val) {
-      setTimeout(() => { resetSectionHeight(this) }, 500)
-      if (val) {
-        this.$refs.collapsibleSection.style.height = '0px'
-      } else {
-        this.$refs.collapsibleSection.style.height = this.sectionHeight + 'px'
-      }
-    }
+  created () {
+    this.$nuxt.$on('view-all-projects', () => {
+      this.initFilters()
+    })
   },
 
   mounted () {
@@ -168,23 +166,27 @@ export default {
 
     this.resize = () => { resetSectionHeight(this) }
     window.addEventListener('resize', this.resize)
-
-    resetSectionHeight(this)
+    this.load = () => { resetSectionHeight(this) }
+    window.addEventListener('load', this.load)
   },
 
   beforeDestroy () {
     if (this.resize) { window.removeEventListener('resize', this.resize) }
+    if (this.load) { window.removeEventListener('load', this.load) }
   },
 
   methods: {
     ...mapActions({
       setFiltersActive: 'filters/setFiltersActive'
     }),
-    segment () {
-      this.segmentSlider = true
-    },
-    featured () {
-      this.featuredProjects = true
+    initFilters () {
+      const cloned = CloneDeep(this.$route.query)
+      cloned.filters = 'enabled'
+      this.$router.push({ path: '/', query: cloned })
+      this.setFiltersActive(true)
+
+      this.$refs.collapsibleSection.style.height = '0px'
+      window.scrollTo(0, 0)
     }
   }
 }
