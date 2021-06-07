@@ -195,7 +195,7 @@ input {
     }
     &::-webkit-slider-thumb {
       height: 20px;
-      width: 50px;
+      width: 51px;
       cursor: pointer;
       -webkit-appearance: none;
       margin-top: -9px;
@@ -212,8 +212,11 @@ input {
     }
     &::-moz-range-thumb {
       height: 20px;
-      width: 50px;
+      width: 51px;
       cursor: pointer;
+      background: url('./sliderthumb.svg') no-repeat;
+      border: none;
+      border-radius: 0px;
     }
     &::-ms-track {
       width: 100%;
@@ -233,8 +236,11 @@ input {
     &::-ms-thumb {
       margin-top: 1px;
       height: 20px;
-      width: 50px;
+      width: 51px;
       cursor: pointer;
+      background: url('./sliderthumb.svg') no-repeat;
+      border: none;
+      border-radius: 0px;
     }
   }
 }

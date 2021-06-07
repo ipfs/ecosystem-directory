@@ -71,7 +71,9 @@
             All Filters
           </h4>
 
-          <FilterBar filter-value="">
+          <FilterBar
+            :filter-value="searchQuery"
+            @setFilterValue="setSearchQuery">
             <template #icon>
               <SearchIcon />
             </template>
@@ -207,7 +209,9 @@ export default {
       paginationDisplay: 20,
       filterPanel: false,
       totalFilters: 0,
-      listActive: false
+      listActive: false,
+      resize: false,
+      searchQuery: ''
     }
   },
 
@@ -236,8 +240,9 @@ export default {
       if (this.searchQuery) {
         for (let i = 0; i < len; i++) {
           const name = projects[i].name
+          const org = projects[i].org
           if (typeof name === 'string') {
-            if (regex.test(name)) {
+            if (regex.test(name) || regex.test(org)) {
               arr.push(projects[i])
             }
           }
