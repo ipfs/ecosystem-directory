@@ -38,8 +38,7 @@
 
           <SortBySelector
             class="sort-by-selector"
-            :sort-options="taxonomyData.sort"
-            :display-options="['A-Z', 'Time on IPFS']">
+            :sort-options="taxonomyData.sort">
             <template #dropdown-icon>
               <SelectorToggle stroke="#052437" />
             </template>

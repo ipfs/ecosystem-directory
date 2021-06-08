@@ -1,6 +1,8 @@
 <template>
   <div class="dropdown-wrapper">
-    <div class="dropdown-root">
+    <div
+      class="dropdown-root"
+      :style="`min-width: ${maxLength * 10}px`">
 
       <div class="dropdown-button" @click.stop="toggleDropDown()">
 
@@ -23,7 +25,7 @@
       </div>
 
       <div
-        v-if="displayOptions"
+        v-if="sortOptions"
         v-click-outside="closeAllSelect"
         :class="['dropdown-list', { hidden: closed }]">
 
@@ -47,7 +49,7 @@
 
         </div>
 
-        <template v-for="option in options">
+        <template v-for="(option, index) in options">
           <div
             :key="`div-option-${option.label}`"
             :value="option.label"
@@ -82,17 +84,12 @@ export default {
     sortOptions: {
       type: Object,
       required: true
-    },
-    displayOptions: {
-      type: Array,
-      required: true
     }
   },
 
   data () {
     return {
       closed: true,
-      unfocus: false,
       selected: 'A-Z'
     }
   },
@@ -107,6 +104,13 @@ export default {
         displayOptions.push(this.sortOptions[key])
       })
       return displayOptions
+    },
+    maxLength () {
+      const chars = []
+      Object.keys(this.sortOptions).forEach((key) => {
+        chars.push(this.sortOptions[key].label.split('').length)
+      })
+      return Math.max(...chars)
     }
   },
 
@@ -127,29 +131,26 @@ export default {
     optionSelected (obj) {
       this.selected = obj.label
       this.closed = true
-
-      if (obj.type === "alphabetical") {
+      if (obj.type === 'alphabetical') {
         this.sortAlphabetically(obj.key, obj.label)
-      } else if (obj.type === "number") {
+      } else if (obj.type === 'number') {
         this.sortNumerically(obj.sortNumber, obj.direction)
-        console.log('hit')
       }
     },
     sortAlphabetically (key, mode) {
       const cloned = CloneDeep(this.collection)
       cloned.sort((a, b) => a[key].localeCompare(b[key]))
-      if (mode === "Z-A") {
+      if (mode === 'Z-A') {
         cloned.reverse()
       }
       this.setCollection(cloned)
     },
-    sortNumerically(key, mode) {
+    sortNumerically (key, mode) {
       const cloned = CloneDeep(this.collection)
-
-      console.log(cloned[0].sortNumbers.since)
-      cloned.sort((a, b) => a.sortNumbers[key] - b.sortNumbers[key])
-      if (mode === "DESC") {
-        cloned.reverse()
+      if (mode === 'ASC') {
+        cloned.sort((a, b) => a.sortNumbers[key] - b.sortNumbers[key])
+      } else if (mode === 'DESC') {
+        cloned.sort((a, b) => b.sortNumbers[key] - a.sortNumbers[key])
       }
       this.setCollection(cloned)
     }
@@ -174,7 +175,6 @@ export default {
 }
 
 .dropdown-root {
-  min-width: 190px;
   white-space: nowrap;
   @include borderRadius3;
   background-color: #FFFFFF;
@@ -189,7 +189,7 @@ export default {
   display: flex;
   justify-content: space-between;
   label {
-    margin-right: 0.2rem;
+    margin-right: 0.25rem;
   }
 }
 
@@ -212,7 +212,8 @@ export default {
   background-color: #ffffff;
   @include borderRadius3;
   z-index: 1000;
-  ::before {
+  padding-bottom: 0.25rem;
+  &::before {
     content: '';
     position: absolute;
     width: 100%;
@@ -229,7 +230,6 @@ export default {
 .dropdown-item {
   padding: 0.25rem 1.0rem;
   width: 100%;
-  // overflow-wrap: anywhere;
   white-space: normal;
   &:hover {
     cursor: pointer;
