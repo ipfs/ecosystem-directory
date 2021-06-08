@@ -278,7 +278,7 @@ export default {
     display: inline;
   }
   position: relative;
-  z-index: 1000;
+  z-index: 100;
   top: -0.5rem;
   background-color: rgba(255, 0, 0, 0.2);
   &:hover {

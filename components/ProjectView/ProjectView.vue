@@ -51,35 +51,11 @@
       </div>
     </div>
 
-    <!-- ////////////////////////////////////////////////////// Filter Panel -->
-
     <div id="project-filter-container">
 
+      <!-- //////////////////////////////////////////////////// Filter Panel -->
+
       <div id="filter-panel-wrapper" ref="filterWrap" class="filter-panel-modal">
-
-        <div
-          v-if="filterPanel"
-          class="filter-panel-heading">
-
-          <div
-            class="close-icon"
-            @click="toggleFilterPanel">
-            <Close />
-          </div>
-
-          <h4 class="title">
-            All Filters
-          </h4>
-
-          <FilterBar
-            :filter-value="searchQuery"
-            @setFilterValue="setSearchQuery">
-            <template #icon>
-              <SearchIcon />
-            </template>
-          </FilterBar>
-
-        </div>
 
         <div ref="innerPanel" class="inner-wrapper">
 
@@ -91,55 +67,58 @@
             @totalSelected="updateTotalFilters" />
 
         </div>
+
       </div>
 
       <!-- ////////////////////////////////////////////////// Paginated List -->
 
-      <div id="card-display" ref="cardDisplay" class="card-display auto">
+      <transition name="panel">
+        <div id="card-display" ref="cardDisplay" class="card-display auto">
 
-        <Paginate
-          v-if="filteredProjects"
-          v-slot="{ paginated }"
-          :display="display"
-          :collection="filteredProjects"
-          class="paginate-root">
+          <Paginate
+            v-if="filteredProjects"
+            v-slot="{ paginated }"
+            :display="display"
+            :collection="filteredProjects"
+            class="paginate-root">
 
-          <div class="card-list grid">
-            <ProjectCard
-              v-for="project in paginated"
-              :key="project.name"
-              :format="(listActive ? 'list-view' : 'block-view')"
-              :class="`col-${num}`"
-              :title="project.name"
-              :slug="project.slug"
-              :description="project.description.short"
-              :logo="project.logo.icon" />
+            <div class="card-list grid">
+              <ProjectCard
+                v-for="project in paginated"
+                :key="project.name"
+                :format="(listActive ? 'list-view' : 'block-view')"
+                :class="`col-${num}`"
+                :title="project.name"
+                :slug="project.slug"
+                :description="project.description.short"
+                :logo="project.logo.icon" />
+            </div>
+
+          </Paginate>
+
+          <div v-else class="placeholder-results-empty">
+            {{ pageData.section_filter.results_empty_placeholder }}
           </div>
 
-        </Paginate>
+          <div v-if="filteredProjects" class="page-navigation-controls">
 
-        <div v-else class="placeholder-results-empty">
-          {{ pageData.section_filter.results_empty_placeholder }}
-        </div>
+            <PaginationControls />
 
-        <div v-if="filteredProjects" class="page-navigation-controls">
+            <div class="results-selector-wrapper">
+              <ResultsPerPageSelector
+                :collection="filteredProjects"
+                class="results-per-page font-inter">
 
-          <PaginationControls />
+                <template #dropdown-icon>
+                  <SelectorToggle stroke="#052437" />
+                </template>
 
-          <div class="results-selector-wrapper">
-            <ResultsPerPageSelector
-              :collection="filteredProjects"
-              class="results-per-page font-inter">
+              </ResultsPerPageSelector>
+            </div>
 
-              <template #dropdown-icon>
-                <SelectorToggle stroke="#052437" />
-              </template>
-
-            </ResultsPerPageSelector>
           </div>
-
         </div>
-      </div>
+      </transition>
 
     </div>
 
@@ -157,9 +136,6 @@ import SelectorToggle from '@/modules/zero/core/Components/Icons/SelectorToggle'
 import FiltersToggle from '@/modules/zero/core/Components/Icons/FiltersToggle'
 import ListView from '@/components/Icons/ListView'
 import GridView from '@/components/Icons/GridView'
-import FilterBar from '@/modules/zero/core/Components/FilterBar'
-import SearchIcon from '@/components/Icons/SearchIcon'
-import Close from '@/components/Icons/Close'
 import FilterPanel from '@/components/FilterPanel/FilterPanel'
 import PaginationControls from '@/components/ProjectView/PaginationControls'
 import ProjectCard from '@/components/ProjectView/ProjectCard'
@@ -211,10 +187,7 @@ export default {
     ListView,
     GridView,
     Button,
-    FilterBar,
     FilterPanel,
-    SearchIcon,
-    Close,
     ProjectCard
   },
 
@@ -234,7 +207,6 @@ export default {
       totalFilters: 0,
       listActive: false,
       resize: false,
-      searchQuery: '',
       num: 3
     }
   },
@@ -246,7 +218,8 @@ export default {
       totalPages: 'pagination/totalPages',
       display: 'pagination/display',
       filteredProjects: 'filters/collection',
-      filtersActive: 'filters/filtersActive'
+      filtersActive: 'filters/filtersActive',
+      filterValue: 'core/filterValue'
     }),
     pageData () {
       const siteContent = this.siteContent
@@ -256,12 +229,12 @@ export default {
       return false
     },
     searchResults () {
-      const query = this.searchQuery
+      const query = this.filterValue
       const regex = new RegExp(query, 'i')
       const projects = this.allProjects
       const len = projects.length
       const arr = []
-      if (this.searchQuery) {
+      if (this.filterValue) {
         for (let i = 0; i < len; i++) {
           const name = projects[i].name
           const org = projects[i].org
@@ -355,9 +328,6 @@ export default {
     },
     clearSelectedFilters () {
       this.$refs.filterPanel.clearSelected()
-    },
-    setSearchQuery (val) {
-      this.searchQuery = val
     }
   }
 }
@@ -459,13 +429,6 @@ button.button.type-C.active-button {
   transition: width 500ms ease-in-out;
   overflow: hidden;
   border-radius: 0 0.25rem 0.25rem 0;
-  .close-icon {
-    position: absolute;
-    right: 0.75rem;
-    top: 0.25rem;
-    padding: 0.25rem;
-    cursor: pointer;
-  }
   @include small {
     position: fixed;
     overflow: scroll;
@@ -486,47 +449,27 @@ button.button.type-C.active-button {
   }
 }
 
-.filter-panel-heading {
-  margin: 2.5rem 0;
-  margin-right: 2.5rem;
-  margin-left: 24%;
-  @include small {
-    margin: 0;
-    padding: 1.5rem 2.5rem;
-    width: 100vw;
-    position: fixed;
-    background-color: #ffffff;
-    z-index: 100;
-  }
-  .title {
-    font-family: $fontMontserrat;
-    font-weight: 400;
-    margin: 6px;
-  }
-}
-
 .inner-wrapper {
   font-family: $fontInter;
   position: relative;
   margin-left: 24%;
   @include small {
-    top: 6rem;
-    margin: 2.5rem;
+    margin: 0 2.5rem;
     margin-bottom: 18rem;
   }
 }
 
-::v-deep .bottom-buttons {
-  @include small {
-    position: fixed;
-    bottom: 0;
-    background-color: #ffffff;
-    width: 100%;
-    z-index: 100;
-    padding: 1.0rem 0;
-    margin: 0;
-  }
-}
+// ::v-deep .bottom-buttons {
+//   @include small {
+//     position: fixed;
+//     bottom: 0;
+//     background-color: #ffffff;
+//     width: 100%;
+//     z-index: 100;
+//     padding: 1.0rem 0;
+//     margin: 0;
+//   }
+// }
 
 // /////////////////////////////////////////////////////////////// Project Cards
 .card-display {

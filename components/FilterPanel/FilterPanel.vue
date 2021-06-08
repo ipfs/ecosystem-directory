@@ -6,76 +6,101 @@
     :selected="selectedLabels"
     class="filter-panel-content">
 
+    <div
+      v-if="isActive"
+      class="filter-panel-heading">
+
+      <div
+        @click="closePanel">
+        <Close class="close-icon"/>
+      </div>
+
+      <h4 class="title">
+        All Filters
+      </h4>
+
+      <FilterBar
+        :filter-value="filterValue"
+        action="store">
+        <template #icon>
+          <SearchIcon />
+        </template>
+      </FilterBar>
+
+    </div>
+
     <template v-if="isActive">
-      <div id="filter-headings">
-        <template v-for="(heading, index) in ProjectFilters">
-          <div :key="heading.label" class="filter-category container">
+        <div id="filter-headings">
+          <template v-for="(heading, index) in ProjectFilters">
+            <div :key="heading.label" class="filter-category container">
 
-            <div class="filter-category heading-wrapper" @click.stop="toggleCat(index)">
+              <div class="filter-category heading-wrapper" @click.stop="toggleCat(index)">
 
-              <div class="filter-category heading">
+                <div class="filter-category heading">
 
-                {{ heading.label }}
+                  {{ heading.label }}
 
-                <span class="filter-category number-active">
-                  ({{ activeTags[heading.label].length }} of {{ heading.tags.length }})
-                </span>
+                  <span class="filter-category number-active">
+                    ({{ activeTags[heading.label].length }} of {{ heading.tags.length }})
+                  </span>
 
-              </div>
-
-              <div class="filter-category toggle" :class="{ flip: !catsOpen[index] }">
-                <ToggleArrow stroke="#494949" />
-              </div>
-
-            </div>
-
-            <div ref="cats" class="collapsible-tags" :class="{ collapsed : !catsOpen[index] }">
-
-              <h5 class="filter-category sub-heading">
-                Filter by {{ heading.label }}
-              </h5>
-
-              <div class="filter-category chiclet-list">
-
-                <div
-                  :class="['filter-category tag chiclet', { 'active-button': activeTags[heading.label].length === heading.tags.length }]"
-                  @click="toggleAll(index, heading.label)">
-                  All
                 </div>
 
-                <div
-                  v-for="tag in heading.tags"
-                  :key="tag.label"
-                  :class="['filter-category tag chiclet', { 'active-button': selected.includes(tag) }]"
-                  @click="applyFilter(tag, index, heading.label)">
-                  {{ tag.label }}
+                <div class="filter-category toggle" :class="{ flip: !catsOpen[index] }">
+                  <ToggleArrow stroke="#494949" />
                 </div>
 
               </div>
 
+              <div ref="cats" class="collapsible-tags" :class="{ collapsed : !catsOpen[index] }">
+
+                <h5 class="filter-category sub-heading">
+                  Filter by {{ heading.label }}
+                </h5>
+
+                <div class="filter-category chiclet-list">
+
+                  <div
+                    :class="['filter-category tag chiclet', { 'active-button': activeTags[heading.label].length === heading.tags.length }]"
+                    @click="toggleAll(index, heading.label)">
+                    All
+                  </div>
+
+                  <div
+                    v-for="tag in heading.tags"
+                    :key="tag.label"
+                    :class="['filter-category tag chiclet', { 'active-button': selected.includes(tag) }]"
+                    @click="applyFilter(tag, index, heading.label)">
+                    {{ tag.label }}
+                  </div>
+
+                </div>
+
+              </div>
+
             </div>
+          </template>
+        </div>
+      </template>
+
+        <template v-if="isActive">
+          <div class="bottom-buttons">
+
+            <button
+              v-if="selected.length"
+              class="clear-selected"
+              @click="clearSelected">
+              Clear ({{ selected.length }}) Selected
+            </button>
+
+            <button
+              class="done"
+              @click="closePanel">
+              Done
+            </button>
 
           </div>
         </template>
-
-        <div class="bottom-buttons">
-
-          <button
-            v-if="selected.length"
-            class="clear-selected"
-            @click="clearSelected">
-            Clear ({{ selected.length }}) Selected
-          </button>
-
-          <button
-            class="done"
-            @click="closePanel">
-            Done
-          </button>
-
-        </div>
-      </div>
-    </template>
 
   </Filters>
 </template>
@@ -87,6 +112,9 @@ import CloneDeep from 'lodash/cloneDeep'
 
 import Filters from '@/modules/zero/filters/Components/Filters'
 import ToggleArrow from '@/components/Icons/ToggleArrow'
+import FilterBar from '@/modules/zero/core/Components/FilterBar'
+import SearchIcon from '@/components/Icons/SearchIcon'
+import Close from '@/components/Icons/Close'
 
 import Taxonomy from '~/content/data/taxonomy.json'
 
@@ -166,7 +194,10 @@ export default {
 
   components: {
     Filters,
-    ToggleArrow
+    ToggleArrow,
+    FilterBar,
+    SearchIcon,
+    Close,
   },
 
   props: {
@@ -192,7 +223,8 @@ export default {
 
   computed: {
     ...mapGetters({
-      activeTags: 'filters/activeTags'
+      activeTags: 'filters/activeTags',
+      filterValue: 'core/filterValue'
     }),
     ProjectFilters () {
       const filters = Taxonomy.categories
@@ -336,7 +368,7 @@ export default {
 .filter-panel-content {
   margin-right: 2.5rem;
   white-space: nowrap;
-  @include tiny {
+  @include small {
     margin: 0;
   }
 }
@@ -365,6 +397,15 @@ export default {
   margin-top: 2rem;
   margin-bottom: 4rem;
   font-family: $fontMontserrat;
+  @include small {
+
+    bottom: 0;
+    background-color: #ffffff;
+    width: 100%;
+    z-index: 100;
+    padding: 1.0rem 0;
+    margin: 0;
+  }
   .clear-selected,
   .done {
     @include borderRadius3;
@@ -385,6 +426,37 @@ export default {
 }
 
 // //////////////////////////////////////////////////////////////// Filter Panel
+
+.fixed-panel {
+  position: fixed;
+}
+
+.filter-panel-heading {
+  @include small {
+    margin: 0;
+    // padding: 1.5rem 2.5rem;
+    // width: 100vw;
+    // top: 0;
+    // left: 0;
+    // position: fixed;
+    background-color: #ffffff;
+    z-index: 100;
+  }
+  .title {
+    font-family: $fontMontserrat;
+    font-weight: 400;
+    margin: 6px;
+  }
+}
+
+.close-icon {
+  position: relative;
+  left: calc(100% + 0.75rem);
+  top: 0.5rem;
+  padding: 0.25rem;
+  cursor: pointer;
+}
+
 .filter-category {
   &.container {
     margin-bottom: 2rem;

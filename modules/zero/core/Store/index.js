@@ -87,6 +87,7 @@ const mutations = {
   },
   SET_FILTER_VALUE (state, value) {
     state.filterValue = value
+    console.log(state.filterValue)
   }
 }
 
