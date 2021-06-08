@@ -6,31 +6,41 @@
     :selected="selectedLabels"
     class="filter-panel-content">
 
-    <div
-      v-if="isActive"
-      class="filter-panel-heading">
-
+    <transition
+      name="panel"
+      @after-enter="afterEnter"
+      @before-leave="beforeLeave">
       <div
-        @click="closePanel">
-        <Close class="close-icon"/>
+        v-if="isActive"
+        ref="panelHeading"
+        class="filter-panel-heading">
+
+        <div
+          @click="closePanel">
+          <Close class="close-icon" />
+        </div>
+
+        <h4 class="title">
+          All Filters
+        </h4>
+
+        <FilterBar
+          :filter-value="filterValue"
+          action="store">
+          <template #icon>
+            <SearchIcon />
+          </template>
+        </FilterBar>
+
       </div>
+    </transition>
 
-      <h4 class="title">
-        All Filters
-      </h4>
-
-      <FilterBar
-        :filter-value="filterValue"
-        action="store">
-        <template #icon>
-          <SearchIcon />
-        </template>
-      </FilterBar>
-
-    </div>
-
-    <template v-if="isActive">
-        <div id="filter-headings">
+    <transition
+      name="panel"
+      @after-enter="afterPanelEnter"
+      @before-leave="beforePanelLeave">
+      <template v-if="isActive">
+        <div ref="inner">
           <template v-for="(heading, index) in ProjectFilters">
             <div :key="heading.label" class="filter-category container">
 
@@ -82,25 +92,33 @@
           </template>
         </div>
       </template>
+    </transition>
 
-        <template v-if="isActive">
-          <div class="bottom-buttons">
+    <transition
+      name="panel"
+      @after-enter="afterEnterBottom"
+      @before-leave="beforeLeaveBottom">
+      <template v-if="isActive">
+        <div
+          ref="bottomButtons"
+          class="bottom-buttons">
 
-            <button
-              v-if="selected.length"
-              class="clear-selected"
-              @click="clearSelected">
-              Clear ({{ selected.length }}) Selected
-            </button>
+          <button
+            v-if="selected.length"
+            class="clear-selected"
+            @click="clearSelected">
+            Clear ({{ selected.length }}) Selected
+          </button>
 
-            <button
-              class="done"
-              @click="closePanel">
-              Done
-            </button>
+          <button
+            class="done"
+            @click="closePanel">
+            Done
+          </button>
 
-          </div>
-        </template>
+        </div>
+      </template>
+    </transition>
 
   </Filters>
 </template>
@@ -197,7 +215,7 @@ export default {
     ToggleArrow,
     FilterBar,
     SearchIcon,
-    Close,
+    Close
   },
 
   props: {
@@ -357,6 +375,24 @@ export default {
     },
     closePanel () {
       this.$emit('closeFilters')
+    },
+    afterEnter () {
+      this.$refs.panelHeading.classList.add('fixed-header')
+    },
+    beforeLeave () {
+      this.$refs.panelHeading.classList.remove('fixed-header')
+    },
+    afterPanelEnter () {
+      this.$refs.inner.classList.add('categories-wrapper')
+    },
+    beforePanelLeave () {
+      this.$refs.inner.classList.remove('categories-wrapper')
+    },
+    afterEnterBottom () {
+      this.$refs.bottomButtons.classList.add('fixed-bottom')
+    },
+    beforeLeaveBottom () {
+      this.$refs.bottomButtons.classList.remove('fixed-bottom')
     }
   }
 }
@@ -398,7 +434,6 @@ export default {
   margin-bottom: 4rem;
   font-family: $fontMontserrat;
   @include small {
-
     bottom: 0;
     background-color: #ffffff;
     width: 100%;
@@ -427,20 +462,38 @@ export default {
 
 // //////////////////////////////////////////////////////////////// Filter Panel
 
-.fixed-panel {
-  position: fixed;
+.fixed-header {
+  @include small {
+    position: fixed;
+    width: calc(100% - 5rem);
+    top: 0;
+    padding-bottom: 2rem;
+  }
+}
+
+.fixed-bottom {
+  @include small {
+    position: fixed;
+    width: calc(100% - 5rem);
+    bottom: 0;
+  }
+}
+
+.panel {
+  &-enter-active {
+    transition-duration: 500ms;
+  }
+  &-leave-active {
+    transition-duration: 500ms;
+  }
 }
 
 .filter-panel-heading {
   @include small {
     margin: 0;
-    // padding: 1.5rem 2.5rem;
-    // width: 100vw;
-    // top: 0;
-    // left: 0;
-    // position: fixed;
     background-color: #ffffff;
     z-index: 100;
+    padding-bottom: 2rem;
   }
   .title {
     font-family: $fontMontserrat;
@@ -455,6 +508,13 @@ export default {
   top: 0.5rem;
   padding: 0.25rem;
   cursor: pointer;
+}
+
+.categories-wrapper {
+  @include small {
+    position: relative;
+    top: 8rem;
+  }
 }
 
 .filter-category {

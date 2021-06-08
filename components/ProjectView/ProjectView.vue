@@ -253,24 +253,30 @@ export default {
   watch: {
     filterPanel (val) {
       if (val) {
-        this.$refs.filterWrap.classList.remove('filter-closed')
-        this.$refs.filterWrap.classList.add('filter-open')
-
         if (!window.matchMedia('(max-width: 53.125rem)').matches) {
+          this.$refs.filterWrap.classList.remove('filter-closed', 'mobile-closed')
+          this.$refs.filterWrap.classList.add('filter-open')
+
           this.$refs.cardDisplay.style.marginLeft = null
           this.$refs.cardDisplay.style.marginRight = null
           this.$refs.cardDisplay.classList.remove('auto')
           this.$refs.cardDisplay.classList.remove('panel-closed')
           this.$refs.cardDisplay.classList.add('panel-open')
+        } else {
+          this.$refs.filterWrap.classList.remove('filter-closed', 'mobile-closed')
+          this.$refs.filterWrap.classList.add('mobile-open')
         }
       } else {
-        this.$refs.filterWrap.classList.remove('filter-open')
-        this.$refs.filterWrap.classList.add('filter-closed')
-
         if (!window.matchMedia('(max-width: 53.125rem)').matches) {
+          this.$refs.filterWrap.classList.remove('filter-open', 'mobile-open')
+          this.$refs.filterWrap.classList.add('filter-closed')
+
           this.$refs.cardDisplay.classList.remove('panel-open')
           this.$refs.cardDisplay.classList.add('panel-closed')
           setTimeout(() => { resetCardDisplayMargin(this.$refs.cardDisplay) }, 500)
+        } else {
+          this.$refs.filterWrap.classList.remove('filter-open', 'mobile-open')
+          this.$refs.filterWrap.classList.add('mobile-closed')
         }
       }
     }
@@ -426,15 +432,15 @@ button.button.type-C.active-button {
   position: relative;
   width: 0%;
   background-color: #ffffff;
-  transition: width 500ms ease-in-out;
+  transition: all 500ms ease-in-out;
   overflow: hidden;
   border-radius: 0 0.25rem 0.25rem 0;
   @include small {
     position: fixed;
     overflow: scroll;
     height: 100vh;
-    width: 0;
-    top: 0;
+    width: 100vw;
+    top: 100%;
     z-index: 100;
     border-radius: 0;
   }
@@ -445,6 +451,18 @@ button.button.type-C.active-button {
     width: 28.75rem;
     @include small {
       width: 100vw;
+    }
+  }
+  &.mobile-closed {
+    @include small {
+      width: 100vw;
+      top: 100%;
+    }
+  }
+  &.mobile-open {
+    @include small {
+      width: 100vw;
+      top: 0;
     }
   }
 }
@@ -458,18 +476,6 @@ button.button.type-C.active-button {
     margin-bottom: 18rem;
   }
 }
-
-// ::v-deep .bottom-buttons {
-//   @include small {
-//     position: fixed;
-//     bottom: 0;
-//     background-color: #ffffff;
-//     width: 100%;
-//     z-index: 100;
-//     padding: 1.0rem 0;
-//     margin: 0;
-//   }
-// }
 
 // /////////////////////////////////////////////////////////////// Project Cards
 .card-display {
