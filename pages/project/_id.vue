@@ -84,7 +84,7 @@
               :class="['card', (slider[ind].label ? 'big-number' : 'case-study'), 'card-slider-mobile', { 'more-than-two' : moreThanTwo }]">
               <div class="slide-nav">
                 <button
-                  :class="['nav-arrow', { 'hide': (ind === 0) }]"
+                  class="nav-arrow"
                   @click="incrementSelection(-1)">
                   <PrevArrow stroke="#052437" width="10" height="15" />
                 </button>
@@ -92,7 +92,7 @@
                   {{ slider[ind].value || slider[ind].title }}
                 </p>
                 <button
-                  :class="['nav-arrow', { 'hide': (ind === slider.length - 1) }]"
+                  class="nav-arrow"
                   @click="incrementSelection(1)">
                   <NextArrow stroke="#052437" width="10" height="15" />
                 </button>
@@ -413,7 +413,9 @@ export default {
       return compiled.length > 0 ? compiled : false
     },
     incrementSelection (val) {
-      this.ind = Math.max(0, Math.min(this.ind + val, this.slider.length - 1))
+      let index = (this.ind + val)
+      if (index < 0) { index = this.slider.length - 1 }
+      this.ind = index % this.slider.length
     }
   }
 }
@@ -637,9 +639,6 @@ export default {
   &:focus {
     outline: none;
     box-shadow: none;
-  }
-  &.hide {
-    visibility: hidden;
   }
 }
 
