@@ -49,7 +49,7 @@
 
         </div>
 
-        <template v-for="(option, index) in options">
+        <template v-for="option in options">
           <div
             :key="`div-option-${option.label}`"
             :value="option.label"
