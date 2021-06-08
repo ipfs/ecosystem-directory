@@ -283,18 +283,22 @@ export default {
         this.$refs.filterWrap.classList.remove('filter-closed')
         this.$refs.filterWrap.classList.add('filter-open')
 
-        this.$refs.cardDisplay.style.marginLeft = null
-        this.$refs.cardDisplay.style.marginRight = null
-        this.$refs.cardDisplay.classList.remove('auto')
-        this.$refs.cardDisplay.classList.remove('panel-closed')
-        this.$refs.cardDisplay.classList.add('panel-open')
+        if (!window.matchMedia('(max-width: 53.125rem)').matches) {
+          this.$refs.cardDisplay.style.marginLeft = null
+          this.$refs.cardDisplay.style.marginRight = null
+          this.$refs.cardDisplay.classList.remove('auto')
+          this.$refs.cardDisplay.classList.remove('panel-closed')
+          this.$refs.cardDisplay.classList.add('panel-open')
+        }
       } else {
         this.$refs.filterWrap.classList.remove('filter-open')
         this.$refs.filterWrap.classList.add('filter-closed')
 
-        this.$refs.cardDisplay.classList.remove('panel-open')
-        this.$refs.cardDisplay.classList.add('panel-closed')
-        setTimeout(() => { resetCardDisplayMargin(this.$refs.cardDisplay) }, 500)
+        if (!window.matchMedia('(max-width: 53.125rem)').matches) {
+          this.$refs.cardDisplay.classList.remove('panel-open')
+          this.$refs.cardDisplay.classList.add('panel-closed')
+          setTimeout(() => { resetCardDisplayMargin(this.$refs.cardDisplay) }, 500)
+        }
       }
     }
   },
