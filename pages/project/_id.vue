@@ -44,11 +44,12 @@
 
       <div class="col-6_md-8_mi-10_ti-12" data-push-left="off-1_md-0">
         <section v-if="project.stats" id="section-statistics">
+
           <template v-for="(stat, i) in project.stats">
             <div
               v-if="stat.value && stat.label"
               :key="`big-number-${i}`"
-              class="card big-number">
+              :class="['card', 'big-number', { 'hide-tiny': moreThanTwo } ]">
               <p class="statistic">
                 {{ stat.value }}
               </p>
@@ -57,9 +58,10 @@
               </p>
             </div>
           </template>
+
           <div
             v-if="project.ctaCard && project.ctaCard.title && project.ctaCard.description"
-            class="card case-study">
+            :class="['card', 'case-study', { 'hide-tiny': moreThanTwo } ]">
             <p v-if="project.ctaCard.title" class="title">
               {{ project.ctaCard.title }}
             </p>
@@ -74,6 +76,40 @@
               {{ project.ctaCard.buttonText }}
             </a>
           </div>
+
+          <transition name="slide-fade" mode="out-in">
+            <div
+              v-if="slider[ind] && moreThanTwo"
+              :key="slider[ind].label || slider[ind].title"
+              :class="['card', (slider[ind].label ? 'big-number' : 'case-study'), 'card-slider-mobile', { 'more-than-two' : moreThanTwo }]">
+              <div class="slide-nav">
+                <button
+                  :class="['nav-arrow', { 'hide': (ind === 0) }]"
+                  @click="incrementSelection(-1)">
+                  <PrevArrow stroke="#052437" width="10" height="15" />
+                </button>
+                <p :class="(slider[ind].label ? 'statistic' : 'title')">
+                  {{ slider[ind].value || slider[ind].title }}
+                </p>
+                <button
+                  :class="['nav-arrow', { 'hide': (ind === slider.length - 1) }]"
+                  @click="incrementSelection(1)">
+                  <NextArrow stroke="#052437" width="10" height="15" />
+                </button>
+              </div>
+              <p class="description">
+                {{ slider[ind].label || slider[ind].description }}
+              </p>
+              <a
+                v-if="slider[ind].url && slider[ind].buttonText"
+                class="cta"
+                :href="slider[ind].url"
+                target="_blank">
+                {{ slider[ind].buttonText }}
+              </a>
+            </div>
+          </transition>
+
         </section>
       </div>
     </div>
@@ -214,6 +250,8 @@ import AccordionHeader from '@/modules/zero/core/Components/Accordion/Header'
 import AccordionSection from '@/modules/zero/core/Components/Accordion/Section'
 import AccordionContent from '@/modules/zero/core/Components/Accordion/Content'
 import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
+import PrevArrow from '@/components/Icons/PrevArrow'
+import NextArrow from '@/components/Icons/NextArrow'
 
 // ====================================================================== Export
 export default {
@@ -225,7 +263,9 @@ export default {
     AccordionHeader,
     AccordionSection,
     AccordionContent,
-    FeaturedProjectsSlider
+    FeaturedProjectsSlider,
+    PrevArrow,
+    NextArrow
   },
 
   asyncData ({ app, route, error, payload }) {
@@ -243,7 +283,8 @@ export default {
     const id = this.$route.params.id
     return {
       tag: 'project',
-      id: `project-${id}`
+      id: `project-${id}`,
+      ind: 0
     }
   },
 
@@ -319,6 +360,27 @@ export default {
     },
     taxonomies () {
       return this.project.taxonomies.filter(tax => this.$checkTaxonomyCategoryExists(tax.slug))
+    },
+    moreThanTwo () {
+      const amt = (this.project.stats.length + (this.project.ctaCard ? 1 : 0))
+      return (amt > 2)
+    },
+    slider () {
+      const items = []
+      if (this.moreThanTwo) {
+        const cloned = CloneDeep(this.project.stats)
+        for (let i = 0; i < cloned.length; i++) {
+          if (cloned[i].label && cloned[i].value) {
+            items.push(cloned[i])
+          }
+        }
+        if (this.project.ctaCard.title) {
+          const cta = CloneDeep(this.project.ctaCard)
+          items.push(cta)
+        }
+        return items
+      }
+      return false
     }
   },
 
@@ -349,6 +411,9 @@ export default {
         }
       })
       return compiled.length > 0 ? compiled : false
+    },
+    incrementSelection (val) {
+      this.ind = Math.max(0, Math.min(this.ind + val, this.slider.length - 1))
     }
   }
 }
@@ -471,7 +536,7 @@ export default {
       padding: 2rem 1rem;
     }
     @include tiny {
-      padding: 2rem;
+      padding: 3rem 2rem;
     }
     .statistic {
       font-size: 2.625rem;
@@ -489,6 +554,9 @@ export default {
   }
   &.case-study {
     border: 2px solid $tiber;
+    @include tiny {
+      padding: 2rem 1rem;
+    }
     .title,
     .description {
       color: $tundora;
@@ -499,6 +567,9 @@ export default {
     .description {
       @include fontSize_Small;
       @include leading_Mini;
+      @include tiny {
+        margin-bottom: 2rem;
+      }
     }
     .cta {
       @include borderRadius3;
@@ -514,7 +585,71 @@ export default {
   .title {
     font-family: $fontMontserrat;
     margin-bottom: 1rem;
+    @include tiny {
+      margin-bottom: 0;
+    }
   }
+  &.hide-tiny {
+    @include tiny {
+      display: none;
+    }
+  }
+}
+
+.card-slider-mobile {
+  display: none;
+  &.more-than-two {
+    @include tiny {
+      display: inline;
+    }
+  }
+}
+
+.slide-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  @include tiny {
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+}
+
+.nav-arrow {
+  @include borderRadius3;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem;
+  color: rgba(0, 0, 0, 0.5);
+  background-color: #FFFFFF;
+  border: none;
+  font-weight: 900;
+  width: 3.75rem;
+  @include small {
+    width: auto;
+  }
+  &:hover {
+    color: rgb(2, 28, 54);
+  }
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+  &.hide {
+    visibility: hidden;
+  }
+}
+
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: all .25s ease;
+}
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  opacity: 0;
 }
 
 // ////////////////////////////////////////////////////////// [Section] Key Info
