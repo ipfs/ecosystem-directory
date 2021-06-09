@@ -1,126 +1,94 @@
 <template>
-  <Filters
-    v-if="ProjectFilters"
-    :projects="collection"
-    :filters="ProjectFilters"
-    :selected="selectedLabels"
-    class="filter-panel-content">
 
-    <transition
-      name="panel"
-      @after-enter="afterEnter"
-      @before-leave="beforeLeave">
-      <div
-        v-if="isActive"
-        ref="panelHeading"
-        class="filter-panel-heading">
+  <div id="filter-panel-wrapper" ref="filterWrap">
+    <div class="inner-wrapper">
+      <Filters
+        v-if="ProjectFilters"
+        :projects="collection"
+        :filters="ProjectFilters"
+        :selected="selectedLabels"
+        class="filter-panel-content">
 
-        <div
-          @click="closePanel">
-          <Close class="close-icon" />
-        </div>
-
-        <h4 class="title">
-          All Filters
-        </h4>
-
-        <FilterBar
-          :filter-value="filterValue"
-          action="store">
-          <template #icon>
-            <SearchIcon />
-          </template>
-        </FilterBar>
-
-      </div>
-    </transition>
-
-    <transition
-      name="panel"
-      @after-enter="afterPanelEnter"
-      @before-leave="beforePanelLeave">
-      <template v-if="isActive">
-        <div ref="inner">
-          <template v-for="(heading, index) in ProjectFilters">
-            <div :key="heading.label" class="filter-category container">
-
-              <div class="filter-category heading-wrapper" @click.stop="toggleCat(index)">
-
-                <div class="filter-category heading">
-
-                  {{ heading.label }}
-
-                  <span class="filter-category number-active">
-                    ({{ activeTags[heading.label].length }} of {{ heading.tags.length }})
-                  </span>
-
-                </div>
-
-                <div class="filter-category toggle" :class="{ flip: !catsOpen[index] }">
-                  <ToggleArrow stroke="#494949" />
-                </div>
-
-              </div>
-
-              <div ref="cats" class="collapsible-tags" :class="{ collapsed : !catsOpen[index] }">
-
-                <h5 class="filter-category sub-heading">
-                  Filter by {{ heading.label }}
-                </h5>
-
-                <div class="filter-category chiclet-list">
-
-                  <div
-                    :class="['filter-category tag chiclet', { 'active-button': activeTags[heading.label].length === heading.tags.length }]"
-                    @click="toggleAll(index, heading.label)">
-                    All
-                  </div>
-
-                  <div
-                    v-for="tag in heading.tags"
-                    :key="tag.label"
-                    :class="['filter-category tag chiclet', { 'active-button': selected.includes(tag) }]"
-                    @click="applyFilter(tag, index, heading.label)">
-                    {{ tag.label }}
-                  </div>
-
-                </div>
-
-              </div>
-
+        <transition-group name="fade" tag="div" mode="out-in">
+          <div
+            v-if="isActive"
+            key="top"
+            class="filter-panel-heading">
+            <div @click="closePanel">
+              <Close class="close-icon" />
             </div>
-          </template>
-        </div>
-      </template>
-    </transition>
+            <h4 class="title">
+              All Filters
+            </h4>
+            <FilterBar :filter-value="filterValue" action="store">
+              <template #icon>
+                <SearchIcon />
+              </template>
+            </FilterBar>
+          </div>
 
-    <transition
-      name="panel"
-      @after-enter="afterEnterBottom"
-      @before-leave="beforeLeaveBottom">
-      <template v-if="isActive">
-        <div
-          ref="bottomButtons"
-          class="bottom-buttons">
+          <div v-if="isActive" key="middle">
+            <template v-for="(heading, index) in ProjectFilters">
+              <div :key="heading.label" class="filter-category container">
 
-          <button
-            v-if="selected.length"
-            class="clear-selected"
-            @click="clearSelected">
-            Clear ({{ selected.length }}) Selected
-          </button>
+                <div class="filter-category heading-wrapper" @click.stop="toggleCat(index)">
+                  <div class="filter-category heading">
+                    {{ heading.label }}
+                    <span class="filter-category number-active">
+                      ({{ activeTags[heading.label].length }} of {{ heading.tags.length }})
+                    </span>
+                  </div>
+                  <div class="filter-category toggle" :class="{ flip: !catsOpen[index] }">
+                    <ToggleArrow stroke="#494949" />
+                  </div>
+                </div>
 
-          <button
-            class="done"
-            @click="closePanel">
-            Done
-          </button>
+                <div ref="cats" class="collapsible-tags" :class="{ collapsed : !catsOpen[index] }">
+                  <h5 class="filter-category sub-heading">
+                    Filter by {{ heading.label }}
+                  </h5>
+                  <div class="filter-category chiclet-list">
+                    <div
+                      :class="['filter-category tag chiclet', { 'active-button': activeTags[heading.label].length === heading.tags.length }]"
+                      @click="toggleAll(index, heading.label)">
+                      All
+                    </div>
+                    <div
+                      v-for="tag in heading.tags"
+                      :key="tag.label"
+                      :class="['filter-category tag chiclet', { 'active-button': selected.includes(tag) }]"
+                      @click="applyFilter(tag, index, heading.label)">
+                      {{ tag.label }}
+                    </div>
+                  </div>
+                </div>
 
-        </div>
-      </template>
-    </transition>
+              </div>
+            </template>
+          </div>
 
-  </Filters>
+          <div
+            v-if="isActive"
+            key="bottom"
+            class="bottom-buttons">
+            <button
+              v-if="selected.length"
+              class="clear-selected"
+              @click="clearSelected">
+              Clear ({{ selected.length }}) Selected
+            </button>
+            <button
+              class="done"
+              @click="closePanel">
+              Done
+            </button>
+          </div>
+        </transition-group>
+
+      </Filters>
+    </div>
+  </div>
+
 </template>
 
 <script>
@@ -160,9 +128,7 @@ const elementEnter = (element) => {
 
 const elementLeave = (element) => {
   const height = getComputedStyle(element).height
-
   element.style.height = height
-
   requestAnimationFrame(() => {
     element.style.height = 0
   })
@@ -235,7 +201,7 @@ export default {
     return {
       catsOpen: [],
       selected: [],
-      heights: []
+      heights: [],
     }
   },
 
@@ -264,6 +230,15 @@ export default {
   watch: {
     selected () {
       this.$emit('totalSelected', this.selected.length)
+    },
+    isActive (val) {
+      if (val) {
+        this.$refs.filterWrap.classList.remove('filter-closed')
+        this.$refs.filterWrap.classList.add('filter-open')
+      } else {
+        this.$refs.filterWrap.classList.remove('filter-open')
+        this.$refs.filterWrap.classList.add('filter-closed')
+      }
     }
   },
 
@@ -375,24 +350,6 @@ export default {
     },
     closePanel () {
       this.$emit('closeFilters')
-    },
-    afterEnter () {
-      this.$refs.panelHeading.classList.add('fixed-header')
-    },
-    beforeLeave () {
-      this.$refs.panelHeading.classList.remove('fixed-header')
-    },
-    afterPanelEnter () {
-      this.$refs.inner.classList.add('categories-wrapper')
-    },
-    beforePanelLeave () {
-      this.$refs.inner.classList.remove('categories-wrapper')
-    },
-    afterEnterBottom () {
-      this.$refs.bottomButtons.classList.add('fixed-bottom')
-    },
-    beforeLeaveBottom () {
-      this.$refs.bottomButtons.classList.remove('fixed-bottom')
     }
   }
 }
@@ -425,6 +382,46 @@ export default {
 .active-button {
   background-color: $tiber;
   color: #ffffff;
+}
+
+#filter-panel-wrapper {
+  display: block;
+  position: relative;
+  width: 0;
+  background-color: #ffffff;
+  transition: all 500ms ease-in-out;
+  overflow: hidden;
+  border-radius: 0 0.25rem 0.25rem 0;
+  @include small {
+    position: fixed;
+    overflow: scroll;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    border-radius: 0;
+  }
+  &.filter-closed {
+    width: 0;
+  }
+  &.filter-open {
+    width: 28.75rem;
+    @include small {
+      width: 100vw;
+    }
+  }
+}
+
+.inner-wrapper {
+  font-family: $fontInter;
+  position: relative;
+  margin-left: 24%;
+  @include small {
+    margin: 0 2.5rem;
+    margin-bottom: 1rem;
+    width: calc(100vw - 5rem);
+  }
 }
 
 .bottom-buttons {
@@ -479,16 +476,8 @@ export default {
   }
 }
 
-.panel {
-  &-enter-active {
-    transition-duration: 500ms;
-  }
-  &-leave-active {
-    transition-duration: 500ms;
-  }
-}
-
 .filter-panel-heading {
+  opacity: 1.0;
   @include small {
     margin: 0;
     background-color: #ffffff;
@@ -510,7 +499,7 @@ export default {
   cursor: pointer;
 }
 
-.categories-wrapper {
+.middle-mobile {
   @include small {
     position: relative;
     top: 8rem;
@@ -553,6 +542,18 @@ export default {
     margin: 6px;
     margin-bottom: 2rem;
   }
+}
+
+// ///////////////////////////////////////////////////////////////// Transitions
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease-out;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 
 </style>

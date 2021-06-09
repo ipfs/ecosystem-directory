@@ -54,71 +54,60 @@
     <div id="project-filter-container">
 
       <!-- //////////////////////////////////////////////////// Filter Panel -->
-
-      <div id="filter-panel-wrapper" ref="filterWrap" class="filter-panel-modal">
-
-        <div ref="innerPanel" class="inner-wrapper">
-
-          <FilterPanel
-            ref="filterPanel"
-            :collection="searchResults"
-            :is-active="filterPanel"
-            @closeFilters="toggleFilterPanel"
-            @totalSelected="updateTotalFilters" />
-
-        </div>
-
-      </div>
+      <FilterPanel
+        ref="filterPanel"
+        :collection="searchResults"
+        :is-active="filterPanel"
+        @closeFilters="toggleFilterPanel"
+        @totalSelected="updateTotalFilters" />
 
       <!-- ////////////////////////////////////////////////// Paginated List -->
 
-      <transition name="panel">
-        <div id="card-display" ref="cardDisplay" class="card-display auto">
+      <div id="card-display" ref="cardDisplay" class="card-display auto">
 
-          <Paginate
-            v-if="filteredProjects"
-            v-slot="{ paginated }"
-            :display="display"
-            :collection="filteredProjects"
-            class="paginate-root">
+        <Paginate
+          v-if="filteredProjects"
+          v-slot="{ paginated }"
+          :display="display"
+          :collection="filteredProjects"
+          class="paginate-root">
 
-            <div class="card-list grid">
-              <ProjectCard
-                v-for="project in paginated"
-                :key="project.name"
-                :format="(listActive ? 'list-view' : 'block-view')"
-                :class="`col-${num}`"
-                :title="project.name"
-                :slug="project.slug"
-                :description="project.description.short"
-                :logo="project.logo.icon" />
-            </div>
-
-          </Paginate>
-
-          <div v-else class="placeholder-results-empty">
-            {{ pageData.section_filter.results_empty_placeholder }}
+          <div class="card-list grid">
+            <ProjectCard
+              v-for="project in paginated"
+              :key="project.name"
+              :format="(listActive ? 'list-view' : 'block-view')"
+              :class="`col-${num}`"
+              :title="project.name"
+              :slug="project.slug"
+              :description="project.description.short"
+              :logo="project.logo.icon" />
           </div>
 
-          <div v-if="filteredProjects" class="page-navigation-controls">
+        </Paginate>
 
-            <PaginationControls />
-
-            <div class="results-selector-wrapper">
-              <ResultsPerPageSelector
-                :collection="filteredProjects"
-                class="results-per-page font-inter">
-
-                <template #dropdown-icon>
-                  <SelectorToggle stroke="#052437" />
-                </template>
-
-              </ResultsPerPageSelector>
-            </div>
-
-          </div>
+        <div v-else class="placeholder-results-empty">
+          {{ pageData.section_filter.results_empty_placeholder }}
         </div>
-      </transition>
+
+        <div v-if="filteredProjects" class="page-navigation-controls">
+
+          <PaginationControls />
+
+          <div class="results-selector-wrapper">
+            <ResultsPerPageSelector
+              :collection="filteredProjects"
+              class="results-per-page font-inter">
+
+              <template #dropdown-icon>
+                <SelectorToggle stroke="#052437" />
+              </template>
+
+            </ResultsPerPageSelector>
+          </div>
+
+        </div>
+      </div>
 
     </div>
 
@@ -252,31 +241,17 @@ export default {
 
   watch: {
     filterPanel (val) {
-      if (val) {
-        if (!window.matchMedia('(max-width: 53.125rem)').matches) {
-          this.$refs.filterWrap.classList.remove('filter-closed', 'mobile-closed')
-          this.$refs.filterWrap.classList.add('filter-open')
-
+      if (!window.matchMedia('(max-width: 53.125rem)').matches) {
+        if (val) {
           this.$refs.cardDisplay.style.marginLeft = null
           this.$refs.cardDisplay.style.marginRight = null
           this.$refs.cardDisplay.classList.remove('auto')
           this.$refs.cardDisplay.classList.remove('panel-closed')
           this.$refs.cardDisplay.classList.add('panel-open')
         } else {
-          this.$refs.filterWrap.classList.remove('filter-closed', 'mobile-closed')
-          this.$refs.filterWrap.classList.add('mobile-open')
-        }
-      } else {
-        if (!window.matchMedia('(max-width: 53.125rem)').matches) {
-          this.$refs.filterWrap.classList.remove('filter-open', 'mobile-open')
-          this.$refs.filterWrap.classList.add('filter-closed')
-
           this.$refs.cardDisplay.classList.remove('panel-open')
           this.$refs.cardDisplay.classList.add('panel-closed')
           setTimeout(() => { resetCardDisplayMargin(this.$refs.cardDisplay) }, 500)
-        } else {
-          this.$refs.filterWrap.classList.remove('filter-open', 'mobile-open')
-          this.$refs.filterWrap.classList.add('mobile-closed')
         }
       }
     }
@@ -427,55 +402,7 @@ button.button.type-C.active-button {
   justify-content: center;
 }
 
-#filter-panel-wrapper {
-  display: block;
-  position: relative;
-  width: 0%;
-  background-color: #ffffff;
-  transition: all 500ms ease-in-out;
-  overflow: hidden;
-  border-radius: 0 0.25rem 0.25rem 0;
-  @include small {
-    position: fixed;
-    overflow: scroll;
-    height: 100vh;
-    width: 100vw;
-    top: 100%;
-    z-index: 100;
-    border-radius: 0;
-  }
-  &.filter-closed {
-    width: 0;
-  }
-  &.filter-open {
-    width: 28.75rem;
-    @include small {
-      width: 100vw;
-    }
-  }
-  &.mobile-closed {
-    @include small {
-      width: 100vw;
-      top: 100%;
-    }
-  }
-  &.mobile-open {
-    @include small {
-      width: 100vw;
-      top: 0;
-    }
-  }
-}
 
-.inner-wrapper {
-  font-family: $fontInter;
-  position: relative;
-  margin-left: 24%;
-  @include small {
-    margin: 0 2.5rem;
-    margin-bottom: 18rem;
-  }
-}
 
 // /////////////////////////////////////////////////////////////// Project Cards
 .card-display {
