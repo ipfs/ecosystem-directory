@@ -77,38 +77,43 @@
             </a>
           </div>
 
-          <transition name="slide-fade" mode="out-in">
+          <div class="slider-display col-6_md-8_mi-10_ti-12">
             <div
-              v-if="slider[ind] && moreThanTwo"
-              :key="slider[ind].label || slider[ind].title"
-              :class="['card', (slider[ind].label ? 'big-number' : 'case-study'), 'card-slider-mobile', { 'more-than-two' : moreThanTwo }]">
-              <div class="slide-nav">
-                <button
-                  class="nav-arrow"
-                  @click="incrementSelection(-1)">
-                  <PrevArrow stroke="#052437" width="10" height="15" />
-                </button>
-                <p :class="(slider[ind].label ? 'statistic' : 'title')">
-                  {{ slider[ind].value || slider[ind].title }}
+              v-if="moreThanTwo"
+              ref="sliderFlex"
+              class="slider-flex slider-transition">
+              <div
+                v-for="slide in slider"
+                :key="slide.label || slide.title"
+                :class="['card', (slide.label ? 'big-number' : 'case-study'), 'slider-mobile', { 'more-than-two' : moreThanTwo }]">
+                <div class="slide-nav">
+                  <button
+                    class="nav-arrow"
+                    @click="incrementLeft">
+                    <PrevArrow stroke="#052437" width="10" height="15" />
+                  </button>
+                  <p :class="(slide.label ? 'statistic' : 'title')">
+                    {{ slide.value || slide.title }}
+                  </p>
+                  <button
+                    class="nav-arrow"
+                    @click="incrementRight">
+                    <NextArrow stroke="#052437" width="10" height="15" />
+                  </button>
+                </div>
+                <p class="description">
+                  {{ slide.label || slide.description }}
                 </p>
-                <button
-                  class="nav-arrow"
-                  @click="incrementSelection(1)">
-                  <NextArrow stroke="#052437" width="10" height="15" />
-                </button>
+                <a
+                  v-if="slide.url && slide.buttonText"
+                  class="cta"
+                  :href="slide.url"
+                  target="_blank">
+                  {{ slide.buttonText }}
+                </a>
               </div>
-              <p class="description">
-                {{ slider[ind].label || slider[ind].description }}
-              </p>
-              <a
-                v-if="slider[ind].url && slider[ind].buttonText"
-                class="cta"
-                :href="slider[ind].url"
-                target="_blank">
-                {{ slider[ind].buttonText }}
-              </a>
             </div>
-          </transition>
+          </div>
 
         </section>
       </div>
@@ -253,6 +258,16 @@ import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/Featured
 import PrevArrow from '@/components/Icons/PrevArrow'
 import NextArrow from '@/components/Icons/NextArrow'
 
+// =================================================================== Functions
+const repositionSliderLeft = (instance) => {
+  if (window.matchMedia('(max-width: 25.9375rem)').matches && instance.$refs.sliderFlex) { // tiny
+    const slide = instance.$refs.sliderFlex.firstChild
+    const amt = (instance.slider.length === 4) ? 1 : 0
+    const shift = slide.offsetWidth + (2 * parseFloat(getComputedStyle(slide).marginLeft))
+    instance.$refs.sliderFlex.style.left = (amt * ((shift / 2) * -1)) + 'px'
+  }
+}
+
 // ====================================================================== Export
 export default {
   name: 'ProjectSingularPage',
@@ -284,7 +299,8 @@ export default {
     return {
       tag: 'project',
       id: `project-${id}`,
-      ind: 0
+      initSlider: false,
+      resize: false
     }
   },
 
@@ -362,7 +378,14 @@ export default {
       return this.project.taxonomies.filter(tax => this.$checkTaxonomyCategoryExists(tax.slug))
     },
     moreThanTwo () {
-      const amt = (this.project.stats.length + (this.project.ctaCard ? 1 : 0))
+      let amt = 0
+      const len = this.project.stats.length
+      for (let i = 0; i < len; i++) {
+        if (this.project.stats[i].label && this.project.stats[i].value) {
+          amt += 1
+        }
+      }
+      amt += (this.project.ctaCard ? 1 : 0)
       return (amt > 2)
     },
     slider () {
@@ -382,6 +405,16 @@ export default {
       }
       return false
     }
+  },
+
+  mounted () {
+    repositionSliderLeft(this)
+    this.resize = () => { repositionSliderLeft(this) }
+    window.addEventListener('resize', this.resize)
+  },
+
+  beforeDestroy () {
+    if (this.resize) { window.removeEventListener('resize', this.resize) }
   },
 
   methods: {
@@ -412,10 +445,37 @@ export default {
       })
       return compiled.length > 0 ? compiled : false
     },
-    incrementSelection (val) {
-      let index = (this.ind + val)
-      if (index < 0) { index = this.slider.length - 1 }
-      this.ind = index % this.slider.length
+    incrementLeft () {
+      this.$refs.sliderFlex.classList.remove('slider-transition')
+      const flex = this.$refs.sliderFlex
+      const last = flex.lastElementChild
+      const first = flex.firstElementChild
+      flex.insertBefore(last, first)
+
+      const slide = this.$refs.sliderFlex.firstChild
+      const shift = slide.offsetWidth + (2 * parseFloat(getComputedStyle(slide).marginLeft))
+
+      flex.style.left = parseFloat(flex.style.left) + shift * -1 + 'px'
+      setTimeout(() => {
+        this.$refs.sliderFlex.classList.add('slider-transition')
+        flex.style.left = parseFloat(flex.style.left) + shift + 'px'
+      }, 100)
+    },
+    incrementRight () {
+      this.$refs.sliderFlex.classList.remove('slider-transition')
+      const flex = this.$refs.sliderFlex
+      const last = flex.lastElementChild
+      const first = flex.firstElementChild
+      last.parentNode.insertBefore(first, last.nextSibling)
+
+      const slide = this.$refs.sliderFlex.firstChild
+      const shift = slide.offsetWidth + (2 * parseFloat(getComputedStyle(slide).marginLeft))
+
+      flex.style.left = parseFloat(flex.style.left) + shift + 'px'
+      setTimeout(() => {
+        this.$refs.sliderFlex.classList.add('slider-transition')
+        flex.style.left = parseFloat(flex.style.left) + shift * -1 + 'px'
+      }, 100)
     }
   }
 }
@@ -522,7 +582,10 @@ export default {
     padding: 1rem;
   }
   @include tiny {
-    width: 100%;
+    min-width: calc(100vw - 4rem);
+    max-width: calc(100vw - 4rem);
+    width: calc(100vw - 4rem) !important;
+    box-sizing: border-box;
     padding: 2rem;
   }
   &:nth-child(odd) {
@@ -545,6 +608,9 @@ export default {
       @include small {
         @include fontSize_ExtraLarge;
       }
+      @include tiny {
+        margin: 0 0.5rem;
+      }
     }
     .description {
       @include fontSize_Large;
@@ -557,7 +623,7 @@ export default {
   &.case-study {
     border: 2px solid $tiber;
     @include tiny {
-      padding: 2rem 1rem;
+      padding: 3rem 2rem;
     }
     .title,
     .description {
@@ -565,6 +631,13 @@ export default {
     }
     .title {
       @include fontSize_Large;
+      @include tiny {
+        @include fontSize_Medium;
+        margin: 0 0.5rem;
+      }
+      @media screen and (max-width: 20rem) {
+        @include fontSize_Small;
+      }
     }
     .description {
       @include fontSize_Small;
@@ -598,11 +671,30 @@ export default {
   }
 }
 
-.card-slider-mobile {
+.slider-display {
+  overflow: hidden;
+}
+
+.slider-flex {
+  display: none;
+  @include tiny {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.slider-transition {
+  transition: all 500ms ease-in-out;
+}
+
+.slider-mobile {
   display: none;
   &.more-than-two {
     @include tiny {
-      display: inline;
+      display: flex;
+      flex: 1 1 auto;
+      margin: 0 1rem;
     }
   }
 }
@@ -626,7 +718,6 @@ export default {
   justify-content: center;
   margin: 0.5rem;
   color: rgba(0, 0, 0, 0.5);
-  background-color: #FFFFFF;
   border: none;
   font-weight: 900;
   width: 3.75rem;
@@ -640,15 +731,6 @@ export default {
     outline: none;
     box-shadow: none;
   }
-}
-
-.slide-fade-enter-active,
-.slide-fade-leave-active {
-  transition: all .25s ease;
-}
-.slide-fade-enter-from,
-.slide-fade-leave-to {
-  opacity: 0;
 }
 
 // ////////////////////////////////////////////////////////// [Section] Key Info
