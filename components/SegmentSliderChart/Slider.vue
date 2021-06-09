@@ -253,7 +253,8 @@ export default {
 .view-all {
   position: absolute;
   margin: 0 auto;
-  padding: 0.25em 4.0em;
+  padding: 0.25rem 0;
+  width: 10rem;
   left: 0;
   right: 0;
   bottom: 0px;

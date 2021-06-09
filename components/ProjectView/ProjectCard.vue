@@ -13,7 +13,7 @@
           {{ title }}
         </p>
         <p class="description">
-          {{ description }}
+          {{ $truncateString(description, 70) }}
         </p>
       </div>
 
@@ -79,7 +79,7 @@ export default {
 }
 
 .title {
-  @include fontSize_Large;
+  @include fontSize_Medium;
   font-weight: 600;
   font-family: $fontMontserrat;
   color: $tiber;

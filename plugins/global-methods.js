@@ -236,7 +236,7 @@ export default ({ store, app }, inject) => {
   })
   // ///////////////////////////////////////////////////////// Truncate a string
   // -------------------------------------------- Default: len = 30, end = '...'
-  inject('truncateString', (string, len = 30, delimiter = '...', type = 'double', endLen = 8) => {
+  inject('truncateString', (string, len = 30, delimiter = '...', type = 'single', endLen = 8) => {
     if (!string) { return string }
     let stringLen = len + delimiter.length
     if (type === 'double') {
