@@ -29,7 +29,7 @@
               :href="link.disabled ? '' : link.href"
               :disabled="link.disabled"
               :target="link.target"
-              class="navigation-link">
+              class="navigation-link onhover-line">
               {{ link.label }}
             </component>
           </nav>

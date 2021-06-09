@@ -1,5 +1,5 @@
 <template>
-  <header v-if="pageData" id="site-footer">
+  <footer v-if="pageData" id="site-footer">
 
     <section class="panel-top">
       <div class="grid-spaceBetween">
@@ -19,7 +19,7 @@
     </section>
 
     <section class="panel-bottom">
-      <div class="grid-spaceBetween">
+      <div class="grid-spaceBetween-noGutter">
 
         <div v-if="navigation" class="col-7_sm-12">
           <nav id="footer-navigation">
@@ -31,7 +31,7 @@
               :href="link.disabled ? '' : link.href"
               :disabled="link.disabled"
               :target="link.target"
-              class="navigation-link">
+              class="navigation-link onhover-opacity">
               {{ link.label }}
             </component>
           </nav>
@@ -48,7 +48,7 @@
       </div>
     </section>
 
-  </header>
+  </footer>
 </template>
 
 <script>
@@ -82,9 +82,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$highlight: #6BC4CE;
+
 // ///////////////////////////////////////////////////////////////////// General
 #site-footer {
-  padding: 3rem 0;
+  padding: 4rem 0;
   background: linear-gradient(180deg, #041727 0, #062B3F);
   color: white;
   @include small {
@@ -95,28 +97,41 @@ export default {
 ::v-deep .subheading,
 ::v-deep .copyright {
   a {
-    color: $paradiso;
+    color: $highlight;
   }
 }
 
 // ///////////////////////////////////////////////////////////////// [Panel] Top
 .panel-top {
-  margin-bottom: 5rem;
+  margin-bottom: 4rem;
   @include small {
     margin-bottom: 3rem;
   }
 }
 
 .heading {
-  font-weight: 600;
-  margin-bottom: 0.5rem;
+  font-size: 1.75rem;
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: -0.01rem;
+}
+
+.subheading {
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 ::v-deep #mailchimp-form {
+  margin-top: 0.5rem;
   .panel-top {
     display: flex;
     flex-direction: row;
     margin-bottom: 0.5rem;
+  }
+  .panel-bottom {
+    span {
+      padding-left: 0.25rem;
+    }
   }
   input {
     &[type="email"],
@@ -127,11 +142,12 @@ export default {
       flex: 1;
       background-color: white;
       padding: 0.5rem;
+      line-height: 1.5;
       color: black;
     }
     &[type="submit"] {
       padding: 0 0.75rem;
-      margin-left: 0.75rem;
+      margin-left: 1rem;
       font-weight: 600;
       background-color: $paradiso;
     }
@@ -140,7 +156,7 @@ export default {
 
 // ////////////////////////////////////////////////////////////// [Panel] Bottom
 #footer-navigation {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   @include small {
     margin-bottom: 0;
   }
