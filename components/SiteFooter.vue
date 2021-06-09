@@ -105,7 +105,7 @@ $highlight: #6BC4CE;
 .panel-top {
   margin-bottom: 4rem;
   @include small {
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
   }
 }
 
@@ -167,6 +167,12 @@ $highlight: #6BC4CE;
   color: white;
   &:not(:last-child) {
     margin-right: 1.6875rem;
+  }
+}
+
+.social-icons-container {
+  @include small {
+    margin: 2rem 0;
   }
 }
 
