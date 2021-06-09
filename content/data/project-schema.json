@@ -1,9 +1,9 @@
 {
   "display": "boolean",
   "featured": "boolean",
-  "sortNumbers": [{
+  "sortNumbers": {
     "label": "number"
-  }],
+  },
   "logo": {
     "icon": "string",
     "full": "string"
