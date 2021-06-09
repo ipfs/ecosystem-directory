@@ -248,5 +248,31 @@
         }
       ]
     }
-  ]
+  ],
+  "sort": {
+    "a_z": {
+      "type": "alphabetical",
+      "key": "name",
+      "label": "A-Z",
+      "direction": "DESC"
+    },
+    "z_a": {
+      "type": "alphabetical",
+      "key": "name",
+      "label": "Z-A",
+      "direction": "ASC"
+    },
+    "date_desc": {
+      "type": "number",
+      "label": "Time on IPFS | DESC",
+      "direction": "DESC",
+      "sortNumber": "since"
+    },
+    "date_asc": {
+      "type": "number",
+      "label": "Time on IPFS | ASC",
+      "direction": "ASC",
+      "sortNumber": "since"
+    }
+  }
 }

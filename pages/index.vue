@@ -101,6 +101,7 @@ export default {
   async fetch ({ store, req }) {
     await store.dispatch('global/getBaseData', 'general')
     await store.dispatch('global/getBaseData', 'index')
+    await store.dispatch('global/getBaseData', 'taxonomy')
     await store.dispatch('projects/getProjects')
   },
 

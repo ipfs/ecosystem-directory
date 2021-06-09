@@ -34,18 +34,29 @@
 
         </div>
 
-        <div id="radio-view-toggle" @click.stop="toggleListGridView">
+        <div class="radio-sort-wrapper">
 
-          <div ref="radio" class="selected-background"></div>
+          <SortBySelector
+            class="sort-by-selector"
+            :sort-options="taxonomyData.sort">
+            <template #dropdown-icon>
+              <SelectorToggle stroke="#052437" />
+            </template>
+          </SortBySelector>
 
-          <ListView
-            class="radio-toggle-item"
-            :stroke="listActive ? '#FFFFFF' : '#052437'" />
+          <div id="radio-view-toggle" @click.stop="toggleListGridView">
 
-          <GridView
-            class="radio-toggle-item"
-            :stroke="!listActive ? '#FFFFFF' : '#052437'" />
+            <div ref="radio" class="selected-background"></div>
 
+            <ListView
+              class="radio-toggle-item"
+              :stroke="listActive ? '#FFFFFF' : '#052437'" />
+
+            <GridView
+              class="radio-toggle-item"
+              :stroke="!listActive ? '#FFFFFF' : '#052437'" />
+
+          </div>
         </div>
 
       </div>
@@ -158,6 +169,7 @@ import FiltersToggle from '@/modules/zero/core/Components/Icons/FiltersToggle'
 import ListView from '@/components/Icons/ListView'
 import GridView from '@/components/Icons/GridView'
 import FilterBar from '@/modules/zero/core/Components/FilterBar'
+import SortBySelector from '@/modules/zero/filters/Components/SortBySelector'
 import SearchIcon from '@/components/Icons/SearchIcon'
 import Close from '@/components/Icons/Close'
 import FilterPanel from '@/components/FilterPanel/FilterPanel'
@@ -215,7 +227,8 @@ export default {
     FilterPanel,
     SearchIcon,
     Close,
-    ProjectCard
+    ProjectCard,
+    SortBySelector
   },
 
   props: {
@@ -252,6 +265,13 @@ export default {
       const siteContent = this.siteContent
       if (siteContent.hasOwnProperty('index')) {
         return siteContent.index.page_content
+      }
+      return false
+    },
+    taxonomyData () {
+      const siteContent = this.siteContent
+      if (siteContent.hasOwnProperty('taxonomy')) {
+        return siteContent.taxonomy
       }
       return false
     },
@@ -389,6 +409,16 @@ button.button.type-C.active-button {
   margin-bottom: 3rem;
 }
 
+.radio-sort-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  .sort-by-selector {
+    position: relative;
+    margin-right: 1rem;
+  }
+}
+
 #radio-view-toggle {
   display: flex;
   flex-direction: row;
@@ -437,6 +467,7 @@ button.button.type-C.active-button {
   background-color: $tiber;
   border-radius: 0.25rem;
   transition: left 300ms cubic-bezier(.61,1.6,.64,.88);
+  z-index: 2;
 }
 
 // //////////////////////////////////////////////////////////////// Filter Panel

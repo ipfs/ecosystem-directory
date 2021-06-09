@@ -9,7 +9,7 @@
 <script>
 // ===================================================================== Imports
 import { mapGetters, mapActions } from 'vuex'
-import CloneDeep from 'lodash/cloneDeep'
+// import CloneDeep from 'lodash/cloneDeep'
 
 // ===================================================================== Imports
 const setPageFromRoute = (instance) => {
@@ -69,15 +69,15 @@ export default {
       setPageFromRoute(this)
     },
     collection () {
-      this.calculateTotalPages()
-      const cloned = CloneDeep(this.$route.query)
-      if (this.page > this.totalPages) {
-        cloned.page = this.totalPages
-      }
-      if (cloned.page === 1) {
-        delete cloned.page
-      }
-      this.$router.push({ query: cloned })
+      // this.calculateTotalPages()
+      // const cloned = CloneDeep(this.$route.query)
+      // if (this.page > this.totalPages) {
+      //   cloned.page = this.totalPages
+      // }
+      // if (cloned.page === 1) {
+      //   delete cloned.page
+      // }
+      // this.$router.push({ query: cloned })
     }
   },
 
