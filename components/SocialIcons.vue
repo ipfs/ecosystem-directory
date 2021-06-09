@@ -46,6 +46,7 @@ export default {
     }
   }
   svg {
+    display: block;
     width: 100%;
     path {
       fill: white;
