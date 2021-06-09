@@ -253,12 +253,14 @@
     "a_z": {
       "type": "alphabetical",
       "key": "name",
-      "label": "A-Z"
+      "label": "A-Z",
+      "direction": "DESC"
     },
     "z_a": {
       "type": "alphabetical",
       "key": "name",
-      "label": "Z-A"
+      "label": "Z-A",
+      "direction": "ASC"
     },
     "date_desc": {
       "type": "number",

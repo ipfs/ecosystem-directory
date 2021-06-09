@@ -115,7 +115,7 @@ export default {
   },
 
   mounted () {
-    this.sortAlphabetically('name', this.selected)
+    this.sortAlphabetically('name', 'DESC')
   },
 
   methods: {
@@ -132,16 +132,17 @@ export default {
       this.selected = obj.label
       this.closed = true
       if (obj.type === 'alphabetical') {
-        this.sortAlphabetically(obj.key, obj.label)
+        this.sortAlphabetically(obj.key, obj.direction)
       } else if (obj.type === 'number') {
         this.sortNumerically(obj.sortNumber, obj.direction)
       }
     },
     sortAlphabetically (key, mode) {
       const cloned = CloneDeep(this.collection)
-      cloned.sort((a, b) => a[key].localeCompare(b[key]))
-      if (mode === 'Z-A') {
-        cloned.reverse()
+      if (mode === 'ASC') {
+        cloned.sort((a, b) => b[key].localeCompare(a[key]))
+      } else if (mode === 'DESC') {
+        cloned.sort((a, b) => a[key].localeCompare(b[key]))
       }
       this.setCollection(cloned)
     },
