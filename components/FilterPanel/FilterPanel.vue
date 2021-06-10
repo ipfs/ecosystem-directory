@@ -209,10 +209,6 @@ export default {
   watch: {
     selected () {
       this.setSelectedFiltersCount(this.selected.length)
-    },
-    activeTags (val) {
-
-      console.log(val)
     }
   },
 
