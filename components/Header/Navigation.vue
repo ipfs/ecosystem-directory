@@ -106,7 +106,7 @@ export default {
         }, 300)
       } else {
         document.body.classList.add('no-scroll')
-        this.navOpen = !this.navOpen  
+        this.navOpen = !this.navOpen
       }
     }
   }
