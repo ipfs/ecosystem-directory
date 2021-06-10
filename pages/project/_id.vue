@@ -44,11 +44,12 @@
 
       <div class="col-6_md-8_mi-10_ti-12" data-push-left="off-1_md-0">
         <section v-if="project.stats" id="section-statistics">
+
           <template v-for="(stat, i) in project.stats">
             <div
               v-if="stat.value && stat.label"
               :key="`big-number-${i}`"
-              class="card big-number">
+              :class="['card', 'big-number', { 'hide-tiny': moreThanTwo } ]">
               <p class="statistic">
                 {{ stat.value }}
               </p>
@@ -57,9 +58,10 @@
               </p>
             </div>
           </template>
+
           <div
             v-if="project.ctaCard && project.ctaCard.title && project.ctaCard.description"
-            class="card case-study">
+            :class="['card', 'case-study', { 'hide-tiny': moreThanTwo } ]">
             <p v-if="project.ctaCard.title" class="title">
               {{ project.ctaCard.title }}
             </p>
@@ -74,6 +76,45 @@
               {{ project.ctaCard.buttonText }}
             </a>
           </div>
+
+          <div class="slider-display col-6_md-8_mi-10_ti-12">
+            <div
+              v-if="moreThanTwo"
+              ref="sliderFlex"
+              class="slider-flex slider-transition">
+              <div
+                v-for="slide in slider"
+                :key="slide.label || slide.title"
+                :class="['card', (slide.label ? 'big-number' : 'case-study'), 'slider-mobile', { 'more-than-two' : moreThanTwo }]">
+                <div class="slide-nav">
+                  <button
+                    class="nav-arrow"
+                    @click="incrementLeft">
+                    <PrevArrow stroke="#052437" width="10" height="15" />
+                  </button>
+                  <p :class="(slide.label ? 'statistic' : 'title')">
+                    {{ slide.value || slide.title }}
+                  </p>
+                  <button
+                    class="nav-arrow"
+                    @click="incrementRight">
+                    <NextArrow stroke="#052437" width="10" height="15" />
+                  </button>
+                </div>
+                <p class="description">
+                  {{ slide.label || slide.description }}
+                </p>
+                <a
+                  v-if="slide.url && slide.buttonText"
+                  class="cta"
+                  :href="slide.url"
+                  target="_blank">
+                  {{ slide.buttonText }}
+                </a>
+              </div>
+            </div>
+          </div>
+
         </section>
       </div>
     </div>
@@ -214,6 +255,18 @@ import AccordionHeader from '@/modules/zero/core/Components/Accordion/Header'
 import AccordionSection from '@/modules/zero/core/Components/Accordion/Section'
 import AccordionContent from '@/modules/zero/core/Components/Accordion/Content'
 import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
+import PrevArrow from '@/components/Icons/PrevArrow'
+import NextArrow from '@/components/Icons/NextArrow'
+
+// =================================================================== Functions
+const repositionSliderLeft = (instance) => {
+  if (window.matchMedia('(max-width: 25.9375rem)').matches && instance.$refs.sliderFlex) { // tiny
+    const slide = instance.$refs.sliderFlex.firstChild
+    const amt = (instance.slider.length === 4) ? 1 : 0
+    const shift = slide.offsetWidth + (2 * parseFloat(getComputedStyle(slide).marginLeft))
+    instance.$refs.sliderFlex.style.left = (amt * ((shift / 2) * -1)) + 'px'
+  }
+}
 
 // ====================================================================== Export
 export default {
@@ -225,7 +278,9 @@ export default {
     AccordionHeader,
     AccordionSection,
     AccordionContent,
-    FeaturedProjectsSlider
+    FeaturedProjectsSlider,
+    PrevArrow,
+    NextArrow
   },
 
   asyncData ({ app, route, error, payload }) {
@@ -243,7 +298,9 @@ export default {
     const id = this.$route.params.id
     return {
       tag: 'project',
-      id: `project-${id}`
+      id: `project-${id}`,
+      initSlider: false,
+      resize: false
     }
   },
 
@@ -319,7 +376,45 @@ export default {
     },
     taxonomies () {
       return this.project.taxonomies.filter(tax => this.$checkTaxonomyCategoryExists(tax.slug))
+    },
+    moreThanTwo () {
+      let amt = 0
+      const len = this.project.stats.length
+      for (let i = 0; i < len; i++) {
+        if (this.project.stats[i].label && this.project.stats[i].value) {
+          amt += 1
+        }
+      }
+      amt += (this.project.ctaCard ? 1 : 0)
+      return (amt > 2)
+    },
+    slider () {
+      const items = []
+      if (this.moreThanTwo) {
+        const cloned = CloneDeep(this.project.stats)
+        for (let i = 0; i < cloned.length; i++) {
+          if (cloned[i].label && cloned[i].value) {
+            items.push(cloned[i])
+          }
+        }
+        if (this.project.ctaCard.title) {
+          const cta = CloneDeep(this.project.ctaCard)
+          items.push(cta)
+        }
+        return items
+      }
+      return false
     }
+  },
+
+  mounted () {
+    repositionSliderLeft(this)
+    this.resize = () => { repositionSliderLeft(this) }
+    window.addEventListener('resize', this.resize)
+  },
+
+  beforeDestroy () {
+    if (this.resize) { window.removeEventListener('resize', this.resize) }
   },
 
   methods: {
@@ -349,6 +444,38 @@ export default {
         }
       })
       return compiled.length > 0 ? compiled : false
+    },
+    incrementLeft () {
+      this.$refs.sliderFlex.classList.remove('slider-transition')
+      const flex = this.$refs.sliderFlex
+      const last = flex.lastElementChild
+      const first = flex.firstElementChild
+      flex.insertBefore(last, first)
+
+      const slide = this.$refs.sliderFlex.firstChild
+      const shift = slide.offsetWidth + (2 * parseFloat(getComputedStyle(slide).marginLeft))
+
+      flex.style.left = parseFloat(flex.style.left) + shift * -1 + 'px'
+      setTimeout(() => {
+        this.$refs.sliderFlex.classList.add('slider-transition')
+        flex.style.left = parseFloat(flex.style.left) + shift + 'px'
+      }, 100)
+    },
+    incrementRight () {
+      this.$refs.sliderFlex.classList.remove('slider-transition')
+      const flex = this.$refs.sliderFlex
+      const last = flex.lastElementChild
+      const first = flex.firstElementChild
+      last.parentNode.insertBefore(first, last.nextSibling)
+
+      const slide = this.$refs.sliderFlex.firstChild
+      const shift = slide.offsetWidth + (2 * parseFloat(getComputedStyle(slide).marginLeft))
+
+      flex.style.left = parseFloat(flex.style.left) + shift + 'px'
+      setTimeout(() => {
+        this.$refs.sliderFlex.classList.add('slider-transition')
+        flex.style.left = parseFloat(flex.style.left) + shift * -1 + 'px'
+      }, 100)
     }
   }
 }
@@ -456,7 +583,10 @@ export default {
     padding: 1rem;
   }
   @include tiny {
-    width: 100%;
+    min-width: calc(100vw - 4rem);
+    max-width: calc(100vw - 4rem);
+    width: calc(100vw - 4rem) !important;
+    box-sizing: border-box;
     padding: 2rem;
   }
   &:nth-child(odd) {
@@ -472,12 +602,15 @@ export default {
       padding: 2rem 1rem;
     }
     @include tiny {
-      padding: 2rem;
+      padding: 3rem 2rem;
     }
     .statistic {
       font-size: 2.625rem;
       @include small {
         @include fontSize_ExtraLarge;
+      }
+      @include tiny {
+        margin: 0 0.5rem;
       }
     }
     .description {
@@ -490,16 +623,29 @@ export default {
   }
   &.case-study {
     border: 2px solid $tiber;
+    @include tiny {
+      padding: 3rem 2rem;
+    }
     .title,
     .description {
       color: $tundora;
     }
     .title {
       @include fontSize_Large;
+      @include tiny {
+        @include fontSize_Medium;
+        margin: 0 0.5rem;
+      }
+      @media screen and (max-width: 20rem) {
+        @include fontSize_Small;
+      }
     }
     .description {
       @include fontSize_Small;
       @include leading_Mini;
+      @include tiny {
+        margin-bottom: 2rem;
+      }
     }
     .cta {
       @include borderRadius3;
@@ -515,6 +661,76 @@ export default {
   .title {
     font-family: $fontMontserrat;
     margin-bottom: 1rem;
+    @include tiny {
+      margin-bottom: 0;
+    }
+  }
+  &.hide-tiny {
+    @include tiny {
+      display: none;
+    }
+  }
+}
+
+.slider-display {
+  overflow: hidden;
+}
+
+.slider-flex {
+  display: none;
+  @include tiny {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.slider-transition {
+  transition: all 500ms ease-in-out;
+}
+
+.slider-mobile {
+  display: none;
+  &.more-than-two {
+    @include tiny {
+      display: flex;
+      flex: 1 1 auto;
+      margin: 0 1rem;
+    }
+  }
+}
+
+.slide-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  @include tiny {
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+}
+
+.nav-arrow {
+  @include borderRadius3;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem;
+  color: rgba(0, 0, 0, 0.5);
+  border: none;
+  font-weight: 900;
+  width: 3.75rem;
+  @include small {
+    width: auto;
+  }
+  &:hover {
+    color: rgb(2, 28, 54);
+  }
+  &:focus {
+    outline: none;
+    box-shadow: none;
   }
 }
 
