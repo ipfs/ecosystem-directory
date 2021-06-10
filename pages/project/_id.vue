@@ -24,8 +24,8 @@
           <h2 v-if="project.org" class="company">
             {{ project.org[0] }}
           </h2>
-          <p v-if="project.description && project.description.long" class="description">
-            {{ project.description.long }}
+          <p v-if="description" class="description">
+            {{ description }}
           </p>
           <div class="ctas">
             <a
@@ -368,11 +368,15 @@ export default {
     },
     // Project Content
     pageData () {
-      const siteContent = this.siteContent
-      if (siteContent.hasOwnProperty('general')) {
-        return siteContent.general
-      }
-      return false
+      return this.siteContent.general
+    },
+    description () {
+      const description = this.project.description
+      const long = description.long
+      const short = description.short
+      if (!long && !short) { return false }
+      if (long) { return long }
+      return short
     },
     taxonomies () {
       return this.project.taxonomies.filter(tax => this.$checkTaxonomyCategoryExists(tax.slug))
