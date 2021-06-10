@@ -221,7 +221,7 @@ $headerHeight: 5rem;
   }
   @include mini {
     align-self: start;
-    margin-left: 2rem;
+    margin-left: 4rem;
     margin-bottom: 0.75rem;
     font-family: $fontMontserrat;
     font-size: 2.1875rem;
