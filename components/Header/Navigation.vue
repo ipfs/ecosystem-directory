@@ -1,10 +1,12 @@
 <template>
   <section
     v-if="navigation"
-    id="header-navigation"
-    :class="{ 'modal-background': navOpen }">
+    id="header-navigation">
 
     <div class="grid-noGutter">
+
+      <div :class="['modal-background', { 'show-background': navOpen, 'transition-out': modalClosing }]"></div>
+
       <div class="col">
         <div class="navigation-content">
 
@@ -20,7 +22,8 @@
             </svg>
           </a>
 
-          <nav id="navigation">
+          <div :class="['navigation', { 'modal-open' : navOpen, 'transition-out': modalClosing }]">
+            <div class="fill-gap"></div>
             <component
               :is="link.type"
               v-for="(link, index) in navigation.header"
@@ -32,69 +35,13 @@
               class="navigation-link onhover-line">
               {{ link.label }}
             </component>
-          </nav>
-
-          <div class="nav-toggle" @click="toggleNav">
-            <svg
-              id="topline"
-              ref="topline"
-              xmlns="http://www.w3.org/2000/svg"
-              width="38"
-              height="15"
-              viewBox="0 0 38 15">
-              <line
-                x2="37.589"
-                transform="translate(0 1.5)"
-                stroke="#f1f3f2"
-                stroke-width="3" />
-            </svg>
-
-            <svg
-              id="bottomline"
-              ref="bottomline"
-              xmlns="http://www.w3.org/2000/svg"
-              width="38"
-              height="15"
-              viewBox="0 0 38 15">
-              <line
-                x2="37.589"
-                transform="translate(0 13.5)"
-                stroke="#f1f3f2"
-                stroke-width="3" />
-            </svg>
+            <div class="fill-gap"></div>
+            <div :class="['social-icon-container', {'show-socials' : navOpen}]">
+              <SocialIcons />
+            </div>
           </div>
 
-          <transition name="landing">
-            <div v-if="navOpen" id="modal-nav">
-
-              <div class="modal-nav-wrapper">
-                <div class="modal-nav-container">
-
-                  <ul>
-                    <li
-                      v-for="(link, index) in navigation.header"
-                      :key="index">
-                      <component
-                        :is="link.type"
-                        :to="link.disabled ? '' : link.href"
-                        :href="link.disabled ? '' : link.href"
-                        :disabled="link.disabled"
-                        :target="link.target"
-                        class="navigation-link">
-                        {{ link.label }}
-                      </component>
-                    </li>
-                  </ul>
-
-                </div>
-              </div>
-
-              <div class="social-icon-container">
-                <SocialIcons />
-              </div>
-
-            </div>
-          </transition>
+          <div :class="['hamburger-icon', {'close-icon' : navOpen}]" @click="toggleNav"></div>
 
         </div>
       </div>
@@ -127,7 +74,8 @@ export default {
   data () {
     return {
       navOpen: false,
-      resize: false
+      resize: false,
+      modalClosing: false
     }
   },
 
@@ -139,7 +87,7 @@ export default {
   },
 
   mounted () {
-    this.resize = () => { checkScreenWidth(this) }
+    this.resize = this.$throttle(() => { checkScreenWidth(this) }, 310)
     window.addEventListener('resize', this.resize)
   },
 
@@ -149,15 +97,16 @@ export default {
 
   methods: {
     toggleNav () {
-      this.navOpen = !this.navOpen
       if (this.navOpen) {
-        document.body.style.overflow = 'hidden'
-        this.$refs.topline.classList.add('top-line')
-        this.$refs.bottomline.classList.add('bottom-line')
+        this.modalClosing = true
+        setTimeout(() => {
+          this.modalClosing = false
+          document.body.classList.remove('no-scroll')
+          this.navOpen = !this.navOpen
+        }, 300)
       } else {
-        document.body.style.removeProperty('overflow')
-        this.$refs.topline.classList.remove('top-line')
-        this.$refs.bottomline.classList.remove('bottom-line')
+        document.body.classList.add('no-scroll')
+        this.navOpen = !this.navOpen
       }
     }
   }
@@ -165,9 +114,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$headerHeight: 5rem;
 // ///////////////////////////////////////////////////////////////////// General
 #header-navigation {
-  height: 5rem;
+  height: $headerHeight;
   background-color: #041727;
 }
 
@@ -177,14 +127,6 @@ export default {
   height: 100%;
 }
 
-.modal-background {
-  background-color: #041727;
-}
-
-.filters-view {
-  background: linear-gradient(180deg, #041727 0, #062B3F);
-}
-
 .navigation-content {
   display: flex;
   flex-direction: row;
@@ -192,7 +134,7 @@ export default {
   align-items: center;
 }
 
-#navigation {
+.navigation {
   @include small {
     display: flex;
     flex-direction: row;
@@ -201,6 +143,57 @@ export default {
   }
   @include mini {
     display: none;
+    position: fixed;
+    width: 100vw;
+    height: calc(100vh - 5rem);
+    top: 5rem;
+    left: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    z-index: 100;
+  }
+  &.modal-open {
+    display: flex;
+    animation: landing 300ms cubic-bezier(0.4, 0.0, 0.2, 1.0);
+  }
+}
+
+.hamburger-icon {
+  display: none;
+  position: relative;
+  z-index: 1000;
+  height: 14px;
+  width: 2rem;
+  @include mini {
+    display: inline;
+  }
+  &:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    top: 0px;
+    border-top: 2px solid #f1f3f2;
+    transition: 300ms cubic-bezier(0.4, 0.0, 0.2, 1.0);
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    bottom: 2px;
+    border-top: 2px solid #f1f3f2;
+    transition: 300ms cubic-bezier(0.4, 0.0, 0.2, 1.0);
+  }
+  &.close-icon {
+    &:before {
+      transform: rotate(45deg) translate(3px, 4px);
+    }
+    &:after {
+      transform: rotate(-45deg) translate(3px, -4px);
+    }
+  }
+  &:hover {
+    cursor: pointer;
   }
 }
 
@@ -226,100 +219,72 @@ export default {
       margin-right: 1rem;
     }
   }
+  @include mini {
+    align-self: start;
+    margin-left: 4rem;
+    margin-bottom: 0.75rem;
+    font-family: $fontMontserrat;
+    font-size: 2.1875rem;
+    font-weight: 500;
+    line-height: 1.2;
+  }
 }
 
 // /////////////////////////////////////////////////////////////////////// Modal
-#modal-nav {
-  position: absolute;
-  width: 100vw;
-  height: calc(100vh - 5rem);
-  top: 5rem;
-  left: 0px;
-  background: linear-gradient(180deg, #041727 0, #062B3F);
-  z-index: 999;
-}
 
-.modal-nav-wrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 100%;
-}
-
-.modal-nav-container {
-  position: relative;
-  margin: 0 3.5rem;
-  margin-bottom: 8rem;
-  li {
-    font-family: $fontMontserrat;
-    font-size: 2.1875rem;
-    line-height: 1.2;
-    font-weight: 500;
-    list-style: none;
-    &:not(:last-child) {
-      margin-bottom: 0.25rem;
-    }
+.modal-background {
+  display: none;
+  @include mini {
+    position: absolute;
+    width: 100vw;
+    height: calc(100vh - 5rem);
+    top: 5rem;
+    left: 0;
+    background: linear-gradient(180deg, #041727 0, #062B3F);
+    z-index: 99;
+  }
+  &.show-background {
+    display: inline;
+    animation: landing 300ms cubic-bezier(0.4, 0.0, 0.2, 1.0);
   }
 }
 
 .social-icon-container {
-  position: fixed;
-  bottom: 0rem;
-  margin: 2rem 3.5rem;
+  display: none;
+  &.show-socials {
+    @include mini {
+      display: inline;
+      align-self: start;
+      margin: 2rem;
+    }
+  }
 }
 
-.landing {
-  &-enter-active {
-    transition: all 300ms cubic-bezier(0.0, 0.0, 0.2, 1.0);
+.fill-gap {
+  display: none;
+  @include mini {
+    display: inline;
+    flex: 1;
   }
-  &-leave-active {
-    transition: all 300ms cubic-bezier(0.0, 0.0, 0.2, 1.0);
-  }
-  &-enter-to,
-  &-leave {
-    transform: scale(1.0);
-    opacity: 1.0;
-  }
-  &-enter,
-  &-leave-to {
+}
+
+// ////////////////////////////////////////////////////////////////// Animations
+
+@keyframes landing {
+  from {
     transform: scale(1.1);
     opacity: 0.0;
   }
-}
-
-.nav-toggle {
-  display: none;
-  position: relative;
-  z-index: 1000;
-  top: -0.5rem;
-  background-color: rgba(255, 0, 0, 0.2);
-  @include mini {
-    display: inline;
-    right: -1rem;
-    transform: scale(0.9);
-  }
-  &:hover {
-    cursor: pointer;
+  to {
+    transform: scale(1.0);
+    opacity: 1.0;
   }
 }
 
-#topline {
-  position: absolute;
-  right: 1rem;
-  transition: all 250ms ease-in-out;
-}
-#bottomline {
-  position: absolute;
-  right: 1rem;
-  transition: all 250ms ease-in-out;
-}
-
-.top-line {
-  transform: rotate(45deg) translateY(6px);
-}
-
-.bottom-line {
-  transform: rotate(-45deg) translateY(-6px);
+.transition-out {
+  transition: 300ms cubic-bezier(0.4, 0.0, 0.2, 1.0);
+  transform: scale(1.1);
+  opacity: 0.0;
 }
 
 </style>
