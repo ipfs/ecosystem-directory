@@ -128,14 +128,12 @@ export default {
 </script>
 
 <style lang="scss">
-
 // ///////////////////////////////////////////////////////////////////// General
 .pagination-controls {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-right: 2rem;
 }
 
 // /////////////////////////////////////////////////////////// Buttons & Breaker

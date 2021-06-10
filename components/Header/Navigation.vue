@@ -134,7 +134,7 @@ export default {
   computed: {
     ...mapGetters({
       navigation: 'global/navigation',
-      filtersActive: 'filters/filtersActive'
+      filterPanelOpen: 'filters/filterPanelOpen'
     })
   },
 

@@ -1,82 +1,72 @@
 <template>
   <Filters
     v-if="ProjectFilters"
+    id="filter-panel"
     :projects="collection"
     :filters="ProjectFilters"
-    :selected="selectedLabels"
-    class="filter-panel-content">
+    :selected="selectedLabels">
+    <div id="filter-accordion">
 
-    <template v-if="isActive">
-      <div id="filter-headings">
-        <template v-for="(heading, index) in ProjectFilters">
-          <div :key="heading.label" class="filter-category container">
+      <template v-for="(heading, index) in ProjectFilters">
+        <div :key="heading.label" class="filter-category container">
 
-            <div class="filter-category heading-wrapper" @click.stop="toggleCat(index)">
+          <div class="filter-category heading-wrapper" @click.stop="toggleCat(index)">
 
-              <div class="filter-category heading">
-
-                {{ heading.label }}
-
-                <span class="filter-category number-active">
-                  ({{ activeTags[heading.label].length }} of {{ heading.tags.length }})
-                </span>
-
-              </div>
-
-              <div class="filter-category toggle" :class="{ flip: !catsOpen[index] }">
-                <ToggleArrow stroke="#494949" />
-              </div>
-
+            <div class="filter-category heading">
+              {{ heading.label }}
+              <span class="filter-category number-active">
+                <!-- {{ activeTags[heading.label].length }} of {{ heading.tags.length }} -->
+              </span>
             </div>
 
-            <div ref="cats" class="collapsible-tags" :class="{ collapsed : !catsOpen[index] }">
+            <div class="filter-category toggle" :class="{ flip: !catsOpen[index] }">
+              <ToggleArrow stroke="#494949" />
+            </div>
 
-              <h5 class="filter-category sub-heading">
-                Filter by {{ heading.label }}
-              </h5>
+          </div>
 
-              <div class="filter-category chiclet-list">
+          <div ref="cats" class="collapsible-tags" :class="{ collapsed : !catsOpen[index] }">
 
-                <div
-                  :class="['filter-category tag chiclet', { 'active-button': activeTags[heading.label].length === heading.tags.length }]"
-                  @click="toggleAll(index, heading.label)">
-                  All
-                </div>
+            <h5 class="filter-category sub-heading">
+              Filter by {{ heading.label }}
+            </h5>
 
-                <div
-                  v-for="tag in heading.tags"
-                  :key="tag.label"
-                  :class="['filter-category tag chiclet', { 'active-button': selected.includes(tag) }]"
-                  @click="applyFilter(tag, index, heading.label)">
-                  {{ tag.label }}
-                </div>
+            <div class="filter-category chiclet-list">
 
+              <!-- <div
+                :class="['filter-category tag chiclet', { 'active-button': activeTags[heading.label].length === heading.tags.length }]"
+                @click="toggleAll(index, heading.label)">
+                All
+              </div> -->
+
+              <div
+                v-for="tag in heading.tags"
+                :key="tag.label"
+                :class="['filter-category tag chiclet', { 'active-button': selected.includes(tag) }]"
+                @click="applyFilter(tag, index, heading.label)">
+                {{ tag.label }}
               </div>
 
             </div>
 
           </div>
-        </template>
-
-        <div class="bottom-buttons">
-
-          <button
-            v-if="selected.length"
-            class="clear-selected"
-            @click="clearSelected">
-            Clear ({{ selected.length }}) Selected
-          </button>
-
-          <button
-            class="done"
-            @click="closePanel">
-            Done
-          </button>
 
         </div>
-      </div>
-    </template>
+      </template>
 
+      <div id="filter-panel-controls" class="bottom-buttons">
+        <button
+          v-if="selected.length"
+          class="clear-selected"
+          @click="clearSelected">
+          Clear ({{ selected.length }}) Selected
+        </button>
+        <button class="done" @click="closePanel">
+          Done
+        </button>
+      </div>
+
+    </div>
   </Filters>
 </template>
 
@@ -88,9 +78,9 @@ import CloneDeep from 'lodash/cloneDeep'
 import Filters from '@/modules/zero/filters/Components/Filters'
 import ToggleArrow from '@/components/Icons/ToggleArrow'
 
-import Taxonomy from '~/content/data/taxonomy.json'
+import Taxonomy from '@/content/data/taxonomy.json'
 
-// ===================================================================== Functions
+// =================================================================== Functions
 const elementEnter = (element) => {
   const width = getComputedStyle(element).width
 
@@ -174,11 +164,6 @@ export default {
       type: [Boolean, Array],
       default: false,
       required: false
-    },
-    isActive: {
-      type: Boolean,
-      default: false,
-      required: false
     }
   },
 
@@ -195,12 +180,10 @@ export default {
       activeTags: 'filters/activeTags'
     }),
     ProjectFilters () {
-      const filters = Taxonomy.categories
-      return filters
+      return Taxonomy.categories
     },
     initToggles () {
-      const arr = Array(Taxonomy.categories.length).fill(true)
-      return arr
+      return Array(Taxonomy.categories.length).fill(true)
     },
     selectedLabels () {
       const arr = []
@@ -213,7 +196,7 @@ export default {
 
   watch: {
     selected () {
-      this.$emit('totalSelected', this.selected.length)
+      this.setSelectedFiltersCount(this.selected.length)
     }
   },
 
@@ -228,7 +211,8 @@ export default {
 
   methods: {
     ...mapActions({
-      setActiveTags: 'filters/setActiveTags'
+      setActiveTags: 'filters/setActiveTags',
+      setSelectedFiltersCount: 'filters/setSelectedFiltersCount'
     }),
     toggleCat (ind) {
       this.$set(this.catsOpen, ind, !this.catsOpen[ind])
@@ -324,7 +308,7 @@ export default {
       return cats
     },
     closePanel () {
-      this.$emit('closeFilters')
+      this.$emit('toggleFilterPanel')
     }
   }
 }
@@ -333,8 +317,7 @@ export default {
 
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
-.filter-panel-content {
-  margin-right: 2.5rem;
+#filter-panel {
   white-space: nowrap;
   @include tiny {
     margin: 0;
@@ -359,11 +342,10 @@ export default {
   color: #ffffff;
 }
 
-.bottom-buttons {
+#filter-panel-controls {
   display: flex;
   flex-wrap: wrap;
   margin-top: 2rem;
-  margin-bottom: 4rem;
   font-family: $fontMontserrat;
   .clear-selected,
   .done {
@@ -421,6 +403,8 @@ export default {
     margin: 6px;
     margin-bottom: 2rem;
   }
+  &.chiclet-list {
+    margin: 0 6px;
+  }
 }
-
 </style>

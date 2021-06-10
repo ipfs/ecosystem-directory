@@ -98,8 +98,8 @@ export default {
       projects: 'projects/projects',
       activeTags: 'filters/activeTags',
       filteredCollection: 'filters/collection',
-      filtersActive: 'filters/filtersActive',
-      totalFilters: 'filters/totalFilters'
+      filterPanelOpen: 'filters/filterPanelOpen',
+      selectedFiltersCount: 'filters/selectedFiltersCount'
     }),
     pageData () {
       const siteContent = this.siteContent
@@ -110,8 +110,8 @@ export default {
     },
     headerState () {
       if (this.$route.name === 'index') {
-        if (this.filtersActive) {
-          if (this.totalFilters) {
+        if (this.filterPanelOpen) {
+          if (this.selectedFiltersCount) {
             return 'filters-applied'
           } else {
             return 'filters-view'

@@ -121,7 +121,8 @@ export default {
       this.$emit('update-slider', seg)
     },
     jump2Filters () {
-      this.$nuxt.$emit('view-all-projects')
+      // Should just change URL and state should react accordingly (instead of firing a global emit)
+      // this.$nuxt.$emit('view-all-projects')
     }
   }
 }

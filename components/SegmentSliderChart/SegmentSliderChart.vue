@@ -5,7 +5,7 @@
     @keyup.left="setSliderContent(selected - 1)"
     @keyup.right="setSliderContent(selected + 1)">
 
-    <div class="main-container grid-center">
+    <div class="main-container">
 
       <Slider
         v-if="chartItems"
@@ -236,7 +236,6 @@ export default {
   display: flex;
   position: relative;
   flex-wrap: wrap-reverse;
-  align-items: space-between;
-  margin: 0 auto;
+  justify-content: space-between;
 }
 </style>

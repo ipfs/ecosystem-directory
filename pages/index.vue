@@ -1,18 +1,32 @@
 <template>
   <div :class="`page page-${tag} container`">
 
-    <div ref="collapsibleSection" class="collapse" :style="`height: ${sectionHeight}px;`">
+    <div
+      ref="collapsibleSection"
+      :style="{ height: `${sectionHeight}px` }"
+      class="collapsible-section">
       <transition-group name="fade" tag="section">
-        <section v-if="!filtersActive" key="segment">
-          <div ref="segmentSlider">
-            <SegmentSliderChart
-              v-if="!filtersActive"
-              class="grid-center" />
+
+        <section
+          v-if="!filterPanelOpen"
+          id="section-featured-slider"
+          ref="segmentSlider"
+          key="segment-slider">
+          <div class="grid">
+            <div class="col">
+
+              <SegmentSliderChart />
+
+            </div>
           </div>
         </section>
 
-        <section v-if="!filtersActive && pageData" id="section-featured-slider" key="featured">
-          <div ref="featuredSection" class="grid-center">
+        <section
+          v-if="!filterPanelOpen"
+          id="section-featured-slider"
+          ref="featuredSection"
+          key="featured-slider">
+          <div class="grid">
 
             <div class="col-12">
               <h3 class="heading">
@@ -30,38 +44,37 @@
           </div>
         </section>
 
-        <section v-if="!filtersActive && pageData" id="section-filter" key="heading">
-          <div ref="filterHeading" class="grid-center">
+        <section
+          v-if="!filterPanelOpen"
+          id="section-filter"
+          ref="filterHeading"
+          key="filters-heading">
+          <div class="grid">
+            <div class="col">
 
-            <div class="col-12">
               <h3 class="heading">
                 {{ pageData.section_filter.heading }}
               </h3>
+
               <div class="description">
                 {{ pageData.section_filter.description }}
               </div>
-            </div>
 
+            </div>
           </div>
         </section>
+
       </transition-group>
     </div>
 
-    <section>
-
-      <ProjectView
-        :all-projects="projects"
-        @init-filters="initFilters" />
-
-    </section>
+    <ProjectView />
 
   </div>
 </template>
 
 <script>
 // ===================================================================== Imports
-import { mapGetters, mapActions } from 'vuex'
-import CloneDeep from 'lodash/cloneDeep'
+import { mapGetters } from 'vuex'
 
 import SegmentSliderChart from '@/components/SegmentSliderChart/SegmentSliderChart'
 import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
@@ -90,11 +103,8 @@ export default {
   data () {
     return {
       tag: 'home',
-      sectionHeight: false,
-      resize: false,
-      load: false,
-      segmentSlider: false,
-      featuredProjects: false
+      sectionHeight: 0,
+      resize: false
     }
   },
 
@@ -131,8 +141,7 @@ export default {
   computed: {
     ...mapGetters({
       siteContent: 'global/siteContent',
-      projects: 'projects/projects',
-      filtersActive: 'filters/filtersActive'
+      filterPanelOpen: 'filters/filterPanelOpen'
     }),
     // SEO
     seo () {
@@ -140,68 +149,29 @@ export default {
     },
     // Page Content
     generalPageData () {
-      const siteContent = this.siteContent
-      if (siteContent.hasOwnProperty('general')) {
-        return siteContent.general
-      }
-      return false
+      return this.siteContent.general
     },
     pageData () {
-      const siteContent = this.siteContent
-      if (siteContent.hasOwnProperty('index')) {
-        return siteContent.index.page_content
-      }
-      return false
+      return this.siteContent.index.page_content
     }
   },
 
-  created () {
-    this.$nuxt.$on('view-all-projects', () => {
-      this.initFilters()
-    })
-  },
-
   mounted () {
-    const filterEnabled = (this.$route.query.filters === 'enabled')
-    this.setFiltersActive(filterEnabled)
-
     this.resize = () => { resetSectionHeight(this) }
     window.addEventListener('resize', this.resize)
-    this.load = () => { resetSectionHeight(this) }
-    window.addEventListener('load', this.load)
+    resetSectionHeight(this)
   },
 
   beforeDestroy () {
     if (this.resize) { window.removeEventListener('resize', this.resize) }
-    if (this.load) { window.removeEventListener('load', this.load) }
-  },
-
-  methods: {
-    ...mapActions({
-      setFiltersActive: 'filters/setFiltersActive'
-    }),
-    initFilters () {
-      const cloned = CloneDeep(this.$route.query)
-      cloned.filters = 'enabled'
-      this.$router.push({ path: '/', query: cloned })
-      this.setFiltersActive(true)
-
-      this.$refs.collapsibleSection.style.height = '0px'
-      window.scrollTo(0, 0)
-    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
-.heading,
-.description {
+.heading {
   margin-bottom: 0.75rem;
-}
-
-.hidden {
-  visibility: hidden;
 }
 
 #segment-slider-chart {
@@ -212,39 +182,30 @@ export default {
   }
 }
 
-#section-filter,
-#section-featured-slider {
-  margin-bottom: 1rem;
+#featured-projects-slider {
+  margin-top: 1rem;
 }
 
-.project-filters {
-  padding: 0;
-}
-
-// ///////////////////////////////////////////////////////////////////// Transitions
-
+// ///////////////////////////////////////////////////////////////// Transitions
 .fade {
   &-enter-active {
-    transition: opacity .5s;
-    transition-delay: 500ms;
+    transition: opacity 500ms 500ms;
   }
   &-leave-active {
-    transition: opacity .5s;
+    transition: opacity 500ms;
   }
   &-enter-to,
   &-leave {
-    opacity: 1.0;
+    opacity: 1;
   }
   &-enter,
   &-leave-to {
-    opacity: 0.0;
+    opacity: 0;
   }
 }
 
-.collapse {
+.collapsible-section {
   overflow: hidden;
-  transition: height .5s;
-  transition-delay: 500ms;
+  transition: height 500ms 500ms;
 }
-
 </style>
