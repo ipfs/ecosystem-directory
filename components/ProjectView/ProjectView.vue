@@ -387,9 +387,20 @@ export default {
 }
 
 // ///////////////////////////////////////////////////////////// Toggle Controls
-button.button.type-C.active-button {
-  background-color: $tiber;
-  color: white;
+::v-deep button.button.type-C {
+  width: 6.875rem;
+  height: 1.875rem;
+  color: $tiber;
+  &.active-button {
+    background-color: $tiber;
+    color: white;
+  }
+  .icon {
+    margin-top: 0.125rem;
+  }
+  .item-after {
+    @include fontSize_Small;
+  }
 }
 
 .filter-toggle {

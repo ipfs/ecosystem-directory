@@ -284,12 +284,12 @@ export default {
 
 // //////////////////////////////////////////////////////////////////// Segments
 .segment-foreground {
-  background-color: rgb(2, 28, 54);
+  background-color: #052437;
   font-weight: bold;
 }
 
 .segment-background {
-  background-color: rgb(24, 150, 150);
+  background-color: #3D8F96;
 }
 
 .block-segment {

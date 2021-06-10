@@ -373,9 +373,10 @@ export default {
   }
   .name {
     @include fontSize_ExtraExtraLarge;
+    @include leading_Small;
     font-weight: 700;
+    margin-left: -0.125rem;
     @include small {
-      @include leading_Mini;
       margin-bottom: 0.5rem;
     }
   }
@@ -539,7 +540,7 @@ export default {
   dd {
     margin: 0;
     &:not(:last-child) {
-      margin-bottom: 1rem;
+      margin-bottom: 0rem;
     }
   }
 
@@ -556,7 +557,6 @@ export default {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 0.25rem;
     }
 
     a {
