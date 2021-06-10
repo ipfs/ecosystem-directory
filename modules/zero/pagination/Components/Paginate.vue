@@ -69,15 +69,14 @@ export default {
       setPageFromRoute(this)
     },
     collection () {
-      // this.calculateTotalPages()
-      // const cloned = CloneDeep(this.$route.query)
-      // if (this.page > this.totalPages) {
-      //   cloned.page = this.totalPages
-      // }
-      // if (cloned.page === 1) {
-      //   delete cloned.page
-      // }
-      // this.$router.push({ query: cloned })
+      this.calculateTotalPages()
+      const total = this.totalPages
+      if (this.page > total) {
+        this.setRouteQuery({
+          key: 'page',
+          data: total
+        })
+      }
     }
   },
 
@@ -97,7 +96,8 @@ export default {
       setTotalPages: 'pagination/setTotalPages',
       setDisplay: 'pagination/setDisplay',
       setCollection: 'pagination/setCollection',
-      clearStore: 'pagination/clearStore'
+      clearStore: 'pagination/clearStore',
+      setRouteQuery: 'global/setRouteQuery'
     }),
     calculateTotalPages () {
       const total = Math.ceil(this.collection.length / this.display)

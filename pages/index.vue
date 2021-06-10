@@ -132,7 +132,9 @@ export default {
     ...mapGetters({
       siteContent: 'global/siteContent',
       projects: 'projects/projects',
-      filtersActive: 'filters/filtersActive'
+      filtersActive: 'filters/filtersActive',
+      routeQuery: 'global/routeQuery',
+      queryString: 'global/queryString'
     }),
     // SEO
     seo () {
@@ -155,6 +157,26 @@ export default {
     }
   },
 
+  watch: {
+    queryString (val) {
+      console.log(this.routeQuery)
+      if (val !== JSON.stringify(this.$route.query)) {
+        const cloned = CloneDeep(this.routeQuery)
+        Object.keys(cloned).forEach((key) => {
+          if (!cloned[key]) {
+            delete cloned[key]
+          }
+        })
+        if (cloned.hasOwnProperty('page')) {
+          if (cloned.page === 1) {
+            delete cloned.page
+          }
+        }
+        this.$router.push({ query: cloned })
+      }
+    }
+  },
+
   created () {
     this.$nuxt.$on('view-all-projects', () => {
       this.initFilters()
@@ -163,6 +185,13 @@ export default {
 
   mounted () {
     const filterEnabled = (this.$route.query.filters === 'enabled')
+    const cloned = CloneDeep(this.$route.query)
+    Object.keys(cloned).forEach((item) => {
+      this.setRouteQuery({
+        key: item,
+        data: cloned[item]
+      })
+    })
     this.setFiltersActive(filterEnabled)
 
     this.resize = () => { resetSectionHeight(this) }
@@ -178,14 +207,15 @@ export default {
 
   methods: {
     ...mapActions({
-      setFiltersActive: 'filters/setFiltersActive'
+      setFiltersActive: 'filters/setFiltersActive',
+      setRouteQuery: 'global/setRouteQuery'
     }),
     initFilters () {
-      const cloned = CloneDeep(this.$route.query)
-      cloned.filters = 'enabled'
-      this.$router.push({ path: '/', query: cloned })
       this.setFiltersActive(true)
-
+      this.setRouteQuery({
+        key: 'filters',
+        data: 'enabled'
+      })
       this.$refs.collapsibleSection.style.height = '0px'
       window.scrollTo(0, 0)
     }
