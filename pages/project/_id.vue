@@ -24,8 +24,8 @@
           <h2 v-if="project.org" class="company">
             {{ project.org[0] }}
           </h2>
-          <p v-if="project.description && project.description.long" class="description">
-            {{ project.description.long }}
+          <p v-if="description" class="description">
+            {{ description }}
           </p>
           <div class="ctas">
             <a
@@ -35,9 +35,9 @@
               class="primary-cta">
               {{ project.primaryCta.text }}
             </a>
-            <a href="/" class="secondary-cta">
+            <nuxt-link to="/" class="secondary-cta">
               Explore Ecosystem
-            </a>
+            </nuxt-link>
           </div>
         </section>
       </div>
@@ -138,7 +138,7 @@
                       <li
                         v-if="link.text && link.url"
                         :key="`link-group-${j}`">
-                        <a href="link.url" target="_blank">
+                        <a :href="link.url" target="_blank">
                           {{ $truncateString(link.text, 12, '...', type = 'double') }}
                         </a>
                         <div
@@ -368,11 +368,15 @@ export default {
     },
     // Project Content
     pageData () {
-      const siteContent = this.siteContent
-      if (siteContent.hasOwnProperty('general')) {
-        return siteContent.general
-      }
-      return false
+      return this.siteContent.general
+    },
+    description () {
+      const description = this.project.description
+      const long = description.long
+      const short = description.short
+      if (!long && !short) { return false }
+      if (long) { return long }
+      return short
     },
     taxonomies () {
       return this.project.taxonomies.filter(tax => this.$checkTaxonomyCategoryExists(tax.slug))
