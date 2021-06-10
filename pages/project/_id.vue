@@ -35,9 +35,9 @@
               class="primary-cta">
               {{ project.primaryCta.text }}
             </a>
-            <a href="/" class="secondary-cta">
+            <nuxt-link to="/" class="secondary-cta">
               Explore Ecosystem
-            </a>
+            </nuxt-link>
           </div>
         </section>
       </div>
@@ -138,7 +138,7 @@
                       <li
                         v-if="link.text && link.url"
                         :key="`link-group-${j}`">
-                        <a href="link.url" target="_blank">
+                        <a :href="link.url" target="_blank">
                           {{ $truncateString(link.text, 12, '...', type = 'double') }}
                         </a>
                         <div
