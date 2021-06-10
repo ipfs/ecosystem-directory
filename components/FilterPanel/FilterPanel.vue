@@ -369,7 +369,7 @@ export default {
 // //////////////////////////////////////////////////////////////// Filter Panel
 .filter-category {
   &.container {
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
   }
   &:hover {
     cursor: pointer;
@@ -401,7 +401,7 @@ export default {
   &.sub-heading {
     font-family: $fontInter;
     margin: 6px;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
   }
   &.chiclet-list {
     margin: 0 6px;
