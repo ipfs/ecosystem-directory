@@ -15,7 +15,7 @@
             <div class="filter-category heading">
               {{ heading.label }}
               <span class="filter-category number-active">
-                <!-- {{ activeTags[heading.label].length }} of {{ heading.tags.length }} -->
+                {{ allSelected[index] }} of {{ heading.tags.length }}
               </span>
             </div>
 
@@ -33,11 +33,11 @@
 
             <div class="filter-category chiclet-list">
 
-              <!-- <div
-                :class="['filter-category tag chiclet', { 'active-button': activeTags[heading.label].length === heading.tags.length }]"
+              <div
+                :class="['filter-category tag chiclet', { 'active-button': allSelected[index] === heading.tags.length }]"
                 @click="toggleAll(index, heading.label)">
                 All
-              </div> -->
+              </div>
 
               <div
                 v-for="tag in heading.tags"
@@ -191,12 +191,28 @@ export default {
         arr.push(this.selected[i].slug)
       }
       return arr
+    },
+    allSelected () {
+      const arr = []
+      const len = this.ProjectFilters.length
+      for (let i = 0; i < len; i++) {
+        if (this.activeTags.hasOwnProperty(this.ProjectFilters[i].label)) {
+          arr.push(this.activeTags[this.ProjectFilters[i].label].length)
+        } else {
+          arr.push(0)
+        }
+      }
+      return arr
     }
   },
 
   watch: {
     selected () {
       this.setSelectedFiltersCount(this.selected.length)
+    },
+    activeTags (val) {
+
+      console.log(val)
     }
   },
 

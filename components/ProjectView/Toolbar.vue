@@ -19,7 +19,7 @@
         id="clear-selected-filters-button"
         type="C"
         :text="`Clear (${selectedFiltersCount}) Selected`"
-        @click="clearSelectedFilters">
+        @clicked="clearSelectedFilters">
         <template #icon-after>
           <CloseIcon />
         </template>

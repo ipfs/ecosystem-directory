@@ -21,7 +21,6 @@
     <div id="filter-panel-project-list-container" :class="{ 'filter-panel-open': filterPanelOpen }">
       <!-- ============================================ Filter Panel Wrapper -->
       <div id="filter-panel-wrapper">
-
         <div id="filter-panel-toolbar">
 
           <div id="filter-panel-close-icon" @click="toggleFilterPanel">
@@ -58,7 +57,6 @@
           :display="display"
           :collection="filteredProjects"
           class="paginate-root">
-
           <div class="grid">
             <ProjectCard
               v-for="project in paginated"
@@ -70,7 +68,6 @@
               :logo="project.logo.icon"
               :class="projectCardColumns" />
           </div>
-
         </Paginate>
 
         <div v-else class="placeholder-results-empty">
@@ -90,9 +87,7 @@
           </ResultsPerPageSelector>
 
         </div>
-
       </div>
-
     </div>
 
   </div>
@@ -141,10 +136,11 @@ export default {
   computed: {
     ...mapGetters({
       siteContent: 'global/siteContent',
+      routeQuery: 'global/routeQuery',
       projects: 'projects/projects',
-      display: 'pagination/display',
       filterPanelOpen: 'filters/filterPanelOpen',
-      filteredProjects: 'filters/collection'
+      filteredProjects: 'filters/collection',
+      display: 'pagination/display'
     }),
     pageData () {
       return this.siteContent.index.page_content
@@ -174,11 +170,15 @@ export default {
 
   methods: {
     ...mapActions({
+      setRouteQuery: 'global/setRouteQuery',
       setTotalFilters: 'filters/setTotalFilters',
       setFilterPanelOpen: 'filters/setFilterPanelOpen'
     }),
     toggleFilterPanel (forceOpen) {
       this.setFilterPanelOpen(!this.filterPanelOpen)
+      if (!this.routeQuery.hasOwnProperty('filters')) {
+        this.setRouteQuery({ key: 'filters', data: 'enabled' })
+      }
     },
     toggleListBlockView () {
       this.listViewActive = !this.listViewActive
@@ -206,6 +206,7 @@ $paginateRoot_PaddingOffset: 3.5rem;
 
 // ///////////////////////////////////////////////////////////////////// Toolbar
 #section-toolbar {
+  margin-top: 1.5rem;
   margin-bottom: 3rem;
 }
 

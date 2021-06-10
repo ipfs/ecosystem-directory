@@ -8,21 +8,21 @@
       <transition-group name="fade" tag="section">
 
         <section
-          v-if="!filterPanelOpen"
-          id="section-featured-slider"
+          v-if="segmentSlider"
+          id="section-segment-slider"
           ref="segmentSlider"
           key="segment-slider">
           <div class="grid">
             <div class="col">
 
-              <SegmentSliderChart />
+              <SegmentSliderChart @init="resetSectionHeight" />
 
             </div>
           </div>
         </section>
 
         <section
-          v-if="!filterPanelOpen"
+          v-if="featuredSlider"
           id="section-featured-slider"
           ref="featuredSection"
           key="featured-slider">
@@ -38,14 +38,14 @@
             </div>
 
             <div class="col-12">
-              <FeaturedProjectsSlider />
+              <FeaturedProjectsSlider @init="resetSectionHeight" />
             </div>
 
           </div>
         </section>
 
         <section
-          v-if="!filterPanelOpen"
+          v-if="featuredSlider"
           id="section-filter"
           ref="filterHeading"
           key="filters-heading">
@@ -75,20 +75,11 @@
 <script>
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
+import CloneDeep from 'lodash/cloneDeep'
 
 import SegmentSliderChart from '@/components/SegmentSliderChart/SegmentSliderChart'
 import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
 import ProjectView from '@/components/ProjectView/ProjectView'
-
-// =================================================================== Functions
-const resetSectionHeight = (instance) => {
-  if (instance.$refs.segmentSlider && instance.$refs.featuredSection && instance.$refs.filterHeading) {
-    const x = instance.$refs.segmentSlider.offsetHeight
-    const y = instance.$refs.featuredSection.offsetHeight
-    const z = instance.$refs.filterHeading.offsetHeight
-    instance.sectionHeight = Math.ceil(x + y + z) + 140
-  }
-}
 
 // ====================================================================== Export
 export default {
@@ -104,6 +95,8 @@ export default {
     return {
       tag: 'home',
       sectionHeight: 0,
+      segmentSlider: true,
+      featuredSlider: true,
       resize: false
     }
   },
@@ -141,6 +134,8 @@ export default {
   computed: {
     ...mapGetters({
       siteContent: 'global/siteContent',
+      routeQuery: 'global/routeQuery',
+      queryString: 'global/queryString',
       filterPanelOpen: 'filters/filterPanelOpen'
     }),
     // SEO
@@ -156,14 +151,55 @@ export default {
     }
   },
 
+  watch: {
+    '$route' (route) {
+      if (route.query.hasOwnProperty('filters')) {
+        if (route.query.filters === 'enabled') {
+          this.collapseSegmentAndFeaturedSliders()
+        }
+      }
+    },
+    queryString (val) {
+      if (val !== JSON.stringify(this.$route.query)) {
+        const cloned = CloneDeep(this.routeQuery)
+        Object.keys(cloned).forEach((key) => {
+          if (!cloned[key]) { delete cloned[key] }
+        })
+        if (cloned.hasOwnProperty('page')) {
+          if (cloned.page === 1) { delete cloned.page }
+        }
+        this.$router.push({ query: cloned })
+      }
+    }
+  },
+
   mounted () {
-    this.resize = () => { resetSectionHeight(this) }
+    this.resize = () => { this.resetSectionHeight() }
     window.addEventListener('resize', this.resize)
-    resetSectionHeight(this)
+    this.resetSectionHeight()
   },
 
   beforeDestroy () {
     if (this.resize) { window.removeEventListener('resize', this.resize) }
+  },
+
+  methods: {
+    collapseSegmentAndFeaturedSliders () {
+      if (this.segmentSlider && this.featuredSlider) {
+        this.segmentSlider = false
+        this.featuredSlider = false
+        this.sectionHeight = 0
+        window.scrollTo(0, 0)
+      }
+    },
+    resetSectionHeight () {
+      if (this.$refs.segmentSlider && this.$refs.featuredSection && this.$refs.filterHeading) {
+        const x = this.$refs.segmentSlider.offsetHeight
+        const y = this.$refs.featuredSection.offsetHeight
+        const z = this.$refs.filterHeading.offsetHeight
+        this.sectionHeight = Math.ceil(x + y + z)
+      }
+    }
   }
 }
 </script>

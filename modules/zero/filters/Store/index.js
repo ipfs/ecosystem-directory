@@ -1,7 +1,7 @@
 // /////////////////////////////////////////////////////////////////////// State
 // -----------------------------------------------------------------------------
 const state = {
-  activeTags: false,
+  activeTags: {},
   collection: [],
   filterPanelOpen: false,
   selectedFiltersCount: 0
@@ -45,7 +45,7 @@ const actions = {
 // -----------------------------------------------------------------------------
 const mutations = {
   CLEAR_STORE (state) {
-    state.activeTags = false
+    state.activeTags = {}
     state.collection = []
     state.filtersActive = false
     state.totalFilters = 0

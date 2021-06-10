@@ -16,9 +16,7 @@
           </span>
 
           <button class="dropdown-toggle">
-
             <slot name="dropdown-icon"></slot>
-
           </button>
         </div>
 
@@ -41,12 +39,9 @@
             </span>
 
             <button class="dropdown-toggle">
-
               <slot name="dropdown-icon"></slot>
-
             </button>
           </div>
-
         </div>
 
         <template v-for="option in options">
@@ -61,7 +56,7 @@
         </template>
 
       </div>
-
+      
     </div>
   </div>
 </template>
