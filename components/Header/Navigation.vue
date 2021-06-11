@@ -1,7 +1,8 @@
 <template>
   <section
     v-if="navigation"
-    id="header-navigation">
+    id="header-navigation"
+    :class="{ 'force-visible': forceNavigationVisible, 'scroll-inertia-visible': navigationScrollInertiaVisible, 'show-background': showBackground }">
 
     <div class="grid-noGutter">
 
@@ -57,6 +58,8 @@ import { mapGetters } from 'vuex'
 import SocialIcons from '@/components/SocialIcons'
 
 // =================================================================== Functions
+// const scroll =
+
 const checkScreenWidth = (instance) => {
   if (!window.matchMedia('(max-width: 40rem)').matches && instance.navOpen) {
     instance.toggleNav()
@@ -75,7 +78,13 @@ export default {
     return {
       navOpen: false,
       resize: false,
-      modalClosing: false
+      scroll: false,
+      modalClosing: false,
+      scrollSpeed: 0,
+      scrollPosition: 0,
+      showBackground: false,
+      forceNavigationVisible: true,
+      navigationScrollInertiaVisible: false
     }
   },
 
@@ -86,13 +95,47 @@ export default {
     })
   },
 
+  watch: {
+    scrollPosition (newVal, oldVal) {
+      const showBackground = this.showBackground
+      const forceVisible = this.forceNavigationVisible
+      const inertialVisible = this.navigationScrollInertiaVisible
+      if (newVal === 0 && showBackground) {
+        this.showBackground = false
+      } else if (newVal > 0 && !showBackground) {
+        this.showBackground = true
+      }
+      if (newVal === 0 && !forceVisible) {
+        this.forceNavigationVisible = true
+        if (inertialVisible) {
+          this.navigationScrollInertiaVisible = false
+        }
+      } else if (newVal > 80 && newVal > oldVal && (forceVisible || inertialVisible)) {
+        this.forceNavigationVisible = false
+        this.navigationScrollInertiaVisible = false
+      }
+    },
+    scrollSpeed (newVal) {
+      if (newVal < -10 && !this.navigationScrollInertiaVisible) {
+        this.navigationScrollInertiaVisible = true
+      }
+    }
+  },
+
   mounted () {
     this.resize = this.$throttle(() => { checkScreenWidth(this) }, 310)
+    this.scroll = () => {
+      this.updateScrollPosition()
+      this.scrollSpeed = this.$GetScrollSpeed()
+    }
     window.addEventListener('resize', this.resize)
+    window.addEventListener('scroll', this.scroll)
+    this.updateScrollPosition()
   },
 
   beforeDestroy () {
     if (this.resize) { window.removeEventListener('resize', this.resize) }
+    if (this.scroll) { window.removeEventListener('scroll', this.scroll) }
   },
 
   methods: {
@@ -108,17 +151,45 @@ export default {
         document.body.classList.add('no-scroll')
         this.navOpen = !this.navOpen
       }
+    },
+    updateScrollPosition () {
+      this.scrollPosition = window.scrollY
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-$headerHeight: 5rem;
 // ///////////////////////////////////////////////////////////////////// General
 #header-navigation {
-  height: $headerHeight;
-  background-color: #041727;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: $navigationHeight;
+  z-index: 10000;
+  transform: translateY(-$navigationHeight);
+  transition: transform 250ms ease-in-out;
+  &.force-visible,
+  &.scroll-inertia-visible {
+    transform: translateY(0);
+  }
+  &.show-background {
+    &:before {
+      opacity: 1;
+    }
+  }
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #041727 0, #062B3F);
+    opacity: 0;
+    transition: 250ms ease-in-out;
+  }
 }
 
 [class*="grid"],
@@ -173,7 +244,7 @@ $headerHeight: 5rem;
     position: absolute;
     width: 100%;
     top: 0px;
-    border-top: 2px solid #f1f3f2;
+    border-top: 2px solid white;
     transition: 300ms cubic-bezier(0.4, 0.0, 0.2, 1.0);
   }
   &:after {
@@ -181,7 +252,7 @@ $headerHeight: 5rem;
     position: absolute;
     width: 100%;
     bottom: 2px;
-    border-top: 2px solid #f1f3f2;
+    border-top: 2px solid white;
     transition: 300ms cubic-bezier(0.4, 0.0, 0.2, 1.0);
   }
   &.close-icon {
@@ -231,7 +302,6 @@ $headerHeight: 5rem;
 }
 
 // /////////////////////////////////////////////////////////////////////// Modal
-
 .modal-background {
   display: none;
   @include mini {
@@ -240,7 +310,7 @@ $headerHeight: 5rem;
     height: calc(100vh - 5rem);
     top: 5rem;
     left: 0;
-    background: linear-gradient(180deg, #041727 0, #062B3F);
+    background: linear-gradient(to top, #041727 0, #062B3F);
     z-index: 99;
   }
   &.show-background {
@@ -269,7 +339,6 @@ $headerHeight: 5rem;
 }
 
 // ////////////////////////////////////////////////////////////////// Animations
-
 @keyframes landing {
   from {
     transform: scale(1.1);
@@ -286,5 +355,4 @@ $headerHeight: 5rem;
   transform: scale(1.1);
   opacity: 0.0;
 }
-
 </style>
