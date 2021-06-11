@@ -61,7 +61,7 @@ export default {
       }
 
       if (collection.length === 0) { collection = false }
-      this.setCollection(collection)
+      this.setFilteredCollection(collection)
       return collection
     }
   },
@@ -69,7 +69,7 @@ export default {
   methods: {
     ...mapActions({
       setActiveTags: 'filters/setActiveTags',
-      setCollection: 'filters/setCollection'
+      setFilteredCollection: 'core/setFilteredCollection'
     })
   }
 }

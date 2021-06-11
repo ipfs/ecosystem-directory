@@ -10,7 +10,10 @@ const state = {
   messages: [],
   loaders: [],
   clipboard: false,
-  filterValue: ''
+  filterValue: '',
+  filteredCollection: [],
+  sortedCollection: [],
+  paginatedCollection: []
 }
 
 // ///////////////////////////////////////////////////////////////////// Getters
@@ -19,7 +22,10 @@ const getters = {
   messages: state => state.messages,
   loaders: state => state.loaders,
   clipboard: state => state.clipboard,
-  filterValue: state => state.filterValue
+  filterValue: state => state.filterValue,
+  filteredCollection: state => state.filteredCollection,
+  sortedCollection: state => state.sortedCollection,
+  paginatedCollection: state => state.paginatedCollection
 }
 
 // ///////////////////////////////////////////////////////////////////// Actions
@@ -64,6 +70,18 @@ const actions = {
   // ////////////////////////////////////////////////////////////// setClipboard
   setFilterValue ({ commit }, value) {
     commit('SET_FILTER_VALUE', value)
+  },
+  // ///////////////////////////////////////////////////// setFilteredCollection
+  setFilteredCollection ({ commit }, filteredCollection) {
+    commit('SET_FILTERED_COLLECTION', filteredCollection)
+  },
+  // ///////////////////////////////////////////////////// setFilteredCollection
+  setSortedCollection ({ commit }, sortedCollection) {
+    commit('SET_SORTED_COLLECTION', sortedCollection)
+  },
+  // //////////////////////////////////////////////////// setPaginatedCollection
+  setPaginatedCollection ({ commit }, paginatedCollection) {
+    commit('SET_PAGINATED_COLLECTION', paginatedCollection)
   }
 }
 
@@ -87,6 +105,15 @@ const mutations = {
   },
   SET_FILTER_VALUE (state, value) {
     state.filterValue = value
+  },
+  SET_FILTERED_COLLECTION (state, filteredCollection) {
+    state.filteredCollection = filteredCollection
+  },
+  SET_SORTED_COLLECTION (state, sortedCollection) {
+    state.sortedCollection = sortedCollection
+  },
+  SET_PAGINATED_COLLECTION (state, paginatedCollection) {
+    state.paginatedCollection = paginatedCollection
   }
 }
 

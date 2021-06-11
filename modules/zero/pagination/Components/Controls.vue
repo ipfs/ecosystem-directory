@@ -56,8 +56,7 @@
 
 <script>
 // ===================================================================== Imports
-import { mapGetters } from 'vuex'
-import CloneDeep from 'lodash/cloneDeep'
+import { mapGetters, mapActions } from 'vuex'
 
 // ====================================================================== Export
 export default {
@@ -114,28 +113,26 @@ export default {
   },
 
   methods: {
+    ...mapActions({
+      setRouteQuery: 'global/setRouteQuery'
+    }),
     navigateToPage (page) {
-      const cloned = CloneDeep(this.$route.query)
-      if (page !== 1) {
-        cloned.page = page
-      } else {
-        delete cloned.page
-      }
-      this.$router.push({ query: cloned })
+      this.setRouteQuery({
+        key: 'page',
+        data: page
+      })
     }
   }
 }
 </script>
 
 <style lang="scss">
-
 // ///////////////////////////////////////////////////////////////////// General
 .pagination-controls {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-right: 2rem;
 }
 
 // /////////////////////////////////////////////////////////// Buttons & Breaker

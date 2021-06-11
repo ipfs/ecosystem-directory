@@ -34,5 +34,4 @@ export default {
 .svg-icon {
   display: block;
 }
-
 </style>

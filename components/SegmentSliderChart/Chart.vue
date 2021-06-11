@@ -203,6 +203,7 @@ export default {
                             setTimeout(() => {
                               this.reduceOffset(4, () => {
                                 this.setMinOffsets(() => null)
+                                this.$emit('chart-mounted')
                               })
                             }, 10 * r)
                           }
