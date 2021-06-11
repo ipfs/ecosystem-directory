@@ -1,18 +1,32 @@
 <template>
   <div :class="`page page-${tag} container`">
 
-    <div ref="collapsibleSection" class="collapse" :style="`height: ${sectionHeight}px;`">
+    <div
+      ref="collapsibleSection"
+      :style="{ height: `${sectionHeight}px` }"
+      class="collapsible-section">
       <transition-group name="fade" tag="section">
-        <section v-if="!filtersActive" key="segment">
-          <div ref="segmentSlider">
-            <SegmentSliderChart
-              v-if="!filtersActive"
-              class="grid-center" />
+
+        <section
+          v-if="segmentSlider"
+          id="section-segment-slider"
+          ref="segmentSlider"
+          key="segment-slider">
+          <div class="grid">
+            <div class="col">
+
+              <SegmentSliderChart @init="resetSectionHeight" />
+
+            </div>
           </div>
         </section>
 
-        <section v-if="!filtersActive && pageData" id="section-featured-slider" key="featured">
-          <div ref="featuredSection" class="grid-center">
+        <section
+          v-if="featuredSlider"
+          id="section-featured-slider"
+          ref="featuredSection"
+          key="featured-slider">
+          <div class="grid">
 
             <div class="col-12">
               <h3 class="heading">
@@ -24,36 +38,36 @@
             </div>
 
             <div class="col-12">
-              <FeaturedProjectsSlider />
+              <FeaturedProjectsSlider @init="resetSectionHeight" />
             </div>
 
           </div>
         </section>
 
-        <section v-if="!filtersActive && pageData" id="section-filter" key="heading">
-          <div ref="filterHeading" class="grid-center">
+        <section
+          v-if="featuredSlider"
+          id="section-filter"
+          ref="filterHeading"
+          key="filters-heading">
+          <div class="grid">
+            <div class="col">
 
-            <div class="col-12">
               <h3 class="heading">
                 {{ pageData.section_filter.heading }}
               </h3>
+
               <div class="description">
                 {{ pageData.section_filter.description }}
               </div>
-            </div>
 
+            </div>
           </div>
         </section>
+
       </transition-group>
     </div>
 
-    <section>
-
-      <ProjectView
-        :all-projects="projects"
-        @init-filters="initFilters" />
-
-    </section>
+    <ProjectView />
 
   </div>
 </template>
@@ -66,16 +80,6 @@ import CloneDeep from 'lodash/cloneDeep'
 import SegmentSliderChart from '@/components/SegmentSliderChart/SegmentSliderChart'
 import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
 import ProjectView from '@/components/ProjectView/ProjectView'
-
-// =================================================================== Functions
-const resetSectionHeight = (instance) => {
-  if (instance.$refs.segmentSlider && instance.$refs.featuredSection && instance.$refs.filterHeading) {
-    const x = instance.$refs.segmentSlider.offsetHeight
-    const y = instance.$refs.featuredSection.offsetHeight
-    const z = instance.$refs.filterHeading.offsetHeight
-    instance.sectionHeight = Math.ceil(x + y + z) + 140
-  }
-}
 
 // ====================================================================== Export
 export default {
@@ -90,11 +94,10 @@ export default {
   data () {
     return {
       tag: 'home',
-      sectionHeight: false,
-      resize: false,
-      load: false,
+      sectionHeight: 0,
       segmentSlider: false,
-      featuredProjects: false
+      featuredSlider: false,
+      resize: false
     }
   },
 
@@ -131,8 +134,9 @@ export default {
   computed: {
     ...mapGetters({
       siteContent: 'global/siteContent',
-      projects: 'projects/projects',
-      filtersActive: 'filters/filtersActive'
+      routeQuery: 'global/routeQuery',
+      queryString: 'global/queryString',
+      filterPanelOpen: 'filters/filterPanelOpen'
     }),
     // SEO
     seo () {
@@ -140,54 +144,90 @@ export default {
     },
     // Page Content
     generalPageData () {
-      const siteContent = this.siteContent
-      if (siteContent.hasOwnProperty('general')) {
-        return siteContent.general
-      }
-      return false
+      return this.siteContent.general
     },
     pageData () {
-      const siteContent = this.siteContent
-      if (siteContent.hasOwnProperty('index')) {
-        return siteContent.index.page_content
-      }
-      return false
+      return this.siteContent.index.page_content
     }
   },
 
-  created () {
-    this.$nuxt.$on('view-all-projects', () => {
-      this.initFilters()
-    })
+  watch: {
+    '$route' (route) {
+      if (route.query.filters === 'enabled') {
+        this.collapseSegmentAndFeaturedSliders()
+      } else {
+        if (this.filterPanelOpen) {
+          this.setFilterPanelOpen(false)
+        }
+      }
+    },
+    queryString (val) {
+      if (val !== JSON.stringify(this.$route.query)) {
+        const cloned = CloneDeep(this.routeQuery)
+        Object.keys(cloned).forEach((key) => {
+          if (!cloned[key]) { delete cloned[key] }
+        })
+        if (cloned.hasOwnProperty('page')) {
+          if (cloned.page === 1) { delete cloned.page }
+        }
+        if (cloned.hasOwnProperty('filters')) {
+          if (!cloned.filters) { delete cloned.filters }
+        }
+        this.$router.push({ query: cloned })
+      }
+    }
   },
 
   mounted () {
     const filterEnabled = (this.$route.query.filters === 'enabled')
-    this.setFiltersActive(filterEnabled)
+    if (filterEnabled) {
+      this.setFilterPanelOpen(filterEnabled)
+    } else {
+      this.segmentSlider = true
+      this.featuredSlider = true
+      if (this.filterPanelOpen) {
+        this.setFilterPanelOpen(false)
+      }
+      this.setRouteQuery({ key: 'filters', data: '' })
+    }
 
-    this.resize = () => { resetSectionHeight(this) }
+    const cloned = CloneDeep(this.$route.query)
+    Object.keys(cloned).forEach((item) => {
+      this.setRouteQuery({
+        key: item,
+        data: cloned[item]
+      })
+    })
+
+    this.resize = () => { this.resetSectionHeight() }
     window.addEventListener('resize', this.resize)
-    this.load = () => { resetSectionHeight(this) }
-    window.addEventListener('load', this.load)
+    this.resetSectionHeight()
   },
 
   beforeDestroy () {
     if (this.resize) { window.removeEventListener('resize', this.resize) }
-    if (this.load) { window.removeEventListener('load', this.load) }
   },
 
   methods: {
     ...mapActions({
-      setFiltersActive: 'filters/setFiltersActive'
+      setRouteQuery: 'global/setRouteQuery',
+      setFilterPanelOpen: 'filters/setFilterPanelOpen'
     }),
-    initFilters () {
-      const cloned = CloneDeep(this.$route.query)
-      cloned.filters = 'enabled'
-      this.$router.push({ path: '/', query: cloned })
-      this.setFiltersActive(true)
-
-      this.$refs.collapsibleSection.style.height = '0px'
-      window.scrollTo(0, 0)
+    collapseSegmentAndFeaturedSliders () {
+      if (this.segmentSlider && this.featuredSlider) {
+        this.segmentSlider = false
+        this.featuredSlider = false
+        this.sectionHeight = 0
+        window.scrollTo(0, 0)
+      }
+    },
+    resetSectionHeight () {
+      if (this.$refs.segmentSlider && this.$refs.featuredSection && this.$refs.filterHeading) {
+        const x = this.$refs.segmentSlider.offsetHeight
+        const y = this.$refs.featuredSection.offsetHeight
+        const z = this.$refs.filterHeading.offsetHeight
+        this.sectionHeight = Math.ceil(x + y + z)
+      }
     }
   }
 }
@@ -195,13 +235,8 @@ export default {
 
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
-.heading,
-.description {
+.heading {
   margin-bottom: 0.75rem;
-}
-
-.hidden {
-  visibility: hidden;
 }
 
 #segment-slider-chart {
@@ -212,39 +247,30 @@ export default {
   }
 }
 
-#section-filter,
-#section-featured-slider {
-  margin-bottom: 1rem;
+#featured-projects-slider {
+  margin-top: 1rem;
 }
 
-.project-filters {
-  padding: 0;
-}
-
-// ///////////////////////////////////////////////////////////////////// Transitions
-
+// ///////////////////////////////////////////////////////////////// Transitions
 .fade {
   &-enter-active {
-    transition: opacity .5s;
-    transition-delay: 500ms;
+    transition: opacity 500ms 500ms;
   }
   &-leave-active {
-    transition: opacity .5s;
+    transition: opacity 500ms;
   }
   &-enter-to,
   &-leave {
-    opacity: 1.0;
+    opacity: 1;
   }
   &-enter,
   &-leave-to {
-    opacity: 0.0;
+    opacity: 0;
   }
 }
 
-.collapse {
+.collapsible-section {
   overflow: hidden;
-  transition: height .5s;
-  transition-delay: 500ms;
+  transition: height 500ms 500ms;
 }
-
 </style>

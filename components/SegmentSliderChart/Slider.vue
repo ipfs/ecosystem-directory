@@ -68,6 +68,8 @@
 
 <script>
 // ===================================================================== Imports
+import { mapGetters, mapActions } from 'vuex'
+
 import PrevArrow from '@/components/Icons/PrevArrow'
 import NextArrow from '@/components/Icons/NextArrow'
 
@@ -104,6 +106,9 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      routeQuery: 'global/routeQuery'
+    }),
     logos () {
       if (this.selectedCat.logos.length) {
         return this.selectedCat.logos
@@ -117,11 +122,18 @@ export default {
   },
 
   methods: {
+    ...mapActions({
+      setRouteQuery: 'global/setRouteQuery',
+      setFilterPanelOpen: 'filters/setFilterPanelOpen'
+    }),
     incrementSelection (seg) {
       this.$emit('update-slider', seg)
     },
     jump2Filters () {
-      this.$nuxt.$emit('view-all-projects')
+      if (!this.routeQuery.hasOwnProperty('filters')) {
+        this.setRouteQuery({ key: 'filters', data: 'enabled' })
+      }
+      this.setFilterPanelOpen(true)
     }
   }
 }

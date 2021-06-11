@@ -97,9 +97,9 @@ export default {
       navigation: 'global/navigation',
       projects: 'projects/projects',
       activeTags: 'filters/activeTags',
-      filteredCollection: 'filters/collection',
-      filtersActive: 'filters/filtersActive',
-      totalFilters: 'filters/totalFilters'
+      filteredCollection: 'core/filteredCollection',
+      filterPanelOpen: 'filters/filterPanelOpen',
+      selectedFiltersCount: 'filters/selectedFiltersCount'
     }),
     pageData () {
       const siteContent = this.siteContent
@@ -110,8 +110,8 @@ export default {
     },
     headerState () {
       if (this.$route.name === 'index') {
-        if (this.filtersActive) {
-          if (this.totalFilters) {
+        if (this.$route.query.filters === 'enabled') {
+          if (this.selectedFiltersCount) {
             return 'filters-applied'
           } else {
             return 'filters-view'

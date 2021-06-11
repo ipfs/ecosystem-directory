@@ -5,7 +5,7 @@
     @keyup.left="setSliderContent(selected - 1)"
     @keyup.right="setSliderContent(selected + 1)">
 
-    <div class="main-container grid-center">
+    <div class="main-container">
 
       <Slider
         v-if="chartItems"
@@ -21,7 +21,8 @@
         :selected-seg="selected"
         :container-height="containerHeight"
         @update-slider="setSliderContent"
-        @keyup.left="setSliderContent(selected - 1)" />
+        @keyup.left="setSliderContent(selected - 1)"
+        @chart-mounted="chartMounted" />
 
     </div>
 
@@ -194,7 +195,8 @@ export default {
   data () {
     return {
       selected: 0,
-      containerHeight: 440
+      containerHeight: 440,
+      segmentChart: false
     }
   },
 
@@ -208,8 +210,12 @@ export default {
     }
   },
 
-  mounted () {
-    this.$emit('init')
+  watch: {
+    segmentChart (val) {
+      if (val) {
+        this.$emit('init')
+      }
+    }
   },
 
   methods: {
@@ -217,6 +223,9 @@ export default {
       if (seg < 0) { seg = this.chartItems.length - 1 }
       const mod = seg % this.chartItems.length
       this.selected = mod
+    },
+    chartMounted () {
+      this.segmentChart = true
     }
   }
 }
@@ -236,7 +245,6 @@ export default {
   display: flex;
   position: relative;
   flex-wrap: wrap-reverse;
-  align-items: space-between;
-  margin: 0 auto;
+  justify-content: space-between;
 }
 </style>

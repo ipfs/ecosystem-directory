@@ -129,7 +129,7 @@ export default {
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
 #slider {
-  margin: 0 5%;
+  margin: 0 $containerSingleColumn;
   overflow: hidden;
   @include medium {
     margin: 0;

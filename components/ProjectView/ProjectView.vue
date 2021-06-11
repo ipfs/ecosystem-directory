@@ -1,81 +1,30 @@
 <template>
-  <div id="project-view-container" ref="projectViewCtn">
+  <div id="project-view-container">
 
-    <!-- //////////////////////////////// Filter Toggle / List View controls -->
+    <!-- /////////////////////////////////////////////////////////// Toolbar -->
+    <section id="section-toolbar">
+      <div class="grid-noGutter">
+        <div class="col">
 
-    <div class="grid-center">
-      <div id="card-filters-toggle" class="col-12">
-
-        <div class="filter-panel-controls">
-          <Button
-            type="C"
-            text="Filters"
-            :class="{ 'filter-toggle' : true, 'active-button': filterPanel }"
-            @clicked="toggleFilterPanel">
-
-            <template #icon-before>
-              <FiltersToggle
-                class="font-inter"
-                :stroke="filterPanel ? '#FFFFFF' : '#052437'" />
-            </template>
-
-          </Button>
-
-          <Button
-            v-if="totalFilters"
-            type="C"
-            :text="`Clear (${totalFilters}) Selected`"
-            class="clear-selected"
-            @clicked="clearSelectedFilters">
-            <template #icon-after>
-              <Close />
-            </template>
-          </Button>
+          <Toolbar
+            :filter-panel-open="filterPanelOpen"
+            :list-view-active="listViewActive"
+            @toggleFilterPanel="toggleFilterPanel"
+            @toggleListBlockView="toggleListBlockView"
+            @clearSelectedFilters="clearSelectedFilters" />
 
         </div>
-
-        <div class="radio-sort-wrapper">
-
-          <SortBySelector
-            class="sort-by-selector"
-            :sort-options="taxonomyData.sort">
-            <template #dropdown-icon>
-              <SelectorToggle stroke="#052437" />
-            </template>
-          </SortBySelector>
-
-          <div id="radio-view-toggle" @click.stop="toggleListGridView">
-
-            <div ref="radio" class="selected-background"></div>
-
-            <ListView
-              class="radio-toggle-item"
-              :stroke="listActive ? '#FFFFFF' : '#052437'" />
-
-            <GridView
-              class="radio-toggle-item"
-              :stroke="!listActive ? '#FFFFFF' : '#052437'" />
-
-          </div>
-        </div>
-
       </div>
-    </div>
+    </section>
 
-    <!-- ////////////////////////////////////////////////////// Filter Panel -->
+    <!-- //////////////////////////////////////////// Filtering and Projects -->
+    <div id="filter-panel-project-list-container" :class="{ 'filter-panel-open': filterPanelOpen }">
+      <!-- ============================================ Filter Panel Wrapper -->
+      <div id="filter-panel-wrapper">
+        <div id="filter-panel-toolbar">
 
-    <div id="project-filter-container">
-
-      <div id="filter-panel-wrapper" ref="filterWrap" class="filter-panel-modal">
-
-        <div
-          v-if="filterPanel"
-          class="filter-panel-heading">
-
-          <div
-            class="close-icon"
-            @click="toggleFilterPanel">
-            <Close />
+          <div id="filter-panel-close-icon" @click="toggleFilterPanel">
+            <CloseIcon />
           </div>
 
           <h4 class="title">
@@ -92,66 +41,53 @@
 
         </div>
 
-        <div ref="innerPanel" class="inner-wrapper">
+        <FilterPanel
+          ref="filterPanel"
+          :collection="searchResults"
+          @toggleFilterPanel="toggleFilterPanel" />
 
-          <FilterPanel
-            ref="filterPanel"
-            :collection="searchResults"
-            :is-active="filterPanel"
-            @closeFilters="toggleFilterPanel"
-            @totalSelected="updateTotalFilters" />
-
-        </div>
       </div>
 
-      <!-- ////////////////////////////////////////////////// Paginated List -->
-
-      <div id="card-display" ref="cardDisplay" class="card-display auto">
+      <!-- ================================================== Paginated List -->
+      <div id="paginated-list">
 
         <Paginate
-          v-if="filteredProjects"
+          v-if="sortedCollection"
           v-slot="{ paginated }"
           :display="display"
-          :collection="filteredProjects"
+          :collection="sortedCollection"
           class="paginate-root">
-
-          <div class="card-list grid">
+          <div class="grid">
             <ProjectCard
               v-for="project in paginated"
               :key="project.name"
-              :format="(listActive ? 'list-view' : 'block-view')"
-              :class="`col-${num}`"
+              :format="(listViewActive ? 'list-view' : 'block-view')"
               :title="project.name"
               :slug="project.slug"
               :description="project.description.short"
-              :logo="project.logo.icon" />
+              :logo="project.logo.icon"
+              :class="projectCardColumns" />
           </div>
-
         </Paginate>
 
         <div v-else class="placeholder-results-empty">
           {{ pageData.section_filter.results_empty_placeholder }}
         </div>
 
-        <div v-if="filteredProjects" class="page-navigation-controls">
+        <div v-if="sortedCollection" id="paginated-list-navigation-controls">
 
           <PaginationControls />
 
-          <div class="results-selector-wrapper">
-            <ResultsPerPageSelector
-              :collection="filteredProjects"
-              class="results-per-page font-inter">
-
-              <template #dropdown-icon>
-                <SelectorToggle stroke="#052437" />
-              </template>
-
-            </ResultsPerPageSelector>
-          </div>
+          <ResultsPerPageSelector
+            id="results-per-page-selector"
+            :collection="sortedCollection">
+            <template #dropdown-icon>
+              <SelectorToggleIcon />
+            </template>
+          </ResultsPerPageSelector>
 
         </div>
       </div>
-
     </div>
 
   </div>
@@ -161,182 +97,71 @@
 // ===================================================================== Imports
 import { mapGetters, mapActions } from 'vuex'
 
-import Paginate from '@/modules/zero/pagination/Components/Paginate'
-import ResultsPerPageSelector from '@/modules/zero/pagination/Components/ResultsPerPageSelector'
-import Button from '@/modules/zero/core/Components/Button'
-import SelectorToggle from '@/modules/zero/core/Components/Icons/SelectorToggle'
-import FiltersToggle from '@/modules/zero/core/Components/Icons/FiltersToggle'
-import ListView from '@/components/Icons/ListView'
-import GridView from '@/components/Icons/GridView'
+import Toolbar from '@/components/ProjectView/Toolbar'
 import FilterBar from '@/modules/zero/core/Components/FilterBar'
-import SortBySelector from '@/modules/zero/filters/Components/SortBySelector'
-import SearchIcon from '@/components/Icons/SearchIcon'
-import Close from '@/components/Icons/Close'
 import FilterPanel from '@/components/FilterPanel/FilterPanel'
-import PaginationControls from '@/components/ProjectView/PaginationControls'
+import Paginate from '@/modules/zero/pagination/Components/Paginate'
 import ProjectCard from '@/components/ProjectView/ProjectCard'
+import PaginationControls from '@/components/ProjectView/PaginationControls'
+import ResultsPerPageSelector from '@/modules/zero/pagination/Components/ResultsPerPageSelector'
 
-// =================================================================== Functions
-const resetCardDisplayMargin = (element) => {
-  element.style.marginLeft = 'auto'
-  element.style.marginRight = 'auto'
-
-  const ml = getComputedStyle(element).marginLeft
-  const mr = getComputedStyle(element).marginRight
-
-  element.style.marginLeft = ml
-  element.style.marginRight = mr
-}
-
-const setColumnWidth = (instance, element) => {
-  if (element) {
-    if (instance.listActive) {
-      if (element.clientWidth <= 640) {
-        if (instance.num !== 12) { instance.num = 12 }
-      } else {
-        if (instance.num !== 6) { instance.num = 6 }
-      }
-    } else {
-      if (element.clientWidth <= 850) {
-        if (element.clientWidth <= 640) {
-          if (instance.num !== 6) { instance.num = 6 }
-        } else {
-          if (instance.num !== 4) { instance.num = 4 }
-        }
-      } else {
-        if (instance.num !== 3) { instance.num = 3 }
-      }
-    }
-  }
-}
+import CloseIcon from '@/components/Icons/Close'
+import SearchIcon from '@/components/Icons/SearchIcon'
+import SelectorToggleIcon from '@/modules/zero/core/Components/Icons/SelectorToggle'
 
 // ====================================================================== Export
 export default {
   name: 'ProjectView',
 
   components: {
-    Paginate,
-    PaginationControls,
-    ResultsPerPageSelector,
-    SelectorToggle,
-    FiltersToggle,
-    ListView,
-    GridView,
-    Button,
+    Toolbar,
     FilterBar,
     FilterPanel,
+    CloseIcon,
     SearchIcon,
-    Close,
+    Paginate,
     ProjectCard,
-    SortBySelector
-  },
-
-  props: {
-    allProjects: {
-      type: [Boolean, Array],
-      default: false,
-      required: false
-    }
+    PaginationControls,
+    ResultsPerPageSelector,
+    SelectorToggleIcon
   },
 
   data () {
     return {
-      projects: false,
-      paginationDisplay: 20,
-      filterPanel: false,
-      totalFilters: 0,
-      listActive: false,
-      resize: false,
-      searchQuery: '',
-      num: 3
+      listViewActive: false,
+      searchQuery: ''
     }
   },
 
   computed: {
     ...mapGetters({
       siteContent: 'global/siteContent',
-      page: 'pagination/page',
-      totalPages: 'pagination/totalPages',
-      display: 'pagination/display',
-      filteredProjects: 'filters/collection',
-      filtersActive: 'filters/filtersActive'
+      routeQuery: 'global/routeQuery',
+      projects: 'projects/projects',
+      filterPanelOpen: 'filters/filterPanelOpen',
+      sortedCollection: 'core/sortedCollection',
+      display: 'pagination/display'
     }),
     pageData () {
-      const siteContent = this.siteContent
-      if (siteContent.hasOwnProperty('index')) {
-        return siteContent.index.page_content
-      }
-      return false
-    },
-    taxonomyData () {
-      const siteContent = this.siteContent
-      if (siteContent.hasOwnProperty('taxonomy')) {
-        return siteContent.taxonomy
-      }
-      return false
+      return this.siteContent.index.page_content
     },
     searchResults () {
       const query = this.searchQuery
-      const regex = new RegExp(query, 'i')
-      const projects = this.allProjects
-      const len = projects.length
-      const arr = []
-      if (this.searchQuery) {
-        for (let i = 0; i < len; i++) {
-          const name = projects[i].name
-          const org = projects[i].org
-          if (typeof name === 'string') {
-            if (regex.test(name) || regex.test(org)) {
-              arr.push(projects[i])
-            }
-          }
-        }
-        return arr
-      }
-      return projects
-    }
-  },
-
-  watch: {
-    filterPanel (val) {
-      if (val) {
-        this.$refs.filterWrap.classList.remove('filter-closed')
-        this.$refs.filterWrap.classList.add('filter-open')
-
-        this.$refs.cardDisplay.style.marginLeft = null
-        this.$refs.cardDisplay.style.marginRight = null
-        this.$refs.cardDisplay.classList.remove('auto')
-        this.$refs.cardDisplay.classList.remove('panel-closed')
-        this.$refs.cardDisplay.classList.add('panel-open')
+      return this.projects.filter((project) => {
+        const matched = project.name.toLowerCase().includes(query) || project.org.join('').toLowerCase().includes(query)
+        if (!matched) { return false }
+        return project
+      })
+    },
+    projectCardColumns () {
+      if (this.filterPanelOpen) {
+        if (this.listViewActive) { return 'col-6_md-12_sm-6_mi-12' }
+        return 'col-4_md-6_sm-4_mi-6'
       } else {
-        this.$refs.filterWrap.classList.remove('filter-open')
-        this.$refs.filterWrap.classList.add('filter-closed')
-
-        this.$refs.cardDisplay.classList.remove('panel-open')
-        this.$refs.cardDisplay.classList.add('panel-closed')
-        setTimeout(() => { resetCardDisplayMargin(this.$refs.cardDisplay) }, 500)
+        if (this.listViewActive) { return 'col-4_md-6_mi-12' }
+        return 'col-3_sm-4_mi-6'
       }
     }
-  },
-
-  created () {
-    this.$nuxt.$on('view-all-projects', () => {
-      this.toggleFilterPanel()
-    })
-  },
-
-  mounted () {
-    resetCardDisplayMargin(this.$refs.cardDisplay)
-    this.filterPanel = (this.$route.query.filters === 'enabled')
-
-    this.resize = () => {
-      setColumnWidth(this, this.$refs.cardDisplay)
-      resetCardDisplayMargin(this.$refs.cardDisplay)
-    }
-    window.addEventListener('resize', this.resize)
-
-    setColumnWidth(this, this.$refs.cardDisplay)
-    setTimeout(() => { setColumnWidth(this, this.$refs.cardDisplay) }, 500)
   },
 
   beforeDestroy () {
@@ -345,310 +170,196 @@ export default {
 
   methods: {
     ...mapActions({
-      setPage: 'pagination/setPage',
-      setTotalPages: 'pagination/setTotalPages',
-      setDisplay: 'pagination/setDisplay',
-      setCollection: 'pagination/setCollection',
-      clearStore: 'pagination/clearStore',
-      setFiltersActive: 'filters/setFiltersActive',
-      setTotalFilters: 'filters/setTotalFilters'
+      setRouteQuery: 'global/setRouteQuery',
+      setTotalFilters: 'filters/setTotalFilters',
+      setFilterPanelOpen: 'filters/setFilterPanelOpen'
     }),
-    toggleFilterPanel () {
-      this.filterPanel = !this.filterPanel
-      setTimeout(() => { setColumnWidth(this, this.$refs.cardDisplay) }, 500)
-      if (!this.filtersActive) {
-        this.$emit('init-filters')
+    toggleFilterPanel (forceOpen) {
+      this.setFilterPanelOpen(!this.filterPanelOpen)
+      if (!this.routeQuery.hasOwnProperty('filters') || this.routeQuery.filters !== 'enabled') {
+        this.setRouteQuery({ key: 'filters', data: 'enabled' })
       }
     },
-    toggleListGridView () {
-      this.listActive = !this.listActive
-      setColumnWidth(this, this.$refs.cardDisplay)
-      this.$refs.radio.style.left = this.listActive ? '0%' : '50%'
-    },
-    updateTotalFilters (val) {
-      this.totalFilters = val
-      this.setTotalFilters(val)
+    toggleListBlockView () {
+      this.listViewActive = !this.listViewActive
     },
     clearSelectedFilters () {
       this.$refs.filterPanel.clearSelected()
     },
-    setSearchQuery (val) {
-      this.searchQuery = val
+    setSearchQuery (query) {
+      this.searchQuery = query
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-// ///////////////////////////////////////////////////////////////////// General
-#project-view-container {
-  width: 100%;
-  padding: 0;
-}
+$gutter: calc((100vw - #{$containerWidth}) / 2);
+$gutter_Negative: calc(((100vw - #{$containerWidth}) / 2) * -1);
+$gutter_ContainerSingleColumn: 100vw * 0.041665;
+$filterPanelWidth: 20rem;
+$filterPanelPadding_Top: 2.5rem;
+$filterPanelPadding_Right: 2.5rem;
+$filterPanelPadding_Left: 0rem;
+$filterPanelPadding_Bottom: 6rem;
+$paginateRoot_PaddingOffset: 3.5rem;
 
-// ///////////////////////////////////////////////////////////// Toggle Controls
-::v-deep button.button.type-C {
-  width: 6.875rem;
-  height: 1.875rem;
-  color: $tiber;
-  &.active-button {
-    background-color: $tiber;
-    color: white;
-  }
-  .icon {
-    margin-top: 0.125rem;
-  }
-  .item-after {
-    @include fontSize_Small;
-  }
-}
-
-.filter-toggle {
-  @include small {
-    position: fixed;
-    bottom: 2.5rem;
-    left: 2.5rem;
-    z-index: 10;
-  }
-}
-
-#card-filters-toggle {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 0.0rem 1rem;
-  margin-top: 1rem;
+// ///////////////////////////////////////////////////////////////////// Toolbar
+#section-toolbar {
+  margin-top: 1.5rem;
   margin-bottom: 3rem;
 }
 
-.radio-sort-wrapper {
+// //////////////////////////////////////////////////////////////// Filter Panel
+#filter-panel-project-list-container {
+  position: relative;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  .sort-by-selector {
-    position: relative;
-    margin-right: 1rem;
+  margin: 0 $gutter;
+  @include containerMaxMQ {
+    margin: 0;
   }
-}
-
-#radio-view-toggle {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  position: relative;
-  height: 2.25rem;
-  background-color: #FFFFFF;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  &.hide {
-    opacity: 0;
-  }
-}
-
-.filter-panel-controls {
-  display: flex;
-  position: relative;
-  .clear-selected {
-    @include borderRadius3;
-    position: relative;
-    height: 2.25rem;
-    background-color: #FFFFFF;
-    white-space: nowrap;
-    padding: 0 0.75rem;
-    margin: 0 0.75rem;
-    cursor: pointer;
-    @include small {
-      margin: 0;
+  &.filter-panel-open {
+    #filter-panel-wrapper {
+      margin-left: 0;
+      transform: translateX(0);
+      @include containerMaxMQ {
+        padding-left: $gutter_ContainerSingleColumn;
+      }
+    }
+    .paginate-root {
+      padding-left: 0.5rem;
+      @include small {
+        padding-left: $gutter_ContainerSingleColumn;
+      }
     }
   }
-}
-
-.radio-toggle-item {
-  border-radius: 0.25rem;
-  white-space: nowrap;
-  padding: 0 1.0rem;
-  z-index: 10;
-}
-
-.selected-background {
-  display: inline-block;
-  position: absolute;
-  width: 50%;
-  left: 50%;
-  min-height: 2.25rem;
-  background-color: $tiber;
-  border-radius: 0.25rem;
-  transition: left 300ms cubic-bezier(.61,1.6,.64,.88);
-  z-index: 2;
-}
-
-// //////////////////////////////////////////////////////////////// Filter Panel
-#project-filter-container {
-  width: 100vw;
-  position: relative;
-  display: flex;
-  justify-content: center;
 }
 
 #filter-panel-wrapper {
-  display: block;
   position: relative;
-  width: 0%;
-  background-color: #ffffff;
-  transition: width 500ms ease-in-out;
-  overflow: hidden;
-  border-radius: 0 0.25rem 0.25rem 0;
-  .close-icon {
-    position: absolute;
-    right: 0.75rem;
-    top: 0.25rem;
-    padding: 0.25rem;
-    cursor: pointer;
+  padding: $filterPanelPadding_Top $filterPanelPadding_Right $filterPanelPadding_Bottom $filterPanelPadding_Left;
+  background-color: white;
+  margin-left: calc(-#{$filterPanelWidth} - #{$filterPanelPadding_Right} - #{$filterPanelPadding_Left});
+  transform: translateX($gutter_Negative);
+  transition: transform 250ms ease-in-out, margin-left 250ms ease-in-out;
+  @include containerMaxMQ {
+    margin-left: calc(-#{$filterPanelWidth} - #{$filterPanelPadding_Right} - #{$filterPanelPadding_Left});
+    transform: translateX(-$gutter_ContainerSingleColumn);
   }
   @include small {
     position: fixed;
-    overflow: scroll;
-    height: 100vh;
-    width: 0;
     top: 0;
-    z-index: 100;
-    border-radius: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin-left: 0;
+    padding-bottom: 2.5rem;
+    transform: translate(0, 100%);
+    overflow-y: scroll;
+    z-index: 1000;
   }
-  &.filter-closed {
-    width: 0;
-  }
-  &.filter-open {
-    width: 28.75rem;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 100%;
+    width: $gutter;
+    height: 100%;
+    background-color: white;
     @include small {
-      width: 100vw;
+      display: none;
     }
   }
 }
 
-.filter-panel-heading {
-  margin: 2.5rem 0;
-  margin-right: 2.5rem;
-  margin-left: 24%;
+#filter-panel-close-icon {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.75rem;
+  padding: 0.25rem;
+  cursor: pointer;
+}
+
+#filter-panel-toolbar,
+#filter-panel {
+  width: $filterPanelWidth;
   @include small {
-    margin: 0;
-    padding: 1.5rem 2.5rem;
-    width: 100vw;
-    position: fixed;
-    background-color: #ffffff;
-    z-index: 100;
+    width: 100%;
   }
+}
+
+// #filter-panel-toolbar,
+// #filter-panel-controls {
+//   @include small {
+//     position: absolute;
+//     left: 0;
+//   }
+// }
+
+#filter-panel-toolbar {
+  // @include small {
+  //   top: 0;
+  // }
   .title {
     font-family: $fontMontserrat;
-    font-weight: 400;
-    margin: 6px;
+    margin-bottom: 0.5rem;
   }
 }
 
-.inner-wrapper {
-  font-family: $fontInter;
-  position: relative;
-  margin-left: 24%;
+#filter-accordion {
   @include small {
-    top: 6rem;
-    margin: 2.5rem;
-    margin-bottom: 18rem;
+    overflow-y: scroll;
   }
 }
 
-::v-deep .bottom-buttons {
-  @include small {
-    position: fixed;
-    bottom: 0;
-    background-color: #ffffff;
-    width: 100%;
-    z-index: 100;
-    padding: 1.0rem 0;
-    margin: 0;
-  }
-}
+// #filter-panel-controls {
+//   @include small {
+//     bottom: 0;
+//   }
+// }
 
-// /////////////////////////////////////////////////////////////// Project Cards
-.card-display {
-  transition: all 500ms ease-in-out;
-  &.auto {
-    width: 67.5rem;
-  }
-}
-
-.panel-open {
-  width: 66%;
-  margin-left: 3%;
-  margin-right: 8%;
-}
-
-.panel-closed {
-  width: 67.5rem;
-  margin-left: 16%;
-  margin-right: 16%;
+// ////////////////////////////////////////////////////////////// Paginated List
+#paginated-list {
+  flex: 1;
+  margin-bottom: 3rem;
 }
 
 .paginate-root {
-  width: 100%;
-}
-
-img {
-  width: 100%;
-  height: 100%;
-}
-
-::v-deep .card-list {
-  width: inherit;
-  &.layout-grid {
-    flex-flow: row wrap;
-  }
-  &.layout-list {
-    flex-flow: row wrap;
+  padding: 0 $paginateRoot_PaddingOffset;
+  transition: 250ms ease-in-out;
+  @include containerMaxMQ {
+    padding: 0 $gutter_ContainerSingleColumn;
   }
 }
 
-::v-deep .project-card {
-  &.block-view {
-    margin-bottom: 1rem;
-    .thumbnail {
-      height: 11.25rem;
-    }
+.grid {
+  width: auto;
+  padding: 0;
+  @include containerMaxMQ {
+    width: 100%;
   }
 }
 
 .placeholder-results-empty {
   @include borderRadius3;
   padding: 2rem;
+  margin: 0 $paginateRoot_PaddingOffset;
   font-weight: 600;
   text-align: center;
   background-color: white;
 }
 
 // ///////////////////////////////////////////////////////// Pagination Controls
-.font-inter {
-  font-family: $fontInter;
-  font-weight: 400;
-}
-
-.page-navigation-controls {
+#paginated-list-navigation-controls {
   display: flex;
-  flex-wrap: wrap;
-  margin-top: 3rem;
+  flex-direction: row;
   justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
 }
 
-.results-selector-wrapper {
-  height: 2.5rem;
-  margin-bottom: 5rem;
-  @include tiny {
-    margin-top: 1rem;
-  }
-}
-
-.results-per-page {
-  position: relative;
-  top: 1.25rem;
-  transform: translateY(-50%);
-  background-color: #FFFFFF;
-  @include borderRadius3;
-  padding: 0.25rem 1.0rem;
+.pagination-control-wrapper {
+  margin-right: 3rem;
 }
 </style>
