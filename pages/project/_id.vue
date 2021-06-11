@@ -21,8 +21,8 @@
           <h1 v-if="project.name" class="name">
             {{ project.name }}
           </h1>
-          <h2 v-if="project.org" class="company">
-            {{ project.org[0] }}
+          <h2 v-if="organizations" class="company">
+            {{ organizations }}
           </h2>
           <p v-if="description" class="description">
             {{ description }}
@@ -377,6 +377,11 @@ export default {
       if (!long && !short) { return false }
       if (long) { return long }
       return short
+    },
+    organizations () {
+      const orgs = this.project.org
+      if (!orgs) { return false }
+      return orgs.join(', ')
     },
     taxonomies () {
       return this.project.taxonomies.filter(tax => this.$checkTaxonomyCategoryExists(tax.slug))
