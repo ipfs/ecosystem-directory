@@ -187,9 +187,6 @@ export default {
       g {
         stroke: white;
       }
-      // rect {
-      //   fill: white;
-      // }
     }
   }
   &.list-view-active {

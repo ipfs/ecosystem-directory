@@ -222,7 +222,6 @@ export default {
   methods: {
     ...mapActions({
       setRouteQuery: 'global/setRouteQuery',
-      setQueryString: 'global/setQueryString',
       setActiveTags: 'filters/setActiveTags',
       setSelectedFiltersCount: 'filters/setSelectedFiltersCount'
     }),

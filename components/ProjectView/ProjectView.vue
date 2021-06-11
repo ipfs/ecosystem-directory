@@ -222,8 +222,10 @@ $paginateRoot_PaddingOffset: 3.5rem;
   &.filter-panel-open {
     #filter-panel-wrapper {
       margin-left: 0;
-      padding-left: $gutter_ContainerSingleColumn;
       transform: translateX(0);
+      @include containerMaxMQ {
+        padding-left: $gutter_ContainerSingleColumn;
+      }
     }
     .paginate-root {
       padding-left: 0.5rem;
@@ -352,8 +354,12 @@ $paginateRoot_PaddingOffset: 3.5rem;
 #paginated-list-navigation-controls {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   margin-top: 2rem;
+}
+
+.pagination-control-wrapper {
+  margin-right: 3rem;
 }
 </style>
