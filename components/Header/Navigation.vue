@@ -24,20 +24,20 @@
           </a>
 
           <div :class="['navigation', { 'modal-open' : navOpen, 'transition-out': modalClosing }]">
-            <div class="fill-gap"></div>
-            <component
-              :is="link.type"
-              v-for="(link, index) in navigation.header"
-              :key="index"
-              :to="link.disabled ? '' : link.href"
-              :href="link.disabled ? '' : link.href"
-              :disabled="link.disabled"
-              :target="link.target"
-              class="navigation-link onhover-line">
-              {{ link.label }}
-            </component>
-            <div class="fill-gap"></div>
-            <div :class="['social-icon-container', {'show-socials' : navOpen}]">
+            <div class="links-container">
+              <component
+                :is="link.type"
+                v-for="(link, index) in navigation.header"
+                :key="index"
+                :to="link.disabled ? '' : link.href"
+                :href="link.disabled ? '' : link.href"
+                :disabled="link.disabled"
+                :target="link.target"
+                class="navigation-link onhover-line">
+                {{ link.label }}
+              </component>
+            </div>
+            <div :class="['social-icon-container', { 'visible': navOpen }]">
               <SocialIcons />
             </div>
           </div>
@@ -58,10 +58,8 @@ import { mapGetters } from 'vuex'
 import SocialIcons from '@/components/SocialIcons'
 
 // =================================================================== Functions
-// const scroll =
-
 const checkScreenWidth = (instance) => {
-  if (!window.matchMedia('(max-width: 40rem)').matches && instance.navOpen) {
+  if (!window.matchMedia('(max-width: 768px)').matches && instance.navOpen) { // <-- 768px requested interim solution
     instance.toggleNav()
   }
 }
@@ -205,28 +203,95 @@ export default {
   align-items: center;
 }
 
-.navigation {
-  @include small {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+#ipfs-logo,
+.navigation-link {
+  cursor: pointer;
+}
+
+#ipfs-logo {
+  display: block;
+  position: relative;
+  width: 8rem;
+  opacity: 1.0;
+  z-index: 100;
+  transition: opacity 0.3s cubic-bezier(0.4, 0.0, 0.2, 1.0);
+  &:hover {
+    opacity: 0.75;
   }
-  @include mini {
+}
+
+.navigation {
+  width: 100%;
+  max-width: 32rem; // <-- requested interim solution
+  @include customMaxMQ (768px) { // <-- requested interim solution
     display: none;
-    position: fixed;
-    width: 100vw;
-    height: calc(100vh - 5rem);
-    top: 5rem;
-    left: 0;
     flex-direction: column;
-    justify-content: center;
-    align-items: left;
+    position: fixed;
+    top: $navigationHeight;
+    left: 0;
+    width: 100vw;
+    max-width: none;
+    height: calc(100vh - 5rem);
     z-index: 100;
   }
   &.modal-open {
     display: flex;
     animation: landing 300ms cubic-bezier(0.4, 0.0, 0.2, 1.0);
+  }
+}
+
+.links-container {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 2rem;
+  @include customMaxMQ (768px) { // <-- requested interim solution
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 5rem;
+  }
+}
+
+.navigation-link {
+  @include customMaxMQ (768px) { // <-- requested interim solution
+    align-self: start;
+    margin-bottom: 0.75rem;
+    font-family: $fontMontserrat;
+    font-size: 2.1875rem;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+}
+
+// ////////////////////////////////////////////////////// Modal + Hamburger icon
+.modal-background {
+  display: none;
+  @include customMaxMQ (768px) { // <-- requested interim solution
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to bottom, #041727 0, #062B3F);
+    z-index: 99;
+  }
+  &.show-background {
+    display: inline;
+    animation: landing 300ms cubic-bezier(0.4, 0.0, 0.2, 1.0);
+  }
+}
+
+.social-icon-container {
+  display: none;
+  &.visible {
+    @include customMaxMQ (768px) { // <-- requested interim solution
+      display: inline;
+      align-self: start;
+      margin: 2rem 0;
+      margin-left: 5rem;
+    }
   }
 }
 
@@ -236,11 +301,11 @@ export default {
   z-index: 1000;
   height: 14px;
   width: 2rem;
-  @include mini {
+  @include customMaxMQ (768px) { // <-- requested interim solution
     display: inline;
   }
   &:before {
-    content: "";
+    content: '';
     position: absolute;
     width: 100%;
     top: 0px;
@@ -265,76 +330,6 @@ export default {
   }
   &:hover {
     cursor: pointer;
-  }
-}
-
-#ipfs-logo,
-.navigation-link {
-  cursor: pointer;
-}
-
-#ipfs-logo {
-  display: block;
-  width: 8rem;
-  opacity: 1.0;
-  transition: opacity 0.3s cubic-bezier(0.4, 0.0, 0.2, 1.0);
-  &:hover {
-    opacity: 0.75;
-  }
-}
-
-.navigation-link {
-  &:not(:last-child) {
-    margin-right: 3rem;
-    @include small {
-      margin-right: 1rem;
-    }
-  }
-  @include mini {
-    align-self: start;
-    margin-left: 4rem;
-    margin-bottom: 0.75rem;
-    font-family: $fontMontserrat;
-    font-size: 2.1875rem;
-    font-weight: 500;
-    line-height: 1.2;
-  }
-}
-
-// /////////////////////////////////////////////////////////////////////// Modal
-.modal-background {
-  display: none;
-  @include mini {
-    position: absolute;
-    width: 100vw;
-    height: calc(100vh - 5rem);
-    top: 5rem;
-    left: 0;
-    background: linear-gradient(to top, #041727 0, #062B3F);
-    z-index: 99;
-  }
-  &.show-background {
-    display: inline;
-    animation: landing 300ms cubic-bezier(0.4, 0.0, 0.2, 1.0);
-  }
-}
-
-.social-icon-container {
-  display: none;
-  &.show-socials {
-    @include mini {
-      display: inline;
-      align-self: start;
-      margin: 2rem;
-    }
-  }
-}
-
-.fill-gap {
-  display: none;
-  @include mini {
-    display: inline;
-    flex: 1;
   }
 }
 
