@@ -74,7 +74,7 @@
 
 <script>
 // ===================================================================== Imports
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import CloneDeep from 'lodash/cloneDeep'
 
 import SegmentSliderChart from '@/components/SegmentSliderChart/SegmentSliderChart'
@@ -95,8 +95,8 @@ export default {
     return {
       tag: 'home',
       sectionHeight: 0,
-      segmentSlider: true,
-      featuredSlider: true,
+      segmentSlider: false,
+      featuredSlider: false,
       resize: false
     }
   },
@@ -153,9 +153,11 @@ export default {
 
   watch: {
     '$route' (route) {
-      if (route.query.hasOwnProperty('filters')) {
-        if (route.query.filters === 'enabled') {
-          this.collapseSegmentAndFeaturedSliders()
+      if (route.query.filters === 'enabled') {
+        this.collapseSegmentAndFeaturedSliders()
+      } else {
+        if (this.filterPanelOpen) {
+          this.setFilterPanelOpen(false)
         }
       }
     },
@@ -168,12 +170,35 @@ export default {
         if (cloned.hasOwnProperty('page')) {
           if (cloned.page === 1) { delete cloned.page }
         }
+        if (cloned.hasOwnProperty('filters')) {
+          if (!cloned.filters) { delete cloned.filters }
+        }
         this.$router.push({ query: cloned })
       }
     }
   },
 
   mounted () {
+    const filterEnabled = (this.$route.query.filters === 'enabled')
+    if (filterEnabled) {
+      this.setFilterPanelOpen(filterEnabled)
+    } else {
+      this.segmentSlider = true
+      this.featuredSlider = true
+      if (this.filterPanelOpen) {
+        this.setFilterPanelOpen(false)
+      }
+      this.setRouteQuery({ key: 'filters', data: '' })
+    }
+
+    const cloned = CloneDeep(this.$route.query)
+    Object.keys(cloned).forEach((item) => {
+      this.setRouteQuery({
+        key: item,
+        data: cloned[item]
+      })
+    })
+
     this.resize = () => { this.resetSectionHeight() }
     window.addEventListener('resize', this.resize)
     this.resetSectionHeight()
@@ -184,6 +209,10 @@ export default {
   },
 
   methods: {
+    ...mapActions({
+      setRouteQuery: 'global/setRouteQuery',
+      setFilterPanelOpen: 'filters/setFilterPanelOpen'
+    }),
     collapseSegmentAndFeaturedSliders () {
       if (this.segmentSlider && this.featuredSlider) {
         this.segmentSlider = false

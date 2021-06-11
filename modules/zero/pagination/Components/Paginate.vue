@@ -9,7 +9,6 @@
 <script>
 // ===================================================================== Imports
 import { mapGetters, mapActions } from 'vuex'
-// import CloneDeep from 'lodash/cloneDeep'
 
 // ===================================================================== Imports
 const setPageFromRoute = (instance) => {
@@ -59,7 +58,7 @@ export default {
     paginated () {
       let collection = this.collection.slice(this.start, this.end)
       if (collection.length === 0) { collection = false }
-      this.setCollection(collection)
+      this.setPaginatedCollection(collection)
       return collection
     }
   },
@@ -69,15 +68,14 @@ export default {
       setPageFromRoute(this)
     },
     collection () {
-      // this.calculateTotalPages()
-      // const cloned = CloneDeep(this.$route.query)
-      // if (this.page > this.totalPages) {
-      //   cloned.page = this.totalPages
-      // }
-      // if (cloned.page === 1) {
-      //   delete cloned.page
-      // }
-      // this.$router.push({ query: cloned })
+      this.calculateTotalPages()
+      const total = this.totalPages
+      if (this.page > total) {
+        this.setRouteQuery({
+          key: 'page',
+          data: total
+        })
+      }
     }
   },
 
@@ -93,10 +91,11 @@ export default {
 
   methods: {
     ...mapActions({
+      setRouteQuery: 'global/setRouteQuery',
       setPage: 'pagination/setPage',
       setTotalPages: 'pagination/setTotalPages',
       setDisplay: 'pagination/setDisplay',
-      setCollection: 'pagination/setCollection',
+      setPaginatedCollection: 'core/setPaginatedCollection',
       clearStore: 'pagination/clearStore'
     }),
     calculateTotalPages () {

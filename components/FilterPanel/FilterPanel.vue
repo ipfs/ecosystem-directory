@@ -119,18 +119,15 @@ const appendFilters2URL = (instance) => {
     const delimiter = i === len - 1 ? '' : ','
     slug = slug + instance.selected[i].slug + delimiter
   }
-  const cloned = CloneDeep(instance.$route.query)
-  if (slug) {
-    cloned.tags = slug
-  } else {
-    delete cloned.tags
-  }
-  setTimeout(() => { instance.$router.push({ query: cloned }) }, 10)
+  instance.setRouteQuery({
+    key: 'tags',
+    data: slug
+  })
 }
 
 const applyFiltersFromURL = (instance) => {
   const cloned = instance.resetCategories()
-  const qry = instance.$route.query.tag.split(',')
+  const qry = instance.$route.query.tags.split(',')
   const slugs = qry.filter(Boolean)
 
   const arr = []
@@ -177,7 +174,8 @@ export default {
 
   computed: {
     ...mapGetters({
-      activeTags: 'filters/activeTags'
+      activeTags: 'filters/activeTags',
+      routeQuery: 'global/routeQuery'
     }),
     ProjectFilters () {
       return Taxonomy.categories
@@ -213,7 +211,7 @@ export default {
   },
 
   mounted () {
-    if (this.$route.query.filters === 'enabled' && this.$route.query.tag) {
+    if (this.$route.query.filters === 'enabled' && this.$route.query.tags) {
       applyFiltersFromURL(this)
     } else {
       this.setActiveTags(this.resetCategories())
@@ -223,6 +221,8 @@ export default {
 
   methods: {
     ...mapActions({
+      setRouteQuery: 'global/setRouteQuery',
+      setQueryString: 'global/setQueryString',
       setActiveTags: 'filters/setActiveTags',
       setSelectedFiltersCount: 'filters/setSelectedFiltersCount'
     }),

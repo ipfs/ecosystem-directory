@@ -113,6 +113,7 @@ export default {
 
   methods: {
     ...mapActions({
+      setRouteQuery: 'global/setRouteQuery',
       setDisplay: 'pagination/setDisplay',
       setTotalPages: 'pagination/setTotalPages'
     }),
@@ -122,7 +123,6 @@ export default {
     },
     toggleDropDown () {
       this.closed = !this.closed
-      console.log(this.closed)
     },
     closeAllSelect () {
       this.closed = true
@@ -132,15 +132,18 @@ export default {
       if (!isNaN(selection)) {
         this.setDisplay(selection)
         this.calculateTotalPages()
-        const cloned = CloneDeep(this.$route.query)
-        if (this.page > this.totalPages) {
-          cloned.page = this.totalPages
+        const total = this.totalPages
+        const display = this.display
+        if (this.page > total) {
+          this.setRouteQuery({
+            key: 'page',
+            data: total
+          })
         }
-        if (cloned.page === 1) {
-          delete cloned.page
-        }
-        cloned.results = this.display
-        this.$router.push({ query: cloned })
+        this.setRouteQuery({
+          key: 'results',
+          data: display
+        })
         this.closed = true
       }
     }

@@ -97,7 +97,7 @@ export default {
       navigation: 'global/navigation',
       projects: 'projects/projects',
       activeTags: 'filters/activeTags',
-      filteredCollection: 'filters/collection',
+      filteredCollection: 'core/filteredCollection',
       filterPanelOpen: 'filters/filterPanelOpen',
       selectedFiltersCount: 'filters/selectedFiltersCount'
     }),
@@ -110,7 +110,7 @@ export default {
     },
     headerState () {
       if (this.$route.name === 'index') {
-        if (this.filterPanelOpen) {
+        if (this.$route.query.filters === 'enabled') {
           if (this.selectedFiltersCount) {
             return 'filters-applied'
           } else {

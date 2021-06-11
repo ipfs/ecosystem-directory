@@ -52,10 +52,10 @@
       <div id="paginated-list">
 
         <Paginate
-          v-if="filteredProjects"
+          v-if="sortedCollection"
           v-slot="{ paginated }"
           :display="display"
-          :collection="filteredProjects"
+          :collection="sortedCollection"
           class="paginate-root">
           <div class="grid">
             <ProjectCard
@@ -74,13 +74,13 @@
           {{ pageData.section_filter.results_empty_placeholder }}
         </div>
 
-        <div v-if="filteredProjects" id="paginated-list-navigation-controls">
+        <div v-if="sortedCollection" id="paginated-list-navigation-controls">
 
           <PaginationControls />
 
           <ResultsPerPageSelector
             id="results-per-page-selector"
-            :collection="filteredProjects">
+            :collection="sortedCollection">
             <template #dropdown-icon>
               <SelectorToggleIcon />
             </template>
@@ -139,7 +139,7 @@ export default {
       routeQuery: 'global/routeQuery',
       projects: 'projects/projects',
       filterPanelOpen: 'filters/filterPanelOpen',
-      filteredProjects: 'filters/collection',
+      sortedCollection: 'core/sortedCollection',
       display: 'pagination/display'
     }),
     pageData () {
@@ -176,7 +176,7 @@ export default {
     }),
     toggleFilterPanel (forceOpen) {
       this.setFilterPanelOpen(!this.filterPanelOpen)
-      if (!this.routeQuery.hasOwnProperty('filters')) {
+      if (!this.routeQuery.hasOwnProperty('filters') || this.routeQuery.filters !== 'enabled') {
         this.setRouteQuery({ key: 'filters', data: 'enabled' })
       }
     },

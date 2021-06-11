@@ -2,7 +2,6 @@
 // -----------------------------------------------------------------------------
 const state = {
   activeTags: {},
-  collection: [],
   filterPanelOpen: false,
   selectedFiltersCount: 0
 }
@@ -11,7 +10,6 @@ const state = {
 // -----------------------------------------------------------------------------
 const getters = {
   activeTags: state => state.activeTags,
-  collection: state => state.collection,
   filterPanelOpen: state => state.filterPanelOpen,
   selectedFiltersCount: state => state.selectedFiltersCount
 }
@@ -23,19 +21,15 @@ const actions = {
   clearStore ({ commit }) {
     commit('CLEAR_STORE')
   },
-  // /////////////////////////////////////////////////////////////////// setPage
+  // ///////////////////////////////////////////////////////////// setActiveTags
   setActiveTags ({ commit }, tags) {
     commit('SET_ACTIVE_TAGS', tags)
   },
-  // /////////////////////////////////////////////////////////////////// setPage
-  setCollection ({ commit }, collection) {
-    commit('SET_COLLECTION', collection)
-  },
-  // /////////////////////////////////////////////////////////////////// setPage
+  // //////////////////////////////////////////////////////// setFilterPanelOpen
   setFilterPanelOpen ({ commit }, toggle) {
     commit('SET_FILTER_PANEL_OPEN', toggle)
   },
-  // /////////////////////////////////////////////////////////////////// setPage
+  // /////////////////////////////////////////////////// setSelectedFiltersCount
   setSelectedFiltersCount ({ commit }, amount) {
     commit('SET_SELECTED_FILTERS_COUNT', amount)
   }
@@ -46,15 +40,11 @@ const actions = {
 const mutations = {
   CLEAR_STORE (state) {
     state.activeTags = {}
-    state.collection = []
     state.filtersActive = false
     state.totalFilters = 0
   },
   SET_ACTIVE_TAGS (state, tags) {
     state.activeTags = tags
-  },
-  SET_COLLECTION (state, collection) {
-    state.collection = collection
   },
   SET_FILTER_PANEL_OPEN (state, toggle) {
     state.filterPanelOpen = toggle
