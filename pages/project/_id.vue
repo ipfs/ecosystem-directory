@@ -498,6 +498,9 @@ export default {
 
 // ////////////////////////////////////////////////////// [Section] Project Info
 #section-project-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   margin-bottom: 3.75rem;
   @include medium {
     margin-bottom: 2rem;
