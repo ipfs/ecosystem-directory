@@ -28,7 +28,7 @@
           </div>
 
           <h4 class="title">
-            All Filters
+            {{ filterPanelHeading }}
           </h4>
 
           <FilterBar
@@ -80,6 +80,7 @@
 
           <ResultsPerPageSelector
             id="results-per-page-selector"
+            :label="resultsPerPageDropdownLabel"
             :collection="sortedCollection">
             <template #dropdown-icon>
               <SelectorToggleIcon />
@@ -144,6 +145,15 @@ export default {
     }),
     pageData () {
       return this.siteContent.index.page_content
+    },
+    sectionFilterContent () {
+      return this.siteContent.index.page_content.section_filter
+    },
+    filterPanelHeading () {
+      return this.pageData.section_filter.filter_panel.heading
+    },
+    resultsPerPageDropdownLabel () {
+      return this.pageData.section_filter.results_per_page_dropdown_label
     },
     searchResults () {
       const query = this.searchQuery

@@ -2,6 +2,7 @@
 // -----------------------------------------------------------------------------
 import GeneralSiteData from '@/content/pages/general.json'
 import IndexSiteData from '@/content/pages/index.json'
+import ProjectSiteData from '@/content/pages/project.json'
 import TaxonomyData from '@/content/data/taxonomy.json'
 
 // /////////////////////////////////////////////////////////////////////// State
@@ -42,6 +43,7 @@ const actions = {
       case 'taxonomy': data = TaxonomyData; break
       case 'general': data = GeneralSiteData; break
       case 'index': data = IndexSiteData; break
+      case 'project': data = ProjectSiteData; break
       default : data = payload.data; break
     }
     if (data) {

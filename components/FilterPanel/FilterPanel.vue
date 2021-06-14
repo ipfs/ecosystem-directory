@@ -59,10 +59,10 @@
           v-if="selected.length"
           class="clear-selected"
           @click="clearSelected">
-          Clear ({{ selected.length }}) Selected
+          {{ clearSelectedFiltersButtonText }}
         </button>
         <button class="done" @click="closePanel">
-          Done
+          {{ submitButtonText }}
         </button>
       </div>
 
@@ -174,9 +174,21 @@ export default {
 
   computed: {
     ...mapGetters({
+      siteContent: 'global/siteContent',
       activeTags: 'filters/activeTags',
       routeQuery: 'global/routeQuery'
     }),
+    filterPanelContent () {
+      return this.siteContent.index.page_content.section_filter.filter_panel
+    },
+    clearSelectedFiltersButtonText () {
+      const clearButtonText = this.filterPanelContent.clear_button_text
+      const count = this.selected.length
+      return `${clearButtonText.before}${count > 0 ? ` (${count}) ` : ' '}${clearButtonText.after}`
+    },
+    submitButtonText () {
+      return this.filterPanelContent.submit_button_text
+    },
     ProjectFilters () {
       return Taxonomy.categories
     },
