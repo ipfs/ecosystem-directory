@@ -6,7 +6,7 @@
       <Button
         id="filter-panel-toggle-button"
         type="C"
-        text="Filters"
+        :text="filterPanelToggleButtonLabel"
         :class="{ 'active': filterPanelOpen }"
         @clicked="$emit('toggleFilterPanel')">
         <template #icon-before>
@@ -18,7 +18,7 @@
         v-if="selectedFiltersCount"
         id="clear-selected-filters-button"
         type="C"
-        :text="`Clear (${selectedFiltersCount}) Selected`"
+        :text="clearSelectedFiltersButtonText"
         @clicked="clearSelectedFilters">
         <template #icon-after>
           <CloseIcon />
@@ -31,6 +31,7 @@
 
       <SortBySelector
         class="sort-by-selector"
+        :label="sortDropdownLabel"
         :sort-options="sortOptions">
         <template #dropdown-icon>
           <SelectorToggleIcon />
@@ -96,6 +97,20 @@ export default {
     }),
     sortOptions () {
       return this.siteContent.taxonomy.sort
+    },
+    sectionFilterContent () {
+      return this.siteContent.index.page_content.section_filter
+    },
+    filterPanelToggleButtonLabel () {
+      return this.sectionFilterContent.filter_panel_toggle_button_label
+    },
+    sortDropdownLabel () {
+      return this.sectionFilterContent.sort_dropdown_label
+    },
+    clearSelectedFiltersButtonText () {
+      const clearButtonText = this.sectionFilterContent.filter_panel.clear_button_text
+      const count = this.selectedFiltersCount
+      return `${clearButtonText.before}${count > 0 ? ` (${count}) ` : ' '}${clearButtonText.after}`
     }
   },
 
@@ -120,7 +135,6 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 0 0.5rem;
   @include containerMaxMQ {
     padding: 0;
   }

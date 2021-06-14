@@ -12,7 +12,7 @@
         :selected-cat="chartItems[selected]"
         :selected-seg="selected"
         :container-height="containerHeight"
-        excerpt="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        description="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         @update-slider="setSliderContent" />
 
       <Chart
@@ -90,12 +90,14 @@ const createLabels = (projects) => {
   if (tags.length) {
     const categories = [...new Set(tags)]
     const items = []
+    const len = categories.length
 
-    for (let i = 0; i < categories.length; i++) {
-      if (industry.hasOwnProperty(categories[i])) {
+    for (let i = 0; i < len; i++) {
+      const category = categories[i]
+      if (industry.hasOwnProperty(category)) {
         let count = 0
         let selection = []
-        const label = industry[categories[i]]
+        const label = industry[category]
         const l = label.split('').length
         const frc = (0.9 * i - l) * 0.1
         const icons = logos[categories[i]]
@@ -112,7 +114,7 @@ const createLabels = (projects) => {
           }
         }
 
-        tags.forEach((tag) => { if (tag === categories[i]) { count++ } })
+        tags.forEach((tag) => { if (tag === category) { count++ } })
         items.push({
           cat: label,
           count,
@@ -121,7 +123,8 @@ const createLabels = (projects) => {
           above: Math.round(Math.random() * 1.4),
           force: frc,
           logos: selection,
-          display: true
+          display: true,
+          description: category.description
         })
       }
     }
@@ -205,8 +208,7 @@ export default {
       projects: 'projects/projects'
     }),
     chartItems () {
-      const data = createLabels(this.projects)
-      return data
+      return createLabels(this.projects)
     }
   },
 
