@@ -39,7 +39,7 @@
           </div>
 
           <div class="description">
-            {{ description }}
+            {{ selectedCat.description ? selectedCat.description : '' }}
           </div>
 
           <div v-if="logos" class="logo-wrapper">
