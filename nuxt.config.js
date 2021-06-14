@@ -154,7 +154,8 @@ export default {
     '~/plugins/directives',
     '~/plugins/global-methods',
     '~/plugins/taxonomy-methods',
-    '~/plugins/scroll-to'
+    '~/plugins/scroll-to',
+    '~/modules/zero/core/Plugins/nuxt-hammer'
   ],
   // /////////////////////////////////////////////////////// Router + Middleware
   // ---------------------------------------------------------------------------
