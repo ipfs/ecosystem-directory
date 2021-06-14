@@ -350,7 +350,7 @@ li {
 [class*="grid_"] {
   width: $containerWidth;
   margin: 0 auto;
-  @include containerMaxMQ {
+  @include customMaxMQ ($containerWidth + 4rem) {
     padding: 0 4.1665%;
     width: 100%;
   }

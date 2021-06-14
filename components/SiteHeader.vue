@@ -28,6 +28,7 @@ export default {
 // ///////////////////////////////////////////////////////////////////// General
 #site-header {
   color: white;
-  background-color: #041727;
+  padding-top: $navigationHeight;
+  background: linear-gradient(to bottom, #041727 0, #062B3F);
 }
 </style>

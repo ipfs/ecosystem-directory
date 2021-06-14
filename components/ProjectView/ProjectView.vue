@@ -223,6 +223,9 @@ $paginateRoot_PaddingOffset: 3.5rem;
     #filter-panel-wrapper {
       margin-left: 0;
       transform: translateX(0);
+      @include customMaxMQ ($containerWidth + 4rem) {
+        padding-left: calc(#{$gutter_ContainerSingleColumn} - #{$gutter});
+      }
       @include containerMaxMQ {
         padding-left: $gutter_ContainerSingleColumn;
       }

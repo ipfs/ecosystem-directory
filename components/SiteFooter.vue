@@ -2,16 +2,16 @@
   <footer v-if="pageData" id="site-footer">
 
     <section class="panel-top">
-      <div class="grid-spaceBetween">
+      <div class="grid-spaceBetween-noGutter">
 
-        <div class="col-6_sm-8_mi-10_ti-12">
+        <div class="col-6_sm-12">
           <h2 class="heading">
             {{ pageData.heading }}
           </h2>
           <div class="subheading" v-html="pageData.subheading"></div>
         </div>
 
-        <div class="col-5_sm-10_mi-12">
+        <div class="col-5_sm-12">
           <div class="mailchimp-form" v-html="pageData.mailchimp_form"></div>
         </div>
 
@@ -90,7 +90,7 @@ $highlight: #6BC4CE;
   background: linear-gradient(180deg, #041727 0, #062B3F);
   color: white;
   @include small {
-    padding-bottom: 2rem;
+    padding: 2rem 0;
   }
 }
 
@@ -98,6 +98,9 @@ $highlight: #6BC4CE;
 ::v-deep .copyright {
   a {
     color: $highlight;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 
@@ -123,10 +126,17 @@ $highlight: #6BC4CE;
 
 ::v-deep #mailchimp-form {
   margin-top: 0.5rem;
+  @include small {
+    margin-top: 1rem;
+  }
   .panel-top {
     display: flex;
     flex-direction: row;
     margin-bottom: 0.5rem;
+    @include mini {
+      flex-direction: column;
+      margin-bottom: 0.5rem;
+    }
   }
   .panel-bottom {
     span {
@@ -150,6 +160,17 @@ $highlight: #6BC4CE;
       margin-left: 1rem;
       font-weight: 600;
       background-color: $paradiso;
+      transition: 250ms ease-out;
+      @include mini {
+        line-height: 1.5;
+        padding: 0.5rem;
+        margin-left: 0;
+        margin-top: 0.5rem;
+      }
+      &:hover {
+        transition: 250ms ease-in;
+        background-color: #66989A;
+      }
     }
   }
 }
@@ -159,6 +180,12 @@ $highlight: #6BC4CE;
   margin-bottom: 2rem;
   @include small {
     margin-bottom: 0;
+  }
+  @include mini {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 1rem;
   }
 }
 
