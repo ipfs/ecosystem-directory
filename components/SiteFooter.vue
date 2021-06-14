@@ -182,6 +182,9 @@ $highlight: #6BC4CE;
     margin-bottom: 0;
   }
   @include mini {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     margin-top: 1rem;
   }
 }
