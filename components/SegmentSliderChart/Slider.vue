@@ -1,6 +1,8 @@
 <template>
   <div class="slider-container">
-    <div class="slider-card">
+    <div
+      v-hammer:swipe.horizontal="onSwipe"
+      class="slider-card">
 
       <div class="slide-nav">
 
@@ -134,6 +136,13 @@ export default {
     jump2Filters () {
       this.setRouteQuery({ key: 'filters', data: 'enabled' })
       this.setFilterPanelOpen(true)
+    },
+    onSwipe (e) {
+      if (e.type === 'swipeleft') {
+        this.incrementSelection(this.selectedSeg + 1)
+      } else if (e.type === 'swiperight') {
+        this.incrementSelection(this.selectedSeg - 1)
+      }
     }
   }
 }

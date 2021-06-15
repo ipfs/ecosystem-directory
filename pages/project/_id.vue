@@ -85,6 +85,7 @@
               <div
                 v-for="slide in slider"
                 :key="slide.label || slide.title"
+                v-hammer:swipe.horizontal="onSwipe"
                 :class="['card', (slide.label ? 'big-number' : 'case-study'), 'slider-mobile', { 'more-than-two' : moreThanTwo }]">
                 <div class="slide-nav">
                   <button
@@ -494,6 +495,13 @@ export default {
         this.$refs.sliderFlex.classList.add('slider-transition')
         flex.style.left = parseFloat(flex.style.left) + shift * -1 + 'px'
       }, 100)
+    },
+    onSwipe (e) {
+      if (e.type === 'swipeleft') {
+        this.incrementRight()
+      } else if (e.type === 'swiperight') {
+        this.incrementLeft()
+      }
     }
   }
 }
