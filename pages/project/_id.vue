@@ -371,7 +371,7 @@ export default {
         {
           type: 'nuxt-link',
           href: '/',
-          label: 'IPFS Ecosystem'
+          label: 'Ecosystem directory'
         },
         {
           type: 'nuxt-link',
