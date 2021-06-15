@@ -361,29 +361,12 @@ export default {
       return this.pageData.metadata_heading
     },
     breadcrumbs () {
-      return [
-        {
-          type: 'a',
-          href: 'https://ipfs.io',
-          target: '_blank',
-          label: 'Home'
-        },
-        {
-          type: 'nuxt-link',
-          href: '/',
-          label: 'Ecosystem directory'
-        },
-        {
-          type: 'nuxt-link',
-          href: '/',
-          query: { filters: 'enabled' },
-          label: 'All projects'
-        },
-        {
-          type: 'div',
-          label: this.project.name
-        }
-      ]
+      const breadcrumbs = CloneDeep(this.pageData.breadcrumbs)
+      breadcrumbs.push({
+        type: 'div',
+        label: this.project.name
+      })
+      return breadcrumbs
     },
     // Project Content
     generalPageData () {
