@@ -268,24 +268,24 @@
     "a_z": {
       "type": "alphabetical",
       "key": "name",
-      "label": "A-Z",
+      "label": "Alphabetical (A-Z)",
       "direction": "DESC"
     },
     "z_a": {
       "type": "alphabetical",
       "key": "name",
-      "label": "Z-A",
+      "label": "Alphabetical (Z-A)",
       "direction": "ASC"
     },
     "date_desc": {
       "type": "number",
-      "label": "Time on IPFS | DESC",
+      "label": "Time on IPFS (newer)",
       "direction": "DESC",
       "sortNumber": "since"
     },
     "date_asc": {
       "type": "number",
-      "label": "Time on IPFS | ASC",
+      "label": "Time on IPFS (older)",
       "direction": "ASC",
       "sortNumber": "since"
     }
