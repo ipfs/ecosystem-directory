@@ -12,10 +12,9 @@ const Manifestor = async () => {
     console.log(entities.join('\n'))
     await Fs.writeFileSync(path.manifest, JSON.stringify(entities))
     console.log('🏁 Manifest projects complete')
-    process.exit(0)
   } catch (e) {
     console.log('========================================== [Manifestor] Error')
     console.log(e)
-    process.exit(0)
   }
+  process.exit(0)
 }; Manifestor()
