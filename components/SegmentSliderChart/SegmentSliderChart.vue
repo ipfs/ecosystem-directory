@@ -12,7 +12,6 @@
         :selected-cat="chartItems[selected]"
         :selected-seg="selected"
         :container-height="containerHeight"
-        description="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         @update-slider="setSliderContent" />
 
       <Chart
@@ -124,11 +123,24 @@ const createLabels = (projects) => {
           force: frc,
           logos: selection,
           display: true,
-          description: category.description
+          description: getCategoryDescription(label)
         })
       }
     }
+    console.log(items)
     return addInitialOffsets(items)
+  }
+  return false
+}
+
+const getCategoryDescription = (label) => {
+  const len = Taxonomy.categories[0].tags.length
+  for (let i = 0; i < len; i++) {
+    if (Taxonomy.categories[0].tags[i].label === label) {
+      if (Taxonomy.categories[0].tags[i].hasOwnProperty('description')) {
+        return Taxonomy.categories[0].tags[i].description
+      }
+    }
   }
   return false
 }
