@@ -127,7 +127,6 @@ const createLabels = (projects) => {
         })
       }
     }
-    console.log(items)
     return addInitialOffsets(items)
   }
   return false
