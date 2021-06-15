@@ -1,6 +1,6 @@
 /* eslint require-await: "off" */
 
-import Projects from './content/projects/manifest.json'
+import Projects from './content/data/project-manifest.json'
 
 export default {
   // //////////////////////////////////////////// Static Site Generation Options
@@ -16,7 +16,7 @@ export default {
           try {
             const slug = Projects[i]
             const route = `/project/${slug}`
-            const payload = require(`./content/projects/${slug}.json`)
+            const payload = require(`./content/projects/${slug}`)
             payload.slug = slug
             routes.push({ route, payload })
           } catch (e) {

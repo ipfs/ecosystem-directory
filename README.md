@@ -212,7 +212,6 @@ When either transferring or inputting a project from a copied `json`, the follow
 
 - Copy the generated JSON output
 - Create a new file in `content/projects/.`. with the project name in `kebab-case` as the file name, (with a `.json` extension)
-- Add the `kebab-case` project name (this _must_ match the filename) to the array in `content/projects/manifest.json`
 - Make sure the project's contents look correct, and ideally ensure that `json` formatting is preserved, including an empty line at the end of the file
   - Using a code editor's prettify function for `json` can correct this
 - Download the images (icon and full logo) from the CRM or from the project organization, and place them in `static/images/projects/.`
