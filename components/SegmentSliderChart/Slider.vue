@@ -132,9 +132,7 @@ export default {
       this.$emit('update-slider', seg)
     },
     jump2Filters () {
-      if (!this.routeQuery.hasOwnProperty('filters')) {
-        this.setRouteQuery({ key: 'filters', data: 'enabled' })
-      }
+      this.setRouteQuery({ key: 'filters', data: 'enabled' })
       this.setFilterPanelOpen(true)
     }
   }
