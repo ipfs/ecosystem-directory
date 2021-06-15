@@ -37,11 +37,9 @@
 
             <div class="prompt">
               {{ pageData.message + ' ' }}
-              <nuxt-link
-                :to="pageData.link.href"
-                class="prompt-link">
+              <a :href="pageData.link.href" class="prompt-link">
                 {{ pageData.link.prompt }}
-              </nuxt-link>
+              </a>
             </div>
 
           </div>

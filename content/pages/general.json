@@ -87,24 +87,23 @@
       {
         "type": "a",
         "href": "https://ipfs.io",
-        "target": "_blank",
         "label": "Home"
       },
       {
         "type": "nuxt-link",
         "href": "/",
-        "label": "IPFS Ecosystem"
+        "label": "Ecosystem directory"
       },
       {
         "type": "nuxt-link",
         "href": "/",
         "query": { "filters": "enabled" },
-        "label": "All Projects"
+        "label": "All projects"
       }
     ],
     "message": "It looks like you're lost, let's",
     "link": {
-      "href": "/",
+      "href": "https://ipfs.io",
       "prompt": "go home"
     }
   }
