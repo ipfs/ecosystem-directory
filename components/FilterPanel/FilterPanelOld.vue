@@ -7,45 +7,40 @@
     :selected="selectedLabels">
     <div id="filter-accordion">
 
-      <Accordion
-        v-slot="{ active }"
-        :multiple="true">
-        <template v-for="(heading, i) in ProjectFilters">
-          <AccordionSection
-            :key="`taxonomy-category-${i}`"
-            :active="active"
-            :selected="true"
-            class="filter-category container">
-            <AccordionHeader class="filter-category heading-wrapper">
-              <div class="filter-category heading">
-                {{ heading.label }}
-                <span class="filter-category number-active">
-                  {{ allSelected[i] }} of {{ heading.tags.length }}
-                </span>
-                <h5 class="filter-category sub-heading">
-                  Filter by {{ heading.label }}
-                </h5>
+      <template v-for="(heading, index) in ProjectFilters">
+        <div :key="heading.label" class="filter-category container">
+          <div class="filter-category heading-wrapper" @click.stop="toggleCat(index)">
+            <div class="filter-category heading">
+              {{ heading.label }}
+              <span class="filter-category number-active">
+                {{ allSelected[index] }} of {{ heading.tags.length }}
+              </span>
+            </div>
+            <div class="filter-category toggle" :class="{ flip: !catsOpen[index] }">
+              <ToggleArrow stroke="#494949" />
+            </div>
+          </div>
+          <div ref="cats" class="collapsible-tags" :class="{ collapsed : !catsOpen[index] }">
+            <h5 class="filter-category sub-heading">
+              Filter by {{ heading.label }}
+            </h5>
+            <div class="filter-category chiclet-list">
+              <div
+                :class="['filter-category tag chiclet', { 'active-button': allSelected[index] === heading.tags.length }]"
+                @click="toggleAll(index, heading.label)">
+                All
               </div>
-            </AccordionHeader>
-            <AccordionContent>
-              <div class="filter-category chiclet-list">
-                <div
-                  :class="['filter-category tag chiclet', { 'active-button': allSelected[i] === heading.tags.length }]"
-                  @click="toggleAll(i, heading.label)">
-                  All
-                </div>
-                <div
-                  v-for="(tag, j) in heading.tags"
-                  :key="`taxonomy-category-${j}`"
-                  :class="['filter-category tag chiclet', { 'active-button': selected.includes(tag) }]"
-                  @click="applyFilter(tag, i, heading.label)">
-                  {{ tag.label }}
-                </div>
+              <div
+                v-for="tag in heading.tags"
+                :key="tag.label"
+                :class="['filter-category tag chiclet', { 'active-button': selected.includes(tag) }]"
+                @click="applyFilter(tag, index, heading.label)">
+                {{ tag.label }}
               </div>
-            </AccordionContent>
-          </AccordionSection>
-        </template>
-      </Accordion>
+            </div>
+          </div>
+        </div>
+      </template>
 
       <div id="filter-panel-controls" class="bottom-buttons">
         <button
@@ -69,6 +64,7 @@ import { mapGetters, mapActions } from 'vuex'
 import CloneDeep from 'lodash/cloneDeep'
 
 import Filters from '@/modules/zero/filters/Components/Filters'
+import ToggleArrow from '@/components/Icons/ToggleArrow'
 import Accordion from '@/modules/zero/core/Components/Accordion/Accordion'
 import AccordionHeader from '@/modules/zero/core/Components/Accordion/Header'
 import AccordionSection from '@/modules/zero/core/Components/Accordion/Section'
@@ -77,6 +73,37 @@ import AccordionContent from '@/modules/zero/core/Components/Accordion/Content'
 import Taxonomy from '@/content/data/taxonomy.json'
 
 // =================================================================== Functions
+const elementEnter = (element) => {
+  const width = getComputedStyle(element).width
+
+  element.style.width = width
+  element.style.position = 'absolute'
+  element.style.visibility = 'hidden'
+  element.style.height = 'auto'
+
+  const height = getComputedStyle(element).height
+
+  element.style.width = null
+  element.style.position = null
+  element.style.visibility = null
+  element.style.height = 0
+
+  requestAnimationFrame(() => {
+    element.style.height = height
+    setTimeout(() => { element.style.height = 'auto' }, 500)
+  })
+}
+
+const elementLeave = (element) => {
+  const height = getComputedStyle(element).height
+
+  element.style.height = height
+
+  requestAnimationFrame(() => {
+    element.style.height = 0
+  })
+}
+
 const appendFilters2URL = (instance) => {
   let slug = ''
   const len = instance.selected.length
@@ -121,7 +148,8 @@ export default {
     Accordion,
     AccordionHeader,
     AccordionSection,
-    AccordionContent
+    AccordionContent,
+    ToggleArrow
   },
 
   props: {
@@ -134,7 +162,9 @@ export default {
 
   data () {
     return {
-      selected: []
+      catsOpen: [],
+      selected: [],
+      heights: []
     }
   },
 
@@ -194,6 +224,7 @@ export default {
     } else {
       this.setActiveTags(this.resetCategories())
     }
+    this.catsOpen = this.initToggles
   },
 
   methods: {
@@ -202,6 +233,15 @@ export default {
       setActiveTags: 'filters/setActiveTags',
       setSelectedFiltersCount: 'filters/setSelectedFiltersCount'
     }),
+    toggleCat (ind) {
+      this.$set(this.catsOpen, ind, !this.catsOpen[ind])
+
+      if (this.catsOpen[ind]) {
+        elementEnter(this.$refs.cats[ind])
+      } else {
+        elementLeave(this.$refs.cats[ind])
+      }
+    },
     applyFilter (tag, ind, heading) {
       const cloned = CloneDeep(this.activeTags)
 
@@ -348,7 +388,7 @@ export default {
 // //////////////////////////////////////////////////////////////// Filter Panel
 .filter-category {
   &.container {
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
   }
   &:hover {
     cursor: pointer;
@@ -356,6 +396,7 @@ export default {
   &.heading-wrapper {
     display: flex;
     justify-content: space-between;
+    margin-top: 1rem;
   }
   &.heading {
     font-family: $fontMontserrat;
@@ -378,36 +419,11 @@ export default {
   }
   &.sub-heading {
     font-family: $fontInter;
-    margin-bottom: 1rem;
+    margin: 6px;
+    margin-bottom: 3rem;
   }
   &.chiclet-list {
-    padding: 6px 0;
     margin: 0 6px;
-  }
-}
-
-.accordion-header {
-  position: relative;
-  cursor: pointer;
-  &:after {
-    content: '';
-    display: inline-block;
-    position: absolute;
-    top: 0;
-    right: 0.3125rem;
-    width: 0.75rem;
-    height: 100%;
-    background: url('~assets/theme/svgs/chevrondown.svg') no-repeat right center;
-  }
-}
-
-.accordion-section {
-  &.open {
-    .accordion-header {
-      &:after {
-        transform: rotate(180deg);
-      }
-    }
   }
 }
 </style>
