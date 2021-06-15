@@ -165,7 +165,7 @@ export default {
   left: 0;
   width: 100%;
   height: $navigationHeight;
-  z-index: 10000;
+  z-index: 9999;
   transform: translateY(-$navigationHeight);
   transition: transform 250ms ease-in-out;
   &.force-visible,

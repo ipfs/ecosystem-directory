@@ -38,10 +38,8 @@
             </h3>
           </div>
 
-          <div class="slider-card-text">
-            <p>
-              {{ excerpt }}
-            </p>
+          <div class="description">
+            {{ selectedCat.description ? selectedCat.description : '' }}
           </div>
 
           <div v-if="logos" class="logo-wrapper">
@@ -59,7 +57,7 @@
       <button
         class="view-all button noselect"
         @click="jump2Filters">
-        View All
+        {{ filterToggleButtonText }}
       </button>
 
     </div>
@@ -95,7 +93,7 @@ export default {
       type: Number,
       default: 440
     },
-    excerpt: {
+    description: {
       type: String,
       default: ''
     },
@@ -107,8 +105,12 @@ export default {
 
   computed: {
     ...mapGetters({
+      siteContent: 'global/siteContent',
       routeQuery: 'global/routeQuery'
     }),
+    filterToggleButtonText () {
+      return this.siteContent.index.page_content.segment_slider.filter_toggle_button_text
+    },
     logos () {
       if (this.selectedCat.logos.length) {
         return this.selectedCat.logos
@@ -130,9 +132,7 @@ export default {
       this.$emit('update-slider', seg)
     },
     jump2Filters () {
-      if (!this.routeQuery.hasOwnProperty('filters')) {
-        this.setRouteQuery({ key: 'filters', data: 'enabled' })
-      }
+      this.setRouteQuery({ key: 'filters', data: 'enabled' })
       this.setFilterPanelOpen(true)
     }
   }
@@ -178,7 +178,7 @@ export default {
   }
 }
 
-.slider-card-text {
+.description {
   @include fontSize_Small;
   font-weight: 400;
   margin-bottom: 2rem;

@@ -23,13 +23,13 @@
 
             <div v-if="(headerState === 'index-view')" class="index-heading">
               <h1>
-                {{ pageData.heading }}
+                {{ heading }}
               </h1>
             </div>
 
             <div v-if="(headerState === 'filters-view')" class="filters-heading">
               <h1>
-                All Projects
+                {{ heading }}
                 <span class="display-total">
                   ({{ projects.length }})
                 </span>
@@ -38,7 +38,7 @@
 
             <div v-if="(headerState === 'filters-applied')" class="filters-heading">
               <h1>
-                Filtered Results
+                {{ heading }}
                 <span class="display-total">
                   ({{ filteredCollection.length ? filteredCollection.length : '0' }})
                 </span>
@@ -46,11 +46,11 @@
             </div>
 
             <div v-if="(headerState === 'index-view')" class="index-subheading">
-              {{ pageData.subheading }}
+              {{ subheading }}
             </div>
 
             <div v-if="(headerState === 'filters-view')" class="filters-subheading">
-              Showing all projects, no filters selected
+              {{ subheading }}
             </div>
 
             <div v-if="(headerState === 'filters-applied')" class="filters-subheading">
@@ -102,15 +102,25 @@ export default {
       selectedFiltersCount: 'filters/selectedFiltersCount'
     }),
     pageData () {
-      const siteContent = this.siteContent
-      if (siteContent.hasOwnProperty('index')) {
-        return siteContent.index.page_content
-      }
-      return false
+      return this.siteContent.index.page_content
+    },
+    heading () {
+      const heading = this.pageData.hero.heading
+      const headerState = this.headerState
+      if (headerState === 'filters-view') { return heading.filters_view }
+      if (headerState === 'filters-applied') { return heading.filters_applied_view }
+      return heading.index_view
+    },
+    subheading () {
+      const subheading = this.pageData.hero.subheading
+      const headerState = this.headerState
+      if (headerState === 'filters-view') { return subheading.filters_view }
+      return subheading.index_view
     },
     headerState () {
-      if (this.$route.name === 'index') {
-        if (this.$route.query.filters === 'enabled') {
+      const route = this.$route
+      if (route.name === 'index') {
+        if (route.query.filters === 'enabled') {
           if (this.selectedFiltersCount) {
             return 'filters-applied'
           } else {

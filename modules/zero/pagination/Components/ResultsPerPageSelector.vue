@@ -7,7 +7,7 @@
     <div class="dropdown dropdown-button" @click.stop="toggleDropDown()">
 
       <label>
-        {{ msg + (display === totalItems ? 'All' : display) }}
+        {{ label + (display === totalItems ? 'All' : display) }}
       </label>
 
       <button class="dropdown dropdown-slot">
@@ -52,7 +52,7 @@ export default {
       required: false,
       default: 'div'
     },
-    msg: {
+    label: {
       type: String,
       required: false,
       default: 'Results per page: '

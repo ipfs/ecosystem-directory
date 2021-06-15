@@ -36,7 +36,7 @@
               {{ project.primaryCta.text }}
             </a>
             <nuxt-link to="/" class="secondary-cta">
-              Explore Ecosystem
+              {{ secondaryCtaButtonText }}
             </nuxt-link>
           </div>
         </section>
@@ -123,7 +123,7 @@
       <div class="col-5_mi-10_ti-12">
         <section v-if="project.links || project.keyInfo" id="section-key-info">
           <h3 class="heading">
-            Key info
+            {{ metadataHeading }}
           </h3>
 
           <dl v-if="project.links" class="values">
@@ -227,10 +227,10 @@
 
         <div class="col-12">
           <h3 class="heading">
-            {{ pageData.section_featured_slider.heading }}
+            {{ generalPageData.section_featured_slider.heading }}
           </h3>
           <div class="description">
-            {{ pageData.section_featured_slider.description }}
+            {{ generalPageData.section_featured_slider.description }}
           </div>
         </div>
 
@@ -306,6 +306,7 @@ export default {
 
   async fetch ({ store, req, route, error }) {
     await store.dispatch('global/getBaseData', 'general')
+    await store.dispatch('global/getBaseData', 'project')
     await store.dispatch('global/getBaseData', 'taxonomy')
     await store.dispatch('projects/getProjects')
   },
@@ -337,9 +338,17 @@ export default {
     ...mapGetters({
       siteContent: 'global/siteContent'
     }),
-    // SEO
     seo () {
       return this.$getSeo(this.tag)
+    },
+    pageData () {
+      return this.siteContent.project.page_content
+    },
+    secondaryCtaButtonText () {
+      return this.pageData.secondary_cta_button_text
+    },
+    metadataHeading () {
+      return this.pageData.metadata_heading
     },
     breadcrumbs () {
       return [
@@ -367,7 +376,7 @@ export default {
       ]
     },
     // Project Content
-    pageData () {
+    generalPageData () {
       return this.siteContent.general
     },
     description () {

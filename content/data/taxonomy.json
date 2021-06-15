@@ -34,7 +34,8 @@
         },
         {
           "label": "Identity",
-          "slug": "identity"
+          "slug": "identity",
+          "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         },
         {
           "label": "Integrations",
@@ -54,7 +55,8 @@
         },
         {
           "label": "Other",
-          "slug": "other"
+          "slug": "other",
+          "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         },
         {
           "label": "Prediction",

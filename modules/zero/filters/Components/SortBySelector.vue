@@ -7,7 +7,7 @@
       <div class="dropdown-button" @click.stop="toggleDropDown()">
 
         <label>
-          {{ msg }}
+          {{ label }}
         </label>
 
         <div>
@@ -30,7 +30,7 @@
         <div class="dropdown-button" @click.stop="toggleDropDown()">
 
           <label>
-            {{ msg }}
+            {{ label }}
           </label>
 
           <div>
@@ -71,7 +71,7 @@ export default {
   name: 'SortBySelector',
 
   props: {
-    msg: {
+    label: {
       type: String,
       required: false,
       default: 'Sort by: '
