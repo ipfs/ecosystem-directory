@@ -239,6 +239,9 @@ $paginateRoot_PaddingOffset: 3.5rem;
       @include containerMaxMQ {
         padding-left: $gutter_ContainerSingleColumn;
       }
+      @include small {
+        padding-left: 2.5rem;
+      }
     }
     .paginate-root {
       padding-left: 0.5rem;
@@ -268,9 +271,10 @@ $paginateRoot_PaddingOffset: 3.5rem;
     height: 100%;
     margin-left: 0;
     padding-bottom: 2.5rem;
+    padding-left: 2.5rem;
     transform: translate(0, 100%);
     overflow-y: scroll;
-    z-index: 1000;
+    z-index: 10000;
   }
   &:before {
     content: '';
@@ -314,6 +318,7 @@ $paginateRoot_PaddingOffset: 3.5rem;
   // @include small {
   //   top: 0;
   // }
+  margin-bottom: 2rem;
   .title {
     font-family: $fontMontserrat;
     margin-bottom: 0.5rem;
