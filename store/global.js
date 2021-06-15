@@ -79,7 +79,6 @@ const mutations = {
   },
   SET_ROUTE_QUERY (state, payload) {
     state.routeQuery[payload.key] = payload.data
-    console.log(state.routeQuery)
     state.queryString = JSON.stringify(state.routeQuery)
   },
   SET_QUERY_STRING (state, queryString) {
