@@ -20,14 +20,14 @@
       },
       {
         "type": "div",
-        "label": "Ecosystem Directory"
+        "label": "Ecosystem directory"
       }
     ],
     "hero": {
       "heading": {
-        "index_view": "Ecosystem Directory",
-        "filters_view": "All Projects",
-        "filters_applied_view": "Filtered Results"
+        "index_view": "Ecosystem directory",
+        "filters_view": "All projects",
+        "filters_applied_view": "Filtered results"
       },
       "subheading": {
         "index_view": "Explore the world of projects and products built on IPFS in this interactive showcase filterable by industry, tooling, and more.",

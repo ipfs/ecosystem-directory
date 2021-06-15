@@ -85,7 +85,7 @@ export default {
   data () {
     return {
       closed: true,
-      selected: 'A-Z'
+      selected: 'Alphabetical (A-Z)'
     }
   },
 
