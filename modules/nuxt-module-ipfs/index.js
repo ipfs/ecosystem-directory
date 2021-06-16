@@ -95,17 +95,17 @@ const addHooks = (instance) => {
           var lenI = asyncScripts.length;
           var found = [];
           for (var i = 0; i < lenI; i++) {
-            var filename = asyncScripts[i]
-            console.log(filename)
+            var filename = asyncScripts[i];
             var scripts = document.querySelectorAll('script');
             var lenJ = scripts.length;
             for (var j = 0; j < lenJ; j++) {
-              var script = scripts[j]
+              var script = scripts[j];
               if (!script.src.includes(filename)) {
-                console.log('NOT FOUND | ' + filename)
-                var newScript = document.createElement('script')
-                newScript.src = '${parsed.replaceSrc}${filename}'
-                console.log(newScript)
+                console.log('NOT FOUND | ' + filename);
+                var newScript = document.createElement('script');
+                newScript.src = '${parsed.replaceSrc}' + filename;
+                // document.body.appendChild(newScript);
+                console.log(newScript);
               }
             }
           }
