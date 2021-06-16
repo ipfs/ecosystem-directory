@@ -14,7 +14,7 @@
           <AccordionSection
             :key="`taxonomy-category-${i}`"
             :active="active"
-            :selected="true"
+            :selected="filterPanelOpen"
             class="filter-category container">
             <AccordionHeader class="filter-category heading-wrapper">
               <div class="filter-category heading">
@@ -141,8 +141,9 @@ export default {
   computed: {
     ...mapGetters({
       siteContent: 'global/siteContent',
+      routeQuery: 'global/routeQuery',
       activeTags: 'filters/activeTags',
-      routeQuery: 'global/routeQuery'
+      filterPanelOpen: 'filters/filterPanelOpen'
     }),
     filterPanelContent () {
       return this.siteContent.index.page_content.section_filter.filter_panel

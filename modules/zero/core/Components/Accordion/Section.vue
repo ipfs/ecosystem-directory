@@ -40,6 +40,13 @@ export default {
   watch: {
     open () {
       this.$children[1].toggleOpen()
+    },
+    selected (val) {
+      if (val) {
+        this.$parent.setSelected(this.id)
+      } else {
+        this.$parent.$emit('toggle', this._uid)
+      }
     }
   },
 
