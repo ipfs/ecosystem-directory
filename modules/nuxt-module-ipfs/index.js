@@ -90,7 +90,7 @@ const addHooks = (instance) => {
 
     const script = `
       <script>
-        var timeout = setTimeout(function () {
+        window.onload = function () {
           var asyncScripts = ${JSON.stringify(asyncScripts)};
           var lenI = asyncScripts.length;
           var found = [];
@@ -109,8 +109,7 @@ const addHooks = (instance) => {
               }
             }
           }
-          clearTimeout(timeout)
-        }, 500)
+        }
       </script>
     `
 
