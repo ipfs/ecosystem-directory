@@ -8,6 +8,7 @@
 // -----------------------------------------------------------------------------
 // ///////////////////////////////////////////////////////////////////// General
 import Path from 'path'
+import Fs from 'fs-extra'
 
 // ///////////////////////////////////////////////////////////////////// Plugins
 const MethodsPlugin = Path.resolve(__dirname, 'plugin.js')
@@ -107,12 +108,27 @@ const addHooks = (instance) => {
     This block gives us access to the generated HTML
   */
 
-  instance.nuxt.hook('generate:page', (payload) => {
+  instance.nuxt.hook('generate:page', async (payload) => {
     // console.log('C')
     // console.log(payload.route)
     // console.log(payload)
     parsed = parseRoute(payload.route)
     payload.html = payload.html.replace(/\/_nuxt\//gi, parsed.replaceSrc).replace(/\/relativity\//gi, parsed.replaceStatic)
+    const distPath = `${__dirname}/../../dist/_nuxt`
+    const filenames = await Fs.readdirSync(distPath)
+      .filter(filename => filename.includes('.js'))
+    console.log(filenames)
+    const len = filenames.length
+    for (let i = 0; i < len; i++) {
+      const filename = filenames[i]
+      let file = await Fs.readFileSync(`${distPath}/${filename}`) + ''
+      // console.log(file + '')
+      if (file.includes('"/_nuxt/"')) {
+        console.log(`INCLUDES: ${filename}`)
+        file = file.replace('"/_nuxt/"', '"_nuxt/"')
+        await Fs.writeFileSync(`${distPath}/${filename}`)
+      }
+    }
     // console.log(payload.html.includes('relativity'))
     // if (payload.route.includes('brave')) {
     // }
