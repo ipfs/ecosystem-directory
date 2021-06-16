@@ -23,7 +23,7 @@
                   {{ allSelected[i] }} of {{ heading.tags.length }}
                 </span>
                 <h5 class="filter-category sub-heading">
-                  Filter by {{ heading.label }}
+                  {{ getSublabel(heading) }}
                 </h5>
               </div>
             </AccordionHeader>
@@ -202,6 +202,10 @@ export default {
       setActiveTags: 'filters/setActiveTags',
       setSelectedFiltersCount: 'filters/setSelectedFiltersCount'
     }),
+    getSublabel (heading) {
+      const sublabel = heading.sublabel
+      return sublabel || `Filter by ${heading.label}`
+    },
     applyFilter (tag, ind, heading) {
       const cloned = CloneDeep(this.activeTags)
 
