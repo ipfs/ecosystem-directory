@@ -164,7 +164,7 @@ export default {
   // /////////////////////////////////////////////////////// Build configuration
   // ------------------------------------------------ Extend webpack config here
   build: {
-    { html: { minify: { collapseWhitespace: true } },
+    html: { minify: { collapseWhitespace: true },
     // ---------------------------------------------------------- Hot Middleware
     hotMiddleware: {
       client: {
