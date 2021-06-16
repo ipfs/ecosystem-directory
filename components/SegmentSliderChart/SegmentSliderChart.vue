@@ -99,7 +99,7 @@ const createLabels = (projects) => {
         const label = industry[category]
         const l = label.split('').length
         const frc = (0.9 * i - l) * 0.1
-        const icons = logos[categories[i]]
+        const icons = logos[category]
 
         if (icons.length) {
           if (icons.length > 3) {
@@ -115,8 +115,9 @@ const createLabels = (projects) => {
 
         tags.forEach((tag) => { if (tag === category) { count++ } })
         items.push({
-          cat: label,
+          label,
           count,
+          slug: category,
           size: count * 10,
           chars: l,
           above: Math.round(Math.random() * 1.4),

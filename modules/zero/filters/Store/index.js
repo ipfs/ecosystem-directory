@@ -45,6 +45,7 @@ const mutations = {
   },
   SET_ACTIVE_TAGS (state, tags) {
     state.activeTags = tags
+    console.log(state.activeTags)
   },
   SET_FILTER_PANEL_OPEN (state, toggle) {
     state.filterPanelOpen = toggle

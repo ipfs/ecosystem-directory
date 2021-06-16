@@ -14,7 +14,7 @@
         </button>
 
         <h3 class="title-between-buttons">
-          {{ selectedCat.cat }}
+          {{ selectedCat.label }}
         </h3>
 
         <button
@@ -30,11 +30,11 @@
 
       <transition name="slide-fade" mode="out-in">
 
-        <div :key="selectedCat.cat">
+        <div :key="selectedCat.label">
 
           <div class="title-large-screen">
             <h3>
-              {{ selectedCat.cat }}
+              {{ selectedCat.label }}
             </h3>
           </div>
 
@@ -126,12 +126,14 @@ export default {
   methods: {
     ...mapActions({
       setRouteQuery: 'global/setRouteQuery',
+      setActiveTags: 'filters/setActiveTags',
       setFilterPanelOpen: 'filters/setFilterPanelOpen'
     }),
     incrementSelection (seg) {
       this.$emit('update-slider', seg)
     },
     jump2Filters () {
+      this.setRouteQuery({ key: 'tags', data: this.selectedCat.slug })
       this.setRouteQuery({ key: 'filters', data: 'enabled' })
       this.setFilterPanelOpen(true)
     }
