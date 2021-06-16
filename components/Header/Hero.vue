@@ -54,11 +54,11 @@
             </div>
 
             <div v-if="(headerState === 'filters-applied')" class="filters-subheading">
-              <ul>
+              <!-- <ul>
                 <li v-for="item in categories" :key="item.category">
                   {{ item.category }} <span class="tags">{{ item.tags }}</span>
                 </li>
-              </ul>
+              </ul> -->
             </div>
 
           </div>
@@ -131,20 +131,20 @@ export default {
       }
       return false
     },
-    categories () {
-      const filters = Taxonomy.categories
-      const arr = []
-      for (let i = 0; i < filters.length; i++) {
-        const tags = this.activeTags[filters[i].label]
-        if (tags.length) {
-          arr.push({
-            category: filters[i].label + ':',
-            tags: tags.join(', ')
-          })
-        }
-      }
-      return arr
-    }
+    // categories () {
+    //   const filters = Taxonomy.categories
+    //   const arr = []
+    //   for (let i = 0; i < filters.length; i++) {
+    //     const tags = this.activeTags[filters[i].label]
+    //     if (tags.length) {
+    //       arr.push({
+    //         category: filters[i].label + ':',
+    //         tags: tags.join(', ')
+    //       })
+    //     }
+    //   }
+    //   return arr
+    // }
   }
 }
 </script>

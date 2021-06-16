@@ -37,8 +37,8 @@
                 <div
                   v-for="(tag, j) in heading.tags"
                   :key="`taxonomy-category-${j}`"
-                  :class="['filter-category tag chiclet', { 'active-button': selected.includes(tag) }]"
-                  @click="applyFilter(tag, i, heading.label)">
+                  :class="['filter-category tag chiclet', { 'active-button': selectedTags.includes(tag.slug) }]"
+                  @click="applyFilter(tag.slug, heading.slug)">
                   {{ tag.label }}
                 </div>
               </div>
@@ -161,6 +161,19 @@ export default {
     initToggles () {
       return Array(Taxonomy.categories.length).fill(true)
     },
+    selectedTags () {
+      const arr = []
+      // const cloned = CloneDeep(this.activeTags)
+      // Object.keys(cloned).forEach((category) => {
+      //   if (cloned[category].tags.length) {
+      //     const len = cloned[category].tags.length
+      //     for (let i = 0; i < len; i++) {
+      //       arr.push(cloned[category].tags[i])
+      //     }
+      //   }
+      // })
+      return arr
+    },
     selectedLabels () {
       const arr = []
       for (let i = 0; i < this.selected.length; i++) {
@@ -192,7 +205,7 @@ export default {
     if (this.$route.query.filters === 'enabled' && this.$route.query.tags) {
       applyFiltersFromURL(this)
     } else {
-      this.setActiveTags(this.resetCategories())
+      // this.setActiveTags(this.resetCategories())
     }
   },
 
@@ -202,21 +215,22 @@ export default {
       setActiveTags: 'filters/setActiveTags',
       setSelectedFiltersCount: 'filters/setSelectedFiltersCount'
     }),
-    applyFilter (tag, ind, heading) {
-      const cloned = CloneDeep(this.activeTags)
-
-      if (cloned) {
-        if (cloned.hasOwnProperty(heading)) {
-          if (cloned[heading].includes(tag.label)) {
-            cloned[heading] = cloned[heading].filter(item => item !== tag.label)
-          } else {
-            cloned[heading].push(tag.label)
-          }
-        }
-        this.setActiveTags(cloned)
-      } else {
-        this.setActiveTags(this.resetCategories())
-      }
+    applyFilter (tag, category) {
+      // const cloned = CloneDeep(this.activeTags)
+      //
+      // if (cloned) {
+      //   if (cloned.hasOwnProperty(heading)) {
+      //     if (cloned[heading].includes(tag.label)) {
+      //       cloned[heading] = cloned[heading].filter(item => item !== tag.label)
+      //     } else {
+      //       cloned[heading].push(tag.label)
+      //     }
+      //   }
+      //   this.setActiveTags(cloned)
+      // } else {
+      //   this.setActiveTags(this.resetCategories())
+      // }
+      this.setActiveTags({ category, tag })
 
       if (this.selected.includes(tag)) {
         this.selected = this.selected.filter(item => item !== tag)
@@ -252,24 +266,24 @@ export default {
         this.setActiveTags(this.resetCategories())
       }
 
-      const checker = []
-      for (let i = 0; i < filters[ind].tags.length; i++) {
-        if (!this.selected.includes(filters[ind].tags[i])) {
-          this.selected.push(filters[ind].tags[i])
-          checker.push(false)
-        } else {
-          checker.push(true)
-        }
-      }
-      const success = checker.every((val) => { return val })
-      if (success) {
-        for (let i = 0; i < filters[ind].tags.length; i++) {
-          const tag = filters[ind].tags[i]
-          if (this.selected.includes(tag)) {
-            this.selected = this.selected.filter(item => item !== tag)
-          }
-        }
-      }
+      // const checker = []
+      // for (let i = 0; i < filters[ind].tags.length; i++) {
+      //   if (!this.selected.includes(filters[ind].tags[i])) {
+      //     this.selected.push(filters[ind].tags[i])
+      //     checker.push(false)
+      //   } else {
+      //     checker.push(true)
+      //   }
+      // }
+      // const success = checker.every((val) => { return val })
+      // if (success) {
+      //   for (let i = 0; i < filters[ind].tags.length; i++) {
+      //     const tag = filters[ind].tags[i]
+      //     if (this.selected.includes(tag)) {
+      //       this.selected = this.selected.filter(item => item !== tag)
+      //     }
+      //   }
+      // }
 
       appendFilters2URL(this)
     },
