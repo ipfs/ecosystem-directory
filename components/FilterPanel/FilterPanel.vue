@@ -191,7 +191,7 @@ export default {
 
   created () {
     this.$nuxt.$on('applyIndustryFilter', (val) => {
-      setTimeout(() => { applyFiltersFromURL(this) }, 100)
+      setTimeout(() => { applyFiltersFromURL(this) }, 200)
     })
   },
 
@@ -229,7 +229,6 @@ export default {
         this.selected = this.selected.filter(item => item !== tag)
       } else {
         this.selected.push(tag)
-        console.log(this.selected)
       }
 
       appendFilters2URL(this)

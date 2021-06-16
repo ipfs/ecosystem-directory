@@ -135,8 +135,9 @@ export default {
     jump2Filters () {
       this.setRouteQuery({ key: 'filters', data: 'enabled' })
       this.setRouteQuery({ key: 'tags', data: this.selectedCat.slug })
+
       this.setFilterPanelOpen(true)
-      this.$nuxt.$emit('applyIndustryFilter')
+      this.$nuxt.$emit('applyIndustryFilter', this.selectedCat.slug)
     }
   }
 }
