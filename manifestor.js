@@ -7,7 +7,7 @@ const path = {
 
 const Manifestor = async () => {
   try {
-    console.log('🚀️ Manifest projects started')
+    console.log('🚀 Manifest projects started')
     const entities = await Fs.readdirSync(path.projects)
       .filter(entity => entity !== '.DS_Store')
       .map(entity => entity.split('.')[0])
