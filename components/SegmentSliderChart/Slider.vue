@@ -133,9 +133,10 @@ export default {
       this.$emit('update-slider', seg)
     },
     jump2Filters () {
-      this.setRouteQuery({ key: 'tags', data: this.selectedCat.slug })
       this.setRouteQuery({ key: 'filters', data: 'enabled' })
+      this.setRouteQuery({ key: 'tags', data: this.selectedCat.slug })
       this.setFilterPanelOpen(true)
+      this.$nuxt.$emit('applyIndustryFilter')
     }
   }
 }

@@ -38,7 +38,7 @@
                   v-for="(tag, j) in heading.tags"
                   :key="`taxonomy-category-${j}`"
                   :class="['filter-category tag chiclet', { 'active-button': selected.includes(tag) }]"
-                  @click="applyFilter(tag, i, heading.label)">
+                  @click="applyFilter(tag, heading.label)">
                   {{ tag.label }}
                 </div>
               </div>
@@ -189,6 +189,12 @@ export default {
     }
   },
 
+  created () {
+    this.$nuxt.$on('applyIndustryFilter', (val) => {
+      setTimeout(() => { applyFiltersFromURL(this) }, 100)
+    })
+  },
+
   mounted () {
     if (this.$route.query.filters === 'enabled' && this.$route.query.tags) {
       applyFiltersFromURL(this)
@@ -203,7 +209,7 @@ export default {
       setActiveTags: 'filters/setActiveTags',
       setSelectedFiltersCount: 'filters/setSelectedFiltersCount'
     }),
-    applyFilter (tag, ind, heading) {
+    applyFilter (tag, heading) {
       const cloned = CloneDeep(this.activeTags)
 
       if (cloned) {
@@ -223,6 +229,7 @@ export default {
         this.selected = this.selected.filter(item => item !== tag)
       } else {
         this.selected.push(tag)
+        console.log(this.selected)
       }
 
       appendFilters2URL(this)
