@@ -59,6 +59,19 @@ export default {
 .project-card {
   padding: 0 0.5rem 1rem;
   transition: width 0ms;
+  &:hover {
+    .title {
+      text-decoration: underline;
+    }
+    .thumbnail img {
+      transform: scale(1.05);
+    }
+  }
+  &:not(.list-view) {
+    .content {
+      margin-bottom: 2rem;
+    }
+  }
   &.list-view {
     .card-inner-wrapper {
       @include borderRadius3;
@@ -106,6 +119,7 @@ export default {
     max-width: 40%;
     max-height: 50%;
     width: auto;
+    transition: 500ms ease-in-out;
   }
 }
 

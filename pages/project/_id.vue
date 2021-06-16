@@ -10,7 +10,7 @@
     </div>
 
     <div class="grid">
-      <div class="col-5_md-8_sm-10_ti-12">
+      <div class="col-5_md-8_sm-10_mi-12">
         <section id="section-project-info">
           <img
             v-if="project.logo && project.logo.full"
@@ -42,7 +42,7 @@
         </section>
       </div>
 
-      <div class="col-6_md-8_mi-10_ti-12" data-push-left="off-1_md-0">
+      <div class="col-6_md-8_mi-12" data-push-left="off-1_md-0">
         <section v-if="project.stats" id="section-statistics">
 
           <template v-for="(stat, i) in project.stats">
@@ -77,7 +77,7 @@
             </a>
           </div>
 
-          <div class="slider-display col-6_md-8_mi-10_ti-12">
+          <div class="slider-display col-6_md-8_mi-12">
             <div
               v-if="moreThanTwo"
               ref="sliderFlex"
@@ -120,7 +120,7 @@
     </div>
 
     <div class="grid">
-      <div class="col-5_mi-10_ti-12">
+      <div class="col-5_mi-10_mi-12">
         <section v-if="project.links || project.keyInfo" id="section-key-info">
           <h3 class="heading">
             {{ metadataHeading }}
@@ -514,7 +514,7 @@ export default {
   }
   .name {
     @include fontSize_ExtraExtraLarge;
-    @include leading_Small;
+    @include leading_Mini;
     font-weight: 700;
     margin-left: -0.125rem;
     @include small {
@@ -522,7 +522,8 @@ export default {
     }
   }
   .description {
-    @include leading_Mini;
+    @include fontSize_Medium;
+    font-family: $fontInter;
     margin-bottom: 3rem;
   }
 }
@@ -539,6 +540,7 @@ export default {
   @include fontSize_Medium;
   font-family: $fontInter;
   margin-bottom: 2.5rem;
+  opacity: 0.7;
 }
 
 .ctas {
@@ -619,6 +621,7 @@ export default {
       padding: 3rem 2rem;
     }
     .statistic {
+      @include leading_Mini;
       font-size: 2.625rem;
       @include small {
         @include fontSize_ExtraLarge;
@@ -646,6 +649,7 @@ export default {
     }
     .title {
       @include fontSize_Large;
+      @include leading_Mini;
       @include tiny {
         @include fontSize_Medium;
         margin: 0 0.5rem;
@@ -751,7 +755,7 @@ export default {
 // ////////////////////////////////////////////////////////// [Section] Key Info
 #section-key-info {
   .heading {
-    @include fontSize_ExtraLarge;
+    @include fontSize_ExtraMediumLarge;
     margin-bottom: 2rem;
   }
 }
@@ -770,7 +774,9 @@ export default {
   dd {
     margin: 0;
     &:not(:last-child) {
-      margin-bottom: 0rem;
+      @include small {
+        margin-bottom: 1.25rem;
+      }
     }
   }
 
@@ -790,7 +796,7 @@ export default {
     }
 
     a {
-      color: $cerulean;
+      color: $ming;
     }
 
     .link-tooltip {

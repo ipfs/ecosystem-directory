@@ -43,7 +43,7 @@ export default {
   font-weight: 600;
   &:not(:last-child) {
     &:after {
-      content: '/';
+      content: '|';
       margin-left: 0.25rem;
       margin-right: 0.5rem;
     }
