@@ -22,8 +22,10 @@
           <div :class="{'headings-wrapper': true, 'results': (headerState === 'filters-applied')}">
 
             <h1 :class="['heading', headerState]">
-              {{ heading }}
-              <template v-if="headerState === 'filters-view'">
+              {{ heading }} - {{ headerState }}
+              {{ projects.length }}
+              {{ selectedFiltersCount }}
+              <!-- <template v-if="headerState === 'filters-view'">
                 <span class="display-total">
                   ({{ projects.length }})
                 </span>
@@ -32,7 +34,7 @@
                 <span class="display-total">
                   ({{ selectedFiltersCount }})
                 </span>
-              </template>
+              </template> -->
             </h1>
 
             <!-- <div v-if="(headerState === 'index-view')" class="index-subheading">

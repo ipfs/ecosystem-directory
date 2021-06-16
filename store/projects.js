@@ -35,9 +35,7 @@ const actions = {
           continue
         }
       }
-      if (compiled.length > 0) {
-        commit('SET_PROJECTS', compiled)
-      }
+      commit('SET_PROJECTS', compiled)
     } catch (e) {
       // Silent fail
     }
