@@ -186,9 +186,9 @@ export default {
     }),
     toggleFilterPanel (forceOpen) {
       this.setFilterPanelOpen(!this.filterPanelOpen)
-      // if (!this.routeQuery.hasOwnProperty('filters') || this.routeQuery.filters !== 'enabled') {
-      //   this.setRouteQuery({ key: 'filters', data: 'enabled' })
-      // }
+      if (!this.routeQuery.hasOwnProperty('filters') || this.routeQuery.filters !== 'enabled') {
+        this.setRouteQuery({ key: 'filters', data: 'enabled' })
+      }
     },
     toggleListBlockView () {
       this.listViewActive = !this.listViewActive
