@@ -24,7 +24,7 @@ export default {
 
   computed: {
     homePage () {
-      return this.$route.name === 'index'      
+      return this.$route.name === 'index'
     }
   }
 }

@@ -120,7 +120,7 @@ export default {
     headerState () {
       const route = this.$route
       if (route.query.filters === 'enabled') {
-        if (this.selectedFiltersCount) {
+        if (this.selectedFiltersCount > 0) {
           return 'filters-applied'
         } else {
           return 'filters-view'
