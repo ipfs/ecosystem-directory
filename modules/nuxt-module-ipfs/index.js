@@ -87,24 +87,25 @@ const addHooks = (instance) => {
     payload.html = payload.html
       .replace(/\/_nuxt\//gi, parsed.replaceSrc)
       .replace(/\/relativity\//gi, parsed.replaceStatic)
+
     const script = `
       <script>
-        var asyncScripts = ${JSON.stringify(asyncScripts)};
-        var len = asyncScripts.length;
-        var count = [];
-        var num = 0;
-        var interval = setInterval(function () {
-          if (num >= 50) {
-            clearInterval(interval)
-          }
-          for (var i = 0; i < len; i++) {
-            console.log(asyncScripts[i]);
-            var found = document.querySelector('script[src="' + asyncScripts[i] + '"]');
-            if (!found) {
-              console.log('NOT LOADING | ' + asyncScripts[i]);
+        var timeout = setTimeout(function () {
+          var asyncScripts = ${JSON.stringify(asyncScripts)};
+          var lenI = asyncScripts.length;
+          var found = [];
+          for (var i = 0; i < lenI; i++) {
+            var filename = asyncScripts[i]
+            console.log(filename)
+            var scripts = document.querySelectorAll('script');
+            for (var j = 0; j < lenJ; j++) {
+              var script = scripts[j]
+              if (!script.src.includes(filename)) {
+                console.log('NOT FOUND | ' + filename)
+              }
             }
           }
-        }, 100);
+        }, 500)
       </script>
     `
 
