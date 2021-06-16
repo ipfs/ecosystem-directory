@@ -301,7 +301,8 @@ export default {
       tag: 'project',
       id: `project-${id}`,
       initSlider: false,
-      resize: false
+      resize: false,
+      project: false
     }
   },
 
@@ -313,8 +314,8 @@ export default {
   },
 
   head () {
-    const title = this.seo.title
-    const description = this.seo.description
+    const title = this.page_Title
+    const description = this.page_Description
     return {
       title,
       meta: [
@@ -342,6 +343,15 @@ export default {
     seo () {
       return this.$getSeo(this.tag)
     },
+    name () {
+      return this.project.name
+    },
+    page_Title () {
+      return `${this.name} | ${this.seo.title}`
+    },
+    page_Description () {
+      return `${this.name} | ${this.description}`
+    },
     pageData () {
       return this.siteContent.project.page_content
     },
@@ -362,7 +372,7 @@ export default {
         {
           type: 'nuxt-link',
           href: '/',
-          label: 'IPFS Ecosystem'
+          label: 'Ecosystem directory'
         },
         {
           type: 'nuxt-link',

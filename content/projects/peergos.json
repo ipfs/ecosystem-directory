@@ -1,6 +1,6 @@
 {
   "display": true,
-  "featured": false,
+  "featured": true,
   "sortNumbers": {
     "since": 2015
   },
@@ -18,7 +18,7 @@
   },
   "primaryCta": {
     "url": "//peergos.org",
-    "text": "Project Website"
+    "text": "Project website"
   },
   "links": [
     {

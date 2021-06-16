@@ -1,6 +1,6 @@
 {
   "display": true,
-  "featured": false,
+  "featured": true,
   "sortNumbers": {
     "since": 2018
   },
@@ -8,7 +8,7 @@
     "icon": "textile.png",
     "full": "textile-logo-dark.png"
   },
-  "name": "Hub, ThreadDB, Buckets, Powergate",
+  "name": "Textile Hub, ThreadDB, Buckets & Powergate",
   "org": [
     "Textile"
   ],
@@ -18,7 +18,7 @@
   },
   "primaryCta": {
     "url": "//textile.io",
-    "text": "Project Website"
+    "text": "Project website"
   },
   "links": [
     {
