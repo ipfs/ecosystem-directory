@@ -181,28 +181,29 @@ export default {
   mounted () {
     const filterEnabled = (this.$route.query.filters === 'enabled')
     console.log(this.$route)
-    if (filterEnabled) {
-      this.setFilterPanelOpen(filterEnabled)
-    } else {
-      this.segmentSlider = true
-      this.featuredSlider = true
-      if (this.filterPanelOpen) {
-        this.setFilterPanelOpen(false)
-      }
-      this.setRouteQuery({ key: 'filters', data: '' })
-    }
-
-    const cloned = CloneDeep(this.$route.query)
-    Object.keys(cloned).forEach((item) => {
-      this.setRouteQuery({
-        key: item,
-        data: cloned[item]
-      })
-    })
-
-    this.resize = () => { this.resetSectionHeight() }
-    window.addEventListener('resize', this.resize)
-    this.resetSectionHeight()
+    console.log(filterEnabled)
+    // if (filterEnabled) {
+    //   this.setFilterPanelOpen(filterEnabled)
+    // } else {
+    //   this.segmentSlider = true
+    //   this.featuredSlider = true
+    //   if (this.filterPanelOpen) {
+    //     this.setFilterPanelOpen(false)
+    //   }
+    //   this.setRouteQuery({ key: 'filters', data: '' })
+    // }
+    //
+    // const cloned = CloneDeep(this.$route.query)
+    // Object.keys(cloned).forEach((item) => {
+    //   this.setRouteQuery({
+    //     key: item,
+    //     data: cloned[item]
+    //   })
+    // })
+    //
+    // this.resize = () => { this.resetSectionHeight() }
+    // window.addEventListener('resize', this.resize)
+    // this.resetSectionHeight()
   },
 
   beforeDestroy () {
