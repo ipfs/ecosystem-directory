@@ -197,7 +197,7 @@ export default {
       this.$refs.filterPanel.clearSelected()
     },
     setSearchQuery (query) {
-      this.searchQuery = query
+      this.searchQuery = query.toLowerCase()
     }
   }
 }
