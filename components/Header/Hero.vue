@@ -1,9 +1,9 @@
 <template>
-  <section id="header-hero">
+  <section v-if="headerState" id="header-hero">
 
     <section
       v-if="pageData"
-      class="panel-top transition">
+      :class="`panel-top transition ${headerState}`">
 
       <div :class="`grid-noGutter transition ${headerState} hero-breadcrumbs`">
         <div class="col">
@@ -19,26 +19,33 @@
 
       <div class="grid-noGutter">
         <div class="col-9_sm-12">
-          <div :class="{'headings-wrapper': true, 'results': selectedFiltersCount > 0}">
+          <div :class="{'headings-wrapper': true, 'results': (headerState === 'filters-applied')}">
 
-            <h1 :class="['heading', headerState]">
-              {{ heading }}
-              <span v-if="displayTotal" class="display-total">
-                ({{ displayTotal }})
-              </span>
-              <!-- <template v-if="headerState === 'filters-view'">
+            <div v-if="(headerState === 'index-view')" class="index-heading">
+              <h1>
+                {{ heading }}
+              </h1>
+            </div>
+
+            <div v-if="(headerState === 'filters-view')" class="filters-heading">
+              <h1>
+                {{ heading }}
                 <span class="display-total">
                   ({{ projects.length }})
                 </span>
-              </template>
-              <template v-if="headerState === 'filters-applied'">
-                <span class="display-total">
-                  ({{ selectedFiltersCount }})
-                </span>
-              </template> -->
-            </h1>
+              </h1>
+            </div>
 
-            <!-- <div v-if="(headerState === 'index-view')" class="index-subheading">
+            <div v-if="(headerState === 'filters-applied')" class="filters-heading">
+              <h1>
+                {{ heading }}
+                <span class="display-total">
+                  ({{ filteredCollection.length ? filteredCollection.length : '0' }})
+                </span>
+              </h1>
+            </div>
+
+            <div v-if="(headerState === 'index-view')" class="index-subheading">
               {{ subheading }}
             </div>
 
@@ -52,7 +59,7 @@
                   {{ item.category }} <span class="tags">{{ item.tags }}</span>
                 </li>
               </ul>
-            </div> -->
+            </div>
 
           </div>
         </div>
@@ -112,21 +119,17 @@ export default {
     },
     headerState () {
       const route = this.$route
-      if (route.query.filters === 'enabled') {
-        if (this.selectedFiltersCount > 0) {
-          return 'filters-applied'
-        } else {
-          return 'filters-view'
+      if (route.name === 'index') {
+        if (route.query.filters === 'enabled') {
+          if (this.selectedFiltersCount) {
+            return 'filters-applied'
+          } else {
+            return 'filters-view'
+          }
         }
+        return 'index-view'
       }
-      return 'index-view'
-    },
-    displayTotal () {
-      const selectedFiltersCount = this.selectedFiltersCount
-      const projectCount = this.projects.length
-      // if (this.headerState === 'index-view') { return false }
-      if (selectedFiltersCount > 0) { return selectedFiltersCount }
-      return projectCount
+      return false
     },
     categories () {
       const filters = Taxonomy.categories
@@ -195,7 +198,7 @@ export default {
   }
 }
 
-.heading {
+.index-heading {
   h1 {
     @include small {
       @include fontSize_ExtraExtraLarge;
@@ -203,10 +206,6 @@ export default {
       margin: 1rem 0;
     }
   }
-}
-
-.index-heading {
-
 }
 
 .filters-heading {
