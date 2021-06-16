@@ -163,23 +163,24 @@ export default {
     },
     queryString (val) {
       if (val !== JSON.stringify(this.$route.query)) {
-        const cloned = CloneDeep(this.routeQuery)
-        Object.keys(cloned).forEach((key) => {
-          if (!cloned[key]) { delete cloned[key] }
-        })
-        if (cloned.hasOwnProperty('page')) {
-          if (cloned.page === 1) { delete cloned.page }
-        }
-        if (cloned.hasOwnProperty('filters')) {
-          if (!cloned.filters) { delete cloned.filters }
-        }
-        this.$router.replace({ query: cloned })
+        // const cloned = CloneDeep(this.routeQuery)
+        // Object.keys(cloned).forEach((key) => {
+        //   if (!cloned[key]) { delete cloned[key] }
+        // })
+        // if (cloned.hasOwnProperty('page')) {
+        //   if (cloned.page === 1) { delete cloned.page }
+        // }
+        // if (cloned.hasOwnProperty('filters')) {
+        //   if (!cloned.filters) { delete cloned.filters }
+        // }
+        // this.$router.replace({ query: cloned })
       }
     }
   },
 
   mounted () {
     const filterEnabled = (this.$route.query.filters === 'enabled')
+    console.log(this.$route)
     if (filterEnabled) {
       this.setFilterPanelOpen(filterEnabled)
     } else {
