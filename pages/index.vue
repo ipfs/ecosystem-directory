@@ -156,9 +156,7 @@ export default {
       if (route.query.filters === 'enabled') {
         this.collapseSegmentAndFeaturedSliders()
       } else {
-        if (this.filterPanelOpen) {
-          this.setFilterPanelOpen(false)
-        }
+        this.mountSegmentAndFeaturedSliders()
       }
     },
     queryString (val) {
@@ -183,13 +181,10 @@ export default {
     if (filterEnabled) {
       this.setFilterPanelOpen(filterEnabled)
     } else {
-      this.segmentSlider = true
-      this.featuredSlider = true
-      if (this.filterPanelOpen) {
-        this.setFilterPanelOpen(false)
-      }
-      this.setRouteQuery({ key: 'filters', data: '' })
+      this.mountSegmentAndFeaturedSliders()
     }
+    this.resize = () => { this.resetSectionHeight() }
+    window.addEventListener('resize', this.resize)
 
     const cloned = CloneDeep(this.$route.query)
     Object.keys(cloned).forEach((item) => {
@@ -198,10 +193,6 @@ export default {
         data: cloned[item]
       })
     })
-
-    this.resize = () => { this.resetSectionHeight() }
-    window.addEventListener('resize', this.resize)
-    this.resetSectionHeight()
   },
 
   beforeDestroy () {
@@ -213,6 +204,15 @@ export default {
       setRouteQuery: 'global/setRouteQuery',
       setFilterPanelOpen: 'filters/setFilterPanelOpen'
     }),
+    mountSegmentAndFeaturedSliders () {
+      this.segmentSlider = true
+      this.featuredSlider = true
+      if (this.filterPanelOpen) {
+        this.setFilterPanelOpen(false)
+      }
+      this.setRouteQuery({ key: 'filters', data: '' })
+      this.resetSectionHeight()
+    },
     collapseSegmentAndFeaturedSliders () {
       if (this.segmentSlider && this.featuredSlider) {
         this.segmentSlider = false
