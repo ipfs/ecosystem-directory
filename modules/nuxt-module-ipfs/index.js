@@ -54,8 +54,31 @@ const addHooks = (instance) => {
   */
 
   instance.nuxt.hook('generate:before', (generator, generateOptions) => {
-    // console.log('A')
-    staticAssetsOpts = generateOptions.staticAssets
+    console.log('============================ generator.nuxt.server.publicPath')
+    // console.log(generator.nuxt.server.publicPath)
+    generator.nuxt.server.publicPath = './'
+    console.log('========================== generator.nuxt.renderer.publicPath')
+    // console.log(generator.nuxt.renderer.publicPath)
+    generator.nuxt.renderer.publicPath = './'
+    console.log('===================== generator.options.generate.staticAssets')
+    // console.log(generator.options.generate.staticAssets)
+    generator.options.generate.staticAssets.base = generator.options.generate.staticAssets.base.slice(1)
+    generator.options.generate.staticAssets.versionBase = generator.options.generate.staticAssets.versionBase.slice(1)
+    console.log('==================================== generator.options.router')
+    // console.log(generator.options.router)
+    generator.options.router.base = './'
+    console.log('===================================== generator.options.build')
+    // console.log(generator.options.build)
+    generator.options.build.publicPath = './'
+    generator.options.build._publicPath = './'
+    console.log('======================================= generator.options.app')
+    // console.log(generator.options.app)
+    generator.options.app.basePath = './'
+    generator.options.app.assetsPath = './'
+
+
+    // console.log(generateOptions)
+    // staticAssetsOpts = generateOptions.staticAssets
   })
 
   /*
@@ -65,17 +88,20 @@ const addHooks = (instance) => {
 
   instance.nuxt.hook('vue-renderer:ssr:context', (ctx) => {
     // console.log('B')
-    let path = ctx.nuxt.routePath
-    if (path.includes('/relativity')) {
-      path = path.replace('/relativity', '')
-      ctx.nuxt.routePath = path
-    }
-    parsed = parseRoute(path)
-    // console.log(path)
-    console.log(ctx.nuxt)
-    console.log(parsed)
-    // Apply url replacements to generated javascript before it is serialized
-    ctx.staticAssetsBase = `${parsed.replaceSrc}${staticAssetsOpts.dir}/${staticAssetsOpts.version}`
+    // let path = ctx.nuxt.routePath
+    // if (path.includes('/relativity')) {
+    //   path = path.replace('/relativity', '')
+    //   ctx.nuxt.routePath = path
+    // }
+    // parsed = parseRoute(path)
+    // // console.log(path)
+    // ctx.nuxt.config._app.basePath = parsed.replaceStatic
+    // ctx.nuxt.config._app.assetsPath = parsed.replaceSrc
+    // // Apply url replacements to generated javascript before it is serialized
+    // ctx.staticAssetsBase = `${parsed.replaceSrc}${staticAssetsOpts.dir}/${staticAssetsOpts.version}`
+    // console.log(parsed)
+    // console.log(ctx.staticAssetsBase)
+    // console.log(ctx.nuxt.config)
   })
 
   /*
@@ -86,8 +112,8 @@ const addHooks = (instance) => {
     // console.log('C')
     // console.log(payload.route)
     // console.log(payload)
-    parsed = parseRoute(payload.route)
-    payload.html = payload.html.replace(/\/_nuxt\//gi, parsed.replaceSrc).replace(/\/relativity\//gi, parsed.replaceStatic)
+    // parsed = parseRoute(payload.route)
+    // payload.html = payload.html.replace(/\/_nuxt\//gi, parsed.replaceSrc).replace(/\/relativity\//gi, parsed.replaceStatic)
     // console.log(payload.html.includes('relativity'))
     // if (payload.route.includes('brave')) {
     // }
