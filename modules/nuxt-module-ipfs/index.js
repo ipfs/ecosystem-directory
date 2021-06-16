@@ -126,7 +126,7 @@ const addHooks = (instance) => {
       if (file.includes('"/_nuxt/"')) {
         console.log(`INCLUDES: ${filename}`)
         file = file.replace('"/_nuxt/"', '"_nuxt/"')
-        await Fs.writeFileSync(`${distPath}/${filename}`)
+        await Fs.writeFileSync(`${distPath}/${filename}`, file)
       }
     }
     // console.log(payload.html.includes('relativity'))
