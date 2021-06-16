@@ -11,10 +11,9 @@ console.log(`🔌 [Module | NuxtModuleIpfs] Methods`)
 // ------------------------------------------------------------------ relativity
 const Relativity = (path) => {
   if (!path) { return false }
-  const append = path.charAt(0) === '/' ? path.slice(1) : path
-  console.log(process.env.NODE_ENV)
+  const append = path.charAt(0) === '/' && path.length > 1 ? path.slice(1) : path
   if (process.env.NODE_ENV !== 'development') {
-    if (typeof window !== 'undefined') { return path }
+    if (typeof window !== 'undefined') { return append }
     return `/relativity/${append}`
   }
   return path
