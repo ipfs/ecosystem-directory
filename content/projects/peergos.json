@@ -1,6 +1,6 @@
 {
   "display": true,
-  "featured": false,
+  "featured": true,
   "sortNumbers": {
     "since": 2015
   },
