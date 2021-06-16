@@ -341,6 +341,9 @@ $paginateRoot_PaddingOffset: 3.5rem;
 #paginated-list {
   flex: 1;
   margin-bottom: 3rem;
+  @include small {
+    width: 100%;
+  }
 }
 
 .paginate-root {
