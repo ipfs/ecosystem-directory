@@ -56,6 +56,10 @@ const actions = {
   setActiveTags ({ commit }, payload) {
     commit('SET_ACTIVE_TAGS', payload)
   },
+  // /////////////////////////////////////////////////////////// clearActiveTags
+  clearActiveTags ({ commit }, category) {
+    commit('CLEAR_ACTIVE_TAGS', category)
+  },
   // //////////////////////////////////////////////////////// setFilterPanelOpen
   setFilterPanelOpen ({ commit }, toggle) {
     commit('SET_FILTER_PANEL_OPEN', toggle)
@@ -85,6 +89,11 @@ const mutations = {
       if (i > -1) {
         state.activeTags[category].tags.splice(i, 1)
       }
+    }
+  },
+  CLEAR_ACTIVE_TAGS (state, category) {
+    if (state.activeTags.hasOwnProperty(category)) {
+      state.activeTags[category].tags = []
     }
   },
   SET_FILTER_PANEL_OPEN (state, toggle) {

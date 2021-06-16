@@ -4,7 +4,7 @@
     id="filter-panel"
     :projects="collection"
     :filters="ProjectFilters"
-    :selected="selectedLabels">
+    :selected="selectedTags">
     <div id="filter-accordion">
 
       <Accordion
@@ -31,7 +31,7 @@
               <div class="filter-category chiclet-list">
                 <div
                   :class="['filter-category tag chiclet', { 'active-button': allSelected[i] === heading.tags.length }]"
-                  @click="toggleAll(i, heading.label)">
+                  @click="toggleAll(heading.slug)">
                   All
                 </div>
                 <div
@@ -163,22 +163,15 @@ export default {
     },
     selectedTags () {
       const arr = []
-      // const cloned = CloneDeep(this.activeTags)
-      // Object.keys(cloned).forEach((category) => {
-      //   if (cloned[category].tags.length) {
-      //     const len = cloned[category].tags.length
-      //     for (let i = 0; i < len; i++) {
-      //       arr.push(cloned[category].tags[i])
-      //     }
-      //   }
-      // })
-      return arr
-    },
-    selectedLabels () {
-      const arr = []
-      for (let i = 0; i < this.selected.length; i++) {
-        arr.push(this.selected[i].slug)
-      }
+      const cloned = CloneDeep(this.activeTags)
+      Object.keys(cloned).forEach((category) => {
+        if (cloned[category].tags.length) {
+          const len = cloned[category].tags.length
+          for (let i = 0; i < len; i++) {
+            arr.push(cloned[category].tags[i])
+          }
+        }
+      })
       return arr
     },
     allSelected () {
@@ -213,6 +206,7 @@ export default {
     ...mapActions({
       setRouteQuery: 'global/setRouteQuery',
       setActiveTags: 'filters/setActiveTags',
+      clearActiveTags: 'filters/clearActiveTags',
       setSelectedFiltersCount: 'filters/setSelectedFiltersCount'
     }),
     applyFilter (tag, category) {
@@ -232,39 +226,58 @@ export default {
       // }
       this.setActiveTags({ category, tag })
 
-      if (this.selected.includes(tag)) {
-        this.selected = this.selected.filter(item => item !== tag)
-      } else {
-        this.selected.push(tag)
-      }
+      // if (this.selected.includes(tag)) {
+      //   this.selected = this.selected.filter(item => item !== tag)
+      // } else {
+      //   this.selected.push(tag)
+      // }
 
       appendFilters2URL(this)
     },
-    toggleAll (ind, heading) {
+    toggleAll (heading) {
       const filters = this.ProjectFilters
       const cloned = CloneDeep(this.activeTags)
 
-      if (cloned.hasOwnProperty(heading)) {
-        for (let i = 0; i < filters.length; i++) {
-          if (filters[i].label === heading) {
-            const tags = filters[i].tags
-
-            if (cloned[heading].length === filters[i].tags.length) {
-              cloned[heading] = []
+      filters.forEach((item) => {
+        if (item.slug === heading) {
+          const checker = []
+          for (let i = 0; i < item.tags.length; i++) {
+            if (!this.activeTags[heading].tags.includes(item.tags[i].slug)) {
+              const category = heading
+              const tag = item.tags[i].slug
+              this.setActiveTags({ category, tag })
+              checker.push(false)
             } else {
-              for (let j = 0; j < tags.length; j++) {
-                if (!cloned[heading].includes(tags[j].label)) {
-                  cloned[heading].push(tags[j].label)
-                }
-              }
+              checker.push(true)
             }
-
-            this.setActiveTags(cloned)
+          }
+          if (checker.every((val) => { return val })) {
+            this.clearActiveTags(heading)
           }
         }
-      } else {
-        this.setActiveTags(this.resetCategories())
-      }
+      })
+
+      // if (cloned.hasOwnProperty(heading)) {
+      //   for (let i = 0; i < filters.length; i++) {
+      //     if (filters[i].label === heading) {
+      //       const tags = filters[i].tags
+      //
+      //       if (cloned[heading].length === filters[i].tags.length) {
+      //         cloned[heading] = []
+      //       } else {
+      //         for (let j = 0; j < tags.length; j++) {
+      //           if (!cloned[heading].includes(tags[j].label)) {
+      //             cloned[heading].push(tags[j].label)
+      //           }
+      //         }
+      //       }
+      //
+      //       this.setActiveTags(cloned)
+      //     }
+      //   }
+      // } else {
+      //   this.setActiveTags(this.resetCategories())
+      // }
 
       // const checker = []
       // for (let i = 0; i < filters[ind].tags.length; i++) {
