@@ -156,7 +156,7 @@ export default {
   position: relative;
   align-items: center;
   h3 {
-    @include leading_Small;
+    @include leading_Regular;
     font-weight: 500;
     @include small {
       @include fontSize_Small;
@@ -166,6 +166,7 @@ export default {
 
 .title-large-screen {
   margin-bottom: 1rem;
+  @include leading_Regular;
   @include medium {
     display: none;
   }
@@ -182,7 +183,7 @@ export default {
   @include fontSize_Small;
   font-weight: 400;
   margin-bottom: 2rem;
-  line-height: 1.2;
+  line-height: 1.4;
   color: #494949;
   @include small {
     max-width: 50%;

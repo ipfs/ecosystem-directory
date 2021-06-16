@@ -247,8 +247,10 @@ export default {
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
 #segment-slider-chart {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: $fontInter;
   font-weight: 500;
+  font-size: 13pt;
+  line-height: 1.4;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
