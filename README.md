@@ -100,7 +100,7 @@ $ npm run dev
 
 ## Project Model
 
-Below if an outline of the Project Model. An empty JSON file can be found in `@/content/projects/template.json`. This template file can be duplicated, filled out and renamed to create a new project. It is not necessary to generate a project ID since the filename of each project will serve as a project `slug`.
+Below is an outline of the project model. An empty JSON file can be found in `@/content/projects/template.json`. This template file can be duplicated, filled out and renamed to create a new project. It is not necessary to generate a project ID since the filename of each project will serve as a project `slug`.
 
 ### Naming Convention
 

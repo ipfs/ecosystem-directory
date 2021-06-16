@@ -313,14 +313,29 @@ export default {
   max-width: 20%;
   min-width: 7px;
   transition: background-color 250ms linear, font-weight 250ms linear;
+  &:before {
+    content: '';
+    background-color: inherit;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    @include borderRadius2;
+    transition: transform 200ms linear;
+  }
+  &:hover:before {
+    transform: scaleY(1.15);
+  }
 }
 
 .segment-label {
   position: absolute;
   white-space: normal;
+  padding: 3px;
   font-size: 10pt;
   text-align: left;
-  transform: translateX(-3px);
+  transform: translateX(-6px);
   @include small {
     display: none;
   }
