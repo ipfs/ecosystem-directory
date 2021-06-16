@@ -119,19 +119,14 @@ export default {
     },
     headerState () {
       const route = this.$route
-      // console.log(route)
-      // return false
-      if (route.name === 'index') {
-        if (route.query.filters === 'enabled') {
-          if (this.selectedFiltersCount) {
-            return 'filters-applied'
-          } else {
-            return 'filters-view'
-          }
+      if (route.query.filters === 'enabled') {
+        if (this.selectedFiltersCount) {
+          return 'filters-applied'
+        } else {
+          return 'filters-view'
         }
-        return 'index-view'
       }
-      return false
+      return 'index-view'
     },
     categories () {
       const filters = Taxonomy.categories

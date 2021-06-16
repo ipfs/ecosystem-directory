@@ -3,7 +3,7 @@
 
     <Navigation />
 
-    <Hero />
+    <Hero v-if="homePage" />
 
   </header>
 </template>
@@ -20,6 +20,12 @@ export default {
   components: {
     Navigation,
     Hero
+  },
+
+  computed: {
+    homePage () {
+      return this.$route.name === 'index'      
+    }
   }
 }
 </script>
