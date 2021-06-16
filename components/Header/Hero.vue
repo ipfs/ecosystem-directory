@@ -22,9 +22,10 @@
           <div :class="{'headings-wrapper': true, 'results': (headerState === 'filters-applied')}">
 
             <h1 :class="['heading', headerState]">
-              {{ heading }} - {{ headerState }}
-              {{ projects.length }}
-              {{ selectedFiltersCount }}
+              {{ heading }}
+              <span v-if="displayTotal" class="display-total">
+                ({{ displayTotal }})
+              </span>
               <!-- <template v-if="headerState === 'filters-view'">
                 <span class="display-total">
                   ({{ projects.length }})
@@ -119,6 +120,13 @@ export default {
         }
       }
       return 'index-view'
+    },
+    displayTotal () {
+      const selectedFiltersCount = this.selectedFiltersCount
+      const projectCount = this.projects.length
+      if (this.headerState === 'index-view') { return false }
+      if (selectedFiltersCount > 0) { return selectedFiltersCount }
+      return projectCount
     },
     categories () {
       const filters = Taxonomy.categories
