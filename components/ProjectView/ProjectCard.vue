@@ -1,6 +1,6 @@
 <template>
   <NuxtLink
-    :to="`/project/${slug}`"
+    :to="$relativity(`/project/${slug}`)"
     :class="['project-card', format]">
     <div class="card-inner-wrapper">
 

@@ -35,7 +35,7 @@
               class="primary-cta">
               {{ project.primaryCta.text }}
             </a>
-            <nuxt-link to="/" class="secondary-cta">
+            <nuxt-link :to="$relativity('/')" class="secondary-cta">
               {{ secondaryCtaButtonText }}
             </nuxt-link>
           </div>

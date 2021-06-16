@@ -8,7 +8,9 @@ const path = {
 const Manifestor = async () => {
   try {
     console.log('🚀️ Manifest projects started')
-    const entities = await Fs.readdirSync(path.projects).map(entity => entity.split('.')[0])
+    const entities = await Fs.readdirSync(path.projects)
+      .filter(entity => entity !== '.DS_Store')
+      .map(entity => entity.split('.')[0])
     console.log(entities.join('\n'))
     await Fs.writeFileSync(path.manifest, JSON.stringify(entities))
     console.log('🏁 Manifest projects complete')
