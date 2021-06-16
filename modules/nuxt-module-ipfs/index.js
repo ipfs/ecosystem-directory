@@ -33,7 +33,7 @@ const registerPlugins = (instance, next) => {
 
 // ------------------------------------------------------------------ parseRoute
 const parseRoute = (route) => {
-  console.log(route)
+  // console.log(route)
   const relativity = '../'.repeat(route.split('/').length - 1)
   return {
     // Make core nuxt files relative
@@ -54,7 +54,7 @@ const addHooks = (instance) => {
   */
 
   instance.nuxt.hook('generate:before', (generator, generateOptions) => {
-    console.log('A')
+    // console.log('A')
     staticAssetsOpts = generateOptions.staticAssets
   })
 
@@ -63,9 +63,16 @@ const addHooks = (instance) => {
     serialized
   */
 
-  instance.nuxt.hook('render:routeContext', (ctx) => {
-    console.log('B')
-    parsed = parseRoute(ctx.routePath)
+  instance.nuxt.hook('vue-renderer:ssr:context', (ctx) => {
+    // console.log('B')
+    let path = ctx.nuxt.routePath
+    if (path.includes('/relativity')) {
+      path = path.replace('/relativity', '')
+      ctx.nuxt.routePath = path
+    }
+    parsed = parseRoute(path)
+    // console.log(path)
+    console.log(ctx.nuxt)
     console.log(parsed)
     // Apply url replacements to generated javascript before it is serialized
     ctx.staticAssetsBase = `${parsed.replaceSrc}${staticAssetsOpts.dir}/${staticAssetsOpts.version}`
@@ -76,13 +83,14 @@ const addHooks = (instance) => {
   */
 
   instance.nuxt.hook('generate:page', (payload) => {
-    console.log('C')
+    // console.log('C')
+    // console.log(payload.route)
+    // console.log(payload)
     parsed = parseRoute(payload.route)
-    // console.log(payload.html)
     payload.html = payload.html.replace(/\/_nuxt\//gi, parsed.replaceSrc).replace(/\/relativity\//gi, parsed.replaceStatic)
-    if (payload.route.includes('brave')) {
-      // console.log(payload.html)
-    }
+    // console.log(payload.html.includes('relativity'))
+    // if (payload.route.includes('brave')) {
+    // }
   })
 }
 
