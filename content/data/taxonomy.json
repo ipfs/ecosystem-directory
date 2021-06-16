@@ -2,6 +2,7 @@
   "categories": [
     {
       "label": "Industry",
+      "sublabel": "Custom sublabel goes here",
       "slug": "industry",
       "tags": [
         {
@@ -83,6 +84,7 @@
     },
     {
       "label": "Focus areas",
+      "sublabel": false,
       "slug": "focus",
       "tags": [
         {
