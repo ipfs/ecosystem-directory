@@ -21,31 +21,21 @@
         <div class="col-9_sm-12">
           <div :class="{'headings-wrapper': true, 'results': (headerState === 'filters-applied')}">
 
-            <div v-if="(headerState === 'index-view')" class="index-heading">
-              <h1>
-                {{ heading }}
-              </h1>
-            </div>
-
-            <div v-if="(headerState === 'filters-view')" class="filters-heading">
-              <h1>
-                {{ heading }}
+            <h1 :class="['heading', headerState]">
+              {{ heading }}
+              <template v-if="headerState === 'filters-view'">
                 <span class="display-total">
                   ({{ projects.length }})
                 </span>
-              </h1>
-            </div>
-
-            <div v-if="(headerState === 'filters-applied')" class="filters-heading">
-              <h1>
-                {{ heading }}
+              </template>
+              <template v-if="headerState === 'filters-applied'">
                 <span class="display-total">
-                  ({{ filteredCollection.length ? filteredCollection.length : '0' }})
+                  ({{ selectedFiltersCount }})
                 </span>
-              </h1>
-            </div>
+              </template>
+            </h1>
 
-            <div v-if="(headerState === 'index-view')" class="index-subheading">
+            <!-- <div v-if="(headerState === 'index-view')" class="index-subheading">
               {{ subheading }}
             </div>
 
@@ -59,7 +49,7 @@
                   {{ item.category }} <span class="tags">{{ item.tags }}</span>
                 </li>
               </ul>
-            </div>
+            </div> -->
 
           </div>
         </div>
@@ -195,7 +185,7 @@ export default {
   }
 }
 
-.index-heading {
+.heading {
   h1 {
     @include small {
       @include fontSize_ExtraExtraLarge;
@@ -203,6 +193,10 @@ export default {
       margin: 1rem 0;
     }
   }
+}
+
+.index-heading {
+
 }
 
 .filters-heading {
