@@ -21,7 +21,7 @@
         <div class="col-9_sm-12">
           <div :class="{'headings-wrapper': true, 'results': (headerState === 'filters-applied')}">
 
-            <div v-show="(headerState === 'index-view')" class="index-heading">
+            <!-- <div v-show="(headerState === 'index-view')" class="index-heading">
               <h1>
                 {{ heading }}
               </h1>
@@ -59,7 +59,7 @@
                   {{ item.category }} <span class="tags">{{ item.tags }}</span>
                 </li>
               </ul>
-            </div>
+            </div> -->
 
           </div>
         </div>
@@ -119,17 +119,19 @@ export default {
     },
     headerState () {
       const route = this.$route
-      if (route.name === 'index') {
-        if (route.query.filters === 'enabled') {
-          if (this.selectedFiltersCount) {
-            return 'filters-applied'
-          } else {
-            return 'filters-view'
-          }
-        }
-        return 'index-view'
-      }
+      console.log(route)
       return false
+      // if (route.name === 'index') {
+      //   if (route.query.filters === 'enabled') {
+      //     if (this.selectedFiltersCount) {
+      //       return 'filters-applied'
+      //     } else {
+      //       return 'filters-view'
+      //     }
+      //   }
+      //   return 'index-view'
+      // }
+      // return false
     },
     categories () {
       const filters = Taxonomy.categories
