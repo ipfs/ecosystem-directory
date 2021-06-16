@@ -189,11 +189,11 @@ export default {
   },
 
   mounted () {
-    if (this.$route.query.filters === 'enabled' && this.$route.query.tags) {
-      applyFiltersFromURL(this)
-    } else {
-      this.setActiveTags(this.resetCategories())
-    }
+    // if (this.$route.query.filters === 'enabled' && this.$route.query.tags) {
+    //   applyFiltersFromURL(this)
+    // } else {
+    //   this.setActiveTags(this.resetCategories())
+    // }
   },
 
   methods: {

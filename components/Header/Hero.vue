@@ -120,13 +120,13 @@ export default {
     headerState () {
       const route = this.$route
       if (route.name === 'index') {
-        if (route.query.filters === 'enabled') {
-          if (this.selectedFiltersCount) {
-            return 'filters-applied'
-          } else {
-            return 'filters-view'
-          }
-        }
+        // if (route.query.filters === 'enabled') {
+        //   if (this.selectedFiltersCount) {
+        //     return 'filters-applied'
+        //   } else {
+        //     return 'filters-view'
+        //   }
+        // }
         return 'index-view'
       }
       return false
