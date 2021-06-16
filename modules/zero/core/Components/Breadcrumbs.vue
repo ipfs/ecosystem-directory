@@ -5,7 +5,7 @@
       :is="link.type"
       v-for="(link, index) in breadcrumbs"
       :key="index"
-      :to="link.disabled ? '' : { path: link.href, query: link.query || false }"
+      :to="link.disabled ? '' : { path: $relativity(link.href), query: link.query || false }"
       :href="link.disabled ? '' : link.href + $CompileQueryString(link.query)"
       :disabled="link.disabled"
       :target="link.target"
