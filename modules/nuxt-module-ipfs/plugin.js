@@ -1,10 +1,10 @@
 /*
  *
- * 🔌 [Plugin | NuxtPluginIpfs] Methods
+ * 🔌 [Plugin | NuxtModuleIpfs] Methods
  *
  */
 
-console.log(`🔌 [Plugin | NuxtPluginIpfs] Methods`)
+console.log(`🔌 [Module | NuxtModuleIpfs] Methods`)
 
 // /////////////////////////////////////////////////////////////////// Functions
 // -----------------------------------------------------------------------------
