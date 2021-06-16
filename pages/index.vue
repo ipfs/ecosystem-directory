@@ -205,11 +205,9 @@ export default {
       setFilterPanelOpen: 'filters/setFilterPanelOpen'
     }),
     mountSegmentAndFeaturedSliders () {
-      this.segmentSlider = true
-      this.featuredSlider = true
-      if (this.filterPanelOpen) {
-        this.setFilterPanelOpen(false)
-      }
+      if (!this.segmentSlider) { this.segmentSlider = true }
+      if (!this.featuredSlider) { this.featuredSlider = true }
+      if (this.filterPanelOpen) { this.setFilterPanelOpen(false) }
       this.setRouteQuery({ key: 'filters', data: '' })
       this.resetSectionHeight()
     },

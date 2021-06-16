@@ -30,7 +30,7 @@
           "label": "Home"
         },
         {
-          "type": "nuxt-link",
+          "type": "a",
           "href": "/",
           "label": "Ecosystem directory"
         },
@@ -46,7 +46,7 @@
           "label": "Home"
         },
         {
-          "type": "nuxt-link",
+          "type": "a",
           "href": "/",
           "label": "Ecosystem directory"
         },
