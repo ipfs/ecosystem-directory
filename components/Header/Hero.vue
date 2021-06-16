@@ -3,7 +3,7 @@
 
     <section
       v-if="pageData"
-      :class="`panel-top transition ${headerState}`">
+      class="panel-top transition">
 
       <div :class="`grid-noGutter transition ${headerState} hero-breadcrumbs`">
         <div class="col">
@@ -19,7 +19,7 @@
 
       <div class="grid-noGutter">
         <div class="col-9_sm-12">
-          <div :class="{'headings-wrapper': true, 'results': (headerState === 'filters-applied')}">
+          <div :class="{'headings-wrapper': true, 'results': selectedFiltersCount > 0}">
 
             <h1 :class="['heading', headerState]">
               {{ heading }}
@@ -124,7 +124,7 @@ export default {
     displayTotal () {
       const selectedFiltersCount = this.selectedFiltersCount
       const projectCount = this.projects.length
-      if (this.headerState === 'index-view') { return false }
+      // if (this.headerState === 'index-view') { return false }
       if (selectedFiltersCount > 0) { return selectedFiltersCount }
       return projectCount
     },
