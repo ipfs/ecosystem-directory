@@ -88,35 +88,38 @@ const addHooks = (instance) => {
       .replace(/\/_nuxt\//gi, parsed.replaceSrc)
       .replace(/\/relativity\//gi, parsed.replaceStatic)
 
-    const script = `
-      <script>
-        window.onload = function () {
-          var asyncScripts = ${JSON.stringify(asyncScripts)};
-          var lenI = asyncScripts.length;
-          var found = [];
-          for (var i = 0; i < lenI; i++) {
-            var filename = asyncScripts[i];
-            var scripts = document.querySelectorAll('script');
-            var lenJ = scripts.length;
-            for (var j = 0; j < lenJ; j++) {
-              var script = scripts[j];
-              if (!script.src.includes(filename)) {
-                console.log('NOT FOUND | ' + filename);
-                var newScript = document.createElement('script');
-                newScript.src = '${parsed.replaceSrc}' + filename;
-                // document.body.appendChild(newScript);
-                console.log(newScript);
-              }
-            }
-          }
-        }
-      </script>
-    `
-
-    const split = payload.html.split('</body>')
-    const len = split.length
-    split.splice(1, len - 2, script)
-    payload.html = split.join('')
+    // const script = `
+    //   <script>
+    //     window.onload = function () {
+    //       var timeout = setTimeout(function () {
+    //         var asyncScripts = ${JSON.stringify(asyncScripts)};
+    //         var lenI = asyncScripts.length;
+    //         var found = [];
+    //         for (var i = 0; i < lenI; i++) {
+    //           var filename = asyncScripts[i];
+    //           var scripts = document.querySelectorAll('script');
+    //           var lenJ = scripts.length;
+    //           for (var j = 0; j < lenJ; j++) {
+    //             var script = scripts[j];
+    //             if (!script.src.includes(filename)) {
+    //               console.log('NOT FOUND | ' + filename);
+    //               var newScript = document.createElement('script');
+    //               newScript.src = '${parsed.replaceSrc}' + filename;
+    //               // document.body.appendChild(newScript);
+    //               console.log(newScript);
+    //             }
+    //           }
+    //         }
+    //         clearTimeout(timeout)
+    //       }, 1000)
+    //     }
+    //   </script>
+    // `
+    //
+    // const split = payload.html.split('</body>')
+    // const len = split.length
+    // split.splice(1, len - 2, script)
+    // payload.html = split.join('')
 
 
     // const distPath = `${__dirname}/../../dist/_nuxt`

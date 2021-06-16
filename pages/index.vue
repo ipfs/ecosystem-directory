@@ -173,7 +173,7 @@ export default {
         if (cloned.hasOwnProperty('filters')) {
           if (!cloned.filters) { delete cloned.filters }
         }
-        this.$router.push({ query: cloned })
+        this.$router.replace({ query: cloned })
       }
     }
   },
