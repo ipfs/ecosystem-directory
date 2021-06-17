@@ -91,8 +91,10 @@ const addHooks = (instance) => {
           var pathname = window.location.pathname;
           var len = pathname.length;
           console.log(pathname.substr(0, len - 1));
-          if (pathname.charAt(0) === '/') { console.log('A'); pathname = pathname.slice(1); }
-          if (pathname.charAt(len - 1) === '/') { console.log('B'); pathname = pathname.substr(0, len - 1); }
+          console.log(pathname.split('/').filter(x => x).join('/'))
+          if (pathname.charAt(0) === "/") { console.log('A'); pathname = pathname.slice(1); }
+          if (pathname.charAt(len - 1) === "/") { console.log('B'); pathname = pathname.substr(0, len - 1); }
+          if (pathname.charAt(len - 1) == "/") string = string.substr(0, string.length - 1);
           console.log(pathname);
           var split = pathname.split("/");
           console.log(split);
