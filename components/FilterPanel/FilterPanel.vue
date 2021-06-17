@@ -1,6 +1,6 @@
 <template>
   <Filters
-    v-show="ProjectFilters"
+    v-if="ProjectFilters"
     id="filter-panel"
     :projects="collection"
     :filters="ProjectFilters"
@@ -49,7 +49,7 @@
 
       <div id="filter-panel-controls" class="bottom-buttons">
         <button
-          v-show="selected.length"
+          v-if="selected.length"
           class="clear-selected"
           @click="clearSelected">
           {{ clearSelectedFiltersButtonText }}
