@@ -18,8 +18,11 @@ const Relativity = (path) => {
     if (typeof window !== 'undefined') {
       const ipfsPathRegExp = new RegExp('^(/(?:ipfs|ipns)/[^/]+)')
       const ipfsPathPrefix = (window.location.pathname.match(ipfsPathRegExp) || [])[1] || ''
-      console.log(path)
-      if (ipfsPathPrefix) { return `${ipfsPathPrefix}/${path}` }
+      console.log(ipfsPathPrefix, path)
+      if (ipfsPathPrefix) {
+        console.log(`${ipfsPathPrefix}${path}`)
+        return `${ipfsPathPrefix}${path}`
+      }
       return path
     }
     return `/relativity/${append}`
@@ -47,13 +50,13 @@ export default (context, inject) => {
     const ipfsPathRegExp = new RegExp('^(/(?:ipfs|ipns)/[^/]+)')
     const ipfsPathPrefix = (window.location.pathname.match(ipfsPathRegExp) || [])[1] || ''
 
-    // console.log('plugin __webpack_public_path__', __webpack_public_path__)
+    console.log('plugin __webpack_public_path__', __webpack_public_path__)
 
     if (ipfsPathPrefix) {
-      // __webpack_public_path__ = ipfsPathPrefix + '/_nuxt/'
+      __webpack_public_path__ = ipfsPathPrefix + '/_nuxt/'
       context.app.router.history.base = ipfsPathPrefix || window.location.host
     }
 
-    // console.log('plugin __webpack_public_path__', __webpack_public_path__)
+    console.log('plugin __webpack_public_path__', __webpack_public_path__)
   }
 }

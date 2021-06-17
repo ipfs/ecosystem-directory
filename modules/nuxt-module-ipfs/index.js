@@ -82,24 +82,20 @@ const addHooks = (instance) => {
 
     const script = `
       <script>
-        (function () {
+        /*(function () {
           if (typeof window !== 'undefined') {
             const ipfsPathRegExp = new RegExp('^(/(?:ipfs|ipns)/[^/]+)')
             const ipfsPathPrefix = (window.location.pathname.match(ipfsPathRegExp) || [])[1] || ''
 
-            console.log('plugin __webpack_public_path__', __webpack_public_path__)
+            console.log('__webpack_public_path__', __webpack_public_path__)
 
             if (ipfsPathPrefix) {
               __webpack_public_path__ = ipfsPathPrefix + '/_nuxt/'
-
-              /*if (typeof window !== 'undefined') {
-                context.app.router.history.base = ipfsPathPrefix || window.location.host
-              }*/
             }
 
-            console.log('plugin __webpack_public_path__', __webpack_public_path__)
+            console.log('__webpack_public_path__', __webpack_public_path__)
           }
-        }())
+        }())*/
       </script>
     `
 
