@@ -214,6 +214,7 @@ export default {
 .nav-arrow {
   @include borderRadius3;
   display: flex;
+  padding: 0.25rem;
   flex-direction: row;
   align-items: center;
   justify-content: center;

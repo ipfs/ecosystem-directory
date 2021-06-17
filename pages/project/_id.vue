@@ -223,21 +223,25 @@
     </div>
 
     <section id="section-featured-slider">
-      <div class="grid-center">
+      <div class="outerbox">
+        <div class="featured-box">
+          <div class="grid-center">
 
-        <div class="col-12">
-          <h3 class="heading">
-            {{ generalPageData.section_featured_slider.heading }}
-          </h3>
-          <div class="description">
-            {{ generalPageData.section_featured_slider.description }}
+            <div class="col-12">
+              <h3 class="heading">
+                {{ generalPageData.section_featured_slider.heading }}
+              </h3>
+              <div class="description">
+                {{ generalPageData.section_featured_slider.description }}
+              </div>
+            </div>
+
+            <div class="col-11_mi-12">
+              <FeaturedProjectsSlider />
+            </div>
+
           </div>
         </div>
-
-        <div class="col-11_mi-12">
-          <FeaturedProjectsSlider />
-        </div>
-
       </div>
     </section>
 
@@ -566,6 +570,10 @@ export default {
         margin-right: 0;
         margin-bottom: 1rem;
       }
+      &:hover {
+        color: white;
+        background-color: $blackPearl;
+      }
     }
     &.secondary-cta {
       background: url('~assets/theme/svgs/chevronright.svg') no-repeat right center;
@@ -877,6 +885,15 @@ export default {
 
 // /////////////////////////////////////////////////// [Section] Featured Slider
 #section-featured-slider {
+  .heading,
+  .description {
+    @include xlarge {
+      padding-left: 2rem;
+    }
+    @include large {
+      padding-left: 0;
+    }
+  }
   margin-top: 4rem;
   padding-bottom: 4rem;
   @include mini {
@@ -887,6 +904,24 @@ export default {
 
 #featured-projects-slider {
   margin-top: 1rem;
+}
+
+.featured-box {
+  padding-top: 4.75rem;
+  max-width: 90rem;
+  margin: auto;
+  border: 2px solid #E5E5E5;
+  @include borderRadius3;
+  @include xlarge {
+    margin: auto 3.75rem;
+  }
+  @include large {
+    padding-top: 3.75rem;
+    margin: auto 1.5rem;
+  }
+  @include mini {
+    margin: auto;
+  }
 }
 
 ::v-deep .project-card {

@@ -65,6 +65,7 @@ export default {
   &:hover {
     .title {
       text-decoration: underline;
+      text-underline-offset: $underlineSpacing;
     }
     .thumbnail img {
       transform: scale(1.05);

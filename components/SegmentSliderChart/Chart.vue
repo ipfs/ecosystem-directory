@@ -18,28 +18,24 @@
 
             <span
               v-if="item.above"
-              class="segment-label noselect"
-              :style="`width: ${Math.min(item.chars, 15) * 8}px; top: ${item.pos - (item.chars < 16 ? 0 : 21)}px`">
-              {{ item.cat }}
-            </span>
+              class="segment-label noselect avoid-me"
+              :style="`width: ${Math.min(item.chars, 15) * 8}px; top: ${item.pos - (item.chars < 16 ? 0 : 21)}px`">{{ item.cat }}</span>
 
             <span
               v-else
-              class="segment-label noselect"
-              :style="`width: ${Math.min(item.chars, 15) * 8}px; top: ${-1 * (item.pos) + segH / 2}px`">
-              {{ item.cat }}
-            </span>
+              class="segment-label noselect avoid-me"
+              :style="`width: ${Math.min(item.chars, 15) * 8}px; top: ${-1 * (item.pos) + segH / 2}px`">{{ item.cat }}</span>
 
             <div
               v-if="item.above"
-              class="segment-line"
-              :style="`transform: translateY(${item.pos + 21}px); height: ${-1 * (item.pos + 28)}px`">
+              class="segment-line avoid-me"
+              :style="`top: ${-6}px; height: ${Math.abs(item.pos) - 26}px; transform: rotate(180deg);`">
             </div>
 
             <div
               v-else
-              class="segment-line"
-              :style="`transform: translateY(${segH + 8}px); height: ${-1 * (item.pos + segH + 8) + segH / 2}px`">
+              class="segment-line avoid-me"
+              :style="`top: ${segH + 6}px; height: ${Math.abs(item.pos) - 26}px`">
             </div>
 
           </template>
@@ -138,33 +134,39 @@ export default {
       return next()
     },
     repositionOverlappingLabels (next) {
-      const labels = document.getElementsByClassName('segment-label')
-      const lines = document.getElementsByClassName('segment-line')
+      const labels = document.querySelectorAll('.segment-label')
+      const lines = document.querySelectorAll('.segment-line')
 
       for (let ind = 0; ind < this.segments.length - 1; ind++) {
-        const label = labels[ind].getBoundingClientRect()
-        const mirror = {
-          left: label.left,
-          right: label.right,
-          top: label.top + 2 * (this.segments[ind].pos) + this.segH,
-          bottom: label.bottom + 2 * (this.segments[ind].pos) + this.segH
-        }
-        for (let j = ind + 1; j < Math.min(labels.length, ind + 4); j++) {
-          const test1 = labels[j].getBoundingClientRect()
-          const test2 = lines[j].getBoundingClientRect()
-          const isOverlappingTopLabel = !(label.right < test1.left || label.left > test1.right || label.bottom < test1.top || label.top > test1.bottom)
-          const isOverlappingTopLine = !(label.right < test2.left || label.left > test2.right || label.bottom < test2.top || label.top > test2.bottom)
-          const willOverlappingBottomLabel = !(mirror.right < test1.left || mirror.left > test1.right || mirror.bottom < test1.top || mirror.top > test1.bottom)
-          const willOverlappingBottomLine = !(mirror.right < test2.left || mirror.left > test2.right || mirror.bottom < test2.top || mirror.top > test2.bottom)
+        if (labels[ind]) {
+          const label = labels[ind].getBoundingClientRect()
+          const mirror = {
+            left: label.left,
+            right: label.right,
+            top: label.top + 2 * (this.segments[ind].pos) + this.segH,
+            bottom: label.bottom + 2 * (this.segments[ind].pos) + this.segH
+          }
 
-          if (isOverlappingTopLabel || isOverlappingTopLine) {
-            if (!willOverlappingBottomLabel && !willOverlappingBottomLine) {
-              if (this.segments[ind].pos < this.segments[j].pos) {
-                this.segments[ind].above = !this.segments[ind].above
-                j = labels.length
-              } else {
-                this.segments[j].above = !this.segments[j].above
-                j = labels.length
+          for (let j = ind + 1; j < Math.min(labels.length, ind + 4); j++) {
+            if (labels[j] && lines[j]) {
+              const test1 = labels[j].getBoundingClientRect()
+              const test2 = lines[j].getBoundingClientRect()
+
+              const isOverlappingTopLabel = !(label.right < test1.left || label.left > test1.right || label.bottom < test1.top || label.top > test1.bottom)
+              const isOverlappingTopLine = !(label.right < test2.left || label.left > test2.right || label.bottom < test2.top || label.top > test2.bottom)
+              const willOverlappingBottomLabel = !(mirror.right < test1.left || mirror.left > test1.right || mirror.bottom < test1.top || mirror.top > test1.bottom)
+              const willOverlappingBottomLine = !(mirror.right < test2.left || mirror.left > test2.right || mirror.bottom < test2.top || mirror.top > test2.bottom)
+
+              if (isOverlappingTopLabel || isOverlappingTopLine) {
+                if (!willOverlappingBottomLabel && !willOverlappingBottomLine) {
+                  if (this.segments[ind].pos < this.segments[j].pos) {
+                    this.segments[ind].above = !this.segments[ind].above
+                    j = labels.length
+                  } else {
+                    this.segments[j].above = !this.segments[j].above
+                    j = labels.length
+                  }
+                }
               }
             }
           }
@@ -173,21 +175,23 @@ export default {
       return next()
     },
     reduceOffset (amt, next) {
-      const labels = document.getElementsByClassName('segment-label')
+      const labels = document.querySelectorAll('.segment-label')
       for (let i = 0; i < this.segments.length; i++) {
         const overlaps = []
         const dir = this.segments[i].above ? amt : (-1 * amt)
         for (let j = 0; j < this.segments.length; j++) {
           if (j !== i) {
-            const rect1 = labels[i].getBoundingClientRect()
-            const rect2 = labels[j].getBoundingClientRect()
-            const isNotOverlapping = (
-              rect1.right < rect2.left ||
-              rect1.left > rect2.right ||
-              rect1.bottom + dir < rect2.top ||
-              rect1.top + dir > rect2.bottom
-            )
-            overlaps.push(isNotOverlapping)
+            if (labels[i] && labels[j]) {
+              const rect1 = labels[i].getBoundingClientRect()
+              const rect2 = labels[j].getBoundingClientRect()
+              const isNotOverlapping = (
+                rect1.right < rect2.left ||
+                rect1.left > rect2.right ||
+                rect1.bottom + dir < rect2.top ||
+                rect1.top + dir > rect2.bottom
+              )
+              overlaps.push(isNotOverlapping)
+            }
           }
         }
         const result = overlaps.every(Boolean)
@@ -197,6 +201,44 @@ export default {
       }
       return next()
     },
+    dropOverLappingLabels () {
+      const targets = document.querySelectorAll('.avoid-me')
+      const labels = document.querySelectorAll('.segment-label')
+
+      const overlaps = []
+      for (let i = 0; i < labels.length; i++) {
+        const arr = []
+        for (let j = 0; j < targets.length; j++) {
+          if (targets[j] !== labels[i]) {
+            if (labels[i] && targets[j]) {
+              const rect1 = labels[i].getBoundingClientRect()
+              const rect2 = targets[j].getBoundingClientRect()
+              const isNotOverlapping = (
+                rect1.right < rect2.left ||
+                rect1.left > rect2.right ||
+                rect1.bottom < rect2.top ||
+                rect1.top > rect2.bottom
+              )
+              arr.push(isNotOverlapping)
+            }
+          }
+        }
+        const result = arr.every(Boolean)
+        overlaps.push(!result)
+      }
+      const indices = overlaps.reduce(
+        (out, bool, index) => bool ? out.concat(index) : out,
+        []
+      )
+      for (let i = 1; i < indices.length + 1; i++) {
+        if (i in indices) {
+          if ((indices[i - 1] + 1) === indices[i]) {
+            const x = indices[i]
+            this.segments[x].display = false
+          }
+        }
+      }
+    },
     handleResize () {
       if (window.matchMedia('(max-width: 64rem)').matches) {
         this.$refs.segmentsCtn.classList.remove('segments-large')
@@ -204,28 +246,15 @@ export default {
       } else {
         this.$refs.segmentsCtn.classList.remove('segments-tiny')
         this.$refs.segmentsCtn.classList.add('segments-large')
+        this.segments.forEach((segment) => { segment.display = true })
         this.forceLabelsOut(() => {
           this.repositionOverlappingLabels(() => {
             this.reduceOffset(25, () => {
               this.setMinOffsets(() => {
                 setTimeout(() => {
-                  this.forceLabelsOut(() => {
-                    this.repositionOverlappingLabels(() => {
-                      setTimeout(() => {
-                        this.setMinOffsets(() => {
-                          for (let r = 0; r < 30; r++) {
-                            setTimeout(() => {
-                              this.reduceOffset(4, () => {
-                                this.setMinOffsets(() => null)
-                                this.$emit('chart-mounted')
-                              })
-                            }, 10 * r)
-                          }
-                        })
-                      }, 10)
-                    })
-                  })
-                }, 10)
+                  this.dropOverLappingLabels()
+                  this.$emit('chart-mounted')
+                }, 500)
               })
             })
           })
@@ -325,17 +354,17 @@ export default {
     transition: transform 200ms linear;
   }
   &:hover:before {
-    transform: scaleY(1.15);
+    transform: scale(1.02, 1.15);
   }
 }
 
 .segment-label {
   position: absolute;
   white-space: normal;
-  padding: 3px;
+  padding: 0px;
   font-size: 10pt;
   text-align: left;
-  transform: translateX(-6px);
+  transform: translateX(-3px);
   @include small {
     display: none;
   }
@@ -346,6 +375,7 @@ export default {
   left: 50%;
   background-color: rgba(0, 0, 0, 0.1);
   width: 2px;
+  transform-origin: top left;
   @include small {
     display: none;
   }

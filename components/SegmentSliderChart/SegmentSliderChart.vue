@@ -90,7 +90,7 @@ const createLabels = (projects) => {
     const categories = [...new Set(tags)]
     const items = []
     const len = categories.length
-
+    const topSide = [1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1]
     for (let i = 0; i < len; i++) {
       const category = categories[i]
       if (industry.hasOwnProperty(category)) {
@@ -114,12 +114,13 @@ const createLabels = (projects) => {
         }
 
         tags.forEach((tag) => { if (tag === category) { count++ } })
+        const pick = i in topSide ? topSide[i] : Math.round(Math.random() * 1.4)
         items.push({
           cat: label,
           count,
           size: count * 10,
           chars: l,
-          above: Math.round(Math.random() * 1.4),
+          above: pick,
           force: frc,
           logos: selection,
           display: true,
