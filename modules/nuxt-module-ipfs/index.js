@@ -69,7 +69,7 @@ const addHooks = (instance) => {
 
   instance.nuxt.hook('vue-renderer:ssr:context', (ctx) => {
     parsed = parseRoute(ctx.nuxt.routePath)
-    console.log(ctx)
+    // console.log(ctx)
     // Apply url replacements to generated javascript before it is serialized
     ctx.staticAssetsBase = `${parsed.replaceSrc}${staticAssetsOpts.dir}/${staticAssetsOpts.version}`
   })
