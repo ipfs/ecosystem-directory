@@ -48,7 +48,6 @@ const parseRoute = (route) => {
 const addHooks = (instance) => {
   let staticAssetsOpts
   let parsed
-  // let asyncScripts
 
   /*
     Grab the static asset path options to be applied in the render:routeContext
@@ -58,10 +57,6 @@ const addHooks = (instance) => {
   instance.nuxt.hook('generate:before', (generator, generateOptions) => {
     staticAssetsOpts = generateOptions.staticAssets
   })
-
-  // instance.nuxt.hook('render:resourcesLoaded', (resources) => {
-  //   asyncScripts = resources.clientManifest.async
-  // })
 
   /*
     This block gives us access to the generated javascript before it is
@@ -91,47 +86,26 @@ const addHooks = (instance) => {
     for (let i = 0; i < len; i++) {
       const filename = filenames[i]
       let file = await Fs.readFileSync(`${distPath}/${filename}`) + ''
-      if (file.includes('"/_nuxt/"')) {
+      if (file.includes('"/_nuxt/"') && !file.includes('return "/_nuxt/"')) {
         file = file.replace('"/_nuxt/"', `(function () {
-          var pathname = window.location.pathname.replace(/^\/|\/$/g, "");
-          var split = pathname.split("/");
+          var pathname = window.location.pathname;
+          var len = pathname.length;
+          if (pathname.charAt(0) === '/') { pathname = pathname.slice(1); }
+          if (pathname.charAt(len - 1) === '/') { pathname = pathname.slice(0, len - 1); }
           console.log(pathname);
+          var split = pathname.split("/");
           console.log(split);
           if (split[0] === "ipfs") {
             var relativity = "../".repeat(split.length - 2);
+            console.log(relativity);
             return relativity + "_nuxt/";
           } else {
             return "/_nuxt/";
           }
         }())`)
-        // console.log(file)
         await Fs.writeFileSync(`${distPath}/${filename}`, file)
       }
     }
-
-    // if (payload.route.includes('brave')) {
-    //   console.log(payload.html)
-    // }
-
-    // const distPath = `${__dirname}/../../dist/_nuxt`
-    // const filenames = await Fs.readdirSync(distPath)
-    //   .filter(filename => filename.includes('.js'))
-    // // console.log(filenames)
-    // const len = filenames.length
-    // for (let i = 0; i < len; i++) {
-    //   const filename = filenames[i]
-    //   let file = await Fs.readFileSync(`${distPath}/${filename}`) + ''
-    //   // console.log(file + '')
-    //   if (file.includes('"/_nuxt/"')) {
-    //     // console.log(`INCLUDES: ${filename}`)
-    //     file = file.replace('"/_nuxt/"', '"_nuxt/"')
-    //     await Fs.writeFileSync(`${distPath}/${filename}`, file)
-    //   }
-    // }
-
-    // console.log(payload.html.includes('relativity'))
-    // if (payload.route.includes('brave')) {
-    // }
   })
 }
 
