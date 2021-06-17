@@ -86,13 +86,37 @@ const addHooks = (instance) => {
     // for (let i = 0; i < len; i++) {
     //   const filename = filenames[i]
     //   let file = await Fs.readFileSync(`${distPath}/${filename}`) + ''
-    //   if (file.includes('"/_nuxt/"') && !file.includes('120000')) {
-    //     // file = file.replace('"/_nuxt/"', '"asd"')
-    //     file = file.replace('timeout=120', 'timeout=120000')
-    //     console.log(file)
+    //   if (file.includes('"/_nuxt/"') && !file.includes('return "/_nuxt/"')) {
+    //     file = file.replace('"/_nuxt/"', `(function () {
+    //       var split = window.location.pathname.split('/').filter(x => x);
+    //       console.log(split);
+    //       if (split[0] === "ipfs") {
+    //         var relativity = "../".repeat(split.length - 2);
+    //         console.log(relativity + "_nuxt/");
+    //         return relativity + "_nuxt/";
+    //       } else {
+    //         return "/_nuxt/";
+    //       }
+    //     }())`)
     //     await Fs.writeFileSync(`${distPath}/${filename}`, file)
     //   }
     // }
+
+    const distPath = `${__dirname}/../../dist/_nuxt`
+    const filenames = await Fs.readdirSync(distPath).filter(filename => filename.includes('.js'))
+    const len = filenames.length
+    for (let i = 0; i < len; i++) {
+      const filename = filenames[i]
+      let file = await Fs.readFileSync(`${distPath}/${filename}`) + ''
+      if (file.includes('"/_nuxt/"') && !file.includes('return "/_nuxt/"')) {
+        file = file.replace('"83a40bc"', '""')
+        file = file.replace('"701a434"', '""')
+        file = file.replace('"81e9e14"', '""')
+        file = file.replace('"ddb009b"', '""')
+        console.log(file)
+        await Fs.writeFileSync(`${distPath}/${filename}`, file)
+      }
+    }
 
   })
 }
