@@ -51,12 +51,12 @@ export default (context, inject) => {
     const ipfsPathPrefix = (window.location.pathname.match(ipfsPathRegExp) || [])[1] || ''
 
     if (ipfsPathPrefix) {
-      console.log(`__webpack_public_path__ | ${__webpack_public_path__}`)
-      console.log(`context.app.router.history.base | ${context.app.router.history.base}`)
-      __webpack_public_path__ = ipfsPathPrefix + '/_nuxt/'
-      context.app.router.history.base = ipfsPathPrefix + '/'
-      console.log(`__webpack_public_path__ | ${__webpack_public_path__}`)
-      console.log(`context.app.router.history.base | ${context.app.router.history.base}`)
+      // console.log(`__webpack_public_path__ | ${__webpack_public_path__}`)
+      // console.log(`context.app.router.history.base | ${context.app.router.history.base}`)
+      // __webpack_public_path__ = ipfsPathPrefix + '/_nuxt/'
+      // context.app.router.history.base = ipfsPathPrefix + '/'
+      // console.log(`__webpack_public_path__ | ${__webpack_public_path__}`)
+      // console.log(`context.app.router.history.base | ${context.app.router.history.base}`)
     }
 
   }
