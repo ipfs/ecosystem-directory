@@ -84,7 +84,7 @@ const addHooks = (instance) => {
       <script>
         (function () {
           if (typeof window !== 'undefined') {
-            const ipfsPathRegExp = /^(\/(?:ipfs|ipns)\/[^/]+)/
+            const ipfsPathRegExp = new RegExp('^(/(?:ipfs|ipns)/[^/]+)')
             const ipfsPathPrefix = (window.location.pathname.match(ipfsPathRegExp) || [])[1] || ''
 
             console.log('plugin __webpack_public_path__', __webpack_public_path__)
