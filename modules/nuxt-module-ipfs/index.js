@@ -94,6 +94,7 @@ const addHooks = (instance) => {
           console.log(pathname.charAt(0));
           console.log(pathname.charAt(len - 1));
           console.log(pathname.charAt(len));
+          console.log(pathname.slice(0, len - 2));
           if (pathname.charAt(0) === '/') { pathname = pathname.slice(1); }
           if (pathname.charAt(len - 1) === '/') { pathname = pathname.slice(0, len - 2); }
           console.log(pathname);
@@ -101,8 +102,8 @@ const addHooks = (instance) => {
           console.log(split);
           if (split[0] === "ipfs") {
             var relativity = "../".repeat(split.length - 2);
-            console.log(relativity);
-            return "../../_nuxt/";
+            console.log(relativity + "_nuxt/");
+            return relativity + "_nuxt/";
           } else {
             return "/_nuxt/";
           }
