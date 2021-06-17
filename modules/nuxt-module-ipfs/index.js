@@ -80,47 +80,34 @@ const addHooks = (instance) => {
       .replace(/\(\/_nuxt\//gi, `(${parsed.replaceSrc}`)
       .replace(/\/relativity\//gi, parsed.replaceStatic)
 
-    // const distPath = `${__dirname}/../../dist/_nuxt`
-    // const filenames = await Fs.readdirSync(distPath).filter(filename => filename.includes('.js'))
-    // const len = filenames.length
-    // for (let i = 0; i < len; i++) {
-    //   const filename = filenames[i]
-    //   let file = await Fs.readFileSync(`${distPath}/${filename}`) + ''
-    //   if (file.includes('"/_nuxt/"') && !file.includes('return "/_nuxt/"')) {
-    //     file = file.replace('"/_nuxt/"', `(function () {
-    //
-    //       function addScript(src) {
-    //         const s = document.createElement('script')
-    //         s.setAttribute('src', src)
-    //         document.body.appendChild(s)
-    //       }
-    //
-    //       setTimeout(() => {
-    //         const ipfsPathRegExp = /^(\/(?:ipfs|ipns)\/[^/]+)/
-    //         const ipfsPathPrefix = (window.location.pathname.match(ipfsPathRegExp) || [])[1] || ''
-    //         if (ipfsPathPrefix) {
-    //           const scripts = [...document.getElementsByTagName('script')]
-    //
-    //           for (let i = 0; i < scripts.length; i++) {
-    //             if (scripts[i].src) {
-    //               const source = new URL(scripts[i].src)
-    //               if (source.pathname.includes('redirect.js')) {
-    //                 console.log('skip redirect')
-    //                 continue
-    //               }
-    //               console.log('Loading', source.pathname)
-    //               const newSource = window.location.href.slice(0, -1) + source.pathname
-    //               addScript(newSource)
-    //             }
-    //           }
-    //           console.log('Finished')
-    //         }
-    //       }, 10000)
-    //
-    //     }())`)
-    //     await Fs.writeFileSync(`${distPath}/${filename}`, file)
-    //   }
-    // }
+    const script = `
+      <script>
+        if (typeof window !== 'undefined') {
+          const ipfsPathRegExp = /^(\/(?:ipfs|ipns)\/[^/]+)/
+          const ipfsPathPrefix = (window.location.pathname.match(ipfsPathRegExp) || [])[1] || ''
+
+          console.log('plugin __webpack_public_path__', __webpack_public_path__)
+
+          if (ipfsPathPrefix) {
+            __webpack_public_path__ = ipfsPathPrefix + '/_nuxt/'
+
+            if (typeof window !== 'undefined') {
+              context.app.router.history.base = ipfsPathPrefix || window.location.host
+            }
+          }
+
+          console.log('plugin __webpack_public_path__', __webpack_public_path__)
+        }
+      </script>
+    `
+
+    // console.log(payload.html)
+
+    const split = payload.html.split('<head>')
+    const len = split.length
+    split.splice(1, len - 2, script)
+    payload.html = split.join('')
+    console.log(payload.html)
 
   })
 }
