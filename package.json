@@ -46,7 +46,7 @@
     "kramed": "^0.5.6",
     "mobile-device-detect": "^0.4.3",
     "node-sass": "^6.0.0",
-    "nuxt": "^2.15.7",
+    "nuxt": "^2.14.12",
     "papaparse": "^5.3.1",
     "paper": "^0.12.15",
     "parallax-js": "^3.1.0",
