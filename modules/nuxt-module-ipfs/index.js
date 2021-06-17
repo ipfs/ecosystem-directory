@@ -115,8 +115,9 @@ const addHooks = (instance) => {
         // file = file.replace('"ddb009b"', '""')
         file = `
           (function () {
-            console.log(window)
-          }())
+            console.log(window);
+            window.__NUXT__.config._app.assetsPath = "../../_nuxt"
+          }());
         ` + file;
         console.log(file)
         await Fs.writeFileSync(`${distPath}/${filename}`, file)
