@@ -80,19 +80,20 @@ const addHooks = (instance) => {
       .replace(/\(\/_nuxt\//gi, `(${parsed.replaceSrc}`)
       .replace(/\/relativity\//gi, parsed.replaceStatic)
 
-    const distPath = `${__dirname}/../../dist/_nuxt`
-    const filenames = await Fs.readdirSync(distPath).filter(filename => filename.includes('.js'))
-    const len = filenames.length
-    for (let i = 0; i < len; i++) {
-      const filename = filenames[i]
-      let file = await Fs.readFileSync(`${distPath}/${filename}`) + ''
-      if (file.includes('"/_nuxt/"') && !file.includes('120000')) {
-        // file = file.replace('"/_nuxt/"', '"asd"')
-        file = file.replace('timeout=120', 'timeout=120000')
-        console.log(file)
-        await Fs.writeFileSync(`${distPath}/${filename}`, file)
-      }
-    }
+    // const distPath = `${__dirname}/../../dist/_nuxt`
+    // const filenames = await Fs.readdirSync(distPath).filter(filename => filename.includes('.js'))
+    // const len = filenames.length
+    // for (let i = 0; i < len; i++) {
+    //   const filename = filenames[i]
+    //   let file = await Fs.readFileSync(`${distPath}/${filename}`) + ''
+    //   if (file.includes('"/_nuxt/"') && !file.includes('120000')) {
+    //     // file = file.replace('"/_nuxt/"', '"asd"')
+    //     file = file.replace('timeout=120', 'timeout=120000')
+    //     console.log(file)
+    //     await Fs.writeFileSync(`${distPath}/${filename}`, file)
+    //   }
+    // }
+
   })
 }
 
@@ -101,7 +102,7 @@ const addHooks = (instance) => {
 function NuxtModuleIpfs () {
   console.log(`📦 [Module] NuxtModuleIpfs`)
   registerPlugins(this, () => {
-    // addHooks(this)
+    addHooks(this)
     // if (process.env.NODE_ENV !== 'development') {
     //   addHooks(this)
     // }
