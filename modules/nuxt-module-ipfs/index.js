@@ -91,7 +91,7 @@ const addHooks = (instance) => {
           var pathname = window.location.pathname;
           var len = pathname.length;
           if (pathname.charAt(0) === '/') { pathname = pathname.slice(1); }
-          if (pathname.charAt(len - 1) === '/') { pathname = pathname.slice(0, len - 1); }
+          if (pathname.charAt(len - 1) === '/') { pathname = pathname.slice(0, len - 2); }
           console.log(pathname);
           var split = pathname.split("/");
           console.log(split);
