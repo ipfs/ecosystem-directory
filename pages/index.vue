@@ -167,15 +167,15 @@ export default {
   },
 
   watch: {
-    // '$route' (route) {
-    //   if (route.query.filters === 'enabled') {
-    //     this.collapseSegmentAndFeaturedSliders()
-    //   } else {
-    //     if (this.filterPanelOpen) {
-    //       this.setFilterPanelOpen(false)
-    //     }
-    //   }
-    // },
+    '$route' (route) {
+      if (route.query.filters === 'enabled') {
+        this.collapseSegmentAndFeaturedSliders()
+      } else {
+        if (this.filterPanelOpen) {
+          this.setFilterPanelOpen(false)
+        }
+      }
+    },
     activeTags: {
       deep: true,
       handler (obj) {

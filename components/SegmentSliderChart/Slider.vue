@@ -89,13 +89,13 @@ export default {
       type: Number,
       default: 0
     },
+    parentCategory: {
+      type: String,
+      required: true
+    },
     containerHeight: {
       type: Number,
       default: 440
-    },
-    description: {
-      type: String,
-      default: ''
     },
     items: {
       type: Array,
@@ -134,10 +134,8 @@ export default {
     },
     jump2Filters () {
       this.setRouteQuery({ key: 'filters', data: 'enabled' })
-      this.setRouteQuery({ key: 'tags', data: this.selectedCat.slug })
-
+      this.setActiveTags({ category: this.parentCategory, tag: this.selectedCat.slug })
       this.setFilterPanelOpen(true)
-      this.$nuxt.$emit('applyIndustryFilter', this.selectedCat.slug)
     }
   }
 }

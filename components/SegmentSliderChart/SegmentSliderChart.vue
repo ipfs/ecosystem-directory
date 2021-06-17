@@ -11,6 +11,7 @@
         v-if="chartItems"
         :selected-cat="chartItems[selected]"
         :selected-seg="selected"
+        :parent-category="parentCategory"
         :container-height="containerHeight"
         @update-slider="setSliderContent" />
 
@@ -221,6 +222,9 @@ export default {
     }),
     chartItems () {
       return createLabels(this.projects)
+    },
+    parentCategory () {
+      return Taxonomy.categories[0].slug
     }
   },
 
