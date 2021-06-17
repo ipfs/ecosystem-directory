@@ -91,9 +91,9 @@ const addHooks = (instance) => {
           if (ipfsPathPrefix) {
             __webpack_public_path__ = ipfsPathPrefix + '/_nuxt/'
 
-            if (typeof window !== 'undefined') {
+            /*if (typeof window !== 'undefined') {
               context.app.router.history.base = ipfsPathPrefix || window.location.host
-            }
+            }*/
           }
 
           console.log('plugin __webpack_public_path__', __webpack_public_path__)
