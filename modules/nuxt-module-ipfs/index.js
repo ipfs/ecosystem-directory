@@ -69,6 +69,7 @@ const addHooks = (instance) => {
 
   instance.nuxt.hook('vue-renderer:ssr:context', (ctx) => {
     parsed = parseRoute(ctx.nuxt.routePath)
+    console.log(ctx)
     // Apply url replacements to generated javascript before it is serialized
     ctx.staticAssetsBase = `${parsed.replaceSrc}${staticAssetsOpts.dir}/${staticAssetsOpts.version}`
   })
@@ -84,32 +85,32 @@ const addHooks = (instance) => {
       .replace(/\(\/_nuxt\//gi, `(${parsed.replaceSrc}`)
       .replace(/\/relativity\//gi, parsed.replaceStatic)
 
-    const script = `
-      <script>
-        /*(function () {
-          if (typeof window !== 'undefined') {
-            const ipfsPathRegExp = new RegExp('^(/(?:ipfs|ipns)/[^/]+)')
-            const ipfsPathPrefix = (window.location.pathname.match(ipfsPathRegExp) || [])[1] || ''
-
-            console.log('__webpack_public_path__', __webpack_public_path__)
-
-            if (ipfsPathPrefix) {
-              __webpack_public_path__ = ipfsPathPrefix + '/_nuxt/'
-            }
-
-            console.log('__webpack_public_path__', __webpack_public_path__)
-          }
-        }())*/
-      </script>
-    `
-
-    // console.log(payload.html)
-
-    const split = payload.html.split('</body>')
-    const len = split.length
-    split.splice(1, len - 2, script)
-    payload.html = split.join('')
-    // console.log(payload.html)
+    // const script = `
+    //   <script>
+    //     /*(function () {
+    //       if (typeof window !== 'undefined') {
+    //         const ipfsPathRegExp = new RegExp('^(/(?:ipfs|ipns)/[^/]+)')
+    //         const ipfsPathPrefix = (window.location.pathname.match(ipfsPathRegExp) || [])[1] || ''
+    //
+    //         console.log('__webpack_public_path__', __webpack_public_path__)
+    //
+    //         if (ipfsPathPrefix) {
+    //           __webpack_public_path__ = ipfsPathPrefix + '/_nuxt/'
+    //         }
+    //
+    //         console.log('__webpack_public_path__', __webpack_public_path__)
+    //       }
+    //     }())*/
+    //   </script>
+    // `
+    //
+    // // console.log(payload.html)
+    //
+    // const split = payload.html.split('</body>')
+    // const len = split.length
+    // split.splice(1, len - 2, script)
+    // payload.html = split.join('')
+    // // console.log(payload.html)
 
   })
 }
