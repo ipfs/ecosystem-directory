@@ -57,7 +57,7 @@ const addHooks = (instance) => {
   instance.nuxt.hook('generate:before', (generator, generateOptions) => {
     console.log(generator.options.router.base)
     generator.options.router.base = function () {
-      return '/'
+      return '/hello/'
     }
     console.log(generator.options.router.base)
     staticAssetsOpts = generateOptions.staticAssets
