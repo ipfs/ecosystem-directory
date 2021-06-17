@@ -89,12 +89,9 @@ const addHooks = (instance) => {
       if (file.includes('"/_nuxt/"') && !file.includes('return "/_nuxt/"')) {
         file = file.replace('"/_nuxt/"', `(function () {
           var pathname = window.location.pathname;
-          pathname = pathname.replace(/^\/+/, '');
-          pathname = pathname.replace(/\/+$/, '');
           var len = pathname.length;
-          // console.log(pathname.slice(0, len));
-          // if (pathname.charAt(0) === '/') { pathname = pathname.slice(1); }
-          // if (pathname.charAt(len - 1) === '/') { pathname = pathname.slice(0, len); }
+          if (pathname.charAt(0) === '/') { pathname = pathname.slice(1); }
+          if (pathname.charAt(len - 1) === '/') { pathname = pathname.substr(0, len - 1); }
           console.log(pathname);
           var split = pathname.split("/");
           console.log(split);
