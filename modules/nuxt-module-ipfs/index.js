@@ -96,7 +96,7 @@ const addHooks = (instance) => {
       // console.log(file + '')
       if (file.includes('"/_nuxt/"')) {
         // console.log(`INCLUDES: ${filename}`)
-        file = file.replace('"/_nuxt/"', `(function () { console.log(window); return '/_nuxt/'; }())`)
+        file = file.replace('"/_nuxt/"', `(function () { console.log(window); return "/_nuxt/"; }())`)
         // console.log(file)
         await Fs.writeFileSync(`${distPath}/${filename}`, file)
       }
