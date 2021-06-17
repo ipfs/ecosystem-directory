@@ -75,7 +75,8 @@ export default {
   render: {
     bundleRenderer: {
       runInNewContext: false
-    }
+    },
+    resourceHints: false
   },
   // /////////////////////////////////////////////////////// Headers of the Page
   // ---------------------------------------------------------------------------
