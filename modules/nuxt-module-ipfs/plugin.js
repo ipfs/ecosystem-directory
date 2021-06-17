@@ -15,7 +15,12 @@ const Relativity = (path) => {
   if (!path) { return false }
   const append = path.charAt(0) === '/' ? path.slice(1) : path
   if (process.env.NODE_ENV !== 'development') {
-    if (typeof window !== 'undefined') { return path }
+    if (typeof window !== 'undefined') {
+      const ipfsPathRegExp = new RegExp('^(/(?:ipfs|ipns)/[^/]+)')
+      const ipfsPathPrefix = (window.location.pathname.match(ipfsPathRegExp) || [])[1] || ''
+      if (ipfsPathPrefix) { return `${ipfsPathPrefix}/${path}` }
+      return path
+    }
     return `/relativity/${append}`
   }
   return path
