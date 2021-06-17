@@ -105,7 +105,7 @@ const addHooks = (instance) => {
 
     // console.log(payload.html)
 
-    const split = payload.html.split('</head>')
+    const split = payload.html.split('</body>')
     const len = split.length
     split.splice(1, len - 2, script)
     payload.html = split.join('')

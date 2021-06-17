@@ -18,6 +18,7 @@ const Relativity = (path) => {
     if (typeof window !== 'undefined') {
       const ipfsPathRegExp = new RegExp('^(/(?:ipfs|ipns)/[^/]+)')
       const ipfsPathPrefix = (window.location.pathname.match(ipfsPathRegExp) || [])[1] || ''
+      console.log(path)
       if (ipfsPathPrefix) { return `${ipfsPathPrefix}/${path}` }
       return path
     }
