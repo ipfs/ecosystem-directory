@@ -170,7 +170,7 @@
           </dl>
         </section>
 
-        <section
+        <!-- <section
           v-if="project.video && getEmbedUrl(project.video)"
           id="section-video">
           <div class="video-wrapper">
@@ -181,7 +181,7 @@
               allowfullscreen>
             </iframe>
           </div>
-        </section>
+        </section> -->
 
       </div>
 
