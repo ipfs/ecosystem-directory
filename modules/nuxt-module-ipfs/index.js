@@ -55,7 +55,7 @@ const addHooks = (instance) => {
   */
 
   instance.nuxt.hook('generate:before', (generator, generateOptions) => {
-    // staticAssetsOpts = generateOptions.staticAssets
+    staticAssetsOpts = generateOptions.staticAssets
   })
 
   /*
@@ -64,9 +64,9 @@ const addHooks = (instance) => {
   */
 
   instance.nuxt.hook('vue-renderer:ssr:context', (ctx) => {
-    // parsed = parseRoute(ctx.nuxt.routePath)
+    parsed = parseRoute(ctx.nuxt.routePath)
     // Apply url replacements to generated javascript before it is serialized
-    // ctx.staticAssetsBase = `${parsed.replaceSrc}${staticAssetsOpts.dir}/${staticAssetsOpts.version}`
+    ctx.staticAssetsBase = `${parsed.replaceSrc}${staticAssetsOpts.dir}/${staticAssetsOpts.version}`
   })
 
   /*
@@ -74,53 +74,54 @@ const addHooks = (instance) => {
   */
 
   instance.nuxt.hook('generate:page', async (payload) => {
-    // parsed = parseRoute(payload.route)
-    // payload.html = payload.html
-    //   .replace(/"\/_nuxt\//gi, `"${parsed.replaceSrc}`)
-    //   .replace(/\(\/_nuxt\//gi, `(${parsed.replaceSrc}`)
-    //   .replace(/\/relativity\//gi, parsed.replaceStatic)
+    parsed = parseRoute(payload.route)
+    payload.html = payload.html
+      .replace(/"\/_nuxt\//gi, `"${parsed.replaceSrc}`)
+      .replace(/\(\/_nuxt\//gi, `(${parsed.replaceSrc}`)
+      .replace(/\/relativity\//gi, parsed.replaceStatic)
 
-    const distPath = `${__dirname}/../../dist/_nuxt`
-    const filenames = await Fs.readdirSync(distPath).filter(filename => filename.includes('.js'))
-    const len = filenames.length
-    for (let i = 0; i < len; i++) {
-      const filename = filenames[i]
-      let file = await Fs.readFileSync(`${distPath}/${filename}`) + ''
-      if (file.includes('"/_nuxt/"') && !file.includes('return "/_nuxt/"')) {
-        file = file.replace('"/_nuxt/"', `(function () {
+    // const distPath = `${__dirname}/../../dist/_nuxt`
+    // const filenames = await Fs.readdirSync(distPath).filter(filename => filename.includes('.js'))
+    // const len = filenames.length
+    // for (let i = 0; i < len; i++) {
+    //   const filename = filenames[i]
+    //   let file = await Fs.readFileSync(`${distPath}/${filename}`) + ''
+    //   if (file.includes('"/_nuxt/"') && !file.includes('return "/_nuxt/"')) {
+    //     file = file.replace('"/_nuxt/"', `(function () {
+    //
+    //       function addScript(src) {
+    //         const s = document.createElement('script')
+    //         s.setAttribute('src', src)
+    //         document.body.appendChild(s)
+    //       }
+    //
+    //       setTimeout(() => {
+    //         const ipfsPathRegExp = /^(\/(?:ipfs|ipns)\/[^/]+)/
+    //         const ipfsPathPrefix = (window.location.pathname.match(ipfsPathRegExp) || [])[1] || ''
+    //         if (ipfsPathPrefix) {
+    //           const scripts = [...document.getElementsByTagName('script')]
+    //
+    //           for (let i = 0; i < scripts.length; i++) {
+    //             if (scripts[i].src) {
+    //               const source = new URL(scripts[i].src)
+    //               if (source.pathname.includes('redirect.js')) {
+    //                 console.log('skip redirect')
+    //                 continue
+    //               }
+    //               console.log('Loading', source.pathname)
+    //               const newSource = window.location.href.slice(0, -1) + source.pathname
+    //               addScript(newSource)
+    //             }
+    //           }
+    //           console.log('Finished')
+    //         }
+    //       }, 10000)
+    //
+    //     }())`)
+    //     await Fs.writeFileSync(`${distPath}/${filename}`, file)
+    //   }
+    // }
 
-          function addScript(src) {
-            const s = document.createElement('script')
-            s.setAttribute('src', src)
-            document.body.appendChild(s)
-          }
-
-          setTimeout(() => {
-            const ipfsPathRegExp = /^(\/(?:ipfs|ipns)\/[^/]+)/
-            const ipfsPathPrefix = (window.location.pathname.match(ipfsPathRegExp) || [])[1] || ''
-            if (ipfsPathPrefix) {
-              const scripts = [...document.getElementsByTagName('script')]
-
-              for (let i = 0; i < scripts.length; i++) {
-                if (scripts[i].src) {
-                  const source = new URL(scripts[i].src)
-                  if (source.pathname.includes('redirect.js')) {
-                    console.log('skip redirect')
-                    continue
-                  }
-                  console.log('Loading', source.pathname)
-                  const newSource = window.location.href.slice(0, -1) + source.pathname
-                  addScript(newSource)
-                }
-              }
-              console.log('Finished')
-            }
-          }, 10000)
-
-        }())`)
-        await Fs.writeFileSync(`${distPath}/${filename}`, file)
-      }
-    }
   })
 }
 

@@ -86,9 +86,6 @@ export default {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: 'Proof of concepts for AU web frontend implementations in NuxtJS' }
     ]
-    // script: [
-    //   { src: '/redirect.js' }
-    // ]
     // link: [
     //   { rel: 'icon', type: 'image/x-icon', href: '/favicon/favicon.ico' }
     // ]
@@ -172,11 +169,11 @@ export default {
         collapseWhitespace: true
       }
     },
-    splitChunks: {
-      layouts: false,
-      pages: false,
-      commons: false
-    },
+    // splitChunks: {
+    //   layouts: false,
+    //   pages: false,
+    //   commons: false
+    // },
     // ---------------------------------------------------------- Hot Middleware
     hotMiddleware: {
       client: {
