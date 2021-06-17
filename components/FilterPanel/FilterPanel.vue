@@ -20,7 +20,7 @@
               <div class="filter-category heading">
                 {{ heading.label }}
                 <span class="filter-category number-active">
-                  {{ allSelected[i] }} of {{ heading.tags.length }}
+                  {{ numberInCategory[heading.slug] }} of {{ heading.tags.length }}
                 </span>
                 <h5 class="filter-category sub-heading">
                   Filter by {{ heading.label }}
@@ -30,7 +30,7 @@
             <AccordionContent>
               <div class="filter-category chiclet-list">
                 <div
-                  :class="['filter-category tag chiclet', { 'active-button': allSelected[i] === heading.tags.length }]"
+                  :class="['filter-category tag chiclet', { 'active-button': numberInCategory[heading.slug] === heading.tags.length }]"
                   @click="toggleAll(heading.slug)">
                   All
                 </div>
@@ -49,7 +49,7 @@
 
       <div id="filter-panel-controls" class="bottom-buttons">
         <button
-          v-if="selected.length"
+          v-if="selectedFiltersCount"
           class="clear-selected"
           @click="clearSelected">
           {{ clearSelectedFiltersButtonText }}
@@ -77,6 +77,7 @@ import AccordionContent from '@/modules/zero/core/Components/Accordion/Content'
 import Taxonomy from '@/content/data/taxonomy.json'
 
 // =================================================================== Functions
+// appendFilters2URL(this) this will be done in index.vue watching activeTags object
 const appendFilters2URL = (instance) => {
   let slug = ''
   const len = instance.selected.length
@@ -111,6 +112,30 @@ const applyFiltersFromURL = (instance) => {
   instance.selected = arr
 }
 
+const toggleAllCategoryTags = (instance, heading) => {
+  const filters = instance.ProjectFilters
+  const cloned = CloneDeep(instance.activeTags)
+
+  filters.forEach((item) => {
+    if (item.slug === heading) {
+      const checker = []
+      for (let i = 0; i < item.tags.length; i++) {
+        if (!instance.activeTags[heading].tags.includes(item.tags[i].slug)) {
+          const category = heading
+          const tag = item.tags[i].slug
+          instance.setActiveTags({ category, tag })
+          checker.push(false)
+        } else {
+          checker.push(true)
+        }
+      }
+      if (checker.every((val) => { return val })) {
+        instance.clearActiveTags(heading)
+      }
+    }
+  })
+}
+
 // ====================================================================== Export
 
 export default {
@@ -132,12 +157,6 @@ export default {
     }
   },
 
-  data () {
-    return {
-      selected: []
-    }
-  },
-
   computed: {
     ...mapGetters({
       siteContent: 'global/siteContent',
@@ -149,7 +168,7 @@ export default {
     },
     clearSelectedFiltersButtonText () {
       const clearButtonText = this.filterPanelContent.clear_button_text
-      const count = this.selected.length
+      const count = this.selectedFiltersCount
       return `${clearButtonText.before}${count > 0 ? ` (${count}) ` : ' '}${clearButtonText.after}`
     },
     submitButtonText () {
@@ -158,47 +177,33 @@ export default {
     ProjectFilters () {
       return Taxonomy.categories
     },
-    initToggles () {
-      return Array(Taxonomy.categories.length).fill(true)
-    },
     selectedTags () {
       const arr = []
       const cloned = CloneDeep(this.activeTags)
       Object.keys(cloned).forEach((category) => {
         if (cloned[category].tags.length) {
           const len = cloned[category].tags.length
-          for (let i = 0; i < len; i++) {
-            arr.push(cloned[category].tags[i])
-          }
+          for (let i = 0; i < len; i++) { arr.push(cloned[category].tags[i]) }
         }
       })
       return arr
     },
-    allSelected () {
-      const arr = []
-      const len = this.ProjectFilters.length
-      for (let i = 0; i < len; i++) {
-        if (this.activeTags.hasOwnProperty(this.ProjectFilters[i].label)) {
-          arr.push(this.activeTags[this.ProjectFilters[i].label].length)
-        } else {
-          arr.push(0)
-        }
-      }
-      return arr
-    }
-  },
-
-  watch: {
-    selected () {
-      this.setSelectedFiltersCount(this.selected.length)
-    }
-  },
-
-  mounted () {
-    if (this.$route.query.filters === 'enabled' && this.$route.query.tags) {
-      applyFiltersFromURL(this)
-    } else {
-      // this.setActiveTags(this.resetCategories())
+    numberInCategory () {
+      const obj = {}
+      const cloned = CloneDeep(this.activeTags)
+      Object.keys(cloned).forEach((category) => {
+        const key = cloned[category].slug
+        const val = cloned[category].tags.length
+        obj[key] = val
+      })
+      return obj
+    },
+    selectedFiltersCount () {
+      let count = 0
+      Object.keys(this.activeTags).forEach((category) => {
+        count += this.activeTags[category].tags.length
+      })
+      return count
     }
   },
 
@@ -207,111 +212,17 @@ export default {
       setRouteQuery: 'global/setRouteQuery',
       setActiveTags: 'filters/setActiveTags',
       clearActiveTags: 'filters/clearActiveTags',
-      setSelectedFiltersCount: 'filters/setSelectedFiltersCount'
+      setSelectedFiltersCount: 'filters/setSelectedFiltersCount',
+      clearStore: 'filters/clearStore'
     }),
     applyFilter (tag, category) {
-      // const cloned = CloneDeep(this.activeTags)
-      //
-      // if (cloned) {
-      //   if (cloned.hasOwnProperty(heading)) {
-      //     if (cloned[heading].includes(tag.label)) {
-      //       cloned[heading] = cloned[heading].filter(item => item !== tag.label)
-      //     } else {
-      //       cloned[heading].push(tag.label)
-      //     }
-      //   }
-      //   this.setActiveTags(cloned)
-      // } else {
-      //   this.setActiveTags(this.resetCategories())
-      // }
       this.setActiveTags({ category, tag })
-
-      // if (this.selected.includes(tag)) {
-      //   this.selected = this.selected.filter(item => item !== tag)
-      // } else {
-      //   this.selected.push(tag)
-      // }
-
-      appendFilters2URL(this)
     },
     toggleAll (heading) {
-      const filters = this.ProjectFilters
-      const cloned = CloneDeep(this.activeTags)
-
-      filters.forEach((item) => {
-        if (item.slug === heading) {
-          const checker = []
-          for (let i = 0; i < item.tags.length; i++) {
-            if (!this.activeTags[heading].tags.includes(item.tags[i].slug)) {
-              const category = heading
-              const tag = item.tags[i].slug
-              this.setActiveTags({ category, tag })
-              checker.push(false)
-            } else {
-              checker.push(true)
-            }
-          }
-          if (checker.every((val) => { return val })) {
-            this.clearActiveTags(heading)
-          }
-        }
-      })
-
-      // if (cloned.hasOwnProperty(heading)) {
-      //   for (let i = 0; i < filters.length; i++) {
-      //     if (filters[i].label === heading) {
-      //       const tags = filters[i].tags
-      //
-      //       if (cloned[heading].length === filters[i].tags.length) {
-      //         cloned[heading] = []
-      //       } else {
-      //         for (let j = 0; j < tags.length; j++) {
-      //           if (!cloned[heading].includes(tags[j].label)) {
-      //             cloned[heading].push(tags[j].label)
-      //           }
-      //         }
-      //       }
-      //
-      //       this.setActiveTags(cloned)
-      //     }
-      //   }
-      // } else {
-      //   this.setActiveTags(this.resetCategories())
-      // }
-
-      // const checker = []
-      // for (let i = 0; i < filters[ind].tags.length; i++) {
-      //   if (!this.selected.includes(filters[ind].tags[i])) {
-      //     this.selected.push(filters[ind].tags[i])
-      //     checker.push(false)
-      //   } else {
-      //     checker.push(true)
-      //   }
-      // }
-      // const success = checker.every((val) => { return val })
-      // if (success) {
-      //   for (let i = 0; i < filters[ind].tags.length; i++) {
-      //     const tag = filters[ind].tags[i]
-      //     if (this.selected.includes(tag)) {
-      //       this.selected = this.selected.filter(item => item !== tag)
-      //     }
-      //   }
-      // }
-
-      appendFilters2URL(this)
+      toggleAllCategoryTags(this, heading)
     },
     clearSelected () {
-      this.selected = []
-      this.setActiveTags(this.resetCategories())
-      appendFilters2URL(this)
-    },
-    resetCategories () {
-      const cats = {}
-      for (let i = 0; i < this.ProjectFilters.length; i++) {
-        const name = this.ProjectFilters[i].label
-        cats[name] = []
-      }
-      return cats
+      this.clearStore()
     },
     closePanel () {
       this.$emit('toggleFilterPanel')

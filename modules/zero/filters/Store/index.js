@@ -32,8 +32,7 @@ const initTaxonomyLabels = () => {
 const state = {
   activeTags: initActiveTags(),
   taxonomyLabels: initTaxonomyLabels(),
-  filterPanelOpen: false,
-  selectedFiltersCount: 0
+  filterPanelOpen: false
 }
 
 // ///////////////////////////////////////////////////////////////////// Getters
@@ -41,8 +40,7 @@ const state = {
 const getters = {
   activeTags: state => state.activeTags,
   taxonomyLabels: state => state.taxonomyLabels,
-  filterPanelOpen: state => state.filterPanelOpen,
-  selectedFiltersCount: state => state.selectedFiltersCount
+  filterPanelOpen: state => state.filterPanelOpen
 }
 
 // ///////////////////////////////////////////////////////////////////// Actions
@@ -63,10 +61,6 @@ const actions = {
   // //////////////////////////////////////////////////////// setFilterPanelOpen
   setFilterPanelOpen ({ commit }, toggle) {
     commit('SET_FILTER_PANEL_OPEN', toggle)
-  },
-  // /////////////////////////////////////////////////// setSelectedFiltersCount
-  setSelectedFiltersCount ({ commit }, amount) {
-    commit('SET_SELECTED_FILTERS_COUNT', amount)
   }
 }
 
@@ -76,8 +70,6 @@ const mutations = {
   CLEAR_STORE (state) {
     state.activeTags = initActiveTags()
     state.taxonomyLabels = initTaxonomyLabels()
-    state.filtersActive = false
-    state.totalFilters = 0
   },
   SET_ACTIVE_TAGS (state, payload) {
     const category = payload.category
@@ -98,9 +90,6 @@ const mutations = {
   },
   SET_FILTER_PANEL_OPEN (state, toggle) {
     state.filterPanelOpen = toggle
-  },
-  SET_SELECTED_FILTERS_COUNT (state, amount) {
-    state.selectedFiltersCount = amount
   }
 }
 

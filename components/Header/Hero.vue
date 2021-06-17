@@ -54,11 +54,11 @@
             </div>
 
             <div v-if="(headerState === 'filters-applied')" class="filters-subheading">
-              <!-- <ul>
+              <ul>
                 <li v-for="item in categories" :key="item.category">
                   {{ item.category }} <span class="tags">{{ item.tags }}</span>
                 </li>
-              </ul> -->
+              </ul>
             </div>
 
           </div>
@@ -73,10 +73,10 @@
 <script>
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
+import CloneDeep from 'lodash/cloneDeep'
 
 import Breadcrumbs from '@/modules/zero/core/Components/Breadcrumbs'
 
-import Taxonomy from '@/content/data/taxonomy.json'
 // ====================================================================== Export
 export default {
   name: 'HeaderHero',
@@ -97,9 +97,9 @@ export default {
       navigation: 'global/navigation',
       projects: 'projects/projects',
       activeTags: 'filters/activeTags',
+      taxonomyLabels: 'filters/taxonomyLabels',
       filteredCollection: 'core/filteredCollection',
-      filterPanelOpen: 'filters/filterPanelOpen',
-      selectedFiltersCount: 'filters/selectedFiltersCount'
+      filterPanelOpen: 'filters/filterPanelOpen'
     }),
     pageData () {
       return this.siteContent.index.page_content
@@ -119,9 +119,13 @@ export default {
     },
     headerState () {
       const route = this.$route
+      let selectedFiltersCount = 0
+      Object.keys(this.activeTags).forEach((category) => {
+        selectedFiltersCount += this.activeTags[category].tags.length
+      })
       if (route.name === 'index') {
         if (route.query.filters === 'enabled') {
-          if (this.selectedFiltersCount) {
+          if (selectedFiltersCount) {
             return 'filters-applied'
           } else {
             return 'filters-view'
@@ -131,20 +135,22 @@ export default {
       }
       return false
     },
-    // categories () {
-    //   const filters = Taxonomy.categories
-    //   const arr = []
-    //   for (let i = 0; i < filters.length; i++) {
-    //     const tags = this.activeTags[filters[i].label]
-    //     if (tags.length) {
-    //       arr.push({
-    //         category: filters[i].label + ':',
-    //         tags: tags.join(', ')
-    //       })
-    //     }
-    //   }
-    //   return arr
-    // }
+    categories () {
+      const arr = []
+      const cloned = CloneDeep(this.activeTags)
+      Object.keys(cloned).forEach((category) => {
+        if (cloned[category].tags.length) {
+          let string = []
+          const tags = cloned[category].tags
+          for (let i = 0; i < tags.length; i++) { string.push(this.taxonomyLabels[tags[i]]) }
+          arr.push({
+            category: cloned[category].label + ':',
+            tags: string.join(', ')
+          })
+        }
+      })
+      return arr
+    }
   }
 }
 </script>
