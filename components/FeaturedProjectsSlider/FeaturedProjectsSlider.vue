@@ -199,7 +199,7 @@ input {
       cursor: pointer;
       -webkit-appearance: none;
       margin-top: -9px;
-      background: url('./sliderthumb.svg') no-repeat;
+      background: url('~assets/theme/svgs/sliderthumb.svg') no-repeat;
     }
     &::-moz-range-track {
       width: 100%;
@@ -214,7 +214,7 @@ input {
       height: 20px;
       width: 51px;
       cursor: pointer;
-      background: url('./sliderthumb.svg') no-repeat;
+      background: url('~assets/theme/svgs/sliderthumb.svg') no-repeat;
       border: none;
       border-radius: 0px;
     }
@@ -238,7 +238,7 @@ input {
       height: 20px;
       width: 51px;
       cursor: pointer;
-      background: url('./sliderthumb.svg') no-repeat;
+      background: url('~assets/theme/svgs/sliderthumb.svg') no-repeat;
       border: none;
       border-radius: 0px;
     }

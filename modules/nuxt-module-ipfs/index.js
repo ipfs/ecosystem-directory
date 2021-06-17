@@ -105,7 +105,7 @@ const addHooks = (instance) => {
     const len = split.length
     split.splice(1, len - 2, script)
     payload.html = split.join('')
-    console.log(payload.html)
+    // console.log(payload.html)
 
   })
 }
