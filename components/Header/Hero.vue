@@ -1,8 +1,8 @@
 <template>
-  <section v-if="headerState" id="header-hero">
+  <section v-show="headerState" id="header-hero">
 
     <section
-      v-if="pageData"
+      v-show="pageData"
       :class="`panel-top transition ${headerState}`">
 
       <div :class="`grid-noGutter transition ${headerState} hero-breadcrumbs`">
@@ -14,20 +14,20 @@
     </section>
 
     <section
-      v-if="pageData"
+      v-show="pageData"
       :class="`panel-bottom transition ${headerState}`">
 
       <div class="grid-noGutter">
         <div class="col-9_sm-12">
           <div :class="{'headings-wrapper': true, 'results': (headerState === 'filters-applied')}">
 
-            <div v-if="(headerState === 'index-view')" class="index-heading">
+            <div v-show="(headerState === 'index-view')" class="index-heading">
               <h1>
                 {{ heading }}
               </h1>
             </div>
 
-            <div v-if="(headerState === 'filters-view')" class="filters-heading">
+            <div v-show="(headerState === 'filters-view')" class="filters-heading">
               <h1>
                 {{ heading }}
                 <span class="display-total">
@@ -36,7 +36,7 @@
               </h1>
             </div>
 
-            <div v-if="(headerState === 'filters-applied')" class="filters-heading">
+            <div v-show="(headerState === 'filters-applied')" class="filters-heading">
               <h1>
                 {{ heading }}
                 <span class="display-total">
@@ -45,15 +45,15 @@
               </h1>
             </div>
 
-            <div v-if="(headerState === 'index-view')" class="index-subheading">
+            <div v-show="(headerState === 'index-view')" class="index-subheading">
               {{ subheading }}
             </div>
 
-            <div v-if="(headerState === 'filters-view')" class="filters-subheading">
+            <div v-show="(headerState === 'filters-view')" class="filters-subheading">
               {{ subheading }}
             </div>
 
-            <div v-if="(headerState === 'filters-applied')" class="filters-subheading">
+            <div v-show="(headerState === 'filters-applied')" class="filters-subheading">
               <ul>
                 <li v-for="item in categories" :key="item.category">
                   {{ item.category }} <span class="tags">{{ item.tags }}</span>
