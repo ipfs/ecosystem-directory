@@ -81,6 +81,19 @@ import SegmentSliderChart from '@/components/SegmentSliderChart/SegmentSliderCha
 import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
 import ProjectView from '@/components/ProjectView/ProjectView'
 
+// =================================================================== Functions
+const applyFiltersFromURL = (instance, string) => {
+  if (string) {
+    const slugs = string.split(',').filter(Boolean)
+    Object.keys(instance.activeTags).forEach((category) => {
+      const arr = slugs.filter(tag => instance.categoryLookUp[category].includes(tag))
+      for (let i = 0; i < arr.length; i++) {
+        instance.setActiveTags({ category, tag: arr[i] })
+      }
+    })
+  }
+}
+
 // ====================================================================== Export
 export default {
   name: 'HomePage',
@@ -136,6 +149,8 @@ export default {
       siteContent: 'global/siteContent',
       routeQuery: 'global/routeQuery',
       queryString: 'global/queryString',
+      activeTags: 'filters/activeTags',
+      categoryLookUp: 'filters/categoryLookUp',
       filterPanelOpen: 'filters/filterPanelOpen'
     }),
     // SEO
@@ -152,13 +167,31 @@ export default {
   },
 
   watch: {
-    '$route' (route) {
-      if (route.query.filters === 'enabled') {
-        this.collapseSegmentAndFeaturedSliders()
-      } else {
-        if (this.filterPanelOpen) {
-          this.setFilterPanelOpen(false)
-        }
+    // '$route' (route) {
+    //   if (route.query.filters === 'enabled') {
+    //     this.collapseSegmentAndFeaturedSliders()
+    //   } else {
+    //     if (this.filterPanelOpen) {
+    //       this.setFilterPanelOpen(false)
+    //     }
+    //   }
+    // },
+    activeTags: {
+      deep: true,
+      handler (obj) {
+        const allTags = []
+        Object.keys(obj).forEach((category) => {
+          const tags = obj[category].tags
+          if (tags.length) {
+            for (let i = 0; i < tags.length; i++) {
+              allTags.push(tags[i])
+            }
+          }
+        })
+        this.setRouteQuery({
+          key: 'tags',
+          data: allTags.length ? allTags.join(',') : ''
+        })
       }
     },
     queryString (val) {
@@ -193,6 +226,9 @@ export default {
 
     const cloned = CloneDeep(this.$route.query)
     Object.keys(cloned).forEach((item) => {
+      if (item === 'tags') {
+        applyFiltersFromURL(this, cloned[item])
+      }
       this.setRouteQuery({
         key: item,
         data: cloned[item]
@@ -211,6 +247,7 @@ export default {
   methods: {
     ...mapActions({
       setRouteQuery: 'global/setRouteQuery',
+      setActiveTags: 'filters/setActiveTags',
       setFilterPanelOpen: 'filters/setFilterPanelOpen'
     }),
     collapseSegmentAndFeaturedSliders () {

@@ -77,44 +77,8 @@ import AccordionContent from '@/modules/zero/core/Components/Accordion/Content'
 import Taxonomy from '@/content/data/taxonomy.json'
 
 // =================================================================== Functions
-// appendFilters2URL(this) this will be done in index.vue watching activeTags object
-const appendFilters2URL = (instance) => {
-  let slug = ''
-  const len = instance.selected.length
-  for (let i = 0; i < len; i++) {
-    const delimiter = i === len - 1 ? '' : ','
-    slug = slug + instance.selected[i].slug + delimiter
-  }
-  instance.setRouteQuery({
-    key: 'tags',
-    data: slug
-  })
-}
-
-const applyFiltersFromURL = (instance) => {
-  const cloned = instance.resetCategories()
-  const qry = instance.$route.query.tags.split(',')
-  const slugs = qry.filter(Boolean)
-
-  const arr = []
-  const len = instance.ProjectFilters.length
-  for (let i = 0; i < len; i++) {
-    const category = instance.ProjectFilters[i]
-    for (let j = 0; j < category.tags.length; j++) {
-      if (slugs.includes(category.tags[j].slug)) {
-        arr.push(category.tags[j])
-        cloned[category.label].push(category.tags[j].label)
-      }
-    }
-  }
-
-  instance.setActiveTags(cloned)
-  instance.selected = arr
-}
-
 const toggleAllCategoryTags = (instance, heading) => {
   const filters = instance.ProjectFilters
-  const cloned = CloneDeep(instance.activeTags)
 
   filters.forEach((item) => {
     if (item.slug === heading) {

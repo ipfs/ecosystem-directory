@@ -140,7 +140,7 @@ export default {
       const cloned = CloneDeep(this.activeTags)
       Object.keys(cloned).forEach((category) => {
         if (cloned[category].tags.length) {
-          let string = []
+          const string = []
           const tags = cloned[category].tags
           for (let i = 0; i < tags.length; i++) { string.push(this.taxonomyLabels[tags[i]]) }
           arr.push({

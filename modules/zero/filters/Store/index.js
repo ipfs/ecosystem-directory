@@ -27,11 +27,24 @@ const initTaxonomyLabels = () => {
   return obj
 }
 
+const initCategoryLookUp = () => {
+  const obj = {}
+  TaxonomyData.categories.forEach((item) => {
+    const tagSlugs = []
+    for (let i = 0; i < item.tags.length; i++) {
+      tagSlugs.push(item.tags[i].slug)
+    }
+    obj[item.slug] = tagSlugs
+  })
+  return obj
+}
+
 // /////////////////////////////////////////////////////////////////////// State
 // -----------------------------------------------------------------------------
 const state = {
   activeTags: initActiveTags(),
   taxonomyLabels: initTaxonomyLabels(),
+  categoryLookUp: initCategoryLookUp(),
   filterPanelOpen: false
 }
 
@@ -40,6 +53,7 @@ const state = {
 const getters = {
   activeTags: state => state.activeTags,
   taxonomyLabels: state => state.taxonomyLabels,
+  categoryLookUp: state => state.categoryLookUp,
   filterPanelOpen: state => state.filterPanelOpen
 }
 
@@ -68,8 +82,9 @@ const actions = {
 // -----------------------------------------------------------------------------
 const mutations = {
   CLEAR_STORE (state) {
-    state.activeTags = initActiveTags()
-    state.taxonomyLabels = initTaxonomyLabels()
+    Object.keys(state.activeTags).forEach((category) => {
+      state.activeTags[category].tags = []
+    })
   },
   SET_ACTIVE_TAGS (state, payload) {
     const category = payload.category
