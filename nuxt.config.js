@@ -85,6 +85,9 @@ export default {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: 'Proof of concepts for AU web frontend implementations in NuxtJS' }
+    ],
+    script: [
+      { src: '/redirect.js' }
     ]
     // link: [
     //   { rel: 'icon', type: 'image/x-icon', href: '/favicon/favicon.ico' }
@@ -168,6 +171,11 @@ export default {
       minify: {
         collapseWhitespace: true
       }
+    },
+    splitChunks: {
+      layouts: false,
+      pages: false,
+      commons: false
     },
     // ---------------------------------------------------------- Hot Middleware
     hotMiddleware: {
