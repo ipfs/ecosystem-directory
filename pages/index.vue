@@ -8,7 +8,7 @@
       <transition-group name="fade" tag="section">
 
         <section
-          v-if="segmentSlider"
+          v-show="segmentSlider"
           id="section-segment-slider"
           ref="segmentSlider"
           key="segment-slider">
@@ -22,7 +22,7 @@
         </section>
 
         <section
-          v-if="featuredSlider"
+          v-show="featuredSlider"
           id="section-featured-slider"
           ref="featuredSection"
           key="featured-slider">
@@ -45,7 +45,7 @@
         </section>
 
         <section
-          v-if="featuredSlider"
+          v-show="featuredSlider"
           id="section-filter"
           ref="filterHeading"
           key="filters-heading">
