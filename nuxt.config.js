@@ -112,7 +112,7 @@ export default {
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
     // Doc: https://github.com/nuxt-community/analytics-module
-    '@nuxtjs/google-analytics',
+    // '@nuxtjs/google-analytics', // removed dependencies for Vue Analytics due to issues
     // Doc: https://github.com/nuxt-community/moment-module#readme
     '@nuxtjs/moment'
   ],
