@@ -18,7 +18,7 @@ export default {
   name: 'SiteHeader',
 
   components: {
-    Navigation
+    Navigation,
     Hero
   }
 }

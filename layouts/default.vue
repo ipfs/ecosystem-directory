@@ -1,27 +1,27 @@
 <template>
   <div class="master-container">
 
-    <SiteHeader />
+    <!-- <SiteHeader /> -->
 
     <nuxt />
 
-    <SiteFooter />
+    <!-- <SiteFooter /> -->
 
   </div>
 </template>
 
 <script>
 // ===================================================================== Imports
-import SiteHeader from '@/components/SiteHeader'
-import SiteFooter from '@/components/SiteFooter'
+// import SiteHeader from '@/components/SiteHeader'
+// import SiteFooter from '@/components/SiteFooter'
 
 // ====================================================================== Export
 export default {
   name: 'LayoutDefault',
 
   components: {
-    SiteHeader,
-    SiteFooter
+    // SiteHeader,
+    // SiteFooter
   }
 }
 </script>
