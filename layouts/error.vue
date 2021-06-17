@@ -81,7 +81,7 @@ export default {
       siteContent: 'global/siteContent'
     }),
     pageData () {
-      console.log(this.siteContent)
+      // console.log(this.siteContent.general['404_error_page'])
       return this.siteContent.general['404_error_page']
     },
     segmentsBefore () {
