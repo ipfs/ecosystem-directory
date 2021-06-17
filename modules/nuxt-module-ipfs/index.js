@@ -69,9 +69,13 @@ const addHooks = (instance) => {
     resources.clientManifest.initial = resources.clientManifest.initial.concat(resources.clientManifest.async)
     initialScripts = resources.clientManifest.initial
     asyncScripts = resources.clientManifest.async
+    resources.clientManifest.publicPath = (function () {
+      return '/hello/'
+    }())
     // console.log(resources.clientManifest)
-    console.log(initialScripts)
-    console.log(asyncScripts)
+    // console.log(resources.serverManifest.files['pages/index.js'] + '')
+    // console.log(initialScripts)
+    // console.log(asyncScripts)
   })
 
   /*
