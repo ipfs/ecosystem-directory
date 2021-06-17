@@ -109,14 +109,15 @@ const addHooks = (instance) => {
       const filename = filenames[i]
       let file = await Fs.readFileSync(`${distPath}/${filename}`) + ''
       if (file.includes('"/_nuxt/"') && !file.includes('return "/_nuxt/"')) {
-        // file = file.replace(/[a-z]\.[a-z]\+\"\"\+\{[0-9]\:\"[a-z0-9]{7}\",[0-9]:\"[a-z0-9]{7}\",[0-9]:\"[a-z0-9]{7}\",[0-9]:\"[a-z0-9]{7}\"\}\[[a-z]\]\+\"\.js\"\}/gi, 'nauras')
+        // const match = /[a-z]\.[a-z]\+\"\"\+\{[0-9]\:\"[a-z0-9]{7}\",[0-9]:\"[a-z0-9]{7}\",[0-9]:\"[a-z0-9]{7}\",[0-9]:\"[a-z0-9]{7}\"\}\[[a-z]\]\+\"\.js\"\}/gi
+        // file = file.replace(match, )
         // file = file.replace('"701a434"', '""')
         // file = file.replace('"81e9e14"', '""')
         // file = file.replace('"ddb009b"', '""')
         file = `
           (function () {
             console.log(window);
-            window.__NUXT__.config._app.assetsPath = "../../_nuxt"
+            window.__NUXT__.config._app.assetsPath = "../../_nuxt/"
           }());
         ` + file;
         console.log(file)
