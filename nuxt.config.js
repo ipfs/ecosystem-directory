@@ -160,6 +160,7 @@ export default {
   // ---------------------------------------------------------------------------
   router: {
     // extendRoutes (routes, resolve) {}
+    prefetchLinks: false
   },
   // /////////////////////////////////////////////////////// Build configuration
   // ------------------------------------------------ Extend webpack config here
