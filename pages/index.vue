@@ -148,7 +148,6 @@ export default {
     ...mapGetters({
       siteContent: 'global/siteContent',
       routeQuery: 'global/routeQuery',
-      queryString: 'global/queryString',
       activeTags: 'filters/activeTags',
       categoryLookUp: 'filters/categoryLookUp',
       filterPanelOpen: 'filters/filterPanelOpen'
@@ -171,9 +170,8 @@ export default {
       if (route.query.filters === 'enabled') {
         this.collapseSegmentAndFeaturedSliders()
       } else {
-        if (this.filterPanelOpen) {
-          this.setFilterPanelOpen(false)
-        }
+        if (this.filterPanelOpen) { this.setFilterPanelOpen(false) }
+        this.mountSegmentAndFeaturedSliders()
       }
     },
     activeTags: {
@@ -194,38 +192,35 @@ export default {
         })
       }
     },
-    queryString (val) {
-      if (val !== JSON.stringify(this.$route.query)) {
-        const cloned = CloneDeep(this.routeQuery)
-        Object.keys(cloned).forEach((key) => {
-          if (!cloned[key]) { delete cloned[key] }
-        })
-        if (cloned.hasOwnProperty('page')) {
+    routeQuery: {
+      deep: true,
+      handler (obj) {
+        if (JSON.stringify(obj) !== JSON.stringify(this.$route.query)) {
+          const cloned = CloneDeep(this.routeQuery)
           if (cloned.page === 1) { delete cloned.page }
-        }
-        if (cloned.hasOwnProperty('filters')) {
           if (!cloned.filters) { delete cloned.filters }
+          Object.keys(cloned).forEach((key) => {
+            if (!cloned[key]) { delete cloned[key] }
+          })
+          this.$router.push({ query: cloned })
         }
-        this.$router.push({ query: cloned })
       }
     }
   },
 
   mounted () {
-    const filterEnabled = (this.$route.query.filters === 'enabled')
-    if (filterEnabled) {
-      this.setFilterPanelOpen(filterEnabled)
-    } else {
-      this.segmentSlider = true
-      this.featuredSlider = true
-      if (this.filterPanelOpen) {
-        this.setFilterPanelOpen(false)
-      }
-      this.setRouteQuery({ key: 'filters', data: '' })
-    }
+    this.resize = () => { this.resetSectionHeight() }
+    window.addEventListener('resize', this.resize)
 
     const cloned = CloneDeep(this.$route.query)
     Object.keys(cloned).forEach((item) => {
+      if (item === 'filters') {
+        if (cloned[item] === 'enabled') {
+          this.setFilterPanelOpen(true)
+        } else {
+          this.mountSegmentAndFeaturedSliders()
+        }
+      }
       if (item === 'tags') {
         applyFiltersFromURL(this, cloned[item])
       }
@@ -234,10 +229,9 @@ export default {
         data: cloned[item]
       })
     })
-
-    this.resize = () => { this.resetSectionHeight() }
-    window.addEventListener('resize', this.resize)
-    this.resetSectionHeight()
+    if (!cloned.hasOwnProperty('filters')) {
+      this.mountSegmentAndFeaturedSliders()
+    }
   },
 
   beforeDestroy () {
@@ -250,6 +244,13 @@ export default {
       setActiveTags: 'filters/setActiveTags',
       setFilterPanelOpen: 'filters/setFilterPanelOpen'
     }),
+    mountSegmentAndFeaturedSliders () {
+      if (!this.segmentSlider) { this.segmentSlider = true }
+      if (!this.featuredSlider) { this.featuredSlider = true }
+      if (this.filterPanelOpen) { this.setFilterPanelOpen(false) }
+      this.setRouteQuery({ key: 'filters', data: '' })
+      this.resetSectionHeight()
+    },
     collapseSegmentAndFeaturedSliders () {
       if (this.segmentSlider && this.featuredSlider) {
         this.segmentSlider = false

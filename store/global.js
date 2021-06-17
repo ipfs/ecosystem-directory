@@ -5,12 +5,24 @@ import IndexSiteData from '@/content/pages/index.json'
 import ProjectSiteData from '@/content/pages/project.json'
 import TaxonomyData from '@/content/data/taxonomy.json'
 
+// /////////////////////////////////////////////////////////////////// Functions
+// -----------------------------------------------------------------------------
+const initRouteQueryObject = () => {
+  return {
+    filters: '',
+    tags: '',
+    page: '',
+    results: '',
+    'sort-by': '',
+    'display-type': ''
+  }
+}
+
 // /////////////////////////////////////////////////////////////////////// State
 // -----------------------------------------------------------------------------
 const state = () => ({
   siteContent: {},
-  routeQuery: {},
-  queryString: ''
+  routeQuery: initRouteQueryObject()
 })
 
 // ///////////////////////////////////////////////////////////////////// Getters
@@ -24,8 +36,7 @@ const getters = {
     }
     return false
   },
-  routeQuery: state => state.routeQuery,
-  queryString: state => state.queryString
+  routeQuery: state => state.routeQuery
 }
 
 // ///////////////////////////////////////////////////////////////////// Actions
@@ -57,10 +68,6 @@ const actions = {
   // ///////////////////////////////////////////////////////////// setRouteQuery
   setRouteQuery ({ commit }, payload) {
     commit('SET_ROUTE_QUERY', payload)
-  },
-  // //////////////////////////////////////////////////////////// setQueryString
-  setQueryString ({ commit }, queryString) {
-    commit('SET_QUERY_STRING', queryString)
   }
 }
 
@@ -71,18 +78,13 @@ const mutations = {
     state.siteContent = {}
     state.clipboard = false
     state.filterValue = ''
-    state.routeQuery = {}
-    state.queryString = ''
+    state.routeQuery = initRouteQueryObject()
   },
   SET_SITE_CONTENT (state, payload) {
     state.siteContent[payload.key] = payload.data
   },
   SET_ROUTE_QUERY (state, payload) {
     state.routeQuery[payload.key] = payload.data
-    state.queryString = JSON.stringify(state.routeQuery)
-  },
-  SET_QUERY_STRING (state, queryString) {
-    state.queryString = queryString
   }
 }
 
