@@ -98,9 +98,8 @@ const addHooks = (instance) => {
           console.log(pathname);
           console.log(split);
           if (split[0] === "ipfs") {
-            var relativity = "../".repeat(split.length - 1);
-            console.log(relativity)
-            return "/_nuxt/";
+            var relativity = "../".repeat(split.length - 2);
+            return relativity + "_nuxt/";
           } else {
             return "/_nuxt/";
           }
