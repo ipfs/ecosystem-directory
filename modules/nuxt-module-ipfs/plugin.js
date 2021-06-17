@@ -55,7 +55,7 @@ export default (context, inject) => {
 
     if (ipfsPathPrefix) {
       __webpack_public_path__ = ipfsPathPrefix + '/_nuxt/'
-      context.app.router.history.base = ipfsPathPrefix || window.location.host
+      // context.app.router.history.base = ipfsPathPrefix || window.location.host
     }
 
     console.log('context.app.router.history.base', context.app.router.history.base)
