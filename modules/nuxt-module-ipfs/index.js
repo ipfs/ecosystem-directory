@@ -55,6 +55,7 @@ const addHooks = (instance) => {
   */
 
   instance.nuxt.hook('generate:before', (generator, generateOptions) => {
+    // console.log(generator)
     staticAssetsOpts = generateOptions.staticAssets
   })
 
@@ -69,7 +70,6 @@ const addHooks = (instance) => {
 
   instance.nuxt.hook('vue-renderer:ssr:context', (ctx) => {
     parsed = parseRoute(ctx.nuxt.routePath)
-    // console.log(ctx)
     // Apply url replacements to generated javascript before it is serialized
     ctx.staticAssetsBase = `${parsed.replaceSrc}${staticAssetsOpts.dir}/${staticAssetsOpts.version}`
   })
