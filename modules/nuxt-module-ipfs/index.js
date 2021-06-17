@@ -88,20 +88,12 @@ const addHooks = (instance) => {
       let file = await Fs.readFileSync(`${distPath}/${filename}`) + ''
       if (file.includes('"/_nuxt/"') && !file.includes('return "/_nuxt/"')) {
         file = file.replace('"/_nuxt/"', `(function () {
-          var pathname = window.location.pathname;
-          var len = pathname.length;
-          console.log(pathname.substr(0, len - 1));
-          console.log(pathname.split('/').filter(x => x).join('/'))
-          if (pathname.charAt(0) === "/") { console.log('A'); pathname = pathname.slice(1); }
-          if (pathname.charAt(len - 1) === "/") { console.log('B'); pathname = pathname.substr(0, len - 1); }
-          if (pathname.charAt(len - 1) == "/") string = string.substr(0, string.length - 1);
-          console.log(pathname);
-          var split = pathname.split("/");
+          var split = window.location.pathname.split('/').filter(x => x);
           console.log(split);
           if (split[0] === "ipfs") {
             var relativity = "../".repeat(split.length - 2);
             console.log(relativity + "_nuxt/");
-            return "../../_nuxt/";
+            return relativity + "_nuxt/";
           } else {
             return "/_nuxt/";
           }
