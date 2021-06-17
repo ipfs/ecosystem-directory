@@ -48,6 +48,8 @@ const parseRoute = (route) => {
 const addHooks = (instance) => {
   let staticAssetsOpts
   let parsed
+  let initialScripts
+  let asyncScripts
 
   /*
     Grab the static asset path options to be applied in the render:routeContext
@@ -63,9 +65,14 @@ const addHooks = (instance) => {
     staticAssetsOpts = generateOptions.staticAssets
   })
 
-  // instance.nuxt.hook('render:resourcesLoaded', (resources) => {
-  //   console.log(resources)
-  // })
+  instance.nuxt.hook('render:resourcesLoaded', (resources) => {
+    resources.clientManifest.initial = resources.clientManifest.initial.concat(resources.clientManifest.async)
+    initialScripts = resources.clientManifest.initial
+    asyncScripts = resources.clientManifest.async
+    // console.log(resources.clientManifest)
+    console.log(initialScripts)
+    console.log(asyncScripts)
+  })
 
   /*
     This block gives us access to the generated javascript before it is
