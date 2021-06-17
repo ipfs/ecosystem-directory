@@ -80,28 +80,6 @@ const addHooks = (instance) => {
       .replace(/\(\/_nuxt\//gi, `(${parsed.replaceSrc}`)
       .replace(/\/relativity\//gi, parsed.replaceStatic)
 
-    // const distPath = `${__dirname}/../../dist/_nuxt`
-    // const filenames = await Fs.readdirSync(distPath).filter(filename => filename.includes('.js'))
-    // const len = filenames.length
-    // for (let i = 0; i < len; i++) {
-    //   const filename = filenames[i]
-    //   let file = await Fs.readFileSync(`${distPath}/${filename}`) + ''
-    //   if (file.includes('"/_nuxt/"') && !file.includes('return "/_nuxt/"')) {
-    //     file = file.replace('"/_nuxt/"', `(function () {
-    //       var split = window.location.pathname.split('/').filter(x => x);
-    //       console.log(split);
-    //       if (split[0] === "ipfs") {
-    //         var relativity = "../".repeat(split.length - 2);
-    //         console.log(relativity + "_nuxt/");
-    //         return relativity + "_nuxt/";
-    //       } else {
-    //         return "/_nuxt/";
-    //       }
-    //     }())`)
-    //     await Fs.writeFileSync(`${distPath}/${filename}`, file)
-    //   }
-    // }
-
     const distPath = `${__dirname}/../../dist/_nuxt`
     const filenames = await Fs.readdirSync(distPath).filter(filename => filename.includes('.js'))
     const len = filenames.length
@@ -109,24 +87,40 @@ const addHooks = (instance) => {
       const filename = filenames[i]
       let file = await Fs.readFileSync(`${distPath}/${filename}`) + ''
       if (file.includes('"/_nuxt/"') && !file.includes('return "/_nuxt/"')) {
-        const match = /[a-z]\.[a-z]\+\"\"\+\{[0-9]\:\"[a-z0-9]{7}\",[0-9]:\"[a-z0-9]{7}\",[0-9]:\"[a-z0-9]{7}\",[0-9]:\"[a-z0-9]{7}\"\}\[[a-z]\]\+\"\.js\"\}/gi
-        file = file.replace(match, `
-          console.log(e)}
-        `)
-        // file = file.replace('"701a434"', '""')
-        // file = file.replace('"81e9e14"', '""')
-        // file = file.replace('"ddb009b"', '""')
-        // file = `
-        //   (function () {
-        //     console.log(window);
-        //     window.__NUXT__.config._app.assetsPath = "../../_nuxt/"
-        //   }());
-        // ` + file;
-        console.log(file)
+        file = file.replace('"/_nuxt/"', `(function () {
+
+          function addScript(src) {
+            const s = document.createElement('script')
+            s.setAttribute('src', src)
+            document.body.appendChild(s)
+          }
+
+          setTimeout(() => {
+            const ipfsPathRegExp = /^(\/(?:ipfs|ipns)\/[^/]+)/
+            const ipfsPathPrefix = (window.location.pathname.match(ipfsPathRegExp) || [])[1] || ''
+            if (ipfsPathPrefix) {
+              const scripts = [...document.getElementsByTagName('script')]
+
+              for (let i = 0; i < scripts.length; i++) {
+                if (scripts[i].src) {
+                  const source = new URL(scripts[i].src)
+                  if (source.pathname.includes('redirect.js')) {
+                    console.log('skip redirect')
+                    continue
+                  }
+                  console.log('Loading', source.pathname)
+                  const newSource = window.location.href.slice(0, -1) + source.pathname
+                  addScript(newSource)
+                }
+              }
+              console.log('Finished')
+            }
+          }, 10000)
+
+        }())`)
         await Fs.writeFileSync(`${distPath}/${filename}`, file)
       }
     }
-
   })
 }
 
@@ -135,7 +129,7 @@ const addHooks = (instance) => {
 function NuxtModuleIpfs () {
   console.log(`📦 [Module] NuxtModuleIpfs`)
   registerPlugins(this, () => {
-    // addHooks(this)
+    addHooks(this)
     // if (process.env.NODE_ENV !== 'development') {
     //   addHooks(this)
     // }
