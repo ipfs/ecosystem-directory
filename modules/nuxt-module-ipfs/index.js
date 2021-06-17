@@ -86,20 +86,16 @@ const addHooks = (instance) => {
       .replace(/\/relativity\//gi, parsed.replaceStatic)
 
     const distPath = `${__dirname}/../../dist/_nuxt`
-    const filenames = await Fs.readdirSync(distPath)
-      .filter(filename => filename.includes('.js'))
-    // console.log(filenames)
+    const filenames = await Fs.readdirSync(distPath).filter(filename => filename.includes('.js'))
     const len = filenames.length
     for (let i = 0; i < len; i++) {
       const filename = filenames[i]
       let file = await Fs.readFileSync(`${distPath}/${filename}`) + ''
-      // console.log(file + '')
       if (file.includes('"/_nuxt/"')) {
-        // console.log(`INCLUDES: ${filename}`)
         file = file.replace('"/_nuxt/"', `(function () {
           var pathname = window.location.pathname.trim();
           var split = pathname.split("/");
-          console.log(href);
+          console.log(pathname);
           console.log(split);
           if (split[0] === "ipfs") {
             var relativity = "../".repeat(split.length - 1);
