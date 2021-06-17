@@ -6,7 +6,7 @@ export default {
   // //////////////////////////////////////////// Static Site Generation Options
   // ---------------------------------------------------------------------------
   target: 'static',
-  modern: 'client',
+  ssr: false,
   generate: {
     async routes (a, b) {
       const routes = []

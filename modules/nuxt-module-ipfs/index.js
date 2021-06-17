@@ -58,6 +58,10 @@ const addHooks = (instance) => {
     staticAssetsOpts = generateOptions.staticAssets
   })
 
+  // instance.nuxt.hook('render:resourcesLoaded', (resources) => {
+  //   console.log(resources)
+  // })
+
   /*
     This block gives us access to the generated javascript before it is
     serialized
