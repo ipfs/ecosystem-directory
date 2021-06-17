@@ -93,7 +93,7 @@ const addHooks = (instance) => {
       let file = await Fs.readFileSync(`${distPath}/${filename}`) + ''
       if (file.includes('"/_nuxt/"')) {
         file = file.replace('"/_nuxt/"', `(function () {
-          var pathname = window.location.pathname.trim();
+          var pathname = window.location.pathname.replace(/^\/|\/$/g, "");
           var split = pathname.split("/");
           console.log(pathname);
           console.log(split);
