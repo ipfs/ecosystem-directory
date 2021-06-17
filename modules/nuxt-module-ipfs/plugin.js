@@ -46,17 +46,18 @@ const Relativity = (path) => {
 export default (context, inject) => {
   inject('relativity', Relativity)
 
-  // if (typeof window !== 'undefined') {
-  //   const ipfsPathRegExp = new RegExp('^(/(?:ipfs|ipns)/[^/]+)')
-  //   const ipfsPathPrefix = (window.location.pathname.match(ipfsPathRegExp) || [])[1] || ''
-  //
-  //   console.log('__webpack_public_path__', __webpack_public_path__)
-  //
-  //   if (ipfsPathPrefix) {
-  //     __webpack_public_path__ = ipfsPathPrefix + '/_nuxt/'
-  //     context.app.router.history.base = ipfsPathPrefix || window.location.host
-  //   }
-  //
-  //   console.log('__webpack_public_path__', __webpack_public_path__)
-  // }
+  if (typeof window !== 'undefined') {
+    const ipfsPathRegExp = new RegExp('^(/(?:ipfs|ipns)/[^/]+)')
+    const ipfsPathPrefix = (window.location.pathname.match(ipfsPathRegExp) || [])[1] || ''
+
+    console.log('__webpack_public_path__', __webpack_public_path__)
+    console.log('context.app.router.history.base', context.app.router.history.base)
+
+    if (ipfsPathPrefix) {
+      __webpack_public_path__ = ipfsPathPrefix + '/_nuxt/'
+      context.app.router.history.base = ipfsPathPrefix || window.location.host
+    }
+
+    console.log('context.app.router.history.base', context.app.router.history.base)
+  }
 }
