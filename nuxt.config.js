@@ -169,11 +169,11 @@ export default {
         collapseWhitespace: true
       }
     },
-    // splitChunks: {
-    //   layouts: false,
-    //   pages: false,
-    //   commons: false
-    // },
+    splitChunks: {
+      layouts: false,
+      pages: false,
+      commons: false
+    },
     // ---------------------------------------------------------- Hot Middleware
     hotMiddleware: {
       client: {
