@@ -88,6 +88,7 @@ const addHooks = (instance) => {
       .replace(/"\/_nuxt\//gi, `"${parsed.replaceSrc}`)
       .replace(/\(\/_nuxt\//gi, `(${parsed.replaceSrc}`)
       .replace(/\/relativity\//gi, parsed.replaceStatic)
+    console.log(payload.html)
 
     // const script = `
     //   <script>

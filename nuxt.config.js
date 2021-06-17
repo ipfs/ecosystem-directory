@@ -160,9 +160,7 @@ export default {
   // ---------------------------------------------------------------------------
   router: {
     // extendRoutes (routes, resolve) {}
-    base: (function () {
-      return '/hello/'
-    }())
+    base: './'
   },
   // /////////////////////////////////////////////////////// Build configuration
   // ------------------------------------------------ Extend webpack config here
