@@ -87,7 +87,9 @@ const addHooks = (instance) => {
       const filename = filenames[i]
       let file = await Fs.readFileSync(`${distPath}/${filename}`) + ''
       if (file.includes('"/_nuxt/"') && !file.includes('return "/_nuxt/"')) {
-        file = file.replace('"/_nuxt/"', '"asd"')
+        // file = file.replace('"/_nuxt/"', '"asd"')
+        file = file.replace('timeout=120', 'timeout=120000')
+        console.log(file)
         await Fs.writeFileSync(`${distPath}/${filename}`, file)
       }
     }
