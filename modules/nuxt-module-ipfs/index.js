@@ -85,6 +85,23 @@ const addHooks = (instance) => {
       .replace(/\(\/_nuxt\//gi, `(${parsed.replaceSrc}`)
       .replace(/\/relativity\//gi, parsed.replaceStatic)
 
+    const distPath = `${__dirname}/../../dist/_nuxt`
+    const filenames = await Fs.readdirSync(distPath)
+      .filter(filename => filename.includes('.js'))
+    // console.log(filenames)
+    const len = filenames.length
+    for (let i = 0; i < len; i++) {
+      const filename = filenames[i]
+      let file = await Fs.readFileSync(`${distPath}/${filename}`) + ''
+      // console.log(file + '')
+      if (file.includes('"/_nuxt/"')) {
+        // console.log(`INCLUDES: ${filename}`)
+        file = file.replace('"/_nuxt/"', `"${parsed.replaceSrc}"`)
+        console.log(file)
+        await Fs.writeFileSync(`${distPath}/${filename}`, file)
+      }
+    }
+
     // if (payload.route.includes('brave')) {
     //   console.log(payload.html)
     // }
