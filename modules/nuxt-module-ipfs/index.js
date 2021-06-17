@@ -70,7 +70,7 @@ const addHooks = (instance) => {
     initialScripts = resources.clientManifest.initial
     asyncScripts = resources.clientManifest.async
     resources.clientManifest.publicPath = (function () {
-      return '/hello/'
+      return '_nuxt/'
     }())
     // console.log(resources.clientManifest)
     // console.log(resources.serverManifest.files['pages/index.js'] + '')
