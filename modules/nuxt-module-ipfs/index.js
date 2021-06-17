@@ -82,11 +82,12 @@ const addHooks = (instance) => {
     parsed = parseRoute(payload.route)
     payload.html = payload.html
       .replace(/"\/_nuxt\//gi, `"${parsed.replaceSrc}`)
+      .replace(/\(\/_nuxt\//gi, `(${parsed.replaceSrc}`)
       .replace(/\/relativity\//gi, parsed.replaceStatic)
 
-    if (payload.route.includes('brave')) {
-      console.log(payload.html)
-    }
+    // if (payload.route.includes('brave')) {
+    //   console.log(payload.html)
+    // }
 
     // const distPath = `${__dirname}/../../dist/_nuxt`
     // const filenames = await Fs.readdirSync(distPath)
