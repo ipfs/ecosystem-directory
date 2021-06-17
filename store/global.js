@@ -46,6 +46,10 @@ const actions = {
   clearStore ({ commit }) {
     commit('CLEAR_STORE')
   },
+  // /////////////////////////////////////////////////////////// clearRouteQuery
+  clearRouteQuery ({ commit }) {
+    commit('CLEAR_ROUTE_QUERY')
+  },
   // /////////////////////////////////////////////////////////////// getBaseData
   async getBaseData ({ commit }, payload) {
     const key = typeof payload === 'string' ? payload : payload.key
@@ -76,8 +80,8 @@ const actions = {
 const mutations = {
   CLEAR_STORE (state) {
     state.siteContent = {}
-    state.clipboard = false
-    state.filterValue = ''
+  },
+  CLEAR_ROUTE_QUERY (state) {
     state.routeQuery = initRouteQueryObject()
   },
   SET_SITE_CONTENT (state, payload) {

@@ -174,8 +174,23 @@ export default {
     }
   },
 
-  beforeDestroy () {
-    if (this.resize) { window.removeEventListener('resize', this.resize) }
+  watch: {
+    listViewActive (val) {
+      this.setRouteQuery({
+        key: 'display-type',
+        data: val ? 'list' : 'block'
+      })
+    }
+  },
+
+  mounted () {
+    if (this.$route.query['display-type']) {
+      if (this.$route.query['display-type'] === 'list') {
+        this.listViewActive = true
+      } else if (this.$route.query['display-type'] === 'block') {
+        this.listViewActive = false
+      }
+    }
   },
 
   methods: {

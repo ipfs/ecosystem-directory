@@ -82,6 +82,33 @@ import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/Featured
 import ProjectView from '@/components/ProjectView/ProjectView'
 
 // =================================================================== Functions
+const parseURLParams = (instance) => {
+  const cloned = CloneDeep(instance.$route.query)
+  instance.clearRouteQuery()
+  Object.keys(cloned).forEach((item) => {
+    if (item === 'filters') {
+      if (cloned[item] === 'enabled') {
+        instance.setFilterPanelOpen(true)
+        if (!cloned.hasOwnProperty('tags')) {
+          instance.clearFiltersStore()
+        }
+      } else {
+        instance.mountSegmentAndFeaturedSliders()
+      }
+    }
+    if (item === 'tags') {
+      applyFiltersFromURL(instance, cloned[item])
+    }
+    instance.setRouteQuery({
+      key: item,
+      data: cloned[item]
+    })
+  })
+  if (!cloned.hasOwnProperty('filters')) {
+    instance.mountSegmentAndFeaturedSliders()
+  }
+}
+
 const applyFiltersFromURL = (instance, string) => {
   if (string) {
     const slugs = string.split(',').filter(Boolean)
@@ -170,7 +197,6 @@ export default {
       if (route.query.filters === 'enabled') {
         this.collapseSegmentAndFeaturedSliders()
       } else {
-        if (this.filterPanelOpen) { this.setFilterPanelOpen(false) }
         this.mountSegmentAndFeaturedSliders()
       }
     },
@@ -198,7 +224,6 @@ export default {
         if (JSON.stringify(obj) !== JSON.stringify(this.$route.query)) {
           const cloned = CloneDeep(this.routeQuery)
           if (cloned.page === 1) { delete cloned.page }
-          if (!cloned.filters) { delete cloned.filters }
           Object.keys(cloned).forEach((key) => {
             if (!cloned[key]) { delete cloned[key] }
           })
@@ -209,29 +234,9 @@ export default {
   },
 
   mounted () {
+    parseURLParams(this)
     this.resize = () => { this.resetSectionHeight() }
     window.addEventListener('resize', this.resize)
-
-    const cloned = CloneDeep(this.$route.query)
-    Object.keys(cloned).forEach((item) => {
-      if (item === 'filters') {
-        if (cloned[item] === 'enabled') {
-          this.setFilterPanelOpen(true)
-        } else {
-          this.mountSegmentAndFeaturedSliders()
-        }
-      }
-      if (item === 'tags') {
-        applyFiltersFromURL(this, cloned[item])
-      }
-      this.setRouteQuery({
-        key: item,
-        data: cloned[item]
-      })
-    })
-    if (!cloned.hasOwnProperty('filters')) {
-      this.mountSegmentAndFeaturedSliders()
-    }
   },
 
   beforeDestroy () {
@@ -241,7 +246,9 @@ export default {
   methods: {
     ...mapActions({
       setRouteQuery: 'global/setRouteQuery',
+      clearRouteQuery: 'global/clearRouteQuery',
       setActiveTags: 'filters/setActiveTags',
+      clearFiltersStore: 'filters/clearStore',
       setFilterPanelOpen: 'filters/setFilterPanelOpen'
     }),
     mountSegmentAndFeaturedSliders () {
@@ -249,6 +256,7 @@ export default {
       if (!this.featuredSlider) { this.featuredSlider = true }
       if (this.filterPanelOpen) { this.setFilterPanelOpen(false) }
       this.setRouteQuery({ key: 'filters', data: '' })
+      this.clearFiltersStore()
       this.resetSectionHeight()
     },
     collapseSegmentAndFeaturedSliders () {

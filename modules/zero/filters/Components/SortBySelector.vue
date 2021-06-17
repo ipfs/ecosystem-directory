@@ -124,11 +124,20 @@ export default {
   },
 
   mounted () {
-    this.sortAlphabetically('name', 'DESC')
+    if (this.$route.query['sort-by']) {
+      Object.keys(this.sortOptions).forEach((option) => {
+        if (this.$slugify(this.sortOptions[option].label) === this.$route.query['sort-by']) {
+          this.optionSelected(this.sortOptions[option])
+        }
+      })
+    } else {
+      this.sortAlphabetically('name', 'DESC')
+    }
   },
 
   methods: {
     ...mapActions({
+      setRouteQuery: 'global/setRouteQuery',
       setSortedCollection: 'core/setSortedCollection'
     }),
     toggleDropDown () {
@@ -145,6 +154,10 @@ export default {
       } else if (obj.type === 'number') {
         this.sortNumerically(obj.sortNumber, obj.direction)
       }
+      this.setRouteQuery({
+        key: 'sort-by',
+        data: this.$slugify(obj.label)
+      })
     },
     sortAlphabetically (key, mode) {
       if (this.filteredCollection) {
