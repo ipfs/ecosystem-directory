@@ -90,10 +90,10 @@ const addHooks = (instance) => {
         file = file.replace('"/_nuxt/"', `(function () {
           var pathname = window.location.pathname;
           var len = pathname.length;
-          console.log(pathname)
-          console.log(pathname.charAt(0))
-          console.log(pathname.charAt(len - 1))
-          console.log(pathname.charAt(len))
+          console.log(pathname);
+          console.log(pathname.charAt(0));
+          console.log(pathname.charAt(len - 1));
+          console.log(pathname.charAt(len));
           if (pathname.charAt(0) === '/') { pathname = pathname.slice(1); }
           if (pathname.charAt(len - 1) === '/') { pathname = pathname.slice(0, len - 2); }
           console.log(pathname);
@@ -102,7 +102,7 @@ const addHooks = (instance) => {
           if (split[0] === "ipfs") {
             var relativity = "../".repeat(split.length - 2);
             console.log(relativity);
-            return relativity + "_nuxt/";
+            return "../../_nuxt/";
           } else {
             return "/_nuxt/";
           }
