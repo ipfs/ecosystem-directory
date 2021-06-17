@@ -12,21 +12,21 @@ console.log(`🔌 [Module | NuxtModuleIpfs] Methods`)
 // -----------------------------------------------------------------------------
 // ------------------------------------------------------------------ relativity
 const Relativity = (path) => {
-  // if (!path) { return false }
-  // const append = path.charAt(0) === '/' ? path.slice(1) : path
-  // if (process.env.NODE_ENV !== 'development') {
-  //   if (typeof window !== 'undefined') {
-  //     const ipfsPathRegExp = new RegExp('^(/(?:ipfs|ipns)/[^/]+)')
-  //     const ipfsPathPrefix = (window.location.pathname.match(ipfsPathRegExp) || [])[1] || ''
-  //     console.log(ipfsPathPrefix, path)
-  //     if (ipfsPathPrefix) {
-  //       console.log(`${ipfsPathPrefix}${path}`)
-  //       return `${ipfsPathPrefix}${path}`
-  //     }
-  //     return path
-  //   }
-  //   return `/relativity/${append}`
-  // }
+  if (!path) { return false }
+  if (process.env.NODE_ENV !== 'development') {
+    const append = path.charAt(0) === '/' ? path.slice(1) : path
+    if (typeof window !== 'undefined') {
+      const ipfsPathRegExp = new RegExp('^(/(?:ipfs|ipns)/[^/]+)')
+      const ipfsPathPrefix = (window.location.pathname.match(ipfsPathRegExp) || [])[1] || ''
+      console.log(ipfsPathPrefix)
+      if (ipfsPathPrefix) {
+        console.log(`${ipfsPathPrefix}${path}`)
+        return `${ipfsPathPrefix}${path}`
+      }
+      return path
+    }
+    return `/relativity/${append}`
+  }
   return path
 }
 

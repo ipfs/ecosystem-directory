@@ -160,7 +160,6 @@ export default {
   // ---------------------------------------------------------------------------
   router: {
     // extendRoutes (routes, resolve) {}
-    base: '/relativity/'
   },
   // /////////////////////////////////////////////////////// Build configuration
   // ------------------------------------------------ Extend webpack config here
