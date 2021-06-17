@@ -101,7 +101,7 @@ const addHooks = (instance) => {
 function NuxtModuleIpfs () {
   console.log(`📦 [Module] NuxtModuleIpfs`)
   registerPlugins(this, () => {
-    addHooks(this)
+    // addHooks(this)
     // if (process.env.NODE_ENV !== 'development') {
     //   addHooks(this)
     // }
