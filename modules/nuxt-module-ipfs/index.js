@@ -55,7 +55,7 @@ const addHooks = (instance) => {
   */
 
   instance.nuxt.hook('generate:before', (generator, generateOptions) => {
-    staticAssetsOpts = generateOptions.staticAssets
+    // staticAssetsOpts = generateOptions.staticAssets
   })
 
   /*
@@ -64,9 +64,9 @@ const addHooks = (instance) => {
   */
 
   instance.nuxt.hook('vue-renderer:ssr:context', (ctx) => {
-    parsed = parseRoute(ctx.nuxt.routePath)
+    // parsed = parseRoute(ctx.nuxt.routePath)
     // Apply url replacements to generated javascript before it is serialized
-    ctx.staticAssetsBase = `${parsed.replaceSrc}${staticAssetsOpts.dir}/${staticAssetsOpts.version}`
+    // ctx.staticAssetsBase = `${parsed.replaceSrc}${staticAssetsOpts.dir}/${staticAssetsOpts.version}`
   })
 
   /*
@@ -74,11 +74,11 @@ const addHooks = (instance) => {
   */
 
   instance.nuxt.hook('generate:page', async (payload) => {
-    parsed = parseRoute(payload.route)
-    payload.html = payload.html
-      .replace(/"\/_nuxt\//gi, `"${parsed.replaceSrc}`)
-      .replace(/\(\/_nuxt\//gi, `(${parsed.replaceSrc}`)
-      .replace(/\/relativity\//gi, parsed.replaceStatic)
+    // parsed = parseRoute(payload.route)
+    // payload.html = payload.html
+    //   .replace(/"\/_nuxt\//gi, `"${parsed.replaceSrc}`)
+    //   .replace(/\(\/_nuxt\//gi, `(${parsed.replaceSrc}`)
+    //   .replace(/\/relativity\//gi, parsed.replaceStatic)
 
     const distPath = `${__dirname}/../../dist/_nuxt`
     const filenames = await Fs.readdirSync(distPath).filter(filename => filename.includes('.js'))
