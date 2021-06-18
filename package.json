@@ -8,11 +8,11 @@
   },
   "private": true,
   "scripts": {
-    "dev": "nuxt",
+    "dev": "node manifestor.js && nuxt",
     "start": "nuxt start",
-    "build": "nuxt build",
-    "generate": "nuxt generate",
-    "launch": "nuxt build && pm2 restart ipfs-ecosystem-directoryt",
+    "build": "node manifestor.js && nuxt build",
+    "generate": "node manifestor.js && nuxt generate",
+    "launch": "nuxt build && pm2 restart ipfs-ecosystem-directory",
     "reload": "pm2 restart ipfs-ecosystem-directory"
   },
   "engines": {
@@ -23,7 +23,6 @@
     "@nuxtjs/axios": "^5.13.1",
     "@nuxtjs/eslint-config": "^6.0.0",
     "@nuxtjs/eslint-module": "^3.0.2",
-    "@nuxtjs/google-analytics": "^2.4.0",
     "@nuxtjs/moment": "^1.6.1",
     "@nuxtjs/style-resources": "^1.0.0",
     "apollo-cache-inmemory": "^1.6.6",
@@ -39,6 +38,7 @@
     "eslint-plugin-nuxt": "^2.0.0",
     "fibers": "^5.0.0",
     "filesize": "^6.2.2",
+    "fs-extra": "^10.0.0",
     "graphql": "^15.5.0",
     "graphql-tag": "^2.11.0",
     "imports-loader": "^2.0.0",

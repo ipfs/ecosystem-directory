@@ -19,6 +19,7 @@ const HelpersPlugin = Path.resolve(__dirname, 'Plugins/helpers.js')
 const ToasterPlugin = Path.resolve(__dirname, 'Plugins/toaster.js')
 const UUIDPlugin = Path.resolve(__dirname, 'Plugins/uuid.js')
 const VueLsPlugin = Path.resolve(__dirname, 'Plugins/vue-ls.js')
+const GetScrollSpeedPlugin = Path.resolve(__dirname, 'Plugins/get-scroll-speed.js')
 
 // /////////////////////////////////////////////////////////////////// Functions
 // -----------------------------------------------------------------------------
@@ -45,7 +46,8 @@ const registerPlugins = (instance, next) => {
     Helpers: { src: HelpersPlugin, fileName: 'core/plugin-helpers.js' },
     Toaster: { src: ToasterPlugin, fileName: 'core/plugin-toaster.js' },
     UUID: { src: UUIDPlugin, fileName: 'core/plugin-uuid.js' },
-    VueLs: { src: VueLsPlugin, fileName: 'core/plugin-vue-ls.js', mode: 'client' }
+    VueLs: { src: VueLsPlugin, fileName: 'core/plugin-vue-ls.js', mode: 'client' },
+    VueLs: { src: GetScrollSpeedPlugin, fileName: 'core/plugin-get-scroll-speed.js', mode: 'client' }
   }
   Object.keys(plugins).map((key) => {
     const plugin = plugins[key]

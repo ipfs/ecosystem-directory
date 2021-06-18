@@ -1,19 +1,17 @@
 // /////////////////////////////////////////////////////////////////////// State
 // -----------------------------------------------------------------------------
 const state = {
-  activeTags: false,
-  collection: [],
-  filtersActive: false,
-  totalFilters: 0
+  activeTags: {},
+  filterPanelOpen: false,
+  selectedFiltersCount: 0
 }
 
 // ///////////////////////////////////////////////////////////////////// Getters
 // -----------------------------------------------------------------------------
 const getters = {
   activeTags: state => state.activeTags,
-  collection: state => state.collection,
-  filtersActive: state => state.filtersActive,
-  totalFilters: state => state.totalFilters
+  filterPanelOpen: state => state.filterPanelOpen,
+  selectedFiltersCount: state => state.selectedFiltersCount
 }
 
 // ///////////////////////////////////////////////////////////////////// Actions
@@ -23,21 +21,17 @@ const actions = {
   clearStore ({ commit }) {
     commit('CLEAR_STORE')
   },
-  // /////////////////////////////////////////////////////////////////// setPage
+  // ///////////////////////////////////////////////////////////// setActiveTags
   setActiveTags ({ commit }, tags) {
     commit('SET_ACTIVE_TAGS', tags)
   },
-  // /////////////////////////////////////////////////////////////////// setPage
-  setCollection ({ commit }, collection) {
-    commit('SET_COLLECTION', collection)
+  // //////////////////////////////////////////////////////// setFilterPanelOpen
+  setFilterPanelOpen ({ commit }, toggle) {
+    commit('SET_FILTER_PANEL_OPEN', toggle)
   },
-  // /////////////////////////////////////////////////////////////////// setPage
-  setFiltersActive ({ commit }, active) {
-    commit('SET_FILTERS_ACTIVE', active)
-  },
-  // /////////////////////////////////////////////////////////////////// setPage
-  setTotalFilters ({ commit }, amount) {
-    commit('SET_TOTAL_FILTERS', amount)
+  // /////////////////////////////////////////////////// setSelectedFiltersCount
+  setSelectedFiltersCount ({ commit }, amount) {
+    commit('SET_SELECTED_FILTERS_COUNT', amount)
   }
 }
 
@@ -45,22 +39,18 @@ const actions = {
 // -----------------------------------------------------------------------------
 const mutations = {
   CLEAR_STORE (state) {
-    state.activeTags = false
-    state.collection = []
+    state.activeTags = {}
     state.filtersActive = false
     state.totalFilters = 0
   },
   SET_ACTIVE_TAGS (state, tags) {
     state.activeTags = tags
   },
-  SET_COLLECTION (state, collection) {
-    state.collection = collection
+  SET_FILTER_PANEL_OPEN (state, toggle) {
+    state.filterPanelOpen = toggle
   },
-  SET_FILTERS_ACTIVE (state, active) {
-    state.filtersActive = active
-  },
-  SET_TOTAL_FILTERS (state, amount) {
-    state.totalFilters = amount
+  SET_SELECTED_FILTERS_COUNT (state, amount) {
+    state.selectedFiltersCount = amount
   }
 }
 

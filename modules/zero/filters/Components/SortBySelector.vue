@@ -7,7 +7,7 @@
       <div class="dropdown-button" @click.stop="toggleDropDown()">
 
         <label>
-          {{ msg }}
+          {{ label }}
         </label>
 
         <div>
@@ -16,9 +16,7 @@
           </span>
 
           <button class="dropdown-toggle">
-
             <slot name="dropdown-icon"></slot>
-
           </button>
         </div>
 
@@ -32,7 +30,7 @@
         <div class="dropdown-button" @click.stop="toggleDropDown()">
 
           <label>
-            {{ msg }}
+            {{ label }}
           </label>
 
           <div>
@@ -41,12 +39,9 @@
             </span>
 
             <button class="dropdown-toggle">
-
               <slot name="dropdown-icon"></slot>
-
             </button>
           </div>
-
         </div>
 
         <template v-for="option in options">
@@ -76,7 +71,7 @@ export default {
   name: 'SortBySelector',
 
   props: {
-    msg: {
+    label: {
       type: String,
       required: false,
       default: 'Sort by: '
@@ -90,13 +85,13 @@ export default {
   data () {
     return {
       closed: true,
-      selected: 'A-Z'
+      selected: 'Alphabetical (A-Z)'
     }
   },
 
   computed: {
     ...mapGetters({
-      collection: 'filters/collection'
+      filteredCollection: 'core/filteredCollection'
     }),
     options () {
       const displayOptions = []
@@ -114,13 +109,27 @@ export default {
     }
   },
 
+  watch: {
+    filteredCollection (col) {
+      this.options.forEach((item) => {
+        if (item.label === this.selected) {
+          if (item.type === 'alphabetical') {
+            this.sortAlphabetically(item.key, item.direction)
+          } else if (item.type === 'number') {
+            this.sortNumerically(item.sortNumber, item.direction)
+          }
+        }
+      })
+    }
+  },
+
   mounted () {
     this.sortAlphabetically('name', 'DESC')
   },
 
   methods: {
     ...mapActions({
-      setCollection: 'filters/setCollection'
+      setSortedCollection: 'core/setSortedCollection'
     }),
     toggleDropDown () {
       this.closed = !this.closed
@@ -138,22 +147,37 @@ export default {
       }
     },
     sortAlphabetically (key, mode) {
-      const cloned = CloneDeep(this.collection)
-      if (mode === 'ASC') {
-        cloned.sort((a, b) => b[key].localeCompare(a[key]))
-      } else if (mode === 'DESC') {
-        cloned.sort((a, b) => a[key].localeCompare(b[key]))
+      if (this.filteredCollection) {
+        const cloned = CloneDeep(this.filteredCollection)
+        if (mode === 'ASC') {
+          cloned.sort((a, b) => b[key].localeCompare(a[key]))
+        } else if (mode === 'DESC') {
+          cloned.sort((a, b) => a[key].localeCompare(b[key]))
+        } else {
+          this.passOnFilteredCollection()
+        }
+        this.setSortedCollection(cloned)
+      } else {
+        this.passOnFilteredCollection()
       }
-      this.setCollection(cloned)
     },
     sortNumerically (key, mode) {
-      const cloned = CloneDeep(this.collection)
-      if (mode === 'ASC') {
-        cloned.sort((a, b) => a.sortNumbers[key] - b.sortNumbers[key])
-      } else if (mode === 'DESC') {
-        cloned.sort((a, b) => b.sortNumbers[key] - a.sortNumbers[key])
+      if (this.filteredCollection) {
+        const cloned = CloneDeep(this.filteredCollection)
+        if (mode === 'ASC') {
+          cloned.sort((a, b) => a.sortNumbers[key] - b.sortNumbers[key])
+        } else if (mode === 'DESC') {
+          cloned.sort((a, b) => b.sortNumbers[key] - a.sortNumbers[key])
+        } else {
+          this.passOnFilteredCollection()
+        }
+        this.setSortedCollection(cloned)
+      } else {
+        this.passOnFilteredCollection()
       }
-      this.setCollection(cloned)
+    },
+    passOnFilteredCollection () {
+      this.setSortedCollection(this.filteredCollection)
     }
   }
 }

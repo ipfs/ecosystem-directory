@@ -38,10 +38,8 @@
             </h3>
           </div>
 
-          <div class="slider-card-text">
-            <p>
-              {{ excerpt }}
-            </p>
+          <div class="description">
+            {{ selectedCat.description ? selectedCat.description : '' }}
           </div>
 
           <div v-if="logos" class="logo-wrapper">
@@ -59,7 +57,7 @@
       <button
         class="view-all button noselect"
         @click="jump2Filters">
-        View All
+        {{ filterToggleButtonText }}
       </button>
 
     </div>
@@ -68,6 +66,8 @@
 
 <script>
 // ===================================================================== Imports
+import { mapGetters, mapActions } from 'vuex'
+
 import PrevArrow from '@/components/Icons/PrevArrow'
 import NextArrow from '@/components/Icons/NextArrow'
 
@@ -93,7 +93,7 @@ export default {
       type: Number,
       default: 440
     },
-    excerpt: {
+    description: {
       type: String,
       default: ''
     },
@@ -104,6 +104,13 @@ export default {
   },
 
   computed: {
+    ...mapGetters({
+      siteContent: 'global/siteContent',
+      routeQuery: 'global/routeQuery'
+    }),
+    filterToggleButtonText () {
+      return this.siteContent.index.page_content.segment_slider.filter_toggle_button_text
+    },
     logos () {
       if (this.selectedCat.logos.length) {
         return this.selectedCat.logos
@@ -117,11 +124,16 @@ export default {
   },
 
   methods: {
+    ...mapActions({
+      setRouteQuery: 'global/setRouteQuery',
+      setFilterPanelOpen: 'filters/setFilterPanelOpen'
+    }),
     incrementSelection (seg) {
       this.$emit('update-slider', seg)
     },
     jump2Filters () {
-      this.$nuxt.$emit('view-all-projects')
+      this.setRouteQuery({ key: 'filters', data: 'enabled' })
+      this.setFilterPanelOpen(true)
     }
   }
 }
@@ -166,7 +178,7 @@ export default {
   }
 }
 
-.slider-card-text {
+.description {
   @include fontSize_Small;
   font-weight: 400;
   margin-bottom: 2rem;

@@ -2,12 +2,15 @@
 // -----------------------------------------------------------------------------
 import GeneralSiteData from '@/content/pages/general.json'
 import IndexSiteData from '@/content/pages/index.json'
+import ProjectSiteData from '@/content/pages/project.json'
 import TaxonomyData from '@/content/data/taxonomy.json'
 
 // /////////////////////////////////////////////////////////////////////// State
 // -----------------------------------------------------------------------------
 const state = () => ({
-  siteContent: {}
+  siteContent: {},
+  routeQuery: {},
+  queryString: ''
 })
 
 // ///////////////////////////////////////////////////////////////////// Getters
@@ -20,7 +23,9 @@ const getters = {
       return siteContent.general.navigation
     }
     return false
-  }
+  },
+  routeQuery: state => state.routeQuery,
+  queryString: state => state.queryString
 }
 
 // ///////////////////////////////////////////////////////////////////// Actions
@@ -38,6 +43,7 @@ const actions = {
       case 'taxonomy': data = TaxonomyData; break
       case 'general': data = GeneralSiteData; break
       case 'index': data = IndexSiteData; break
+      case 'project': data = ProjectSiteData; break
       default : data = payload.data; break
     }
     if (data) {
@@ -47,6 +53,14 @@ const actions = {
   // //////////////////////////////////////////////////////////// setSiteContent
   setSiteContent ({ commit }, payload) {
     commit('SET_SITE_CONTENT', payload)
+  },
+  // ///////////////////////////////////////////////////////////// setRouteQuery
+  setRouteQuery ({ commit }, payload) {
+    commit('SET_ROUTE_QUERY', payload)
+  },
+  // //////////////////////////////////////////////////////////// setQueryString
+  setQueryString ({ commit }, queryString) {
+    commit('SET_QUERY_STRING', queryString)
   }
 }
 
@@ -57,9 +71,18 @@ const mutations = {
     state.siteContent = {}
     state.clipboard = false
     state.filterValue = ''
+    state.routeQuery = {}
+    state.queryString = ''
   },
   SET_SITE_CONTENT (state, payload) {
     state.siteContent[payload.key] = payload.data
+  },
+  SET_ROUTE_QUERY (state, payload) {
+    state.routeQuery[payload.key] = payload.data
+    state.queryString = JSON.stringify(state.routeQuery)
+  },
+  SET_QUERY_STRING (state, queryString) {
+    state.queryString = queryString
   }
 }
 

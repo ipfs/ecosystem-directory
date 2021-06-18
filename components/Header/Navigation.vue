@@ -1,7 +1,8 @@
 <template>
   <section
     v-if="navigation"
-    id="header-navigation">
+    id="header-navigation"
+    :class="{ 'force-visible': forceNavigationVisible, 'scroll-inertia-visible': navigationScrollInertiaVisible, 'show-background': showBackground }">
 
     <div class="grid-noGutter">
 
@@ -23,20 +24,20 @@
           </a>
 
           <div :class="['navigation', { 'modal-open' : navOpen, 'transition-out': modalClosing }]">
-            <div class="fill-gap"></div>
-            <component
-              :is="link.type"
-              v-for="(link, index) in navigation.header"
-              :key="index"
-              :to="link.disabled ? '' : link.href"
-              :href="link.disabled ? '' : link.href"
-              :disabled="link.disabled"
-              :target="link.target"
-              class="navigation-link onhover-line">
-              {{ link.label }}
-            </component>
-            <div class="fill-gap"></div>
-            <div :class="['social-icon-container', {'show-socials' : navOpen}]">
+            <div class="links-container">
+              <component
+                :is="link.type"
+                v-for="(link, index) in navigation.header"
+                :key="index"
+                :to="link.disabled ? '' : link.href"
+                :href="link.disabled ? '' : link.href"
+                :disabled="link.disabled"
+                :target="link.target"
+                class="navigation-link onhover-line">
+                {{ link.label }}
+              </component>
+            </div>
+            <div :class="['social-icon-container', { 'visible': navOpen }]">
               <SocialIcons />
             </div>
           </div>
@@ -58,7 +59,7 @@ import SocialIcons from '@/components/SocialIcons'
 
 // =================================================================== Functions
 const checkScreenWidth = (instance) => {
-  if (!window.matchMedia('(max-width: 40rem)').matches && instance.navOpen) {
+  if (!window.matchMedia('(max-width: 768px)').matches && instance.navOpen) { // <-- 768px requested interim solution
     instance.toggleNav()
   }
 }
@@ -75,24 +76,64 @@ export default {
     return {
       navOpen: false,
       resize: false,
-      modalClosing: false
+      scroll: false,
+      modalClosing: false,
+      scrollSpeed: 0,
+      scrollPosition: 0,
+      showBackground: false,
+      forceNavigationVisible: true,
+      navigationScrollInertiaVisible: false
     }
   },
 
   computed: {
     ...mapGetters({
       navigation: 'global/navigation',
-      filtersActive: 'filters/filtersActive'
+      filterPanelOpen: 'filters/filterPanelOpen'
     })
+  },
+
+  watch: {
+    scrollPosition (newVal, oldVal) {
+      const showBackground = this.showBackground
+      const forceVisible = this.forceNavigationVisible
+      const inertialVisible = this.navigationScrollInertiaVisible
+      if (newVal === 0 && showBackground) {
+        this.showBackground = false
+      } else if (newVal > 0 && !showBackground) {
+        this.showBackground = true
+      }
+      if (newVal === 0 && !forceVisible) {
+        this.forceNavigationVisible = true
+        if (inertialVisible) {
+          this.navigationScrollInertiaVisible = false
+        }
+      } else if (newVal > 80 && newVal > oldVal && (forceVisible || inertialVisible)) {
+        this.forceNavigationVisible = false
+        this.navigationScrollInertiaVisible = false
+      }
+    },
+    scrollSpeed (newVal) {
+      if (newVal < -10 && !this.navigationScrollInertiaVisible) {
+        this.navigationScrollInertiaVisible = true
+      }
+    }
   },
 
   mounted () {
     this.resize = this.$throttle(() => { checkScreenWidth(this) }, 310)
+    this.scroll = () => {
+      this.updateScrollPosition()
+      this.scrollSpeed = this.$GetScrollSpeed()
+    }
     window.addEventListener('resize', this.resize)
+    window.addEventListener('scroll', this.scroll)
+    this.updateScrollPosition()
   },
 
   beforeDestroy () {
     if (this.resize) { window.removeEventListener('resize', this.resize) }
+    if (this.scroll) { window.removeEventListener('scroll', this.scroll) }
   },
 
   methods: {
@@ -108,17 +149,45 @@ export default {
         document.body.classList.add('no-scroll')
         this.navOpen = !this.navOpen
       }
+    },
+    updateScrollPosition () {
+      this.scrollPosition = window.scrollY
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-$headerHeight: 5rem;
 // ///////////////////////////////////////////////////////////////////// General
 #header-navigation {
-  height: $headerHeight;
-  background-color: #041727;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: $navigationHeight;
+  z-index: 9999;
+  transform: translateY(-$navigationHeight);
+  transition: transform 250ms ease-in-out;
+  &.force-visible,
+  &.scroll-inertia-visible {
+    transform: translateY(0);
+  }
+  &.show-background {
+    &:before {
+      opacity: 1;
+    }
+  }
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #041727 0, #062B3F);
+    opacity: 0;
+    transition: 250ms ease-in-out;
+  }
 }
 
 [class*="grid"],
@@ -134,28 +203,95 @@ $headerHeight: 5rem;
   align-items: center;
 }
 
-.navigation {
-  @include small {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+#ipfs-logo,
+.navigation-link {
+  cursor: pointer;
+}
+
+#ipfs-logo {
+  display: block;
+  position: relative;
+  width: 8rem;
+  opacity: 1.0;
+  z-index: 100;
+  transition: opacity 0.3s cubic-bezier(0.4, 0.0, 0.2, 1.0);
+  &:hover {
+    opacity: 0.75;
   }
-  @include mini {
+}
+
+.navigation {
+  width: 100%;
+  max-width: 32rem; // <-- requested interim solution
+  @include customMaxMQ (768px) { // <-- requested interim solution
     display: none;
-    position: fixed;
-    width: 100vw;
-    height: calc(100vh - 5rem);
-    top: 5rem;
-    left: 0;
     flex-direction: column;
-    justify-content: center;
-    align-items: left;
+    position: fixed;
+    top: $navigationHeight;
+    left: 0;
+    width: 100vw;
+    max-width: none;
+    height: calc(100vh - 5rem);
     z-index: 100;
   }
   &.modal-open {
     display: flex;
     animation: landing 300ms cubic-bezier(0.4, 0.0, 0.2, 1.0);
+  }
+}
+
+.links-container {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 2rem;
+  @include customMaxMQ (768px) { // <-- requested interim solution
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 5rem;
+  }
+}
+
+.navigation-link {
+  @include customMaxMQ (768px) { // <-- requested interim solution
+    align-self: start;
+    margin-bottom: 0.75rem;
+    font-family: $fontMontserrat;
+    font-size: 2.1875rem;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+}
+
+// ////////////////////////////////////////////////////// Modal + Hamburger icon
+.modal-background {
+  display: none;
+  @include customMaxMQ (768px) { // <-- requested interim solution
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to bottom, #041727 0, #062B3F);
+    z-index: 99;
+  }
+  &.show-background {
+    display: inline;
+    animation: landing 300ms cubic-bezier(0.4, 0.0, 0.2, 1.0);
+  }
+}
+
+.social-icon-container {
+  display: none;
+  &.visible {
+    @include customMaxMQ (768px) { // <-- requested interim solution
+      display: inline;
+      align-self: start;
+      margin: 2rem 0;
+      margin-left: 5rem;
+    }
   }
 }
 
@@ -165,15 +301,15 @@ $headerHeight: 5rem;
   z-index: 1000;
   height: 14px;
   width: 2rem;
-  @include mini {
+  @include customMaxMQ (768px) { // <-- requested interim solution
     display: inline;
   }
   &:before {
-    content: "";
+    content: '';
     position: absolute;
     width: 100%;
     top: 0px;
-    border-top: 2px solid #f1f3f2;
+    border-top: 2px solid white;
     transition: 300ms cubic-bezier(0.4, 0.0, 0.2, 1.0);
   }
   &:after {
@@ -181,7 +317,7 @@ $headerHeight: 5rem;
     position: absolute;
     width: 100%;
     bottom: 2px;
-    border-top: 2px solid #f1f3f2;
+    border-top: 2px solid white;
     transition: 300ms cubic-bezier(0.4, 0.0, 0.2, 1.0);
   }
   &.close-icon {
@@ -197,79 +333,7 @@ $headerHeight: 5rem;
   }
 }
 
-#ipfs-logo,
-.navigation-link {
-  cursor: pointer;
-}
-
-#ipfs-logo {
-  display: block;
-  width: 8rem;
-  opacity: 1.0;
-  transition: opacity 0.3s cubic-bezier(0.4, 0.0, 0.2, 1.0);
-  &:hover {
-    opacity: 0.75;
-  }
-}
-
-.navigation-link {
-  &:not(:last-child) {
-    margin-right: 3rem;
-    @include small {
-      margin-right: 1rem;
-    }
-  }
-  @include mini {
-    align-self: start;
-    margin-left: 4rem;
-    margin-bottom: 0.75rem;
-    font-family: $fontMontserrat;
-    font-size: 2.1875rem;
-    font-weight: 500;
-    line-height: 1.2;
-  }
-}
-
-// /////////////////////////////////////////////////////////////////////// Modal
-
-.modal-background {
-  display: none;
-  @include mini {
-    position: absolute;
-    width: 100vw;
-    height: calc(100vh - 5rem);
-    top: 5rem;
-    left: 0;
-    background: linear-gradient(180deg, #041727 0, #062B3F);
-    z-index: 99;
-  }
-  &.show-background {
-    display: inline;
-    animation: landing 300ms cubic-bezier(0.4, 0.0, 0.2, 1.0);
-  }
-}
-
-.social-icon-container {
-  display: none;
-  &.show-socials {
-    @include mini {
-      display: inline;
-      align-self: start;
-      margin: 2rem;
-    }
-  }
-}
-
-.fill-gap {
-  display: none;
-  @include mini {
-    display: inline;
-    flex: 1;
-  }
-}
-
 // ////////////////////////////////////////////////////////////////// Animations
-
 @keyframes landing {
   from {
     transform: scale(1.1);
@@ -286,5 +350,4 @@ $headerHeight: 5rem;
   transform: scale(1.1);
   opacity: 0.0;
 }
-
 </style>

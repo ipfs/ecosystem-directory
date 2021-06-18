@@ -5,14 +5,13 @@
     @keyup.left="setSliderContent(selected - 1)"
     @keyup.right="setSliderContent(selected + 1)">
 
-    <div class="main-container grid-center">
+    <div class="main-container">
 
       <Slider
         v-if="chartItems"
         :selected-cat="chartItems[selected]"
         :selected-seg="selected"
         :container-height="containerHeight"
-        excerpt="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         @update-slider="setSliderContent" />
 
       <Chart
@@ -21,7 +20,8 @@
         :selected-seg="selected"
         :container-height="containerHeight"
         @update-slider="setSliderContent"
-        @keyup.left="setSliderContent(selected - 1)" />
+        @keyup.left="setSliderContent(selected - 1)"
+        @chart-mounted="chartMounted" />
 
     </div>
 
@@ -89,12 +89,14 @@ const createLabels = (projects) => {
   if (tags.length) {
     const categories = [...new Set(tags)]
     const items = []
+    const len = categories.length
 
-    for (let i = 0; i < categories.length; i++) {
-      if (industry.hasOwnProperty(categories[i])) {
+    for (let i = 0; i < len; i++) {
+      const category = categories[i]
+      if (industry.hasOwnProperty(category)) {
         let count = 0
         let selection = []
-        const label = industry[categories[i]]
+        const label = industry[category]
         const l = label.split('').length
         const frc = (0.9 * i - l) * 0.1
         const icons = logos[categories[i]]
@@ -111,7 +113,7 @@ const createLabels = (projects) => {
           }
         }
 
-        tags.forEach((tag) => { if (tag === categories[i]) { count++ } })
+        tags.forEach((tag) => { if (tag === category) { count++ } })
         items.push({
           cat: label,
           count,
@@ -120,11 +122,24 @@ const createLabels = (projects) => {
           above: Math.round(Math.random() * 1.4),
           force: frc,
           logos: selection,
-          display: true
+          display: true,
+          description: getCategoryDescription(label)
         })
       }
     }
     return addInitialOffsets(items)
+  }
+  return false
+}
+
+const getCategoryDescription = (label) => {
+  const len = Taxonomy.categories[0].tags.length
+  for (let i = 0; i < len; i++) {
+    if (Taxonomy.categories[0].tags[i].label === label) {
+      if (Taxonomy.categories[0].tags[i].hasOwnProperty('description')) {
+        return Taxonomy.categories[0].tags[i].description
+      }
+    }
   }
   return false
 }
@@ -194,7 +209,8 @@ export default {
   data () {
     return {
       selected: 0,
-      containerHeight: 440
+      containerHeight: 440,
+      segmentChart: false
     }
   },
 
@@ -203,13 +219,16 @@ export default {
       projects: 'projects/projects'
     }),
     chartItems () {
-      const data = createLabels(this.projects)
-      return data
+      return createLabels(this.projects)
     }
   },
 
-  mounted () {
-    this.$emit('init')
+  watch: {
+    segmentChart (val) {
+      if (val) {
+        this.$emit('init')
+      }
+    }
   },
 
   methods: {
@@ -217,6 +236,9 @@ export default {
       if (seg < 0) { seg = this.chartItems.length - 1 }
       const mod = seg % this.chartItems.length
       this.selected = mod
+    },
+    chartMounted () {
+      this.segmentChart = true
     }
   }
 }
@@ -236,7 +258,6 @@ export default {
   display: flex;
   position: relative;
   flex-wrap: wrap-reverse;
-  align-items: space-between;
-  margin: 0 auto;
+  justify-content: space-between;
 }
 </style>

@@ -3,7 +3,7 @@
     <div ref="segmentsCtn" class="segments-container">
 
       <div class="chart-title">
-        <h3>Explore IPFS</h3>
+        <h3>{{ mobileChartTitle }}</h3>
       </div>
 
       <div class="segments-row">
@@ -52,7 +52,9 @@
 </template>
 
 <script>
-// ====================================================================== Functions
+// =================================================================== Functions
+import { mapGetters } from 'vuex'
+
 const handleLoad = (instance) => {
   instance.handleResize()
 }
@@ -84,6 +86,18 @@ export default {
       timeOutFunction: null,
       load: false,
       resize: false
+    }
+  },
+
+  computed: {
+    ...mapGetters({
+      siteContent: 'global/siteContent'
+    }),
+    segmentSliderContent () {
+      return this.siteContent.index.page_content.segment_slider
+    },
+    mobileChartTitle () {
+      return this.segmentSliderContent.mobile_chart_title
     }
   },
 
@@ -203,6 +217,7 @@ export default {
                             setTimeout(() => {
                               this.reduceOffset(4, () => {
                                 this.setMinOffsets(() => null)
+                                this.$emit('chart-mounted')
                               })
                             }, 10 * r)
                           }

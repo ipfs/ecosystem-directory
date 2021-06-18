@@ -1,13 +1,16 @@
 <template>
-  <component :is="rootNode">
+  <component
+    :is="rootNode"
+    v-click-outside="closeAllSelect"
+    class="dropdown-root">
 
-    <div class="dropdown dropdown-selector-wrapper" @click.stop="toggleDropDown()">
+    <div class="dropdown dropdown-button" @click.stop="toggleDropDown()">
 
       <label>
-        {{ msg + (display === totalItems ? 'All' : display) }}
+        {{ label + (display === totalItems ? 'All' : display) }}
       </label>
 
-      <button class="dropdown dropdown-button">
+      <button class="dropdown dropdown-slot">
 
         <slot name="dropdown-icon"></slot>
 
@@ -39,18 +42,6 @@
 import { mapGetters, mapActions } from 'vuex'
 import CloneDeep from 'lodash/cloneDeep'
 
-// ===================================================================== Functions
-const closeAllSelect = (e, instance) => {
-  const opt = document.getElementsByClassName('dropdown')
-  const results = []
-  for (let i = 0; i < opt.length; i++) {
-    results.push(opt[i] !== e.target)
-  }
-  if (results.every(bool => bool)) {
-    instance.closed = true
-  }
-}
-
 // ====================================================================== Export
 export default {
   name: 'ResultsPerPageSelector',
@@ -61,7 +52,7 @@ export default {
       required: false,
       default: 'div'
     },
-    msg: {
+    label: {
       type: String,
       required: false,
       default: 'Results per page: '
@@ -85,8 +76,7 @@ export default {
 
   data () {
     return {
-      closed: true,
-      unfocus: false
+      closed: true
     }
   },
 
@@ -100,16 +90,12 @@ export default {
       return this.collection.length
     },
     options () {
-      const displayOptions = []
+      const displayOptions = CloneDeep(this.displayOptions)
       const total = this.collection.length
-
-      for (let i = 0; i < this.displayOptions.length; i++) {
-        displayOptions.push(this.displayOptions[i])
-      }
       if (total <= displayOptions[0].amount) {
         return [total]
       }
-      if (!this.displayOptions.includes(total)) {
+      if (!displayOptions.includes(total)) {
         displayOptions.push(total)
       }
       return displayOptions
@@ -123,16 +109,11 @@ export default {
     if (this.addParamOnLoad && this.display) {
       this.optionSelected(this.display)
     }
-    this.unfocus = (e) => { closeAllSelect(e, this) }
-    window.addEventListener('click', this.unfocus)
-  },
-
-  beforeDestroy () {
-    if (this.unfocus) { window.removeEventListener('click', this.unfocus) }
   },
 
   methods: {
     ...mapActions({
+      setRouteQuery: 'global/setRouteQuery',
       setDisplay: 'pagination/setDisplay',
       setTotalPages: 'pagination/setTotalPages'
     }),
@@ -143,20 +124,26 @@ export default {
     toggleDropDown () {
       this.closed = !this.closed
     },
+    closeAllSelect () {
+      this.closed = true
+    },
     optionSelected (val) {
       const selection = parseInt(val)
       if (!isNaN(selection)) {
         this.setDisplay(selection)
         this.calculateTotalPages()
-        const cloned = CloneDeep(this.$route.query)
-        if (this.page > this.totalPages) {
-          cloned.page = this.totalPages
+        const total = this.totalPages
+        const display = this.display
+        if (this.page > total) {
+          this.setRouteQuery({
+            key: 'page',
+            data: total
+          })
         }
-        if (cloned.page === 1) {
-          delete cloned.page
-        }
-        cloned.results = this.display
-        this.$router.push({ query: cloned })
+        this.setRouteQuery({
+          key: 'results',
+          data: display
+        })
         this.closed = true
       }
     }
@@ -180,7 +167,27 @@ export default {
   display: none;
 }
 
+.dropdown-root {
+  position: relative;
+  white-space: nowrap;
+  @include borderRadius3;
+  background-color: #FFFFFF;
+  cursor: pointer;
+  font-family: $fontInter;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
 .dropdown-button {
+  padding: 0.25rem 1.0rem;
+  display: flex;
+  justify-content: space-between;
+  label {
+    margin-right: 0.25rem;
+  }
+}
+
+.dropdown-slot {
   transform: translateY(-5%);
   opacity: 0.5;
   margin-left: 0.5rem;
@@ -196,12 +203,25 @@ export default {
   right: 1.0rem;
   top: 2.5rem;
   @include borderRadius3;
-  overflow: hidden;
+  padding: 0.25rem 0;
   z-index: 1000;
+  &::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #FFFFFF;
+    z-index: -1;
+    @include borderRadius3;
+    filter: drop-shadow(0 0 0.3rem rgba(73, 73, 73, 0.2));
+  }
 }
 
 .dropdown-item {
   padding: 0.25rem 0.75rem;
+  z-index: 10;
   &:hover {
     cursor: pointer;
     text-decoration: underline;

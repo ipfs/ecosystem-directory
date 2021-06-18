@@ -21,8 +21,8 @@
           <h1 v-if="project.name" class="name">
             {{ project.name }}
           </h1>
-          <h2 v-if="project.org" class="company">
-            {{ project.org[0] }}
+          <h2 v-if="organizations" class="company">
+            {{ organizations }}
           </h2>
           <p v-if="description" class="description">
             {{ description }}
@@ -36,7 +36,7 @@
               {{ project.primaryCta.text }}
             </a>
             <nuxt-link to="/" class="secondary-cta">
-              Explore Ecosystem
+              {{ secondaryCtaButtonText }}
             </nuxt-link>
           </div>
         </section>
@@ -123,7 +123,7 @@
       <div class="col-5_mi-10_ti-12">
         <section v-if="project.links || project.keyInfo" id="section-key-info">
           <h3 class="heading">
-            Key info
+            {{ metadataHeading }}
           </h3>
 
           <dl v-if="project.links" class="values">
@@ -227,10 +227,10 @@
 
         <div class="col-12">
           <h3 class="heading">
-            {{ pageData.section_featured_slider.heading }}
+            {{ generalPageData.section_featured_slider.heading }}
           </h3>
           <div class="description">
-            {{ pageData.section_featured_slider.description }}
+            {{ generalPageData.section_featured_slider.description }}
           </div>
         </div>
 
@@ -300,19 +300,21 @@ export default {
       tag: 'project',
       id: `project-${id}`,
       initSlider: false,
-      resize: false
+      resize: false,
+      project: false
     }
   },
 
   async fetch ({ store, req, route, error }) {
     await store.dispatch('global/getBaseData', 'general')
+    await store.dispatch('global/getBaseData', 'project')
     await store.dispatch('global/getBaseData', 'taxonomy')
     await store.dispatch('projects/getProjects')
   },
 
   head () {
-    const title = this.seo.title
-    const description = this.seo.description
+    const title = this.page_Title
+    const description = this.page_Description
     return {
       title,
       meta: [
@@ -337,9 +339,26 @@ export default {
     ...mapGetters({
       siteContent: 'global/siteContent'
     }),
-    // SEO
     seo () {
       return this.$getSeo(this.tag)
+    },
+    name () {
+      return this.project.name
+    },
+    page_Title () {
+      return `${this.name} | ${this.seo.title}`
+    },
+    page_Description () {
+      return `${this.name} | ${this.description}`
+    },
+    pageData () {
+      return this.siteContent.project.page_content
+    },
+    secondaryCtaButtonText () {
+      return this.pageData.secondary_cta_button_text
+    },
+    metadataHeading () {
+      return this.pageData.metadata_heading
     },
     breadcrumbs () {
       return [
@@ -352,7 +371,7 @@ export default {
         {
           type: 'nuxt-link',
           href: '/',
-          label: 'IPFS Ecosystem'
+          label: 'Ecosystem directory'
         },
         {
           type: 'nuxt-link',
@@ -367,7 +386,7 @@ export default {
       ]
     },
     // Project Content
-    pageData () {
+    generalPageData () {
       return this.siteContent.general
     },
     description () {
@@ -377,6 +396,11 @@ export default {
       if (!long && !short) { return false }
       if (long) { return long }
       return short
+    },
+    organizations () {
+      const orgs = this.project.org
+      if (!orgs) { return false }
+      return orgs.join(', ')
     },
     taxonomies () {
       return this.project.taxonomies.filter(tax => this.$checkTaxonomyCategoryExists(tax.slug))
@@ -498,6 +522,9 @@ export default {
 
 // ////////////////////////////////////////////////////// [Section] Project Info
 #section-project-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   margin-bottom: 3.75rem;
   @include medium {
     margin-bottom: 2rem;

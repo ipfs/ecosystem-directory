@@ -1,4 +1,4 @@
-import Projects from '@/content/projects/manifest.json'
+import Projects from '@/content/data/project-manifest.json'
 
 // /////////////////////////////////////////////////////////////////////// State
 // -----------------------------------------------------------------------------

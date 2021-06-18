@@ -1,6 +1,6 @@
 /* eslint require-await: "off" */
 
-import Projects from './content/projects/manifest.json'
+import Projects from './content/data/project-manifest.json'
 
 export default {
   // //////////////////////////////////////////// Static Site Generation Options
@@ -16,7 +16,7 @@ export default {
           try {
             const slug = Projects[i]
             const route = `/project/${slug}`
-            const payload = require(`./content/projects/${slug}.json`)
+            const payload = require(`./content/projects/${slug}`)
             payload.slug = slug
             routes.push({ route, payload })
           } catch (e) {
@@ -112,7 +112,7 @@ export default {
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
     // Doc: https://github.com/nuxt-community/analytics-module
-    '@nuxtjs/google-analytics',
+    // '@nuxtjs/google-analytics', // removed dependencies for Vue Analytics due to issues
     // Doc: https://github.com/nuxt-community/moment-module#readme
     '@nuxtjs/moment'
   ],

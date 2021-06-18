@@ -6,63 +6,78 @@
       "tags": [
         {
           "label": "Browsers",
-          "slug": "browsers"
+          "slug": "browsers",
+          "description": "Projects bringing IPFS into the browser, or melding browser-like capabilities with IPFS."
         },
         {
           "label": "Content delivery",
-          "slug": "content-delivery"
+          "slug": "content-delivery",
+          "description": "Projects enabling the future of content delivery using IPFS, from websites to streaming media to CDN-style delivery."
         },
         {
           "label": "Data & machine learning",
-          "slug": "data-machine-learning"
+          "slug": "data-machine-learning",
+          "description": "Projects using IPFS to improve availability, reliability, and more for datasets of all sizes."
         },
         {
           "label": "Data governance",
-          "slug": "data-governance"
+          "slug": "data-governance",
+          "description": "Projects using IPFS to ensure data integrity and other matters of data governance."
         },
         {
           "label": "Data persistence",
-          "slug": "data-persistence"
+          "slug": "data-persistence",
+          "description": "Projects focused on data persistence for material on the IPFS network, including pinning services."
         },
         {
           "label": "DeFi",
-          "slug": "defi"
+          "slug": "defi",
+          "description": "Projects using IPFS to help remove intermediaries and decentralize finance."
         },
         {
           "label": "Games & VR/AR",
-          "slug": "games-vr-ar"
+          "slug": "games-vr-ar",
+          "description": "Projects using IPFS to make advances in games, virtual reality, and augmented reality."
         },
         {
           "label": "Identity",
-          "slug": "identity"
+          "slug": "identity",
+          "description": "Projects using IPFS to help solve problems in the decentralized identity space."
         },
         {
           "label": "Integrations",
-          "slug": "integrations"
+          "slug": "integrations",
+          "description": "Projects integrating IPFS into other core internet and dweb technologies."
         },
         {
           "label": "IoT",
-          "slug": "iot"
+          "slug": "iot",
+          "description": "Projects using IPFS to make advances in the Internet of Things."
         },
         {
           "label": "Marketplaces & ecommerce",
-          "slug": "marketplaces-ecommerce"
+          "slug": "marketplaces-ecommerce",
+          "description": "Projects using IPFS to facilitate buying and selling among internet end users."
         },
         {
           "label": "NFTs",
-          "slug": "nfts"
+          "slug": "nfts",
+          "description": "Projects using IPFS as a best-practices standard in the world of nonfungible tokens."
         },
         {
           "label": "Other",
-          "slug": "other"
+          "slug": "other",
+          "description": "Notable projects built using IPFS that don't quite fit into another category."
         },
         {
           "label": "Prediction",
-          "slug": "prediction"
+          "slug": "prediction",
+          "description": "Projects using IPFS to improve the prediction, betting, and oracle space."
         },
         {
           "label": "Social media",
-          "slug": "social-media"
+          "slug": "social-media",
+          "description": "Projects using IPFS to help decentralize messaging and other types of social media."
         }
       ]
     },
@@ -253,24 +268,24 @@
     "a_z": {
       "type": "alphabetical",
       "key": "name",
-      "label": "A-Z",
+      "label": "Alphabetical (A-Z)",
       "direction": "DESC"
     },
     "z_a": {
       "type": "alphabetical",
       "key": "name",
-      "label": "Z-A",
+      "label": "Alphabetical (Z-A)",
       "direction": "ASC"
     },
     "date_desc": {
       "type": "number",
-      "label": "Time on IPFS | DESC",
+      "label": "Time on IPFS (newer)",
       "direction": "DESC",
       "sortNumber": "since"
     },
     "date_asc": {
       "type": "number",
-      "label": "Time on IPFS | ASC",
+      "label": "Time on IPFS (older)",
       "direction": "ASC",
       "sortNumber": "since"
     }

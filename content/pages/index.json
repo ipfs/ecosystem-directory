@@ -20,15 +20,39 @@
       },
       {
         "type": "div",
-        "label": "Ecosystem Directory"
+        "label": "Ecosystem directory"
       }
     ],
-    "heading": "Ecosystem Directory",
-    "subheading": "Explore the world of projects and products built on IPFS in this interactive showcase filterable by industry, tooling, and more.",
+    "hero": {
+      "heading": {
+        "index_view": "Ecosystem directory",
+        "filters_view": "All projects",
+        "filters_applied_view": "Filtered results"
+      },
+      "subheading": {
+        "index_view": "Explore the world of projects and products built on IPFS in this interactive showcase filterable by industry, tooling, and more.",
+        "filters_view": "Showing all projects, no filters selected"
+      }
+    },
+    "segment_slider": {
+      "filter_toggle_button_text": "View All",
+      "mobile_chart_title": "Explore IPFS"
+    },
     "section_filter": {
       "heading": "All projects",
       "description": "Explore the entire IPFS ecosystem, or use the filters to drill down by factors like industry, focus area, and tooling.",
-      "results_empty_placeholder": "No results found that match the selected filters"
+      "results_empty_placeholder": "No results found that match the selected filters",
+      "filter_panel_toggle_button_label": "Filters",
+      "sort_dropdown_label": "Sort by:",
+      "results_per_page_dropdown_label": "Results per page: ",
+      "filter_panel": {
+        "heading": "All Filters",
+        "clear_button_text": {
+          "before": "Clear",
+          "after": "Selected"
+        },
+        "submit_button_text": "Done"
+      }
     }
   }
 }
