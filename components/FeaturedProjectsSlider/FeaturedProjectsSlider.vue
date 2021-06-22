@@ -4,7 +4,8 @@
     <div id="slider">
       <div
         id="card-row-container"
-        ref="cardRowContainer">
+        ref="cardRowContainer"
+        v-hammer:swipe.horizontal="onSwipe">
         <div
           id="card-row"
           ref="cardRow"
@@ -29,6 +30,7 @@
       <div id="slider-line">
         <input
           id="feature-range-slider"
+          ref="sliderInput"
           v-model="range"
           type="range"
           step="0.1"
@@ -121,6 +123,18 @@ export default {
   methods: {
     setSliderPosition () {
       this.left = (-1 * this.currentIndex) * this.cardWidth
+    },
+    onSwipe (e) {
+      const ind = this.currentIndex
+      const min = parseFloat(this.$refs.sliderInput.min)
+      const max = parseFloat(this.$refs.sliderInput.max)
+      const rng = max - min
+      if (ind < this.indices && e.type === 'swipeleft') {
+        this.range = min + (rng * (ind + 1) / this.indices)
+      }
+      if (ind > 0 && e.type === 'swiperight') {
+        this.range = min + (rng * (ind - 1) / this.indices)
+      }
     }
   }
 }
