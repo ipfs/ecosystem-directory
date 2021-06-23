@@ -91,7 +91,7 @@ export default {
 
   methods: {
     ...mapActions({
-      setRouteQuery: 'global/setRouteQuery',
+      setRouteQuery: 'filters/setRouteQuery',
       setPage: 'pagination/setPage',
       setTotalPages: 'pagination/setTotalPages',
       setDisplay: 'pagination/setDisplay',

@@ -146,7 +146,7 @@ export default {
   computed: {
     ...mapGetters({
       siteContent: 'global/siteContent',
-      routeQuery: 'global/routeQuery',
+      routeQuery: 'filters/routeQuery',
       projects: 'projects/projects',
       filterPanelOpen: 'filters/filterPanelOpen',
       sortedCollection: 'core/sortedCollection',
@@ -187,13 +187,29 @@ export default {
     }
   },
 
+  watch: {
+    listViewActive (val) {
+      this.setRouteQuery({
+        key: 'display-type',
+        data: val ? 'list' : 'block'
+      })
+    }
+  },
+
   mounted () {
+    if (this.$route.query['display-type']) {
+      if (this.$route.query['display-type'] === 'list') {
+        this.listViewActive = true
+      } else if (this.$route.query['display-type'] === 'block') {
+        this.listViewActive = false
+      }
+    }
     clearPanelHeight(this)
   },
 
   methods: {
     ...mapActions({
-      setRouteQuery: 'global/setRouteQuery',
+      setRouteQuery: 'filters/setRouteQuery',
       setTotalFilters: 'filters/setTotalFilters',
       setFilterPanelOpen: 'filters/setFilterPanelOpen'
     }),
