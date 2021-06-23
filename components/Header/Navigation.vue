@@ -114,9 +114,11 @@ export default {
       }
     },
     scrollSpeed (newVal) {
-      console.log(newVal)
+      console.log(`${newVal} | ${this.navigationScrollInertiaVisible} | ${newVal < -10 && !this.navigationScrollInertiaVisible}`)
       if (newVal < -10 && !this.navigationScrollInertiaVisible) {
+        console.log('HIT')
         this.navigationScrollInertiaVisible = true
+        console.log(this.navigationScrollInertiaVisible)
       }
     }
   },
