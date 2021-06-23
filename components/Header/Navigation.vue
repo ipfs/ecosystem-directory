@@ -101,9 +101,9 @@ export default {
       const inertialVisible = this.navigationScrollInertiaVisible
       console.log(`→ | ${showBackground} | ${forceVisible} | ${inertialVisible}`)
       let compiled = ''
-      if (inertialVisible) { compiled += 'scroll-inertia-visible ' }
-      if (forceVisible) { compiled += 'force-visible ' }
-      if (showBackground) { compiled += 'show-background ' }
+      if (inertialVisible) { console.log('1'); compiled += 'scroll-inertia-visible ' }
+      if (forceVisible) { console.log('2'); compiled += 'force-visible ' }
+      if (showBackground) { console.log('3'); compiled += 'show-background ' }
       console.log(`compiled | ${compiled}`)
       return compiled
     }
@@ -132,7 +132,7 @@ export default {
       }
     },
     scrollSpeed (newVal) {
-      console.log(`${newVal} | ${this.navigationScrollInertiaVisible} | ${newVal < -10 && !this.navigationScrollInertiaVisible}`)
+      console.log(`${newVal} | ${this.navigationScrollInertiaVisible}`)
       if (newVal < -10 && !this.navigationScrollInertiaVisible) {
         // console.log('HIT')
         this.navigationScrollInertiaVisible = true
