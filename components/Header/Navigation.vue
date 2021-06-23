@@ -95,10 +95,12 @@ export default {
       const showBackground = this.showBackground
       const forceVisible = this.forceNavigationVisible
       const inertialVisible = this.navigationScrollInertiaVisible
+      console.log(`→ 1 | ${showBackground} | ${forceVisible} | ${inertialVisible}`)
       let compiled = ''
       if (inertialVisible) { compiled += 'scroll-inertia-visible ' }
       if (forceVisible) { compiled += 'force-visible ' }
       if (showBackground) { compiled += 'show-background ' }
+      console.log(`compiled | ${compiled}`)
       return compiled
     }
   },
