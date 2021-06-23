@@ -47,7 +47,7 @@ const registerPlugins = (instance, next) => {
     Toaster: { src: ToasterPlugin, fileName: 'core/plugin-toaster.js' },
     UUID: { src: UUIDPlugin, fileName: 'core/plugin-uuid.js' },
     VueLs: { src: VueLsPlugin, fileName: 'core/plugin-vue-ls.js', mode: 'client' },
-    VueLs: { src: GetScrollSpeedPlugin, fileName: 'core/plugin-get-scroll-speed.js', mode: 'client' }
+    GetScrollSpeed: { src: GetScrollSpeedPlugin, fileName: 'core/plugin-get-scroll-speed.js', mode: 'client' }
   }
   Object.keys(plugins).map((key) => {
     const plugin = plugins[key]

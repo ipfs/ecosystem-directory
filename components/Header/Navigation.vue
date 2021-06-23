@@ -111,6 +111,7 @@ export default {
       } else if (newVal > 0 && !showBackground) {
         this.showBackground = true
       }
+      console.log(scrollSpeed)
       if (newVal === 0) {
         console.log('Force Show')
         this.forceNavigationVisible = true
