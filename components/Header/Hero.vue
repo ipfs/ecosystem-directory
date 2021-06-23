@@ -73,7 +73,6 @@
 <script>
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
-import CloneDeep from 'lodash/cloneDeep'
 
 import Breadcrumbs from '@/modules/zero/core/Components/Breadcrumbs'
 
@@ -96,10 +95,11 @@ export default {
       siteContent: 'global/siteContent',
       navigation: 'global/navigation',
       projects: 'projects/projects',
-      activeTags: 'filters/activeTags',
       taxonomyLabels: 'filters/taxonomyLabels',
       filteredCollection: 'core/filteredCollection',
-      filterPanelOpen: 'filters/filterPanelOpen'
+      filterPanelOpen: 'filters/filterPanelOpen',
+      categoryLookUp: 'filters/categoryLookUp',
+      routeQuery: 'filters/routeQuery'
     }),
     pageData () {
       return this.siteContent.index.page_content
@@ -117,15 +117,18 @@ export default {
       if (headerState === 'filters-view') { return subheading.filters_view }
       return subheading.index_view
     },
+    ProjectFilters () {
+      return this.siteContent.taxonomy.categories
+    },
+    selectedFilters () {
+      if (this.routeQuery.tags) { return this.routeQuery.tags.split(',') }
+      return []
+    },
     headerState () {
       const route = this.$route
-      let selectedFiltersCount = 0
-      Object.keys(this.activeTags).forEach((category) => {
-        selectedFiltersCount += this.activeTags[category].tags.length
-      })
       if (route.name === 'index') {
         if (route.query.filters === 'enabled') {
-          if (selectedFiltersCount) {
+          if (this.selectedFilters.length) {
             return 'filters-applied'
           } else {
             return 'filters-view'
@@ -137,14 +140,17 @@ export default {
     },
     categories () {
       const arr = []
-      const cloned = CloneDeep(this.activeTags)
-      Object.keys(cloned).forEach((category) => {
-        if (cloned[category].tags.length) {
-          const string = []
-          const tags = cloned[category].tags
-          for (let i = 0; i < tags.length; i++) { string.push(this.taxonomyLabels[tags[i]]) }
+      const len = this.selectedFilters.length
+      Object.keys(this.categoryLookUp).forEach((category) => {
+        const string = []
+        for (let i = 0; i < len; i++) {
+          if (this.categoryLookUp[category].tags.includes(this.selectedFilters[i])) {
+            string.push(this.taxonomyLabels[this.selectedFilters[i]])
+          }
+        }
+        if (string.length) {
           arr.push({
-            category: cloned[category].label + ':',
+            category: this.categoryLookUp[category].label + ':',
             tags: string.join(', ')
           })
         }

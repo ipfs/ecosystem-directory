@@ -126,7 +126,7 @@ export default {
   mounted () {
     if (this.$route.query['sort-by']) {
       Object.keys(this.sortOptions).forEach((option) => {
-        if (this.$slugify(this.sortOptions[option].label) === this.$route.query['sort-by']) {
+        if (this.sortOptions[option].slug === this.$route.query['sort-by']) {
           this.optionSelected(this.sortOptions[option])
         }
       })
@@ -137,7 +137,7 @@ export default {
 
   methods: {
     ...mapActions({
-      setRouteQuery: 'global/setRouteQuery',
+      setRouteQuery: 'filters/setRouteQuery',
       setSortedCollection: 'core/setSortedCollection'
     }),
     toggleDropDown () {
@@ -156,7 +156,7 @@ export default {
       }
       this.setRouteQuery({
         key: 'sort-by',
-        data: this.$slugify(obj.label)
+        data: obj.slug
       })
     },
     sortAlphabetically (key, mode) {

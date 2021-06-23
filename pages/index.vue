@@ -90,14 +90,11 @@ const parseURLParams = (instance) => {
       if (cloned[item] === 'enabled') {
         instance.setFilterPanelOpen(true)
         if (!cloned.hasOwnProperty('tags')) {
-          instance.clearFiltersStore()
+          instance.clearAllTags()
         }
       } else {
         instance.mountSegmentAndFeaturedSliders()
       }
-    }
-    if (item === 'tags') {
-      applyFiltersFromURL(instance, cloned[item])
     }
     instance.setRouteQuery({
       key: item,
@@ -106,18 +103,6 @@ const parseURLParams = (instance) => {
   })
   if (!cloned.hasOwnProperty('filters')) {
     instance.mountSegmentAndFeaturedSliders()
-  }
-}
-
-const applyFiltersFromURL = (instance, string) => {
-  if (string) {
-    const slugs = string.split(',').filter(Boolean)
-    Object.keys(instance.activeTags).forEach((category) => {
-      const arr = slugs.filter(tag => instance.categoryLookUp[category].includes(tag))
-      for (let i = 0; i < arr.length; i++) {
-        instance.setActiveTags({ category, tag: arr[i] })
-      }
-    })
   }
 }
 
@@ -174,9 +159,7 @@ export default {
   computed: {
     ...mapGetters({
       siteContent: 'global/siteContent',
-      routeQuery: 'global/routeQuery',
-      activeTags: 'filters/activeTags',
-      categoryLookUp: 'filters/categoryLookUp',
+      routeQuery: 'filters/routeQuery',
       filterPanelOpen: 'filters/filterPanelOpen'
     }),
     // SEO
@@ -199,37 +182,6 @@ export default {
       } else {
         this.mountSegmentAndFeaturedSliders()
       }
-    },
-    activeTags: {
-      deep: true,
-      handler (obj) {
-        const allTags = []
-        Object.keys(obj).forEach((category) => {
-          const tags = obj[category].tags
-          if (tags.length) {
-            for (let i = 0; i < tags.length; i++) {
-              allTags.push(tags[i])
-            }
-          }
-        })
-        this.setRouteQuery({
-          key: 'tags',
-          data: allTags.length ? allTags.join(',') : ''
-        })
-      }
-    },
-    routeQuery: {
-      deep: true,
-      handler (obj) {
-        if (JSON.stringify(obj) !== JSON.stringify(this.$route.query)) {
-          const cloned = CloneDeep(this.routeQuery)
-          if (cloned.page === 1) { delete cloned.page }
-          Object.keys(cloned).forEach((key) => {
-            if (!cloned[key]) { delete cloned[key] }
-          })
-          this.$router.push({ query: cloned })
-        }
-      }
     }
   },
 
@@ -245,18 +197,17 @@ export default {
 
   methods: {
     ...mapActions({
-      setRouteQuery: 'global/setRouteQuery',
-      clearRouteQuery: 'global/clearRouteQuery',
-      setActiveTags: 'filters/setActiveTags',
-      clearFiltersStore: 'filters/clearStore',
-      setFilterPanelOpen: 'filters/setFilterPanelOpen'
+      setRouteQuery: 'filters/setRouteQuery',
+      clearRouteQuery: 'filters/clearRouteQuery',
+      setFilterPanelOpen: 'filters/setFilterPanelOpen',
+      clearAllTags: 'filters/clearAllTags'
     }),
     mountSegmentAndFeaturedSliders () {
       if (!this.segmentSlider) { this.segmentSlider = true }
       if (!this.featuredSlider) { this.featuredSlider = true }
       if (this.filterPanelOpen) { this.setFilterPanelOpen(false) }
       this.setRouteQuery({ key: 'filters', data: '' })
-      this.clearFiltersStore()
+      this.clearAllTags()
       this.resetSectionHeight()
     },
     collapseSegmentAndFeaturedSliders () {

@@ -1,110 +1,130 @@
 // ///////////////////////////////////////////////////////// Imports & Variables
 // -----------------------------------------------------------------------------
 import TaxonomyData from '@/content/data/taxonomy.json'
+import CloneDeep from 'lodash/cloneDeep'
+
+const params = {
+  filters: '',
+  tags: '',
+  page: '',
+  results: '',
+  'sort-by': '',
+  'display-type': ''
+}
 
 // /////////////////////////////////////////////////////////////////// Functions
 // -----------------------------------------------------------------------------
-const initActiveTags = () => {
-  const obj = {}
-  TaxonomyData.categories.forEach((item) => {
-    obj[item.slug] = {
-      label: item.label,
-      slug: item.slug,
-      tags: []
-    }
-  })
-  return obj
-}
-
-const initTaxonomyLabels = () => {
-  const obj = {}
-  TaxonomyData.categories.forEach((item) => {
-    const tags = item.tags
-    for (let i = 0; i < tags.length; i++) {
-      obj[tags[i].slug] = tags[i].label
-    }
-  })
-  return obj
-}
-
-const initCategoryLookUp = () => {
-  const obj = {}
-  TaxonomyData.categories.forEach((item) => {
-    const tagSlugs = []
-    for (let i = 0; i < item.tags.length; i++) {
-      tagSlugs.push(item.tags[i].slug)
-    }
-    obj[item.slug] = tagSlugs
-  })
-  return obj
+const append2URL = (state, router) => {
+  if (JSON.stringify(state.routeQuery) !== JSON.stringify(router.currentRoute.query)) {
+    const cloned = CloneDeep(state.routeQuery)
+    if (cloned.page === 1) { delete cloned.page }
+    Object.keys(cloned).forEach((key) => {
+      if (!cloned[key]) { delete cloned[key] }
+    })
+    router.push({ query: cloned })
+  }
 }
 
 // /////////////////////////////////////////////////////////////////////// State
 // -----------------------------------------------------------------------------
 const state = {
-  activeTags: initActiveTags(),
-  taxonomyLabels: initTaxonomyLabels(),
-  categoryLookUp: initCategoryLookUp(),
-  filterPanelOpen: false
+  filterPanelOpen: false,
+  routeQuery: params
 }
 
 // ///////////////////////////////////////////////////////////////////// Getters
 // -----------------------------------------------------------------------------
 const getters = {
-  activeTags: state => state.activeTags,
-  taxonomyLabels: state => state.taxonomyLabels,
-  categoryLookUp: state => state.categoryLookUp,
-  filterPanelOpen: state => state.filterPanelOpen
+  filterPanelOpen: state => state.filterPanelOpen,
+  routeQuery: state => state.routeQuery,
+  taxonomyLabels: (state) => {
+    const obj = {}
+    TaxonomyData.categories.forEach((item) => {
+      const tags = item.tags
+      for (let i = 0; i < tags.length; i++) {
+        obj[tags[i].slug] = tags[i].label
+      }
+    })
+    return obj
+  },
+  categoryLookUp: (state) => {
+    const obj = {}
+    TaxonomyData.categories.forEach((item) => {
+      const tagSlugs = []
+      for (let i = 0; i < item.tags.length; i++) {
+        tagSlugs.push(item.tags[i].slug)
+      }
+      obj[item.slug] = { label: item.label, tags: tagSlugs }
+    })
+    return obj
+  }
 }
 
 // ///////////////////////////////////////////////////////////////////// Actions
 // -----------------------------------------------------------------------------
 const actions = {
-  // //////////////////////////////////////////////////////////////// clearStore
-  clearStore ({ commit }) {
-    commit('CLEAR_STORE')
-  },
-  // ///////////////////////////////////////////////////////////// setActiveTags
-  setActiveTags ({ commit }, payload) {
-    commit('SET_ACTIVE_TAGS', payload)
-  },
-  // /////////////////////////////////////////////////////////// clearActiveTags
-  clearActiveTags ({ commit }, category) {
-    commit('CLEAR_ACTIVE_TAGS', category)
-  },
   // //////////////////////////////////////////////////////// setFilterPanelOpen
   setFilterPanelOpen ({ commit }, toggle) {
     commit('SET_FILTER_PANEL_OPEN', toggle)
+  },
+  // /////////////////////////////////////////////////////////// clearRouteQuery
+  clearRouteQuery ({ commit }) {
+    commit('CLEAR_ROUTE_QUERY')
+  },
+  // ///////////////////////////////////////////////////////////// setRouteQuery
+  setRouteQuery ({ commit, state }, payload) {
+    if (payload.key === 'tags') {
+      let string
+      const active = state.routeQuery.tags.split(',')
+      if (!active.includes(payload.data)) {
+        string = state.routeQuery.tags ? state.routeQuery.tags + ',' + payload.data : payload.data
+      } else {
+        const i = active.indexOf(payload.data)
+        if (i > -1) { active.splice(i, 1) }
+        string = active.join(',')
+      }
+      payload.data = string
+    }
+    commit('SET_ROUTE_QUERY', payload)
+  },
+  // /////////////////////////////////////////////////////// clearRouteQueryTags
+  clearRouteQueryTags ({ commit, state, getters }, category) {
+    const queryTags = state.routeQuery.tags.split(',')
+    const categoryTags = getters.categoryLookUp[category].tags
+    const cleared = queryTags.filter(tag => !categoryTags.includes(tag)).join(',')
+    commit('CLEAR_ROUTE_QUERY_TAGS', cleared)
+  },
+  // ////////////////////////////////////////////////////////////// clearAllTags
+  clearAllTags ({ commit }) {
+    commit('CLEAR_ALL_TAGS')
   }
 }
 
 // /////////////////////////////////////////////////////////////////// Mutations
 // -----------------------------------------------------------------------------
 const mutations = {
-  CLEAR_STORE (state) {
-    Object.keys(state.activeTags).forEach((category) => {
-      state.activeTags[category].tags = []
-    })
-  },
-  SET_ACTIVE_TAGS (state, payload) {
-    const category = payload.category
-    const tag = payload.tag
-    if (!state.activeTags[category].tags.includes(tag)) {
-      state.activeTags[category].tags.push(tag)
-    } else {
-      const i = state.activeTags[category].tags.indexOf(tag)
-      if (i > -1) {
-        state.activeTags[category].tags.splice(i, 1)
-      }
-    }
-  },
-  CLEAR_ACTIVE_TAGS (state, category) {
-    if (state.activeTags.hasOwnProperty(category)) {
-      state.activeTags[category].tags = []
-    }
-  },
   SET_FILTER_PANEL_OPEN (state, toggle) {
     state.filterPanelOpen = toggle
+  },
+  CLEAR_ROUTE_QUERY (state) {
+    state.routeQuery = params
+    const router = this.$router
+    append2URL(state, router)
+  },
+  SET_ROUTE_QUERY (state, payload) {
+    state.routeQuery[payload.key] = payload.data
+    const router = this.$router
+    append2URL(state, router)
+  },
+  CLEAR_ROUTE_QUERY_TAGS (state, slug) {
+    state.routeQuery.tags = slug
+    const router = this.$router
+    append2URL(state, router)
+  },
+  CLEAR_ALL_TAGS (state) {
+    state.routeQuery.tags = ''
+    const router = this.$router
+    append2URL(state, router)
   }
 }
 

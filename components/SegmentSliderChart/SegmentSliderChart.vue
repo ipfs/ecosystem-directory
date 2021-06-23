@@ -36,12 +36,10 @@ import { mapGetters } from 'vuex'
 import Slider from '@/components/SegmentSliderChart/Slider.vue'
 import Chart from '@/components/SegmentSliderChart/Chart.vue'
 
-import Taxonomy from '@/content/data/taxonomy.json'
-
 // =================================================================== Functions
-const loadTaxonomies = () => {
+const loadTaxonomies = (instance) => {
   const industry = {}
-  const tax = Taxonomy.categories
+  const tax = instance.siteContent.taxonomy.categories
   let categories
   for (let i = 0; i < tax.length; i++) {
     if (tax[i].label === 'Industry') {
@@ -54,9 +52,9 @@ const loadTaxonomies = () => {
   return industry
 }
 
-const initCategoryLogos = () => {
+const initCategoryLogos = (instance) => {
   const logos = {}
-  const tax = Taxonomy.categories
+  const tax = instance.siteContent.taxonomy.categories
   let categories
   for (let i = 0; i < tax.length; i++) {
     if (tax[i].label === 'Industry') {
@@ -69,11 +67,11 @@ const initCategoryLogos = () => {
   return logos
 }
 
-const createLabels = (projects) => {
+const createLabels = (instance, projects) => {
   const tags = []
   const len = projects.length
-  const industry = loadTaxonomies()
-  const logos = initCategoryLogos()
+  const industry = loadTaxonomies(instance)
+  const logos = initCategoryLogos(instance)
 
   for (let i = 0; i < len; i++) {
     const industryTags = projects[i].taxonomies[0].tags
@@ -125,7 +123,7 @@ const createLabels = (projects) => {
           force: frc,
           logos: selection,
           display: true,
-          description: getCategoryDescription(label)
+          description: getCategoryDescription(instance, label)
         })
       }
     }
@@ -134,12 +132,13 @@ const createLabels = (projects) => {
   return false
 }
 
-const getCategoryDescription = (label) => {
-  const len = Taxonomy.categories[0].tags.length
+const getCategoryDescription = (instance, label) => {
+  const industry = instance.siteContent.taxonomy.categories[0]
+  const len = industry.tags.length
   for (let i = 0; i < len; i++) {
-    if (Taxonomy.categories[0].tags[i].label === label) {
-      if (Taxonomy.categories[0].tags[i].hasOwnProperty('description')) {
-        return Taxonomy.categories[0].tags[i].description
+    if (industry.tags[i].label === label) {
+      if (industry.tags[i].hasOwnProperty('description')) {
+        return industry.tags[i].description
       }
     }
   }
@@ -216,15 +215,20 @@ export default {
     }
   },
 
+  async fetch ({ store, req }) {
+    await store.dispatch('global/getBaseData', 'taxonomy')
+  },
+
   computed: {
     ...mapGetters({
+      siteContent: 'global/siteContent',
       projects: 'projects/projects'
     }),
     chartItems () {
-      return createLabels(this.projects)
+      return createLabels(this, this.projects)
     },
     parentCategory () {
-      return Taxonomy.categories[0].slug
+      return this.siteContent.taxonomy.categories[0].slug
     }
   },
 

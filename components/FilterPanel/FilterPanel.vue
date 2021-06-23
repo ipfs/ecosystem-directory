@@ -49,7 +49,7 @@
 
       <div id="filter-panel-controls" class="bottom-buttons">
         <button
-          v-if="selectedFiltersCount"
+          v-if="selectedTags.length"
           class="clear-selected"
           @click="clearSelected">
           {{ clearSelectedFiltersButtonText }}
@@ -66,15 +66,12 @@
 <script>
 // ===================================================================== Imports
 import { mapGetters, mapActions } from 'vuex'
-import CloneDeep from 'lodash/cloneDeep'
 
 import Filters from '@/modules/zero/filters/Components/Filters'
 import Accordion from '@/modules/zero/core/Components/Accordion/Accordion'
 import AccordionHeader from '@/modules/zero/core/Components/Accordion/Header'
 import AccordionSection from '@/modules/zero/core/Components/Accordion/Section'
 import AccordionContent from '@/modules/zero/core/Components/Accordion/Content'
-
-import Taxonomy from '@/content/data/taxonomy.json'
 
 // =================================================================== Functions
 const toggleAllCategoryTags = (instance, heading) => {
@@ -84,17 +81,15 @@ const toggleAllCategoryTags = (instance, heading) => {
     if (item.slug === heading) {
       const checker = []
       for (let i = 0; i < item.tags.length; i++) {
-        if (!instance.activeTags[heading].tags.includes(item.tags[i].slug)) {
-          const category = heading
-          const tag = item.tags[i].slug
-          instance.setActiveTags({ category, tag })
+        if (!instance.routeQuery.tags.includes(item.tags[i].slug)) {
+          instance.setRouteQuery({ key: 'tags', data: item.tags[i].slug })
           checker.push(false)
         } else {
           checker.push(true)
         }
       }
       if (checker.every((val) => { return val })) {
-        instance.clearActiveTags(heading)
+        instance.clearRouteQueryTags(heading)
       }
     }
   })
@@ -124,8 +119,8 @@ export default {
   computed: {
     ...mapGetters({
       siteContent: 'global/siteContent',
-      routeQuery: 'global/routeQuery',
-      activeTags: 'filters/activeTags',
+      routeQuery: 'filters/routeQuery',
+      categoryLookUp: 'filters/categoryLookUp',
       filterPanelOpen: 'filters/filterPanelOpen'
     }),
     filterPanelContent () {
@@ -133,61 +128,47 @@ export default {
     },
     clearSelectedFiltersButtonText () {
       const clearButtonText = this.filterPanelContent.clear_button_text
-      const count = this.selectedFiltersCount
+      const count = this.selectedTags.length
       return `${clearButtonText.before}${count > 0 ? ` (${count}) ` : ' '}${clearButtonText.after}`
     },
     submitButtonText () {
       return this.filterPanelContent.submit_button_text
     },
     ProjectFilters () {
-      return Taxonomy.categories
+      return this.siteContent.taxonomy.categories
     },
     selectedTags () {
-      const arr = []
-      const cloned = CloneDeep(this.activeTags)
-      Object.keys(cloned).forEach((category) => {
-        if (cloned[category].tags.length) {
-          const len = cloned[category].tags.length
-          for (let i = 0; i < len; i++) { arr.push(cloned[category].tags[i]) }
-        }
-      })
-      return arr
+      if (this.routeQuery.tags) { return this.routeQuery.tags.split(',') }
+      return []
     },
     numberInCategory () {
       const obj = {}
-      const cloned = CloneDeep(this.activeTags)
-      Object.keys(cloned).forEach((category) => {
-        const key = cloned[category].slug
-        const val = cloned[category].tags.length
-        obj[key] = val
+      const len = this.selectedTags.length
+      this.ProjectFilters.forEach((category) => {
+        let sum = 0
+        for (let i = 0; i < len; i++) {
+          if (this.categoryLookUp[category.slug].tags.includes(this.selectedTags[i])) { sum++ }
+        }
+        obj[category.slug] = sum
       })
       return obj
-    },
-    selectedFiltersCount () {
-      let count = 0
-      Object.keys(this.activeTags).forEach((category) => {
-        count += this.activeTags[category].tags.length
-      })
-      return count
     }
   },
 
   methods: {
     ...mapActions({
-      setRouteQuery: 'global/setRouteQuery',
-      setActiveTags: 'filters/setActiveTags',
-      clearActiveTags: 'filters/clearActiveTags',
-      setSelectedFiltersCount: 'filters/setSelectedFiltersCount',
-      clearStore: 'filters/clearStore'
+      setRouteQuery: 'filters/setRouteQuery',
+      clearRouteQueryTags: 'filters/clearRouteQueryTags',
+      clearAllTags: 'filters/clearAllTags'
     }),
     applyFilter (tag, category) {
-      this.setActiveTags({ category, tag })
+      this.setRouteQuery({ key: 'tags', data: tag })
     },
     toggleAll (heading) {
       toggleAllCategoryTags(this, heading)
     },
     clearSelected () {
-      this.clearStore()
+      this.clearAllTags()
     },
     closePanel () {
       this.$emit('toggleFilterPanel')

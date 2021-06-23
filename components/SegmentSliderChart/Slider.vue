@@ -108,7 +108,7 @@ export default {
   computed: {
     ...mapGetters({
       siteContent: 'global/siteContent',
-      routeQuery: 'global/routeQuery'
+      routeQuery: 'filters/routeQuery'
     }),
     filterToggleButtonText () {
       return this.siteContent.index.page_content.segment_slider.filter_toggle_button_text
@@ -127,8 +127,7 @@ export default {
 
   methods: {
     ...mapActions({
-      setRouteQuery: 'global/setRouteQuery',
-      setActiveTags: 'filters/setActiveTags',
+      setRouteQuery: 'filters/setRouteQuery',
       setFilterPanelOpen: 'filters/setFilterPanelOpen'
     }),
     incrementSelection (seg) {
@@ -136,7 +135,7 @@ export default {
     },
     jump2Filters () {
       this.setRouteQuery({ key: 'filters', data: 'enabled' })
-      this.setActiveTags({ category: this.parentCategory, tag: this.selectedCat.slug })
+      this.setRouteQuery({ key: 'tags', data: this.selectedCat.slug })
       this.setFilterPanelOpen(true)
     },
     onSwipe (e) {

@@ -137,7 +137,7 @@ export default {
   computed: {
     ...mapGetters({
       siteContent: 'global/siteContent',
-      routeQuery: 'global/routeQuery',
+      routeQuery: 'filters/routeQuery',
       projects: 'projects/projects',
       filterPanelOpen: 'filters/filterPanelOpen',
       sortedCollection: 'core/sortedCollection',
@@ -195,7 +195,7 @@ export default {
 
   methods: {
     ...mapActions({
-      setRouteQuery: 'global/setRouteQuery',
+      setRouteQuery: 'filters/setRouteQuery',
       setTotalFilters: 'filters/setTotalFilters',
       setFilterPanelOpen: 'filters/setFilterPanelOpen'
     }),
