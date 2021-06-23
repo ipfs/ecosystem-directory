@@ -4,10 +4,6 @@
     id="header-navigation"
     :class="headerNavigationClasses">
 
-    {{ `${showBackground} | ${forceNavigationVisible} | ${navigationScrollInertiaVisible}` }}
-    →
-    {{ headerNavigationClasses }}
-
     <div class="grid-noGutter">
 
       <div :class="['modal-background', { 'show-background': navOpen, 'transition-out': modalClosing }]"></div>
@@ -82,11 +78,9 @@ export default {
       resize: false,
       scroll: false,
       modalClosing: false,
-      scrollSpeed: 0,
       scrollPosition: 0,
       showBackground: false,
-      forceNavigationVisible: true,
-      navigationScrollInertiaVisible: false
+      forceNavigationVisible: true
     }
   },
 
@@ -98,13 +92,9 @@ export default {
     headerNavigationClasses () {
       const showBackground = this.showBackground
       const forceVisible = this.forceNavigationVisible
-      const inertialVisible = this.navigationScrollInertiaVisible
-      console.log(`→ | ${showBackground} | ${forceVisible} | ${inertialVisible}`)
       let compiled = ''
-      if (inertialVisible) { console.log('1'); compiled += 'scroll-inertia-visible ' }
-      if (forceVisible) { console.log('2'); compiled += 'force-visible ' }
-      if (showBackground) { console.log('3'); compiled += 'show-background ' }
-      console.log(`compiled | ${compiled}`)
+      if (forceVisible) { compiled += 'force-visible ' }
+      if (showBackground) { compiled += 'show-background ' }
       return compiled
     }
   },
@@ -113,40 +103,26 @@ export default {
     scrollPosition (newVal, oldVal) {
       const showBackground = this.showBackground
       const forceVisible = this.forceNavigationVisible
-      const inertialVisible = this.navigationScrollInertiaVisible
+      // const scrollSpeed = this.$GetScrollSpeed(newVal)
       if (newVal === 0 && showBackground) {
         this.showBackground = false
       } else if (newVal > 0 && !showBackground) {
         this.showBackground = true
       }
-      if (newVal === 0 && !forceVisible) {
+      // console.log(scrollSpeed)
+      if (newVal === 0) {
         this.forceNavigationVisible = true
-        if (inertialVisible) {
-          console.log('A')
-          this.navigationScrollInertiaVisible = false
-        }
-      } else if (newVal > 80 && newVal > oldVal && (forceVisible || inertialVisible)) {
-        console.log('B')
+      } else if (newVal < oldVal && !forceVisible) {
+        this.forceNavigationVisible = true
+      } else if (newVal > 80 && newVal > oldVal && forceVisible) {
         this.forceNavigationVisible = false
-        this.navigationScrollInertiaVisible = false
-      }
-    },
-    scrollSpeed (newVal) {
-      console.log(`${newVal} | ${this.navigationScrollInertiaVisible}`)
-      if (newVal < -10 && !this.navigationScrollInertiaVisible) {
-        // console.log('HIT')
-        this.navigationScrollInertiaVisible = true
-        // console.log(this.navigationScrollInertiaVisible)
       }
     }
   },
 
   mounted () {
     this.resize = this.$throttle(() => { checkScreenWidth(this) }, 310)
-    this.scroll = () => {
-      this.updateScrollPosition()
-      this.scrollSpeed = this.$GetScrollSpeed()
-    }
+    this.scroll = () => { this.updateScrollPosition() }
     window.addEventListener('resize', this.resize)
     window.addEventListener('scroll', this.scroll)
     this.updateScrollPosition()
@@ -189,8 +165,7 @@ export default {
   z-index: 9999;
   transform: translateY(-$navigationHeight);
   transition: transform 250ms ease-in-out;
-  &.force-visible,
-  &.scroll-inertia-visible {
+  &.force-visible {
     transform: translateY(0);
   }
   &.show-background {
