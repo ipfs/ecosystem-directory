@@ -298,7 +298,7 @@ $paginateRoot_PaddingOffset: 3.5rem;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100% !important;
     margin-left: 0;
     padding-bottom: 2.5rem;
     padding-left: 2.5rem;
