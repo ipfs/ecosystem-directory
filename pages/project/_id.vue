@@ -750,7 +750,6 @@ export default {
   justify-content: center;
   @include tiny {
     justify-content: space-between;
-    // margin-bottom: 1rem;
   }
 }
 
