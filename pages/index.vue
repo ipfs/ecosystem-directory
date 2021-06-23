@@ -179,8 +179,6 @@ export default {
     '$route' (route) {
       if (route.query.filters === 'enabled') {
         this.collapseSegmentAndFeaturedSliders()
-      } else {
-        this.mountSegmentAndFeaturedSliders()
       }
     }
   },
@@ -193,6 +191,7 @@ export default {
 
   beforeDestroy () {
     if (this.resize) { window.removeEventListener('resize', this.resize) }
+    this.clearRouteQuery()
   },
 
   methods: {
@@ -207,7 +206,7 @@ export default {
       if (!this.featuredSlider) { this.featuredSlider = true }
       if (this.filterPanelOpen) { this.setFilterPanelOpen(false) }
       this.setRouteQuery({ key: 'filters', data: '' })
-      this.clearAllTags()
+      this.clearRouteQuery()
       this.resetSectionHeight()
     },
     collapseSegmentAndFeaturedSliders () {
