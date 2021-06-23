@@ -122,9 +122,11 @@ export default {
       if (newVal === 0 && !forceVisible) {
         this.forceNavigationVisible = true
         if (inertialVisible) {
+          console.log('A')
           this.navigationScrollInertiaVisible = false
         }
       } else if (newVal > 80 && newVal > oldVal && (forceVisible || inertialVisible)) {
+        console.log('B')
         this.forceNavigationVisible = false
         this.navigationScrollInertiaVisible = false
       }
@@ -132,9 +134,9 @@ export default {
     scrollSpeed (newVal) {
       console.log(`${newVal} | ${this.navigationScrollInertiaVisible} | ${newVal < -10 && !this.navigationScrollInertiaVisible}`)
       if (newVal < -10 && !this.navigationScrollInertiaVisible) {
-        console.log('HIT')
+        // console.log('HIT')
         this.navigationScrollInertiaVisible = true
-        console.log(this.navigationScrollInertiaVisible)
+        // console.log(this.navigationScrollInertiaVisible)
       }
     }
   },
