@@ -105,30 +105,34 @@ export default {
     scrollPosition (newVal, oldVal) {
       const showBackground = this.showBackground
       const forceVisible = this.forceNavigationVisible
+      const scrollSpeed = this.$GetScrollSpeed(newVal)
       if (newVal === 0 && showBackground) {
         this.showBackground = false
       } else if (newVal > 0 && !showBackground) {
         this.showBackground = true
       }
-      if (newVal > 80 && newVal > oldVal && forceVisible) {
+      if (newVal === 0) {
+        console.log('Force Show')
+        this.forceNavigationVisible = true
+      } else if (scrollSpeed < -10 && !forceVisible) {
+        console.log('Show')
+        this.forceNavigationVisible = true
+      } else if (newVal > 80 && newVal > oldVal && forceVisible) {
         console.log('Hide')
         this.forceNavigationVisible = false
       }
-    },
-    scrollSpeed (newVal) {
-      if (newVal < -10 && !this.forceNavigationVisible) {
-        console.log('Show')
-        this.forceNavigationVisible = true
-      }
     }
+    // scrollSpeed (newVal) {
+    //   if (newVal < -10 && !this.forceNavigationVisible) {
+    //     console.log('Show')
+    //     this.forceNavigationVisible = true
+    //   }
+    // }
   },
 
   mounted () {
     this.resize = this.$throttle(() => { checkScreenWidth(this) }, 310)
-    this.scroll = () => {
-      this.updateScrollPosition()
-      this.scrollSpeed = this.$GetScrollSpeed()
-    }
+    this.scroll = () => { this.updateScrollPosition() }
     window.addEventListener('resize', this.resize)
     window.addEventListener('scroll', this.scroll)
     this.updateScrollPosition()

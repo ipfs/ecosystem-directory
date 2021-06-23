@@ -14,12 +14,11 @@ const ZERO_GETSCROLLSPEED_CLEAR = () => {
 
 // /////////////////////////////////////////////////////////////////// Functions
 // -----------------------------------------------------------------------------
-const GetScrollSpeed = (settings) => {
-  const now = window.scrollY
+const GetScrollSpeed = (scrollPosition) => {
   if (ZERO_GETSCROLLSPEED_LAST) {
-    ZERO_GETSCROLLSPEED_DELTA = now - ZERO_GETSCROLLSPEED_LAST
+    ZERO_GETSCROLLSPEED_DELTA = scrollPosition - ZERO_GETSCROLLSPEED_LAST
   }
-  ZERO_GETSCROLLSPEED_LAST = now
+  ZERO_GETSCROLLSPEED_LAST = scrollPosition
   clearTimeout(ZERO_GETSCROLLSPEED_TIMER)
   ZERO_GETSCROLLSPEED_TIMER = setTimeout(ZERO_GETSCROLLSPEED_CLEAR, ZERO_GETSCROLLSPEED_DELAY)
   return ZERO_GETSCROLLSPEED_DELTA
