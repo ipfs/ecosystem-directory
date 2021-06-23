@@ -586,6 +586,9 @@ export default {
     &.secondary-cta {
       background: url('~assets/theme/svgs/chevronright.svg') no-repeat right center;
       padding-right: 1rem;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }
@@ -813,6 +816,9 @@ export default {
 
     a {
       color: $ming;
+      &:hover {
+        text-decoration: underline;
+      }
     }
 
     .link-tooltip {
