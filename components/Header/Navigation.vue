@@ -78,7 +78,6 @@ export default {
       resize: false,
       scroll: false,
       modalClosing: false,
-      scrollSpeed: 0,
       scrollPosition: 0,
       showBackground: false,
       forceNavigationVisible: true
@@ -105,17 +104,17 @@ export default {
     scrollPosition (newVal, oldVal) {
       const showBackground = this.showBackground
       const forceVisible = this.forceNavigationVisible
-      // const scrollSpeed = this.$GetScrollSpeed(newVal)
+      const scrollSpeed = this.$GetScrollSpeed(newVal)
       if (newVal === 0 && showBackground) {
         this.showBackground = false
       } else if (newVal > 0 && !showBackground) {
         this.showBackground = true
       }
-      // console.log(scrollSpeed)
+      console.log(scrollSpeed)
       if (newVal === 0) {
         console.log('Force Show')
         this.forceNavigationVisible = true
-      } else if (newVal < oldVal && !forceVisible) {
+      } else if (scrollSpeed < -10 && !forceVisible) {
         console.log('Show')
         this.forceNavigationVisible = true
       } else if (newVal > 80 && newVal > oldVal && forceVisible) {
