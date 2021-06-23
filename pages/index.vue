@@ -96,10 +96,19 @@ const parseURLParams = (instance) => {
         instance.mountSegmentAndFeaturedSliders()
       }
     }
-    instance.setRouteQuery({
-      key: item,
-      data: cloned[item]
-    })
+    if (item !== 'tags') {
+      instance.setRouteQuery({
+        key: item,
+        data: cloned[item]
+      })
+    } else {
+      const tags = cloned[item].split(',')
+      const slug = tags.filter(tag => instance.taxonomyLabels.hasOwnProperty(tag)).join(',')
+      instance.setRouteQuery({
+        key: item,
+        data: slug
+      })
+    }
   })
   if (!cloned.hasOwnProperty('filters')) {
     instance.mountSegmentAndFeaturedSliders()
@@ -160,7 +169,8 @@ export default {
     ...mapGetters({
       siteContent: 'global/siteContent',
       routeQuery: 'filters/routeQuery',
-      filterPanelOpen: 'filters/filterPanelOpen'
+      filterPanelOpen: 'filters/filterPanelOpen',
+      taxonomyLabels: 'filters/taxonomyLabels'
     }),
     // SEO
     seo () {
@@ -191,6 +201,7 @@ export default {
 
   beforeDestroy () {
     if (this.resize) { window.removeEventListener('resize', this.resize) }
+    this.clearRouteQuery()
   },
 
   methods: {
@@ -205,7 +216,7 @@ export default {
       if (!this.featuredSlider) { this.featuredSlider = true }
       if (this.filterPanelOpen) { this.setFilterPanelOpen(false) }
       this.setRouteQuery({ key: 'filters', data: '' })
-      this.clearAllTags()
+      this.clearRouteQuery()
       this.resetSectionHeight()
     },
     collapseSegmentAndFeaturedSliders () {

@@ -107,7 +107,9 @@ const mutations = {
     state.filterPanelOpen = toggle
   },
   CLEAR_ROUTE_QUERY (state) {
-    state.routeQuery = params
+    Object.keys(state.routeQuery).forEach((key) => {
+      state.routeQuery[key] = ''
+    })
     const router = this.$router
     append2URL(state, router)
   },
