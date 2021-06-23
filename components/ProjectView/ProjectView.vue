@@ -114,7 +114,7 @@ const clearPanelHeight = (instance) => {
   if (!instance.filterPanelOpen) {
     const h = instance.$refs.panelWrapper.offsetHeight
     instance.panelHeight = h
-    setTimeout(() => { instance.panelHeight = 0 }, 500)
+    setTimeout(() => { instance.panelHeight = 0 }, 100)
   }
 }
 
@@ -272,7 +272,7 @@ $paginateRoot_PaddingOffset: 3.5rem;
   background-color: white;
   margin-left: calc(-#{$filterPanelWidth} - #{$filterPanelPadding_Right} - #{$filterPanelPadding_Left});
   transform: translateX($gutter_Negative);
-  transition: transform 250ms ease-in-out, margin-left 250ms ease-in-out, height 500ms ease-in-out;
+  transition: transform 250ms ease-in-out, margin-left 250ms ease-in-out, height 250ms ease-in-out;
   @include containerMaxMQ {
     margin-left: calc(-#{$filterPanelWidth} - #{$filterPanelPadding_Right} - #{$filterPanelPadding_Left});
     transform: translateX(-$gutter_ContainerSingleColumn);
