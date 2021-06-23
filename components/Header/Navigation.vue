@@ -2,7 +2,7 @@
   <section
     v-if="navigation"
     id="header-navigation"
-    :class="{ 'force-visible': forceNavigationVisible, 'scroll-inertia-visible': navigationScrollInertiaVisible, 'show-background': showBackground }">
+    :class="headerNavigationClasses">
 
     <div class="grid-noGutter">
 
@@ -90,7 +90,17 @@ export default {
     ...mapGetters({
       navigation: 'global/navigation',
       filterPanelOpen: 'filters/filterPanelOpen'
-    })
+    }),
+    headerNavigationClasses () {
+      const showBackground = this.showBackground
+      const forceVisible = this.forceNavigationVisible
+      const inertialVisible = this.navigationScrollInertiaVisible
+      let compiled = ''
+      if (inertialVisible) { compiled += 'scroll-inertia-visible ' }
+      if (forceVisible) { compiled += 'force-visible ' }
+      if (showBackground) { compiled += 'show-background ' }
+      return compiled
+    }
   },
 
   watch: {
