@@ -68,7 +68,6 @@ export default {
 
   methods: {
     ...mapActions({
-      setActiveTags: 'filters/setActiveTags',
       setFilteredCollection: 'core/setFilteredCollection'
     })
   }

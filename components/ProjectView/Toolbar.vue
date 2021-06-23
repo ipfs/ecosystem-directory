@@ -93,7 +93,7 @@ export default {
   computed: {
     ...mapGetters({
       siteContent: 'global/siteContent',
-      selectedFiltersCount: 'filters/selectedFiltersCount'
+      routeQuery: 'filters/routeQuery'
     }),
     sortOptions () {
       return this.siteContent.taxonomy.sort
@@ -111,6 +111,10 @@ export default {
       const clearButtonText = this.sectionFilterContent.filter_panel.clear_button_text
       const count = this.selectedFiltersCount
       return `${clearButtonText.before}${count > 0 ? ` (${count}) ` : ' '}${clearButtonText.after}`
+    },
+    selectedFiltersCount () {
+      if (this.routeQuery.tags) { return this.routeQuery.tags.split(',').length }
+      return 0
     }
   },
 

@@ -19,12 +19,16 @@
             <span
               v-if="item.above"
               class="segment-label noselect avoid-me"
-              :style="`width: ${Math.min(item.chars, 15) * 8}px; top: ${item.pos - (item.chars < 16 ? 0 : 21)}px`">{{ item.cat }}</span>
+              :style="`width: ${Math.min(item.chars, 15) * 8}px; top: ${item.pos - (item.chars < 16 ? 0 : 21)}px`">
+              {{ item.label }}
+            </span>
 
             <span
               v-else
               class="segment-label noselect avoid-me"
-              :style="`width: ${Math.min(item.chars, 15) * 8}px; top: ${-1 * (item.pos) + segH / 2}px`">{{ item.cat }}</span>
+              :style="`width: ${Math.min(item.chars, 15) * 8}px; top: ${-1 * (item.pos) + segH / 2}px`">
+              {{ item.label }}
+            </span>
 
             <div
               v-if="item.above"

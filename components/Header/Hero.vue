@@ -76,7 +76,6 @@ import { mapGetters } from 'vuex'
 
 import Breadcrumbs from '@/modules/zero/core/Components/Breadcrumbs'
 
-import Taxonomy from '@/content/data/taxonomy.json'
 // ====================================================================== Export
 export default {
   name: 'HeaderHero',
@@ -96,10 +95,11 @@ export default {
       siteContent: 'global/siteContent',
       navigation: 'global/navigation',
       projects: 'projects/projects',
-      activeTags: 'filters/activeTags',
+      taxonomyLabels: 'filters/taxonomyLabels',
       filteredCollection: 'core/filteredCollection',
       filterPanelOpen: 'filters/filterPanelOpen',
-      selectedFiltersCount: 'filters/selectedFiltersCount'
+      categoryLookUp: 'filters/categoryLookUp',
+      routeQuery: 'filters/routeQuery'
     }),
     pageData () {
       return this.siteContent.index.page_content
@@ -124,11 +124,18 @@ export default {
       if (headerState === 'filters-view') { return subheading.filters_view }
       return subheading.index_view
     },
+    ProjectFilters () {
+      return this.siteContent.taxonomy.categories
+    },
+    selectedFilters () {
+      if (this.routeQuery.tags) { return this.routeQuery.tags.split(',') }
+      return []
+    },
     headerState () {
       const route = this.$route
       if (route.name === 'index') {
         if (route.query.filters === 'enabled') {
-          if (this.selectedFiltersCount) {
+          if (this.selectedFilters.length) {
             return 'filters-applied'
           } else {
             return 'filters-view'
@@ -139,17 +146,22 @@ export default {
       return false
     },
     categories () {
-      const filters = Taxonomy.categories
       const arr = []
-      for (let i = 0; i < filters.length; i++) {
-        const tags = this.activeTags[filters[i].label]
-        if (tags.length) {
+      const len = this.selectedFilters.length
+      Object.keys(this.categoryLookUp).forEach((category) => {
+        const string = []
+        for (let i = 0; i < len; i++) {
+          if (this.categoryLookUp[category].tags.includes(this.selectedFilters[i])) {
+            string.push(this.taxonomyLabels[this.selectedFilters[i]])
+          }
+        }
+        if (string.length) {
           arr.push({
-            category: filters[i].label + ':',
-            tags: tags.join(', ')
+            category: this.categoryLookUp[category].label + ':',
+            tags: string.join(', ')
           })
         }
-      }
+      })
       return arr
     }
   }

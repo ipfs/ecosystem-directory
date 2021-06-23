@@ -16,7 +16,7 @@
         </button>
 
         <h3 class="title-between-buttons">
-          {{ selectedCat.cat }}
+          {{ selectedCat.label }}
         </h3>
 
         <button
@@ -32,11 +32,11 @@
 
       <transition name="slide-fade" mode="out-in">
 
-        <div :key="selectedCat.cat">
+        <div :key="selectedCat.label">
 
           <div class="title-large-screen">
             <h3>
-              {{ selectedCat.cat }}
+              {{ selectedCat.label }}
             </h3>
           </div>
 
@@ -91,13 +91,13 @@ export default {
       type: Number,
       default: 0
     },
+    parentCategory: {
+      type: String,
+      required: true
+    },
     containerHeight: {
       type: Number,
       default: 440
-    },
-    description: {
-      type: String,
-      default: ''
     },
     items: {
       type: Array,
@@ -108,7 +108,7 @@ export default {
   computed: {
     ...mapGetters({
       siteContent: 'global/siteContent',
-      routeQuery: 'global/routeQuery'
+      routeQuery: 'filters/routeQuery'
     }),
     filterToggleButtonText () {
       return this.siteContent.index.page_content.segment_slider.filter_toggle_button_text
@@ -127,7 +127,7 @@ export default {
 
   methods: {
     ...mapActions({
-      setRouteQuery: 'global/setRouteQuery',
+      setRouteQuery: 'filters/setRouteQuery',
       setFilterPanelOpen: 'filters/setFilterPanelOpen'
     }),
     incrementSelection (seg) {
@@ -135,6 +135,7 @@ export default {
     },
     jump2Filters () {
       this.setRouteQuery({ key: 'filters', data: 'enabled' })
+      this.setRouteQuery({ key: 'tags', data: this.selectedCat.slug })
       this.setFilterPanelOpen(true)
     },
     onSwipe (e) {
