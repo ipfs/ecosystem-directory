@@ -78,6 +78,18 @@
           </div>
 
           <div class="slider-display col-6_md-8_mi-10_ti-12">
+            <div class="slide-nav">
+              <button
+                class="nav-arrow"
+                @click="incrementLeft">
+                <PrevArrow stroke="#052437" width="10" height="15" />
+              </button>
+              <button
+                class="nav-arrow"
+                @click="incrementRight">
+                <NextArrow stroke="#052437" width="10" height="15" />
+              </button>
+            </div>
             <div
               v-if="moreThanTwo"
               ref="sliderFlex"
@@ -87,18 +99,6 @@
                 :key="slide.label || slide.title"
                 v-hammer:swipe.horizontal="onSwipe"
                 :class="['card', (slide.label ? 'big-number' : 'case-study'), 'slider-mobile', { 'more-than-two' : moreThanTwo }]">
-                <div class="slide-nav">
-                  <button
-                    class="nav-arrow"
-                    @click="incrementLeft">
-                    <PrevArrow stroke="#052437" width="10" height="15" />
-                  </button>
-                  <button
-                    class="nav-arrow"
-                    @click="incrementRight">
-                    <NextArrow stroke="#052437" width="10" height="15" />
-                  </button>
-                </div>
                 <p :class="(slide.label ? 'statistic' : 'title')">
                   {{ slide.value || slide.title }}
                 </p>
@@ -649,7 +649,7 @@ export default {
         @include fontSize_ExtraLarge;
       }
       @include tiny {
-        margin: 0 0.5rem;
+        margin-top: 1.5rem;
         @include fontSize_ExtraExtraLarge;
       }
     }
@@ -749,12 +749,13 @@ export default {
   align-items: center;
   justify-content: center;
   @include tiny {
-    justify-content: space-between;
+    justify-content: space-around;
   }
 }
 
 .nav-arrow {
   @include borderRadius3;
+  transform: translateY(calc(100% + 1.5rem));
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -765,6 +766,7 @@ export default {
   border: none;
   font-weight: 900;
   width: 3.75rem;
+  z-index: 100;
   @include small {
     width: auto;
   }
