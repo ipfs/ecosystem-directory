@@ -89,7 +89,6 @@ const createLabels = (instance, projects) => {
     const categories = [...new Set(tags)]
     const items = []
     const len = categories.length
-    const topSide = [1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1]
     for (let i = 0; i < len; i++) {
       const category = categories[i]
       if (industry.hasOwnProperty(category)) {
@@ -97,7 +96,6 @@ const createLabels = (instance, projects) => {
         let selection = []
         const label = industry[category]
         const l = label.split('').length
-        const frc = (0.9 * i - l) * 0.1
         const icons = logos[category]
 
         if (icons.length) {
@@ -113,22 +111,18 @@ const createLabels = (instance, projects) => {
         }
 
         tags.forEach((tag) => { if (tag === category) { count++ } })
-        const pick = i in topSide ? topSide[i] : Math.round(Math.random() * 1.4)
         items.push({
           label,
-          count,
           slug: category,
           size: count * 10,
           chars: l,
-          above: pick,
-          force: frc,
           logos: selection,
           display: true,
           description: getCategoryDescription(instance, label)
         })
       }
     }
-    return addInitialOffsets(items)
+    return items
   }
   return false
 }
@@ -144,58 +138,6 @@ const getCategoryDescription = (instance, label) => {
     }
   }
   return false
-}
-
-const addInitialOffsets = (categories) => {
-  for (let i = 0; i < categories.length; i++) {
-    const offset = calculateOffset(categories, categories[i].chars, i)
-    categories[i].offset = offset
-    categories[i].pos = offset
-  }
-  return categories
-}
-
-const calculateOffset = (cats, l, i) => {
-  const len = cats.length
-  const lev1 = (
-    (cats[i].size / 2 +
-    cats[Math.min(i + 1, len - 1)].size / 2) * 8
-  )
-  const lev2 = (
-    (cats[i].size / 2 +
-    cats[Math.min(i + 1, len - 1)].size +
-    cats[Math.min(i + 2, len - 1)].size / 2) * 8
-  )
-  const lev3 = (
-    (cats[i].size / 2 +
-    cats[Math.min(i + 1, len - 1)].size +
-    cats[Math.min(i + 2, len - 1)].size +
-    cats[Math.min(i + 3, len - 1)].size / 2) * 8
-  )
-  const lev4 = (
-    (cats[i].size / 2 +
-    cats[Math.min(i + 1, len - 1)].size +
-    cats[Math.min(i + 2, len - 1)].size +
-    cats[Math.min(i + 3, len - 1)].size +
-    cats[Math.min(i + 4, len - 1)].size / 2) * 8
-  )
-  if (l < lev1 || i === len - 1) {
-    return -50
-  } else {
-    if (l < lev2) {
-      return -75
-    } else {
-      if (l < lev3) {
-        return -100
-      } else {
-        if (l < lev4) {
-          return -125
-        } else {
-          return -150
-        }
-      }
-    }
-  }
 }
 
 // ====================================================================== Export

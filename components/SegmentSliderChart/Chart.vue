@@ -6,6 +6,13 @@
         <h3>{{ mobileChartTitle }}</h3>
       </div>
 
+      <div
+        v-for="item in segments"
+        :key="`dummy-${item.label}`"
+        :class="['measure', { 'hide-now': measured }]">
+        {{ item.label }}
+      </div>
+
       <div class="segments-row">
         <div
           v-for="(item, index) in segments"
@@ -14,12 +21,12 @@
           :style="`width: ${item.size}%; height: ${segH}px;`"
           @click="updateParent(index)">
 
-          <template v-if="item.display">
+          <template v-if="measured && item.display">
 
             <span
               v-if="item.above"
               class="segment-label noselect avoid-me"
-              :style="`width: ${Math.min(item.chars, 15) * 8}px; top: ${item.pos - (item.chars < 16 ? 0 : 21)}px`">
+              :style="`width: ${Math.min(item.chars, 15) * 8}px; top: ${item.pos}px`">
               {{ item.label }}
             </span>
 
@@ -33,13 +40,13 @@
             <div
               v-if="item.above"
               class="segment-line avoid-me"
-              :style="`top: ${-6}px; height: ${Math.abs(item.pos) - 26}px; transform: rotate(180deg);`">
+              :style="`top: ${-6}px; height: ${Math.abs(item.pos) - item.labelHeight - 12}px; transform: rotate(180deg);`">
             </div>
 
             <div
               v-else
               class="segment-line avoid-me"
-              :style="`top: ${segH + 6}px; height: ${Math.abs(item.pos) - 26}px`">
+              :style="`top: ${segH + 6}px; height: ${Math.abs(item.pos) - item.labelHeight - 6}px`">
             </div>
 
           </template>
@@ -52,16 +59,66 @@
 </template>
 
 <script>
+// ===================================================================== Imports
+import CloneDeep from 'lodash/cloneDeep'
+
 // =================================================================== Functions
 import { mapGetters } from 'vuex'
 
 const handleLoad = (instance) => {
-  instance.handleResize()
+  // instance.handleResize()
 }
 
 const initResize = (instance) => {
   clearTimeout(instance.timeOutFunction)
   instance.timeOutFunction = setTimeout(() => { instance.handleResize() }, 250)
+}
+
+const calculateSegmentAndLabelPositions = (instance) => {
+  const labels = document.querySelectorAll('.measure')
+  const segments = document.querySelectorAll('.block-segment')
+
+  const arr = []
+  const ordered = []
+  for (let i = 0; i < labels.length; i++) {
+    const score = -1 * ((segments[i].offsetWidth / 2) - labels[i].offsetWidth)
+    instance.segments[i].labelHeight = labels[i].offsetHeight
+    instance.segments[i].score = score
+    arr.push(score)
+  }
+
+  const ascending = CloneDeep(instance.segments)
+  ascending.sort((a, b) => a.score - b.score)
+
+  for (let i = 0; i < ascending.length; i++) {
+    ascending[i].above = i % 2
+    ascending[i].pos = (25 + ascending[i].score) * -1
+  }
+
+  for (let i = 0; i < labels.length; i++) {
+    if (i % 2 === 1) {
+      const min = Math.min(...arr)
+      for (let j = 0; j < ascending.length; j++) {
+        if (min === ascending[j].score) {
+          ordered.push(CloneDeep(ascending[j]))
+          break
+        }
+      }
+      arr.splice(arr.indexOf(min), 1)
+    } else {
+      const max = Math.max(...arr)
+      for (let j = 0; j < ascending.length; j++) {
+        if (max === ascending[j].score) {
+          ordered.push(CloneDeep(ascending[j]))
+          break
+        }
+      }
+      arr.splice(arr.indexOf(max), 1)
+    }
+  }
+
+  instance.measured = true
+  instance.segments = ordered.reverse()
 }
 
 // ====================================================================== Export
@@ -83,6 +140,7 @@ export default {
     return {
       segH: 30,
       segments: this.chartItems,
+      measured: false,
       timeOutFunction: null,
       load: false,
       resize: false
@@ -107,7 +165,9 @@ export default {
     this.resize = () => { initResize(this) }
     window.addEventListener('resize', this.resize)
 
-    this.handleResize()
+    calculateSegmentAndLabelPositions(this)
+
+    // this.handleResize()
   },
 
   beforeDestroy () {
@@ -123,58 +183,9 @@ export default {
       const x = (this.selectedSeg === ind) ? 'segment-foreground' : 'segment-background'
       return 'block-segment' + ' ' + x
     },
-    forceLabelsOut (next) {
-      if (this.$refs.chartFlex) {
-        for (let ind = 0; ind < this.segments.length; ind++) {
-          this.segments[ind].pos = this.segments[ind].offset + this.segments[ind].force * (20000 / this.$refs.chartFlex.clientWidth)
-        }
-      }
-      return next()
-    },
     setMinOffsets (next) {
       for (let ind = 0; ind < this.segments.length; ind++) {
         this.segments[ind].pos = Math.min(-50, this.segments[ind].pos)
-      }
-      return next()
-    },
-    repositionOverlappingLabels (next) {
-      const labels = document.querySelectorAll('.segment-label')
-      const lines = document.querySelectorAll('.segment-line')
-
-      for (let ind = 0; ind < this.segments.length - 1; ind++) {
-        if (labels[ind]) {
-          const label = labels[ind].getBoundingClientRect()
-          const mirror = {
-            left: label.left,
-            right: label.right,
-            top: label.top + 2 * (this.segments[ind].pos) + this.segH,
-            bottom: label.bottom + 2 * (this.segments[ind].pos) + this.segH
-          }
-
-          for (let j = ind + 1; j < Math.min(labels.length, ind + 4); j++) {
-            if (labels[j] && lines[j]) {
-              const test1 = labels[j].getBoundingClientRect()
-              const test2 = lines[j].getBoundingClientRect()
-
-              const isOverlappingTopLabel = !(label.right < test1.left || label.left > test1.right || label.bottom < test1.top || label.top > test1.bottom)
-              const isOverlappingTopLine = !(label.right < test2.left || label.left > test2.right || label.bottom < test2.top || label.top > test2.bottom)
-              const willOverlappingBottomLabel = !(mirror.right < test1.left || mirror.left > test1.right || mirror.bottom < test1.top || mirror.top > test1.bottom)
-              const willOverlappingBottomLine = !(mirror.right < test2.left || mirror.left > test2.right || mirror.bottom < test2.top || mirror.top > test2.bottom)
-
-              if (isOverlappingTopLabel || isOverlappingTopLine) {
-                if (!willOverlappingBottomLabel && !willOverlappingBottomLine) {
-                  if (this.segments[ind].pos < this.segments[j].pos) {
-                    this.segments[ind].above = !this.segments[ind].above
-                    j = labels.length
-                  } else {
-                    this.segments[j].above = !this.segments[j].above
-                    j = labels.length
-                  }
-                }
-              }
-            }
-          }
-        }
       }
       return next()
     },
@@ -251,16 +262,15 @@ export default {
         this.$refs.segmentsCtn.classList.remove('segments-tiny')
         this.$refs.segmentsCtn.classList.add('segments-large')
         this.segments.forEach((segment) => { segment.display = true })
-        this.forceLabelsOut(() => {
-          this.repositionOverlappingLabels(() => {
-            this.reduceOffset(25, () => {
-              this.setMinOffsets(() => {
-                setTimeout(() => {
-                  this.dropOverLappingLabels()
-                  this.$emit('chart-mounted')
-                }, 500)
-              })
-            })
+
+        console.log('hit')
+
+        this.reduceOffset(25, () => {
+          this.setMinOffsets(() => {
+            setTimeout(() => {
+              // this.dropOverLappingLabels()
+              this.$emit('chart-mounted')
+            }, 500)
           })
         })
       }
@@ -362,8 +372,8 @@ export default {
   }
 }
 
+.measure,
 .segment-label {
-  position: absolute;
   white-space: normal;
   padding: 0px;
   font-size: 10pt;
@@ -372,6 +382,21 @@ export default {
   @include small {
     display: none;
   }
+}
+
+.measure {
+  display: inline-block;
+  position: relative;
+  max-width: 120px;
+  margin: 0 !important;
+}
+
+.hide-now {
+  display: none;
+}
+
+.segment-label {
+  position: absolute;
 }
 
 .segment-line {
