@@ -20,14 +20,14 @@
               v-if="item.above"
               class="segment-label noselect"
               :style="`width: ${Math.min(item.chars, 15) * 8}px; top: ${item.pos - (item.chars < 16 ? 0 : 21)}px`">
-              {{ item.cat }}
+              {{ item.label }}
             </span>
 
             <span
               v-else
               class="segment-label noselect"
               :style="`width: ${Math.min(item.chars, 15) * 8}px; top: ${-1 * (item.pos) + segH / 2}px`">
-              {{ item.cat }}
+              {{ item.label }}
             </span>
 
             <div

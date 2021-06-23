@@ -268,23 +268,27 @@
     "a_z": {
       "type": "alphabetical",
       "key": "name",
+      "slug": "a-z",
       "label": "Alphabetical (A-Z)",
       "direction": "DESC"
     },
     "z_a": {
       "type": "alphabetical",
       "key": "name",
+      "slug": "z-a",
       "label": "Alphabetical (Z-A)",
       "direction": "ASC"
     },
     "date_desc": {
       "type": "number",
+      "slug": "time-descending",
       "label": "Time on IPFS (newer)",
       "direction": "DESC",
       "sortNumber": "since"
     },
     "date_asc": {
       "type": "number",
+      "slug": "time-ascending",
       "label": "Time on IPFS (older)",
       "direction": "ASC",
       "sortNumber": "since"
