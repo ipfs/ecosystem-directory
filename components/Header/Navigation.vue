@@ -105,17 +105,17 @@ export default {
     scrollPosition (newVal, oldVal) {
       const showBackground = this.showBackground
       const forceVisible = this.forceNavigationVisible
-      const scrollSpeed = this.$GetScrollSpeed(newVal)
+      // const scrollSpeed = this.$GetScrollSpeed(newVal)
       if (newVal === 0 && showBackground) {
         this.showBackground = false
       } else if (newVal > 0 && !showBackground) {
         this.showBackground = true
       }
-      console.log(scrollSpeed)
+      // console.log(scrollSpeed)
       if (newVal === 0) {
         console.log('Force Show')
         this.forceNavigationVisible = true
-      } else if (scrollSpeed < -10 && !forceVisible) {
+      } else if (newVal < oldVal && !forceVisible) {
         console.log('Show')
         this.forceNavigationVisible = true
       } else if (newVal > 80 && newVal > oldVal && forceVisible) {
@@ -123,12 +123,6 @@ export default {
         this.forceNavigationVisible = false
       }
     }
-    // scrollSpeed (newVal) {
-    //   if (newVal < -10 && !this.forceNavigationVisible) {
-    //     console.log('Show')
-    //     this.forceNavigationVisible = true
-    //   }
-    // }
   },
 
   mounted () {
