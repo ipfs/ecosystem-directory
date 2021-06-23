@@ -99,13 +99,13 @@ export default {
       const showBackground = this.showBackground
       const forceVisible = this.forceNavigationVisible
       const inertialVisible = this.navigationScrollInertiaVisible
-      console.log(`→ | ${showBackground} | ${forceVisible} | ${inertialVisible}`)
+      console.log(`→ | ${inertialVisible} | ${forceVisible} | ${showBackground}`)
       let compiled = ''
       if (inertialVisible) { console.log('1'); compiled += 'scroll-inertia-visible ' }
       if (forceVisible) { console.log('2'); compiled += 'force-visible ' }
       if (showBackground) { console.log('3'); compiled += 'show-background ' }
       console.log(`compiled | ${compiled}`)
-      return 'scroll-inertia-visible show-background'
+      return compiled
     }
   },
 
@@ -123,12 +123,12 @@ export default {
         this.forceNavigationVisible = true
         if (inertialVisible) {
           console.log('A')
-          this.navigationScrollInertiaVisible = false
+          // this.navigationScrollInertiaVisible = false
         }
       } else if (newVal > 80 && newVal > oldVal && (forceVisible || inertialVisible)) {
         console.log('B')
         this.forceNavigationVisible = false
-        this.navigationScrollInertiaVisible = false
+        // this.navigationScrollInertiaVisible = false
       }
     },
     scrollSpeed (newVal) {
