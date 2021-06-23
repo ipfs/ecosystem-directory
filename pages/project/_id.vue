@@ -532,6 +532,9 @@ export default {
     @include small {
       margin-bottom: 0.5rem;
     }
+    @include mini {
+      word-break: break-word;
+    }
   }
   .description {
     @include fontSize_Medium;
