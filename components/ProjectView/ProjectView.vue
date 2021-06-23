@@ -20,7 +20,7 @@
     <!-- //////////////////////////////////////////// Filtering and Projects -->
     <div id="filter-panel-project-list-container" :class="{ 'filter-panel-open': filterPanelOpen }">
       <!-- ============================================ Filter Panel Wrapper -->
-      <div id="filter-panel-wrapper">
+      <div id="filter-panel-wrapper" ref="panelWrapper" :style="`height: ${toggleHeight};`">
         <div id="filter-panel-toolbar">
 
           <div id="filter-panel-close-icon" @click="toggleFilterPanel">
@@ -109,6 +109,14 @@ import ResultsPerPageSelector from '@/modules/zero/pagination/Components/Results
 import CloseIcon from '@/components/Icons/Close'
 import SearchIcon from '@/components/Icons/SearchIcon'
 import SelectorToggleIcon from '@/modules/zero/core/Components/Icons/SelectorToggle'
+// =================================================================== Functions
+const clearPanelHeight = (instance) => {
+  if (!instance.filterPanelOpen) {
+    const h = instance.$refs.panelWrapper.offsetHeight
+    instance.panelHeight = h
+    setTimeout(() => { instance.panelHeight = 0 }, 100)
+  }
+}
 
 // ====================================================================== Export
 export default {
@@ -129,6 +137,7 @@ export default {
 
   data () {
     return {
+      panelHeight: false,
       listViewActive: false,
       searchQuery: ''
     }
@@ -171,6 +180,10 @@ export default {
         if (this.listViewActive) { return 'col-4_md-6_mi-12' }
         return 'col-3_sm-4_mi-6'
       }
+    },
+    toggleHeight () {
+      if (this.filterPanelOpen) { return 'unset' }
+      return this.panelHeight + 'px'
     }
   },
 
@@ -191,6 +204,7 @@ export default {
         this.listViewActive = false
       }
     }
+    clearPanelHeight(this)
   },
 
   methods: {
@@ -204,6 +218,7 @@ export default {
       if (!this.routeQuery.hasOwnProperty('filters') || this.routeQuery.filters !== 'enabled') {
         this.setRouteQuery({ key: 'filters', data: 'enabled' })
       }
+      clearPanelHeight(this)
     },
     toggleListBlockView () {
       this.listViewActive = !this.listViewActive
@@ -273,7 +288,7 @@ $paginateRoot_PaddingOffset: 3.5rem;
   background-color: white;
   margin-left: calc(-#{$filterPanelWidth} - #{$filterPanelPadding_Right} - #{$filterPanelPadding_Left});
   transform: translateX($gutter_Negative);
-  transition: transform 250ms ease-in-out, margin-left 250ms ease-in-out;
+  transition: transform 250ms ease-in-out, margin-left 250ms ease-in-out, height 250ms ease-in-out;
   @include containerMaxMQ {
     margin-left: calc(-#{$filterPanelWidth} - #{$filterPanelPadding_Right} - #{$filterPanelPadding_Left});
     transform: translateX(-$gutter_ContainerSingleColumn);
@@ -283,7 +298,7 @@ $paginateRoot_PaddingOffset: 3.5rem;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100% !important;
     margin-left: 0;
     padding-bottom: 2.5rem;
     padding-left: 2.5rem;
