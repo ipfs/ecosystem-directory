@@ -4,6 +4,10 @@
     id="header-navigation"
     :class="headerNavigationClasses">
 
+    {{ `${showBackground} | ${forceNavigationVisible} | ${navigationScrollInertiaVisible}` }}
+    →
+    {{ headerNavigationClasses }}
+
     <div class="grid-noGutter">
 
       <div :class="['modal-background', { 'show-background': navOpen, 'transition-out': modalClosing }]"></div>
@@ -95,7 +99,7 @@ export default {
       const showBackground = this.showBackground
       const forceVisible = this.forceNavigationVisible
       const inertialVisible = this.navigationScrollInertiaVisible
-      console.log(`→ 1 | ${showBackground} | ${forceVisible} | ${inertialVisible}`)
+      console.log(`→ | ${showBackground} | ${forceVisible} | ${inertialVisible}`)
       let compiled = ''
       if (inertialVisible) { compiled += 'scroll-inertia-visible ' }
       if (forceVisible) { compiled += 'force-visible ' }
