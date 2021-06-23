@@ -185,9 +185,20 @@ export default {
 }
 
 // ////////////////////////////////////////////////////////////////// Index View
-.index-view {
+::v-deep .index-view {
+  .breadcrumbs {
+    margin-top: 1rem;
+  }
+  .breadcrumb-link {
+    color: $downy;
+  }
+  .index-subheading {
+    @include fontSize_ExtraLarge;
+  }
   h1 {
-    font-weight: 600;
+    @include leading_Mini;
+    font-weight: 500;
+    margin: 2rem 0;
   }
 }
 

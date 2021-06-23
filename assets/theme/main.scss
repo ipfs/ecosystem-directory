@@ -17,6 +17,13 @@ $fontAssetPath: '~assets/theme/fonts';
 
 @font-face {
   font-family: 'Montserrat';
+  src: url('#{$fontAssetPath}/Montserrat/Montserrat-Medium.ttf') format('opentype');
+  font-weight: 500;
+  font-style: bold;
+}
+
+@font-face {
+  font-family: 'Montserrat';
   src: url('#{$fontAssetPath}/Montserrat/Montserrat-SemiBold.ttf') format('opentype');
   font-weight: 600;
   font-style: bold;
