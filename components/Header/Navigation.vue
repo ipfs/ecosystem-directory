@@ -82,7 +82,6 @@ export default {
       scrollPosition: 0,
       showBackground: false,
       forceNavigationVisible: true
-      // navigationScrollInertiaVisible: false
     }
   },
 
@@ -94,13 +93,10 @@ export default {
     headerNavigationClasses () {
       const showBackground = this.showBackground
       const forceVisible = this.forceNavigationVisible
-      // const inertiaVisible = this.navigationScrollInertiaVisible
-      // console.log(`→ | ${inertiaVisible} | ${forceVisible} | ${showBackground}`)
       let compiled = ''
-      // if (inertiaVisible) { console.log('1'); compiled += 'scroll-inertia-visible ' }
       if (forceVisible) { compiled += 'force-visible ' }
       if (showBackground) { compiled += 'show-background ' }
-      // console.log(`compiled | ${compiled}`)
+      console.log(compiled)
       return compiled
     }
   },
@@ -114,14 +110,14 @@ export default {
       } else if (newVal > 0 && !showBackground) {
         this.showBackground = true
       }
-      if (newVal === 0 && !forceVisible) {
-        this.forceNavigationVisible = true
-      } else if (newVal > 80 && newVal > oldVal && forceVisible) {
+      if (newVal > 80 && newVal > oldVal && forceVisible) {
+        console.log('Hide')
         this.forceNavigationVisible = false
       }
     },
     scrollSpeed (newVal) {
-      if (newVal < -10 && !this.forceVisible) {
+      if (newVal < -10 && !this.forceNavigationVisible) {
+        console.log('Show')
         this.forceNavigationVisible = true
       }
     }
@@ -175,8 +171,7 @@ export default {
   z-index: 9999;
   transform: translateY(-$navigationHeight);
   transition: transform 250ms ease-in-out;
-  &.force-visible,
-  &.scroll-inertia-visible {
+  &.force-visible {
     transform: translateY(0);
   }
   &.show-background {
