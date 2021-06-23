@@ -114,6 +114,7 @@ export default {
       }
     },
     scrollSpeed (newVal) {
+      console.log(newVal)
       if (newVal < -10 && !this.navigationScrollInertiaVisible) {
         this.navigationScrollInertiaVisible = true
       }
