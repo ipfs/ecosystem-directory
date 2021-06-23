@@ -105,7 +105,7 @@ export default {
       if (forceVisible) { console.log('2'); compiled += 'force-visible ' }
       if (showBackground) { console.log('3'); compiled += 'show-background ' }
       console.log(`compiled | ${compiled}`)
-      return compiled
+      return 'scroll-inertia-visible show-background'
     }
   },
 
