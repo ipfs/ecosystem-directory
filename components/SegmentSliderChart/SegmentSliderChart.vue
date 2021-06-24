@@ -9,7 +9,6 @@
 
       <Slider
         v-if="chartItems"
-        :selected-cat="chartItems[selected]"
         :selected-seg="selected"
         :parent-category="parentCategory"
         :container-height="containerHeight"
@@ -117,7 +116,7 @@ const createLabels = (instance, projects) => {
           size: count * 10,
           chars: l,
           logos: selection,
-          display: true,
+          display: false,
           description: getCategoryDescription(instance, label)
         })
       }

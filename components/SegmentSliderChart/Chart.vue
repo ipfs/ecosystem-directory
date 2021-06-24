@@ -6,12 +6,14 @@
         <h3>{{ mobileChartTitle }}</h3>
       </div>
 
-      <div
-        v-for="item in segments"
-        :key="`dummy-${item.label}`"
-        :class="['measure', { 'hide-now': measured }]">
-        {{ item.label }}
-      </div>
+      <template v-if="!measured">
+        <div
+          v-for="item in segments"
+          :key="`dummy-${item.label}`"
+          class="measure">
+          {{ item.label }}
+        </div>
+      </template>
 
       <div class="segments-row">
         <div
@@ -63,10 +65,10 @@
 import CloneDeep from 'lodash/cloneDeep'
 
 // =================================================================== Functions
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 const handleLoad = (instance) => {
-  // instance.handleResize()
+  instance.handleResize()
 }
 
 const initResize = (instance) => {
@@ -93,6 +95,7 @@ const calculateSegmentAndLabelPositions = (instance) => {
   for (let i = 0; i < ascending.length; i++) {
     ascending[i].above = i % 2
     ascending[i].pos = (25 + ascending[i].score) * -1
+    ascending[i].offset = (25 + ascending[i].score) * -1
   }
 
   for (let i = 0; i < labels.length; i++) {
@@ -119,6 +122,8 @@ const calculateSegmentAndLabelPositions = (instance) => {
 
   instance.measured = true
   instance.segments = ordered.reverse()
+  instance.setSegmentCollection(CloneDeep(instance.segments))
+  handleLoad(instance)
 }
 
 // ====================================================================== Export
@@ -160,14 +165,12 @@ export default {
   },
 
   mounted () {
-    this.load = () => { handleLoad(this) }
-    window.addEventListener('load', this.load)
+    calculateSegmentAndLabelPositions(this)
+    console.log(this.segments)
+    // this.load = () => { handleLoad(this) }
+    // window.addEventListener('load', this.load)
     this.resize = () => { initResize(this) }
     window.addEventListener('resize', this.resize)
-
-    calculateSegmentAndLabelPositions(this)
-
-    // this.handleResize()
   },
 
   beforeDestroy () {
@@ -176,6 +179,9 @@ export default {
   },
 
   methods: {
+    ...mapActions({
+      setSegmentCollection: 'core/setSegmentCollection'
+    }),
     updateParent (seg) {
       this.$emit('update-slider', seg)
     },
@@ -190,7 +196,7 @@ export default {
       return next()
     },
     reduceOffset (amt, next) {
-      const labels = document.querySelectorAll('.segment-label')
+      const labels = document.getElementsByClassName('segment-label')
       for (let i = 0; i < this.segments.length; i++) {
         const overlaps = []
         const dir = this.segments[i].above ? amt : (-1 * amt)
@@ -211,7 +217,7 @@ export default {
         }
         const result = overlaps.every(Boolean)
         if (result) {
-          this.segments[i].pos += amt
+          this.segments[i].pos = Math.min(this.segments[i].pos + amt, -20 - this.segments[i].labelHeight)
         }
       }
       return next()
@@ -261,19 +267,31 @@ export default {
       } else {
         this.$refs.segmentsCtn.classList.remove('segments-tiny')
         this.$refs.segmentsCtn.classList.add('segments-large')
-        this.segments.forEach((segment) => { segment.display = true })
-
-        console.log('hit')
-
-        this.reduceOffset(25, () => {
-          this.setMinOffsets(() => {
-            setTimeout(() => {
-              // this.dropOverLappingLabels()
-              this.$emit('chart-mounted')
-            }, 500)
-          })
-        })
       }
+      const len = this.segments.length
+      for (let i = 0; i < len; i++) {
+        this.segments[i].pos = this.segments[i].offset - 10
+        this.segments[i].display = true
+      }
+
+      this.reduceOffset(10, () => {
+        setTimeout(() => {
+          this.reduceOffset(10, () => {
+            setTimeout(() => {
+              this.reduceOffset(10, () => {
+                setTimeout(() => {
+                  this.reduceOffset(10, () => {
+                    setTimeout(() => {
+                      this.dropOverLappingLabels()
+                      this.$emit('chart-mounted')
+                    }, 50)
+                  })
+                }, 50)
+              })
+            }, 50)
+          })
+        }, 50)
+      })
     }
   }
 }
@@ -291,6 +309,7 @@ export default {
   position: relative;
   padding: 0 2.5rem;
   @include medium {
+    padding: 0 6rem;
     padding-bottom: 7rem;
   }
   @include small {
@@ -389,10 +408,6 @@ export default {
   position: relative;
   max-width: 120px;
   margin: 0 !important;
-}
-
-.hide-now {
-  display: none;
 }
 
 .segment-label {
