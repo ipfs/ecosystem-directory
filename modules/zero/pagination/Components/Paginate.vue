@@ -54,7 +54,7 @@ export default {
     paginated () {
       let collection = this.collection.slice(this.start, this.end)
       if (collection.length === 0) { collection = false }
-      this.setPaginatedCollection(collection)
+      // this.setPaginatedCollection(collection)
       return collection
     }
   },

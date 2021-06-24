@@ -128,6 +128,7 @@ const mutations = {
   SET_COLLECTION (state, payload) {
     state.collection.mutation = payload.type
     state.collection.array = payload.collection
+    console.log(state.collection)
   }
 }
 

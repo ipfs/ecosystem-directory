@@ -149,8 +149,11 @@ export default {
       routeQuery: 'filters/routeQuery',
       projects: 'projects/projects',
       filterPanelOpen: 'filters/filterPanelOpen',
-      sortedCollection: 'core/sortedCollection'
+      collection: 'core/collection'
     }),
+    sortedCollection () {
+      return this.collection.array
+    },
     display () {
       return this.routeQuery.results
     },
