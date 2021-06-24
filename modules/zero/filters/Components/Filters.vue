@@ -62,13 +62,17 @@ export default {
 
       if (collection.length === 0) { collection = false }
       this.setFilteredCollection(collection)
+
+      const payload = { type: 'filtered', collection }
+      this.setCollection(payload)
       return collection
     }
   },
 
   methods: {
     ...mapActions({
-      setFilteredCollection: 'core/setFilteredCollection'
+      setFilteredCollection: 'core/setFilteredCollection',
+      setCollection: 'core/setCollection'
     })
   }
 }

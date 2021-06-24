@@ -1,8 +1,9 @@
-// ///////////////////////////////////////////////////////////////////// Imports
+// ///////////////////////////////////////////////////////// Imports & Variables
 // -----------------------------------------------------------------------------
 import { uuid as UUID } from 'vue-uuid'
-
 import Config from '@/nuxt.config'
+
+const queue = ['filtered', 'sorted', 'paginated']
 
 // /////////////////////////////////////////////////////////////////////// State
 // -----------------------------------------------------------------------------
@@ -13,7 +14,11 @@ const state = {
   filterValue: '',
   filteredCollection: [],
   sortedCollection: [],
-  paginatedCollection: []
+  paginatedCollection: [],
+  collection: {
+    mutation: '',
+    array: []
+  }
 }
 
 // ///////////////////////////////////////////////////////////////////// Getters
@@ -25,7 +30,8 @@ const getters = {
   filterValue: state => state.filterValue,
   filteredCollection: state => state.filteredCollection,
   sortedCollection: state => state.sortedCollection,
-  paginatedCollection: state => state.paginatedCollection
+  paginatedCollection: state => state.paginatedCollection,
+  collection: state => state.collection
 }
 
 // ///////////////////////////////////////////////////////////////////// Actions
@@ -82,6 +88,10 @@ const actions = {
   // //////////////////////////////////////////////////// setPaginatedCollection
   setPaginatedCollection ({ commit }, paginatedCollection) {
     commit('SET_PAGINATED_COLLECTION', paginatedCollection)
+  },
+  // //////////////////////////////////////////////////// setPaginatedCollection
+  setCollection ({ commit }, payload) {
+    commit('SET_COLLECTION', payload)
   }
 }
 
@@ -114,6 +124,10 @@ const mutations = {
   },
   SET_PAGINATED_COLLECTION (state, paginatedCollection) {
     state.paginatedCollection = paginatedCollection
+  },
+  SET_COLLECTION (state, payload) {
+    state.collection.mutation = payload.type
+    state.collection.array = payload.collection
   }
 }
 

@@ -6,8 +6,8 @@ import CloneDeep from 'lodash/cloneDeep'
 const params = {
   filters: '',
   tags: '',
-  page: '',
-  results: '',
+  page: 1,
+  results: 20,
   'sort-by': '',
   'display-type': ''
 }
@@ -29,7 +29,9 @@ const append2URL = (state, router) => {
 // -----------------------------------------------------------------------------
 const state = {
   filterPanelOpen: false,
-  routeQuery: params
+  routeQuery: params,
+  totalPages: 0,
+  displayOptions: false
 }
 
 // ///////////////////////////////////////////////////////////////////// Getters
@@ -37,6 +39,8 @@ const state = {
 const getters = {
   filterPanelOpen: state => state.filterPanelOpen,
   routeQuery: state => state.routeQuery,
+  totalPages: state => state.totalPages,
+  displayOptions: state => state.displayOptions,
   taxonomyLabels: (state) => {
     const obj = {}
     TaxonomyData.categories.forEach((item) => {
@@ -97,6 +101,18 @@ const actions = {
   // ////////////////////////////////////////////////////////////// clearAllTags
   clearAllTags ({ commit }) {
     commit('CLEAR_ALL_TAGS')
+  },
+  // ///////////////////////////////////////////////////////////// setTotalPages
+  setTotalPages ({ commit }, total) {
+    commit('SET_TOTAL_PAGES', total)
+  },
+  // /////////////////////////////////////////////////////////// clearTotalPages
+  clearTotalPages ({ commit }) {
+    commit('CLEAR_TOTAL_PAGES')
+  },
+  // ///////////////////////////////////////////////////////// setDisplayOptions
+  setDisplayOptions ({ commit }, displayOptions) {
+    commit('SET_DISPLAY_OPTIONS', displayOptions)
   }
 }
 
@@ -108,7 +124,13 @@ const mutations = {
   },
   CLEAR_ROUTE_QUERY (state) {
     Object.keys(state.routeQuery).forEach((key) => {
-      state.routeQuery[key] = ''
+      if (key === 'page') {
+        state.routeQuery[key] = 1
+      } else if (key === 'results') {
+        state.routeQuery[key] = 20
+      } else {
+        state.routeQuery[key] = ''
+      }
     })
     const router = this.$router
     append2URL(state, router)
@@ -127,6 +149,15 @@ const mutations = {
     state.routeQuery.tags = ''
     const router = this.$router
     append2URL(state, router)
+  },
+  SET_TOTAL_PAGES (state, total) {
+    state.totalPages = total
+  },
+  CLEAR_TOTAL_PAGES (state) {
+    state.totalPages = 0
+  },
+  SET_DISPLAY_OPTIONS (state, displayOptions) {
+    state.display = displayOptions
   }
 }
 

@@ -91,7 +91,8 @@ export default {
 
   computed: {
     ...mapGetters({
-      filteredCollection: 'core/filteredCollection'
+      filteredCollection: 'core/filteredCollection',
+      collection: 'core/collection'
     }),
     options () {
       const displayOptions = []
@@ -138,7 +139,8 @@ export default {
   methods: {
     ...mapActions({
       setRouteQuery: 'filters/setRouteQuery',
-      setSortedCollection: 'core/setSortedCollection'
+      setSortedCollection: 'core/setSortedCollection',
+      setCollection: 'core/setCollection'
     }),
     toggleDropDown () {
       this.closed = !this.closed

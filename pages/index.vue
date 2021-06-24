@@ -96,17 +96,40 @@ const parseURLParams = (instance) => {
         instance.mountSegmentAndFeaturedSliders()
       }
     }
-    if (item !== 'tags') {
-      instance.setRouteQuery({
-        key: item,
-        data: cloned[item]
-      })
-    } else {
+    if (item === 'tags') {
       const tags = cloned[item].split(',')
       const slug = tags.filter(tag => instance.taxonomyLabels.hasOwnProperty(tag)).join(',')
       instance.setRouteQuery({
         key: item,
         data: slug
+      })
+    }
+    if (item === 'page') {
+      const page = cloned[item]
+      if (!page.isNaN) {
+        if (page > 0) {
+          instance.setRouteQuery({
+            key: item,
+            data: parseInt(page)
+          })
+        }
+      }
+    }
+    if (item === 'results') {
+      const results = cloned[item]
+      if (!results.isNaN) {
+        if (results > 0) {
+          instance.setRouteQuery({
+            key: item,
+            data: parseInt(results)
+          })
+        }
+      }
+    }
+    if (item === 'sort-by' || item === 'display-type') {
+      instance.setRouteQuery({
+        key: item,
+        data: cloned[item]
       })
     }
   })
@@ -216,7 +239,7 @@ export default {
       if (!this.featuredSlider) { this.featuredSlider = true }
       if (this.filterPanelOpen) { this.setFilterPanelOpen(false) }
       this.setRouteQuery({ key: 'filters', data: '' })
-      this.clearRouteQuery()
+      this.clearAllTags()
       this.resetSectionHeight()
     },
     collapseSegmentAndFeaturedSliders () {

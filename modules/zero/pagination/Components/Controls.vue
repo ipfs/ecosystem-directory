@@ -1,7 +1,7 @@
 <template>
-  <div v-if="totalPages > 1 && page <= totalPages" class="pagination-controls">
+  <div v-if="totalPages > 1 && currentPage <= totalPages" class="pagination-controls">
 
-    <template v-if="page !== 1">
+    <template v-if="currentPage !== 1">
       <button
         class="control-button first"
         @click="navigateToPage(1)">
@@ -11,7 +11,7 @@
       </button>
       <button
         class="control-button prev"
-        @click="navigateToPage(page - 1)">
+        @click="navigateToPage(currentPage - 1)">
 
         <slot name="prev-page"></slot>
 
@@ -30,13 +30,13 @@
       {{ page.num }}
     </button>
 
-    <template v-if="page !== totalPages">
+    <template v-if="currentPage !== totalPages">
       <div class="breaker">
         {{ breaker }}
       </div>
       <button
         class="control-button next"
-        @click="navigateToPage(page + 1)">
+        @click="navigateToPage(currentPage + 1)">
 
         <slot name="next-page"></slot>
 
@@ -92,13 +92,15 @@ export default {
 
   computed: {
     ...mapGetters({
-      page: 'pagination/page',
-      totalPages: 'pagination/totalPages',
-      display: 'pagination/display'
+      routeQuery: 'filters/routeQuery',
+      totalPages: 'filters/totalPages'
     }),
+    currentPage () {
+      return this.routeQuery.page ? this.routeQuery.page : 1
+    },
     pages () {
       const total = this.totalPages
-      const current = this.page
+      const current = this.currentPage
       const buffer = 2
       const compiled = []
       for (let i = 0; i < total; i++) {
@@ -116,10 +118,10 @@ export default {
     ...mapActions({
       setRouteQuery: 'filters/setRouteQuery'
     }),
-    navigateToPage (page) {
+    navigateToPage (pg) {
       this.setRouteQuery({
         key: 'page',
-        data: page
+        data: pg
       })
     }
   }
