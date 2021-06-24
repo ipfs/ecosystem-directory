@@ -89,6 +89,10 @@ const parseURLParams = (instance) => {
     if (item === 'filters') {
       if (cloned[item] === 'enabled') {
         instance.setFilterPanelOpen(true)
+        instance.setRouteQuery({
+          key: item,
+          data: cloned[item]
+        })
         if (!cloned.hasOwnProperty('tags')) {
           instance.clearAllTags()
         }

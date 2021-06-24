@@ -18,6 +18,7 @@ const append2URL = (state, router) => {
   if (JSON.stringify(state.routeQuery) !== JSON.stringify(router.currentRoute.query)) {
     const cloned = CloneDeep(state.routeQuery)
     if (cloned.page === 1) { delete cloned.page }
+    if (cloned.results === 20) { delete cloned.results }
     Object.keys(cloned).forEach((key) => {
       if (!cloned[key]) { delete cloned[key] }
     })

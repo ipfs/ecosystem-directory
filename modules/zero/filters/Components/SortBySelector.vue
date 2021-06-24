@@ -114,7 +114,6 @@ export default {
     collection: {
       deep: true,
       handler (col) {
-        console.log('hit')
         if (col.mutation !== 'sorted') {
           this.options.forEach((item) => {
             if (item.label === this.selected) {
@@ -145,7 +144,6 @@ export default {
   methods: {
     ...mapActions({
       setRouteQuery: 'filters/setRouteQuery',
-      setSortedCollection: 'core/setSortedCollection',
       setCollection: 'core/setCollection'
     }),
     toggleDropDown () {
@@ -175,7 +173,6 @@ export default {
         } else if (mode === 'DESC') {
           cloned.sort((a, b) => a[key].localeCompare(b[key]))
         }
-        this.setSortedCollection(cloned)
         const payload = { type: 'sorted', collection: cloned }
         this.setCollection(payload)
       }

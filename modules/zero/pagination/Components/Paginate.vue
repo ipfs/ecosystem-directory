@@ -54,7 +54,6 @@ export default {
     paginated () {
       let collection = this.collection.slice(this.start, this.end)
       if (collection.length === 0) { collection = false }
-      // this.setPaginatedCollection(collection)
       return collection
     }
   },
@@ -90,7 +89,6 @@ export default {
     ...mapActions({
       setRouteQuery: 'filters/setRouteQuery',
       setTotalPages: 'filters/setTotalPages',
-      setPaginatedCollection: 'core/setPaginatedCollection',
       clearTotalPages: 'filters/clearTotalPages'
     }),
     calculateTotalPages () {
