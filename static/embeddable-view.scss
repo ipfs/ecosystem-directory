@@ -9,6 +9,7 @@ $slider-thumb-dark-svg: url('#{$host}/images/slider-thumb-dark.svg') no-repeat;
 $white: #fff;
 
 $highlight: #6BC4CE;
+$shadow: #D0DCDD;
 
 $grey: #F1F3F2;
 $grey-medium: #D4D4D4;
@@ -63,6 +64,7 @@ $teal-x-dark: #04202F;
       cursor: pointer;
       border-radius: 5px;
       border: none;
+      box-shadow: 3px 3px 15px rgba($shadow, 0.5);
       min-width: 150px;
       padding: 8px 15px;
       display: flex;
@@ -92,6 +94,19 @@ $teal-x-dark: #04202F;
       padding: 5px 0;
       z-index: 1000;
 
+      &:before {
+        content: '';
+        border-radius: 5px;
+        box-shadow: 3px 3px 15px rgba($grey-dark, 0.5);
+        position: absolute;
+        top: -25px;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding-bottom: 25px;
+        display: block;
+      }
+
       &.hidden {
         display: none;
       }
@@ -100,7 +115,7 @@ $teal-x-dark: #04202F;
         cursor: pointer;
         @include font(13, 400);
         white-space: normal;
-        padding: 4px 10px;
+        padding: 4px 15px;
 
         &:hover {
           text-decoration: underline;
@@ -152,7 +167,7 @@ $teal-x-dark: #04202F;
               &.active {
                 border-radius: 5px;
                 background: $white;
-                box-shadow: 3px 3px 15px rgba(#D0DCDD, 0.5);
+                box-shadow: 3px 3px 15px rgba($shadow, 0.5);
               }
     
               .ecodir_card-thumbnail {
