@@ -59,7 +59,6 @@ function ecodir_vueLoaded(e) {
 }
 
 function ecodir_unsupportedVueVersion() {
-  console.error('Unsupported Vue version')
   document.querySelectorAll(`${ecodir_targetEl}`).forEach(el => {
     const blockSectionsHTML = count => new Array(count).fill(0).map(() => `<div class="ecodir_error-block-section"></div>`).join('')
     
@@ -71,6 +70,7 @@ function ecodir_unsupportedVueVersion() {
     </div>
     `
   })
+  console.error('Unsupported Vue version')
 }
 
 function ecodir_initDirectory(el) {
@@ -289,7 +289,6 @@ function ecodir_initDirectory(el) {
           this.projects = ecodir_projects.filter(project => project.filters.indexOf(slug) > -1)
         }
         if (this.projects.length && this.projects[0]) {
-          this.setActiveProject(this.projects[0].slug)
           this.sortProjects(this.activeSort)
         }
       },
@@ -317,6 +316,7 @@ function ecodir_initDirectory(el) {
             return
         }
         this.activeSort = criteria
+        this.setActiveProject(this.projects[0].slug)
       }
     }
   })

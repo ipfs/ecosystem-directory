@@ -283,7 +283,6 @@ function ecodir_initDirectory(el) {
           this.projects = ecodir_projects.filter(project => project.filters.indexOf(slug) > -1)
         }
         if (this.projects.length && this.projects[0]) {
-          this.setActiveProject(this.projects[0].slug)
           this.sortProjects(this.activeSort)
         }
       },
@@ -311,6 +310,7 @@ function ecodir_initDirectory(el) {
             return
         }
         this.activeSort = criteria
+        this.setActiveProject(this.projects[0].slug)
       }
     }
   })
