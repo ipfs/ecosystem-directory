@@ -104,7 +104,11 @@ export default {
 
   mounted () {
     if (this.$route.query.results) {
-      this.setDisplay(parseInt(this.$route.query.results))
+      if (!isNaN(this.$route.query.results)) {
+        if (this.$route.query.results > 0) {
+          this.setDisplay(parseInt(this.$route.query.results))
+        }
+      }
     }
     if (this.addParamOnLoad && this.display) {
       this.optionSelected(this.display)

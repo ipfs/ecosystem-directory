@@ -10,11 +10,15 @@ $fontHelvetica: 'Helvetica', sans-serif, monospace;
 $fontInter: 'Inter', sans-serif, monospace;
 $fontMontserrat: 'Montserrat', sans-serif, monospace;
 
+$underlineSpacing: 0.2rem;
+
 // ////////////////////////////////////////////////////////////////////// Colors
 // -----------------------------------------------------------------------------
 $blackPearl: #04192A; // Dark blue/black
 $tiber: #052437;  // Very dark blue/black
-$paradiso: #3D8F96; // Teal
+$downy: #6BC4CE; // Light Teal
+$paradiso: #3D8F96; // Regular Teal
+$ming: #34797D; // Dark Teal
 
 $blackHaze: #F1F3F2; // Very light gray
 $tundora: #494949; // Medium gray
@@ -96,6 +100,7 @@ $ultraLarge: 140.625rem; // 2250px
 // fontSize_Medium | 18pt
 // fontSize_Large | 20pt
 // fontSize_ExtraLarge | 24pt
+// fontSize_ExtraMediumLarge | 28pt
 // fontSize_ExtraExtraLarge | 50pt
 
 @mixin fontSize_Mini {
@@ -120,6 +125,10 @@ $ultraLarge: 140.625rem; // 2250px
 
 @mixin fontSize_ExtraLarge {
   font-size: 1.5rem;
+}
+
+@mixin fontSize_ExtraMediumLarge {
+  font-size: 1.75rem;
 }
 
 @mixin fontSize_ExtraExtraLarge {

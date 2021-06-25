@@ -2,7 +2,7 @@
   <section
     v-if="navigation"
     id="header-navigation"
-    :class="{ 'force-visible': forceNavigationVisible, 'scroll-inertia-visible': navigationScrollInertiaVisible, 'show-background': showBackground }">
+    :class="headerNavigationClasses">
 
     <div class="grid-noGutter">
 
@@ -59,7 +59,7 @@ import SocialIcons from '@/components/SocialIcons'
 
 // =================================================================== Functions
 const checkScreenWidth = (instance) => {
-  if (!window.matchMedia('(max-width: 768px)').matches && instance.navOpen) { // <-- 768px requested interim solution
+  if (!window.matchMedia('(max-width: 768px)').matches && instance.navOpen) { // ← 768px requested interim solution
     instance.toggleNav()
   }
 }
@@ -78,11 +78,9 @@ export default {
       resize: false,
       scroll: false,
       modalClosing: false,
-      scrollSpeed: 0,
       scrollPosition: 0,
       showBackground: false,
-      forceNavigationVisible: true,
-      navigationScrollInertiaVisible: false
+      forceNavigationVisible: true
     }
   },
 
@@ -90,42 +88,41 @@ export default {
     ...mapGetters({
       navigation: 'global/navigation',
       filterPanelOpen: 'filters/filterPanelOpen'
-    })
+    }),
+    headerNavigationClasses () {
+      const showBackground = this.showBackground
+      const forceVisible = this.forceNavigationVisible
+      let compiled = ''
+      if (forceVisible) { compiled += 'force-visible ' }
+      if (showBackground) { compiled += 'show-background ' }
+      return compiled
+    }
   },
 
   watch: {
     scrollPosition (newVal, oldVal) {
       const showBackground = this.showBackground
       const forceVisible = this.forceNavigationVisible
-      const inertialVisible = this.navigationScrollInertiaVisible
+      // const scrollSpeed = this.$GetScrollSpeed(newVal)
       if (newVal === 0 && showBackground) {
         this.showBackground = false
       } else if (newVal > 0 && !showBackground) {
         this.showBackground = true
       }
-      if (newVal === 0 && !forceVisible) {
+      // console.log(scrollSpeed)
+      if (newVal === 0) {
         this.forceNavigationVisible = true
-        if (inertialVisible) {
-          this.navigationScrollInertiaVisible = false
-        }
-      } else if (newVal > 80 && newVal > oldVal && (forceVisible || inertialVisible)) {
+      } else if (newVal < oldVal && !forceVisible) {
+        this.forceNavigationVisible = true
+      } else if (newVal > 80 && newVal > oldVal && forceVisible) {
         this.forceNavigationVisible = false
-        this.navigationScrollInertiaVisible = false
-      }
-    },
-    scrollSpeed (newVal) {
-      if (newVal < -10 && !this.navigationScrollInertiaVisible) {
-        this.navigationScrollInertiaVisible = true
       }
     }
   },
 
   mounted () {
     this.resize = this.$throttle(() => { checkScreenWidth(this) }, 310)
-    this.scroll = () => {
-      this.updateScrollPosition()
-      this.scrollSpeed = this.$GetScrollSpeed()
-    }
+    this.scroll = () => { this.updateScrollPosition() }
     window.addEventListener('resize', this.resize)
     window.addEventListener('scroll', this.scroll)
     this.updateScrollPosition()
@@ -168,8 +165,7 @@ export default {
   z-index: 9999;
   transform: translateY(-$navigationHeight);
   transition: transform 250ms ease-in-out;
-  &.force-visible,
-  &.scroll-inertia-visible {
+  &.force-visible {
     transform: translateY(0);
   }
   &.show-background {
@@ -222,8 +218,8 @@ export default {
 
 .navigation {
   width: 100%;
-  max-width: 32rem; // <-- requested interim solution
-  @include customMaxMQ (768px) { // <-- requested interim solution
+  max-width: 32rem; // ← requested interim solution
+  @include customMaxMQ (768px) { // ← requested interim solution
     display: none;
     flex-direction: column;
     position: fixed;
@@ -247,7 +243,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-left: 2rem;
-  @include customMaxMQ (768px) { // <-- requested interim solution
+  @include customMaxMQ (768px) { // ← requested interim solution
     flex-direction: column;
     justify-content: center;
     margin-left: 5rem;
@@ -255,7 +251,7 @@ export default {
 }
 
 .navigation-link {
-  @include customMaxMQ (768px) { // <-- requested interim solution
+  @include customMaxMQ (768px) { // ← requested interim solution
     align-self: start;
     margin-bottom: 0.75rem;
     font-family: $fontMontserrat;
@@ -268,7 +264,7 @@ export default {
 // ////////////////////////////////////////////////////// Modal + Hamburger icon
 .modal-background {
   display: none;
-  @include customMaxMQ (768px) { // <-- requested interim solution
+  @include customMaxMQ (768px) { // ← requested interim solution
     position: absolute;
     width: 100vw;
     height: 100vh;
@@ -286,7 +282,7 @@ export default {
 .social-icon-container {
   display: none;
   &.visible {
-    @include customMaxMQ (768px) { // <-- requested interim solution
+    @include customMaxMQ (768px) { // ← requested interim solution
       display: inline;
       align-self: start;
       margin: 2rem 0;
@@ -301,7 +297,7 @@ export default {
   z-index: 1000;
   height: 14px;
   width: 2rem;
-  @include customMaxMQ (768px) { // <-- requested interim solution
+  @include customMaxMQ (768px) { // ← requested interim solution
     display: inline;
   }
   &:before {

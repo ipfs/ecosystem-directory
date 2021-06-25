@@ -100,6 +100,7 @@ $highlight: #6BC4CE;
     color: $highlight;
     &:hover {
       text-decoration: underline;
+      text-underline-offset: $underlineSpacing;
     }
   }
 }

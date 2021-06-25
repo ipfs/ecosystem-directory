@@ -7,7 +7,7 @@
 
       <div :class="`grid-noGutter transition ${headerState} hero-breadcrumbs`">
         <div class="col">
-          <Breadcrumbs :breadcrumbs="pageData.breadcrumbs" />
+          <Breadcrumbs :breadcrumbs="breadcrumbs" />
         </div>
       </div>
 
@@ -104,6 +104,13 @@ export default {
     pageData () {
       return this.siteContent.index.page_content
     },
+    breadcrumbs () {
+      const breadcrumbs = this.pageData.breadcrumbs
+      const headerState = this.headerState
+      if (headerState === 'filters-view') { return breadcrumbs.filters_view }
+      if (headerState === 'filters-applied') { return breadcrumbs.filters_applied_view }
+      return breadcrumbs.index_view
+    },
     heading () {
       const heading = this.pageData.hero.heading
       const headerState = this.headerState
@@ -190,9 +197,20 @@ export default {
 }
 
 // ////////////////////////////////////////////////////////////////// Index View
-.index-view {
+::v-deep .index-view {
+  .breadcrumbs {
+    margin-top: 1rem;
+  }
+  .breadcrumb-link {
+    color: $downy;
+  }
+  .index-subheading {
+    @include fontSize_ExtraLarge;
+  }
   h1 {
-    font-weight: 600;
+    @include leading_Mini;
+    font-weight: 500;
+    margin: 2rem 0;
   }
 }
 
