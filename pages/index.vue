@@ -81,6 +81,40 @@ import SegmentSliderChart from '@/components/SegmentSliderChart/SegmentSliderCha
 import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
 import ProjectView from '@/components/ProjectView/ProjectView'
 
+// =================================================================== Functions
+const parseURLParams = (instance) => {
+  const cloned = CloneDeep(instance.$route.query)
+  instance.clearRouteQuery()
+  Object.keys(cloned).forEach((item) => {
+    if (item === 'filters') {
+      if (cloned[item] === 'enabled') {
+        instance.setFilterPanelOpen(true)
+        if (!cloned.hasOwnProperty('tags')) {
+          instance.clearAllTags()
+        }
+      } else {
+        instance.mountSegmentAndFeaturedSliders()
+      }
+    }
+    if (item !== 'tags') {
+      instance.setRouteQuery({
+        key: item,
+        data: cloned[item]
+      })
+    } else {
+      const tags = cloned[item].split(',')
+      const slug = tags.filter(tag => instance.taxonomyLabels.hasOwnProperty(tag)).join(',')
+      instance.setRouteQuery({
+        key: item,
+        data: slug
+      })
+    }
+  })
+  if (!cloned.hasOwnProperty('filters')) {
+    instance.mountSegmentAndFeaturedSliders()
+  }
+}
+
 // ====================================================================== Export
 export default {
   name: 'HomePage',
@@ -134,9 +168,9 @@ export default {
   computed: {
     ...mapGetters({
       siteContent: 'global/siteContent',
-      routeQuery: 'global/routeQuery',
-      queryString: 'global/queryString',
-      filterPanelOpen: 'filters/filterPanelOpen'
+      routeQuery: 'filters/routeQuery',
+      filterPanelOpen: 'filters/filterPanelOpen',
+      taxonomyLabels: 'filters/taxonomyLabels'
     }),
     // SEO
     seo () {
@@ -155,64 +189,36 @@ export default {
     '$route' (route) {
       if (route.query.filters === 'enabled') {
         this.collapseSegmentAndFeaturedSliders()
-      } else {
-        if (this.filterPanelOpen) {
-          this.setFilterPanelOpen(false)
-        }
-      }
-    },
-    queryString (val) {
-      if (val !== JSON.stringify(this.$route.query)) {
-        const cloned = CloneDeep(this.routeQuery)
-        Object.keys(cloned).forEach((key) => {
-          if (!cloned[key]) { delete cloned[key] }
-        })
-        if (cloned.hasOwnProperty('page')) {
-          if (cloned.page === 1) { delete cloned.page }
-        }
-        if (cloned.hasOwnProperty('filters')) {
-          if (!cloned.filters) { delete cloned.filters }
-        }
-        this.$router.push({ query: cloned })
       }
     }
   },
 
   mounted () {
-    const filterEnabled = (this.$route.query.filters === 'enabled')
-    if (filterEnabled) {
-      this.setFilterPanelOpen(filterEnabled)
-    } else {
-      this.segmentSlider = true
-      this.featuredSlider = true
-      if (this.filterPanelOpen) {
-        this.setFilterPanelOpen(false)
-      }
-      this.setRouteQuery({ key: 'filters', data: '' })
-    }
-
-    const cloned = CloneDeep(this.$route.query)
-    Object.keys(cloned).forEach((item) => {
-      this.setRouteQuery({
-        key: item,
-        data: cloned[item]
-      })
-    })
-
+    parseURLParams(this)
     this.resize = () => { this.resetSectionHeight() }
     window.addEventListener('resize', this.resize)
-    this.resetSectionHeight()
   },
 
   beforeDestroy () {
     if (this.resize) { window.removeEventListener('resize', this.resize) }
+    this.clearRouteQuery()
   },
 
   methods: {
     ...mapActions({
-      setRouteQuery: 'global/setRouteQuery',
-      setFilterPanelOpen: 'filters/setFilterPanelOpen'
+      setRouteQuery: 'filters/setRouteQuery',
+      clearRouteQuery: 'filters/clearRouteQuery',
+      setFilterPanelOpen: 'filters/setFilterPanelOpen',
+      clearAllTags: 'filters/clearAllTags'
     }),
+    mountSegmentAndFeaturedSliders () {
+      if (!this.segmentSlider) { this.segmentSlider = true }
+      if (!this.featuredSlider) { this.featuredSlider = true }
+      if (this.filterPanelOpen) { this.setFilterPanelOpen(false) }
+      this.setRouteQuery({ key: 'filters', data: '' })
+      this.clearRouteQuery()
+      this.resetSectionHeight()
+    },
     collapseSegmentAndFeaturedSliders () {
       if (this.segmentSlider && this.featuredSlider) {
         this.segmentSlider = false

@@ -78,6 +78,18 @@
           </div>
 
           <div class="slider-display col-6_md-8_mi-10_ti-12">
+            <div class="slide-nav">
+              <button
+                class="nav-arrow"
+                @click="incrementLeft">
+                <PrevArrow stroke="#052437" width="10" height="15" />
+              </button>
+              <button
+                class="nav-arrow"
+                @click="incrementRight">
+                <NextArrow stroke="#052437" width="10" height="15" />
+              </button>
+            </div>
             <div
               v-if="moreThanTwo"
               ref="sliderFlex"
@@ -87,21 +99,9 @@
                 :key="slide.label || slide.title"
                 v-hammer:swipe.horizontal="onSwipe"
                 :class="['card', (slide.label ? 'big-number' : 'case-study'), 'slider-mobile', { 'more-than-two' : moreThanTwo }]">
-                <div class="slide-nav">
-                  <button
-                    class="nav-arrow"
-                    @click="incrementLeft">
-                    <PrevArrow stroke="#052437" width="10" height="15" />
-                  </button>
-                  <p :class="(slide.label ? 'statistic' : 'title')">
-                    {{ slide.value || slide.title }}
-                  </p>
-                  <button
-                    class="nav-arrow"
-                    @click="incrementRight">
-                    <NextArrow stroke="#052437" width="10" height="15" />
-                  </button>
-                </div>
+                <p :class="(slide.label ? 'statistic' : 'title')">
+                  {{ slide.value || slide.title }}
+                </p>
                 <p class="description">
                   {{ slide.label || slide.description }}
                 </p>
@@ -649,7 +649,8 @@ export default {
         @include fontSize_ExtraLarge;
       }
       @include tiny {
-        margin: 0 0.5rem;
+        margin-top: 1.5rem;
+        @include fontSize_ExtraExtraLarge;
       }
     }
     .description {
@@ -657,6 +658,7 @@ export default {
       @include leading_Mini;
       @include small {
         @include fontSize_Regular;
+        margin-bottom: 1rem;
       }
     }
   }
@@ -673,7 +675,7 @@ export default {
       @include fontSize_Large;
       @include tiny {
         @include fontSize_Medium;
-        margin: 0 0.5rem;
+        margin: 1rem 0.5rem;
       }
       @media screen and (max-width: 20rem) {
         @include fontSize_Small;
@@ -683,7 +685,7 @@ export default {
       @include fontSize_Small;
       @include leading_Mini;
       @include tiny {
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
       }
     }
     .cta {
@@ -733,6 +735,8 @@ export default {
   &.more-than-two {
     @include tiny {
       display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       flex: 1 1 auto;
       margin: 0 1rem;
     }
@@ -745,22 +749,24 @@ export default {
   align-items: center;
   justify-content: center;
   @include tiny {
-    justify-content: space-between;
-    margin-bottom: 1rem;
+    justify-content: space-around;
   }
 }
 
 .nav-arrow {
   @include borderRadius3;
+  transform: translateY(calc(100% + 1.5rem));
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin: 0.5rem;
+  padding: 0.5rem;
+  margin: 0rem 1.5rem;
   color: rgba(0, 0, 0, 0.5);
   border: none;
   font-weight: 900;
   width: 3.75rem;
+  z-index: 100;
   @include small {
     width: auto;
   }

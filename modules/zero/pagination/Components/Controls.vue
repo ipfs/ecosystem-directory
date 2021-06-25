@@ -114,7 +114,7 @@ export default {
 
   methods: {
     ...mapActions({
-      setRouteQuery: 'global/setRouteQuery'
+      setRouteQuery: 'filters/setRouteQuery'
     }),
     navigateToPage (page) {
       this.setRouteQuery({
