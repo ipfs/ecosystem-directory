@@ -8,13 +8,13 @@
     "icon": "likecoin.png",
     "full": "logo-likecoin_a0c852da.svg"
   },
-  "name": "International Standard Content Number (ISCN)",
+  "name": "International Standard Content Number",
   "org": [
     "LikeCoin"
   ],
   "description": {
     "short": "Decentralized, incentivized publishing infrastructure",
-    "long": "LikeCoin is a decentralized publishing infrastructure based around ISCN, an immutable and censorship-resilient digital content registry that functions like an International Standard Book Number (ISBN) for digital content."
+    "long": "LikeCoin is a decentralized publishing infrastructure based around the International Standard Content Number (ISCN), an immutable and censorship-resilient digital content registry that functions like an International Standard Book Number (ISBN) for digital content."
   },
   "primaryCta": {
     "url": "//like.co/\nhttp://iscn.io",

@@ -13,7 +13,7 @@
     "Quanta"
   ],
   "description": {
-    "short": "Decentralized, federated content management, social media, and publishing platform",
+    "short": "Content management, social media, and publishing platform",
     "long": "Quanta is a decentralized and federated content management, social media, and publishing platform that allows users to create hierarchically organized, always-editable content. Because content is \"quantized\" as tree nodes, it enables a more fine-grained, hierarchical approach to collaborative content."
   },
   "primaryCta": {

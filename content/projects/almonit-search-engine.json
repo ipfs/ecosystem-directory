@@ -13,8 +13,8 @@
     "Almonit"
   ],
   "description": {
-    "short": "Decentralized search engine for ENS + IPFS websites, built purely on top of IPFS",
-    "long": "Almonit's IPFS-based search engine is itself decentralized, working without a server while preserving the privacy of users."
+    "short": "Decentralized search engine for ENS + IPFS websites",
+    "long": "Built purely on top of IPFS, Almonit's search engine is itself decentralized, working without a server while preserving the privacy of users."
   },
   "primaryCta": {
     "url": "//almonit.eth.link",
