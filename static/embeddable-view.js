@@ -1,4 +1,4 @@
-const ecodir_host = 'https://localhost:20000'
+const ecodir_host = 'https://bafybeigzjihveep6ij47sq77d3edpc6uzoknk2aih4n265koudwetkofou.on.fleek.co'
 const ecodir_targetEl = '.ipfs-ecosystem-embed'
 const ecodir_theme = 'light';
 const ecodir_loadTimeoutSeconds = 30;
