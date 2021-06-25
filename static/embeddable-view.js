@@ -185,7 +185,7 @@ function ecodir_initDirectory(el) {
 
               <div v-for="project in projects" :key="project.slug" class="ecodir_card" :class="{ active: activeSlug === project.slug }" v-on:click="setActiveProject(project.slug)">
                 <div v-if="project.logo && project.logo.icon" class="ecodir_card-thumbnail">
-                  <img :src="ecodir_host + '/images/projects/' + project.logo.icon" class="ecodir_card-logo"/>
+                  <img :src="'${ecodir_host}/images/projects/' + project.logo.icon" class="ecodir_card-logo"/>
                 </div>
                 <p v-if="project.name" class="ecodir_card-title">{{ project.name }}</p>
               </div>
@@ -222,7 +222,7 @@ function ecodir_initDirectory(el) {
         <h4 v-if="project.name" class="ecodir_project-title">{{ project.name }}</h4>
         <h5 v-if="org" class="ecodir_project-organization">{{ org }}</h5>
         <p v-if="project.description && project.description.long" class="ecodir_project-description">{{ project.description.long }}</p>
-        <a :href="ecodir_host + '/project/' + project.slug" class="ecodir_project-link" target="_blank">Learn More ${ecodir_caret_svg()}</a>
+        <a :href="'${ecodir_host}/project/' + project.slug" class="ecodir_project-link" target="_blank">Learn More ${ecodir_caret_svg()}</a>
         <a href="${ecodir_host}" class="ecodir_project-home-link" target="_blank">View the entire ecosystem</a>
       </div>
     `
@@ -230,17 +230,17 @@ function ecodir_initDirectory(el) {
 
   Vue.directive('click-outside', {
     bind (el, binding, vnode) {
+      el = el || this.el
+      const funcName = binding ? binding.expression : this.expression
+      const vm = vnode && vnode.context || this.vm
+
       el.clickOutsideEvent = function (e) {
-        if (!(el === e.target || el.contains(e.target))) {
-          vnode.context[binding.expression](e)
-        }
+        if (!(el === e.target || el.contains(e.target))) vm[funcName](e)
       }
       el.pressEscKey = function (e) {
         if (e.defaultPrevented) { return }
-        const key = e.key || e.keyCode
-        if (key === 'Escape' || key === 'Esc' || key === 27) {
-          vnode.context[binding.expression](e)
-        }
+        const key = e.key || event.keyCode
+        if (key === 'Escape' || key === 'Esc' || key === 27) vm[funcName](e)
       }
       document.body.addEventListener('click', el.clickOutsideEvent)
       document.addEventListener('keyup', el.pressEscKey)
@@ -249,7 +249,7 @@ function ecodir_initDirectory(el) {
       document.body.removeEventListener('click', el.clickOutsideEvent)
       document.removeEventListener('keyup', el.pressEscKey)
     }
-  })  
+  })
 
   new Vue({
     el: el,
