@@ -58,7 +58,15 @@ function ecodir_vueLoaded(e) {
 function ecodir_unsupportedVueVersion() {
   console.error('Unsupported Vue version')
   document.querySelectorAll(`.${ecodir_targetClass}`).forEach(el => {
-    el.innerHTML = 'Unsupported Vue version'
+    const blockSectionsHTML = count => new Array(count).fill(0).map(() => `<div class="ecodir_error-block-section"></div>`).join('')
+    
+    el.innerHTML = `
+    <div class="ecodir_error-unsupported">
+      ${blockSectionsHTML(6)}
+      <h2 class="ecodir_error-heading">Unsupported Vue version</h2>
+      ${blockSectionsHTML(7)}
+    </div>
+    `
   })
 }
 

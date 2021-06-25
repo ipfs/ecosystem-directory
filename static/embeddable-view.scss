@@ -7,15 +7,17 @@ $slider-thumb-light-svg: url('#{$host}/images/slider-thumb-light.svg') no-repeat
 $slider-thumb-dark-svg: url('#{$host}/images/slider-thumb-dark.svg') no-repeat;
 
 $white: #fff;
+$black: #000;
 
 $highlight: #6BC4CE;
-$shadow: #D0DCDD;
 
-$grey: #F1F3F2;
+$grey-light: #F1F3F2;
+$grey: #D0DCDD;
 $grey-medium: #D4D4D4;
 $grey-dark: #707070;
 $grey-x-dark: #181818;
 
+$light-teal: #3D8F96;
 $teal: #0E4F72;
 $teal-medium: #09344B;
 $teal-dark: #052437;
@@ -64,7 +66,6 @@ $teal-x-dark: #04202F;
       cursor: pointer;
       border-radius: 5px;
       border: none;
-      box-shadow: 3px 3px 15px rgba($shadow, 0.5);
       min-width: 150px;
       padding: 8px 15px;
       display: flex;
@@ -97,7 +98,6 @@ $teal-x-dark: #04202F;
       &:before {
         content: '';
         border-radius: 5px;
-        box-shadow: 3px 3px 15px rgba($grey-dark, 0.5);
         position: absolute;
         top: -25px;
         left: 0;
@@ -115,6 +115,7 @@ $teal-x-dark: #04202F;
         cursor: pointer;
         @include font(13, 400);
         white-space: normal;
+        position: relative;
         padding: 4px 15px;
 
         &:hover {
@@ -167,7 +168,6 @@ $teal-x-dark: #04202F;
               &.active {
                 border-radius: 5px;
                 background: $white;
-                box-shadow: 3px 3px 15px rgba($shadow, 0.5);
               }
     
               .ecodir_card-thumbnail {
@@ -307,7 +307,7 @@ $teal-x-dark: #04202F;
   }
   
   &.ecosystem-light {
-    background-color: $grey;
+    background-color: $grey-light;
 
     h2.ecodir_heading, 
     h3.ecodir_subheading {
@@ -318,6 +318,7 @@ $teal-x-dark: #04202F;
       .ecodir_dropdown-toggle {
         background: $white;
         color: $grey-x-dark;
+        box-shadow: 3px 3px 15px rgba($grey, 0.5);
   
         .ecodir_caret-svg {
           path {
@@ -329,11 +330,20 @@ $teal-x-dark: #04202F;
       .ecodir_dropdown {
         background: $white;
         color: $grey-x-dark;
+
+        &:before {
+          box-shadow: 3px 3px 15px rgba($grey-dark, 0.5);
+        }
       }
     }
 
     .ecodir_slider {
       .ecodir_card {
+
+        &.active {
+          box-shadow: 3px 3px 15px rgba($grey, 0.5);
+        }
+
         p.ecodir_card-title {
           color: $teal-dark;
         }
@@ -398,6 +408,7 @@ $teal-x-dark: #04202F;
     .ecodir_dropdown-wrapper {
       .ecodir_dropdown-toggle {
         background: $teal-medium;
+        box-shadow: 3px 3px 15px rgba($teal-x-dark, 0.5);
         color: $white;
   
         .ecodir_caret-svg {
@@ -410,11 +421,19 @@ $teal-x-dark: #04202F;
       .ecodir_dropdown {
         background: $teal-medium;
         color: $white;
+
+        &:before {
+          box-shadow: 3px 3px 15px rgba($black, 0.4);
+        }
       }
     }
 
     .ecodir_slider {
       .ecodir_card {
+        &.active {
+          box-shadow: 3px 3px 15px rgba($teal-x-dark, 0.5);
+        }
+
         p.ecodir_card-title {
           color: $white;
         }
@@ -470,6 +489,43 @@ $teal-x-dark: #04202F;
         background-color: $white;
         color: $teal-dark;
       }
+    }
+  }
+
+  .ecodir_error-unsupported {
+    display: flex;
+    
+    * {
+      margin: 0 0.3vw;
+    }
+
+    .ecodir_error-block-section {
+      border-radius: 3px;
+      background-color: $light-teal;
+
+      &:nth-child(1) { flex: 3 1 auto; }
+      &:nth-child(2) { flex: 12 1 auto; }
+      &:nth-child(3) { flex: 7 1 auto; }
+      &:nth-child(4) { flex: 2 1 auto; }
+      &:nth-child(5) { flex: 2 1 auto; }
+      &:nth-child(6) { flex: 9 1 auto; }
+
+      &:nth-child(8) { flex: 10 1 auto; }
+      &:nth-child(9) { flex: 7 1 auto; }
+      &:nth-child(10) { flex: 3 1 auto; }
+      &:nth-child(11) { flex: 2 1 auto; }
+      &:nth-child(12) { flex: 6 1 auto; }
+      &:nth-child(13) { flex: 4 1 auto; }
+      &:nth-child(14) { flex: 3 1 auto; }
+    }
+
+    h2.ecodir_error-heading {
+      background-color: $teal-dark;
+      @include font(20, 500);
+      line-height: 34px;
+      color: $white;
+      text-align: center;
+      padding: 40px 2vw;
     }
   }
 }
