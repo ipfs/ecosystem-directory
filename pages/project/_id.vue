@@ -77,8 +77,11 @@
             </a>
           </div>
 
-          <div class="slider-display col-6_md-8_mi-10_ti-12">
-            <div class="slide-nav">
+          <div
+            v-if="moreThanTwo"
+            class="slider-display col-6_md-8_mi-10_ti-12">
+            <div
+              class="slide-nav">
               <button
                 class="nav-arrow"
                 @click="incrementLeft">
@@ -91,7 +94,6 @@
               </button>
             </div>
             <div
-              v-if="moreThanTwo"
               ref="sliderFlex"
               class="slider-flex slider-transition">
               <div
@@ -717,6 +719,10 @@ export default {
 
 .slider-display {
   overflow: hidden;
+  display: none;
+  @include tiny {
+    display: block;
+  }
 }
 
 .slider-flex {
