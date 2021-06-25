@@ -10,7 +10,7 @@
     </div>
 
     <div class="grid">
-      <div class="col-5_md-8_sm-10_ti-12">
+      <div class="col-5_md-8_sm-10_mi-12">
         <section id="section-project-info">
           <img
             v-if="project.logo && project.logo.full"
@@ -42,7 +42,7 @@
         </section>
       </div>
 
-      <div class="col-6_md-8_mi-10_ti-12" data-push-left="off-1_md-0">
+      <div class="col-6_md-8_mi-12" data-push-left="off-1_md-0">
         <section v-if="project.stats" id="section-statistics">
 
           <template v-for="(stat, i) in project.stats">
@@ -121,7 +121,7 @@
     </div>
 
     <div class="grid">
-      <div class="col-5_mi-10_ti-12">
+      <div class="col-5_mi-10_mi-12">
         <section v-if="project.links || project.keyInfo" id="section-key-info">
           <h3 class="heading">
             {{ metadataHeading }}
@@ -210,7 +210,7 @@
                     <NuxtLink
                       v-for="(taxonomyTag, j) in filterTags(taxonomy.slug, taxonomy.tags)"
                       :key="`taxonomu-tag-${j}`"
-                      :to="{ path: '/', query: { tag: taxonomyTag } }"
+                      :to="{ path: '/', query: { filters: 'enabled', tag: taxonomyTag } }"
                       class="chiclet">
                       {{ $getTaxonomyTagLabel(taxonomy.slug, taxonomyTag) }}
                     </NuxtLink>
@@ -224,21 +224,25 @@
     </div>
 
     <section id="section-featured-slider">
-      <div class="grid-center">
+      <div class="outerbox">
+        <div class="featured-box">
+          <div class="grid-center">
 
-        <div class="col-12">
-          <h3 class="heading">
-            {{ generalPageData.section_featured_slider.heading }}
-          </h3>
-          <div class="description">
-            {{ generalPageData.section_featured_slider.description }}
+            <div class="col-12">
+              <h3 class="heading">
+                {{ generalPageData.section_featured_slider.heading }}
+              </h3>
+              <div class="description">
+                {{ generalPageData.section_featured_slider.description }}
+              </div>
+            </div>
+
+            <div class="col-11_mi-12">
+              <FeaturedProjectsSlider />
+            </div>
+
           </div>
         </div>
-
-        <div class="col-11_mi-12">
-          <FeaturedProjectsSlider />
-        </div>
-
       </div>
     </section>
 
@@ -362,29 +366,12 @@ export default {
       return this.pageData.metadata_heading
     },
     breadcrumbs () {
-      return [
-        {
-          type: 'a',
-          href: 'https://ipfs.io',
-          target: '_blank',
-          label: 'Home'
-        },
-        {
-          type: 'nuxt-link',
-          href: '/',
-          label: 'Ecosystem directory'
-        },
-        {
-          type: 'nuxt-link',
-          href: '/',
-          query: { filters: 'enabled' },
-          label: 'All projects'
-        },
-        {
-          type: 'div',
-          label: this.project.name
-        }
-      ]
+      const breadcrumbs = CloneDeep(this.pageData.breadcrumbs)
+      breadcrumbs.push({
+        type: 'div',
+        label: this.project.name
+      })
+      return breadcrumbs
     },
     // Project Content
     generalPageData () {
@@ -539,15 +526,19 @@ export default {
   }
   .name {
     @include fontSize_ExtraExtraLarge;
-    @include leading_Small;
+    @include leading_Mini;
     font-weight: 700;
     margin-left: -0.125rem;
     @include small {
       margin-bottom: 0.5rem;
     }
+    @include mini {
+      word-break: break-word;
+    }
   }
   .description {
-    @include leading_Mini;
+    @include fontSize_Medium;
+    font-family: $fontInter;
     margin-bottom: 3rem;
   }
 }
@@ -564,6 +555,7 @@ export default {
   @include fontSize_Medium;
   font-family: $fontInter;
   margin-bottom: 2.5rem;
+  opacity: 0.7;
 }
 
 .ctas {
@@ -589,10 +581,17 @@ export default {
         margin-right: 0;
         margin-bottom: 1rem;
       }
+      &:hover {
+        color: white;
+        background-color: $blackPearl;
+      }
     }
     &.secondary-cta {
       background: url('~assets/theme/svgs/chevronright.svg') no-repeat right center;
       padding-right: 1rem;
+      &:hover {
+        text-decoration: underline;
+      }
     }
   }
 }
@@ -644,6 +643,7 @@ export default {
       padding: 3rem 2rem;
     }
     .statistic {
+      @include leading_Mini;
       font-size: 2.625rem;
       @include small {
         @include fontSize_ExtraLarge;
@@ -673,6 +673,7 @@ export default {
     }
     .title {
       @include fontSize_Large;
+      @include leading_Mini;
       @include tiny {
         @include fontSize_Medium;
         margin: 1rem 0.5rem;
@@ -782,7 +783,7 @@ export default {
 // ////////////////////////////////////////////////////////// [Section] Key Info
 #section-key-info {
   .heading {
-    @include fontSize_ExtraLarge;
+    @include fontSize_ExtraMediumLarge;
     margin-bottom: 2rem;
   }
 }
@@ -801,7 +802,9 @@ export default {
   dd {
     margin: 0;
     &:not(:last-child) {
-      margin-bottom: 0rem;
+      @include small {
+        margin-bottom: 1.25rem;
+      }
     }
   }
 
@@ -821,7 +824,10 @@ export default {
     }
 
     a {
-      color: $cerulean;
+      color: $ming;
+      &:hover {
+        text-decoration: underline;
+      }
     }
 
     .link-tooltip {
@@ -902,6 +908,15 @@ export default {
 
 // /////////////////////////////////////////////////// [Section] Featured Slider
 #section-featured-slider {
+  .heading,
+  .description {
+    @include xlarge {
+      padding-left: 2rem;
+    }
+    @include large {
+      padding-left: 0;
+    }
+  }
   margin-top: 4rem;
   padding-bottom: 4rem;
   @include mini {
@@ -912,6 +927,24 @@ export default {
 
 #featured-projects-slider {
   margin-top: 1rem;
+}
+
+.featured-box {
+  padding-top: 4.75rem;
+  max-width: 90rem;
+  margin: auto;
+  border: 2px solid #E5E5E5;
+  @include borderRadius3;
+  @include xlarge {
+    margin: auto 3.75rem;
+  }
+  @include large {
+    padding-top: 3.75rem;
+    margin: auto 1.5rem;
+  }
+  @include mini {
+    margin: auto;
+  }
 }
 
 ::v-deep .project-card {

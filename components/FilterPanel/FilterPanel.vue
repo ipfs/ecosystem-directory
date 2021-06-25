@@ -22,8 +22,8 @@
                 <span class="filter-category number-active">
                   {{ numberInCategory[heading.slug] }} of {{ heading.tags.length }}
                 </span>
-                <h5 class="filter-category sub-heading">
-                  Filter by {{ heading.label }}
+                <h5 v-if="getSublabel(heading)" class="filter-category sub-heading">
+                  {{ getSublabel(heading) }}
                 </h5>
               </div>
             </AccordionHeader>
@@ -161,6 +161,12 @@ export default {
       clearRouteQueryTags: 'filters/clearRouteQueryTags',
       clearAllTags: 'filters/clearAllTags'
     }),
+    getSublabel (heading) {
+      if (!heading.hasOwnProperty('sublabel')) { return `Filter by ${heading.label}` }
+      const sublabel = heading.sublabel
+      if (typeof sublabel === 'string') { return sublabel }
+      return false
+    },
     applyFilter (tag, category) {
       this.setRouteQuery({ key: 'tags', data: tag })
     },
@@ -245,6 +251,7 @@ export default {
     font-family: $fontMontserrat;
     font-weight: 500;
     margin: 0 6px;
+    margin-bottom: 1rem;
   }
   &.number-active {
     font-size: 8pt;
@@ -262,7 +269,6 @@ export default {
   }
   &.sub-heading {
     font-family: $fontInter;
-    margin-bottom: 1rem;
   }
   &.chiclet-list {
     padding: 6px 0;

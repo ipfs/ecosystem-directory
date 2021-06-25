@@ -10,7 +10,8 @@
       :disabled="link.disabled"
       :target="link.target"
       :class="link.type === 'div' ? 'breadcrumb-button' : 'breadcrumb-link'">
-      {{ link.label }}
+      <span class="label">{{ link.label }}</span>
+      <span class="divider">|</span>
     </component>
 
   </section>
@@ -32,25 +33,30 @@ export default {
 
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
-.breadcrumbs {
-  @include fontSize_Small;
-}
-
 .breadcrumb-link,
 .breadcrumb-button {
   display: inline-block;
   font-size: inherit;
-  font-weight: 600;
-  &:not(:last-child) {
-    &:after {
-      content: '/';
-      margin-left: 0.25rem;
-      margin-right: 0.5rem;
+  &:last-child {
+    .divider {
+      display: none;
     }
   }
 }
 
 .breadcrumb-link {
+  display: inline-flex;
   color: $paradiso;
+}
+
+.label {
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.divider {
+  margin: 0 0.5rem;
+  color: inherit;
 }
 </style>

@@ -142,6 +142,9 @@ export default {
   @include containerMaxMQ {
     padding: 0;
   }
+  @include mini {
+    flex-direction: column;
+  }
 }
 
 // //////////////////////////////////////////////// [Button] Filter panel toggle
@@ -173,9 +176,17 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  @include mini {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
   .sort-by-selector {
     position: relative;
     margin-right: 1rem;
+    @include mini {
+      margin-bottom: 1rem;
+    }
   }
 }
 

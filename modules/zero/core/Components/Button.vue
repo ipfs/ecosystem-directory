@@ -221,6 +221,7 @@ export default {
   &:not(:disabled) {
     &:hover {
       text-decoration: underline;
+      text-underline-offset: $underlineSpacing;
     }
   }
   &:disabled {

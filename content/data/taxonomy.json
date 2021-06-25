@@ -2,6 +2,7 @@
   "categories": [
     {
       "label": "Industry",
+      "sublabel": "Filter by primary application area",
       "slug": "industry",
       "tags": [
         {
@@ -83,6 +84,7 @@
     },
     {
       "label": "Focus areas",
+      "sublabel": "Filter by project focus or specialty",
       "slug": "focus",
       "tags": [
         {
@@ -161,6 +163,7 @@
     },
     {
       "label": "IPFS benefits",
+      "sublabel": "Filter by the benefits IPFS provides",
       "slug": "benefits",
       "tags": [
         {
@@ -195,6 +198,7 @@
     },
     {
       "label": "Tooling",
+      "sublabel": "Filter by implementation or tooling used",
       "slug": "tooling",
       "tags": [
         {
