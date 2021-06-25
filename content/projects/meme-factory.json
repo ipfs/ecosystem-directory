@@ -14,7 +14,7 @@
   ],
   "description": {
     "short": "Decentralized registry and marketplace for meme NFTs",
-    "long": "A decentralized registry and marketplace for the creation, exchange, and collection of provably rare digital assets."
+    "long": "Decentralized, Ethereum-based NFT marketplace and token curated registry for unique, rare memes. Built on the Ethereum blockchain, the primary goal is to enable provable ownership of memes for their creators, attaching economic and legal value to a piece of art."
   },
   "primaryCta": {
     "url": "//memefactory.io",
@@ -46,7 +46,7 @@
       "value": "2017"
     }
   ],
-  "video": "",
+  "video": "https://www.youtube.com/watch?v=TDgykV_8rco",
   "stats": [
     {
       "label": "",
@@ -62,10 +62,10 @@
     }
   ],
   "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
+    "title": "Meme Factory in brief",
+    "description": "Get an executive summary of Meme Factory and how it works.",
+    "buttonText": "Read more",
+    "url": "https://blog.district0x.io/spotlight-memefactory-io-2021-a0d3505c996"
   },
   "taxonomies": [
     {

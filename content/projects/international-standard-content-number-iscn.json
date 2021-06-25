@@ -17,7 +17,7 @@
     "long": "LikeCoin is a decentralized publishing infrastructure based around the International Standard Content Number (ISCN), an immutable and censorship-resilient digital content registry that functions like an International Standard Book Number (ISBN) for digital content."
   },
   "primaryCta": {
-    "url": "//like.co/\nhttp://iscn.io",
+    "url": "http://iscn.io",
     "text": "Project website"
   },
   "links": [
@@ -25,8 +25,8 @@
       "label": "Website",
       "links": [
         {
-          "url": "//like.co/\nhttp://iscn.io",
-          "text": "like.co/\nhttp://iscn.io"
+          "url": "http://iscn.io",
+          "text": "http://iscn.io"
         }
       ]
     },
@@ -34,8 +34,8 @@
       "label": "Repo",
       "links": [
         {
-          "url": "//github.com/likecoin\nhttps://github.com/likecoin/iscn-specs",
-          "text": "github.com/likecoin\nhttps://github.com/likecoin/iscn-specs"
+          "url": "//github.com/likecoin",
+          "text": "github.com/likecoin"
         }
       ]
     }

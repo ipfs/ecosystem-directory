@@ -14,7 +14,7 @@
   ],
   "description": {
     "short": "Decrypt news sites, hosted on IPFS",
-    "long": "Crypto- and blockchain-focused news site hosting their content on IPFS."
+    "long": "Decrypt is a popular crypto- and blockchain-focused news site devoted to demystifying the decentralized web — and hosting their content on IPFS as part of a commitment to using web3 to cover web3."
   },
   "primaryCta": {
     "url": "//decrypt.co",
@@ -46,7 +46,7 @@
       "value": "2020"
     }
   ],
-  "video": "",
+  "video": "https://www.youtube.com/watch?v=EZ0-UFVoP60",
   "stats": [
     {
       "label": "",

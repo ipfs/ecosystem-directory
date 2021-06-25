@@ -13,8 +13,8 @@
     "Textile"
   ],
   "description": {
-    "short": "Developer tools and APIs to build on IPFS and Filecoin.",
-    "long": ""
+    "short": "Developer tools and APIs to build on IPFS and Filecoin",
+    "long": "Textile is a set of open source tools that provide a decentralized database, IPFS-based storage, content hosting, and more over libp2p, IPFS, and Filecoin."
   },
   "primaryCta": {
     "url": "//textile.io",
@@ -97,6 +97,7 @@
     {
       "slug": "tooling",
       "tags": [
+        "filecoin",
         "go-ipfs",
         "go-libp2p",
         "js-ipfs"

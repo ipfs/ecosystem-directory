@@ -14,7 +14,7 @@
   ],
   "description": {
     "short": "Simple, easy-to-use IPFS pinning service",
-    "long": ""
+    "long": "Simple, easy-to-use, inexpensive IPFS pinning service with a Dropbox-like desktop client and a comprehensive API."
   },
   "primaryCta": {
     "url": "//eternum.io",
@@ -62,10 +62,10 @@
     }
   ],
   "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
+    "title": "Eternum API",
+    "description": "Quick Swagger reference for the Eternum API.",
+    "buttonText": "Learn more",
+    "url": "https://www.eternum.io/api/docs/#/api"
   },
   "taxonomies": [
     {

@@ -14,7 +14,7 @@
   ],
   "description": {
     "short": "Peer-to-peer discussion platform",
-    "long": "Built on IPFS, Discussify provides a real-time, peer to peer, and permanent discussion platform for anyone to join and participate."
+    "long": "Built on IPFS, Discussify provides a real-time, peer to peer, and permanent discussion platform for anyone to join and participate. Built on the WebExtensions API, Discussify is available for Chrome and Firefox, as well as any other browser that supports this API."
   },
   "primaryCta": {
     "url": "//chrome.google.com/webstore/detail/discussify/bfmnjjkobeboejeocbompgljbiafbgcc?hl=en",

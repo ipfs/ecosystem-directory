@@ -62,10 +62,10 @@
     }
   ],
   "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
+    "title": "Qri Data Bazaar",
+    "description": "Explore this home for versioned open datasets on the distributed web.",
+    "buttonText": "Learn more",
+    "url": "https://qri.cloud/"
   },
   "taxonomies": [
     {

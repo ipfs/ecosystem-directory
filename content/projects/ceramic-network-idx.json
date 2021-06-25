@@ -14,7 +14,7 @@
   ],
   "description": {
     "short": "Decentralized identity and open data on the Ceramic network",
-    "long": "Creators of Ceramic, a decentralized network for managing mutable information on the open internet; and IDX, a decentralized, cross-platform identity standard built on Ceramic."
+    "long": "Created by 3Box Labs, Ceramic is a decentralized network for managing mutable information on the open internet; IDX is a decentralized, cross-platform identity standard built on Ceramic."
   },
   "primaryCta": {
     "url": "//3boxlabs.com",
@@ -62,10 +62,10 @@
     }
   ],
   "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
+    "title": "3Box Labs blog",
+    "description": "Keep up with the evolution of the 3Box Labs product suite, including Ceramic and IDX.",
+    "buttonText": "Read more",
+    "url": "https://blog.ceramic.network/"
   },
   "taxonomies": [
     {

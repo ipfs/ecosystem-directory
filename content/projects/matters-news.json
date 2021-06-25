@@ -62,10 +62,10 @@
     }
   ],
   "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
+    "title": "Matters News in action",
+    "description": "Learn how Matters News used IPFS to empower Chinese citizens to speak more freely about COVID-19.",
+    "buttonText": "Read more",
+    "url": "https://www.coindesk.com/interplanetary-file-system-is-uncensorable-during-coronavirus-news-fog"
   },
   "taxonomies": [
     {

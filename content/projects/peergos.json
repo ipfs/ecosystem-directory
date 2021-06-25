@@ -62,10 +62,10 @@
     }
   ],
   "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
+    "title": "Peergos Tech Book",
+    "description": "The complete technical guide to Peergos.",
+    "buttonText": "Learn more",
+    "url": "https://book.peergos.org/"
   },
   "taxonomies": [
     {

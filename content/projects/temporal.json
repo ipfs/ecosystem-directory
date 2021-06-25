@@ -62,10 +62,10 @@
     }
   ],
   "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
+    "title": "Temporal FAQ",
+    "description": "Quick Q-and-A for the most common questions about Temporal.",
+    "buttonText": "Read more",
+    "url": "https://temporal.cloud/faq"
   },
   "taxonomies": [
     {

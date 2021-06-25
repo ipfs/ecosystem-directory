@@ -62,10 +62,10 @@
     }
   ],
   "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
+    "title": "Pinata on Medium",
+    "description": "Blog posts, how-to guides, and more from the Pinata team.",
+    "buttonText": "Read more",
+    "url": "https://medium.com/pinata"
   },
   "taxonomies": [
     {
