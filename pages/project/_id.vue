@@ -229,16 +229,17 @@
           <div class="grid-center">
 
             <div class="col-12">
-              <h3 class="heading">
-                {{ generalPageData.section_featured_slider.heading }}
-              </h3>
-              <div class="description">
-                {{ generalPageData.section_featured_slider.description }}
+              <div class="mini-box">
+                <h3 class="heading">
+                  {{ generalPageData.section_featured_slider.heading }}
+                </h3>
+                <div class="description">
+                  {{ generalPageData.section_featured_slider.description }}
+                </div>
+                <div class="col-11_mi-12">
+                  <FeaturedProjectsSlider />
+                </div>
               </div>
-            </div>
-
-            <div class="col-11_mi-12">
-              <FeaturedProjectsSlider />
             </div>
 
           </div>
@@ -943,7 +944,18 @@ export default {
     margin: auto 1.5rem;
   }
   @include mini {
-    margin: auto;
+    border: none;
+    padding-top: 0;
+    margin: 0;
+  }
+  .mini-box{
+    @include mini {
+      margin: 0 0.5rem;
+      padding: 0 2rem;
+      padding-top: 3rem;
+      border: 2px solid #E5E5E5;
+      @include borderRadius3;
+    }
   }
 }
 

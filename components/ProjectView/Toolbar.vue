@@ -169,6 +169,9 @@ export default {
 // ///////////////////////////////////////////// [Button] Clear selected filters
 #clear-selected-filters-button {
   margin-left: 0.5rem;
+  @include mini {
+    margin-bottom: 1rem;
+  }
 }
 
 // ///////////////////////////////////////////////////////////// [Dropdown] Sort

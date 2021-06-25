@@ -33,7 +33,7 @@
 
           <FilterBar
             :filter-value="searchQuery"
-            @setFilterValue="setSearchQuery">
+            action="store">
             <template #icon>
               <SearchIcon />
             </template>
@@ -138,8 +138,7 @@ export default {
   data () {
     return {
       panelHeight: false,
-      listViewActive: false,
-      searchQuery: ''
+      listViewActive: false
     }
   },
 
@@ -149,6 +148,7 @@ export default {
       routeQuery: 'filters/routeQuery',
       projects: 'projects/projects',
       filterPanelOpen: 'filters/filterPanelOpen',
+      filterValue: 'core/filterValue',
       sortedCollection: 'core/sortedCollection',
       display: 'pagination/display'
     }),
@@ -164,8 +164,11 @@ export default {
     resultsPerPageDropdownLabel () {
       return this.pageData.section_filter.results_per_page_dropdown_label
     },
+    searchQuery () {
+      return this.filterValue
+    },
     searchResults () {
-      const query = this.searchQuery
+      const query = this.searchQuery.toLowerCase()
       return this.projects.filter((project) => {
         const matched = project.name.toLowerCase().includes(query) || project.org.join('').toLowerCase().includes(query)
         if (!matched) { return false }
@@ -225,9 +228,6 @@ export default {
     },
     clearSelectedFilters () {
       this.$refs.filterPanel.clearSelected()
-    },
-    setSearchQuery (query) {
-      this.searchQuery = query.toLowerCase()
     }
   }
 }
@@ -246,7 +246,6 @@ $paginateRoot_PaddingOffset: 3.5rem;
 
 // ///////////////////////////////////////////////////////////////////// Toolbar
 #section-toolbar {
-  margin-top: 1.5rem;
   margin-bottom: 3rem;
 }
 
