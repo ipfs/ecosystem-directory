@@ -1,0 +1,460 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+$host: 'https://localhost:20000';
+
+$slider-thumb-light-svg: url('#{$host}/images/slider-thumb-light.svg') no-repeat;
+$slider-thumb-dark-svg: url('#{$host}/images/slider-thumb-dark.svg') no-repeat;
+
+$white: #fff;
+
+$highlight: #6BC4CE;
+
+$grey: #F1F3F2;
+$grey-medium: #D4D4D4;
+$grey-dark: #707070;
+$grey-x-dark: #181818;
+
+$teal: #0E4F72;
+$teal-medium: #09344B;
+$teal-dark: #052437;
+$teal-x-dark: #04202F;
+
+@mixin font($size, $weight: 400) {
+  font-family: 'Montserrat', sans-serif;
+  font-size: #{$size}px;
+  font-weight: $weight;
+}
+
+@mixin font2($size, $weight: 400) {
+  font-family: 'Inter', sans-serif;
+  font-size: #{$size}px;
+  font-weight: $weight;
+}
+
+.ipfs-ecosystem-embed {
+  padding: 60px 50px 40px;
+
+  h2.ecodir_heading {
+    @include font(16);
+    margin: 0 0 13px;
+  }
+
+  h3.ecodir_subheading {
+    @include font(30, 500);
+    margin: 0 0 47px;
+  }
+
+  .ecodir_filters {
+    display: flex;
+    margin-bottom: 49px;
+
+    .ecodir_dropdown-wrapper {
+      margin-right: 36px;
+    }
+  }
+
+  .ecodir_dropdown-wrapper {
+    @include font(13, 500);
+    white-space: nowrap;
+    position: relative;
+
+    .ecodir_dropdown-toggle {
+      cursor: pointer;
+      border-radius: 5px;
+      border: none;
+      min-width: 150px;
+      padding: 8px 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &:active, &:focus {
+        outline: none;
+      }
+
+      .ecodir_caret-svg {
+        width: auto;
+        height: 12px;
+        margin-left: 10px;
+        transform: rotate(90deg);
+      }
+    }
+
+    .ecodir_dropdown {
+      border-radius: 5px;
+      text-align: right;
+
+      position: absolute;
+      top: 25px;
+      left: 0;
+      width: 100%;
+      padding: 5px 0;
+      z-index: 1000;
+
+      &.hidden {
+        display: none;
+      }
+
+      .ecodir_dropdown-option {
+        cursor: pointer;
+        @include font(13, 400);
+        white-space: normal;
+        padding: 4px 10px;
+
+        &:hover {
+          text-decoration: underline;
+        }
+
+        &.selected {
+          background: $highlight;
+          color: $white;
+        }
+      }
+    }
+    
+  }
+
+  .ecodir_container {
+    overflow: hidden;
+
+    .ecodir_slider-container {
+      padding-left: 25px;
+      width: 49%;
+      float: left;
+      
+      .ecodir_slider {
+
+        .ecodir_slider-row-container {
+          position: relative;
+          width: 540px;
+
+          overflow: hidden;
+
+          .ecodir_slider-row {
+            position: relative;
+            width: 100%;
+            display: grid;
+            grid-auto-flow: column;
+            grid-template-rows: repeat(2, auto);
+            
+            .ecodir_card {
+              cursor: pointer;
+              user-select: none;
+              text-align: center;
+              width: 160px;
+              padding: 27px 10px 21px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+
+              &.active {
+                border-radius: 5px;
+                background: $white;
+                box-shadow: 3px 3px 15px rgba(#D0DCDD, 0.5);
+              }
+    
+              .ecodir_card-thumbnail {
+                width: 100%;
+                height: 100px;
+
+                img.ecodir_card-logo {
+                  max-width: 50%;
+                  max-height: 60%;
+                  width: auto;
+                }
+              }
+
+              p.ecodir_card-title {
+                @include font(15, 600);
+                margin: 0;
+              }
+            }
+          }
+        } 
+      }
+
+      .ecodir_slider-controls {
+
+        .ecodir_range-slider {
+          width: 100%;
+          height: 28px;
+          background: transparent;
+          -webkit-appearance: none;
+
+          &:focus {
+            outline: none;
+          }
+
+          // Style thumb
+          @mixin slider-thumb() {
+            cursor: pointer;
+            height: 20px;
+            width: 55px;
+          }
+          &::-webkit-slider-thumb {
+            @include slider-thumb;
+            -webkit-appearance: none;
+            margin-top: -11px;
+          }
+          &::-moz-range-thumb {
+            @include slider-thumb;
+            border: none;
+            border-radius: 0px;
+          }
+          &::-ms-thumb {
+            @include slider-thumb;
+          }
+          
+          // Style track
+          @mixin slider-track() {
+            cursor: pointer;
+            border-radius: 20px;
+            width: 100%;
+            height: 2px;
+            animate: 0.2s;
+          }
+          &::-webkit-slider-runnable-track {
+            @include slider-track;
+            border-width: 1px;
+            border-style: solid;
+          }
+          &::-moz-range-track {
+            @include slider-track;
+          }
+          &::-ms-track {
+            border-width: 16px 0;
+            cursor: pointer;
+            background: transparent; 
+            border-color: transparent;
+            color: transparent;
+            width: 100%;
+            height: 2px;
+          }
+          &::-ms-fill-lower {
+            background: pink;
+          }
+          &::-ms-fill-upper {
+            border-radius: 20px;
+            background: magenta;
+          }
+        }
+      }
+    }
+
+    .ecodir_project-view-container {
+      width: 29%;
+      float: right;
+
+      h4.ecodir_project-title {
+        @include font(24);
+        margin: 0 0 8px;
+      }
+
+      h5.ecodir_project-organization {
+        @include font(15, 600);
+        margin: 0 0 25px;
+      }
+
+      p.ecodir_project-description {
+        @include font2(14);
+        line-height: 22px;
+        margin: 0 0 25px;
+      }
+
+      a.ecodir_project-link {
+        @include font2(15, 600);
+        text-decoration: none;
+        display: inline-block;
+        margin-bottom: 40px;
+
+        .ecodir_caret-svg {
+          width: auto;
+          height: 10px;
+          margin-left: 30px;
+
+          path {
+            stroke-linecap: round;
+            stroke-width: 1.5;
+          }
+        }
+      }
+
+      a.ecodir_project-home-link {
+        border-radius: 5px;
+        @include font2(18, 600);
+        text-decoration: none;
+        padding: 13px 20px;
+        display: inline-block;
+      }
+    }
+  }
+  
+  &.ecosystem-light {
+    background-color: $grey;
+
+    h2.ecodir_heading, 
+    h3.ecodir_subheading {
+      color: $grey-x-dark;
+    }
+
+    .ecodir_dropdown-wrapper {
+      .ecodir_dropdown-toggle {
+        background: $white;
+        color: $grey-x-dark;
+  
+        .ecodir_caret-svg {
+          path {
+            stroke: $grey-x-dark;
+          }
+        }
+      }
+
+      .ecodir_dropdown {
+        background: $white;
+        color: $grey-x-dark;
+      }
+    }
+
+    .ecodir_slider {
+      .ecodir_card {
+        p.ecodir_card-title {
+          color: $teal-dark;
+        }
+      }
+    }
+
+    .ecodir_range-slider {
+      &::-webkit-slider-runnable-track {
+        border-color: $grey-medium;
+      }
+      &::-moz-range-track {
+        background: $grey-medium;
+      }
+      &::-webkit-slider-thumb {
+        background: $slider-thumb-light-svg;
+      }
+      &::-moz-range-thumb {
+        background: $slider-thumb-light-svg;
+      }
+      &::-ms-thumb {
+        background: $slider-thumb-light-svg;
+      }
+    }
+
+    .ecodir_project-view-container {
+      h4.ecodir_project-title {
+        color: $teal-dark;
+      }
+
+      h5.ecodir_project-organization {
+        color: $teal-dark;
+      }
+
+      p.ecodir_project-description {
+        color: $teal-dark;
+      }
+
+      a.ecodir_project-link {
+        color: $teal-dark;
+
+        .ecodir_caret-svg path {
+          stroke: $teal-dark;
+        }
+      }
+
+      a.ecodir_project-home-link {
+        background-color: $teal-dark;
+        color: $white;
+      }
+    }
+  }
+
+
+  &.ecosystem-dark {
+    background-color: $teal-dark;
+
+    h2.ecodir_heading, 
+    h3.ecodir_subheading {
+      color: $white;
+    }
+
+    .ecodir_dropdown-wrapper {
+      .ecodir_dropdown-toggle {
+        background: $teal-medium;
+        color: $white;
+  
+        .ecodir_caret-svg {
+          path {
+            stroke: $white;
+          }
+        }
+      }
+
+      .ecodir_dropdown {
+        background: $teal-medium;
+        color: $white;
+      }
+    }
+
+    .ecodir_slider {
+      .ecodir_card {
+        p.ecodir_card-title {
+          color: $white;
+        }
+
+        &.active {
+          p.ecodir_card-title {
+            color: $teal-dark;
+          }
+        }
+      }
+    }
+
+    .ecodir_range-slider {
+      &::-webkit-slider-runnable-track {
+        border-color: $teal;
+      }
+      &::-moz-range-track {
+        background: $teal;
+      }
+      &::-webkit-slider-thumb {
+        background: $slider-thumb-dark-svg;
+      }
+      &::-moz-range-thumb {
+        background: $slider-thumb-dark-svg;
+      }
+      &::-ms-thumb {
+        background: $slider-thumb-dark-svg;
+      }
+    }
+
+    .ecodir_project-view-container {
+      h4.ecodir_project-title {
+        color: $white;
+      }
+
+      h5.ecodir_project-organization {
+        color: $white;
+      }
+
+      p.ecodir_project-description {
+        color: $white;
+      }
+
+      a.ecodir_project-link {
+        color: $white;
+
+        .ecodir_caret-svg path {
+          stroke: $white;
+        }
+      }
+
+      a.ecodir_project-home-link {
+        background-color: $white;
+        color: $teal-dark;
+      }
+    }
+  }
+}
