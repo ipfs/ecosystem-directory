@@ -9,6 +9,7 @@ const state = {
   messages: [],
   loaders: [],
   clipboard: false,
+  segmentCollection: [],
   filterValue: '',
   collection: {
     mutation: '',
@@ -22,6 +23,7 @@ const getters = {
   messages: state => state.messages,
   loaders: state => state.loaders,
   clipboard: state => state.clipboard,
+  segmentCollection: state => state.segmentCollection,
   filterValue: state => state.filterValue,
   collection: state => state.collection
 }
@@ -65,6 +67,10 @@ const actions = {
     this.$addTextToClipboard(text)
     commit('SET_CLIPBOARD', text)
   },
+  // ////////////////////////////////////////////////////// setSegmentCollection
+  setSegmentCollection ({ commit }, segmentCollection) {
+    commit('SET_SEGMENT_COLLECTION', segmentCollection)
+  },
   // ////////////////////////////////////////////////////////////// setClipboard
   setFilterValue ({ commit }, value) {
     commit('SET_FILTER_VALUE', value)
@@ -92,6 +98,9 @@ const mutations = {
   },
   SET_CLIPBOARD (state, text) {
     state.clipboard = text
+  },
+  SET_SEGMENT_COLLECTION (state, segmentCollection) {
+    state.segmentCollection = segmentCollection
   },
   SET_FILTER_VALUE (state, value) {
     state.filterValue = value

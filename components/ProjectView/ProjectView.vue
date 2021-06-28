@@ -33,7 +33,7 @@
 
           <FilterBar
             :filter-value="searchQuery"
-            @setFilterValue="setSearchQuery">
+            action="store">
             <template #icon>
               <SearchIcon />
             </template>
@@ -76,7 +76,20 @@
 
         <div v-if="sortedCollection" id="paginated-list-navigation-controls">
 
-          <PaginationControls />
+          <PaginationControls breaker="...">
+            <template #first-page>
+              <FirstArrow stroke="#494949" />
+            </template>
+            <template #prev-page>
+              <PrevArrow stroke="#494949" />
+            </template>
+            <template #next-page>
+              <NextArrow stroke="#494949" />
+            </template>
+            <template #last-page>
+              <LastArrow stroke="#494949" />
+            </template>
+          </PaginationControls>
 
           <ResultsPerPageSelector
             id="results-per-page-selector"
@@ -103,12 +116,18 @@ import FilterBar from '@/modules/zero/core/Components/FilterBar'
 import FilterPanel from '@/components/FilterPanel/FilterPanel'
 import Paginate from '@/modules/zero/pagination/Components/Paginate'
 import ProjectCard from '@/components/ProjectView/ProjectCard'
-import PaginationControls from '@/components/ProjectView/PaginationControls'
+import PaginationControls from '@/modules/zero/pagination/Components/Controls'
 import ResultsPerPageSelector from '@/modules/zero/pagination/Components/ResultsPerPageSelector'
 
 import CloseIcon from '@/components/Icons/Close'
 import SearchIcon from '@/components/Icons/SearchIcon'
 import SelectorToggleIcon from '@/modules/zero/core/Components/Icons/SelectorToggle'
+
+import FirstArrow from '@/components/Icons/FirstArrow'
+import PrevArrow from '@/components/Icons/PrevArrow'
+import NextArrow from '@/components/Icons/NextArrow'
+import LastArrow from '@/components/Icons/LastArrow'
+
 // =================================================================== Functions
 const clearPanelHeight = (instance) => {
   if (!instance.filterPanelOpen) {
@@ -132,14 +151,17 @@ export default {
     ProjectCard,
     PaginationControls,
     ResultsPerPageSelector,
-    SelectorToggleIcon
+    SelectorToggleIcon,
+    FirstArrow,
+    PrevArrow,
+    NextArrow,
+    LastArrow
   },
 
   data () {
     return {
       panelHeight: false,
-      listViewActive: false,
-      searchQuery: ''
+      listViewActive: false
     }
   },
 
@@ -149,6 +171,7 @@ export default {
       routeQuery: 'filters/routeQuery',
       projects: 'projects/projects',
       filterPanelOpen: 'filters/filterPanelOpen',
+      filterValue: 'core/filterValue',
       collection: 'core/collection'
     }),
     sortedCollection () {
@@ -169,8 +192,11 @@ export default {
     resultsPerPageDropdownLabel () {
       return this.pageData.section_filter.results_per_page_dropdown_label
     },
+    searchQuery () {
+      return this.filterValue
+    },
     searchResults () {
-      const query = this.searchQuery
+      const query = this.searchQuery.toLowerCase()
       return this.projects.filter((project) => {
         const matched = project.name.toLowerCase().includes(query) || project.org.join('').toLowerCase().includes(query)
         if (!matched) { return false }
@@ -230,9 +256,6 @@ export default {
     },
     clearSelectedFilters () {
       this.$refs.filterPanel.clearSelected()
-    },
-    setSearchQuery (query) {
-      this.searchQuery = query.toLowerCase()
     }
   }
 }
@@ -249,9 +272,13 @@ $filterPanelPadding_Left: 0rem;
 $filterPanelPadding_Bottom: 6rem;
 $paginateRoot_PaddingOffset: 3.5rem;
 
+// ///////////////////////////////////////////////////////////////////// General
+#project-view-container {
+  padding-top: 1.5rem;
+}
+
 // ///////////////////////////////////////////////////////////////////// Toolbar
 #section-toolbar {
-  margin-top: 1.5rem;
   margin-bottom: 3rem;
 }
 
@@ -413,9 +440,16 @@ $paginateRoot_PaddingOffset: 3.5rem;
   justify-content: center;
   align-items: center;
   margin-top: 2rem;
+  @include mini {
+    flex-direction: column;
+  }
 }
 
-.pagination-control-wrapper {
+.pagination-controls {
   margin-right: 3rem;
+  @include mini {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
 }
 </style>

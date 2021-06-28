@@ -51,14 +51,17 @@ import ProjectCard from '@/components/ProjectView/ProjectCard'
 // =================================================================== Functions
 const handleFeatureSliderResize = (instance) => {
   const display = instance.display
-  if (window.matchMedia('(max-width: 53.125rem)').matches) { // small
-    if (window.matchMedia('(max-width: 40rem)').matches) { // mini
-      if (display !== 2) { instance.display = 2 }
-    } else {
-      if (display !== 3) { instance.display = 3 }
-    }
+  if (window.matchMedia('(max-width: 25.9375rem)').matches) {
+    if (display !== 1) { instance.display = 1 }
+  } else if (window.matchMedia('(max-width: 40rem)').matches) {
+    if (display !== 2) { instance.display = 2 }
+  } else if (window.matchMedia('(max-width: 53.125rem)').matches) {
+    if (display !== 3) { instance.display = 3 }
   } else {
     if (display !== 4) { instance.display = 4 }
+  }
+  if (instance.currentIndex > instance.indices) {
+    instance.currentIndex = instance.indices
   }
   const cardWidth = instance.$refs.cardRowContainer.clientWidth / instance.display
   instance.animate = false
@@ -170,6 +173,9 @@ export default {
 // /////////////////////////////////////////////////////////////////////// Cards
 .project-card {
   padding-bottom: 0;
+  @include tiny {
+    padding: 0;
+  }
 }
 
 // ///////////////////////////////////////////////////////////// Slider Controls

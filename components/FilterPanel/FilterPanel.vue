@@ -269,6 +269,8 @@ export default {
   }
   &.sub-heading {
     font-family: $fontInter;
+    white-space: normal;
+    margin-right: 2rem;
   }
   &.chiclet-list {
     padding: 6px 0;

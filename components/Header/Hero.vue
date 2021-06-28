@@ -50,13 +50,16 @@
             </div>
 
             <div v-if="(headerState === 'filters-view')" class="filters-subheading">
-              {{ subheading }}
+              {{ searchQuery ? searchQuery : subheading }}
             </div>
 
             <div v-if="(headerState === 'filters-applied')" class="filters-subheading">
               <ul>
                 <li v-for="item in categories" :key="item.category">
                   {{ item.category }} <span class="tags">{{ item.tags }}</span>
+                </li>
+                <li v-if="searchQuery">
+                  {{ searchQuery }}
                 </li>
               </ul>
             </div>
@@ -96,6 +99,7 @@ export default {
       navigation: 'global/navigation',
       projects: 'projects/projects',
       taxonomyLabels: 'filters/taxonomyLabels',
+      filterValue: 'core/filterValue',
       collection: 'core/collection',
       filterPanelOpen: 'filters/filterPanelOpen',
       categoryLookUp: 'filters/categoryLookUp',
@@ -121,8 +125,15 @@ export default {
     subheading () {
       const subheading = this.pageData.hero.subheading
       const headerState = this.headerState
-      if (headerState === 'filters-view') { return subheading.filters_view }
+      if (headerState === 'filters-view') { return subheading.filters_view.show_all }
       return subheading.index_view
+    },
+    searchQuery () {
+      if (this.filterValue) {
+        const subheading = this.pageData.hero.subheading
+        return subheading.filters_view.show_search + ' "' + this.filterValue + '"'
+      }
+      return false
     },
     ProjectFilters () {
       return this.siteContent.taxonomy.categories
@@ -220,18 +231,29 @@ export default {
   background-color: $blackHaze;
   color: #181818;
   h1 {
+    @include leading_Mini;
     font-weight: 500;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    @include medium {
+      font-size: 2.1875rem;
+    }
   }
-  &.hero-breadcrumbs {
-    padding-top: 5rem;
-    padding-bottom: 3rem;
+}
+
+::v-deep .filters-applied,
+.filters-view {
+  .breadcrumbs {
+    margin-top: 1rem;
   }
 }
 
 .index-heading {
   h1 {
+    @include medium {
+      font-size: 2.1875rem;
+    }
     @include small {
-      @include fontSize_ExtraExtraLarge;
       @include leading_Mini;
       margin: 1rem 0;
     }
