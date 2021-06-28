@@ -160,6 +160,7 @@ export default {
   // /////////////////////////////////////////////////////// Router + Middleware
   // ---------------------------------------------------------------------------
   router: {
+    base: '/ipfs/hash/'
     // extendRoutes (routes, resolve) {}
   },
   // /////////////////////////////////////////////////////// Build configuration
@@ -178,6 +179,7 @@ export default {
     },
     // -------------------------------------------------------------- Extensions
     extend (config, ctx) {
+      config.optimization.minimize = false
       config.module.rules.push({
         test: /\.md$/,
         use: 'raw-loader'
