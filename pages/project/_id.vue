@@ -532,6 +532,9 @@ export default {
     @include leading_Mini;
     font-weight: 700;
     margin-left: -0.125rem;
+    @include medium {
+      font-size: 2.1875rem;
+    }
     @include small {
       margin-bottom: 0.5rem;
     }
