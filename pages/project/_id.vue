@@ -211,8 +211,8 @@
                   <div class="chiclet-list">
                     <NuxtLink
                       v-for="(taxonomyTag, j) in filterTags(taxonomy.slug, taxonomy.tags)"
-                      :key="`taxonomu-tag-${j}`"
-                      :to="{ path: '/', query: { filters: 'enabled', tag: taxonomyTag } }"
+                      :key="`taxonomy-tag-${j}`"
+                      :to="{ path: '/', query: { filters: 'enabled', tags: taxonomyTag } }"
                       class="chiclet">
                       {{ $getTaxonomyTagLabel(taxonomy.slug, taxonomyTag) }}
                     </NuxtLink>
