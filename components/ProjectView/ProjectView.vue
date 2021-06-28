@@ -76,7 +76,20 @@
 
         <div v-if="sortedCollection" id="paginated-list-navigation-controls">
 
-          <PaginationControls />
+          <PaginationControls breaker="...">
+            <template #first-page>
+              <FirstArrow stroke="#494949" />
+            </template>
+            <template #prev-page>
+              <PrevArrow stroke="#494949" />
+            </template>
+            <template #next-page>
+              <NextArrow stroke="#494949" />
+            </template>
+            <template #last-page>
+              <LastArrow stroke="#494949" />
+            </template>
+          </PaginationControls>
 
           <ResultsPerPageSelector
             id="results-per-page-selector"
@@ -103,12 +116,18 @@ import FilterBar from '@/modules/zero/core/Components/FilterBar'
 import FilterPanel from '@/components/FilterPanel/FilterPanel'
 import Paginate from '@/modules/zero/pagination/Components/Paginate'
 import ProjectCard from '@/components/ProjectView/ProjectCard'
-import PaginationControls from '@/components/ProjectView/PaginationControls'
+import PaginationControls from '@/modules/zero/pagination/Components/Controls'
 import ResultsPerPageSelector from '@/modules/zero/pagination/Components/ResultsPerPageSelector'
 
 import CloseIcon from '@/components/Icons/Close'
 import SearchIcon from '@/components/Icons/SearchIcon'
 import SelectorToggleIcon from '@/modules/zero/core/Components/Icons/SelectorToggle'
+
+import FirstArrow from '@/components/Icons/FirstArrow'
+import PrevArrow from '@/components/Icons/PrevArrow'
+import NextArrow from '@/components/Icons/NextArrow'
+import LastArrow from '@/components/Icons/LastArrow'
+
 // =================================================================== Functions
 const clearPanelHeight = (instance) => {
   if (!instance.filterPanelOpen) {
@@ -132,7 +151,11 @@ export default {
     ProjectCard,
     PaginationControls,
     ResultsPerPageSelector,
-    SelectorToggleIcon
+    SelectorToggleIcon,
+    FirstArrow,
+    PrevArrow,
+    NextArrow,
+    LastArrow
   },
 
   data () {
@@ -412,9 +435,16 @@ $paginateRoot_PaddingOffset: 3.5rem;
   justify-content: center;
   align-items: center;
   margin-top: 2rem;
+  @include mini {
+    flex-direction: column;
+  }
 }
 
-.pagination-control-wrapper {
+.pagination-controls {
   margin-right: 3rem;
+  @include mini {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
 }
 </style>
