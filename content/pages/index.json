@@ -65,9 +65,9 @@
       "subheading": {
         "index_view": "Explore the world of projects and products built on IPFS in this interactive showcase filterable by industry, tooling, and more.",
         "filters_view": {
-            "show_all": "Showing all projects, no filters selected",
-            "show_search": "Showing projects matching"
-          }
+          "show_all": "Showing all projects, no filters selected",
+          "show_search": "Showing projects matching"
+        }
       }
     },
     "segment_slider": {
