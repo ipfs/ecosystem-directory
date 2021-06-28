@@ -160,7 +160,7 @@ export default {
   // /////////////////////////////////////////////////////// Router + Middleware
   // ---------------------------------------------------------------------------
   router: {
-    base: '/ipfs/hash/'
+    base: process.env.NODE_ENV === 'development' ? '/' : '/ipfs/hash/'
     // extendRoutes (routes, resolve) {}
   },
   // /////////////////////////////////////////////////////// Build configuration
