@@ -272,6 +272,11 @@ $filterPanelPadding_Left: 0rem;
 $filterPanelPadding_Bottom: 6rem;
 $paginateRoot_PaddingOffset: 3.5rem;
 
+// ///////////////////////////////////////////////////////////////////// General
+#project-view-container {
+  padding-top: 1.5rem;
+}
+
 // ///////////////////////////////////////////////////////////////////// Toolbar
 #section-toolbar {
   margin-bottom: 3rem;

@@ -285,10 +285,6 @@ export default {
   margin-top: 1rem;
 }
 
-#section-filter {
-  padding-bottom: 1.5rem;
-}
-
 // ///////////////////////////////////////////////////////////////// Transitions
 .fade {
   &-enter-active {
