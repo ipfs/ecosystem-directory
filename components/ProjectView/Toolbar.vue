@@ -7,7 +7,7 @@
         id="filter-panel-toggle-button"
         type="C"
         :text="filterPanelToggleButtonLabel"
-        :class="{ 'active': filterPanelOpen }"
+        :class="{ 'active': filterPanelOpen, floating: filterButtonFloating }"
         @clicked="$emit('toggleFilterPanel')">
         <template #icon-before>
           <FiltersToggleIcon />
@@ -93,7 +93,8 @@ export default {
   computed: {
     ...mapGetters({
       siteContent: 'global/siteContent',
-      routeQuery: 'filters/routeQuery'
+      routeQuery: 'filters/routeQuery',
+      filterButtonFloating: 'global/filterButtonFloating'
     }),
     sortOptions () {
       return this.siteContent.taxonomy.sort
@@ -149,11 +150,26 @@ export default {
 
 // //////////////////////////////////////////////// [Button] Filter panel toggle
 ::v-deep #filter-panel-toggle-button {
+  transition: bottom 0ms;
   @include small {
-    position: fixed;
-    bottom: 2.5rem;
-    left: 2.5rem;
-    z-index: 10;
+    left: calc(4.1665vw + 0.5rem);
+  }
+  &:not(.floating) {
+    @include small {
+      position: absolute;
+      bottom: 3rem;
+      z-index: 100;
+    }
+    @include mini {
+      bottom: calc(4.1665vw + 84px + 0.5rem);
+    }
+  }
+  &.floating {
+    @include small {
+      position: fixed;
+      bottom: calc(4.1665vw + 0.5rem);
+      z-index: 10;
+    }
   }
   &.active {
     background-color: $tiber;

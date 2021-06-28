@@ -8,7 +8,8 @@ import TaxonomyData from '@/content/data/taxonomy.json'
 // /////////////////////////////////////////////////////////////////////// State
 // -----------------------------------------------------------------------------
 const state = () => ({
-  siteContent: {}
+  siteContent: {},
+  filterButtonFloating: true
 })
 
 // ///////////////////////////////////////////////////////////////////// Getters
@@ -21,7 +22,8 @@ const getters = {
       return siteContent.general.navigation
     }
     return false
-  }
+  },
+  filterButtonFloating: state => state.filterButtonFloating
 }
 
 // ///////////////////////////////////////////////////////////////////// Actions
@@ -49,6 +51,10 @@ const actions = {
   // //////////////////////////////////////////////////////////// setSiteContent
   setSiteContent ({ commit }, payload) {
     commit('SET_SITE_CONTENT', payload)
+  },
+  // /////////////////////////////////////////////////// setFilterButtonFloating
+  setFilterButtonFloating ({ commit }, toggle) {
+    commit('SET_FILTER_BUTTON_FLOATING', toggle)
   }
 }
 
@@ -60,6 +66,9 @@ const mutations = {
   },
   SET_SITE_CONTENT (state, payload) {
     state.siteContent[payload.key] = payload.data
+  },
+  SET_FILTER_BUTTON_FLOATING (state, toggle) {
+    state.filterButtonFloating = toggle
   }
 }
 

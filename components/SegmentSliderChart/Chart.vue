@@ -166,9 +166,6 @@ export default {
 
   mounted () {
     calculateSegmentAndLabelPositions(this)
-    console.log(this.segments)
-    // this.load = () => { handleLoad(this) }
-    // window.addEventListener('load', this.load)
     this.resize = () => { initResize(this) }
     window.addEventListener('resize', this.resize)
   },
