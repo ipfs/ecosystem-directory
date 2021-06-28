@@ -103,7 +103,7 @@
     ],
     "message": "It looks like you're lost, let's",
     "link": {
-      "href": "https://ipfs.io",
+      "href": "/",
       "prompt": "go home"
     }
   }
