@@ -46,7 +46,7 @@
       "value": "2016"
     }
   ],
-  "video": "",
+  "video": "//youtube.com/watch?v=18rTyGgHKLg",
   "stats": [
     {
       "label": "",
@@ -65,7 +65,7 @@
     "title": "Temporal FAQ",
     "description": "Quick Q-and-A for the most common questions about Temporal.",
     "buttonText": "Read more",
-    "url": "https://temporal.cloud/faq"
+    "url": "//temporal.cloud/faq"
   },
   "taxonomies": [
     {

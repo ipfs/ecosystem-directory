@@ -46,7 +46,7 @@
       "value": "2019"
     }
   ],
-  "video": "https://www.youtube.com/watch?v=desd_RPQTTw",
+  "video": "//youtube.com/watch?v=desd_RPQTTw",
   "stats": [
     {
       "label": "IPFS storage nodes",
@@ -65,7 +65,7 @@
     "title": "Understand Crust",
     "description": "Learn how Crust supports IPFS as a file layer protocol.",
     "buttonText": "Read more",
-    "url": "https://medium.com/crustnetwork/crust-a-decentralized-storage-network-based-on-ipfs-85fbf247ac45"
+    "url": "//medium.com/crustnetwork/crust-a-decentralized-storage-network-based-on-ipfs-85fbf247ac45"
   },
   "taxonomies": [
     {

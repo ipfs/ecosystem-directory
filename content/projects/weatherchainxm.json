@@ -34,8 +34,8 @@
       "label": "Repo",
       "links": [
         {
-          "url": "//github.com/exmgr/WeatherChainXM\nhttps://github.com/exmgr/ipfs-client-esp32",
-          "text": "github.com/exmgr/WeatherChainXM\nhttps://github.com/exmgr/ipfs-client-esp32"
+          "url": "//github.com/exmgr/WeatherChainXM",
+          "text": "github.com/exmgr/WeatherChainXM"
         }
       ]
     }
@@ -62,10 +62,10 @@
     }
   ],
   "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
+    "title": "ESP32 + IPFS",
+    "description": "Check out WeatherChainXM's ESP32 Arduino library for adding and retrieving files to and from IPFS.",
+    "buttonText": "Learn more",
+    "url": "//github.com/exmgr/ipfs-client-esp32"
   },
   "taxonomies": [
     {

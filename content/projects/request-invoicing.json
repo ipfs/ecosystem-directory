@@ -46,7 +46,7 @@
       "value": "2017"
     }
   ],
-  "video": "https://www.youtube.com/watch?v=ZwgokU7TGPQ",
+  "video": "//youtube.com/watch?v=ZwgokU7TGPQ",
   "stats": [
     {
       "label": "",
@@ -65,7 +65,7 @@
     "title": "Getting started with Request",
     "description": "Developer-focused documentation for integrating Request into invoicing workflows.",
     "buttonText": "Learn more",
-    "url": "https://docs.request.network/docs/guides/0-getting-started"
+    "url": "//docs.request.network/docs/guides/0-getting-started"
   },
   "taxonomies": [
     {
