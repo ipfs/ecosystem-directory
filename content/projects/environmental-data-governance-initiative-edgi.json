@@ -8,12 +8,12 @@
     "icon": "edgi.png",
     "full": "EDGI_Logo-Horiz_Hi-Res_Transp.png"
   },
-  "name": "Environmental Data & Governance Initiative (EDGI)",
+  "name": "Environmental Data & Governance Initiative",
   "org": [
     "Environmental Data & Governance Initiative (EDGI)"
   ],
   "description": {
-    "short": "Organization documenting, archiving, and analyzing environmental data and policy",
+    "short": "Documenting, archiving, and analyzing environmental data and policy",
     "long": "The Environmental Data & Governance Initiative (EDGI) documents, analyzes, and advocates for the federal provision of environmental data and governance, from policies and institutions, to public access to information, to environmental decision-making."
   },
   "primaryCta": {

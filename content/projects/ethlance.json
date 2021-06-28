@@ -14,7 +14,7 @@
   ],
   "description": {
     "short": "Marketplace for freelance talent",
-    "long": "A decentralized, user-governed marketplace for freelance talent. Built on Ethereum, Aragon, and IPFS."
+    "long": "A decentralized, user-governed marketplace for freelance talent, enabling hiring and working for Ether cryptocurrency. Built on Ethereum, Aragon, and IPFS."
   },
   "primaryCta": {
     "url": "//ethlance.com",
@@ -46,7 +46,7 @@
       "value": "2017"
     }
   ],
-  "video": "",
+  "video": "//youtube.com/watch?v=gUZ_XT0a9_U",
   "stats": [
     {
       "label": "",

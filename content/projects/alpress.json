@@ -46,7 +46,7 @@
       "value": "2021"
     }
   ],
-  "video": "//www.youtube.com/watch?v=g12JrZHhGfs",
+  "video": "//youtube.com/watch?v=g12JrZHhGfs",
   "stats": [
     {
       "label": "",
@@ -62,10 +62,10 @@
     }
   ],
   "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
+    "title": "Alpress testnet launch",
+    "description": "Announcing the Alpress testnet and how to use it.",
+    "buttonText": "Learn more",
+    "url": "//blog.almonit.eth.link/2021-03-22/Alpress-rinkey-testnet.html"
   },
   "taxonomies": [
     {

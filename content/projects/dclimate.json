@@ -14,7 +14,7 @@
   ],
   "description": {
     "short": "Marketplace for climate data",
-    "long": "A transparent, decentralized marketplace where climate data, forecasts, and models are standardized, monetized, and distributed."
+    "long": "dClimate is a transparent, decentralized marketplace where climate data, forecasts, and models are standardized, monetized, and distributed using a framework of immutable records for climate data."
   },
   "primaryCta": {
     "url": "//dclimate.net",

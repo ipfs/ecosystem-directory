@@ -8,7 +8,7 @@
     "icon": "fission.png",
     "full": "logo-fission.svg"
   },
-  "name": "Fission Platform, Webnative SDK",
+  "name": "Fission Platform & Webnative SDK",
   "org": [
     "Fission"
   ],
@@ -62,10 +62,10 @@
     }
   ],
   "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
+    "title": "Fission quick-start guide",
+    "description": "Learn how to get up and running with Fission, fast.",
+    "buttonText": "Get started",
+    "url": "//guide.fission.codes/"
   },
   "taxonomies": [
     {

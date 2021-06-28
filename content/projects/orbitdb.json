@@ -14,7 +14,7 @@
   ],
   "description": {
     "short": "Peer-to-peer decentralized database built on IPFS",
-    "long": "OrbitDB is a serverless, distributed, peer-to-peer database built on IPFS."
+    "long": "OrbitDB is a serverless, distributed, peer-to-peer database built on IPFS for data storage and IPFS pubsub for automatically syncing databases with peers."
   },
   "primaryCta": {
     "url": "//orbitdb.org",
@@ -62,10 +62,10 @@
     }
   ],
   "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
+    "title": "OrbitDB Field Manual",
+    "description": "The official user's guide to OrbitDB.",
+    "buttonText": "Learn more",
+    "url": "//github.com/orbitdb/field-manual"
   },
   "taxonomies": [
     {

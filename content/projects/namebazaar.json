@@ -8,13 +8,13 @@
     "icon": "logo-name-bazaar.png",
     "full": "logo-name-bazaar.png"
   },
-  "name": "Name Bazaar",
+  "name": "NameBazaar",
   "org": [
     "district0x"
   ],
   "description": {
     "short": "P2P auction marketplace for ENS names",
-    "long": "A peer-to-peer, user-governed marketplace for ENS names. Built on Ethereum, Aragon, and IPFS."
+    "long": "A peer-to-peer, trustless, user-governed marketplace for ENS names. Built on Ethereum, Aragon, and IPFS."
   },
   "primaryCta": {
     "url": "//namebazaar.io",
@@ -62,10 +62,10 @@
     }
   ],
   "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
+    "title": "district0x whitepaper",
+    "description": "Dig into the details of district0x projects including NameBazaar in the whitepaper.",
+    "buttonText": "Read more",
+    "url": "//district0x.io/docs/district0x-whitepaper.pdf"
   },
   "taxonomies": [
     {

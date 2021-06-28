@@ -13,7 +13,7 @@
     "Ex Machina"
   ],
   "description": {
-    "short": "Open-hardware weather station for automating execution of parametric insurance contracts",
+    "short": "Open-hardware weather station for parametric insurance contracts",
     "long": "An energy- and communication-autonomous IoT sensor node with weather station that stores sensor data directly to IPFS, and automates execution of parametric weather insurance contracts on-chain via a distributed oracle system."
   },
   "primaryCta": {
@@ -34,8 +34,8 @@
       "label": "Repo",
       "links": [
         {
-          "url": "//github.com/exmgr/WeatherChainXM\nhttps://github.com/exmgr/ipfs-client-esp32",
-          "text": "github.com/exmgr/WeatherChainXM\nhttps://github.com/exmgr/ipfs-client-esp32"
+          "url": "//github.com/exmgr/WeatherChainXM",
+          "text": "github.com/exmgr/WeatherChainXM"
         }
       ]
     }
@@ -62,10 +62,10 @@
     }
   ],
   "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
+    "title": "ESP32 + IPFS",
+    "description": "Check out WeatherChainXM's ESP32 Arduino library for adding and retrieving files to and from IPFS.",
+    "buttonText": "Learn more",
+    "url": "//github.com/exmgr/ipfs-client-esp32"
   },
   "taxonomies": [
     {
