@@ -62,8 +62,8 @@
     }
   ],
   "ctaCard": {
-    "title": "An nft.storage overview",
-    "description": "Learn how nft.storage makes NFT best practices easier",
+    "title": "Overview: nft.storage",
+    "description": "Learn how nft.storage makes NFT best practices easier.",
     "buttonText": "More details",
     "url": "//filecoin.io/blog/posts/introducing-nft.storage-free-decentralized-storage-for-nfts"
   },

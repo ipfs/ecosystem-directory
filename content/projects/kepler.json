@@ -15,7 +15,7 @@
       "Spruce Systems, Inc."
     ],
     "description": {
-      "short": "A system for permissioned, user-controlled decentralized storage",
+      "short": "Permissioned, user-controlled decentralized storage",
       "long": "Kepler is a system for permissioned, user-controlled, decentralized storage based on permissioned data overlays called Orbits."
     },
     "primaryCta": {

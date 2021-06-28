@@ -46,7 +46,7 @@
       "value": "2017"
     }
   ],
-  "video": "",
+  "video": "//youtube.com/watch?v=ZwgokU7TGPQ",
   "stats": [
     {
       "label": "",
@@ -62,10 +62,10 @@
     }
   ],
   "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
+    "title": "Getting started with Request",
+    "description": "Developer-focused documentation for integrating Request into invoicing workflows.",
+    "buttonText": "Learn more",
+    "url": "//docs.request.network/docs/guides/0-getting-started"
   },
   "taxonomies": [
     {

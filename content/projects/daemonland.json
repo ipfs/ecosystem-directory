@@ -14,7 +14,7 @@
   ],
   "description": {
     "short": "Easy-to-use API for building dweb apps",
-    "long": "daemon.land takes the hardest parts of developing dweb apps — user authentication, databases, key management, and access control — and wraps them up into a single, lightning-fast, easy-to-use API.\n"
+    "long": "daemon.land takes the hardest parts of developing dweb apps — user authentication, databases, key management, and access control — and wraps them up into a single, fast, easy-to-use API.\n"
   },
   "primaryCta": {
     "url": "//daemon.land",

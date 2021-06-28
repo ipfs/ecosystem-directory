@@ -62,10 +62,10 @@
     }
   ],
   "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
+    "title": "Introducing Scala Share",
+    "description": "Learn how Diardi and IPFS storage come together to create an easy-to-use file share app.",
+    "buttonText": "Read more",
+    "url": "//medium.com/scala-network/scala-share-decentralized-file-sharing-2df781738193"
   },
   "taxonomies": [
     {

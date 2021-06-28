@@ -46,7 +46,7 @@
       "value": "2017"
     }
   ],
-  "video": "",
+  "video": "//youtube.com/watch?v=74yHMz6xbZo",
   "stats": [
     {
       "label": "",
@@ -62,10 +62,10 @@
     }
   ],
   "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
+    "title": "district0x whitepaper",
+    "description": "Dig into the details of district0x projects including The District Registry in the whitepaper.",
+    "buttonText": "Read more",
+    "url": "//district0x.io/docs/district0x-whitepaper.pdf"
   },
   "taxonomies": [
     {
