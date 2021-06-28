@@ -269,6 +269,7 @@ export default {
   &:hover {
     cursor: pointer;
     text-decoration: underline;
+    text-underline-offset: $underlineSpacing;
   }
 }
 

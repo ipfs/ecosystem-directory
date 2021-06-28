@@ -17,6 +17,13 @@ $fontAssetPath: '~assets/theme/fonts';
 
 @font-face {
   font-family: 'Montserrat';
+  src: url('#{$fontAssetPath}/Montserrat/Montserrat-Medium.ttf') format('opentype');
+  font-weight: 500;
+  font-style: bold;
+}
+
+@font-face {
+  font-family: 'Montserrat';
   src: url('#{$fontAssetPath}/Montserrat/Montserrat-SemiBold.ttf') format('opentype');
   font-weight: 600;
   font-style: bold;
@@ -457,6 +464,12 @@ li {
     font-weight: 500;
     color: $blackPearl;
     background: $blackHaze;
+    transition: 250ms ease-out;
+    &:hover {
+      transition: 250ms ease-in;
+      background-color: $ming;
+      color: white;
+    }
   }
 }
 
@@ -532,6 +545,7 @@ li {
       transition: 0ms;
       &:hover {
         text-decoration: underline;
+        text-underline-offset: $underlineSpacing;
       }
     }
   }
@@ -547,6 +561,7 @@ li {
       &:hover {
         transition: 250ms;
         text-decoration: underline;
+        text-underline-offset: $underlineSpacing;
       }
     }
   }
@@ -576,6 +591,7 @@ li {
     }
     &:hover {
       text-decoration: underline;
+      text-underline-offset: $underlineSpacing;
     }
   }
 

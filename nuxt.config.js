@@ -160,11 +160,17 @@ export default {
   // /////////////////////////////////////////////////////// Router + Middleware
   // ---------------------------------------------------------------------------
   router: {
+    base: '/ipfs/hash/'
     // extendRoutes (routes, resolve) {}
   },
   // /////////////////////////////////////////////////////// Build configuration
   // ------------------------------------------------ Extend webpack config here
   build: {
+    html: {
+      minify: {
+        collapseWhitespace: true
+      }
+    },
     // ---------------------------------------------------------- Hot Middleware
     hotMiddleware: {
       client: {
@@ -173,6 +179,7 @@ export default {
     },
     // -------------------------------------------------------------- Extensions
     extend (config, ctx) {
+      config.optimization.minimize = false
       config.module.rules.push({
         test: /\.md$/,
         use: 'raw-loader'

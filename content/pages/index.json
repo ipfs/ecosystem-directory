@@ -11,18 +11,51 @@
   },
   "404_error_message": "Not Found",
   "page_content": {
-    "breadcrumbs": [
-      {
-        "type": "a",
-        "href": "https://ipfs.io",
-        "target": "_blank",
-        "label": "Home"
-      },
-      {
-        "type": "div",
-        "label": "Ecosystem directory"
-      }
-    ],
+    "breadcrumbs": {
+      "index_view": [
+        {
+          "type": "a",
+          "href": "https://ipfs.io",
+          "label": "Home"
+        },
+        {
+          "type": "div",
+          "label": "Ecosystem directory"
+        }
+      ],
+      "filters_view": [
+        {
+          "type": "a",
+          "href": "https://ipfs.io",
+          "label": "Home"
+        },
+        {
+          "type": "a",
+          "href": "/",
+          "label": "Ecosystem directory"
+        },
+        {
+          "type": "div",
+          "label": "All projects"
+        }
+      ],
+      "filters_applied_view": [
+        {
+          "type": "a",
+          "href": "https://ipfs.io",
+          "label": "Home"
+        },
+        {
+          "type": "a",
+          "href": "/",
+          "label": "Ecosystem directory"
+        },
+        {
+          "type": "div",
+          "label": "Filtered results"
+        }
+      ]
+    },
     "hero": {
       "heading": {
         "index_view": "Ecosystem directory",

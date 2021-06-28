@@ -89,7 +89,7 @@ const createLabels = (instance, projects) => {
     const categories = [...new Set(tags)]
     const items = []
     const len = categories.length
-
+    const topSide = [1, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1]
     for (let i = 0; i < len; i++) {
       const category = categories[i]
       if (industry.hasOwnProperty(category)) {
@@ -113,13 +113,14 @@ const createLabels = (instance, projects) => {
         }
 
         tags.forEach((tag) => { if (tag === category) { count++ } })
+        const pick = i in topSide ? topSide[i] : Math.round(Math.random() * 1.4)
         items.push({
           label,
           count,
           slug: category,
           size: count * 10,
           chars: l,
-          above: Math.round(Math.random() * 1.4),
+          above: pick,
           force: frc,
           logos: selection,
           display: true,
@@ -256,8 +257,10 @@ export default {
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
 #segment-slider-chart {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: $fontInter;
   font-weight: 500;
+  font-size: 13pt;
+  line-height: 1.4;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

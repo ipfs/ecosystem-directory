@@ -12,7 +12,10 @@
         <p class="title">
           {{ title }}
         </p>
-        <p class="description">
+        <p
+          class="description"
+          :data-tooltip="description.length >= 70 ? description : false"
+          data-tooltip-theme="dark">
           {{ $truncateString(description, 70) }}
         </p>
       </div>
@@ -59,6 +62,30 @@ export default {
 .project-card {
   padding: 0 0.5rem 1rem;
   transition: width 0ms;
+  &:hover {
+    .title {
+      text-decoration: underline;
+      text-underline-offset: $underlineSpacing;
+    }
+    .thumbnail img {
+      transform: scale(1.05);
+    }
+    .description {
+      &[data-tooltip] {
+        &:before,
+        &:after {
+          transition: 250ms ease-in;
+          transform: translate(-50%, 0);
+          opacity: 1;
+        }
+      }
+    }
+  }
+  &:not(.list-view) {
+    .content {
+      margin-bottom: 2rem;
+    }
+  }
   &.list-view {
     .card-inner-wrapper {
       @include borderRadius3;
@@ -78,20 +105,6 @@ export default {
   }
 }
 
-.title {
-  @include fontSize_Medium;
-  font-weight: 600;
-  font-family: $fontMontserrat;
-  color: $tiber;
-  margin-bottom: 0.25rem;
-}
-
-.description {
-  @include fontSize_Small;
-  @include leading_Small;
-  color: $tundora;
-}
-
 .thumbnail {
   @include borderRadius3;
   display: flex;
@@ -106,10 +119,46 @@ export default {
     max-width: 40%;
     max-height: 50%;
     width: auto;
+    transition: 500ms ease-in-out;
   }
 }
 
 .content {
   flex: 1;
+}
+
+.title {
+  @include fontSize_Medium;
+  font-weight: 600;
+  font-family: $fontMontserrat;
+  color: $tiber;
+  margin-bottom: 0.25rem;
+}
+
+.description {
+  @include fontSize_Small;
+  @include leading_Small;
+  position: relative;
+  color: $tundora;
+  &:hover {
+    &[data-tooltip] {
+      &:before,
+      &:after {
+        transform: translate(0, 0);
+        opacity: 0;
+      }
+    }
+  }
+  &[data-tooltip] {
+    &:before,
+    &:after {
+      z-index: 100;
+    }
+    &:after {
+      width: 100%;
+      white-space: normal;
+      text-align: center;
+    }
+  }
 }
 </style>
