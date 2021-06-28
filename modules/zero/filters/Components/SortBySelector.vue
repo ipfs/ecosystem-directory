@@ -91,7 +91,8 @@ export default {
 
   computed: {
     ...mapGetters({
-      filteredCollection: 'core/filteredCollection'
+      // collection: 'core/collection',
+      collection: 'core/collection'
     }),
     options () {
       const displayOptions = []
@@ -110,16 +111,21 @@ export default {
   },
 
   watch: {
-    filteredCollection (col) {
-      this.options.forEach((item) => {
-        if (item.label === this.selected) {
-          if (item.type === 'alphabetical') {
-            this.sortAlphabetically(item.key, item.direction)
-          } else if (item.type === 'number') {
-            this.sortNumerically(item.sortNumber, item.direction)
-          }
+    collection: {
+      deep: true,
+      handler (col) {
+        if (col.mutation !== 'sorted') {
+          this.options.forEach((item) => {
+            if (item.label === this.selected) {
+              if (item.type === 'alphabetical') {
+                this.sortAlphabetically(item.key, item.direction)
+              } else if (item.type === 'number') {
+                this.sortNumerically(item.sortNumber, item.direction)
+              }
+            }
+          })
         }
-      })
+      }
     }
   },
 
@@ -138,7 +144,7 @@ export default {
   methods: {
     ...mapActions({
       setRouteQuery: 'filters/setRouteQuery',
-      setSortedCollection: 'core/setSortedCollection'
+      setCollection: 'core/setCollection'
     }),
     toggleDropDown () {
       this.closed = !this.closed
@@ -160,37 +166,28 @@ export default {
       })
     },
     sortAlphabetically (key, mode) {
-      if (this.filteredCollection) {
-        const cloned = CloneDeep(this.filteredCollection)
+      if (this.collection.array) {
+        const cloned = CloneDeep(this.collection.array)
         if (mode === 'ASC') {
           cloned.sort((a, b) => b[key].localeCompare(a[key]))
         } else if (mode === 'DESC') {
           cloned.sort((a, b) => a[key].localeCompare(b[key]))
-        } else {
-          this.passOnFilteredCollection()
         }
-        this.setSortedCollection(cloned)
-      } else {
-        this.passOnFilteredCollection()
+        const payload = { type: 'sorted', collection: cloned }
+        this.setCollection(payload)
       }
     },
     sortNumerically (key, mode) {
-      if (this.filteredCollection) {
-        const cloned = CloneDeep(this.filteredCollection)
+      if (this.collection.array) {
+        const cloned = CloneDeep(this.collection.array)
         if (mode === 'ASC') {
           cloned.sort((a, b) => a.sortNumbers[key] - b.sortNumbers[key])
         } else if (mode === 'DESC') {
           cloned.sort((a, b) => b.sortNumbers[key] - a.sortNumbers[key])
-        } else {
-          this.passOnFilteredCollection()
         }
-        this.setSortedCollection(cloned)
-      } else {
-        this.passOnFilteredCollection()
+        const payload = { type: 'sorted', collection: cloned }
+        this.setCollection(payload)
       }
-    },
-    passOnFilteredCollection () {
-      this.setSortedCollection(this.filteredCollection)
     }
   }
 }

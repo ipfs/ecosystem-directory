@@ -82,10 +82,15 @@ export default {
 
   computed: {
     ...mapGetters({
-      page: 'pagination/page',
-      totalPages: 'pagination/totalPages',
-      display: 'pagination/display'
+      routeQuery: 'filters/routeQuery',
+      totalPages: 'filters/totalPages'
     }),
+    display () {
+      return this.routeQuery.results
+    },
+    page () {
+      return this.routeQuery.page ? this.routeQuery.page : 1
+    },
     totalItems () {
       return this.collection.length
     },
@@ -103,13 +108,6 @@ export default {
   },
 
   mounted () {
-    if (this.$route.query.results) {
-      if (!isNaN(this.$route.query.results)) {
-        if (this.$route.query.results > 0) {
-          this.setDisplay(parseInt(this.$route.query.results))
-        }
-      }
-    }
     if (this.addParamOnLoad && this.display) {
       this.optionSelected(this.display)
     }
@@ -118,8 +116,7 @@ export default {
   methods: {
     ...mapActions({
       setRouteQuery: 'filters/setRouteQuery',
-      setDisplay: 'pagination/setDisplay',
-      setTotalPages: 'pagination/setTotalPages'
+      setTotalPages: 'filters/setTotalPages'
     }),
     calculateTotalPages () {
       const total = Math.ceil(this.collection.length / this.display)
@@ -134,20 +131,18 @@ export default {
     optionSelected (val) {
       const selection = parseInt(val)
       if (!isNaN(selection)) {
-        this.setDisplay(selection)
+        this.setRouteQuery({
+          key: 'results',
+          data: selection
+        })
         this.calculateTotalPages()
         const total = this.totalPages
-        const display = this.display
         if (this.page > total) {
           this.setRouteQuery({
             key: 'page',
             data: total
           })
         }
-        this.setRouteQuery({
-          key: 'results',
-          data: display
-        })
         this.closed = true
       }
     }
