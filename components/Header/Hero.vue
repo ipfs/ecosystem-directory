@@ -40,7 +40,7 @@
               <h1>
                 {{ heading }}
                 <span class="display-total">
-                  ({{ filteredCollection.length ? filteredCollection.length : '0' }})
+                  ({{ collection.length ? collection.length : '0' }})
                 </span>
               </h1>
             </div>
@@ -100,7 +100,7 @@ export default {
       projects: 'projects/projects',
       taxonomyLabels: 'filters/taxonomyLabels',
       filterValue: 'core/filterValue',
-      filteredCollection: 'core/filteredCollection',
+      collection: 'core/collection',
       filterPanelOpen: 'filters/filterPanelOpen',
       categoryLookUp: 'filters/categoryLookUp',
       routeQuery: 'filters/routeQuery'
