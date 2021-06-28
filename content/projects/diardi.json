@@ -1,0 +1,106 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2021
+  },
+  "logo": {
+    "icon": "scala.png",
+    "full": "scala.png"
+  },
+  "name": "Diardi",
+  "org": [
+    "Scala"
+  ],
+  "description": {
+    "short": "IPFS-based blockchain data mirror protocol",
+    "long": "Diardi is a protocol securing a blockchain network by mirroring the blockchain data permanently on IPFS."
+  },
+  "primaryCta": {
+    "url": "//scalaproject.io",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//scalaproject.io",
+          "text": "scalaproject.io"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/scala-network",
+          "text": "github.com/scala-network"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2021"
+    }
+  ],
+  "video": "//youtu.be/90M3oKV_yN0?t=200",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "Introducing Scala Share",
+    "description": "Learn how Diardi and IPFS storage come together to create an easy-to-use file share app.",
+    "buttonText": "Read more",
+    "url": "//medium.com/scala-network/scala-share-decentralized-file-sharing-2df781738193"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "data-machine-learning"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "research-data",
+        "file-sharing",
+        "mobile",
+        "web-hosting-publishing",
+        "storage-pinning"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "disaster-resilience",
+        "interoperability",
+        "corporate-government-independence",
+        "self-sovereign-data"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs",
+        "ipfs-cluster",
+        "http-gateway"
+      ]
+    }
+  ]
+}

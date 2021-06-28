@@ -1,0 +1,98 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2019
+  },
+  "logo": {
+    "icon": "logo-morpheus_b5cf0557.png",
+    "full": "logo-morpheus_b5cf0557.png"
+  },
+  "name": "Morpheus.Network Platform",
+  "org": [
+    "Morpheus.Network"
+  ],
+  "description": {
+    "short": "Supply-chain SaaS middleware platform",
+    "long": "Optimize and automate supply chains by providing shipment and item visibility for safe and secure supply chains, saving companies time and money."
+  },
+  "primaryCta": {
+    "url": "//morpheus.network",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//morpheus.network",
+          "text": "morpheus.network"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "",
+          "text": ""
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2019"
+    }
+  ],
+  "video": "",
+  "stats": [
+    {
+      "label": "Successful cross-border shipments using IPFS",
+      "value": "> 1K"
+    },
+    {
+      "label": "Potential reduction in client email volume",
+      "value": "> 90%"
+    },
+    {
+      "label": "Potential reduction in client manual errors",
+      "value": "> 95%"
+    }
+  ],
+  "ctaCard": {
+    "title": "Morpheus.Network case study",
+    "description": "Learn how Morpheus.Network is revolutionizing the supply chain using IPFS.",
+    "buttonText": "Case study",
+    "url": "//docs.ipfs.io/concepts/case-study-morpheus"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "other"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "supply-chain",
+        "file-sharing"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "disaster-resilience"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs"
+      ]
+    }
+  ]
+}

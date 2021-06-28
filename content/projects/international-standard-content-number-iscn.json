@@ -1,0 +1,103 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2019
+  },
+  "logo": {
+    "icon": "likecoin.png",
+    "full": "logo-likecoin_a0c852da.svg"
+  },
+  "name": "International Standard Content Number",
+  "org": [
+    "LikeCoin"
+  ],
+  "description": {
+    "short": "Decentralized, incentivized publishing infrastructure",
+    "long": "LikeCoin is a decentralized publishing infrastructure based around the International Standard Content Number (ISCN), an immutable and censorship-resilient digital content registry that functions like an International Standard Book Number (ISBN) for digital content."
+  },
+  "primaryCta": {
+    "url": "//iscn.io",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//iscn.io",
+          "text": "iscn.io"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/likecoin",
+          "text": "github.com/likecoin"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2019"
+    }
+  ],
+  "video": "",
+  "stats": [
+    {
+      "label": "Pieces of content on LikeCoin",
+      "value": "> 300K"
+    },
+    {
+      "label": "Likers using the LikeCoin platform",
+      "value": "> 80K"
+    },
+    {
+      "label": "Creators sharing content on LikeCoin",
+      "value": "> 11K"
+    }
+  ],
+  "ctaCard": {
+    "title": "LikeCoin case study",
+    "description": "Learn how LikeCoin relies on IPFS for storing and serving ISCN-linked content.",
+    "buttonText": "Case study",
+    "url": "//docs.ipfs.io/concepts/case-study-likecoin"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "data-persistence"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "infrastructure",
+        "dev-tools",
+        "reputation-ip",
+        "public-data"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "interoperability",
+        "corporate-government-independence",
+        "self-sovereign-data"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs",
+        "ipld"
+      ]
+    }
+  ]
+}

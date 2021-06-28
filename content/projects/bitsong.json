@@ -1,0 +1,107 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2018
+  },
+  "logo": {
+    "icon": "bitsong.jpg",
+    "full": "bit-song-logo-sistemato-01.png"
+  },
+  "name": "BitSong",
+  "org": [
+    "BitSong Group Ltd."
+  ],
+  "description": {
+    "short": "Global blockchain infrastructure empowering the music industry",
+    "long": "BitSong aims to decentralize music industry tooling and reduce bureaucracy in order to offer artists a fast, transparent, meritocratic earning model while offering listeners a way to be rewarded for listening to music."
+  },
+  "primaryCta": {
+    "url": "//bitsong.io",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//bitsong.io",
+          "text": "bitsong.io"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/bitsongofficial",
+          "text": "github.com/bitsongofficial"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2018"
+    }
+  ],
+  "video": "",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "BitSong web player",
+    "description": "Explore BitSong's player in a web app.",
+    "buttonText": "Try it",
+    "url": "//play.bitsong.io/"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "content-delivery"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "reputation-ip",
+        "streaming",
+        "music",
+        "dev-tools"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "disaster-resilience",
+        "interoperability",
+        "corporate-government-independence"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "bitswap",
+        "go-ipfs",
+        "ipfs-cluster",
+        "ipld",
+        "js-ipfs",
+        "py-ipfs-http-client"
+      ]
+    }
+  ]
+}

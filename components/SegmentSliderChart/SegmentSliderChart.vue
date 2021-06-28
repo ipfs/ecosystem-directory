@@ -1,24 +1,27 @@
 <template>
   <div
     id="segment-slider-chart"
+    ref="segmentSlider"
     @keyup.left="setSliderContent(selected - 1)"
     @keyup.right="setSliderContent(selected + 1)">
 
     <div class="main-container">
 
       <Slider
-        :selected-cat="chartItemsArray[selected].cat"
+        v-if="chartItems"
         :selected-seg="selected"
+        :parent-category="parentCategory"
         :container-height="containerHeight"
-        excerpt="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
         @update-slider="setSliderContent" />
 
       <Chart
-        :chart-items="chartItemsArray"
+        v-if="chartItems"
+        :chart-items="chartItems"
         :selected-seg="selected"
         :container-height="containerHeight"
         @update-slider="setSliderContent"
-        @keyup.left="setSliderContent(selected - 1)" />
+        @keyup.left="setSliderContent(selected - 1)"
+        @chart-mounted="chartMounted" />
 
     </div>
 
@@ -27,9 +30,114 @@
 
 <script>
 // ===================================================================== Imports
+import { mapGetters } from 'vuex'
+
 import Slider from '@/components/SegmentSliderChart/Slider.vue'
 import Chart from '@/components/SegmentSliderChart/Chart.vue'
-import SampleData from '@/components/SegmentSliderChart/sampledata0.json'
+
+// =================================================================== Functions
+const loadTaxonomies = (instance) => {
+  const industry = {}
+  const tax = instance.siteContent.taxonomy.categories
+  let categories
+  for (let i = 0; i < tax.length; i++) {
+    if (tax[i].label === 'Industry') {
+      categories = tax[i].tags
+    }
+  }
+  for (let i = 0; i < categories.length; i++) {
+    industry[categories[i].slug] = categories[i].label
+  }
+  return industry
+}
+
+const initCategoryLogos = (instance) => {
+  const logos = {}
+  const tax = instance.siteContent.taxonomy.categories
+  let categories
+  for (let i = 0; i < tax.length; i++) {
+    if (tax[i].label === 'Industry') {
+      categories = tax[i].tags
+    }
+  }
+  for (let i = 0; i < categories.length; i++) {
+    logos[categories[i].slug] = []
+  }
+  return logos
+}
+
+const createLabels = (instance, projects) => {
+  const tags = []
+  const len = projects.length
+  const industry = loadTaxonomies(instance)
+  const logos = initCategoryLogos(instance)
+
+  for (let i = 0; i < len; i++) {
+    const industryTags = projects[i].taxonomies[0].tags
+    if (Array.isArray(industryTags)) {
+      for (let j = 0; j < industryTags.length; j++) {
+        if (typeof projects[i].logo.icon === 'string') {
+          logos[industryTags[j]].push(projects[i].logo.icon)
+        }
+        tags.push(industryTags[j])
+      }
+    }
+  }
+
+  if (tags.length) {
+    const categories = [...new Set(tags)]
+    const items = []
+    const len = categories.length
+    for (let i = 0; i < len; i++) {
+      const category = categories[i]
+      if (industry.hasOwnProperty(category)) {
+        let count = 0
+        let selection = []
+        const label = industry[category]
+        const l = label.split('').length
+        const icons = logos[category]
+
+        if (icons.length) {
+          if (icons.length > 3) {
+            for (let j = 0; j < 3; j++) {
+              const index = Math.floor(Math.random() * icons.length)
+              selection.push(icons[index])
+              icons.splice(index, 1)
+            }
+          } else {
+            selection = icons
+          }
+        }
+
+        tags.forEach((tag) => { if (tag === category) { count++ } })
+        items.push({
+          label,
+          slug: category,
+          size: count * 10,
+          chars: l,
+          logos: selection,
+          display: false,
+          description: getCategoryDescription(instance, label)
+        })
+      }
+    }
+    return items
+  }
+  return false
+}
+
+const getCategoryDescription = (instance, label) => {
+  const industry = instance.siteContent.taxonomy.categories[0]
+  const len = industry.tags.length
+  for (let i = 0; i < len; i++) {
+    if (industry.tags[i].label === label) {
+      if (industry.tags[i].hasOwnProperty('description')) {
+        return industry.tags[i].description
+      }
+    }
+  }
+  return false
+}
 
 // ====================================================================== Export
 export default {
@@ -44,78 +152,44 @@ export default {
   data () {
     return {
       selected: 0,
-      containerHeight: 440
+      containerHeight: 440,
+      segmentChart: false
     }
   },
 
+  async fetch ({ store, req }) {
+    await store.dispatch('global/getBaseData', 'taxonomy')
+  },
+
   computed: {
-    chartItemsArray () {
-      const flexItems = []
-      const len = SampleData.categories.length
-      for (let i = 0; i < len; i++) {
-        const l = SampleData.categories[i].cat.split('').length
-        const frc = (0.9 * i - SampleData.categories[i].cat.split('').length) * 0.1
-        const item = {
-          cat: SampleData.categories[i].cat,
-          size: SampleData.categories[i].count * 10,
-          chars: l,
-          above: Math.round(Math.random() * 1.4),
-          offset: this.setOffset(l * 8, i, len),
-          pos: this.setOffset(l * 8, i, len),
-          force: frc
-        }
-        flexItems.push(item)
+    ...mapGetters({
+      siteContent: 'global/siteContent',
+      projects: 'projects/projects'
+    }),
+    chartItems () {
+      return createLabels(this, this.projects)
+    },
+    parentCategory () {
+      return this.siteContent.taxonomy.categories[0].slug
+    }
+  },
+
+  watch: {
+    segmentChart (val) {
+      if (val) {
+        this.$emit('init')
       }
-      return flexItems
     }
   },
 
   methods: {
     setSliderContent (seg) {
-      if (seg < 0) { seg = SampleData.categories.length - 1 }
-      const mod = seg % SampleData.categories.length
+      if (seg < 0) { seg = this.chartItems.length - 1 }
+      const mod = seg % this.chartItems.length
       this.selected = mod
     },
-    setOffset (l, i, len) {
-      const lev1 = (
-        (SampleData.categories[i].count / 2 +
-        SampleData.categories[Math.min(i + 1, len - 1)].count / 2) * 8
-      )
-      const lev2 = (
-        (SampleData.categories[i].count / 2 +
-        SampleData.categories[Math.min(i + 1, len - 1)].count +
-        SampleData.categories[Math.min(i + 2, len - 1)].count / 2) * 8
-      )
-      const lev3 = (
-        (SampleData.categories[i].count / 2 +
-        SampleData.categories[Math.min(i + 1, len - 1)].count +
-        SampleData.categories[Math.min(i + 2, len - 1)].count +
-        SampleData.categories[Math.min(i + 3, len - 1)].count / 2) * 8
-      )
-      const lev4 = (
-        (SampleData.categories[i].count / 2 +
-        SampleData.categories[Math.min(i + 1, len - 1)].count +
-        SampleData.categories[Math.min(i + 2, len - 1)].count +
-        SampleData.categories[Math.min(i + 3, len - 1)].count +
-        SampleData.categories[Math.min(i + 4, len - 1)].count / 2) * 8
-      )
-      if (l < lev1 || i === len - 1) {
-        return -50
-      } else {
-        if (l < lev2) {
-          return -75
-        } else {
-          if (l < lev3) {
-            return -100
-          } else {
-            if (l < lev4) {
-              return -125
-            } else {
-              return -150
-            }
-          }
-        }
-      }
+    chartMounted () {
+      this.segmentChart = true
     }
   }
 }
@@ -124,29 +198,19 @@ export default {
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
 #segment-slider-chart {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: $fontInter;
   font-weight: 500;
+  font-size: 13pt;
+  line-height: 1.4;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  background-color: #f5f5f5;
-  width: 100%;
-  height: 100%;
-}
-
-.main-wrapper {
-  height: 100vh;
-  width: 100vw;
-  padding-top: 60px;
-  overflow-y: scroll;
 }
 
 .main-container {
   display: flex;
+  position: relative;
   flex-wrap: wrap-reverse;
-  width: 90%;
-  align-items: center;
-  margin: 0 auto;
+  justify-content: space-between;
 }
 </style>

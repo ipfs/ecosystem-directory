@@ -1,0 +1,110 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2018
+  },
+  "logo": {
+    "icon": "anytype.png",
+    "full": "anytype.png"
+  },
+  "name": "Anytype",
+  "org": [
+    "Anytype"
+  ],
+  "description": {
+    "short": "Operating system for a user-owned digital world",
+    "long": "A multi-app operating system focusing on privacy and users' ownership of their own data while also breaking down the barriers between applications present in today's digital world."
+  },
+  "primaryCta": {
+    "url": "//anytype.io",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//anytype.io",
+          "text": "anytype.io"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/anytypeio",
+          "text": "github.com/anytypeio"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2018"
+    }
+  ],
+  "video": "//youtube.com/watch?v=NAF-4AFSqIo",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "Anytype news",
+    "description": "Follow the Anytype project's progress in the news section of Anytype's community site.",
+    "buttonText": "Read more",
+    "url": "//community.anytype.io/t/news"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "browsers"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "web-hosting-publishing",
+        "file-sharing",
+        "education",
+        "reputation-ip",
+        "mobile",
+        "music",
+        "storage-pinning",
+        "public-data",
+        "video"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "corporate-government-independence",
+        "self-sovereign-data",
+        "local-first-model"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs",
+        "go-libp2p",
+        "ipld",
+        "filecoin",
+        "ecosystem-tools"
+      ]
+    }
+  ]
+}

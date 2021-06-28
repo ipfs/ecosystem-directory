@@ -1,0 +1,100 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2021
+  },
+  "logo": {
+    "icon": "exmachina.png",
+    "full": "EXM_LOGO_KIT-13.png"
+  },
+  "name": "WeatherChainXM",
+  "org": [
+    "Ex Machina"
+  ],
+  "description": {
+    "short": "Open-hardware weather station for parametric insurance contracts",
+    "long": "An energy- and communication-autonomous IoT sensor node with weather station that stores sensor data directly to IPFS, and automates execution of parametric weather insurance contracts on-chain via a distributed oracle system."
+  },
+  "primaryCta": {
+    "url": "//exm.gr",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//exm.gr",
+          "text": "exm.gr"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/exmgr/WeatherChainXM",
+          "text": "github.com/exmgr/WeatherChainXM"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2021"
+    }
+  ],
+  "video": "//youtube.com/watch?v=t9ZNUVHOd7k",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "ESP32 + IPFS",
+    "description": "Check out WeatherChainXM's ESP32 Arduino library for adding and retrieving files to and from IPFS.",
+    "buttonText": "Learn more",
+    "url": "//github.com/exmgr/ipfs-client-esp32"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "iot"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "community-networks",
+        "infrastructure",
+        "public-data",
+        "research-data"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "disaster-resilience"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "ecosystem-tools"
+      ]
+    }
+  ]
+}

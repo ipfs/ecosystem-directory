@@ -1,0 +1,301 @@
+{
+  "categories": [
+    {
+      "label": "Industry",
+      "sublabel": "Filter by primary application area",
+      "slug": "industry",
+      "tags": [
+        {
+          "label": "Browsers",
+          "slug": "browsers",
+          "description": "Projects bringing IPFS into the browser, or melding browser-like capabilities with IPFS."
+        },
+        {
+          "label": "Content delivery",
+          "slug": "content-delivery",
+          "description": "Projects enabling the future of content delivery using IPFS, from websites to streaming media to CDN-style delivery."
+        },
+        {
+          "label": "Data & machine learning",
+          "slug": "data-machine-learning",
+          "description": "Projects using IPFS to improve availability, reliability, and more for datasets of all sizes."
+        },
+        {
+          "label": "Data governance",
+          "slug": "data-governance",
+          "description": "Projects using IPFS to ensure data integrity and other matters of data governance."
+        },
+        {
+          "label": "Data persistence",
+          "slug": "data-persistence",
+          "description": "Projects focused on data persistence for material on the IPFS network, including pinning services."
+        },
+        {
+          "label": "DeFi",
+          "slug": "defi",
+          "description": "Projects using IPFS to help remove intermediaries and decentralize finance."
+        },
+        {
+          "label": "Games & VR/AR",
+          "slug": "games-vr-ar",
+          "description": "Projects using IPFS to make advances in games, virtual reality, and augmented reality."
+        },
+        {
+          "label": "Identity",
+          "slug": "identity",
+          "description": "Projects using IPFS to help solve problems in the decentralized identity space."
+        },
+        {
+          "label": "Integrations",
+          "slug": "integrations",
+          "description": "Projects integrating IPFS into other core internet and dweb technologies."
+        },
+        {
+          "label": "IoT",
+          "slug": "iot",
+          "description": "Projects using IPFS to make advances in the Internet of Things."
+        },
+        {
+          "label": "Marketplaces & ecommerce",
+          "slug": "marketplaces-ecommerce",
+          "description": "Projects using IPFS to facilitate buying and selling among internet end users."
+        },
+        {
+          "label": "NFTs",
+          "slug": "nfts",
+          "description": "Projects using IPFS as a best-practices standard in the world of nonfungible tokens."
+        },
+        {
+          "label": "Other",
+          "slug": "other",
+          "description": "Notable projects built using IPFS that don't quite fit into another category."
+        },
+        {
+          "label": "Prediction",
+          "slug": "prediction",
+          "description": "Projects using IPFS to improve the prediction, betting, and oracle space."
+        },
+        {
+          "label": "Social media",
+          "slug": "social-media",
+          "description": "Projects using IPFS to help decentralize messaging and other types of social media."
+        }
+      ]
+    },
+    {
+      "label": "Focus areas",
+      "sublabel": "Filter by project focus or specialty",
+      "slug": "focus",
+      "tags": [
+        {
+          "label": "Community networks",
+          "slug": "community-networks"
+        },
+        {
+          "label": "Developer tools",
+          "slug": "dev-tools"
+        },
+        {
+          "label": "Education",
+          "slug": "education"
+        },
+        {
+          "label": "File sharing",
+          "slug": "file-sharing"
+        },
+        {
+          "label": "GLAM",
+          "slug": "glam"
+        },
+        {
+          "label": "Infrastructure",
+          "slug": "infrastructure"
+        },
+        {
+          "label": "Medical data",
+          "slug": "medical"
+        },
+        {
+          "label": "Mobile",
+          "slug": "mobile"
+        },
+        {
+          "label": "Music",
+          "slug": "music"
+        },
+        {
+          "label": "Package managers",
+          "slug": "package-managers"
+        },
+        {
+          "label": "Public data",
+          "slug": "public-data"
+        },
+        {
+          "label": "Reputation & IP management",
+          "slug": "reputation-ip"
+        },
+        {
+          "label": "Research data",
+          "slug": "research-data"
+        },
+        {
+          "label": "Storage & pinning",
+          "slug": "storage-pinning"
+        },
+        {
+          "label": "Streaming",
+          "slug": "streaming"
+        },
+        {
+          "label": "Supply chain",
+          "slug": "supply-chain"
+        },
+        {
+          "label": "Video",
+          "slug": "video"
+        },
+        {
+          "label": "Web hosting & publishing",
+          "slug": "web-hosting-publishing"
+        }
+      ]
+    },
+    {
+      "label": "IPFS benefits",
+      "sublabel": "Filter by the benefits IPFS provides",
+      "slug": "benefits",
+      "tags": [
+        {
+          "label": "Corporate & government independence",
+          "slug": "corporate-government-independence"
+        },
+        {
+          "label": "Couldn't exist without IPFS",
+          "slug": "couldnt-exist-without-ipfs"
+        },
+        {
+          "label": "Data integrity",
+          "slug": "data-integrity"
+        },
+        {
+          "label": "Disaster resilience",
+          "slug": "disaster-resilience"
+        },
+        {
+          "label": "Interoperability",
+          "slug": "interoperability"
+        },
+        {
+          "label": "Local-first model",
+          "slug": "local-first-model"
+        },
+        {
+          "label": "Self-sovereign data",
+          "slug": "self-sovereign-data"
+        }
+      ]
+    },
+    {
+      "label": "Tooling",
+      "sublabel": "Filter by implementation or tooling used",
+      "slug": "tooling",
+      "tags": [
+        {
+          "label": "Bitswap",
+          "slug": "bitswap"
+        },
+        {
+          "label": "cljs-ipfs",
+          "slug": "cljs-ipfs"
+        },
+        {
+          "label": "Ecosystem tools",
+          "slug": "ecosystem-tools"
+        },
+        {
+          "label": "Filecoin",
+          "slug": "filecoin"
+        },
+        {
+          "label": "go-ipfs",
+          "slug": "go-ipfs"
+        },
+        {
+          "label": "go-libp2p",
+          "slug": "go-libp2p"
+        },
+        {
+          "label": "HTTP gateway",
+          "slug": "http-gateway"
+        },
+        {
+          "label": "IPFS Cluster",
+          "slug": "ipfs-cluster"
+        },
+        {
+          "label": "ipfs-embed",
+          "slug": "ipfs-embed"
+        },
+        {
+          "label": "IPLD",
+          "slug": "ipld"
+        },
+        {
+          "label": "js-ipfs",
+          "slug": "js-ipfs"
+        },
+        {
+          "label": "js-ipfs-https-client",
+          "slug": "js-ipfs-https-client"
+        },
+        {
+          "label": "js-libp2p",
+          "slug": "js-libp2p"
+        },
+        {
+          "label": "Pinning services",
+          "slug": "pinning-services"
+        },
+        {
+          "label": "py-ipfs-http-client",
+          "slug": "py-ipfs-http-client"
+        },
+        {
+          "label": "rust-libp2p",
+          "slug": "rust-libp2p"
+        }
+      ]
+    }
+  ],
+  "sort": {
+    "a_z": {
+      "type": "alphabetical",
+      "key": "name",
+      "slug": "a-z",
+      "label": "Alphabetical (A-Z)",
+      "direction": "DESC"
+    },
+    "z_a": {
+      "type": "alphabetical",
+      "key": "name",
+      "slug": "z-a",
+      "label": "Alphabetical (Z-A)",
+      "direction": "ASC"
+    },
+    "date_desc": {
+      "type": "number",
+      "slug": "time-descending",
+      "label": "Time on IPFS (newer)",
+      "direction": "DESC",
+      "sortNumber": "since"
+    },
+    "date_asc": {
+      "type": "number",
+      "slug": "time-ascending",
+      "label": "Time on IPFS (older)",
+      "direction": "ASC",
+      "sortNumber": "since"
+    }
+  }
+}

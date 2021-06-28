@@ -1,0 +1,105 @@
+{
+  "display": true,
+  "featured": true,
+  "sortNumbers": {
+    "since": 2021
+  },
+  "logo": {
+    "icon": "logo-nft-storage.svg",
+    "full": "logo-nft-storage.svg"
+  },
+  "name": "nft.storage",
+  "org": [
+    "Protocol Labs"
+  ],
+  "description": {
+    "short": "Decentralized storage for NFTs on IPFS and Filecoin",
+    "long": "Store off-chain NFT data, decentralized on IPFS and Filecoin, and receive an IPFS hash of your content simply by uploading it."
+  },
+  "primaryCta": {
+    "url": "//nft.storage",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//nft.storage",
+          "text": "nft.storage"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/ipfs-shipyard/nft.storage",
+          "text": "github.com/ipfs-shipyard/nft.storage"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2021"
+    }
+  ],
+  "video": "//youtube.com/watch?v=o_yVYft-7z4",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "Overview: nft.storage",
+    "description": "Learn how nft.storage makes NFT best practices easier.",
+    "buttonText": "More details",
+    "url": "//filecoin.io/blog/posts/introducing-nft.storage-free-decentralized-storage-for-nfts"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "nfts"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "community-networks",
+        "dev-tools",
+        "file-sharing",
+        "storage-pinning",
+        "public-data",
+        "video"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "disaster-resilience",
+        "interoperability"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs",
+        "filecoin",
+        "pinning-services"
+      ]
+    }
+  ]
+}

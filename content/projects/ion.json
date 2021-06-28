@@ -1,0 +1,98 @@
+{
+  "display": true,
+  "featured": true,
+  "sortNumbers": {
+    "since": 2019
+  },
+  "logo": {
+    "icon": "ion-logo.png",
+    "full": "ion-logo.png"
+  },
+  "name": "ION",
+  "org": [
+    "Microsoft"
+  ],
+  "description": {
+    "short": "Public decentralized identifier network using Sidetree",
+    "long": "ION is a public, permissionless, decentralized Identifier (DID) network that implements the blockchain-agnostic Sidetree protocol on top of Bitcoin (as a \"Layer 2\" overlay) to support DIDs/DPKI (Decentralized Public Key Infrastructure) at scale."
+  },
+  "primaryCta": {
+    "url": "//identity.foundation",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//identity.foundation",
+          "text": "identity.foundation"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/decentralized-identity/ion",
+          "text": "github.com/decentralized-identity/ion"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2019"
+    }
+  ],
+  "video": "//youtube.com/watch?v=lGVtj4RC7Bs",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "Own your identity",
+    "description": "Learn how ION brings decentralized identity to maturity.",
+    "buttonText": "Read more",
+    "url": "//blog.ipfs.io/2021-03-24-own-your-identity-with-ion"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "identity"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "dev-tools"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "interoperability",
+        "self-sovereign-data"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs"
+      ]
+    }
+  ]
+}

@@ -2,6 +2,8 @@
 // -----------------------------------------------------------------------------
 import Filesize from 'filesize'
 
+import ProjectSchema from '@/content/data/project-schema.json'
+
 // ///////////////////////////////////////////////////////////////////// Exports
 // -----------------------------------------------------------------------------
 export default ({ store, app }, inject) => {
@@ -136,12 +138,29 @@ export default ({ store, app }, inject) => {
   // /////////////////////////////////////////////////////////// Parse Video URL
   // ---------------------------------- https://gist.github.com/yangshun/9892961
   inject('parseVideoUrl', (url) => {
-    url.match(/(http:|https:|)\/\/(player.|www.)?(vimeo\.com|youtu(be\.com|\.be|be\.googleapis\.com))\/(video\/|embed\/|watch\?v=|v\/)?([A-Za-z0-9._%-]*)(&\S+)?/)
-    const parsed = new URL(url)
+    const matched = url.match(/(https?:\/\/|\/\/|)(player.|www.)?(vimeo\.com|youtu(be\.com|\.be|be\.googleapis\.com)|dailymotion.com)\/(video\/|embed\/|watch\?v=|v\/)?([A-Za-z0-9._%-]*)(&\S+)?/)
+    if (!matched) { return { type: false, id: false, time: false } }
+    const parsed = new URL(`https://placeholder-for-parsing.com/${url.split('/').pop()}`)
+    const domain = matched[3]
     let type = ''
-    if (RegExp.$3.includes('youtu')) { type = 'youtube' }
-    if (RegExp.$3.includes('vimeo')) { type = 'vimeo' }
-    return { type, id: RegExp.$6, time: parsed.searchParams.get('t') }
+    if (domain.includes('youtu')) { type = 'youtube' }
+    if (domain.includes('vimeo')) { type = 'vimeo' }
+    if (domain.includes('dailymotion')) { type = 'dailymotion' }
+    return { type, id: matched[6], time: parsed.searchParams.get('t') }
+  })
+  // ///////////////////////////////////////////////////// Generate an embed URL
+  // ---------------------------------------------------------- Youtube or Vimeo
+  inject('buildVideoEmbedUrl', (parsed) => {
+    const type = parsed.type
+    const id = parsed.id
+    const time = parsed.time
+    let url
+    switch (type) {
+      case 'youtube' : url = `//www.youtube.com/embed/${id}${(time ? `?start=${time}` : '')}`; break
+      case 'vimeo' : url = `//player.vimeo.com/video/${id}${(time ? `/#=${time}` : '')}`; break
+      default : url = false
+    }
+    return url
   })
   // //////////////////////////////// Get the height of the entire page Document
   // ---------------------------------------------------------------------------
@@ -217,11 +236,14 @@ export default ({ store, app }, inject) => {
   })
   // ///////////////////////////////////////////////////////// Truncate a string
   // -------------------------------------------- Default: len = 30, end = '...'
-  inject('truncateString', (string, len = 30, end = '...', type = 'single') => {
-    if (type === 'single') {
-      return string.length > len + 3 ? `${string.slice(0, len)}${end}` : string
+  inject('truncateString', (string, len = 30, delimiter = '...', type = 'single', endLen = 8) => {
+    if (!string) { return string }
+    let stringLen = len + delimiter.length
+    if (type === 'double') {
+      stringLen += endLen
+      return string.length > stringLen ? `${string.slice(0, len)}${delimiter}${string.slice(-endLen)}` : string
     } else {
-      return string.length > len + 3 ? `${string.slice(0, len)}${end}${string.slice(-8)}` : string
+      return string.length > stringLen ? `${string.slice(0, len)}${delimiter}` : string
     }
   })
   // ////////////////////////////////////////////// Convert number to have zeros
@@ -255,5 +277,50 @@ export default ({ store, app }, inject) => {
     container.select()
     document.execCommand('copy')
     document.body.removeChild(container)
+  })
+  // ////////////////////////////////////// Set default project JSON file values
+  // ---------------------------------------------------------------------------
+  /*
+   * Checking for:
+   *  - special: isArray, Number(), Number.isFinite()
+   *  - typeof: object, string, boolean
+   *  - empty strings, empty arrays
+   */
+  inject('setProjectDefaults', (project) => {
+    const check = (schema, field) => {
+      for (const key in schema) {
+        if (field.hasOwnProperty(key)) {
+          const schemaValue = schema[key]
+          const fieldValue = field[key]
+          const schemaType = typeof schemaValue
+          const fieldType = typeof fieldValue
+          // Check for: booleans, strings, empty string values, and numbers
+          if ((fieldValue === '') || // empty string value
+              (schemaValue === 'boolean' && fieldType !== 'boolean') || // booleans
+              (schemaValue === 'string' && fieldType !== 'string') || // strings
+              (schemaValue === 'number' && fieldType !== 'number' && fieldValue === Number(fieldValue) && !Number.isFinite(fieldValue))) { // numbers
+            field[key] = null
+          // Check for: array and associative array
+          } else if (schemaType === 'object' && fieldType === 'object') {
+            if (!Array.isArray(fieldValue)) { // associative array
+              check(schemaValue, fieldValue)
+            } else { // regular array
+              if (fieldValue.length === 0) { // empty array
+                field[key] = null
+              } else {
+                fieldValue.forEach((item) => {
+                  if (typeof item === 'object' && !Array.isArray(item)) { // array of objects
+                    check(schemaValue[0], item)
+                  }
+                })
+              }
+            }
+          }
+        } else {
+          field[key] = null
+        }
+      }
+    }; check(ProjectSchema, project)
+    return project
   })
 }

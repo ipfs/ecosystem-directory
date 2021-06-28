@@ -1,0 +1,101 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2018
+  },
+  "logo": {
+    "icon": "discussify.jpg",
+    "full": "discussify.jpg"
+  },
+  "name": "Discussify",
+  "org": [
+    "MOXY"
+  ],
+  "description": {
+    "short": "Peer-to-peer discussion platform",
+    "long": "Built on IPFS, Discussify provides a real-time, peer to peer, and permanent discussion platform for anyone to join and participate. Built on the WebExtensions API, Discussify is available for Chrome and Firefox, as well as any other browser that supports this API."
+  },
+  "primaryCta": {
+    "url": "//chrome.google.com/webstore/detail/discussify/bfmnjjkobeboejeocbompgljbiafbgcc?hl=en",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//chrome.google.com/webstore/detail/discussify/bfmnjjkobeboejeocbompgljbiafbgcc?hl=en",
+          "text": "chrome.google.com/webstore/detail/discussify/bfmnjjkobeboejeocbompgljbiafbgcc?hl=en"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/ipfs-shipyard/pm-discussify",
+          "text": "github.com/ipfs-shipyard/pm-discussify"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2018"
+    }
+  ],
+  "video": "",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "",
+    "description": "",
+    "buttonText": "",
+    "url": ""
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "social-media"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "community-networks",
+        "public-data"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "disaster-resilience",
+        "interoperability",
+        "local-first-model"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "js-ipfs",
+        "js-libp2p"
+      ]
+    }
+  ]
+}

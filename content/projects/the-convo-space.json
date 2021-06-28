@@ -1,0 +1,109 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2020
+  },
+  "logo": {
+    "icon": "convo-space-icon.png",
+    "full": "convo-space-icon.png"
+  },
+  "name": "The Convo Space",
+  "org": [
+    "The Convo Space"
+  ],
+  "description": {
+    "short": "Decentralized conversation layer for the internet",
+    "long": "The Convo Space is a decentralized conversation layer for the internet, with customizable plugins for apps connecting conversations and communities across the net."
+  },
+  "primaryCta": {
+    "url": "//theconvo.space",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//theconvo.space",
+          "text": "theconvo.space"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/anudit/convo",
+          "text": "github.com/anudit/convo"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2020"
+    }
+  ],
+  "video": "//youtube.com/watch?v=p5-jQy7vKk8",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "",
+    "description": "",
+    "buttonText": "",
+    "url": ""
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "integrations"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "community-networks",
+        "dev-tools",
+        "infrastructure",
+        "public-data",
+        "reputation-ip",
+        "storage-pinning"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "corporate-government-independence",
+        "data-integrity",
+        "disaster-resilience",
+        "interoperability",
+        "couldnt-exist-without-ipfs"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "ecosystem-tools",
+        "filecoin",
+        "js-ipfs",
+        "js-ipfs-https-client",
+        "pinning-services"
+      ]
+    }
+  ]
+}

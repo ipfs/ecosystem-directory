@@ -1,0 +1,99 @@
+{
+  "display": true,
+  "featured": true,
+  "sortNumbers": {
+    "since": 2019
+  },
+  "logo": {
+    "icon": "opera.png",
+    "full": "logo-header-opera2x_51a1322c5662.png"
+  },
+  "name": "Opera Browser",
+  "org": [
+    "Opera"
+  ],
+  "description": {
+    "short": "Internet browsers for iOS, Android, and desktop",
+    "long": "Lightweight browser with privacy focus, available with IPFS integration for iOS, Android and Desktop."
+  },
+  "primaryCta": {
+    "url": "//opera.com",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//opera.com",
+          "text": "opera.com"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "",
+          "text": ""
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2019"
+    }
+  ],
+  "video": "//youtube.com/watch?v=OgzQAZj3Y-E",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "IPFS in Opera Touch",
+    "description": "Opera's iOS browser adds support for IPFS addressing.",
+    "buttonText": "Read more",
+    "url": "//blog.ipfs.io/2021-02-08-opera-ios-and-ipfs"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "browsers"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "mobile",
+        "infrastructure"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "interoperability",
+        "corporate-government-independence"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "http-gateway"
+      ]
+    }
+  ]
+}

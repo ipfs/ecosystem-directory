@@ -1,0 +1,98 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2017
+  },
+  "logo": {
+    "icon": "eternum.png",
+    "full": "eternum.png"
+  },
+  "name": "Eternum",
+  "org": [
+    "Eternum"
+  ],
+  "description": {
+    "short": "Simple, easy-to-use IPFS pinning service",
+    "long": "Simple, easy-to-use, inexpensive IPFS pinning service with a Dropbox-like desktop client and a comprehensive API."
+  },
+  "primaryCta": {
+    "url": "//eternum.io",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//eternum.io",
+          "text": "eternum.io"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "",
+          "text": ""
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2017"
+    }
+  ],
+  "video": "",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "Eternum API",
+    "description": "Quick Swagger reference for the Eternum API.",
+    "buttonText": "Learn more",
+    "url": "//eternum.io/api/docs/#/api"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "data-persistence"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "storage-pinning"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "disaster-resilience",
+        "couldnt-exist-without-ipfs"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs",
+        "ipfs-cluster"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2018
+  },
+  "logo": {
+    "icon": "3boxlabs-white.svg",
+    "full": "ThreeBoxLogoBlack_4e0a0543.svg"
+  },
+  "name": "Ceramic Network & IDX",
+  "org": [
+    "3Box Labs"
+  ],
+  "description": {
+    "short": "Decentralized identity and open data on the Ceramic network",
+    "long": "Created by 3Box Labs, Ceramic is a decentralized network for managing mutable information on the open internet; IDX is a decentralized, cross-platform identity standard built on Ceramic."
+  },
+  "primaryCta": {
+    "url": "//3boxlabs.com",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//3boxlabs.com",
+          "text": "3boxlabs.com"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "github.com/ceramicnetwork\n github.com/ceramicstudio",
+          "text": "github.com/ceramicnetwork\n github.com/ceramicstudio"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2018"
+    }
+  ],
+  "video": "//youtube.com/watch?v=JchPC-jKjJU",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "3Box Labs blog",
+    "description": "Keep up with the evolution of the 3Box Labs product suite, including Ceramic and IDX.",
+    "buttonText": "Read more",
+    "url": "//blog.ceramic.network/"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "identity"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "dev-tools",
+        "community-networks",
+        "file-sharing",
+        "infrastructure",
+        "storage-pinning",
+        "public-data",
+        "web-hosting-publishing"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "couldnt-exist-without-ipfs"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs",
+        "js-ipfs",
+        "js-libp2p"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "display": true,
+  "featured": true,
+  "sortNumbers": {
+    "since": 2018
+  },
+  "logo": {
+    "icon": "brave-logo.png",
+    "full": "brave-logo.png"
+  },
+  "name": "Brave Browser",
+  "org": [
+    "Brave Software"
+  ],
+  "description": {
+    "short": "Privacy-focused web browser",
+    "long": "Privacy-focused web browser that allows seamless browsing for IPFS sites using a built-in node, opening easy use of the decentralized web to everyone."
+  },
+  "primaryCta": {
+    "url": "//brave.com",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//brave.com",
+          "text": "brave.com"
+        },
+        {
+          "url": "//brave.com",
+          "text": "brave.com"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/brave/brave-browser",
+          "text": "github.com/brave/brave-browser"
+        },
+        {
+          "url": "//github.com/brave/brave-browser",
+          "text": "github.com/brave/brave-browser"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2018"
+    }
+  ],
+  "video": "//youtube.com/watch?v=hpwh_zLpnCE",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "Brave + IPFS",
+    "description": "Get a technical overview of how Brave integrates IPFS",
+    "buttonText": "More details",
+    "url": "//blog.ipfs.io/2021-01-21-how-we-put-ipfs-in-brave"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "browsers"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "dev-tools",
+        "file-sharing",
+        "mobile"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "disaster-resilience",
+        "interoperability",
+        "corporate-government-independence",
+        "self-sovereign-data"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2015
+  },
+  "logo": {
+    "icon": "orbitdb.png",
+    "full": "orbit_db_logo_color.png"
+  },
+  "name": "OrbitDB",
+  "org": [
+    "Equilibrium"
+  ],
+  "description": {
+    "short": "Peer-to-peer decentralized database built on IPFS",
+    "long": "OrbitDB is a serverless, distributed, peer-to-peer database built on IPFS for data storage and IPFS pubsub for automatically syncing databases with peers."
+  },
+  "primaryCta": {
+    "url": "//orbitdb.org",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//orbitdb.org",
+          "text": "orbitdb.org"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/orbitdb",
+          "text": "github.com/orbitdb"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2015"
+    }
+  ],
+  "video": "//youtube.com/watch?v=x3yy_609rmM",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "OrbitDB Field Manual",
+    "description": "The official user's guide to OrbitDB.",
+    "buttonText": "Learn more",
+    "url": "//github.com/orbitdb/field-manual"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "data-machine-learning"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "dev-tools",
+        "research-data",
+        "public-data",
+        "storage-pinning"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "corporate-government-independence",
+        "self-sovereign-data",
+        "local-first-model"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "bitswap",
+        "go-ipfs",
+        "go-libp2p",
+        "js-ipfs",
+        "js-ipfs-https-client",
+        "js-libp2p"
+      ]
+    }
+  ]
+}

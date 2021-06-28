@@ -1,0 +1,102 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2017
+  },
+  "logo": {
+    "icon": "memefactory-mememouth.png",
+    "full": "memefactory-mememouth.png"
+  },
+  "name": "Meme Factory",
+  "org": [
+    "district0x"
+  ],
+  "description": {
+    "short": "Decentralized registry and marketplace for meme NFTs",
+    "long": "Decentralized, Ethereum-based NFT marketplace and token curated registry for unique, rare memes. Built on the Ethereum blockchain, the primary goal is to enable provable ownership of memes for their creators, attaching economic and legal value to a piece of art."
+  },
+  "primaryCta": {
+    "url": "//memefactory.io",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//memefactory.io",
+          "text": "memefactory.io"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/district0x",
+          "text": "github.com/district0x"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2017"
+    }
+  ],
+  "video": "//youtube.com/watch?v=TDgykV_8rco",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "Meme Factory in brief",
+    "description": "Get an executive summary of Meme Factory and how it works.",
+    "buttonText": "Read more",
+    "url": "//blog.district0x.io/spotlight-memefactory-io-2021-a0d3505c996"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "nfts"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "community-networks"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "couldnt-exist-without-ipfs",
+        "disaster-resilience",
+        "corporate-government-independence",
+        "interoperability",
+        "self-sovereign-data"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "cljs-ipfs",
+        "js-ipfs"
+      ]
+    }
+  ]
+}

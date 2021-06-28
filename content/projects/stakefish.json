@@ -1,0 +1,101 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2019
+  },
+  "logo": {
+    "icon": "stakefish-9e55d54e-cee8-4dc8-8956-5f5809ef15f0.png",
+    "full": "stakefish-9e55d54e-cee8-4dc8-8956-5f5809ef15f0.png"
+  },
+  "name": "stakefish",
+  "org": [
+    "stakefish"
+  ],
+  "description": {
+    "short": "Proof-of-stake validator service",
+    "long": "Proof-of-stake validator service offered on a fully static website pinned on IPFS and translated in 16 languages."
+  },
+  "primaryCta": {
+    "url": "//stake.fish",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//stake.fish",
+          "text": "stake.fish"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "",
+          "text": ""
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2019"
+    }
+  ],
+  "video": "//youtube.com/watch?v=GY94cTobryA",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "",
+    "description": "",
+    "buttonText": "",
+    "url": ""
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "content-delivery"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "community-networks",
+        "dev-tools",
+        "education"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "corporate-government-independence"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs",
+        "http-gateway",
+        "js-ipfs",
+        "pinning-services"
+      ]
+    }
+  ]
+}

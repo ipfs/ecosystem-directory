@@ -1,21 +1,27 @@
 <template>
   <div class="master-container">
 
-    <Toaster />
+    <SiteHeader />
 
     <nuxt />
+
+    <SiteFooter />
 
   </div>
 </template>
 
 <script>
 // ===================================================================== Imports
-import Toaster from '@/modules/Core/Components/Toaster'
+import SiteHeader from '@/components/SiteHeader'
+import SiteFooter from '@/components/SiteFooter'
 
 // ====================================================================== Export
 export default {
+  name: 'LayoutDefault',
+
   components: {
-    Toaster
+    SiteHeader,
+    SiteFooter
   }
 }
 </script>

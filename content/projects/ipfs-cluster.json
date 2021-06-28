@@ -1,0 +1,109 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2018
+  },
+  "logo": {
+    "icon": "ipfs-clusterandroid-chrome-192x192.png",
+    "full": "ipfs-clusterandroid-chrome-192x192.png"
+  },
+  "name": "IPFS Cluster",
+  "org": [
+    "Protocol Labs"
+  ],
+  "description": {
+    "short": "Automated IPFS data availability, redundancy, and orchestration",
+    "long": "IPFS Cluster provides data orchestration across a swarm of IPFS daemons by allocating, replicating and tracking a global pinset distributed among multiple peers."
+  },
+  "primaryCta": {
+    "url": "//cluster.ipfs.io",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//cluster.ipfs.io",
+          "text": "cluster.ipfs.io"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/ipfs/ipfs-cluster",
+          "text": "github.com/ipfs/ipfs-cluster"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2018"
+    }
+  ],
+  "video": "//youtube.com/watch?v=wmxaVrAFfeE",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "New: Collaborative clusters",
+    "description": "Learn about how collaborative clusters improve dataset distribution and availability.",
+    "buttonText": "More details",
+    "url": "//blog.ipfs.io/2020-01-09-collaborative-clusters"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "data-persistence"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "storage-pinning",
+        "research-data",
+        "community-networks",
+        "dev-tools",
+        "glam",
+        "infrastructure",
+        "medical",
+        "public-data"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "disaster-resilience",
+        "corporate-government-independence",
+        "local-first-model",
+        "self-sovereign-data",
+        "interoperability",
+        "couldnt-exist-without-ipfs"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "ipfs-cluster"
+      ]
+    }
+  ]
+}

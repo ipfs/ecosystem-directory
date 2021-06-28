@@ -1,0 +1,105 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2018
+  },
+  "logo": {
+    "icon": "berty_logo_square-1200x1200.png",
+    "full": "berty_logo_square-1200x1200.png"
+  },
+  "name": "Berty",
+  "org": [
+    "Berty Technologies"
+  ],
+  "description": {
+    "short": "Secure peer-to-peer messaging app",
+    "long": "Berty is a secure peer-to-peer messaging app that works with or without internet access, cellular data, or trust in the network."
+  },
+  "primaryCta": {
+    "url": "//berty.tech",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//berty.tech",
+          "text": "berty.tech"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/berty/berty",
+          "text": "github.com/berty/berty"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2018"
+    }
+  ],
+  "video": "//youtube.com/watch?v=p2ZAm2fAvUo",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "Berty community portal",
+    "description": "Resources for the Berty user and developer community.",
+    "buttonText": "Read more",
+    "url": "//berty.tech/community/"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "social-media"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "community-networks",
+        "mobile",
+        "dev-tools",
+        "public-data"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "corporate-government-independence",
+        "self-sovereign-data",
+        "local-first-model"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "bitswap",
+        "go-ipfs",
+        "go-libp2p",
+        "ipld"
+      ]
+    }
+  ]
+}

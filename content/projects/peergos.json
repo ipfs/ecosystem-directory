@@ -1,0 +1,105 @@
+{
+  "display": true,
+  "featured": true,
+  "sortNumbers": {
+    "since": 2015
+  },
+  "logo": {
+    "icon": "peergos-19786214.png",
+    "full": "peergos-19786214.png"
+  },
+  "name": "Peergos",
+  "org": [
+    "Peergos"
+  ],
+  "description": {
+    "short": "P2P secure file storage, social network, and application protocol",
+    "long": "Peergos is a peer-to-peer, secure file storage, social network, and application protocol that aims to build a private web that protects people.\n"
+  },
+  "primaryCta": {
+    "url": "//peergos.org",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//peergos.org",
+          "text": "peergos.org"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/peergos/peergos",
+          "text": "github.com/peergos/peergos"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2015"
+    }
+  ],
+  "video": "//youtube.com/watch?v=oXMqYDLKWPc",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "Peergos Tech Book",
+    "description": "The complete technical guide to Peergos.",
+    "buttonText": "Learn more",
+    "url": "//book.peergos.org/"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "social-media"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "file-sharing",
+        "music",
+        "streaming",
+        "video",
+        "web-hosting-publishing"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "disaster-resilience",
+        "self-sovereign-data"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "bitswap",
+        "go-ipfs",
+        "go-libp2p",
+        "ipld"
+      ]
+    }
+  ]
+}

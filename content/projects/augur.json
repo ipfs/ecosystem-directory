@@ -1,0 +1,106 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2016
+  },
+  "logo": {
+    "icon": "augur.png",
+    "full": "augur-logo.png"
+  },
+  "name": "Augur",
+  "org": [
+    "Forecast Foundation OU"
+  ],
+  "description": {
+    "short": "Global, no-limit betting platform and decentralized oracle",
+    "long": "Augur is a global, no-limit betting platform and decentralized oracle that uses a combination of community pinning and self-pinning clients to keep itself distributed through the network. It also uses IPFS to host snapshot data computed by all clients, and uses Augur's own market for consensus."
+  },
+  "primaryCta": {
+    "url": "//augur.net",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//augur.net",
+          "text": "augur.net"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/AugurProject/augur",
+          "text": "github.com/AugurProject/augur"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2016"
+    }
+  ],
+  "video": "",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "Augur whitepaper",
+    "description": "Dig into the details of Augur in the project whitepaper.",
+    "buttonText": "Read more",
+    "url": "//augur.net/whitepaper.pdf"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "prediction"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "community-networks",
+        "public-data"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "interoperability",
+        "corporate-government-independence",
+        "self-sovereign-data",
+        "couldnt-exist-without-ipfs"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs",
+        "go-libp2p",
+        "ipld",
+        "js-ipfs",
+        "js-ipfs-https-client",
+        "js-libp2p"
+      ]
+    }
+  ]
+}

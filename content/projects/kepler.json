@@ -1,0 +1,119 @@
+{
+    "display": true,
+    "featured": false,
+    "sortNumbers": [
+      {
+        "since": 2021
+      }
+    ],
+    "logo": {
+      "icon": "icon-kepler.png",
+      "full": "icon-kepler.png"
+    },
+    "name": "Kepler",
+    "org": [
+      "Spruce Systems, Inc."
+    ],
+    "description": {
+      "short": "Permissioned, user-controlled decentralized storage",
+      "long": "Kepler is a system for permissioned, user-controlled, decentralized storage based on permissioned data overlays called Orbits."
+    },
+    "primaryCta": {
+      "url": "//spruceid.com",
+      "text": "Project Website"
+    },
+    "links": [
+      {
+        "label": "Website",
+        "links": [
+          {
+            "url": "//spruceid.com",
+            "text": "spruceid.com"
+          }
+        ]
+      },
+      {
+        "label": "Repo",
+        "links": [
+          {
+            "url": "//github.com/spruceid/kepler",
+            "text": "github.com/spruceid/kepler"
+          }
+        ]
+      }
+    ],
+    "keyInfo": [
+      {
+        "label": "Using IPFS since",
+        "value": "2021"
+      }
+    ],
+    "video": "//youtube.com/watch?v=O5imo_7AL7M",
+    "stats": [
+      {
+        "label": "",
+        "value": ""
+      },
+      {
+        "label": "",
+        "value": ""
+      },
+      {
+        "label": "",
+        "value": ""
+      }
+    ],
+    "ctaCard": {
+      "title": "",
+      "description": "",
+      "buttonText": "",
+      "url": ""
+    },
+    "taxonomies": [
+      {
+        "slug": "industry",
+        "tags": [
+          "identity"
+        ]
+      },
+      {
+        "slug": "focus",
+        "tags": [
+          "dev-tools", 
+          "file-sharing", 
+          "infrastructure", 
+          "medical", 
+          "package-managers", 
+          "reputation-ip", 
+          "public-data", 
+          "research-data", 
+          "storage-pinning", 
+          "streaming",
+          "web-hosting-publishing"
+        ]
+      },
+      {
+        "slug": "benefits",
+        "tags": [
+          "corporate-government-independence", 
+          "data-integrity", 
+          "disaster-resilience", 
+          "interoperability", 
+          "local-first-model", 
+          "self-sovereign-data", 
+          "couldnt-exist-without-ipfs"
+        ]
+      },
+      {
+        "slug": "tooling",
+        "tags": [
+          "bitswap", 
+          "ecosystem-tools", 
+          "http-gateway", 
+          "ipld", 
+          "ipfs-embed", 
+          "rust-libp2p"
+        ]
+      }
+    ]
+  }

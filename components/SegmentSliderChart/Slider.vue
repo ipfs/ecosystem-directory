@@ -1,30 +1,65 @@
 <template>
-  <div class="slider-container slider-flex" :style="{ height: `${containerHeight}px` }">
-    <div class="slider-card">
+  <div class="slider-container">
+    <div
+      v-hammer:swipe.horizontal="onSwipe"
+      class="slider-card">
 
-      <div class="aside-nav">
+      <div class="slide-nav">
+
         <button
           class="nav-arrow"
-          @click="incrementSelection(selectedSeg - 1)">&#8249;</button>
+          @click="incrementSelection(selectedSeg - 1)">
+          <PrevArrow
+            stroke="#052437"
+            width="10"
+            height="15" />
+        </button>
+
+        <h3 class="title-between-buttons">
+          {{ currentCategory.label }}
+        </h3>
+
         <button
           class="nav-arrow"
-          @click="incrementSelection(selectedSeg + 1)">&#8250;</button>
+          @click="incrementSelection(selectedSeg + 1)">
+          <NextArrow
+            stroke="#052437"
+            width="10"
+            height="15" />
+        </button>
+
       </div>
 
       <transition name="slide-fade" mode="out-in">
-        <div :key="selectedCat">
-          <h3>{{ selectedCat }}</h3>
-          <p class="slider-card-text">
-            {{ excerpt }}
-          </p>
-          <div class="img-container">
-            <img :src="$relativity('/images/icons.png')" style="width: 100%;" alt="" />
+
+        <div :key="currentCategory.label">
+
+          <div class="title-large-screen">
+            <h3>
+              {{ currentCategory.label }}
+            </h3>
           </div>
+
+          <div class="description">
+            {{ currentCategory.description ? currentCategory.description : '' }}
+          </div>
+
+          <div v-if="logos" class="logo-wrapper">
+
+            <img
+              v-for="path in logos"
+              :key="path"
+              :src="$relativity(`/images/projects/${path}`)" />
+
+          </div>
+
         </div>
       </transition>
 
-      <button class="project-view button noselect">
-        View 53 Projects
+      <button
+        class="view-all button noselect"
+        @click="jump2Filters">
+        {{ filterToggleButtonText }}
       </button>
 
     </div>
@@ -32,36 +67,82 @@
 </template>
 
 <script>
+// ===================================================================== Imports
+import { mapGetters, mapActions } from 'vuex'
+
+import PrevArrow from '@/components/Icons/PrevArrow'
+import NextArrow from '@/components/Icons/NextArrow'
+
 // ====================================================================== Export
 export default {
   name: 'Slider',
 
+  components: {
+    PrevArrow,
+    NextArrow
+  },
+
   props: {
-    selectedCat: {
-      type: String,
-      default: ''
-    },
     selectedSeg: {
       type: Number,
       default: 0
     },
+    parentCategory: {
+      type: String,
+      required: true
+    },
     containerHeight: {
       type: Number,
       default: 440
-    },
-    excerpt: {
-      type: String,
-      default: ''
-    },
-    items: {
-      type: Array,
-      default: () => []
     }
   },
 
+  computed: {
+    ...mapGetters({
+      siteContent: 'global/siteContent',
+      routeQuery: 'filters/routeQuery',
+      segmentCollection: 'core/segmentCollection'
+    }),
+    filterToggleButtonText () {
+      return this.siteContent.index.page_content.segment_slider.filter_toggle_button_text
+    },
+    logos () {
+      if (this.currentCategory.hasOwnProperty('logos')) {
+        return this.currentCategory.logos
+      }
+      return false
+    },
+    currentCategory () {
+      if (this.selectedSeg in this.segmentCollection) {
+        return this.segmentCollection[this.selectedSeg]
+      }
+      return {}
+    }
+  },
+
+  beforeDestroy () {
+    if (this.resize) { window.removeEventListener('resize', this.resize) }
+  },
+
   methods: {
+    ...mapActions({
+      setRouteQuery: 'filters/setRouteQuery',
+      setFilterPanelOpen: 'filters/setFilterPanelOpen'
+    }),
     incrementSelection (seg) {
       this.$emit('update-slider', seg)
+    },
+    jump2Filters () {
+      this.setRouteQuery({ key: 'filters', data: 'enabled' })
+      this.setRouteQuery({ key: 'tags', data: this.currentCategory.slug })
+      this.setFilterPanelOpen(true)
+    },
+    onSwipe (e) {
+      if (e.type === 'swipeleft') {
+        this.incrementSelection(this.selectedSeg + 1)
+      } else if (e.type === 'swiperight') {
+        this.incrementSelection(this.selectedSeg - 1)
+      }
     }
   }
 }
@@ -70,46 +151,91 @@ export default {
 <style lang="scss" scoped>
 // ////////////////////////////////////////////////////////////////////// Slider
 .slider-container {
-  width: 30%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0em 1.0em;
-}
-
-.slider-flex {
-  flex-grow: 1;
-  flex-shrink: 0;
-  flex-basis: 270px;
+  min-width: 16rem;
+  flex: 1 1 10rem;
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 
 .slider-card {
+  @include borderRadius3;
   background-color: #ffffff;
-  width: 80%;
-  height: 80%;
-  padding: 20px;
-  border-radius: 10px;
+  width: 100%;
+  padding: 2rem;
   position: relative;
   align-items: center;
+  h3 {
+    @include leading_Regular;
+    font-weight: 500;
+    @include small {
+      @include fontSize_Small;
+    }
+  }
 }
 
-.slider-card-text {
-  padding: 10px;
-  font-size: 10pt;
-  font-weight: 500;
+.title-large-screen {
+  margin-bottom: 1rem;
+  @include leading_Regular;
+  @include medium {
+    display: none;
+  }
+}
+
+.title-between-buttons {
+  display: none;
+  @include medium {
+    display: inline;
+  }
+}
+
+.description {
+  @include fontSize_Small;
+  font-weight: 400;
+  margin-bottom: 2rem;
+  line-height: 1.4;
+  color: #494949;
+  @include small {
+    max-width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @include tiny {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.slide-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+  @include small {
+    justify-content: space-between;
+    max-width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 
 .nav-arrow {
+  @include borderRadius3;
+  display: flex;
+  padding: 0.25rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem;
   color: rgba(0, 0, 0, 0.5);
-  background-color: #ffffff;
+  background-color: #FFFFFF;
   border: none;
-  border-radius: 6px;
   font-weight: 900;
-  font-size: 16pt;
-  width: 40px;
+  width: 3.75rem;
+  @include small {
+    width: auto;
+  }
   &:hover {
     color: rgb(2, 28, 54);
   }
@@ -119,32 +245,55 @@ export default {
   }
 }
 
-.img-container {
-  width: 70%;
+.logo-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
   max-width: 300px;
   margin: 0 auto;
+  margin-bottom: 1.5rem;
+  img {
+    &:first-child {
+      margin-left: 0;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
 }
 
-.project-view {
-  color: white;
-  background-color: rgb(2, 28, 54);
-  bottom: 0px;
-  transform: translateY(50%);
+.logo-wrapper {
+  > img {
+    margin: 0 0.75rem;
+    width: auto;
+    max-width: 25%;
+    max-height: 2.5rem;
+  }
 }
 
-.button {
+.view-all {
   position: absolute;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto;
+  padding: 0.25rem 0;
+  width: 10rem;
   left: 0;
   right: 0;
+  bottom: 0px;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  font-weight: 700;
+  font-weight: 500;
   text-align: center;
-  padding: 0.5em 2.0em;
   text-decoration: none;
+  color: white;
+  background-color: rgb(2, 28, 54);
   border: none;
-  border-radius: 6px;
+  @include borderRadius3;
+  transform: translateY(50%);
+  @include medium {
+    transform: translateY(0%);
+    position: relative;
+  }
   &:focus {
     outline: none;
     box-shadow: none;

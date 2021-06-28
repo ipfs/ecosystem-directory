@@ -1,0 +1,100 @@
+{
+  "display": true,
+  "featured": true,
+  "sortNumbers": {
+    "since": 2018
+  },
+  "logo": {
+    "icon": "logo-audius.png",
+    "full": "logo-audius.png"
+  },
+  "name": "Audius",
+  "org": [
+    "Audius"
+  ],
+  "description": {
+    "short": "Decentralized music streaming platform",
+    "long": "Digital streaming service that connects fans directly with artists and exclusive new music in a familiar music player interface while enabling immutable content records, premium features incentivized on a native token, and a decentralized governance structure."
+  },
+  "primaryCta": {
+    "url": "//audius.org",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//audius.org",
+          "text": "audius.org"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/AudiusProject",
+          "text": "github.com/AudiusProject"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2018"
+    }
+  ],
+  "video": "//youtube.com/watch?v=c50licHTOik",
+  "stats": [
+    {
+      "label": "Content identifiers",
+      "value": "5M"
+    },
+    {
+      "label": "Independent discovery and creator node providers",
+      "value": "12 "
+    },
+    {
+      "label": "Registered users",
+      "value": "40K"
+    }
+  ],
+  "ctaCard": {
+    "title": "Audius case study",
+    "description": "Learn how Audius uses IPFS to directly connect creators and listeners.",
+    "buttonText": "Case study",
+    "url": "//docs.ipfs.io/concepts/case-study-audius"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "content-delivery"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "music",
+        "streaming"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "disaster-resilience",
+        "corporate-government-independence"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "js-ipfs-https-client",
+        "go-ipfs"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2021
+  },
+  "logo": {
+    "icon": "almonit-logo.svg",
+    "full": "almonit-logo.svg"
+  },
+  "name": "Alpress",
+  "org": [
+    "Almonit"
+  ],
+  "description": {
+    "short": "Self-governing ENS + IPFS publishing platform",
+    "long": "A self-governing ENS + IPFS publishing platform designed to make decentralized content publication simpler."
+  },
+  "primaryCta": {
+    "url": "//alpress.eth.link",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//alpress.eth.link",
+          "text": "alpress.eth.link"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/almonit/dlog",
+          "text": "github.com/almonit/dlog"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2021"
+    }
+  ],
+  "video": "//youtube.com/watch?v=g12JrZHhGfs",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "Alpress testnet launch",
+    "description": "Announcing the Alpress testnet and how to use it.",
+    "buttonText": "Learn more",
+    "url": "//blog.almonit.eth.link/2021-03-22/Alpress-rinkey-testnet.html"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "content-delivery"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "community-networks",
+        "dev-tools",
+        "public-data"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "corporate-government-independence",
+        "self-sovereign-data",
+        "couldnt-exist-without-ipfs"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs",
+        "js-ipfs"
+      ]
+    }
+  ]
+}

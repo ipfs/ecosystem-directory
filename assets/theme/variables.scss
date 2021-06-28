@@ -1,0 +1,349 @@
+// /////////////////////////////////////////////////////////////////// Variables
+// -----------------------------------------------------------------------------
+$containerWidth: 75rem;
+$containerSingleColumn: 4.1665%;
+$standardGutter: 0.75rem;
+
+$navigationHeight: 5rem;
+
+$fontHelvetica: 'Helvetica', sans-serif, monospace;
+$fontInter: 'Inter', sans-serif, monospace;
+$fontMontserrat: 'Montserrat', sans-serif, monospace;
+
+$underlineSpacing: 0.2rem;
+
+// ////////////////////////////////////////////////////////////////////// Colors
+// -----------------------------------------------------------------------------
+$blackPearl: #04192A; // Dark blue/black
+$tiber: #052437;  // Very dark blue/black
+$downy: #6BC4CE; // Light Teal
+$paradiso: #3D8F96; // Regular Teal
+$ming: #34797D; // Dark Teal
+
+$blackHaze: #F1F3F2; // Very light gray
+$tundora: #494949; // Medium gray
+$codGray: #181818; // Dark gray
+$cerulean: #06B1E9; // Blue (used for outbound links)
+
+$white: #FFFFFF;
+$gray50: #FAFAFA;
+$gray100: #F5F5F5;
+$gray200: #EEEEEE;
+$gray300: #E0E0E0;
+$gray400: #BDBDBD;
+$gray500: #9E9E9E;
+$gray600: #757575;
+$gray700: #616161;
+$gray800: #424242;
+$gray900: #212121;
+
+// ////////////////////////////////////////////////////////// Media Query Mixins
+// -----------------------------------------------------------------------------
+$tiny: 25.9375rem; // 415px
+$mini: 40rem; // 640px
+$small: 53.125rem; // 850px
+$medium: 64rem; // 1024px
+$large: 75rem; // 1200px
+$xlarge: 90rem; // 1440px
+$ultraLarge: 140.625rem; // 2250px
+
+@mixin tiny { @media screen and (max-width: 25.9375rem) { @content; } }
+@mixin mini { @media screen and (max-width: 40rem) { @content; } }
+@mixin small { @media screen and (max-width: 53.125rem) { @content; } }
+@mixin medium { @media screen and (max-width: 64rem) { @content; } }
+@mixin large { @media screen and (max-width: 75rem) { @content; } }
+@mixin xlarge { @media screen and (max-width: 90rem) { @content; } }
+@mixin ultraLarge { @media screen and (max-width: 140.625rem) { @content; } }
+
+@mixin containerMaxMQ { @media screen and (max-width: 75rem) { @content; } }
+@mixin containerMinMQ { @media screen and (max-width: 75.0625rem) { @content; } }
+@mixin customMaxMQ($width) { @media screen and (max-width: $width) { @content; } }
+@mixin customMinMQ($width) { @media screen and (min-width: $width) { @content; } }
+
+@mixin FireFox {
+  @-moz-document url-prefix() { @content; }
+}
+
+@mixin Edge {
+  @supports (-ms-ime-align:auto) { @content; }
+}
+
+@mixin Safari9 {
+  @supports (overflow:-webkit-marquee) and (justify-content:inherit) { @content; }
+}
+
+@mixin Safari7Plus($item) {
+  _::-webkit-full-page-media, _:future, :root #{$item} { @content; }
+}
+
+@mixin Safari9Plus($item) {
+  _:default:not(:root:root), #{$item} { @content; }
+}
+
+@mixin IE10and11 {
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) { @content; }
+}
+
+@mixin iOSonly {
+  @supports (-webkit-overflow-scrolling: touch) { @content; }
+}
+
+@mixin everythingExceptIOS {
+  @supports not (-webkit-overflow-scrolling: touch) { @content; }
+}
+
+// ////////////////////////////////////////////////////////////////////// Mixins
+// ------------------------------------------------------ Typography | Font Size
+// fontSize_Mini | 11pt
+// fontSize_Small | 14pt
+// fontSize_Regular | 16pt
+// fontSize_Medium | 18pt
+// fontSize_Large | 20pt
+// fontSize_ExtraLarge | 24pt
+// fontSize_ExtraMediumLarge | 28pt
+// fontSize_ExtraExtraLarge | 50pt
+
+@mixin fontSize_Mini {
+  font-size: 0.6875rem;
+}
+
+@mixin fontSize_Small {
+  font-size: 0.875rem;
+}
+
+@mixin fontSize_Regular {
+  font-size: 1rem;
+}
+
+@mixin fontSize_Medium {
+  font-size: 1.125rem;
+}
+
+@mixin fontSize_Large {
+  font-size: 1.25rem;
+}
+
+@mixin fontSize_ExtraLarge {
+  font-size: 1.5rem;
+}
+
+@mixin fontSize_ExtraMediumLarge {
+  font-size: 1.75rem;
+}
+
+@mixin fontSize_ExtraExtraLarge {
+  font-size: 3.125rem;
+}
+
+// -------------------------------------------------------- Typography | Leading
+@mixin leading_Tiny {
+  line-height: 1;
+}
+
+@mixin leading_Mini {
+  line-height: 1.2;
+}
+
+@mixin leading_Small {
+  line-height: 1.4;
+}
+
+@mixin leading_Regular {
+  line-height: 1.6;
+}
+
+@mixin leading_Medium {
+  line-height: 1.8;
+}
+
+@mixin leading_Large {
+  line-height: 2;
+}
+
+@mixin leading_ExtraLarge {
+  line-height: 2.2;
+}
+
+@mixin leading_ExtraExtraLarge {
+  line-height: 2.4;
+}
+
+// --------------------------------------------------------------------- Styling
+@mixin shadow1 {
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05), 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+@mixin borderRadius1 {
+	border-radius: 0.125rem;
+}
+
+@mixin borderRadius2 {
+	border-radius: 0.1875rem;
+}
+
+@mixin borderRadius3 {
+	border-radius: 0.3125rem;
+}
+
+@mixin focus_BoxShadow_Small {
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+}
+
+@mixin focus_BoxShadow_Regular {
+  box-shadow: 0 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+@mixin focus_BoxShadow_Link {
+  box-shadow: 0 0 0 5px rgba(0, 123, 255, 0.5);
+  border-radius: 0.125rem;
+}
+
+@mixin highlight {
+  color: blue;
+  font-weight: 700;
+}
+
+@mixin selection_Dark {
+  ::-moz-selection { background: $translucentWhite; color: black; }
+  ::selection { background: $translucentWhite; color: black; }
+}
+
+@mixin selection_Light {
+  ::-moz-selection { background: $translucentBlack; color: white; }
+  ::selection { background: $translucentBlack; color: white; }
+}
+
+@mixin selection_Invisible {
+  ::-moz-selection { background: transparent; color: transparent; }
+  ::selection { background: transparent; color: transparent; }
+}
+
+@mixin centerImage {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+// ------------------------------------------------------------------ Components
+@mixin subtitle {
+	@include fontSize_Mini;
+	@include leading_Mini;
+  font-weight: 700;
+	text-transform: uppercase;
+}
+
+@mixin label {
+  @include fontSize_Mini;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+@mixin button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 0.75rem;
+  height: 2.5rem;
+  border-radius: 0.125rem;
+  background-color: $gray300;
+  white-space: nowrap;
+  cursor: no-drop;
+  &:focus {
+    border: 2px solid blue;
+  }
+  &:not(:disabled) {
+    @include shadow1;
+    background-color: $gray200;
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+@mixin tooltipMobilePosition {
+  &:hover {
+    &:before,
+    &:after {
+      transform: translate(0, 0);
+    }
+  }
+  &:before,
+  &:after {
+    transform: translate(0, 0.5rem);
+  }
+  &:before {
+    left: 1rem;
+  }
+  &:after {
+    left: 0.5rem;
+  }
+  &[data-tooltip-mobile-position="right"] {
+    &:before,
+    &:after {
+      left: auto;
+    }
+    &:before {
+      right: 1rem;
+    }
+    &:after {
+      right: 0.5rem;
+    }
+  }
+}
+
+@mixin optional-at-root($sel) { @at-root #{if(not &, $sel, selector-append(&, $sel))} { @content; } }
+@mixin placeholder {
+  @include optional-at-root('::-webkit-input-placeholder') { @content; }
+  @include optional-at-root(':-moz-placeholder') { @content; }
+  @include optional-at-root('::-moz-placeholder') { @content; }
+	@include optional-at-root(':-ms-input-placeholder') { @content; }
+	@include optional-at-root('::-ms-input-placeholder') { @content; }
+  @include optional-at-root('::placeholder') { @content; }
+}
+
+// ------------------------------------------------------------------- Animation
+@mixin animation ($animate...) {
+  $max: length($animate);
+  $animations: '';
+  @for $i from 1 through $max {
+    $animations: #{$animations + nth($animate, $i)};
+    @if $i < $max { $animations: #{$animations + ", "}; }
+  }
+  -webkit-animation: $animations;
+  -moz-animation:    $animations;
+  -o-animation:      $animations;
+  animation:         $animations;
+}
+
+@mixin animationName($animationName) { -webkit-animation-name: $animationName; animation-name: $animationName; } // string
+@mixin animationDuration($animationDuration) { -webkit-animation-duration: $animationDuration; animation-duration: $animationDuration; } // num in ms or s
+@mixin animationDirection($animationDirection) { -webkit-animation-direction: $animationDirection; animation-direction: $animationDirection; } // 'normal', 'reverse', 'alternate', 'alternate-reverse'
+@mixin animationDelay($animationDelay) { -webkit-animation-delay: $animationDelay; animation-delay: $animationDelay; }
+@mixin animationIterationCount($animationIterationCount) { -webkit-animation-iteration-count: $animationIterationCount; animation-iteration-count: $animationIterationCount; } // num or 'infinite'
+@mixin animationTimingFunction($animationTimingFunction) { -webkit-animation-timing-function: $animationTimingFunction; animation-timing-function: $animationTimingFunction; } // bezier curve or 'linear'
+@mixin animationFillMode($animationFillMode) { -webkit-animation-fill-mode: $animationFillMode; animation-fill-mode: $animationFillMode; } // forwards or backwards or both
+
+@mixin keyframes($animationName) {
+  @-webkit-keyframes #{$animationName} { @content; }
+  @-moz-keyframes #{$animationName} { @content; }
+  @-o-keyframes #{$animationName} { @content; }
+  @keyframes #{$animationName} { @content; }
+}
+
+@mixin transform($transforms) {
+	   -moz-transform: $transforms;
+	     -o-transform: $transforms;
+	    -ms-transform: $transforms;
+	-webkit-transform: $transforms;
+          transform: $transforms;
+}
+
+@mixin transformOrigin($transformOrigin) {
+	   -moz-transform-origin: $transformOrigin;
+	     -o-transform-origin: $transformOrigin;
+	    -ms-transform-origin: $transformOrigin;
+	-webkit-transform-origin: $transformOrigin;
+          transform-origin: $transformOrigin;
+}

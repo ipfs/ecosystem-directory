@@ -1,7 +1,41 @@
-// ////////////////////////////////////////////////////////////////////// Export
-// -----------------------------------------------------------------------------
+/* eslint require-await: "off" */
+
+import Projects from './content/data/project-manifest.json'
+
 export default {
+  // //////////////////////////////////////////// Static Site Generation Options
+  // ---------------------------------------------------------------------------
   target: 'static',
+  generate: {
+    async routes (a, b) {
+      const routes = []
+      try {
+        const len = Projects.length
+        if (len === 0) { throw new Error('[nuxt.config.js] Unable to generate Project routes because no projects exist') }
+        for (let i = 0; i < len; i++) {
+          try {
+            const slug = Projects[i]
+            const route = `/project/${slug}`
+            const payload = require(`./content/projects/${slug}`)
+            payload.slug = slug
+            routes.push({ route, payload })
+          } catch (e) {
+            if (e.code === 'MODULE_NOT_FOUND') {
+              const slug = e.message.split('\'')[1].split('/').pop()
+              console.log(`========== Attempting to generate route /project/${slug} that does not have a corresponding project file`)
+              continue
+            } else {
+              throw e
+            }
+          }
+        }
+        return routes
+      } catch (e) {
+        console.log(e)
+        return routes
+      }
+    }
+  },
   // ///////////////////////////////////////////////////// Runtime Configuration
   // ---------------------------------------------------------------------------
   // ---------------------------------------------------------- [Runtime] Public
@@ -65,13 +99,11 @@ export default {
   // /////////////////////////////////////////////////////////// Global CSS/SCSS
   // ---------------------------------------------------------------------------
   css: [
-    '~/assets/scss/normalize.scss',
-    '~/assets/scss/gridlex-2.7.1/gridlex.scss',
-    '~/assets/scss/main.scss'
+    '~/assets/theme/main.scss'
   ],
   styleResources: {
     scss: [
-      '~/assets/scss/variables.scss'
+      '~/assets/theme/variables.scss'
     ]
   },
   // /////////////////////////////////////////////////////// Nuxt.js Dev Modules
@@ -80,7 +112,7 @@ export default {
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
     // Doc: https://github.com/nuxt-community/analytics-module
-    '@nuxtjs/google-analytics',
+    // '@nuxtjs/google-analytics', // removed dependencies for Vue Analytics due to issues
     // Doc: https://github.com/nuxt-community/moment-module#readme
     '@nuxtjs/moment'
   ],
@@ -91,9 +123,11 @@ export default {
     '@nuxtjs/axios',
     // Doc: https://github.com/nuxt-community/style-resources-module/
     '@nuxtjs/style-resources',
-    '~/modules/Core',
-    '~/modules/Pagination',
-    '~/modules/Apollo',
+    // Collection of helper modules, plugins and functions
+    '~/modules/zero/core',
+    '~/modules/zero/pagination',
+    '~/modules/zero/filters',
+    // Doc: https://github.com/agency-undone/nuxt-module-ipfs
     '~/modules/nuxt-module-ipfs'
   ],
   // ///////////////////////////////////////////////////////// [Module] MomentJS
@@ -102,34 +136,41 @@ export default {
     timezone: true,
     defaultTimezone: 'UTC'
   },
-  // ///////////////////////////////////////////////////////////// [Module] Core
+  // ///////////////////////////////////////////////////////////// [Module] Zero
   // ---------------------------------------------------------------------------
-  core: {},
+  zero: {
+    // -------------------------------------------------------- [Plugin] Toaster
+    toaster: {
+      display: 10,
+      timeout: 5000
+    }
+  },
   // //////////////////////////////////////////////////////////// [Module] Axios
   // -------------------------------------- See https://axios.nuxtjs.org/options
   axios: {},
   // /////////////////////////////////// Plugins to load before mounting the App
   // ---------------------------------------------------------------------------
   plugins: [
-    '~/api/index',
     '~/plugins/directives',
     '~/plugins/global-methods',
-    '~/plugins/scroll-to'
+    '~/plugins/taxonomy-methods',
+    '~/plugins/scroll-to',
+    '~/modules/zero/core/Plugins/nuxt-hammer'
   ],
-  // ////////////////////////////////////////////////////////// [Plugin] Toaster
-  // ---------------------------------------------------------------------------
-  toaster: {
-    display: 10,
-    timeout: 5000
-  },
   // /////////////////////////////////////////////////////// Router + Middleware
   // ---------------------------------------------------------------------------
   router: {
+    base: process.env.NODE_ENV === 'development' ? '/' : '/ipfs/hash/'
     // extendRoutes (routes, resolve) {}
   },
   // /////////////////////////////////////////////////////// Build configuration
   // ------------------------------------------------ Extend webpack config here
   build: {
+    html: {
+      minify: {
+        collapseWhitespace: true
+      }
+    },
     // ---------------------------------------------------------- Hot Middleware
     hotMiddleware: {
       client: {
@@ -138,6 +179,7 @@ export default {
     },
     // -------------------------------------------------------------- Extensions
     extend (config, ctx) {
+      config.optimization.minimize = false
       config.module.rules.push({
         test: /\.md$/,
         use: 'raw-loader'

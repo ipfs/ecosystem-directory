@@ -14,6 +14,10 @@ localhost_fullchain.pem
 server.key
 server.crt
 
+# Files
+project-manifest.json
+project-list.json
+
 # Runtime data
 pids
 *.pid
@@ -90,6 +94,9 @@ dist
 
 # Service worker
 sw.*
+
+# Server side processing files
+awk
 
 # Mac OSX
 .DS_Store

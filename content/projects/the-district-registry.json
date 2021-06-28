@@ -1,0 +1,102 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2017
+  },
+  "logo": {
+    "icon": "district0x-logo.svg",
+    "full": "district0x-logo.svg"
+  },
+  "name": "The District Registry",
+  "org": [
+    "district0x"
+  ],
+  "description": {
+    "short": "Registry for decentralized marketplaces",
+    "long": "A registry for decentralized, user-governed marketplaces. Built on Ethereum, Aragon, and IPFS."
+  },
+  "primaryCta": {
+    "url": "//education.district0x.io/district0x-specific-topics/understanding-distict0x/the-district-registry",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//education.district0x.io/district0x-specific-topics/understanding-distict0x/the-district-registry",
+          "text": "education.district0x.io/district0x-specific-topics/understanding-distict0x/the-district-registry"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/district0x",
+          "text": "github.com/district0x"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2017"
+    }
+  ],
+  "video": "//youtube.com/watch?v=74yHMz6xbZo",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "district0x whitepaper",
+    "description": "Dig into the details of district0x projects including The District Registry in the whitepaper.",
+    "buttonText": "Read more",
+    "url": "//district0x.io/docs/district0x-whitepaper.pdf"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "marketplaces-ecommerce"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "community-networks"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "couldnt-exist-without-ipfs",
+        "disaster-resilience",
+        "corporate-government-independence",
+        "interoperability",
+        "self-sovereign-data"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "cljs-ipfs",
+        "js-ipfs"
+      ]
+    }
+  ]
+}

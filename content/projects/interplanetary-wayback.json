@@ -1,0 +1,105 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2016
+  },
+  "logo": {
+    "icon": "interplanetarywayback-logo_stroked_400px.png",
+    "full": "interplanetarywayback-logo_stroked_400px.png"
+  },
+  "name": "InterPlanetary Wayback",
+  "org": [
+    "Drexel University"
+  ],
+  "description": {
+    "short": "Peer-to-peer permanence for web archives",
+    "long": "InterPlanetary Wayback melds the standard web archiving format (WARC) with IPFS and provides a full indexing and replay system for individual to decouple their archival captures from their own machine."
+  },
+  "primaryCta": {
+    "url": "//github.com/oduwsdl/ipwb#readme",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "",
+          "text": ""
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/oduwsdl/ipwb",
+          "text": "github.com/oduwsdl/ipwb"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2016"
+    }
+  ],
+  "video": "//youtube.com/watch?v=fPLoZQ_N_cQ",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "Read the paper",
+    "description": "Get all the details of InterPlanetary Wayback in this paper presented at the 2016 IEEE/ACM Joint Conference on Digital Libraries.",
+    "buttonText": "Learn more",
+    "url": "//matkelly.com/papers/2016_jcdl_ipwb.pdf"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "data-persistence"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "dev-tools",
+        "research-data",
+        "education",
+        "file-sharing",
+        "public-data"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "disaster-resilience",
+        "interoperability",
+        "self-sovereign-data",
+        "couldnt-exist-without-ipfs"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs",
+        "py-ipfs-http-client"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2020
+  },
+  "logo": {
+    "icon": "almonit-logo.svg",
+    "full": "almonit-logo.svg"
+  },
+  "name": "Almonit Search Engine",
+  "org": [
+    "Almonit"
+  ],
+  "description": {
+    "short": "Decentralized search engine for ENS + IPFS websites",
+    "long": "Built purely on top of IPFS, Almonit's search engine is itself decentralized, working without a server while preserving the privacy of users."
+  },
+  "primaryCta": {
+    "url": "//almonit.eth.link",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//almonit.eth.link",
+          "text": "almonit.eth.link"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/almonit",
+          "text": "github.com/almonit"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2020"
+    }
+  ],
+  "video": "//youtube.com/watch?v=7Fr3GD19Nqw",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "",
+    "description": "",
+    "buttonText": "",
+    "url": ""
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "content-delivery"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "public-data"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "disaster-resilience",
+        "corporate-government-independence",
+        "self-sovereign-data",
+        "couldnt-exist-without-ipfs"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2016
+  },
+  "logo": {
+    "icon": "infura_logo_red.png",
+    "full": "infura_logo_red.png"
+  },
+  "name": "Infura IPFS API",
+  "org": [
+    "Infura"
+  ],
+  "description": {
+    "short": "Scalable storage infrastructure with seamless API access",
+    "long": "Scalable and distributed storage infrastructure to power the demands of applications of all sizes. Connect seamlessly and reliably to the IPFS network with Infura's IPFS API."
+  },
+  "primaryCta": {
+    "url": "//infura.io",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//infura.io",
+          "text": "infura.io"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/INFURA",
+          "text": "github.com/INFURA"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2016"
+    }
+  ],
+  "video": "//youtube.com/watch?v=DOLIt2O2aj4",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "Infura + IPFS",
+    "description": "Learn how to get started with Infura's IPFS service",
+    "buttonText": "Read more",
+    "url": "//blog.infura.io/part-2-getting-started-with-ipfs-on-infura/"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "content-delivery"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "storage-pinning",
+        "dev-tools",
+        "file-sharing",
+        "infrastructure",
+        "web-hosting-publishing"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        ""
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "bitswap",
+        "go-ipfs",
+        "go-libp2p",
+        "filecoin"
+      ]
+    }
+  ]
+}

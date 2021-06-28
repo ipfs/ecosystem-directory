@@ -1,0 +1,104 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2019
+  },
+  "logo": {
+    "icon": "c-logo.svg",
+    "full": "c-logo.svg"
+  },
+  "name": "Crust Network",
+  "org": [
+    "Decentralized Cloud Foundation Ltd"
+  ],
+  "description": {
+    "short": "IPFS pinning service on the Polkadot ecosystem",
+    "long": "Crust Network, a blockchain-based decentralized storage network in the Polkadot ecosystem, provides a decentralized IPFS pinning service."
+  },
+  "primaryCta": {
+    "url": "//crust.network",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//crust.network",
+          "text": "crust.network"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/crustio",
+          "text": "github.com/crustio"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2019"
+    }
+  ],
+  "video": "//youtube.com/watch?v=desd_RPQTTw",
+  "stats": [
+    {
+      "label": "IPFS storage nodes",
+      "value": "2000+"
+    },
+    {
+      "label": "Storage space",
+      "value": "400+ PB"
+    },
+    {
+      "label": "Average replicas for each file",
+      "value": "101"
+    }
+  ],
+  "ctaCard": {
+    "title": "Understand Crust",
+    "description": "Learn how Crust supports IPFS as a file layer protocol.",
+    "buttonText": "Read more",
+    "url": "//medium.com/crustnetwork/crust-a-decentralized-storage-network-based-on-ipfs-85fbf247ac45"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "content-delivery"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "infrastructure",
+        "storage-pinning",
+        "web-hosting-publishing",
+        "file-sharing"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "interoperability",
+        "disaster-resilience"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "bitswap",
+        "http-gateway",
+        "go-ipfs",
+        "ipld"
+      ]
+    }
+  ]
+}

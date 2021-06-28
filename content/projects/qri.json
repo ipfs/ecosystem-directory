@@ -1,0 +1,101 @@
+{
+  "display": true,
+  "featured": true,
+  "sortNumbers": {
+    "since": 2017
+  },
+  "logo": {
+    "icon": "qri-apple-touch-icon.png",
+    "full": "qri-apple-touch-icon.png"
+  },
+  "name": "Qri",
+  "org": [
+    "Qri, Inc."
+  ],
+  "description": {
+    "short": "Automated, versioned datasets",
+    "long": "Free, open-source tooling for cleaning, versioning, and sharing distributed datasets."
+  },
+  "primaryCta": {
+    "url": "//qri.io",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//qri.io",
+          "text": "qri.io"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/qri-io/qri",
+          "text": "github.com/qri-io/qri"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2017"
+    }
+  ],
+  "video": "//youtube.com/watch?v=aY6sJYIgMoc",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "Qri Data Bazaar",
+    "description": "Explore this home for versioned open datasets on the distributed web.",
+    "buttonText": "Learn more",
+    "url": "//qri.cloud/"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "data-machine-learning"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "research-data",
+        "public-data",
+        "glam",
+        "medical"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs",
+        "go-libp2p",
+        "ipfs-cluster"
+      ]
+    }
+  ]
+}

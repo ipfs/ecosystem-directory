@@ -1,0 +1,100 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2019
+  },
+  "logo": {
+    "icon": "metamask.png",
+    "full": "metamask-logo.svg"
+  },
+  "name": "MetaMask",
+  "org": [
+    "ConsenSys"
+  ],
+  "description": {
+    "short": "Web3 wallet and gateway to the decentralized web",
+    "long": "A web3 wallet designed to facilitate access to blockchain-based apps, available as a browser extention and a mobile app to provide simple, secure access to the decentralized web."
+  },
+  "primaryCta": {
+    "url": "//metamask.io",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//metamask.io",
+          "text": "metamask.io"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/MetaMask",
+          "text": "github.com/MetaMask"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2019"
+    }
+  ],
+  "video": "//youtube.com/watch?v=hpCxtb2E1as",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "",
+    "description": "",
+    "buttonText": "",
+    "url": ""
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "integrations"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "dev-tools",
+        "mobile",
+        "infrastructure"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "interoperability",
+        "self-sovereign-data"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "filecoin",
+        "http-gateway"
+      ]
+    }
+  ]
+}

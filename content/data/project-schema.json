@@ -1,0 +1,47 @@
+{
+  "display": "boolean",
+  "featured": "boolean",
+  "sortNumbers": {
+    "label": "number"
+  },
+  "logo": {
+    "icon": "string",
+    "full": "string"
+  },
+  "name": "string",
+  "org": ["string"],
+  "description": {
+    "short": "string",
+    "long": "string"
+  },
+  "primaryCta": {
+    "url": "string",
+    "text": "string"
+  },
+  "links": [{
+    "label": "string",
+    "links": [{
+      "url": "string",
+      "text": "string"
+    }]
+  }],
+  "keyInfo": [{
+    "label": "string",
+    "value": "string"
+  }],
+  "video": "string",
+  "stats": [{
+    "label": "string",
+    "value": "string"
+  }],
+  "ctaCard": {
+    "title": "string",
+    "description": "string",
+    "buttonText": "string",
+    "url": "string"
+  },
+  "taxonomies": [{
+    "slug": "string",
+    "tags": ["string"]
+  }]
+}

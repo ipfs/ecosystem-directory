@@ -1,0 +1,105 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2017
+  },
+  "logo": {
+    "icon": "actyx.png",
+    "full": "actyx-logo.svg"
+  },
+  "name": "ActyxOS",
+  "org": [
+    "Actyx AG"
+  ],
+  "description": {
+    "short": "Operating system for manufacturing applications",
+    "long": "An operating system and developer tools for factory and workflow management, Actyx enables developers to build resilient, real-time applications that run across a network of devices."
+  },
+  "primaryCta": {
+    "url": "//actyx.com",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//actyx.com",
+          "text": "actyx.com"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/actyx",
+          "text": "github.com/actyx"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2017"
+    }
+  ],
+  "video": "//youtube.com/watch?v=Qzu0xtCT-R0",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "Developer resources",
+    "description": "How-tos, reference guides, concept docs, and tutorials.",
+    "buttonText": "Learn more",
+    "url": "//developer.actyx.com/"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "other"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "dev-tools",
+        "supply-chain",
+        "infrastructure"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "disaster-resilience",
+        "local-first-model",
+        "interoperability"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs",
+        "ipfs-embed",
+        "ipld",
+        "bitswap",
+        "rust-libp2p"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2020
+  },
+  "logo": {
+    "icon": "iotex.png",
+    "full": "iotex_logo_repo-card.png"
+  },
+  "name": "Ucam",
+  "org": [
+    "IoTeX Network"
+  ],
+  "description": {
+    "short": "Consumer security camera with a privacy focus",
+    "long": "Ucam is a privacy-focused home security camera utilizing the IoTeX blockchain and offering control over video access."
+  },
+  "primaryCta": {
+    "url": "//ucam.iotex.io",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//ucam.iotex.io",
+          "text": "ucam.iotex.io"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/iotexproject/ucam-pe-lib",
+          "text": "github.com/iotexproject/ucam-pe-lib"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2020"
+    }
+  ],
+  "video": "",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "",
+    "description": "",
+    "buttonText": "",
+    "url": ""
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "iot"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "video",
+        "public-data"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "self-sovereign-data"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "ipfs-cluster"
+      ]
+    }
+  ]
+}

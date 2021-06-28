@@ -1,0 +1,110 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2020
+  },
+  "logo": {
+    "icon": "ValistLogo128.png",
+    "full": "ValistLogo128.png"
+  },
+  "name": "Valist",
+  "org": [
+    "Valist, Inc."
+  ],
+  "description": {
+    "short": "Release and distribution tools using web3 tech",
+    "long": "Easily and securely distribute any software or firmware using Web3 technologies, while enforcing strong access control and security best practices. Valist also integrates with existing package managers like NPM and Pip, as well as deployment systems like Docker."
+  },
+  "primaryCta": {
+    "url": "//valist.io",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//valist.io",
+          "text": "valist.io"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/valist-io/valist",
+          "text": "github.com/valist-io/valist"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2020"
+    }
+  ],
+  "video": "//youtube.com/watch?v=DNE7QBplVRo",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "Valist FAQ",
+    "description": "Quick Q-and-A for the most common questions about Valist.",
+    "buttonText": "Read more",
+    "url": "//valist.io/faq"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "content-delivery"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "dev-tools",
+        "package-managers",
+        "file-sharing",
+        "infrastructure",
+        "storage-pinning",
+        "public-data",
+        "supply-chain"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "couldnt-exist-without-ipfs",
+        "interoperability",
+        "corporate-government-independence",
+        "self-sovereign-data"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "filecoin",
+        "go-ipfs",
+        "js-ipfs",
+        "js-ipfs-https-client",
+        "ecosystem-tools"
+      ]
+    }
+  ]
+}
