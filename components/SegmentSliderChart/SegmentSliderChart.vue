@@ -46,7 +46,20 @@ const loadTaxonomies = (instance) => {
     }
   }
   for (let i = 0; i < categories.length; i++) {
-    industry[categories[i].slug] = categories[i].label
+    const key = categories[i].slug
+    industry[key] = {
+      label: categories[i].label,
+      description: categories[i].description
+    }
+    if (categories[i].hasOwnProperty('position')) {
+      if (categories[i].position === 'first' || categories[i].position === 'last') {
+        industry[key].priority = categories[i].position
+      } else {
+        industry[key].priority = false
+      }
+    } else {
+      industry[key].priority = false
+    }
   }
   return industry
 }
@@ -93,7 +106,8 @@ const createLabels = (instance, projects) => {
       if (industry.hasOwnProperty(category)) {
         let count = 0
         let selection = []
-        const label = industry[category]
+        const label = industry[category].label
+        const description = industry[category].description
         const l = label.split('').length
         const icons = logos[category]
 
@@ -110,31 +124,22 @@ const createLabels = (instance, projects) => {
         }
 
         tags.forEach((tag) => { if (tag === category) { count++ } })
-        items.push({
+        const obj = {
           label,
+          description,
           slug: category,
           size: count * 10,
           chars: l,
           logos: selection,
-          display: false,
-          description: getCategoryDescription(instance, label)
-        })
+          display: false
+        }
+        if (industry[category].priority) {
+          obj.priority = industry[category].priority
+        }
+        items.push(obj)
       }
     }
     return items
-  }
-  return false
-}
-
-const getCategoryDescription = (instance, label) => {
-  const industry = instance.siteContent.taxonomy.categories[0]
-  const len = industry.tags.length
-  for (let i = 0; i < len; i++) {
-    if (industry.tags[i].label === label) {
-      if (industry.tags[i].hasOwnProperty('description')) {
-        return industry.tags[i].description
-      }
-    }
   }
   return false
 }
