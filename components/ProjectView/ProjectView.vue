@@ -241,15 +241,24 @@ export default {
     }
     clearPanelHeight(this)
     const scroll = () => {
-      const bottom = this.$refs.projectViewContainer.getBoundingClientRect().bottom
+      const projectViewContainer = this.$refs.projectViewContainer
+      const bottom = projectViewContainer.getBoundingClientRect().bottom
+      const top = projectViewContainer.parentNode.getBoundingClientRect().top
+      // console.log(top, window.innerHeight, window.innerHeight + (window.innerWidth * 0.041665) + 36)
       const filterButtonFloating = this.filterButtonFloating
-      const offset = window.innerWidth <= 640 ? (window.innerWidth * 0.041665) + 84 - 8 : 0
-      if (bottom < window.innerHeight + offset && filterButtonFloating) {
-        this.setFilterButtonFloating(false)
-      } else if (bottom > window.innerHeight + offset && !filterButtonFloating) {
-        this.setFilterButtonFloating(true)
+      const offset = window.innerWidth <= 640 ? (window.innerWidth * 0.041665) + 84 - 16 : 0
+      // console.log(window.innerHeight, top + (window.innerWidth * 0.041665) * 2 + 36, bottom, window.innerHeight + offset)
+      if (window.innerHeight < top + (window.innerWidth * 0.041665) * 2 + 36 && filterButtonFloating !== 'top') {
+        // console.log('A')
+        this.setFilterButtonFloating('top')
+      } else if (window.innerHeight >= top + (window.innerWidth * 0.041665) * 2 + 36 && bottom >= window.innerHeight + offset && filterButtonFloating !== 'middle') {
+        // console.log('B')
+        this.setFilterButtonFloating('middle')
+      } else if (bottom < window.innerHeight + offset && filterButtonFloating !== 'bottom') {
+        // console.log('C')
+        this.setFilterButtonFloating('bottom')
       }
-    }
+    }; scroll()
     this.scroll = this.$throttle(scroll, 10)
     window.addEventListener('scroll', this.scroll)
   },
@@ -296,9 +305,6 @@ $paginateRoot_PaddingOffset: 3.5rem;
 // ///////////////////////////////////////////////////////////////////// General
 #project-view-container {
   padding-top: 1.5rem;
-  @include small {
-    position: relative;
-  }
 }
 
 // ///////////////////////////////////////////////////////////////////// Toolbar

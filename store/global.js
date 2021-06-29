@@ -9,7 +9,7 @@ import TaxonomyData from '@/content/data/taxonomy.json'
 // -----------------------------------------------------------------------------
 const state = () => ({
   siteContent: {},
-  filterButtonFloating: true
+  filterButtonFloating: 'middle'
 })
 
 // ///////////////////////////////////////////////////////////////////// Getters

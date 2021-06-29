@@ -7,7 +7,7 @@
         id="filter-panel-toggle-button"
         type="C"
         :text="filterPanelToggleButtonLabel"
-        :class="{ 'active': filterPanelOpen, floating: filterButtonFloating }"
+        :class="[filterButtonFloating, { 'active': filterPanelOpen }]"
         @clicked="$emit('toggleFilterPanel')">
         <template #icon-before>
           <FiltersToggleIcon />
@@ -154,7 +154,17 @@ export default {
   @include small {
     left: calc(4.1665vw + 0.5rem);
   }
-  &:not(.floating) {
+  &.top {
+    @include small {
+      position: absolute;
+      top: 3rem;
+      z-index: 100;
+    }
+    @include mini {
+      bottom: calc(4.1665vw + 84px + 0.5rem);
+    }
+  }
+  &.bottom {
     @include small {
       position: absolute;
       bottom: 3rem;
@@ -164,7 +174,7 @@ export default {
       bottom: calc(4.1665vw + 84px + 0.5rem);
     }
   }
-  &.floating {
+  &.middle {
     @include small {
       position: fixed;
       bottom: calc(4.1665vw + 0.5rem);
