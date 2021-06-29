@@ -40,7 +40,7 @@
               <h1>
                 {{ heading }}
                 <span class="display-total">
-                  ({{ collection.length ? collection.length : '0' }})
+                  ({{ collection.array.length || '0' }})
                 </span>
               </h1>
             </div>
@@ -146,7 +146,7 @@ export default {
       const route = this.$route
       if (route.name === 'index') {
         if (route.query.filters === 'enabled') {
-          if (this.selectedFilters.length) {
+          if (this.selectedFilters.length || this.filterValue !== '') {
             return 'filters-applied'
           } else {
             return 'filters-view'
