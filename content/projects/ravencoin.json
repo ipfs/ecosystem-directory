@@ -1,0 +1,100 @@
+{
+    "display": true,
+    "featured": false,
+    "sortNumbers": [
+      {
+        "since": 2018
+      }
+    ],
+    "logo": {
+      "icon": "ravencoin-rvn-logo.svg",
+      "full": "ravencoin-logo-wide-sm.png"
+    },
+    "name": "Ravencoin",
+    "org": [
+      "Raven Project"
+    ],
+    "description": {
+      "short": "Bitcoin fork for issuing and transferring securities or collectibles",
+      "long": "Ravencoin is a protocol based on a fork of the Bitcoin code, adding features specifically focused on allowing tokens to be issued on the Ravencoin blockchain. These tokens can have whatever properties the issuer of the token decides — for example, they can be limited in quantity or named and issued as securities or collectibles."
+    },
+    "primaryCta": {
+      "url": "//ravencoin.org",
+      "text": "Project Website"
+    },
+    "links": [
+      {
+        "label": "Website",
+        "links": [
+          {
+            "url": "//ravencoin.org",
+            "text": "ravencoin.org"
+          }
+        ]
+      },
+      {
+        "label": "Repo",
+        "links": [
+          {
+            "url": "//github.com/RavenProject",
+            "text": "github.com/RavenProject"
+          }
+        ]
+      }
+    ],
+    "keyInfo": [
+      {
+        "label": "Using IPFS since",
+        "value": "2018"
+      }
+    ],
+    "video": "",
+    "stats": [
+      {
+        "label": "",
+        "value": ""
+      },
+      {
+        "label": "",
+        "value": ""
+      },
+      {
+        "label": "",
+        "value": ""
+      }
+    ],
+    "ctaCard": {
+      "title": "Whitepapers & roadmaps",
+      "description": "Read the Ravencoin whitepapers and stay abreast of roadmap developments.",
+      "buttonText": "Learn more",
+      "url": "//ravencoin.org/whitepaper"
+    },
+    "taxonomies": [
+      {
+        "slug": "industry",
+        "tags": [
+          "defi"
+        ]
+      },
+      {
+        "slug": "focus",
+        "tags": [
+          "dev-tools",
+          "community-networks"
+        ]
+      },
+      {
+        "slug": "benefits",
+        "tags": [
+          "data-integrity"
+        ]
+      },
+      {
+        "slug": "tooling",
+        "tags": [
+          "http-gateway",
+          "ecosystem-tools"
+        ]
+      }
+    ]
+  }
