@@ -135,7 +135,6 @@ export default {
       segments: this.chartItems,
       measured: false,
       timeOutFunction: null,
-      load: false,
       resize: false
     }
   },
@@ -159,7 +158,6 @@ export default {
   },
 
   beforeDestroy () {
-    if (this.load) { window.removeEventListener('load', this.load) }
     if (this.resize) { window.removeEventListener('resize', this.resize) }
   },
 
