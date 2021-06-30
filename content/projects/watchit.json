@@ -1,0 +1,111 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2017
+  },
+  "logo": {
+    "icon": "watchit.png",
+    "full": "watchit.png"
+  },
+  "name": "Watchit",
+  "org": [
+    "ZorrillosDev"
+  ],
+  "description": {
+    "short": "Decentralized video streaming platform built on IPFS and OrbitDB",
+    "long": "WatchIt decentralizes the way you watch your movies. In short, it is a \"collective entertainment platform\" in which each user consumes movies from the network and at the same time shares movies with other users.."
+  },
+  "primaryCta": {
+    "url": "//watchitapp.site",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//watchitapp.site",
+          "text": "watchitapp.site"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/ZorrillosDev/watchit-app",
+          "text": "github.com/ZorrillosDev/watchit-app"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2019"
+    }
+  ],
+  "video": "//youtube.com/watch?v=DNE7QBplVRo",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "Watchit FAQ",
+    "description": "Frequently Asked Questions",
+    "buttonText": "Read more",
+    "url": "//github.com/ZorrillosDev/watchit-app/blob/v0.1.0/FAQ.md"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "nfts"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "video",
+        "storage-pinning",
+        "file-sharing",
+        "dev-tools",
+        "infrastructure",
+        "streaming",
+        "public-data",
+        "supply-chain"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "couldnt-exist-without-ipfs",
+        "interoperability",
+        "disaster-resilience",
+        "corporate-government-independence",
+        "self-sovereign-data"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs",
+        "js-ipfs",
+        "js-ipfs-https-client",
+        "orbit-db"
+      ]
+    }
+  ]
+}
