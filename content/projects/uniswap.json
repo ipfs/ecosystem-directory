@@ -1,0 +1,100 @@
+{
+    "display": true,
+    "featured": false,
+    "sortNumbers": [
+      {
+        "since": 2019
+      }
+    ],
+    "logo": {
+      "icon": "Uniswap_256x256_App_Icon_Pink.svg",
+      "full": "Uniswap_Lockup_Small_Black.svg"
+    },
+    "name": "Uniswap",
+    "org": [
+      "Uniswap"
+    ],
+    "description": {
+      "short": "Decentralized protocol for automatic liquidity provision on Ethereum",
+      "long": "Uniswap is a protocol for creating liquidity and trading ERC-20 tokens on Ethereum. It eliminates trusted intermediaries and unnecessary forms of rent extraction, allowing for fast, efficient trading."
+    },
+    "primaryCta": {
+      "url": "//uniswap.org",
+      "text": "Project Website"
+    },
+    "links": [
+      {
+        "label": "Website",
+        "links": [
+          {
+            "url": "//uniswap.org",
+            "text": "uniswap.org"
+          }
+        ]
+      },
+      {
+        "label": "Repo",
+        "links": [
+          {
+            "url": "//github.com/Uniswap",
+            "text": "github.com/Uniswap"
+          }
+        ]
+      }
+    ],
+    "keyInfo": [
+      {
+        "label": "Using IPFS since",
+        "value": "2019"
+      }
+    ],
+    "video": "",
+    "stats": [
+      {
+        "label": "",
+        "value": ""
+      },
+      {
+        "label": "",
+        "value": ""
+      },
+      {
+        "label": "",
+        "value": ""
+      }
+    ],
+    "ctaCard": {
+      "title": "Uniswap Interface + IPFS",
+      "description": "Learn how Uniswap uses IPFS to empower its community to host the Uniswap Interface",
+      "buttonText": "Read more",
+      "url": "//uniswap.org/blog/ipfs-uniswap-interface"
+    },
+    "taxonomies": [
+      {
+        "slug": "industry",
+        "tags": [
+          "defi"
+        ]
+      },
+      {
+        "slug": "focus",
+        "tags": [
+          "dev-tools"
+        ]
+      },
+      {
+        "slug": "benefits",
+        "tags": [
+          "data-integrity",
+          "interoperability"
+        ]
+      },
+      {
+        "slug": "tooling",
+        "tags": [
+          "ecosystem-tools",
+          "http-gateway"
+        ]
+      }
+    ]
+  }

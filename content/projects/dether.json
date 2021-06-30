@@ -1,0 +1,99 @@
+{
+    "display": true,
+    "featured": false,
+    "sortNumbers": [
+      {
+        "since": 2018
+      }
+    ],
+    "logo": {
+      "icon": "dether-icon.png",
+      "full": "dether-logo-blue_3cc78528.svg"
+    },
+    "name": "Dether",
+    "org": [
+      "Dether"
+    ],
+    "description": {
+      "short": "Mobile, peer-to-peer cash-to-crypto marketplace",
+      "long": "Dether is a mobile-based cash-to-crypto app connecting geographically nearby buyers and sellers."
+    },
+    "primaryCta": {
+      "url": "//dether.io",
+      "text": "Project Website"
+    },
+    "links": [
+      {
+        "label": "Website",
+        "links": [
+          {
+            "url": "//dether.io",
+            "text": "dether.io"
+          }
+        ]
+      },
+      {
+        "label": "Repo",
+        "links": [
+          {
+            "url": "//github.com/dethertech",
+            "text": "github.com/dethertech"
+          }
+        ]
+      }
+    ],
+    "keyInfo": [
+      {
+        "label": "Using IPFS since",
+        "value": "2018"
+      }
+    ],
+    "video": "",
+    "stats": [
+      {
+        "label": "",
+        "value": ""
+      },
+      {
+        "label": "",
+        "value": ""
+      },
+      {
+        "label": "",
+        "value": ""
+      }
+    ],
+    "ctaCard": {
+      "title": "Dether + IPFS",
+      "description": "Learn how the Dether team built a decentralized in-app chat feature using IPFS.",
+      "buttonText": "Read more",
+      "url": "//medium.com/dether/building-a-decentralized-chat-client-using-ipfs-2bcf5812e9d8"
+    },
+    "taxonomies": [
+      {
+        "slug": "industry",
+        "tags": [
+          "defi"
+        ]
+      },
+      {
+        "slug": "focus",
+        "tags": [
+          "mobile"
+        ]
+      },
+      {
+        "slug": "benefits",
+        "tags": [
+          "corporate-government-independence"
+        ]
+      },
+      {
+        "slug": "tooling",
+        "tags": [
+          "ecosystem-tools",
+          "js-ipfs"
+        ]
+      }
+    ]
+  }
