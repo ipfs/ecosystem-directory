@@ -39,7 +39,7 @@ function ecodir_vueLoaded(e) {
 
     if (instances.length) {
       if (loadTimer) clearInterval(loadTimer)
-      instances.forEach(el => ecodir_initDirectory(el))  
+      instances.forEach(el => ecodir_initDirectory(el))
     } else {
       if (!loadTimer) loadTimer = setInterval(loadView, 1000)
     }
@@ -55,7 +55,7 @@ function ecodir_vueLoaded(e) {
 function ecodir_unsupportedVueVersion() {
   document.querySelectorAll(`${ecodir_targetEl}`).forEach(el => {
     const blockSectionsHTML = count => new Array(count).fill(0).map(() => `<div class="ecodir_error-block-section"></div>`).join('')
-    
+
     el.innerHTML = `
     <div class="ecodir_error-unsupported">
       ${blockSectionsHTML(6)}
@@ -144,7 +144,7 @@ function ecodir_initDirectory(el) {
         this.$parent.setActiveProject(slug)
       },
       setSliderPosition () {
-        this.left = (this.currentIndex / -2) * this.cardWidth
+        this.left = (-1 * this.currentIndex) * this.cardWidth
       }
     },
     computed: {
@@ -198,7 +198,7 @@ function ecodir_initDirectory(el) {
             type="range"
             step="0.1"
             :min="indices / 2"
-            :max="indices * indices + 1">
+            :max="Math.ceil((indices * indices) / 2) + 1">
         </div>
 
       </div>
