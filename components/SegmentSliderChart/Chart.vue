@@ -48,7 +48,7 @@
             <div
               v-else
               class="segment-line avoid-me"
-              :style="`top: ${segH + 6}px; height: ${Math.abs(item.pos) - item.labelHeight - 6}px`">
+              :style="`top: ${segH + 6}px; height: ${Math.abs(item.pos) - 26}px`">
             </div>
 
           </template>
@@ -232,32 +232,43 @@ export default {
       }
       return next()
     },
-    reduceOffset (amt, next) {
-      const labels = document.getElementsByClassName('segment-label')
-      for (let i = 0; i < this.segments.length; i++) {
-        const overlaps = []
-        const dir = this.segments[i].above ? amt : (-1 * amt)
-        for (let j = 0; j < this.segments.length; j++) {
-          if (labels[i] && labels[j] && j !== i) {
-            overlaps.push(doNotOverlap(labels[i], labels[j], dir))
+    reduceOffset (amt, repeats, next) {
+      if (repeats > 0) {
+        const labels = document.getElementsByClassName('segment-label')
+        for (let i = 0; i < this.segments.length; i++) {
+          const overlaps = []
+          const dir = this.segments[i].above ? amt : (-1 * amt)
+          for (let j = 0; j < this.segments.length; j++) {
+            if (labels[i] && labels[j] && j !== i) {
+              overlaps.push(doNotOverlap(labels[i], labels[j], dir))
+            }
+          }
+          if (overlaps.every(Boolean)) {
+            this.segments[i].pos = Math.min(this.segments[i].pos + amt, -20 - this.segments[i].labelHeight)
           }
         }
-        if (overlaps.every(Boolean)) {
-          this.segments[i].pos = Math.min(this.segments[i].pos + amt, -20 - this.segments[i].labelHeight)
-        }
+        const num = repeats - 1
+        window.requestAnimationFrame(() => { this.reduceOffset(amt, num, next) })
+      } else {
+        next()
       }
-      return next()
     },
     dropOverLappingLabels () {
       const labels = document.getElementsByClassName('segment-label')
       const targets = document.getElementsByClassName('avoid-me')
+      const overlaps = []
       for (let i = 0; i < labels.length; i++) {
         for (let j = 0; j < targets.length; j++) {
           if (!doNotOverlap(labels[i], targets[j], 0) && targets[j] !== labels[i]) {
-            removeMatchingLabel(this, labels[i].innerText)
+            overlaps.push(i)
             break
           }
         }
+      }
+      if (overlaps.length) {
+        const ind = overlaps.pop()
+        removeMatchingLabel(this, labels[ind].innerText)
+        window.requestAnimationFrame(this.dropOverLappingLabels)
       }
     },
     handleResize () {
@@ -273,24 +284,9 @@ export default {
         this.segments[i].pos = this.segments[i].offset - 10
         this.segments[i].display = true
       }
-
-      this.reduceOffset(12, () => {
-        setTimeout(() => {
-          this.reduceOffset(12, () => {
-            setTimeout(() => {
-              this.reduceOffset(12, () => {
-                setTimeout(() => {
-                  this.reduceOffset(12, () => {
-                    setTimeout(() => {
-                      this.dropOverLappingLabels()
-                      this.$emit('chart-mounted')
-                    }, 50)
-                  })
-                }, 50)
-              })
-            }, 50)
-          })
-        }, 50)
+      this.reduceOffset(12, 4, () => {
+        this.dropOverLappingLabels()
+        this.$emit('chart-mounted')
       })
     }
   }
