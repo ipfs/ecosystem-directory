@@ -12,7 +12,7 @@ _(in the future this readme may be split into multiple Github wiki files)_
 
 This repo is currently deployed to Fleek on the following URLs:
 
-`main` branch: https://ipfs-ecosystem.on.fleek.co/
+`main` branch: https://ecosystem.ipfs.io/
 `develop` branch: https://ipfs-ecosystem-develop.on.fleek.co/
 
 Pushes made to the `main` or `develop` branches of this repo will automatically be reflected in the URLs above. Please allow 2-5 minutes for the application to re-build before seeing changes in your browser.
@@ -21,6 +21,8 @@ Pushes made to the `main` or `develop` branches of this repo will automatically 
 ### Server
 
 **Ports**
+
+These apply to local development.
 
 ```
 development: 20000
@@ -57,7 +59,7 @@ $ cd ecosystem-directory
 
 # Add your user information
 $ git config user.name "Your Name"
-$ git config user.email "your.email@agencyundone.com"
+$ git config user.email "your.email@ipfs.io"
 
 # Install npm dependencies
 $ npm ci
