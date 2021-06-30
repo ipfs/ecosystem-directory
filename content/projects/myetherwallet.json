@@ -1,0 +1,100 @@
+{
+    "display": true,
+    "featured": false,
+    "sortNumbers": [
+      {
+        "since": 2018
+      }
+    ],
+    "logo": {
+      "icon": "mew-icon.png",
+      "full": "mew-logo-dark.png"
+    },
+    "name": "MyEtherWallet",
+    "org": [
+      "MyEtherWallet"
+    ],
+    "description": {
+      "short": "Client-side interface for working with the Ethereum blockchain",
+      "long": "MyEtherWallet (MEW) is a free, client-side interface helping developers and others interact with the Ethereum blockchain. The easy-to-use, open-source platform enables generating wallets, interacting with smart contracts, and more."
+    },
+    "primaryCta": {
+      "url": "//myetherwallet.com",
+      "text": "Project Website"
+    },
+    "links": [
+      {
+        "label": "Website",
+        "links": [
+          {
+            "url": "//myetherwallet.com",
+            "text": "myetherwallet.com"
+          }
+        ]
+      },
+      {
+        "label": "Repo",
+        "links": [
+          {
+            "url": "//github.com/myetherwallet",
+            "text": "github.com/myetherwallet"
+          }
+        ]
+      }
+    ],
+    "keyInfo": [
+      {
+        "label": "Using IPFS since",
+        "value": "2018"
+      }
+    ],
+    "video": "//youtube.com/watch?v=iumgxyz4mqA",
+    "stats": [
+      {
+        "label": "",
+        "value": ""
+      },
+      {
+        "label": "",
+        "value": ""
+      },
+      {
+        "label": "",
+        "value": ""
+      }
+    ],
+    "ctaCard": {
+      "title": "Host your own website with MEW",
+      "description": "Learn about MyEtherWallet's IPFS support for .eth and .crypto domains.",
+      "buttonText": "Read more",
+      "url": "//medium.com/myetherwallet/host-your-own-site-with-mew-introducing-ipfs-support-for-eth-and-crypto-domains-903ea852f2d7"
+    },
+    "taxonomies": [
+      {
+        "slug": "industry",
+        "tags": [
+          "defi"
+        ]
+      },
+      {
+        "slug": "focus",
+        "tags": [
+          "dev-tools",
+          "web-hosting-publishing"
+        ]
+      },
+      {
+        "slug": "benefits",
+        "tags": [
+          "corporate-government-independence",
+          "data-integrity"
+        ]
+      },
+      {
+        "slug": "tooling",
+        "tags": [
+          "ecosystem-tools"
+        ]
+      }
+    ]
+  }
