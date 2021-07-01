@@ -51,7 +51,7 @@ function ecodir_vueLoaded(e) {
 function ecodir_unsupportedVueVersion() {
   document.querySelectorAll(`${ecodir_targetEl}`).forEach(el => {
     const blockSectionsHTML = count => new Array(count).fill(0).map(() => `<div class="ecodir_error-block-section"></div>`).join('')
-    
+
     el.innerHTML = `
     <div class="ecodir_error-unsupported">
       ${blockSectionsHTML(6)}
@@ -238,7 +238,7 @@ function ecodir_initDirectory(el) {
             type="range"
             step="0.1"
             :min="indices / 2"
-            :max="indices * indices + 1">
+            :max="Math.ceil((indices * indices) / 2) + 1">
         </div>
 
       </div>
