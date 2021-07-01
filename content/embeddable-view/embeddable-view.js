@@ -1,11 +1,16 @@
-const ecodir_host = 'https://bafybeigzjihveep6ij47sq77d3edpc6uzoknk2aih4n265koudwetkofou.on.fleek.co'
-const ecodir_targetEl = '.ipfs-ecosystem-embed'
-const ecodir_theme = 'light';
-const ecodir_loadTimeoutSeconds = 30;
+const ecodir_host = 'INJECT_SETTINGS_HOST'
+const ecodir_targetEl = 'INJECT_SETTINGS_TARGET'
+const ecodir_theme = 'light'
 
 const ecodir_projects = INJECT_PROJECTS_LIST
 
 const ecodir_filters = INJECT_FILTERS
+
+const ecodir_responsive_sizes = {
+  large: 1024,
+  medium: 640,
+  small: 415 
+}
 
 ecodir_loadCSS()
 
@@ -31,25 +36,10 @@ function ecodir_loadVue() {
 function ecodir_vueLoaded(e) {
   if (!ecodir_projects || !ecodir_filters) return ecodir_unsupportedVueVersion()
 
-  let loadTimer = null
-  let elapsedLoadTime = 0
-
-  const loadView = () => {
-    const instances = document.querySelectorAll(`${ecodir_targetEl}`)
-
-    if (instances.length) {
-      if (loadTimer) clearInterval(loadTimer)
-      instances.forEach(el => ecodir_initDirectory(el))  
-    } else {
-      if (!loadTimer) loadTimer = setInterval(loadView, 1000)
-    }
-
-    elapsedLoadTime += 1000
-
-    if (elapsedLoadTime >= ecodir_loadTimeoutSeconds * 1000) clearInterval(loadTimer)
-  }
-
-  loadView()
+  window.addEventListener('DOMContentLoaded', event => {
+    document.querySelectorAll(`${ecodir_targetEl}`)
+      .forEach(el => ecodir_initDirectory(el))
+  })
 }
 
 function ecodir_unsupportedVueVersion() {
@@ -69,13 +59,34 @@ function ecodir_unsupportedVueVersion() {
 
 function ecodir_initDirectory(el) {
   const ecodir_theme = el.dataset.theme || ecodir_theme
+  const ecodir_parentElement = el.parentElement
+  const ecodir_responsive_keys = Object.keys(ecodir_responsive_sizes)
+
+  const ecodir_updateElementClasses = function (el) {
+    const ecodir_parentContainerWidth = ecodir_parentElement.clientWidth
+
+    for(let i in ecodir_responsive_keys) {
+      el.classList.remove(`ecodir_${ecodir_responsive_keys[i]}`)
+    }
+
+    for(let i in ecodir_responsive_keys) {
+      const ecodir_size = ecodir_responsive_keys[i]
+      if(ecodir_parentContainerWidth > ecodir_responsive_sizes[ecodir_size]) {
+        el.classList.add(`ecodir_${ecodir_size}`)
+        break;
+      }
+    }
+  }
+
+  ecodir_updateElementClasses(el);
 
   el.classList.add(`ecosystem-${ecodir_theme}`)
+
   el.innerHTML = `
-    <h2 class="ecodir_heading">Who's using IPFS</h2>
-    <h3 class="ecodir_subheading">Discover projects successfully leveraging IPFS</h3>
+    <h2 class="ecodir_heading">INJECT_SETTINGS_HEADING</h2>
+    <h3 class="ecodir_subheading">INJECT_SETTINGS_SUBHEADING</h3>
     <div class="ecodir_filters">
-      <dropdown name="Filter by:" :options="filterOptions" :callback="filterProjects" ></dropdown>
+      <dropdown name="Filter by:" :options="filterOptions" :callback="filterProjects"></dropdown>
       <dropdown name="Sort by:" :options="sortOptions" :callback="sortProjects"></dropdown>
     </div>
     <div class="ecodir_container">
@@ -96,6 +107,8 @@ function ecodir_initDirectory(el) {
     methods: {
       toggleDropdown () {
         this.open = !this.open
+        if (this.open)
+          this.$parent.$emit('toggle-dropdown', this)
       },
       closeDropdown () {
         this.open = false
@@ -109,6 +122,11 @@ function ecodir_initDirectory(el) {
     },
     created () {
       this.selectOption(this.options[0])
+    },
+    mounted () {
+      this.$parent.$on('toggle-dropdown', target => {
+        if (target !== this) this.open = false
+      })
     },
     template: `
       <div class="ecodir_dropdown-wrapper">
@@ -145,6 +163,17 @@ function ecodir_initDirectory(el) {
       },
       setSliderPosition () {
         this.left = (this.currentIndex / -2) * this.cardWidth
+      },
+      updateSliderDisplay () {
+        const ecodir_sliderEl = this.$el.querySelector('.ecodir_slider')
+        const ecodir_sliderRowEl = this.$el.querySelector('.ecodir_slider-row-container')
+        const ecodir_sliderCardEl = this.$el.querySelector('.ecodir_card')
+        const ecodir_cardWidth = ecodir_sliderCardEl.clientWidth
+        const ecodir_horizontalCardCount = Math.floor(ecodir_sliderEl.clientWidth/ecodir_cardWidth)
+  
+        ecodir_sliderRowEl.style.width = `${ecodir_horizontalCardCount * ecodir_cardWidth}px`
+    
+        this.display = ecodir_horizontalCardCount * 2
       }
     },
     computed: {
@@ -160,6 +189,11 @@ function ecodir_initDirectory(el) {
       indices () {
         return this.projects.length - this.display
       }
+    },
+    mounted () {
+      this.updateSliderDisplay()
+
+      window.addEventListener('resize', this.updateSliderDisplay)
     },
     watch: {
       projects (val) {
@@ -219,8 +253,9 @@ function ecodir_initDirectory(el) {
         <h4 v-if="project.name" class="ecodir_project-title">{{ project.name }}</h4>
         <h5 v-if="org" class="ecodir_project-organization">{{ org }}</h5>
         <p v-if="project.description && project.description.long" class="ecodir_project-description">{{ project.description.long }}</p>
-        <a :href="'${ecodir_host}/project/' + project.slug" class="ecodir_project-link" target="_blank">Learn More ${ecodir_caret_svg()}</a>
-        <a href="${ecodir_host}" class="ecodir_project-home-link" target="_blank">View the entire ecosystem</a>
+        <a :href="'${ecodir_host}/project/' + project.slug" class="ecodir_project-link" target="_blank">INJECT_SETTINGS_PROJECT_LINK ${ecodir_caret_svg()}</a>
+        <br/>
+        <a href="${ecodir_host}" class="ecodir_project-home-link" target="_blank">INJECT_SETTINGS_ECOSYSTEM_LINK</a>
       </div>
     `
   }
@@ -236,7 +271,7 @@ function ecodir_initDirectory(el) {
       }
       el.pressEscKey = function (e) {
         if (e.defaultPrevented) { return }
-        const key = e.key || event.keyCode
+        const key = e.key || e.keyCode
         if (key === 'Escape' || key === 'Esc' || key === 27) vm[funcName](e)
       }
       document.body.addEventListener('click', el.clickOutsideEvent)
@@ -257,16 +292,20 @@ function ecodir_initDirectory(el) {
       'slider': sliderComponent
     },
     data: {
-      filterOptions: [{ label: 'All', value: 'all' }].concat(ecodir_filters),
+      filterOptions: [{ label: 'INJECT_SETTINGS_FILTER_ALL', value: 'all' }].concat(ecodir_filters),
       sortOptions: [
-        { label: 'Alphabetical (A-Z)', value: 'alphabetical-asc'},
-        { label: 'Alphabetical (Z-A)', value: 'alphabetical-desc'},
-        { label: 'Time on IPFS (newer)', value: 'since-asc'},
-        { label: 'Time on IPFS (older)', value: 'since-desc'}
+        { label: 'INJECT_SETTINGS_SORT_A_Z', value: 'alphabetical-asc'},
+        { label: 'INJECT_SETTINGS_SORT_Z_A', value: 'alphabetical-desc'},
+        { label: 'INJECT_SETTINGS_SORT_DATE_ASC', value: 'since-asc'},
+        { label: 'INJECT_SETTINGS_SORT_DATE_DESC', value: 'since-desc'}
       ],
       activeSort: 'alphabetical-asc',
+      activeDropdown: null,
       projects: ecodir_projects,
       project: ecodir_projects[0]
+    },
+    mounted () {
+      window.addEventListener('resize', this.updateResponsiveClass)
     },
     methods: {
       setActiveProject (slug) {
@@ -296,13 +335,13 @@ function ecodir_initDirectory(el) {
             break
           case 'since-asc':
             this.projects = this.projects.sort((a, b) => {
-              if(!a.sortNumbers || !a.sortNumbers.since || !b.sortNumbers || !b.sortNumbers.since) return
+              if (!a.sortNumbers || !a.sortNumbers.since || !b.sortNumbers || !b.sortNumbers.since) return
               return b.sortNumbers.since - a.sortNumbers.since
             })
             break
           case 'since-desc':
             this.projects = this.projects.sort((a, b) => {
-              if(!a.sortNumbers || !a.sortNumbers.since || !b.sortNumbers || !b.sortNumbers.since) return
+              if (!a.sortNumbers || !a.sortNumbers.since || !b.sortNumbers || !b.sortNumbers.since) return
               return a.sortNumbers.since - b.sortNumbers.since
             })
             break
@@ -311,6 +350,9 @@ function ecodir_initDirectory(el) {
         }
         this.activeSort = criteria
         this.setActiveProject(this.projects[0].slug)
+      },
+      updateResponsiveClass () {
+        ecodir_updateElementClasses(this.$el)
       }
     }
   })

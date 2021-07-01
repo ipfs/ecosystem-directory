@@ -92,16 +92,30 @@ const generateTaxonomyListFile = async (slug, activeFilters) => {
 */
 const generateEmbeddableViewFile = async (slugs) => {
   try {
+    const settings = JSON.parse(await Fs.readFileSync(`${paths.embeddable_view}/embeddable-view-settings.json`, 'utf8'))
     const projectList = await generateProjectListFile(slugs)
     const taxonomyList = await generateTaxonomyListFile('industry', projectList.activeFilters)
     const embeddableCSS = await Fs.readFileSync(`${paths.embeddable_view}/embeddable-view.min.css`, 'utf8')
     const vueJS = await Fs.readFileSync(`${paths.embeddable_view}/vue.2.6.14.min.js`, 'utf8')
+    
     let embeddableView = await Fs.readFileSync(`${paths.embeddable_view}/embeddable-view.js`, 'utf8')
 
     embeddableView = embeddableView.replace('INJECT_PROJECTS_LIST', JSON.stringify(projectList.data))
     embeddableView = embeddableView.replace('INJECT_FILTERS', JSON.stringify(taxonomyList))
     embeddableView = embeddableView.replace('INJECT_PROJECTS_STYLES', embeddableCSS)
     embeddableView = embeddableView.replace('INJECT_VUE_SCRIPT', vueJS)
+
+    embeddableView = embeddableView.replace(/INJECT_SETTINGS_HOST/g, settings.host)
+    embeddableView = embeddableView.replace(/INJECT_SETTINGS_TARGET/g, settings.target)
+    embeddableView = embeddableView.replace(/INJECT_SETTINGS_HEADING/g, settings.copy.heading)
+    embeddableView = embeddableView.replace(/INJECT_SETTINGS_SUBHEADING/g, settings.copy.subheading)
+    embeddableView = embeddableView.replace(/INJECT_SETTINGS_PROJECT_LINK/g, settings.copy.project_link)
+    embeddableView = embeddableView.replace(/INJECT_SETTINGS_ECOSYSTEM_LINK/g, settings.copy.ecosystem_link)
+    embeddableView = embeddableView.replace(/INJECT_SETTINGS_FILTER_ALL/g, settings.copy.filter_all)
+    embeddableView = embeddableView.replace(/INJECT_SETTINGS_SORT_A_Z/g, settings.copy.sort_a_z)
+    embeddableView = embeddableView.replace(/INJECT_SETTINGS_SORT_Z_A/g, settings.copy.sort_z_a)
+    embeddableView = embeddableView.replace(/INJECT_SETTINGS_SORT_DATE_ASC/g, settings.copy.sort_date_asc)
+    embeddableView = embeddableView.replace(/INJECT_SETTINGS_SORT_DATE_DESC/g, settings.copy.sort_date_desc)
 
     return embeddableView
   } catch (e) {
