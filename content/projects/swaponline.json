@@ -1,0 +1,99 @@
+{
+    "display": true,
+    "featured": false,
+    "sortNumbers": [
+      {
+        "since": 2018
+      }
+    ],
+    "logo": {
+      "icon": "swaponline-logo.svg",
+      "full": "swaponline-logo.svg"
+    },
+    "name": "SwapOnline",
+    "org": [
+      "SwapOnline"
+    ],
+    "description": {
+      "short": "Simple online interface to access blockchains and use cryptocurrencies",
+      "long": "No-registration-needed wallet and cross-chain swaps from a simple online interface."
+    },
+    "primaryCta": {
+      "url": "//swaponline.io",
+      "text": "Project Website"
+    },
+    "links": [
+      {
+        "label": "Website",
+        "links": [
+          {
+            "url": "//swaponline.io",
+            "text": "swaponline.io"
+          }
+        ]
+      },
+      {
+        "label": "Repo",
+        "links": [
+          {
+            "url": "//github.com/swaponline",
+            "text": "github.com/swaponline"
+          }
+        ]
+      }
+    ],
+    "keyInfo": [
+      {
+        "label": "Using IPFS since",
+        "value": "2018"
+      }
+    ],
+    "video": "//youtube.com/watch?v=1GKilQeBwK0",
+    "stats": [
+      {
+        "label": "",
+        "value": ""
+      },
+      {
+        "label": "",
+        "value": ""
+      },
+      {
+        "label": "",
+        "value": ""
+      }
+    ],
+    "ctaCard": {
+      "title": "SwapOnline's next generation",
+      "description": "Request early access to SwapOnline's new non-custodial multi-currency wallet with cross-chain exchange.",
+      "buttonText": "Learn more",
+      "url": "//swap.io"
+    },
+    "taxonomies": [
+      {
+        "slug": "industry",
+        "tags": [
+          "defi"
+        ]
+      },
+      {
+        "slug": "focus",
+        "tags": [
+          ""
+        ]
+      },
+      {
+        "slug": "benefits",
+        "tags": [
+          "corporate-government-independence",
+          "data-integrity"
+        ]
+      },
+      {
+        "slug": "tooling",
+        "tags": [
+          "js-ipfs"
+        ]
+      }
+    ]
+  }
