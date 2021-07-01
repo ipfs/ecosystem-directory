@@ -268,6 +268,12 @@ export default {
 
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
+.page {
+  @include small {
+    position: relative;
+  }
+}
+
 .heading {
   @include fontSize_ExtraMediumLarge;
   margin-bottom: 0.75rem;

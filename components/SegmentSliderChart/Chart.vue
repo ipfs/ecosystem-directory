@@ -80,13 +80,11 @@ const calculateSegmentAndLabelPositions = (instance) => {
   const labels = document.querySelectorAll('.measure')
   const segments = document.querySelectorAll('.block-segment')
 
-  const arr = []
   const ordered = []
   for (let i = 0; i < labels.length; i++) {
     const score = -1 * ((segments[i].offsetWidth / 2) - labels[i].offsetWidth)
     instance.segments[i].labelHeight = labels[i].offsetHeight
     instance.segments[i].score = score
-    arr.push(score)
   }
 
   const ascending = CloneDeep(instance.segments)
@@ -98,31 +96,21 @@ const calculateSegmentAndLabelPositions = (instance) => {
     ascending[i].offset = (25 + ascending[i].score) * -1
   }
 
-  for (let i = 0; i < labels.length; i++) {
-    if (i % 2 === 1) {
-      const min = Math.min(...arr)
-      for (let j = 0; j < ascending.length; j++) {
-        if (min === ascending[j].score) {
-          ordered.push(CloneDeep(ascending[j]))
-          break
-        }
-      }
-      arr.splice(arr.indexOf(min), 1)
-    } else {
-      const max = Math.max(...arr)
-      for (let j = 0; j < ascending.length; j++) {
-        if (max === ascending[j].score) {
-          ordered.push(CloneDeep(ascending[j]))
-          break
-        }
-      }
-      arr.splice(arr.indexOf(max), 1)
+  const l = ascending.length
+  const s = Math.ceil(l / 2)
+
+  for (let i = 0; i < s; i++) {
+    ordered.push(ascending[l - i - 1])
+    if (i !== l - i - 1) {
+      ordered.push(ascending[i])
     }
   }
 
+  ordered.reverse()
   instance.measured = true
-  instance.segments = ordered.reverse()
-  instance.setSegmentCollection(CloneDeep(instance.segments))
+  instance.segments = ordered
+  const col = CloneDeep(instance.segments)
+  instance.setSegmentCollection(col)
   handleLoad(instance)
 }
 
@@ -147,7 +135,6 @@ export default {
       segments: this.chartItems,
       measured: false,
       timeOutFunction: null,
-      load: false,
       resize: false
     }
   },
@@ -166,15 +153,11 @@ export default {
 
   mounted () {
     calculateSegmentAndLabelPositions(this)
-    console.log(this.segments)
-    // this.load = () => { handleLoad(this) }
-    // window.addEventListener('load', this.load)
     this.resize = () => { initResize(this) }
     window.addEventListener('resize', this.resize)
   },
 
   beforeDestroy () {
-    if (this.load) { window.removeEventListener('load', this.load) }
     if (this.resize) { window.removeEventListener('resize', this.resize) }
   },
 
@@ -274,13 +257,13 @@ export default {
         this.segments[i].display = true
       }
 
-      this.reduceOffset(10, () => {
+      this.reduceOffset(12, () => {
         setTimeout(() => {
-          this.reduceOffset(10, () => {
+          this.reduceOffset(12, () => {
             setTimeout(() => {
-              this.reduceOffset(10, () => {
+              this.reduceOffset(12, () => {
                 setTimeout(() => {
-                  this.reduceOffset(10, () => {
+                  this.reduceOffset(12, () => {
                     setTimeout(() => {
                       this.dropOverLappingLabels()
                       this.$emit('chart-mounted')
