@@ -1,5 +1,7 @@
 <template>
-  <div id="project-view-container">
+  <div
+    id="project-view-container"
+    ref="projectViewContainer">
 
     <!-- /////////////////////////////////////////////////////////// Toolbar -->
     <section id="section-toolbar">
@@ -161,7 +163,8 @@ export default {
   data () {
     return {
       panelHeight: false,
-      listViewActive: false
+      listViewActive: false,
+      scroll: false
     }
   },
 
@@ -172,7 +175,8 @@ export default {
       projects: 'projects/projects',
       filterPanelOpen: 'filters/filterPanelOpen',
       filterValue: 'core/filterValue',
-      collection: 'core/collection'
+      collection: 'core/collection',
+      filterButtonFloating: 'global/filterButtonFloating'
     }),
     sortedCollection () {
       return this.collection.array
@@ -236,13 +240,39 @@ export default {
       }
     }
     clearPanelHeight(this)
+    const scroll = () => {
+      const projectViewContainer = this.$refs.projectViewContainer
+      const bottom = projectViewContainer.getBoundingClientRect().bottom
+      const top = projectViewContainer.parentNode.getBoundingClientRect().top
+      // console.log(top, window.innerHeight, window.innerHeight + (window.innerWidth * 0.041665) + 36)
+      const filterButtonFloating = this.filterButtonFloating
+      const offset = window.innerWidth <= 640 ? (window.innerWidth * 0.041665) + 84 - 16 : 0
+      // console.log(window.innerHeight, top + (window.innerWidth * 0.041665) * 2 + 36, bottom, window.innerHeight + offset)
+      if (window.innerHeight < top + (window.innerWidth * 0.041665) * 2 + 36 && filterButtonFloating !== 'top') {
+        // console.log('A')
+        this.setFilterButtonFloating('top')
+      } else if (window.innerHeight >= top + (window.innerWidth * 0.041665) * 2 + 36 && bottom >= window.innerHeight + offset && filterButtonFloating !== 'middle') {
+        // console.log('B')
+        this.setFilterButtonFloating('middle')
+      } else if (bottom < window.innerHeight + offset && filterButtonFloating !== 'bottom') {
+        // console.log('C')
+        this.setFilterButtonFloating('bottom')
+      }
+    }; scroll()
+    this.scroll = this.$throttle(scroll, 10)
+    window.addEventListener('scroll', this.scroll)
+  },
+
+  beforeDestroy () {
+    if (this.scroll) { window.removeEventListener('scroll', this.scroll) }
   },
 
   methods: {
     ...mapActions({
       setRouteQuery: 'filters/setRouteQuery',
       setTotalFilters: 'filters/setTotalFilters',
-      setFilterPanelOpen: 'filters/setFilterPanelOpen'
+      setFilterPanelOpen: 'filters/setFilterPanelOpen',
+      setFilterButtonFloating: 'global/setFilterButtonFloating'
     }),
     toggleFilterPanel (forceOpen) {
       this.setFilterPanelOpen(!this.filterPanelOpen)
@@ -406,6 +436,9 @@ $paginateRoot_PaddingOffset: 3.5rem;
   @include small {
     width: 100%;
   }
+  @include mini {
+    margin-bottom: 4.1665vw;
+  }
 }
 
 .paginate-root {
@@ -440,16 +473,25 @@ $paginateRoot_PaddingOffset: 3.5rem;
   justify-content: center;
   align-items: center;
   margin-top: 2rem;
-  @include mini {
+  @include small {
     flex-direction: column;
+    align-items: flex-end;
+    padding: 0 calc(4.1665vw + 0.5rem);
+  }
+  @include mini {
+    align-items: flex-start;
+    margin-top: 4rem;
   }
 }
 
 .pagination-controls {
   margin-right: 3rem;
-  @include mini {
+  @include small {
     margin-right: 0;
-    margin-bottom: 1rem;
+    margin-bottom: 0rem;
+  }
+  @include mini {
+    margin-bottom: 0.5rem;
   }
 }
 </style>
