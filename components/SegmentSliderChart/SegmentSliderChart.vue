@@ -10,7 +10,7 @@
       <Slider
         v-if="chartItems"
         :selected-seg="selected"
-        :parent-category="parentCategory"
+        :parent-category="primaryCategory.slug"
         :container-height="containerHeight"
         @update-slider="setSliderContent" />
 
@@ -37,42 +37,30 @@ import Chart from '@/components/SegmentSliderChart/Chart.vue'
 
 // =================================================================== Functions
 const loadTaxonomies = (instance) => {
-  const industry = {}
-  const tax = instance.siteContent.taxonomy.categories
-  let categories
-  for (let i = 0; i < tax.length; i++) {
-    if (tax[i].label === 'Industry') {
-      categories = tax[i].tags
-    }
-  }
+  const primary = {}
+  const categories = instance.primaryCategory.tags
   for (let i = 0; i < categories.length; i++) {
     const key = categories[i].slug
-    industry[key] = {
+    primary[key] = {
       label: categories[i].label,
       description: categories[i].description
     }
     if (categories[i].hasOwnProperty('position')) {
       if (categories[i].position === 'first' || categories[i].position === 'last') {
-        industry[key].priority = categories[i].position
+        primary[key].priority = categories[i].position
       } else {
-        industry[key].priority = false
+        primary[key].priority = false
       }
     } else {
-      industry[key].priority = false
+      primary[key].priority = false
     }
   }
-  return industry
+  return primary
 }
 
 const initCategoryLogos = (instance) => {
   const logos = {}
-  const tax = instance.siteContent.taxonomy.categories
-  let categories
-  for (let i = 0; i < tax.length; i++) {
-    if (tax[i].label === 'Industry') {
-      categories = tax[i].tags
-    }
-  }
+  const categories = instance.primaryCategory.tags
   for (let i = 0; i < categories.length; i++) {
     logos[categories[i].slug] = []
   }
@@ -82,17 +70,22 @@ const initCategoryLogos = (instance) => {
 const createLabels = (instance, projects) => {
   const tags = []
   const len = projects.length
-  const industry = loadTaxonomies(instance)
+  const primary = loadTaxonomies(instance)
   const logos = initCategoryLogos(instance)
 
   for (let i = 0; i < len; i++) {
-    const industryTags = projects[i].taxonomies[0].tags
-    if (Array.isArray(industryTags)) {
-      for (let j = 0; j < industryTags.length; j++) {
-        if (typeof projects[i].logo.icon === 'string') {
-          logos[industryTags[j]].push(projects[i].logo.icon)
+    const projectTaxonomy = projects[i].taxonomies.find(category => category.slug === instance.primaryCategory.slug)
+    if (projectTaxonomy.hasOwnProperty('tags')) {
+      const primaryTags = projectTaxonomy.tags
+      if (Array.isArray(primaryTags)) {
+        for (let j = 0; j < primaryTags.length; j++) {
+          if (typeof projects[i].logo.icon === 'string' && logos.hasOwnProperty(primaryTags[j])) {
+            if (!logos[primaryTags[j]].includes(projects[i].logo.icon)) {
+              logos[primaryTags[j]].push(projects[i].logo.icon)
+            }
+          }
+          tags.push(primaryTags[j])
         }
-        tags.push(industryTags[j])
       }
     }
   }
@@ -103,11 +96,11 @@ const createLabels = (instance, projects) => {
     const len = categories.length
     for (let i = 0; i < len; i++) {
       const category = categories[i]
-      if (industry.hasOwnProperty(category)) {
+      if (primary.hasOwnProperty(category)) {
         let count = 0
         let selection = []
-        const label = industry[category].label
-        const description = industry[category].description
+        const label = primary[category].label
+        const description = primary[category].description
         const l = label.split('').length
         const icons = logos[category]
 
@@ -133,8 +126,8 @@ const createLabels = (instance, projects) => {
           logos: selection,
           display: false
         }
-        if (industry[category].priority) {
-          obj.priority = industry[category].priority
+        if (primary[category].priority) {
+          obj.priority = primary[category].priority
         }
         items.push(obj)
       }
@@ -158,7 +151,8 @@ export default {
     return {
       selected: 0,
       containerHeight: 440,
-      segmentChart: false
+      segmentChart: false,
+      primary: 'industry'
     }
   },
 
@@ -174,8 +168,8 @@ export default {
     chartItems () {
       return createLabels(this, this.projects)
     },
-    parentCategory () {
-      return this.siteContent.taxonomy.categories[0].slug
+    primaryCategory () {
+      return this.siteContent.taxonomy.categories.find(category => category.slug === this.primary)
     }
   },
 
