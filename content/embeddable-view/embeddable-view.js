@@ -9,7 +9,7 @@ const ecodir_filters = INJECT_FILTERS
 const ecodir_responsive_sizes = {
   large: 1024,
   medium: 640,
-  small: 415 
+  small: 415
 }
 
 ecodir_loadCSS()
@@ -162,7 +162,7 @@ function ecodir_initDirectory(el) {
         this.$parent.setActiveProject(slug)
       },
       setSliderPosition () {
-        this.left = (this.currentIndex / -2) * this.cardWidth
+        this.left = (-1 * this.currentIndex) * this.cardWidth
       },
       updateSliderDisplay () {
         const ecodir_sliderEl = this.$el.querySelector('.ecodir_slider')
@@ -170,11 +170,11 @@ function ecodir_initDirectory(el) {
         const ecodir_sliderCardEl = this.$el.querySelector('.ecodir_card')
         const ecodir_cardWidth = ecodir_sliderCardEl.clientWidth
         const ecodir_horizontalCardCount = Math.floor(ecodir_sliderEl.clientWidth/ecodir_cardWidth)
-  
+
         ecodir_sliderRowEl.style.width = `${ecodir_horizontalCardCount * ecodir_cardWidth}px`
-    
         this.display = ecodir_horizontalCardCount * 2
-      }
+        this.range = this.indices * Math.min(this.currentIndex, this.indices / 2)
+      },
     },
     computed: {
       projects () {
