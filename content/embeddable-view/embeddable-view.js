@@ -170,6 +170,12 @@ function ecodir_initDirectory(el) {
         const ecodir_sliderCardEl = this.$el.querySelector('.ecodir_card')
         const ecodir_cardWidth = ecodir_sliderCardEl.clientWidth
         const ecodir_horizontalCardCount = Math.floor(ecodir_sliderEl.clientWidth/ecodir_cardWidth)
+        // console.log(ecodir_sliderEl)
+        console.log(ecodir_sliderRowEl.clientWidth + 'ecodir_slider-row-container')
+        // console.log(ecodir_sliderCardEl)
+        console.log(ecodir_sliderEl.clientWidth + 'ecodir_slider')
+        console.log(ecodir_cardWidth + 'ecodir_card')
+        console.log(ecodir_horizontalCardCount)
 
         ecodir_sliderRowEl.style.width = `${ecodir_horizontalCardCount * ecodir_cardWidth}px`
         this.display = ecodir_horizontalCardCount * 2
@@ -191,9 +197,10 @@ function ecodir_initDirectory(el) {
       }
     },
     mounted () {
-      this.updateSliderDisplay()
+      // this.updateSliderDisplay()
 
       window.addEventListener('resize', this.updateSliderDisplay)
+      setTimeout(() => { this.updateSliderDisplay() }, 1000)
     },
     watch: {
       projects (val) {
