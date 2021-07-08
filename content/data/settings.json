@@ -2,8 +2,6 @@
     "nomenclature": {
         "entityTerm": "project",
         "entityTermPlural": "projects",
-        "firstTag": "",
-        "lastTag": "other" 
     },
     "behavior": {
         "primaryCategorySlug": "industry",
