@@ -9,10 +9,8 @@ const ecodir_filters = INJECT_FILTERS
 const ecodir_responsive_sizes = {
   large: 1024,
   medium: 640,
-  small: 415 
+  small: 415
 }
-
-ecodir_loadCSS()
 
 if (typeof Vue !== 'undefined') {
   const version = Vue.version
@@ -22,9 +20,10 @@ if (typeof Vue !== 'undefined') {
   ecodir_loadVue()
 }
 
-function ecodir_loadCSS() {
+function ecodir_loadCSS(callback) {
   const ecodir_css = document.createElement('style')
   ecodir_css.innerHTML = `INJECT_PROJECTS_STYLES`
+  ecodir_css.addEventListener('load', callback)
   document.head.appendChild(ecodir_css)
 }
 
@@ -37,8 +36,10 @@ function ecodir_vueLoaded(e) {
   if (!ecodir_projects || !ecodir_filters) return ecodir_unsupportedVueVersion()
 
   window.addEventListener('DOMContentLoaded', event => {
-    document.querySelectorAll(`${ecodir_targetEl}`)
-      .forEach(el => ecodir_initDirectory(el))
+    ecodir_loadCSS(() => {
+      document.querySelectorAll(`${ecodir_targetEl}`)
+        .forEach(el => ecodir_initDirectory(el))
+    })
   })
 }
 
@@ -162,19 +163,21 @@ function ecodir_initDirectory(el) {
         this.$parent.setActiveProject(slug)
       },
       setSliderPosition () {
-        this.left = (this.currentIndex / -2) * this.cardWidth
+        this.left = (-1 * this.currentIndex) * this.cardWidth
       },
       updateSliderDisplay () {
+        if (!this.$el) return
         const ecodir_sliderEl = this.$el.querySelector('.ecodir_slider')
         const ecodir_sliderRowEl = this.$el.querySelector('.ecodir_slider-row-container')
         const ecodir_sliderCardEl = this.$el.querySelector('.ecodir_card')
         const ecodir_cardWidth = ecodir_sliderCardEl.clientWidth
-        const ecodir_horizontalCardCount = Math.floor(ecodir_sliderEl.clientWidth/ecodir_cardWidth)
-  
+        const ecodir_horizontalCardCount = Math.floor(ecodir_sliderEl.offsetWidth/ecodir_cardWidth)
+
+        this.cardWidth = ecodir_cardWidth
         ecodir_sliderRowEl.style.width = `${ecodir_horizontalCardCount * ecodir_cardWidth}px`
-    
         this.display = ecodir_horizontalCardCount * 2
-      }
+        this.range = this.indices * Math.min(this.currentIndex, this.indices / 2)
+      },
     },
     computed: {
       projects () {
@@ -191,9 +194,8 @@ function ecodir_initDirectory(el) {
       }
     },
     mounted () {
-      this.updateSliderDisplay()
-
       window.addEventListener('resize', this.updateSliderDisplay)
+      this.updateSliderDisplay()
     },
     watch: {
       projects (val) {
