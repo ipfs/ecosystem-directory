@@ -1,0 +1,106 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2017
+  },
+  "logo": {
+    "icon": "watchit.png",
+    "full": "watchit.png"
+  },
+  "name": "Watchit",
+  "org": [
+    "ZorrillosDev"
+  ],
+  "description": {
+    "short": "Decentralized video streaming platform built on IPFS and OrbitDB",
+    "long": "Built using IPFS and OrbitDB, Watchit is a video streaming and playback dApp running as a standalone Electron application."
+  },
+  "primaryCta": {
+    "url": "//watchitapp.site",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//watchitapp.site",
+          "text": "watchitapp.site"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/ZorrillosDev/watchit-app",
+          "text": "github.com/ZorrillosDev/watchit-app"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2019"
+    }
+  ],
+  "video": "",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "Watchit FAQ",
+    "description": "Quick Q-and-A for the most common questions about Watchit.",
+    "buttonText": "Read more",
+    "url": "//github.com/ZorrillosDev/watchit-app/blob/v0.1.0/FAQ.md"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "content-delivery"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "video",
+        "file-sharing",
+        "streaming"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "couldnt-exist-without-ipfs",
+        "interoperability",
+        "disaster-resilience",
+        "corporate-government-independence",
+        "self-sovereign-data"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs",
+        "js-ipfs",
+        "js-ipfs-https-client",
+        "ecosystem-tools"
+      ]
+    }
+  ]
+}
