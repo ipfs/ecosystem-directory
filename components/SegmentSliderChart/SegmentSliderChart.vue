@@ -35,6 +35,8 @@ import { mapGetters } from 'vuex'
 import Slider from '@/components/SegmentSliderChart/Slider.vue'
 import Chart from '@/components/SegmentSliderChart/Chart.vue'
 
+import Settings from '@/content/data/settings.json'
+
 // =================================================================== Functions
 const loadTaxonomies = (instance) => {
   const primary = {}
@@ -45,16 +47,15 @@ const loadTaxonomies = (instance) => {
       label: categories[i].label,
       description: categories[i].description
     }
-    if (categories[i].hasOwnProperty('position')) {
-      if (categories[i].position === 'first' || categories[i].position === 'last') {
-        primary[key].priority = categories[i].position
-      } else {
-        primary[key].priority = false
-      }
-    } else {
-      primary[key].priority = false
-    }
   }
+
+  if (primary.hasOwnProperty(Settings.behavior.firstTag)) {
+    primary[Settings.behavior.firstTag].priority = 'first'
+  }
+  if (primary.hasOwnProperty(Settings.behavior.lastTag)) {
+    primary[Settings.behavior.lastTag].priority = 'last'
+  }
+
   return primary
 }
 
@@ -126,7 +127,7 @@ const createLabels = (instance, projects) => {
           logos: selection,
           display: false
         }
-        if (primary[category].priority) {
+        if (primary[category].hasOwnProperty('priority')) {
           obj.priority = primary[category].priority
         }
         items.push(obj)
@@ -151,8 +152,7 @@ export default {
     return {
       selected: 0,
       containerHeight: 440,
-      segmentChart: false,
-      primary: 'industry'
+      segmentChart: false
     }
   },
 
@@ -169,7 +169,7 @@ export default {
       return createLabels(this, this.projects)
     },
     primaryCategory () {
-      return this.siteContent.taxonomy.categories.find(category => category.slug === this.primary)
+      return this.siteContent.taxonomy.categories.find(category => category.slug === Settings.behavior.primaryCategorySlug)
     }
   },
 
