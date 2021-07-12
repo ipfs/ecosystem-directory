@@ -137,6 +137,7 @@ const mutations = {
     append2URL(state, router)
   },
   SET_ROUTE_QUERY (state, payload) {
+    if (payload.key !== 'page') { state.routeQuery.page = 1 }
     state.routeQuery[payload.key] = payload.data
     const router = this.$router
     append2URL(state, router)
