@@ -82,7 +82,7 @@ import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/Featured
 import ProjectView from '@/components/ProjectView/ProjectView'
 
 // =================================================================== Functions
-const parseURLParams = (instance) => {
+const parseURLParams = (instance, next) => {
   const cloned = CloneDeep(instance.$route.query)
   instance.clearRouteQuery()
 
@@ -138,6 +138,12 @@ const parseURLParams = (instance) => {
     })
   }
 
+  instance.$nextTick(() => {
+    setRouteQueryPage(instance, cloned)
+  })
+}
+
+const setRouteQueryPage = (instance, cloned) => {
   if (cloned.hasOwnProperty('page')) {
     const page = cloned.page
     if (!page.isNaN) {
