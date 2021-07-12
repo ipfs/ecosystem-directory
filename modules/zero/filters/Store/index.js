@@ -143,11 +143,13 @@ const mutations = {
     append2URL(state, router)
   },
   CLEAR_ROUTE_QUERY_TAGS (state, slug) {
+    state.routeQuery.page = 1
     state.routeQuery.tags = slug
     const router = this.$router
     append2URL(state, router)
   },
   CLEAR_ALL_TAGS (state) {
+    state.routeQuery.page = 1
     state.routeQuery.tags = ''
     const router = this.$router
     append2URL(state, router)
