@@ -1,0 +1,99 @@
+{
+    "display": true,
+    "featured": false,
+    "sortNumbers": [
+      {
+        "since": 2014
+      }
+    ],
+    "logo": {
+      "icon": "coinomi-icon.png",
+      "full": "coinomi-logo-color.svg"
+    },
+    "name": "Coinomi",
+    "org": [
+      "Coinomi"
+    ],
+    "description": {
+      "short": "Crypto wallet offering access over IPFS",
+      "long": "Coinomi is a security-forward, multi-chain wallet with support for a wide variety of blockchains and tokens — as well as access available over IPFS."
+    },
+    "primaryCta": {
+      "url": "//coinomi.com",
+      "text": "Project Website"
+    },
+    "links": [
+      {
+        "label": "Website",
+        "links": [
+          {
+            "url": "//coinomi.com",
+            "text": "coinomi.com"
+          }
+        ]
+      },
+      {
+        "label": "Repo",
+        "links": [
+          {
+            "url": "//github.com/coinomi",
+            "text": "github.com/coinomi"
+          }
+        ]
+      }
+    ],
+    "keyInfo": [
+      {
+        "label": "Using IPFS since",
+        "value": "2014"
+      }
+    ],
+    "video": "//youtube.com/watch?v=1GKilQeBwK0",
+    "stats": [
+      {
+        "label": "",
+        "value": ""
+      },
+      {
+        "label": "",
+        "value": ""
+      },
+      {
+        "label": "",
+        "value": ""
+      }
+    ],
+    "ctaCard": {
+      "title": "",
+      "description": "",
+      "buttonText": "",
+      "url": ""
+    },
+    "taxonomies": [
+      {
+        "slug": "industry",
+        "tags": [
+          "defi"
+        ]
+      },
+      {
+        "slug": "focus",
+        "tags": [
+          "mobile"
+        ]
+      },
+      {
+        "slug": "benefits",
+        "tags": [
+          "data-integrity"
+        ]
+      },
+      {
+        "slug": "tooling",
+        "tags": [
+          "ecosystem-tools"
+        ]
+      }
+    ]
+  }
+  

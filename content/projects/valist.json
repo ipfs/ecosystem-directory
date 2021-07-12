@@ -62,10 +62,10 @@
     }
   ],
   "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
+    "title": "Valist FAQ",
+    "description": "Quick Q-and-A for the most common questions about Valist.",
+    "buttonText": "Read more",
+    "url": "//valist.io/faq"
   },
   "taxonomies": [
     {

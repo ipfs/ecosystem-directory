@@ -1,25 +1,25 @@
 /*
  *
- * 🔌 [Plugin | NuxtPluginIpfs] Methods
+ * 🔌 [Plugin | NuxtModuleIpfs] Methods
  *
  */
 
-console.log(`🔌 [Plugin | NuxtPluginIpfs] Methods`)
+console.log(`🔌 [Module | NuxtModuleIpfs] Methods`)
 
 // /////////////////////////////////////////////////////////////////// Functions
 // -----------------------------------------------------------------------------
 // ------------------------------------------------------------------ relativity
-const Relativity = (path) => {
-  const append = path.charAt(0) === '/' ? path.slice(1) : path
-  if (process.env.NODE_ENV !== 'development') {
-    if (typeof window !== 'undefined') { return path }
-    return `/relativity/${append}`
+const Relativity = function (path) {
+  if (process.client) {
+    if (!path) { return '' }
+    const ipfsMatch = window.location.pathname.match(/^(\/(?:ipfs|ipns)\/[^/]+)/)
+    return ipfsMatch ? ipfsMatch[0] + path : path
   }
   return path
 }
 
 // ///////////////////////////////////////////////////////////// Export & Inject
 // -----------------------------------------------------------------------------
-export default ({}, inject) => {
+export default (ctx, inject) => {
   inject('relativity', Relativity)
 }

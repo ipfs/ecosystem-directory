@@ -14,7 +14,7 @@
   ],
   "description": {
     "short": "Operating system for a user-owned digital world",
-    "long": "A multi-app operating system focusing on privacy and users' ownership of their own data."
+    "long": "A multi-app operating system focusing on privacy and users' ownership of their own data while also breaking down the barriers between applications present in today's digital world."
   },
   "primaryCta": {
     "url": "//anytype.io",
@@ -62,10 +62,10 @@
     }
   ],
   "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
+    "title": "Anytype news",
+    "description": "Follow the Anytype project's progress in the news section of Anytype's community site.",
+    "buttonText": "Read more",
+    "url": "//community.anytype.io/t/news"
   },
   "taxonomies": [
     {

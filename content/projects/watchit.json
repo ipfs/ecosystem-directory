@@ -5,19 +5,19 @@
     "since": 2017
   },
   "logo": {
-    "icon": "logo-name-bazaar.png",
-    "full": "logo-name-bazaar.png"
+    "icon": "watchit.png",
+    "full": "watchit.png"
   },
-  "name": "Name Bazaar",
+  "name": "Watchit",
   "org": [
-    "district0x"
+    "ZorrillosDev"
   ],
   "description": {
-    "short": "P2P auction marketplace for ENS names",
-    "long": "A peer-to-peer, user-governed marketplace for ENS names. Built on Ethereum, Aragon, and IPFS."
+    "short": "Decentralized video streaming platform built on IPFS and OrbitDB",
+    "long": "Built using IPFS and OrbitDB, Watchit is a video streaming and playback dApp running as a standalone Electron application."
   },
   "primaryCta": {
-    "url": "//namebazaar.io",
+    "url": "//watchitapp.site",
     "text": "Project website"
   },
   "links": [
@@ -25,8 +25,8 @@
       "label": "Website",
       "links": [
         {
-          "url": "//namebazaar.io",
-          "text": "namebazaar.io"
+          "url": "//watchitapp.site",
+          "text": "watchitapp.site"
         }
       ]
     },
@@ -34,8 +34,8 @@
       "label": "Repo",
       "links": [
         {
-          "url": "//github.com/district0x",
-          "text": "github.com/district0x"
+          "url": "//github.com/ZorrillosDev/watchit-app",
+          "text": "github.com/ZorrillosDev/watchit-app"
         }
       ]
     }
@@ -43,7 +43,7 @@
   "keyInfo": [
     {
       "label": "Using IPFS since",
-      "value": "2017"
+      "value": "2019"
     }
   ],
   "video": "",
@@ -62,23 +62,24 @@
     }
   ],
   "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
+    "title": "Watchit FAQ",
+    "description": "Quick Q-and-A for the most common questions about Watchit.",
+    "buttonText": "Read more",
+    "url": "//github.com/ZorrillosDev/watchit-app/blob/v0.1.0/FAQ.md"
   },
   "taxonomies": [
     {
       "slug": "industry",
       "tags": [
-        "marketplaces-ecommerce"
+        "content-delivery"
       ]
     },
     {
       "slug": "focus",
       "tags": [
-        "community-networks",
-        "web-hosting-publishing"
+        "video",
+        "file-sharing",
+        "streaming"
       ]
     },
     {
@@ -86,17 +87,19 @@
       "tags": [
         "data-integrity",
         "couldnt-exist-without-ipfs",
+        "interoperability",
         "disaster-resilience",
         "corporate-government-independence",
-        "interoperability",
         "self-sovereign-data"
       ]
     },
     {
       "slug": "tooling",
       "tags": [
-        "cljs-ipfs",
-        "js-ipfs"
+        "go-ipfs",
+        "js-ipfs",
+        "js-ipfs-https-client",
+        "ecosystem-tools"
       ]
     }
   ]

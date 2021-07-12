@@ -1,0 +1,98 @@
+{
+    "display": true,
+    "featured": false,
+    "sortNumbers": [
+      {
+        "since": 2018
+      }
+    ],
+    "logo": {
+      "icon": "kyber-logo-knc.png",
+      "full": "kyber-logo.png"
+    },
+    "name": "Kyber Network",
+    "org": [
+      "Kyber Network"
+    ],
+    "description": {
+      "short": "Liquidity hub for seamless token swaps",
+      "long": "Kyber Network is a blockchain-based liquidity hub that connects liquidity from a wide range of sources to power instant and secure crypto exchange in any decentralized application without the need for an intermediary. Their KyberWidget payment button is hosted over IPFS."
+    },
+    "primaryCta": {
+      "url": "//kyber.network",
+      "text": "Project Website"
+    },
+    "links": [
+      {
+        "label": "Website",
+        "links": [
+          {
+            "url": "//kyber.network",
+            "text": "kyber.network"
+          }
+        ]
+      },
+      {
+        "label": "Repo",
+        "links": [
+          {
+            "url": "//github.com/kybernetwork",
+            "text": "github.com/kybernetwork"
+          }
+        ]
+      }
+    ],
+    "keyInfo": [
+      {
+        "label": "Using IPFS since",
+        "value": "2018"
+      }
+    ],
+    "video": "//youtube.com/watch?v=1GKilQeBwK0",
+    "stats": [
+      {
+        "label": "",
+        "value": ""
+      },
+      {
+        "label": "",
+        "value": ""
+      },
+      {
+        "label": "",
+        "value": ""
+      }
+    ],
+    "ctaCard": {
+      "title": "Kyber developer portal",
+      "description": "The KyberDeveloper portal offers guidance for developers looking to get started or dig deeper.",
+      "buttonText": "Read more",
+      "url": "//developer.kyber.network"
+    },
+    "taxonomies": [
+      {
+        "slug": "industry",
+        "tags": [
+          "defi"
+        ]
+      },
+      {
+        "slug": "focus",
+        "tags": [
+          "dev-tools"
+        ]
+      },
+      {
+        "slug": "benefits",
+        "tags": [
+          "corporate-government-independence"
+        ]
+      },
+      {
+        "slug": "tooling",
+        "tags": [
+          "ecosystem-tools"
+        ]
+      }
+    ]
+  }

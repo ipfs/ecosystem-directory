@@ -1,7 +1,6 @@
-// ///////////////////////////////////////////////////////////////////// Imports
+// ///////////////////////////////////////////////////////// Imports & Variables
 // -----------------------------------------------------------------------------
 import { uuid as UUID } from 'vue-uuid'
-
 import Config from '@/nuxt.config'
 
 // /////////////////////////////////////////////////////////////////////// State
@@ -10,10 +9,12 @@ const state = {
   messages: [],
   loaders: [],
   clipboard: false,
+  segmentCollection: [],
   filterValue: '',
-  filteredCollection: [],
-  sortedCollection: [],
-  paginatedCollection: []
+  collection: {
+    mutation: '',
+    array: []
+  }
 }
 
 // ///////////////////////////////////////////////////////////////////// Getters
@@ -22,10 +23,9 @@ const getters = {
   messages: state => state.messages,
   loaders: state => state.loaders,
   clipboard: state => state.clipboard,
+  segmentCollection: state => state.segmentCollection,
   filterValue: state => state.filterValue,
-  filteredCollection: state => state.filteredCollection,
-  sortedCollection: state => state.sortedCollection,
-  paginatedCollection: state => state.paginatedCollection
+  collection: state => state.collection
 }
 
 // ///////////////////////////////////////////////////////////////////// Actions
@@ -67,21 +67,17 @@ const actions = {
     this.$addTextToClipboard(text)
     commit('SET_CLIPBOARD', text)
   },
+  // ////////////////////////////////////////////////////// setSegmentCollection
+  setSegmentCollection ({ commit }, segmentCollection) {
+    commit('SET_SEGMENT_COLLECTION', segmentCollection)
+  },
   // ////////////////////////////////////////////////////////////// setClipboard
   setFilterValue ({ commit }, value) {
     commit('SET_FILTER_VALUE', value)
   },
-  // ///////////////////////////////////////////////////// setFilteredCollection
-  setFilteredCollection ({ commit }, filteredCollection) {
-    commit('SET_FILTERED_COLLECTION', filteredCollection)
-  },
-  // ///////////////////////////////////////////////////// setFilteredCollection
-  setSortedCollection ({ commit }, sortedCollection) {
-    commit('SET_SORTED_COLLECTION', sortedCollection)
-  },
-  // //////////////////////////////////////////////////// setPaginatedCollection
-  setPaginatedCollection ({ commit }, paginatedCollection) {
-    commit('SET_PAGINATED_COLLECTION', paginatedCollection)
+  // ///////////////////////////////////////////////////////////// setCollection
+  setCollection ({ commit }, payload) {
+    commit('SET_COLLECTION', payload)
   }
 }
 
@@ -103,17 +99,15 @@ const mutations = {
   SET_CLIPBOARD (state, text) {
     state.clipboard = text
   },
+  SET_SEGMENT_COLLECTION (state, segmentCollection) {
+    state.segmentCollection = segmentCollection
+  },
   SET_FILTER_VALUE (state, value) {
     state.filterValue = value
   },
-  SET_FILTERED_COLLECTION (state, filteredCollection) {
-    state.filteredCollection = filteredCollection
-  },
-  SET_SORTED_COLLECTION (state, sortedCollection) {
-    state.sortedCollection = sortedCollection
-  },
-  SET_PAGINATED_COLLECTION (state, paginatedCollection) {
-    state.paginatedCollection = paginatedCollection
+  SET_COLLECTION (state, payload) {
+    state.collection.mutation = payload.type
+    state.collection.array = payload.collection
   }
 }
 

@@ -10,13 +10,6 @@
 // ===================================================================== Imports
 import { mapGetters, mapActions } from 'vuex'
 
-// ===================================================================== Imports
-const setPageFromRoute = (instance) => {
-  const page = parseInt(instance.$route.query.page)
-  const parsed = !isNaN(page)
-  instance.setPage(parsed ? page : 1)
-}
-
 // ====================================================================== Export
 export default {
   name: 'Paginate',
@@ -46,9 +39,12 @@ export default {
 
   computed: {
     ...mapGetters({
-      page: 'pagination/page',
-      totalPages: 'pagination/totalPages'
+      routeQuery: 'filters/routeQuery',
+      totalPages: 'filters/totalPages'
     }),
+    page () {
+      return this.routeQuery.page ? this.routeQuery.page : 1
+    },
     start () {
       return (this.page - 1) * this.display
     },
@@ -58,15 +54,11 @@ export default {
     paginated () {
       let collection = this.collection.slice(this.start, this.end)
       if (collection.length === 0) { collection = false }
-      this.setPaginatedCollection(collection)
       return collection
     }
   },
 
   watch: {
-    '$route' (route) {
-      setPageFromRoute(this)
-    },
     collection () {
       this.calculateTotalPages()
       const total = this.totalPages
@@ -80,23 +72,24 @@ export default {
   },
 
   mounted () {
-    setPageFromRoute(this)
-    this.setDisplay(this.display)
+    if (!this.$route.query.hasOwnProperty('results')) {
+      this.setRouteQuery({
+        key: 'results',
+        data: this.display
+      })
+    }
     this.calculateTotalPages()
   },
 
   destroyed () {
-    this.clearStore()
+    this.clearTotalPages()
   },
 
   methods: {
     ...mapActions({
       setRouteQuery: 'filters/setRouteQuery',
-      setPage: 'pagination/setPage',
-      setTotalPages: 'pagination/setTotalPages',
-      setDisplay: 'pagination/setDisplay',
-      setPaginatedCollection: 'core/setPaginatedCollection',
-      clearStore: 'pagination/clearStore'
+      setTotalPages: 'filters/setTotalPages',
+      clearTotalPages: 'filters/clearTotalPages'
     }),
     calculateTotalPages () {
       const total = Math.ceil(this.collection.length / this.display)

@@ -1,5 +1,7 @@
 <template>
-  <div id="project-view-container">
+  <div
+    id="project-view-container"
+    ref="projectViewContainer">
 
     <!-- /////////////////////////////////////////////////////////// Toolbar -->
     <section id="section-toolbar">
@@ -33,7 +35,7 @@
 
           <FilterBar
             :filter-value="searchQuery"
-            @setFilterValue="setSearchQuery">
+            action="store">
             <template #icon>
               <SearchIcon />
             </template>
@@ -76,7 +78,20 @@
 
         <div v-if="sortedCollection" id="paginated-list-navigation-controls">
 
-          <PaginationControls />
+          <PaginationControls breaker="...">
+            <template #first-page>
+              <FirstArrow stroke="#494949" />
+            </template>
+            <template #prev-page>
+              <PrevArrow stroke="#494949" />
+            </template>
+            <template #next-page>
+              <NextArrow stroke="#494949" />
+            </template>
+            <template #last-page>
+              <LastArrow stroke="#494949" />
+            </template>
+          </PaginationControls>
 
           <ResultsPerPageSelector
             id="results-per-page-selector"
@@ -103,12 +118,18 @@ import FilterBar from '@/modules/zero/core/Components/FilterBar'
 import FilterPanel from '@/components/FilterPanel/FilterPanel'
 import Paginate from '@/modules/zero/pagination/Components/Paginate'
 import ProjectCard from '@/components/ProjectView/ProjectCard'
-import PaginationControls from '@/components/ProjectView/PaginationControls'
+import PaginationControls from '@/modules/zero/pagination/Components/Controls'
 import ResultsPerPageSelector from '@/modules/zero/pagination/Components/ResultsPerPageSelector'
 
 import CloseIcon from '@/components/Icons/Close'
 import SearchIcon from '@/components/Icons/SearchIcon'
 import SelectorToggleIcon from '@/modules/zero/core/Components/Icons/SelectorToggle'
+
+import FirstArrow from '@/components/Icons/FirstArrow'
+import PrevArrow from '@/components/Icons/PrevArrow'
+import NextArrow from '@/components/Icons/NextArrow'
+import LastArrow from '@/components/Icons/LastArrow'
+
 // =================================================================== Functions
 const clearPanelHeight = (instance) => {
   if (!instance.filterPanelOpen) {
@@ -132,14 +153,18 @@ export default {
     ProjectCard,
     PaginationControls,
     ResultsPerPageSelector,
-    SelectorToggleIcon
+    SelectorToggleIcon,
+    FirstArrow,
+    PrevArrow,
+    NextArrow,
+    LastArrow
   },
 
   data () {
     return {
       panelHeight: false,
       listViewActive: false,
-      searchQuery: ''
+      scroll: false
     }
   },
 
@@ -149,9 +174,16 @@ export default {
       routeQuery: 'filters/routeQuery',
       projects: 'projects/projects',
       filterPanelOpen: 'filters/filterPanelOpen',
-      sortedCollection: 'core/sortedCollection',
-      display: 'pagination/display'
+      filterValue: 'core/filterValue',
+      collection: 'core/collection',
+      filterButtonFloating: 'global/filterButtonFloating'
     }),
+    sortedCollection () {
+      return this.collection.array
+    },
+    display () {
+      return this.routeQuery.results
+    },
     pageData () {
       return this.siteContent.index.page_content
     },
@@ -164,8 +196,11 @@ export default {
     resultsPerPageDropdownLabel () {
       return this.pageData.section_filter.results_per_page_dropdown_label
     },
+    searchQuery () {
+      return this.filterValue
+    },
     searchResults () {
-      const query = this.searchQuery
+      const query = this.searchQuery.toLowerCase()
       return this.projects.filter((project) => {
         const matched = project.name.toLowerCase().includes(query) || project.org.join('').toLowerCase().includes(query)
         if (!matched) { return false }
@@ -205,13 +240,39 @@ export default {
       }
     }
     clearPanelHeight(this)
+    const scroll = () => {
+      const projectViewContainer = this.$refs.projectViewContainer
+      const bottom = projectViewContainer.getBoundingClientRect().bottom
+      const top = projectViewContainer.parentNode.getBoundingClientRect().top
+      // console.log(top, window.innerHeight, window.innerHeight + (window.innerWidth * 0.041665) + 36)
+      const filterButtonFloating = this.filterButtonFloating
+      const offset = window.innerWidth <= 640 ? (window.innerWidth * 0.041665) + 84 - 16 : 0
+      // console.log(window.innerHeight, top + (window.innerWidth * 0.041665) * 2 + 36, bottom, window.innerHeight + offset)
+      if (window.innerHeight < top + (window.innerWidth * 0.041665) * 2 + 36 && filterButtonFloating !== 'top') {
+        // console.log('A')
+        this.setFilterButtonFloating('top')
+      } else if (window.innerHeight >= top + (window.innerWidth * 0.041665) * 2 + 36 && bottom >= window.innerHeight + offset && filterButtonFloating !== 'middle') {
+        // console.log('B')
+        this.setFilterButtonFloating('middle')
+      } else if (bottom < window.innerHeight + offset && filterButtonFloating !== 'bottom') {
+        // console.log('C')
+        this.setFilterButtonFloating('bottom')
+      }
+    }; scroll()
+    this.scroll = this.$throttle(scroll, 10)
+    window.addEventListener('scroll', this.scroll)
+  },
+
+  beforeDestroy () {
+    if (this.scroll) { window.removeEventListener('scroll', this.scroll) }
   },
 
   methods: {
     ...mapActions({
       setRouteQuery: 'filters/setRouteQuery',
       setTotalFilters: 'filters/setTotalFilters',
-      setFilterPanelOpen: 'filters/setFilterPanelOpen'
+      setFilterPanelOpen: 'filters/setFilterPanelOpen',
+      setFilterButtonFloating: 'global/setFilterButtonFloating'
     }),
     toggleFilterPanel (forceOpen) {
       this.setFilterPanelOpen(!this.filterPanelOpen)
@@ -225,9 +286,6 @@ export default {
     },
     clearSelectedFilters () {
       this.$refs.filterPanel.clearSelected()
-    },
-    setSearchQuery (query) {
-      this.searchQuery = query.toLowerCase()
     }
   }
 }
@@ -244,9 +302,13 @@ $filterPanelPadding_Left: 0rem;
 $filterPanelPadding_Bottom: 6rem;
 $paginateRoot_PaddingOffset: 3.5rem;
 
+// ///////////////////////////////////////////////////////////////////// General
+#project-view-container {
+  padding-top: 1.5rem;
+}
+
 // ///////////////////////////////////////////////////////////////////// Toolbar
 #section-toolbar {
-  margin-top: 1.5rem;
   margin-bottom: 3rem;
 }
 
@@ -374,6 +436,9 @@ $paginateRoot_PaddingOffset: 3.5rem;
   @include small {
     width: 100%;
   }
+  @include mini {
+    margin-bottom: 4.1665vw;
+  }
 }
 
 .paginate-root {
@@ -408,9 +473,25 @@ $paginateRoot_PaddingOffset: 3.5rem;
   justify-content: center;
   align-items: center;
   margin-top: 2rem;
+  @include small {
+    flex-direction: column;
+    align-items: flex-end;
+    padding: 0 calc(4.1665vw + 0.5rem);
+  }
+  @include mini {
+    align-items: flex-start;
+    margin-top: 4rem;
+  }
 }
 
-.pagination-control-wrapper {
+.pagination-controls {
   margin-right: 3rem;
+  @include small {
+    margin-right: 0;
+    margin-bottom: 0rem;
+  }
+  @include mini {
+    margin-bottom: 0.5rem;
+  }
 }
 </style>

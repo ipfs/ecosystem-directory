@@ -8,7 +8,7 @@
 // -----------------------------------------------------------------------------
 // ///////////////////////////////////////////////////////////////////// General
 import Vue from 'vue'
-import Store from '@/modules/zero/pagination/Store'
+// import Store from '@/modules/zero/pagination/Store'
 
 // /////////////////////////////////////////////////////////////////// Functions
 // -----------------------------------------------------------------------------
@@ -16,7 +16,7 @@ import Store from '@/modules/zero/pagination/Store'
 const registerStore = (App, next) => {
   App.store.registerModule('pagination', Object.assign({
     namespaced: true
-  }, Store))
+  }))
   if (next) { return next() }
 }
 

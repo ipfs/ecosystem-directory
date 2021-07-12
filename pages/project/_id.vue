@@ -77,8 +77,11 @@
             </a>
           </div>
 
-          <div class="slider-display col-6_md-8_mi-10_ti-12">
-            <div class="slide-nav">
+          <div
+            v-if="moreThanTwo"
+            class="slider-display col-6_md-8_mi-10_ti-12">
+            <div
+              class="slide-nav">
               <button
                 class="nav-arrow"
                 @click="incrementLeft">
@@ -91,7 +94,6 @@
               </button>
             </div>
             <div
-              v-if="moreThanTwo"
               ref="sliderFlex"
               class="slider-flex slider-transition">
               <div
@@ -209,8 +211,8 @@
                   <div class="chiclet-list">
                     <NuxtLink
                       v-for="(taxonomyTag, j) in filterTags(taxonomy.slug, taxonomy.tags)"
-                      :key="`taxonomu-tag-${j}`"
-                      :to="{ path: '/', query: { filters: 'enabled', tag: taxonomyTag } }"
+                      :key="`taxonomy-tag-${j}`"
+                      :to="{ path: '/', query: { filters: 'enabled', tags: taxonomyTag } }"
                       class="chiclet">
                       {{ $getTaxonomyTagLabel(taxonomy.slug, taxonomyTag) }}
                     </NuxtLink>
@@ -229,16 +231,17 @@
           <div class="grid-center">
 
             <div class="col-12">
-              <h3 class="heading">
-                {{ generalPageData.section_featured_slider.heading }}
-              </h3>
-              <div class="description">
-                {{ generalPageData.section_featured_slider.description }}
+              <div class="mini-box">
+                <h3 class="heading">
+                  {{ generalPageData.section_featured_slider.heading }}
+                </h3>
+                <div class="description">
+                  {{ generalPageData.section_featured_slider.description }}
+                </div>
+                <div class="col-11_mi-12">
+                  <FeaturedProjectsSlider />
+                </div>
               </div>
-            </div>
-
-            <div class="col-11_mi-12">
-              <FeaturedProjectsSlider />
             </div>
 
           </div>
@@ -529,6 +532,9 @@ export default {
     @include leading_Mini;
     font-weight: 700;
     margin-left: -0.125rem;
+    @include medium {
+      font-size: 2.1875rem;
+    }
     @include small {
       margin-bottom: 0.5rem;
     }
@@ -716,6 +722,10 @@ export default {
 
 .slider-display {
   overflow: hidden;
+  display: none;
+  @include tiny {
+    display: block;
+  }
 }
 
 .slider-flex {
@@ -943,7 +953,18 @@ export default {
     margin: auto 1.5rem;
   }
   @include mini {
-    margin: auto;
+    border: none;
+    padding-top: 0;
+    margin: 0;
+  }
+  .mini-box{
+    @include mini {
+      margin: 0 0.5rem;
+      padding: 0 2rem;
+      padding-top: 3rem;
+      border: 2px solid #E5E5E5;
+      @include borderRadius3;
+    }
   }
 }
 

@@ -1,0 +1,103 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2017
+  },
+  "logo": {
+    "icon": "logo-name-bazaar.png",
+    "full": "logo-name-bazaar.png"
+  },
+  "name": "NameBazaar",
+  "org": [
+    "district0x"
+  ],
+  "description": {
+    "short": "P2P auction marketplace for ENS names",
+    "long": "A peer-to-peer, trustless, user-governed marketplace for ENS names. Built on Ethereum, Aragon, and IPFS."
+  },
+  "primaryCta": {
+    "url": "//namebazaar.io",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//namebazaar.io",
+          "text": "namebazaar.io"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/district0x",
+          "text": "github.com/district0x"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2017"
+    }
+  ],
+  "video": "",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "district0x whitepaper",
+    "description": "Dig into the details of district0x projects including NameBazaar in the whitepaper.",
+    "buttonText": "Read more",
+    "url": "//district0x.io/docs/district0x-whitepaper.pdf"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "marketplaces-ecommerce"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "community-networks",
+        "web-hosting-publishing"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "couldnt-exist-without-ipfs",
+        "disaster-resilience",
+        "corporate-government-independence",
+        "interoperability",
+        "self-sovereign-data"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "cljs-ipfs",
+        "js-ipfs"
+      ]
+    }
+  ]
+}

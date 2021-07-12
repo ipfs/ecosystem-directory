@@ -16,7 +16,7 @@
         </button>
 
         <h3 class="title-between-buttons">
-          {{ selectedCat.label }}
+          {{ currentCategory.label }}
         </h3>
 
         <button
@@ -32,16 +32,16 @@
 
       <transition name="slide-fade" mode="out-in">
 
-        <div :key="selectedCat.label">
+        <div :key="currentCategory.label">
 
           <div class="title-large-screen">
             <h3>
-              {{ selectedCat.label }}
+              {{ currentCategory.label }}
             </h3>
           </div>
 
           <div class="description">
-            {{ selectedCat.description ? selectedCat.description : '' }}
+            {{ currentCategory.description ? currentCategory.description : '' }}
           </div>
 
           <div v-if="logos" class="logo-wrapper">
@@ -83,10 +83,6 @@ export default {
   },
 
   props: {
-    selectedCat: {
-      type: Object,
-      required: true
-    },
     selectedSeg: {
       type: Number,
       default: 0
@@ -98,26 +94,29 @@ export default {
     containerHeight: {
       type: Number,
       default: 440
-    },
-    items: {
-      type: Array,
-      default: () => []
     }
   },
 
   computed: {
     ...mapGetters({
       siteContent: 'global/siteContent',
-      routeQuery: 'filters/routeQuery'
+      routeQuery: 'filters/routeQuery',
+      segmentCollection: 'core/segmentCollection'
     }),
     filterToggleButtonText () {
       return this.siteContent.index.page_content.segment_slider.filter_toggle_button_text
     },
     logos () {
-      if (this.selectedCat.logos.length) {
-        return this.selectedCat.logos
+      if (this.currentCategory.hasOwnProperty('logos')) {
+        return this.currentCategory.logos
       }
       return false
+    },
+    currentCategory () {
+      if (this.selectedSeg in this.segmentCollection) {
+        return this.segmentCollection[this.selectedSeg]
+      }
+      return {}
     }
   },
 
@@ -135,7 +134,7 @@ export default {
     },
     jump2Filters () {
       this.setRouteQuery({ key: 'filters', data: 'enabled' })
-      this.setRouteQuery({ key: 'tags', data: this.selectedCat.slug })
+      this.setRouteQuery({ key: 'tags', data: this.currentCategory.slug })
       this.setFilterPanelOpen(true)
     },
     onSwipe (e) {

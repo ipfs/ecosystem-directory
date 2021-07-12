@@ -13,8 +13,8 @@
     "Matters"
   ],
   "description": {
-    "short": "Social publication platform that returns ownership to creators by integrating Web3 technologies and services",
-    "long": "Matters enables writers, journalists, novelists, and other creators to publish and monetize in a decentralized, censorship-resilient way."
+    "short": "Social publication platform that returns ownership to creators",
+    "long": "Matters integrates Web3 technologies and services in order to enable writers, journalists, novelists, and other creators to publish and monetize in a decentralized, censorship-resilient way."
   },
   "primaryCta": {
     "url": "//matters.news",
@@ -62,10 +62,10 @@
     }
   ],
   "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
+    "title": "Matters News in action",
+    "description": "Learn how Matters News used IPFS to empower Chinese citizens to speak more freely about COVID-19.",
+    "buttonText": "Read more",
+    "url": "//coindesk.com/interplanetary-file-system-is-uncensorable-during-coronavirus-news-fog"
   },
   "taxonomies": [
     {
