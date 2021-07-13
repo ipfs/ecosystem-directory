@@ -13,7 +13,8 @@
         {
           "label": "Content delivery",
           "slug": "content-delivery",
-          "description": "Projects enabling the future of content delivery using IPFS, from websites to streaming media to CDN-style delivery."
+          "description": "Projects enabling the future of content delivery using IPFS, from websites to streaming media to CDN-style delivery.",
+          "position": "first"
         },
         {
           "label": "Data & machine learning",
@@ -68,7 +69,8 @@
         {
           "label": "Other",
           "slug": "other",
-          "description": "Notable projects built using IPFS that don't quite fit into another category."
+          "description": "Notable projects built using IPFS that don't quite fit into another category.",
+          "position": "last"
         },
         {
           "label": "Prediction",
