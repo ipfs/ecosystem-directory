@@ -1,7 +1,7 @@
 {
     "nomenclature": {
         "entityTerm": "project",
-        "entityTermPlural": "projects",
+        "entityTermPlural": "projects"
     },
     "behavior": {
         "primaryCategorySlug": "industry",
@@ -18,5 +18,5 @@
         "embeddableObject": true,
         "alternateLayout": true,
         "hideNonDefaultView": false
-    }    
+    }
 }
