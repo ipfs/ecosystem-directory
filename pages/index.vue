@@ -82,63 +82,78 @@ import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/Featured
 import ProjectView from '@/components/ProjectView/ProjectView'
 
 // =================================================================== Functions
-const parseURLParams = (instance) => {
+const parseURLParams = (instance, next) => {
   const cloned = CloneDeep(instance.$route.query)
   instance.clearRouteQuery()
-  Object.keys(cloned).forEach((item) => {
-    if (item === 'filters') {
-      if (cloned[item] === 'enabled') {
-        instance.setFilterPanelOpen(true)
-        instance.setRouteQuery({
-          key: item,
-          data: cloned[item]
-        })
-        if (!cloned.hasOwnProperty('tags')) {
-          instance.clearAllTags()
-        }
-      } else {
-        instance.mountSegmentAndFeaturedSliders()
-      }
-    }
-    if (item === 'tags') {
-      const tags = cloned[item].split(',')
-      const slug = tags.filter(tag => instance.taxonomyLabels.hasOwnProperty(tag)).join(',')
+
+  if (cloned.hasOwnProperty('filters')) {
+    if (cloned.filters === 'enabled') {
+      instance.setFilterPanelOpen(true)
       instance.setRouteQuery({
-        key: item,
-        data: slug
+        key: 'filters',
+        data: cloned.filters
       })
-    }
-    if (item === 'page') {
-      const page = cloned[item]
-      if (!page.isNaN) {
-        if (page > 0) {
-          instance.setRouteQuery({
-            key: item,
-            data: parseInt(page)
-          })
-        }
+      if (!cloned.hasOwnProperty('tags')) {
+        instance.clearAllTags()
       }
+    } else {
+      instance.mountSegmentAndFeaturedSliders()
     }
-    if (item === 'results') {
-      const results = cloned[item]
-      if (!results.isNaN) {
-        if (results > 0) {
-          instance.setRouteQuery({
-            key: item,
-            data: parseInt(results)
-          })
-        }
-      }
-    }
-    if (item === 'sort-by' || item === 'display-type') {
-      instance.setRouteQuery({
-        key: item,
-        data: cloned[item]
-      })
-    }
-  })
-  if (!cloned.hasOwnProperty('filters')) {
+  } else {
     instance.mountSegmentAndFeaturedSliders()
+  }
+
+  if (cloned.hasOwnProperty('tags')) {
+    const tags = cloned.tags.split(',')
+    const slug = tags.filter(tag => instance.taxonomyLabels.hasOwnProperty(tag)).join(',')
+    instance.setRouteQuery({
+      key: 'tags',
+      data: slug
+    })
+  }
+
+  if (cloned.hasOwnProperty('results')) {
+    const results = cloned.results
+    if (!results.isNaN) {
+      if (results > 0) {
+        instance.setRouteQuery({
+          key: 'results',
+          data: parseInt(results)
+        })
+      }
+    }
+  }
+
+  if (cloned.hasOwnProperty('sort-by')) {
+    instance.setRouteQuery({
+      key: 'sort-by',
+      data: cloned['sort-by']
+    })
+  }
+
+  if (cloned.hasOwnProperty('display-type')) {
+    instance.setRouteQuery({
+      key: 'display-type',
+      data: cloned['display-type']
+    })
+  }
+
+  instance.$nextTick(() => {
+    setRouteQueryPage(instance, cloned)
+  })
+}
+
+const setRouteQueryPage = (instance, cloned) => {
+  if (cloned.hasOwnProperty('page')) {
+    const page = cloned.page
+    if (!page.isNaN) {
+      if (page > 0) {
+        instance.setRouteQuery({
+          key: 'page',
+          data: parseInt(page)
+        })
+      }
+    }
   }
 }
 
