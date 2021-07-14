@@ -9,7 +9,8 @@
         "lastTag": "other",
         "defaultView": "grid",
         "externalLinksTargetBlank": true,
-        "tagMatchType": "and"
+        "tagMatchType": "or",
+        "excludeFilterAllTag": false
     },
     "visibility": {
         "excludeSingulars": false,

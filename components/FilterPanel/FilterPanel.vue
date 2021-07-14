@@ -30,6 +30,7 @@
             <AccordionContent>
               <div class="filter-category chiclet-list">
                 <div
+                  v-if="includeFilterAllTag"
                   :class="['filter-category tag chiclet', { 'active-button': numberInCategory[heading.slug] === heading.tags.length }]"
                   @click="toggleAll(heading.slug)">
                   All
@@ -72,6 +73,8 @@ import Accordion from '@/modules/zero/core/Components/Accordion/Accordion'
 import AccordionHeader from '@/modules/zero/core/Components/Accordion/Header'
 import AccordionSection from '@/modules/zero/core/Components/Accordion/Section'
 import AccordionContent from '@/modules/zero/core/Components/Accordion/Content'
+
+import Settings from '@/content/data/settings.json'
 
 // =================================================================== Functions
 const toggleAllCategoryTags = (instance, heading) => {
@@ -123,6 +126,9 @@ export default {
       categoryLookUp: 'filters/categoryLookUp',
       filterPanelOpen: 'filters/filterPanelOpen'
     }),
+    includeFilterAllTag() {
+      return !Settings.behavior.excludeFilterAllTag
+    },
     filterPanelContent () {
       return this.siteContent.index.page_content.section_filter.filter_panel
     },
