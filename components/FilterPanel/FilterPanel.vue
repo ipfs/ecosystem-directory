@@ -126,8 +126,8 @@ export default {
       categoryLookUp: 'filters/categoryLookUp',
       filterPanelOpen: 'filters/filterPanelOpen'
     }),
-    includeFilterAllTag() {
-      if (typeof Settings.behavior.excludeFilterAllTag === "boolean") {
+    includeFilterAllTag () {
+      if (typeof Settings.behavior.excludeFilterAllTag === 'boolean') {
         return !Settings.behavior.excludeFilterAllTag
       }
       return true
