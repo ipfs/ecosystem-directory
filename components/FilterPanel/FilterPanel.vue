@@ -127,7 +127,10 @@ export default {
       filterPanelOpen: 'filters/filterPanelOpen'
     }),
     includeFilterAllTag() {
-      return !Settings.behavior.excludeFilterAllTag
+      if (typeof Settings.behavior.excludeFilterAllTag === "boolean") {
+        return !Settings.behavior.excludeFilterAllTag
+      }
+      return true
     },
     filterPanelContent () {
       return this.siteContent.index.page_content.section_filter.filter_panel

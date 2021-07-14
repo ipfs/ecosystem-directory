@@ -14,13 +14,10 @@ import Settings from '@/content/data/settings.json'
 
 // =================================================================== Functions
 const projectInclusion = (instance, selection, projectTags) => {
-  if (instance.match === 'or') {
-    return selection.some((val) => { return projectTags.includes(val) })
-  }
   if (instance.match === 'and') {
     return selection.every((val) => { return projectTags.includes(val) })
   }
-  return false
+  return selection.some((val) => { return projectTags.includes(val) })
 }
 
 // ====================================================================== Export
