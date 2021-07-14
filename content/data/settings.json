@@ -8,7 +8,9 @@
         "firstTag": "",
         "lastTag": "other",
         "defaultView": "grid",
-        "externalLinksTargetBlank": true
+        "externalLinksTargetBlank": true,
+        "tagMatchType": "or",
+        "excludeFilterAllTag": true
     },
     "visibility": {
         "excludeSingulars": false,
