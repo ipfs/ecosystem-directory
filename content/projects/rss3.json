@@ -1,0 +1,99 @@
+{
+    "display": true,
+    "featured": false,
+    "sortNumbers": [
+      {
+        "since": 2021
+      }
+    ],
+    "logo": {
+      "icon": "rss3-logo-round.svg",
+      "full": "rss3-logo-round.svg"
+    },
+    "name": "RSS3",
+    "org": [
+      "Natural Selection Labs"
+    ],
+    "description": {
+      "short": "Decentralized RSS with human curation",
+      "long": "Derived from the best of RSS, RSS3 is an open protocol designed for content and social networks in the Web 3.0 era."
+    },
+    "primaryCta": {
+      "url": "//rss3.io",
+      "text": "Project Website"
+    },
+    "links": [
+      {
+        "label": "Website",
+        "links": [
+          {
+            "url": "//rss3.io",
+            "text": "rss3.io"
+          }
+        ]
+      },
+      {
+        "label": "Repo",
+        "links": [
+          {
+            "url": "//github.com/NaturalSelectionLabs/RSS3",
+            "text": "github.com/NaturalSelectionLabs/RSS3"
+          }
+        ]
+      }
+    ],
+    "keyInfo": [
+      {
+        "label": "Using IPFS since",
+        "value": "2021"
+      }
+    ],
+    "video": "",
+    "stats": [
+      {
+        "label": "users",
+        "value": "15K"
+      },
+      {
+        "label": "repo stars",
+        "value": ">1K"
+      },
+      {
+        "label": "",
+        "value": ""
+      }
+    ],
+    "ctaCard": {
+      "title": "RSS3 whitepaper",
+      "description": "Dig into the details of how RSS3 works in the whitepaper.",
+      "buttonText": "Read more",
+      "url": "//gateway.pinata.cloud/ipfs/QmPYZWZeKJt2b6CrmPcEPfUtAzUW44mD16vUK6fVfM1pvS"
+    },
+    "taxonomies": [
+      {
+        "slug": "industry",
+        "tags": [
+          "browsers"
+        ]
+      },
+      {
+        "slug": "focus",
+        "tags": [
+          "community-networks", "dev-tools", "public-data", "storage-pinning", "web-hosting-publishing"
+        ]
+      },
+      {
+        "slug": "benefits",
+        "tags": [
+          "data-integrity", "corporate-government-independence", "self-sovereign-data", "couldnt-exist-without-ipfs"
+        ]
+      },
+      {
+        "slug": "tooling",
+        "tags": [
+          "js-ipfs", "js-ipfs-https-client", "pinning-services", "http-gateway", "go-ipfs", "ecosystem-tools"
+        ]
+      }
+    ]
+  }
+  
