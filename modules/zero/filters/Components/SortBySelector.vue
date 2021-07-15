@@ -249,6 +249,7 @@ export default {
   z-index: 1000;
   padding-bottom: 0.25rem;
   &::before {
+    @include borderRadius3;
     content: '';
     position: absolute;
     width: 100%;
@@ -257,7 +258,6 @@ export default {
     left: 0;
     background-color: #FFFFFF;
     z-index: -1;
-    @include borderRadius3;
     filter: drop-shadow(0 0 0.3rem rgba(73, 73, 73, 0.2));
   }
 }

@@ -150,9 +150,10 @@ export default {
 
 // //////////////////////////////////////////////// [Button] Filter panel toggle
 ::v-deep #filter-panel-toggle-button {
+  filter: drop-shadow(0 0 0.3rem rgba(73, 73, 73, 0.2));
   transition: bottom 0ms;
   @include small {
-    left: calc(4.1665vw + 0.5rem);
+    left: 4.1665vw;
   }
   &.top {
     @include small {
@@ -167,7 +168,7 @@ export default {
   &.bottom {
     @include small {
       position: absolute;
-      bottom: 3rem;
+      bottom: 2rem;
       z-index: 100;
     }
     @include mini {
@@ -177,7 +178,7 @@ export default {
   &.middle {
     @include small {
       position: fixed;
-      bottom: calc(4.1665vw + 0.5rem);
+      bottom: 4.1665vw;
       z-index: 10;
     }
   }

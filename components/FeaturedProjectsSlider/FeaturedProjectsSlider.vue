@@ -171,10 +171,15 @@ export default {
 }
 
 // /////////////////////////////////////////////////////////////////////// Cards
-.project-card {
+::v-deep .project-card {
   padding-bottom: 0;
   @include tiny {
     padding: 0;
+    &:not(.list-view) {
+      .content {
+        margin-bottom: 0;
+      }
+    }
   }
 }
 
