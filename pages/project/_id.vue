@@ -36,7 +36,10 @@
               {{ project.primaryCta.text }}
             </a>
             <nuxt-link to="/" class="secondary-cta">
-              {{ secondaryCtaButtonText }}
+              <span class="text">
+                {{ secondaryCtaButtonText }}
+              </span>
+              <SelectorToggleIcon />
             </nuxt-link>
           </div>
         </section>
@@ -265,6 +268,7 @@ import AccordionContent from '@/modules/zero/core/Components/Accordion/Content'
 import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
 import PrevArrow from '@/components/Icons/PrevArrow'
 import NextArrow from '@/components/Icons/NextArrow'
+import SelectorToggleIcon from '@/modules/zero/core/Components/Icons/SelectorToggle'
 
 // =================================================================== Functions
 const repositionSliderLeft = (instance) => {
@@ -288,7 +292,8 @@ export default {
     AccordionContent,
     FeaturedProjectsSlider,
     PrevArrow,
-    NextArrow
+    NextArrow,
+    SelectorToggleIcon
   },
 
   asyncData ({ app, route, error, payload }) {
@@ -593,10 +598,16 @@ export default {
       }
     }
     &.secondary-cta {
-      background: url('~assets/theme/svgs/chevronright.svg') no-repeat right center;
       padding-right: 1rem;
       &:hover {
-        text-decoration: underline;
+        .svg-dropdown {
+          transition: 250ms ease-out;
+          transform: rotate(-90deg) translate(0, 0.75rem)
+        }
+      }
+      .svg-dropdown {
+        transform: rotate(-90deg) translate(0, 0.5rem);
+        transition: 250ms ease-out;
       }
     }
   }
@@ -703,6 +714,11 @@ export default {
       color: $white;
       font-weight: 600;
       background-color: $tiber;
+      transition: 250ms ease-out;
+      &:hover {
+        transition: 250ms ease-in;
+        background-color: $ming;
+      }
     }
   }
   .statistic,
@@ -835,8 +851,12 @@ export default {
 
     a {
       color: $ming;
+      text-decoration: underline transparent;
+      text-underline-offset: $underlineSpacing;
+      transition: text-decoration-color 250ms ease-out;
       &:hover {
-        text-decoration: underline;
+        transition: text-decoration-color 250ms ease-in;
+        text-decoration-color: currentColor;
       }
     }
 

@@ -34,6 +34,7 @@
           </h4>
 
           <FilterBar
+            id="filter-bar"
             :filter-value="searchQuery"
             action="store">
             <template #icon>
@@ -398,22 +399,26 @@ $paginateRoot_PaddingOffset: 3.5rem;
   }
 }
 
-// #filter-panel-toolbar,
-// #filter-panel-controls {
-//   @include small {
-//     position: absolute;
-//     left: 0;
-//   }
-// }
-
 #filter-panel-toolbar {
-  // @include small {
-  //   top: 0;
-  // }
   margin-bottom: 2rem;
   .title {
     font-family: $fontMontserrat;
     margin-bottom: 0.5rem;
+  }
+}
+
+::v-deep #filter-bar {
+  position: relative;
+  .icon-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .input {
+    padding-left: calc(2.25rem - 2px);
+    &:focus {
+      box-shadow: 0 0 0 5px rgba(0, 123, 255, 0.5);
+    }
   }
 }
 
@@ -422,12 +427,6 @@ $paginateRoot_PaddingOffset: 3.5rem;
     overflow-y: scroll;
   }
 }
-
-// #filter-panel-controls {
-//   @include small {
-//     bottom: 0;
-//   }
-// }
 
 // ////////////////////////////////////////////////////////////// Paginated List
 #paginated-list {

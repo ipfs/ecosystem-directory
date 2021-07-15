@@ -2,7 +2,7 @@
   <component
     :is="rootNode"
     v-click-outside="closeAllSelect"
-    class="dropdown-root">
+    :class="['dropdown-root', { closed }]">
 
     <div class="dropdown dropdown-button" @click.stop="toggleDropDown()">
 
@@ -18,9 +18,7 @@
 
     </div>
 
-    <div
-      class="dropdown dropdown-list"
-      :class="{ hidden: closed }">
+    <div class="dropdown dropdown-list">
       <template v-for="option in options">
         <div
           v-if="!isNaN(option)"
@@ -151,7 +149,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 ::selection {
   color: none;
   background: none;
@@ -162,19 +159,29 @@ export default {
   background: none;
 }
 
-.hidden {
-  display: none;
-}
-
 .dropdown-root {
+  @include borderRadius3;
   position: relative;
   white-space: nowrap;
-  @include borderRadius3;
-  background-color: #FFFFFF;
+  background-color: white;
   cursor: pointer;
   font-family: $fontInter;
   font-weight: 400;
   line-height: 1.7;
+  &:not(.closed) {
+    .dropdown-list {
+      transition: 250ms ease-out;
+      transform: translateY(0);
+      opacity: 1;
+      visibility: visible;
+      z-index: 1000;
+      pointer-events: all;
+    }
+    .dropdown-slot {
+      transition: 250ms ease-in;
+      transform: rotate(-180deg);
+    }
+  }
 }
 
 .dropdown-button {
@@ -182,6 +189,7 @@ export default {
   display: flex;
   justify-content: space-between;
   label {
+    cursor: pointer;
     margin-right: 0.25rem;
   }
 }
@@ -190,21 +198,26 @@ export default {
   transform: translateY(-5%);
   opacity: 0.5;
   margin-left: 0.5rem;
+  cursor: pointer;
+  transition: 250ms ease-out;
   &:hover {
-    cursor: pointer;
     opacity: 1.0;
   }
 }
 
 .dropdown-list {
-  background-color: #ffffff;
+  @include borderRadius3;
+  background-color: white;
   position: absolute;
   right: 1.0rem;
   top: 2.5rem;
-  @include borderRadius3;
-  padding: 0.25rem 0;
-  z-index: 1000;
-  &::after {
+  transform: translateY(1rem);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: -1;
+  transition: 250ms ease-out;
+  &:after {
     content: '';
     position: absolute;
     width: 100%;
@@ -221,15 +234,26 @@ export default {
 .dropdown-item {
   padding: 0.25rem 0.75rem;
   z-index: 10;
-  &:hover {
-    cursor: pointer;
-    text-decoration: underline;
+  &:first-child {
+    border-radius: 0.25rem 0.25rem 0 0;
+  }
+  &:last-child {
+    border-radius: 0 0 0.25rem 0.25rem;
+  }
+  &:not(.highlighted) {
+    text-decoration: underline transparent;
+    text-underline-offset: $underlineSpacing;
+    transition: text-decoration-color 250ms ease-out;
+    &:hover {
+      transition: text-decoration-color 250ms ease-in;
+      text-decoration-color: currentColor;
+    }
   }
 }
 
 .highlighted {
-  background-color: #6BC4CE;
+  background-color: $downy;
   color: white;
+  cursor: default;
 }
-
 </style>

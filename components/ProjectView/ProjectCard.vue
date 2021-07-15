@@ -64,8 +64,8 @@ export default {
   transition: width 0ms;
   &:hover {
     .title {
-      text-decoration: underline;
-      text-underline-offset: $underlineSpacing;
+      transition: text-decoration-color 250ms ease-in;
+      text-decoration-color: currentColor;
     }
     .thumbnail img {
       transform: scale(1.05);
@@ -133,6 +133,9 @@ export default {
   font-family: $fontMontserrat;
   color: $tiber;
   margin-bottom: 0.25rem;
+  text-decoration: underline transparent;
+  text-underline-offset: $underlineSpacing;
+  transition: text-decoration-color 250ms ease-out;
 }
 
 .description {

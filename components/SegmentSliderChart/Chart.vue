@@ -370,6 +370,7 @@ export default {
   position: relative;
   max-width: 20%;
   min-width: 7px;
+  cursor: pointer;
   transition: background-color 250ms linear, font-weight 250ms linear;
   &:before {
     content: '';

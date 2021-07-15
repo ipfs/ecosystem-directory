@@ -25,7 +25,6 @@
       v-for="page in pages"
       :key="`page-${page.num}`"
       :class="['page-button', { current: page.current, display: page.display }]"
-      :style="{ opacity: page.current ? 1.0 : 0.5 }"
       @click="navigateToPage(page.num)">
       {{ page.num }}
     </button>
@@ -152,9 +151,14 @@ export default {
 .page-button {
   display: none;
   &:not(.current) {
+    text-decoration: underline transparent;
+    text-underline-offset: $underlineSpacing;
+    opacity: 0.5;
+    transition: 250ms ease-out;
     &:hover {
-      text-decoration: underline;
-      opacity: 1.0;
+      transition: 250ms ease-in;
+      text-decoration-color: currentColor;
+      opacity: 0.75;
     }
   }
   &.display {
@@ -163,27 +167,15 @@ export default {
   &.current {
     color: $tiber;
     cursor: default;
+    opacity: 1;
   }
 }
 
 .control-button {
   color: $tiber;
+  opacity: 0.5;
   &:hover {
-    text-decoration: underline;
-  }
-  &.first,
-  &.last {
-    opacity: 0.5;
-    &:hover {
-      opacity: 1;
-    }
-  }
-  &.prev,
-  &.next {
-    opacity: 0.5;
-    &:hover {
-      opacity: 1;
-    }
+    opacity: 1;
   }
 }
 </style>

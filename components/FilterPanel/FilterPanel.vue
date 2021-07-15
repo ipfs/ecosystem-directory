@@ -231,6 +231,11 @@ export default {
     padding: 0.4rem 1.2rem;
     font-size: 10pt;
     margin: 0.5rem 1rem 0.5rem 0;
+    transition: 250ms ease-out;
+    &:hover {
+      transition: 250ms ease-in;
+      background-color: $ming;
+    }
   }
   .clear-selected {
     background-color: $blackHaze;
@@ -299,6 +304,7 @@ export default {
     width: 0.75rem;
     height: 100%;
     background: url('~assets/theme/svgs/chevrondown.svg') no-repeat right center;
+    transition: 250ms ease-out;
   }
 }
 
@@ -306,7 +312,8 @@ export default {
   &.open {
     .accordion-header {
       &:after {
-        transform: rotate(180deg);
+        transition: 250ms ease-in;
+        transform: rotate(-180deg);
       }
     }
   }

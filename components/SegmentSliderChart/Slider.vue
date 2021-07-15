@@ -274,6 +274,7 @@ export default {
 }
 
 .view-all {
+  @include borderRadius3;
   position: absolute;
   margin: 0 auto;
   padding: 0.25rem 0;
@@ -288,11 +289,15 @@ export default {
   color: white;
   background-color: rgb(2, 28, 54);
   border: none;
-  @include borderRadius3;
   transform: translateY(50%);
+  transition: 250ms ease-out;
   @include medium {
     transform: translateY(0%);
     position: relative;
+  }
+  &:hover {
+    transition: 250ms ease-in;
+    background-color: $ming;
   }
   &:focus {
     outline: none;
