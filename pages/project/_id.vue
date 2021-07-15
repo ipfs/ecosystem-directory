@@ -515,7 +515,7 @@ export default {
 
 // /////////////////////////////////////////////////////// [Section] Breadcrumbs
 #section-breadcrumbs {
-  padding: 3rem 0 1.75rem;
+  padding: 2rem 0 1.75rem;
 }
 
 // ////////////////////////////////////////////////////// [Section] Project Info

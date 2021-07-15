@@ -210,7 +210,7 @@ export default {
 // ////////////////////////////////////////////////////////////////// Index View
 ::v-deep .index-view {
   .breadcrumbs {
-    margin-top: 1rem;
+    margin-top: 2rem;
   }
   .breadcrumb-link {
     color: $downy;
@@ -244,7 +244,7 @@ export default {
 ::v-deep .filters-applied,
 .filters-view {
   .breadcrumbs {
-    margin-top: 1rem;
+    margin-top: 2rem;
   }
 }
 
