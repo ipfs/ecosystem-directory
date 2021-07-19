@@ -128,7 +128,9 @@ export default {
     '~/modules/zero/pagination',
     '~/modules/zero/filters',
     // Doc: https://github.com/agency-undone/nuxt-module-ipfs
-    '~/modules/nuxt-module-ipfs'
+    '~/modules/nuxt-module-ipfs',
+    // Doc: https://support.count.ly/hc/en-us/articles/360037441932-Web-analytics-JavaScript
+    '~/modules/zero/countly'
   ],
   // ///////////////////////////////////////////////////////// [Module] MomentJS
   // ---------------------- Doc: https://github.com/nuxt-community/moment-module
@@ -148,6 +150,9 @@ export default {
   // //////////////////////////////////////////////////////////// [Module] Axios
   // -------------------------------------- See https://axios.nuxtjs.org/options
   axios: {},
+  // ////////////////////////////////////////////////////////// [Module] Countly
+  // ---------------------------------------------------------------------------
+  countly: {},
   // /////////////////////////////////// Plugins to load before mounting the App
   // ---------------------------------------------------------------------------
   plugins: [
