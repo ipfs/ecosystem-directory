@@ -55,7 +55,8 @@ export default {
         case 'stable': uri = ''; break
         case 'production': uri = ''; break
       } return uri
-    }())
+    }()),
+    countlyAppKey: process.env.COUNTLY_APP_KEY
   },
   // --------------------------------------------------------- [Runtime] Private
   privateRuntimeConfig: {},
@@ -128,9 +129,7 @@ export default {
     '~/modules/zero/pagination',
     '~/modules/zero/filters',
     // Doc: https://github.com/agency-undone/nuxt-module-ipfs
-    '~/modules/nuxt-module-ipfs',
-    // Doc: https://support.count.ly/hc/en-us/articles/360037441932-Web-analytics-JavaScript
-    '~/modules/zero/countly'
+    '~/modules/nuxt-module-ipfs'
   ],
   // ///////////////////////////////////////////////////////// [Module] MomentJS
   // ---------------------- Doc: https://github.com/nuxt-community/moment-module
@@ -152,7 +151,9 @@ export default {
   axios: {},
   // ////////////////////////////////////////////////////////// [Module] Countly
   // ---------------------------------------------------------------------------
-  countly: {},
+  countly: {
+    debug: true
+  },
   // /////////////////////////////////// Plugins to load before mounting the App
   // ---------------------------------------------------------------------------
   plugins: [
@@ -160,7 +161,9 @@ export default {
     '~/plugins/global-methods',
     '~/plugins/taxonomy-methods',
     '~/plugins/scroll-to',
-    '~/modules/zero/core/Plugins/nuxt-hammer'
+    '~/modules/zero/core/Plugins/nuxt-hammer',
+    // Doc: https://support.count.ly/hc/en-us/articles/360037441932-Web-analytics-JavaScript
+    { src: '~/plugins/countly', mode: 'client' }
   ],
   // /////////////////////////////////////////////////////// Router + Middleware
   // ---------------------------------------------------------------------------
