@@ -3,9 +3,11 @@
 const Fs = require('fs-extra')
 
 const paths = {
+  data: `${__dirname}/content/data`,
   projects: `${__dirname}/content/projects`,
   manifest: `${__dirname}/content/data/project-manifest.json`,
-  project_list: `${__dirname}/static/project-list.json` // ← to be used by embedable-view.js
+  project_list: `${__dirname}/static/project-list.json`, // ← to be used by embedable-view.js
+  showcase_data: `${__dirname}/static/showcase-data.json`
 }
 
 // /////////////////////////////////////////////////////////////////// Functions
@@ -53,6 +55,44 @@ const generateProjectListFile = async (slugs) => {
   }
 }
 
+const generateShowcaseDataFile = async (slugs) => {
+  try {
+    const taxonomies = JSON.parse(await Fs.readFileSync(`${paths.data}/taxonomy.json`))
+    const data = { taxonomies: {}, projects: [] }
+    const len = slugs.length
+
+    taxonomies.categories.forEach(category => {
+      data.taxonomies[category.slug] = category.label
+    })
+
+    for (let i = 0; i < len; i++) {
+      const slug = slugs[i]
+      const project = JSON.parse(await Fs.readFileSync(`${paths.projects}/${slug}.json`))
+      const tags = {}
+
+      project.taxonomies.forEach(tax => {
+        const category = taxonomies.categories.filter(cat => cat.slug === tax.slug)
+
+        if(!category.length || !category[0].tags) return
+
+        tags[tax.slug] = tax.tags.filter(
+          tag => category[0].tags.map(t => t.slug).includes(tag)
+        )
+      })
+
+      data.projects.push({
+        name: project.name,
+        logo: project.logo.full,
+        tags: tags
+      })
+    }
+    return data
+  } catch (e) {
+    console.log('============================= [generateShowcaseDataFile] Error')
+    throw e
+  }
+}
+
 // ////////////////////////////////////////////////////////////////// Manifestor
 // -----------------------------------------------------------------------------
 const Manifestor = async () => {
@@ -62,6 +102,8 @@ const Manifestor = async () => {
     await Fs.writeFileSync(paths.manifest, JSON.stringify(slugs))
     const projectList = await generateProjectListFile(slugs)
     await Fs.writeFileSync(paths.project_list, JSON.stringify(projectList))
+    const showcaseData = await generateShowcaseDataFile(slugs)
+    await Fs.writeFileSync(paths.showcase_data, JSON.stringify(showcaseData))
     console.log('🏁 Manifest projects complete')
   } catch (e) {
     console.log('========================================== [Manifestor] Error')
