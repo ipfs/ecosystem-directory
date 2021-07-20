@@ -160,7 +160,10 @@ $teal-x-dark: #04202F;
             display: grid;
             grid-auto-flow: column;
             grid-template-rows: repeat(2, auto);
-            
+            &.sliding {
+              transition: left 300ms ease-in-out;
+            }
+
             .ecodir_card {
               cursor: pointer;
               user-select: none;
@@ -176,7 +179,7 @@ $teal-x-dark: #04202F;
                 border-radius: 5px;
                 background: $white;
               }
-    
+
               .ecodir_card-thumbnail {
                 width: 100%;
                 height: 100px;
@@ -194,7 +197,7 @@ $teal-x-dark: #04202F;
               }
             }
           }
-        } 
+        }
       }
 
       .ecodir_slider-controls {
@@ -228,7 +231,7 @@ $teal-x-dark: #04202F;
           &::-ms-thumb {
             @include slider-thumb;
           }
-          
+
           // Style track
           @mixin slider-track() {
             cursor: pointer;
@@ -248,7 +251,7 @@ $teal-x-dark: #04202F;
           &::-ms-track {
             border-width: 16px 0;
             cursor: pointer;
-            background: transparent; 
+            background: transparent;
             border-color: transparent;
             color: transparent;
             width: 100%;
@@ -311,11 +314,11 @@ $teal-x-dark: #04202F;
       }
     }
   }
-  
+
   &.ecosystem-light {
     background-color: $grey-light;
 
-    h2.ecodir_heading, 
+    h2.ecodir_heading,
     h3.ecodir_subheading {
       color: $grey-x-dark;
     }
@@ -325,7 +328,7 @@ $teal-x-dark: #04202F;
         background: $white;
         color: $grey-x-dark;
         box-shadow: 3px 3px 15px rgba($grey, 0.5);
-  
+
         .ecodir_caret-svg {
           path {
             stroke: $grey-x-dark;
@@ -406,7 +409,7 @@ $teal-x-dark: #04202F;
   &.ecosystem-dark {
     background-color: $teal-dark;
 
-    h2.ecodir_heading, 
+    h2.ecodir_heading,
     h3.ecodir_subheading {
       color: $white;
     }
@@ -416,7 +419,7 @@ $teal-x-dark: #04202F;
         background: $teal-medium;
         box-shadow: 3px 3px 15px rgba($teal-x-dark, 0.5);
         color: $white;
-  
+
         .ecodir_caret-svg {
           path {
             stroke: $white;
@@ -500,7 +503,7 @@ $teal-x-dark: #04202F;
 
   .ecodir_error-unsupported {
     display: flex;
-    
+
     * {
       margin: 0 0.3vw;
     }
