@@ -10,6 +10,16 @@
 // ===================================================================== Imports
 import { mapActions } from 'vuex'
 
+import Settings from '@/content/data/settings.json'
+
+// =================================================================== Functions
+const projectInclusion = (instance, selection, projectTags) => {
+  if (instance.match === 'and') {
+    return selection.every((val) => { return projectTags.includes(val) })
+  }
+  return selection.some((val) => { return projectTags.includes(val) })
+}
+
 // ====================================================================== Export
 export default {
   name: 'Filters',
@@ -38,6 +48,9 @@ export default {
   },
 
   computed: {
+    match () {
+      return Settings.behavior.tagMatchType
+    },
     filtered () {
       let collection = []
       if (this.selected.length) {
@@ -51,9 +64,7 @@ export default {
               projTags.push(tax.tags[k])
             }
           }
-
-          const success = this.selected.every((val) => { return projTags.includes(val) })
-
+          const success = projectInclusion(this, this.selected, projTags)
           if (success) { collection.push(this.projects[i]) }
         }
       } else {
