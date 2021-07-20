@@ -218,6 +218,9 @@ export default {
     margin-left: auto;
     margin-right: auto;
   }
+  @include tiny {
+    max-width: unset;
+  }
 }
 
 .nav-arrow {
