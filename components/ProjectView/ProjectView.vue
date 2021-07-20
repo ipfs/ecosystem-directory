@@ -61,14 +61,15 @@
           class="paginate-root">
           <div class="grid">
             <ProjectCard
-              v-for="project in paginated"
-              :key="project.name"
+              v-for="(project, index) in paginated"
+              :key="`${project.name}-${(listViewActive ? 'list' : 'block')}`"
               :format="(listViewActive ? 'list-view' : 'block-view')"
               :title="project.name"
               :slug="project.slug"
               :description="project.description.short"
               :logo="project.logo.icon"
-              :class="projectCardColumns" />
+              :class="projectCardColumns"
+              :style="`animation-delay: ${30 * index}ms`" />
           </div>
         </Paginate>
 
@@ -494,4 +495,5 @@ $paginateRoot_PaddingOffset: 3.5rem;
     margin-bottom: 0.5rem;
   }
 }
+
 </style>
