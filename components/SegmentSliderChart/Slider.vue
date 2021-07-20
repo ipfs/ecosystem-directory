@@ -2,10 +2,10 @@
   <div class="slider-container">
     <div
       v-hammer:swipe.horizontal="onSwipe"
-      class="slider-card">
+      class="slider-card"
+      :style="cardHeight">
 
       <div class="slide-nav">
-
         <button
           class="nav-arrow"
           @click="incrementSelection(selectedSeg - 1)">
@@ -15,7 +15,10 @@
             height="15" />
         </button>
 
-        <h3 class="title-between-buttons">
+        <h3
+          :key="`${currentCategory.label}-medium`"
+          ref="navTitle"
+          class="title-between-buttons transition-content">
           {{ currentCategory.label }}
         </h3>
 
@@ -27,13 +30,10 @@
             width="10"
             height="15" />
         </button>
-
       </div>
 
-      <transition name="slide-fade" mode="out-in">
-
-        <div :key="currentCategory.label">
-
+      <div :key="currentCategory.label" class="transition-content">
+        <div ref="content">
           <div class="title-large-screen">
             <h3>
               {{ currentCategory.label }}
@@ -43,18 +43,17 @@
           <div class="description">
             {{ currentCategory.description ? currentCategory.description : '' }}
           </div>
+        </div>
 
-          <div v-if="logos" class="logo-wrapper">
+        <div v-if="logos" class="logo-wrapper">
 
-            <img
-              v-for="path in logos"
-              :key="path"
-              :src="$relativity(`/images/projects/${path}`)" />
-
-          </div>
+          <img
+            v-for="path in logos"
+            :key="path"
+            :src="$relativity(`/images/projects/${path}`)" />
 
         </div>
-      </transition>
+      </div>
 
       <button
         class="view-all button noselect"
@@ -97,6 +96,13 @@ export default {
     }
   },
 
+  data () {
+    return {
+      resize: false,
+      contentHeight: false
+    }
+  },
+
   computed: {
     ...mapGetters({
       siteContent: 'global/siteContent',
@@ -117,11 +123,26 @@ export default {
         return this.segmentCollection[this.selectedSeg]
       }
       return {}
+    },
+    cardHeight () {
+      if (this.contentHeight) {
+        return `height: ${this.contentHeight + 210}px;`
+      }
+      return 'height: unset;'
     }
+  },
+
+  mounted () {
+    this.resize = () => { this.resetContentHeight() }
+    window.addEventListener('resize', this.resize)
   },
 
   beforeDestroy () {
     if (this.resize) { window.removeEventListener('resize', this.resize) }
+  },
+
+  updated () {
+    this.resetContentHeight()
   },
 
   methods: {
@@ -143,6 +164,19 @@ export default {
       } else if (e.type === 'swiperight') {
         this.incrementSelection(this.selectedSeg - 1)
       }
+    },
+    resetContentHeight () {
+      this.$nextTick(() => {
+        let h
+        if (window.matchMedia('(max-width: 64rem)').matches) {
+          h = this.$refs.content.offsetHeight + this.$refs.navTitle.offsetHeight
+        } else {
+          h = this.$refs.content.offsetHeight
+        }
+        if (this.contentHeight !== h) {
+          this.contentHeight = h
+        }
+      })
     }
   }
 }
@@ -164,6 +198,7 @@ export default {
   padding: 2rem;
   position: relative;
   align-items: center;
+  transition: height ease 200ms;
   h3 {
     @include leading_Regular;
     font-weight: 500;
@@ -171,6 +206,15 @@ export default {
       @include fontSize_Small;
     }
   }
+}
+
+.transition-content {
+  animation: fadein 500ms ease;
+}
+
+@keyframes fadein {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 .title-large-screen {
@@ -282,7 +326,6 @@ export default {
   left: 0;
   right: 0;
   bottom: 0px;
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   font-weight: 500;
   text-align: center;
   text-decoration: none;
@@ -292,8 +335,7 @@ export default {
   transform: translateY(50%);
   transition: 250ms ease-out;
   @include medium {
-    transform: translateY(0%);
-    position: relative;
+    transform: translateY(-75%);
   }
   &:hover {
     transition: 250ms ease-in;
