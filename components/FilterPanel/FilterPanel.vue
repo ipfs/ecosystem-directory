@@ -22,6 +22,12 @@
                 <span class="filter-category number-active">
                   {{ numberInCategory[heading.slug] }} of {{ heading.tags.length }}
                 </span>
+                <span
+                  v-if="includeClearCategory"
+                  class="granular-filter-clear"
+                  @click.stop="clearCategory(heading.slug)">
+                  Clear
+                </span>
                 <h5 v-if="getSublabel(heading)" class="filter-category sub-heading">
                   {{ getSublabel(heading) }}
                 </h5>
@@ -132,6 +138,12 @@ export default {
       }
       return true
     },
+    includeClearCategory () {
+      if (typeof Settings.behavior.includeGranularFilterClearButton === 'boolean') {
+        return Settings.behavior.includeGranularFilterClearButton
+      }
+      return false
+    },
     filterPanelContent () {
       return this.siteContent.index.page_content.section_filter.filter_panel
     },
@@ -181,6 +193,9 @@ export default {
     },
     toggleAll (heading) {
       toggleAllCategoryTags(this, heading)
+    },
+    clearCategory (heading) {
+      this.clearRouteQueryTags(heading)
     },
     clearSelected () {
       this.clearAllTags()
@@ -264,6 +279,7 @@ export default {
   }
   &.number-active {
     font-size: 8pt;
+    margin: 0 0.25rem;
   }
   &.toggle {
     display: inline-block;
@@ -284,6 +300,15 @@ export default {
   &.chiclet-list {
     padding: 6px 0;
     margin: 0 6px;
+  }
+}
+
+.granular-filter-clear {
+  @include fontSize_Mini;
+  font-weight: 600;
+  margin: 0 0.125rem;
+  &:hover {
+    text-decoration: underline;
   }
 }
 
