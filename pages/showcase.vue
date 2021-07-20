@@ -17,7 +17,7 @@
           </h2>
           <div class="taxonomy-projects">
             <div v-for="(project, projectIndex) in taxonomy.projects" :key="`project-${projectIndex}`" class="thumbnail">
-              <img :src="$relativity(`/images/projects/${project.logo.full}`)" :alt="project.name" title="project.name" />
+              <img :src="$relativity(`/images/projects/${project.logo}`)" :alt="project.name" title="project.name" />
             </div>
           </div>
         </div>
@@ -31,6 +31,7 @@
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
 import Settings from '@/content/data/settings.json'
+import ShowcaseData from '@/static/showcase-data.json'
 
 // =================================================================== Functions
 
@@ -42,9 +43,9 @@ export default {
   data () {
     return {
       tag: 'showcase',
-      smallProjectLength: 5,
-      mediumProjectLength: 10,
-      largeProjectLength: 25,
+      smallProjectBlockSize: 5,
+      mediumProjectBlockSize: 10,
+      largeProjectBlockSize: 25,
 
       smallBlockLength: 3,
       mediumBlockLength: 2
@@ -58,7 +59,7 @@ export default {
   },
 
   head () {
-    const title = this.seo.title
+    const title = `${this.seo.title} : ${this.taxonomy.label}`
     const description = this.seo.description
     return {
       title,
@@ -83,8 +84,7 @@ export default {
 
   computed: {
     ...mapGetters({
-      siteContent: 'global/siteContent',
-      projects: 'projects/projects'
+      siteContent: 'global/siteContent'
     }),
     // SEO
     seo () {
@@ -93,26 +93,21 @@ export default {
     showcase () {
       return this.siteContent.showcase.page_content
     },
-    primaryCategoryTags () {
-      const primaryCategory = Settings.behavior.primaryCategorySlug
-      // const primaryCategory = this.$route.query.category || Settings.behavior.primaryCategorySlug
-      return this.siteContent.taxonomy.categories.find(category => category.slug === primaryCategory).tags
+    category () {
+      return this.$route.query.category || Settings.behavior.primaryCategorySlug
+    },
+    taxonomy () {
+      return ShowcaseData.taxonomies[this.category] || null
     },
     projectList () {
-      return this.projects.map((project) => {
-        const taxonomy = project.taxonomies.filter(taxonomy => taxonomy.slug === Settings.behavior.primaryCategorySlug)
-        return {
-          name: project.name,
-          logo: project.logo,
-          tags: taxonomy.length ? taxonomy[0].tags : []
-        }
-      })
+      return ShowcaseData.projects
     },
     mediumProjectMinLength () {
-      return 10
+      return !isNaN(this.$route.query.md) ? parseInt(this.$route.query.md) : 10
     },
     largeProjectMinLength () {
-      return 25
+      const minLength = !isNaN(this.$route.query.lg) ? parseInt(this.$route.query.lg) : 25
+      return minLength <= this.mediumProjectMinLength ? this.mediumProjectMinLength + 1 : minLength
     }
   },
 
@@ -122,23 +117,26 @@ export default {
       const mediumProjects = []
       const blocks = []
 
-      this.primaryCategoryTags.forEach((taxonomy) => {
-        const taxonomyData = { label: taxonomy.label }
-        const projects = this.projectList.filter(project => project.tags.includes(taxonomy.slug))
+      Object.keys(this.taxonomy.tags).forEach((taxonomySlug) => {
+        const taxonomyData = { label: this.taxonomy.tags[taxonomySlug] }
+        const projects = this.projectList.filter((project) => {
+          const projectTags = project.tags[this.category] || []
+          return projectTags.includes(taxonomySlug)
+        })
 
         if (projects.length < 1) { return }
 
         // Sort content into blocks based on size
         if (projects.length >= this.largeProjectMinLength) {
           taxonomyData.size = 'lg'
-          taxonomyData.projects = projects.slice(0, this.largeProjectLength)
+          taxonomyData.projects = projects.slice(0, this.largeProjectBlockSize)
           blocks.push({
             size: 'lg',
             taxonomies: [taxonomyData]
           })
         } else if (projects.length >= this.mediumProjectMinLength) {
           taxonomyData.size = 'md'
-          taxonomyData.projects = projects.slice(0, this.mediumProjectLength)
+          taxonomyData.projects = projects.slice(0, this.mediumProjectBlockSize)
 
           if (mediumProjects.length + 1 >= this.mediumBlockLength) {
             blocks.push({
@@ -150,7 +148,7 @@ export default {
           }
         } else {
           taxonomyData.size = 'sm'
-          taxonomyData.projects = projects.slice(0, this.smallProjectLength)
+          taxonomyData.projects = projects.slice(0, this.smallProjectBlockSize)
 
           if (smallProjects.length + 1 >= this.smallBlockLength) {
             blocks.push({
@@ -183,8 +181,6 @@ export default {
           taxonomies: _blocks
         })
       }
-
-      console.log(blocks)
       return blocks
     }
   }
@@ -287,6 +283,24 @@ export default {
             max-width: 100%;
             max-height: 100%;
           }
+        }
+      }
+
+      &.taxonomy-sm {
+        .taxonomy-projects {
+          grid-template-rows: 1fr;
+        }
+      }
+
+      &.taxonomy-md {
+        .taxonomy-projects {
+          grid-template-rows: repeat(2, 1fr);
+        }
+      }
+
+      &.taxonomy-lg {
+        .taxonomy-projects {
+          grid-template-rows: repeat(5, 1fr);
         }
       }
     }

@@ -62,7 +62,15 @@ const generateShowcaseDataFile = async (slugs) => {
     const len = slugs.length
 
     taxonomies.categories.forEach(category => {
-      data.taxonomies[category.slug] = category.label
+      const tags = {}
+      category.tags.forEach(tag => {
+        tags[tag.slug] = tag.label
+      })
+
+      data.taxonomies[category.slug] = {
+        label: category.label,
+        tags
+      }
     })
 
     for (let i = 0; i < len; i++) {
