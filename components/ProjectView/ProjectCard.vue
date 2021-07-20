@@ -61,6 +61,9 @@ export default {
 // ///////////////////////////////////////////////////////////////////// General
 .project-card {
   padding: 0 0.5rem 1rem;
+  opacity: 0;
+  animation: fadein 0.3s 1;
+  animation-fill-mode: forwards;
   transition: width 0ms;
   &:hover {
     .title {
@@ -103,6 +106,11 @@ export default {
       padding: 1rem 1rem 1rem 0;
     }
   }
+}
+
+@keyframes fadein {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 .thumbnail {
