@@ -1,0 +1,99 @@
+{
+    "display": true,
+    "featured": false,
+    "sortNumbers": [
+      {
+        "since": 2021
+      }
+    ],
+    "logo": {
+      "icon": "nebulus-square.png",
+      "full": "nebulus-logo-rect.png"
+    },
+    "name": "Nebulus",
+    "org": [
+      null
+    ],
+    "description": {
+      "short": "\"Virtual IPFS\" for private networks",
+      "long": "Nebulus is a \"Virtual IPFS\" that lets you use the IPFS content-addressable file system offline and privately, without publishing content to the public IPFS network."
+    },
+    "primaryCta": {
+      "url": "//nebulus.dev",
+      "text": "Project Website"
+    },
+    "links": [
+      {
+        "label": "Website",
+        "links": [
+          {
+            "url": "//nebulus.dev",
+            "text": "nebulus.dev"
+          }
+        ]
+      },
+      {
+        "label": "Repo",
+        "links": [
+          {
+            "url": "//github.com/skogard/nebulus",
+            "text": "github.com/skogard/nebulus"
+          }
+        ]
+      }
+    ],
+    "keyInfo": [
+      {
+        "label": "Using IPFS since",
+        "value": "2021"
+      }
+    ],
+    "video": "",
+    "stats": [
+      {
+        "label": "",
+        "value": ""
+      },
+      {
+        "label": "",
+        "value": ""
+      },
+      {
+        "label": "",
+        "value": ""
+      }
+    ],
+    "ctaCard": {
+      "title": "Getting started with Nebulus",
+      "description": "Developer-focused documentation on how Nebulus works and a variety of use cases.",
+      "buttonText": "Learn more",
+      "url": "//docs.nebulus.dev"
+    },
+    "taxonomies": [
+      {
+        "slug": "industry",
+        "tags": [
+          "data-persistence"
+        ]
+      },
+      {
+        "slug": "focus",
+        "tags": [
+          "dev-tools", "file-sharing", "public-data", "web-hosting-publishing"
+        ]
+      },
+      {
+        "slug": "benefits",
+        "tags": [
+          "self-sovereign-data", "data-integrity"
+        ]
+      },
+      {
+        "slug": "tooling",
+        "tags": [
+          "js-ipfs", "http-gateway"
+        ]
+      }
+    ]
+  }
+ 
