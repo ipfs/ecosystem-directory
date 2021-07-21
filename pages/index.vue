@@ -38,7 +38,9 @@
             </div>
 
             <div class="col-12">
-              <FeaturedProjectsSlider @init="resetSectionHeight" />
+              <FeaturedProjectsSlider
+                parent="Home Page"
+                @init="resetSectionHeight" />
             </div>
 
           </div>
@@ -229,6 +231,9 @@ export default {
 
   watch: {
     '$route' (route) {
+      this.$Countly.trackEvent('Query Param Debug', {
+        query: route.query
+      })
       if (route.query.filters === 'enabled') {
         this.collapseSegmentAndFeaturedSliders()
       }

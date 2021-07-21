@@ -91,6 +91,13 @@ export default {
     }
   },
 
+  mounted () {
+    this.$Countly.trackEvent('404_NOT_FOUND', {
+      path: this.$route.path,
+      referrer: document.referrer
+    })
+  },
+
   methods: {
     getData () {
       this.$store.dispatch('global/getBaseData', 'general')

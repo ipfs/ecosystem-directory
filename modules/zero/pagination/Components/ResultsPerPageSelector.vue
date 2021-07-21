@@ -4,7 +4,7 @@
     v-click-outside="closeAllSelect"
     class="dropdown-root">
 
-    <div class="dropdown dropdown-button" @click.stop="toggleDropDown()">
+    <div class="dropdown dropdown-button" @click.stop="toggleDropdown()">
 
       <label>
         {{ label + (display === totalItems ? 'All' : display) }}
@@ -122,10 +122,24 @@ export default {
       const total = Math.ceil(this.collection.length / this.display)
       this.setTotalPages(total)
     },
-    toggleDropDown () {
+    toggleDropdown () {
       this.closed = !this.closed
+      this.$emit('changed', {
+        event: 'toggleDropdown',
+        data: {
+          state: !this.closed ? 'open' : 'closed'
+        }
+      })
     },
     closeAllSelect () {
+      if (!this.closed) {
+        this.$emit('changed', {
+          event: 'toggleDropdown',
+          data: {
+            state: 'closed'
+          }
+        })
+      }
       this.closed = true
     },
     optionSelected (val) {
@@ -143,7 +157,13 @@ export default {
             data: total
           })
         }
-        this.closed = true
+        this.$emit('changed', {
+          event: 'optionSelected',
+          data: {
+            option: selection
+          }
+        })
+        this.toggleDropdown()
       }
     }
   }

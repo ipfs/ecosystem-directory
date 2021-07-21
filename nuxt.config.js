@@ -56,7 +56,9 @@ export default {
         case 'production': uri = ''; break
       } return uri
     }()),
-    countlyAppKey: process.env.COUNTLY_APP_KEY
+    countlyAppKey: process.env.COUNTLY_APP_KEY,
+    countlySiteUrl: process.env.COUNTLY_SITE_URL,
+    nodeEnv: process.env.NODE_ENV
   },
   // --------------------------------------------------------- [Runtime] Private
   privateRuntimeConfig: {},
@@ -152,7 +154,9 @@ export default {
   // ////////////////////////////////////////////////////////// [Module] Countly
   // ---------------------------------------------------------------------------
   countly: {
-    debug: true
+    debug: process.env.NODE_ENV === 'development',
+    disableInDevelopment: true,
+    suppressErrorLogs: false
   },
   // /////////////////////////////////// Plugins to load before mounting the App
   // ---------------------------------------------------------------------------
