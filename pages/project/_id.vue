@@ -242,7 +242,7 @@
                   {{ generalPageData.section_featured_slider.description }}
                 </div>
                 <div class="col-11_mi-12">
-                  <FeaturedProjectsSlider />
+                  <FeaturedProjectsSlider parent="Detail Page" />
                 </div>
               </div>
             </div>

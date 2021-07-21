@@ -25,7 +25,9 @@
       <div id="filter-panel-wrapper" ref="panelWrapper" :style="`height: ${toggleHeight};`">
         <div id="filter-panel-toolbar">
 
-          <div id="filter-panel-close-icon" @click="toggleFilterPanel">
+          <div
+            id="filter-panel-close-icon"
+            @click="toggleFilterPanel('x-icon')">
             <CloseIcon />
           </div>
 
@@ -80,7 +82,9 @@
 
         <div v-if="sortedCollection" id="paginated-list-navigation-controls">
 
-          <PaginationControls breaker="...">
+          <PaginationControls
+            breaker="..."
+            @navigateToPage="navigateToPage">
             <template #first-page>
               <FirstArrow stroke="#494949" />
             </template>
@@ -98,7 +102,8 @@
           <ResultsPerPageSelector
             id="results-per-page-selector"
             :label="resultsPerPageDropdownLabel"
-            :collection="sortedCollection">
+            :collection="sortedCollection"
+            @changed="resultsPerPageSelectorChanged">
             <template #dropdown-icon>
               <SelectorToggleIcon />
             </template>
@@ -166,7 +171,8 @@ export default {
     return {
       panelHeight: false,
       listViewActive: false,
-      scroll: false
+      scroll: false,
+      searchQueryTimer: undefined
     }
   },
 
@@ -230,6 +236,14 @@ export default {
         key: 'display-type',
         data: val ? 'list' : 'block'
       })
+    },
+    searchQuery (query) {
+      clearTimeout(this.searchQueryTimer)
+      this.searchQueryTimer = setTimeout(() => {
+        this.$Countly.trackEvent('Filter Panel Search Input', {
+          query
+        })
+      }, 500)
     }
   },
 
@@ -276,8 +290,12 @@ export default {
       setFilterPanelOpen: 'filters/setFilterPanelOpen',
       setFilterButtonFloating: 'global/setFilterButtonFloating'
     }),
-    toggleFilterPanel (forceOpen) {
+    toggleFilterPanel (button) {
       this.setFilterPanelOpen(!this.filterPanelOpen)
+      this.$Countly.trackEvent('Filter Panel Toggled', {
+        button,
+        state: this.filterPanelOpen ? 'open' : 'closed'
+      })
       if (!this.routeQuery.hasOwnProperty('filters') || this.routeQuery.filters !== 'enabled') {
         this.setRouteQuery({ key: 'filters', data: 'enabled' })
       }
@@ -285,9 +303,24 @@ export default {
     },
     toggleListBlockView () {
       this.listViewActive = !this.listViewActive
+      this.$Countly.trackEvent('Grid-List View Toggled', {
+        view: this.listViewActive ? 'list' : 'grid'
+      })
     },
     clearSelectedFilters () {
       this.$refs.filterPanel.clearSelected()
+    },
+    navigateToPage (page) {
+      this.$Countly.trackEvent('Pagination Button Clicked', { page })
+    },
+    resultsPerPageSelectorChanged (change) {
+      const event = change.event
+      const data = change.data
+      if (event === 'toggleDropdown') {
+        this.$Countly.trackEvent('Results-Per-Page Dropdown Toggled', data)
+      } else if (event === 'optionSelected') {
+        this.$Countly.trackEvent('Results-Per-Page Option Selected', data)
+      }
     }
   }
 }

@@ -195,13 +195,24 @@ export default {
 
   computed: {
     ...mapGetters({
-      siteContent: 'global/siteContent'
+      siteContent: 'global/siteContent',
+      segmentCollection: 'core/segmentCollection'
     }),
     segmentSliderContent () {
       return this.siteContent.index.page_content.segment_slider
     },
     mobileChartTitle () {
       return this.segmentSliderContent.mobile_chart_title
+    }
+  },
+
+  watch: {
+    selectedSeg (val) {
+      const segment = this.segmentCollection[val]
+      this.$Countly.trackEvent('Segment Chart | Segment Clicked', {
+        label: segment.label,
+        slug: segment.slug
+      })
     }
   },
 
@@ -373,6 +384,7 @@ export default {
   cursor: pointer;
   transition: background-color 250ms linear, font-weight 250ms linear;
   &:before {
+    @include borderRadius2;
     content: '';
     background-color: inherit;
     width: 100%;
@@ -380,7 +392,6 @@ export default {
     position: absolute;
     top: 0;
     left: 0;
-    @include borderRadius2;
     transition: transform 200ms linear;
   }
   &:hover:before {
