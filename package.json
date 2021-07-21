@@ -3,15 +3,15 @@
   "version": "1.0.0",
   "description": "Interactive IPFS ecosystem directory and showcase",
   "author": {
-    "name": "Nauras Jabari",
-    "email": "nauras@agencyundone.com"
+    "name": "Agency Undone",
+    "email": "hello@agencyundone.com"
   },
   "private": true,
   "scripts": {
     "dev": "node manifestor.js && nuxt",
     "start": "nuxt start",
     "build": "node manifestor.js && nuxt build",
-    "generate": "node manifestor.js && nuxt generate",
+    "generate": "node manifestor.js && nuxt generate --fail-on-error",
     "launch": "nuxt build && pm2 restart ipfs-ecosystem-directory",
     "reload": "pm2 restart ipfs-ecosystem-directory"
   },
