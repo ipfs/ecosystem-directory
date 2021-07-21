@@ -279,7 +279,7 @@ export default {
   }
   &.number-active {
     font-size: 8pt;
-    margin: 0 0.25rem;
+    margin: 0 .75rem 0 0.35rem;
   }
   &.toggle {
     display: inline-block;
@@ -304,8 +304,7 @@ export default {
 }
 
 .granular-filter-clear {
-  @include fontSize_Mini;
-  font-weight: 600;
+  font-size: 7pt;
   margin: 0 0.125rem;
   &:hover {
     text-decoration: underline;
