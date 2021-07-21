@@ -83,6 +83,7 @@ const toggleAllCategoryTags = (instance, heading) => {
   filters.forEach((item) => {
     if (item.slug === heading) {
       const checker = []
+      let state = 'on'
       for (let i = 0; i < item.tags.length; i++) {
         if (!instance.routeQuery.tags.includes(item.tags[i].slug)) {
           instance.setRouteQuery({ key: 'tags', data: item.tags[i].slug })
@@ -92,8 +93,14 @@ const toggleAllCategoryTags = (instance, heading) => {
         }
       }
       if (checker.every((val) => { return val })) {
+        state = 'off'
         instance.clearRouteQueryTags(heading)
       }
+      instance.$Countly.trackEvent('Filter Chiclet Clicked', {
+        tag: 'all',
+        category: heading,
+        state
+      })
     }
   })
 }
@@ -177,6 +184,11 @@ export default {
       return false
     },
     applyFilter (tag, category) {
+      this.$Countly.trackEvent('Filter Chiclet Clicked', {
+        tag,
+        category,
+        state: this.routeQuery.tags.includes(tag) ? 'off' : 'on'
+      })
       this.setRouteQuery({ key: 'tags', data: tag })
     },
     toggleAll (heading) {
@@ -186,7 +198,7 @@ export default {
       this.clearAllTags()
     },
     closePanel () {
-      this.$emit('toggleFilterPanel')
+      this.$emit('toggleFilterPanel', 'done')
     }
   }
 }

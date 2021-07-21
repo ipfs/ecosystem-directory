@@ -123,6 +123,7 @@ export default {
         key: 'page',
         data: pg
       })
+      this.$emit('navigateToPage', pg)
     }
   }
 }

@@ -148,13 +148,27 @@ export default {
     }),
     toggleDropDown () {
       this.closed = !this.closed
+      this.$emit('changed', {
+        event: 'toggleDropdown',
+        data: {
+          state: !this.closed ? 'open' : 'closed'
+        }
+      })
     },
     closeAllSelect () {
+      if (!this.closed) {
+        this.$emit('changed', {
+          event: 'toggleDropdown',
+          data: {
+            state: 'closed'
+          }
+        })
+      }
       this.closed = true
     },
     optionSelected (obj) {
       this.selected = obj.label
-      this.closed = true
+      this.toggleDropDown()
       if (obj.type === 'alphabetical') {
         this.sortAlphabetically(obj.key, obj.direction)
       } else if (obj.type === 'number') {
@@ -163,6 +177,13 @@ export default {
       this.setRouteQuery({
         key: 'sort-by',
         data: obj.slug
+      })
+      this.$emit('changed', {
+        event: 'optionSelected',
+        data: {
+          label: obj.label,
+          slug: obj.slug
+        }
       })
     },
     sortAlphabetically (key, mode) {

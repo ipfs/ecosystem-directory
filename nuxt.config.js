@@ -55,7 +55,10 @@ export default {
         case 'stable': uri = ''; break
         case 'production': uri = ''; break
       } return uri
-    }())
+    }()),
+    countlyAppKey: process.env.COUNTLY_APP_KEY,
+    countlySiteUrl: process.env.COUNTLY_SITE_URL,
+    nodeEnv: process.env.NODE_ENV
   },
   // --------------------------------------------------------- [Runtime] Private
   privateRuntimeConfig: {},
@@ -148,6 +151,13 @@ export default {
   // //////////////////////////////////////////////////////////// [Module] Axios
   // -------------------------------------- See https://axios.nuxtjs.org/options
   axios: {},
+  // ////////////////////////////////////////////////////////// [Module] Countly
+  // ---------------------------------------------------------------------------
+  countly: {
+    debug: process.env.NODE_ENV === 'development',
+    disableInDevelopment: true,
+    suppressErrorLogs: false
+  },
   // /////////////////////////////////// Plugins to load before mounting the App
   // ---------------------------------------------------------------------------
   plugins: [
@@ -155,7 +165,9 @@ export default {
     '~/plugins/global-methods',
     '~/plugins/taxonomy-methods',
     '~/plugins/scroll-to',
-    '~/modules/zero/core/Plugins/nuxt-hammer'
+    '~/modules/zero/core/Plugins/nuxt-hammer',
+    // Doc: https://support.count.ly/hc/en-us/articles/360037441932-Web-analytics-JavaScript
+    { src: '~/plugins/countly', mode: 'client' }
   ],
   // /////////////////////////////////////////////////////// Router + Middleware
   // ---------------------------------------------------------------------------
