@@ -156,7 +156,7 @@ export default {
   countly: {
     debug: process.env.NODE_ENV === 'development',
     disableInDevelopment: true,
-    suppressErrorLogs: false
+    suppressErrorLogs: true
   },
   // /////////////////////////////////// Plugins to load before mounting the App
   // ---------------------------------------------------------------------------
