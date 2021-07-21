@@ -23,7 +23,7 @@
                   {{ numberInCategory[heading.slug] }} of {{ heading.tags.length }}
                 </span>
                 <span
-                  v-if="includeClearCategory"
+                  v-if="includeClearCategory && (numberInCategory[heading.slug] > 0)"
                   class="granular-filter-clear"
                   @click.stop="clearCategory(heading.slug)">
                   Clear
