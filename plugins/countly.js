@@ -14,7 +14,6 @@ import Config from '@/nuxt.config'
 // -----------------------------------------------------------------------------
 // ////////////////////////////////////////////////////////////////// initialize
 const initialize = (countlyAppKey, countlySiteUrl) => {
-  console.log('C')
   Countly.init({
     app_key: countlyAppKey,
     url: countlySiteUrl,
@@ -27,9 +26,7 @@ const initialize = (countlyAppKey, countlySiteUrl) => {
 
 // ////////////////////////////////////////////////////////////////// addHelpers
 const addHelpers = (countlyAppKey) => {
-  console.log('D')
   Countly.trackEvent = (event, data = {}) => {
-    console.log(event, data)
     Countly.q.push(['add_event', {
       key: event,
       segmentation: data
@@ -50,10 +47,7 @@ export default ({ app, store, req, router, $config: { countlyAppKey, countlySite
   if (typeof countlyAppKey === 'undefined' || countlyAppKey === '') { error = '"COUNTLY_APP_KEY" environment variable must be set' }
   if (typeof countlySiteUrl === 'undefined' || countlySiteUrl === '') { error = '"COUNTLY_SITE_URL" environment variable must be set' }
   const disableInDevelopment = Config.countly.disableInDevelopment
-  console.log(Config.countly)
-  console.log(countlyAppKey, countlySiteUrl, nodeEnv)
   if (error !== '' || (nodeEnv === 'development' && disableInDevelopment)) {
-    console.log('A')
     inject('Countly', {
       trackEvent: () => {
         if (!Config.countly.suppressErrorLogs) {
@@ -64,10 +58,8 @@ export default ({ app, store, req, router, $config: { countlyAppKey, countlySite
     })
     return
   }
-  console.log('B')
   initialize(countlyAppKey, countlySiteUrl)
   addHelpers()
-  console.log(Countly)
   inject('Countly', Countly)
   console.log('🔌 [Plugin | Countly] Countly')
 }
