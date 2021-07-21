@@ -248,7 +248,7 @@ The following `nuxt.config.js` entries are required:
 
 Below is a breakdown of all events captured by Countly.
 
-### General
+### → General
 
 ```js
 Countly.track_sessions()
@@ -256,7 +256,7 @@ Countly.track_pageview()
 Countly.track_links()
 ```
 
-### Segment Chart
+### → Segment Chart
 
 **Segment clicked**
 
@@ -278,7 +278,7 @@ Countly.trackEvent('Segment Chart | Segment Clicked', { label, slug })
 Countly.trackEvent('Segment Chart | View All Button Clicked', { label, slug })
 ```
 
-### Featured Slider
+### → Featured Slider
 
 **Project card clicked**
 
@@ -292,7 +292,7 @@ Countly.trackEvent('Segment Chart | View All Button Clicked', { label, slug })
 Countly.trackEvent('Featured Slider | Project Card Clicked', { name, slug, from })
 ```
 
-### Events
+### → Events
 
 **Filter Panel Toggled**
 
@@ -383,11 +383,11 @@ There exists a 500ms debounce function in the search input so as to provide a gr
 Countly.trackEvent('Filter Panel Search Input', { query })
 ```
 
-### Header/Footer
+### → Header/Footer
 
 Links get automatically tracked by `Countly.track_links()`
 
-### 404
+### → 404
 
 ```js
 Countly.trackEvent('404_NOT_FOUND', {
@@ -396,7 +396,7 @@ Countly.trackEvent('404_NOT_FOUND', {
 })
 ```
 
-### Query params
+### → Query params
 
 Track URL entire query param object when interacting with project filtering system. Since every param change is already tracked individually as per the list above, this tracker exists as an added layer for testing.
 
