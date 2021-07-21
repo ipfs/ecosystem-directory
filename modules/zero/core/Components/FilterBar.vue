@@ -81,8 +81,6 @@ $dimensions: 2.25rem;
   width: 100%;
   height: calc(#{$dimensions} - 2px);
   margin-right: 1rem;
-  @include borderRadius3;
-  background-color: $blackHaze;
 }
 
 .icon-container {
@@ -92,12 +90,11 @@ $dimensions: 2.25rem;
   align-items: center;
   width: calc(#{$dimensions} - 2px);
   height: calc(#{$dimensions} - 2px);
-  background-color: $blackHaze;
-  border-radius: 0.25rem 0 0 0.25rem;
   transition: 250ms ease-out;
 }
 
 .input {
+  @include borderRadius3;
   flex: 1;
   height: 100%;
   padding: 0.66rem 0;
@@ -105,10 +102,9 @@ $dimensions: 2.25rem;
   font-size: 10pt;
   font-weight: 300;
   background-color: $blackHaze;
-  border-radius: 0 0.25rem 0.25rem 0;
   transition: 250ms ease-out;
   -webkit-appearance: none;
-  &:hover {
+  &:hover, &:active, &:focus {
     transition: 250ms ease-in;
     background-color: $blackHaze;
   }

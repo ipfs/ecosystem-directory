@@ -82,8 +82,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$highlight: #6BC4CE;
-
 // ///////////////////////////////////////////////////////////////////// General
 #site-footer {
   padding: 4rem 0;
@@ -97,10 +95,13 @@ $highlight: #6BC4CE;
 ::v-deep .subheading,
 ::v-deep .copyright {
   a {
-    color: $highlight;
+    color: $downy;
+    text-decoration: underline transparent;
+    text-underline-offset: $underlineSpacing;
+    transition: text-decoration-color 250ms ease-out;
     &:hover {
-      text-decoration: underline;
-      text-underline-offset: $underlineSpacing;
+      transition: text-decoration-color 250ms ease-in;
+      text-decoration-color: currentColor;
     }
   }
 }
