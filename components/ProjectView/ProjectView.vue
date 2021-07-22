@@ -527,4 +527,5 @@ $paginateRoot_PaddingOffset: 3.5rem;
     margin-bottom: 0.5rem;
   }
 }
+
 </style>

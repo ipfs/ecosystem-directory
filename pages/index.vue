@@ -159,6 +159,11 @@ const setRouteQueryPage = (instance, cloned) => {
   }
 }
 
+const initResize = (instance) => {
+  clearTimeout(instance.timeOutFunction)
+  instance.timeOutFunction = setTimeout(() => { instance.resetSectionHeight() }, 150)
+}
+
 // ====================================================================== Export
 export default {
   name: 'HomePage',
@@ -175,7 +180,8 @@ export default {
       sectionHeight: 0,
       segmentSlider: false,
       featuredSlider: false,
-      resize: false
+      resize: false,
+      timeOutFunction: null
     }
   },
 
@@ -242,7 +248,7 @@ export default {
 
   mounted () {
     parseURLParams(this)
-    this.resize = () => { this.resetSectionHeight() }
+    this.resize = () => { this.$nextTick(() => { initResize(this) }) }
     window.addEventListener('resize', this.resize)
   },
 
@@ -276,10 +282,12 @@ export default {
     },
     resetSectionHeight () {
       if (this.$refs.segmentSlider && this.$refs.featuredSection && this.$refs.filterHeading) {
-        const x = this.$refs.segmentSlider.offsetHeight
-        const y = this.$refs.featuredSection.offsetHeight
-        const z = this.$refs.filterHeading.offsetHeight
-        this.sectionHeight = Math.ceil(x + y + z)
+        setTimeout(() => {
+          const x = this.$refs.segmentSlider.offsetHeight
+          const y = this.$refs.featuredSection.offsetHeight
+          const z = this.$refs.filterHeading.offsetHeight
+          this.sectionHeight = Math.ceil(x + y + z)
+        }, 150)
       }
     }
   }
