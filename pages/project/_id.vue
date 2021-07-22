@@ -674,8 +674,10 @@ export default {
       @include fontSize_Large;
       @include leading_Mini;
       @include small {
-        @include fontSize_Regular;
         margin-bottom: 1rem;
+      }
+      @include tiny {
+        margin-top: 1rem;
       }
     }
   }
@@ -692,11 +694,7 @@ export default {
       @include fontSize_Large;
       @include leading_Mini;
       @include tiny {
-        @include fontSize_Medium;
-        margin: 1rem 0.5rem;
-      }
-      @media screen and (max-width: 20rem) {
-        @include fontSize_Small;
+        margin: 1rem 0;
       }
     }
     .description {
@@ -721,17 +719,17 @@ export default {
       }
     }
   }
+  &.hide-tiny {
+    @include tiny {
+      display: none;
+    }
+  }
   .statistic,
   .title {
     font-family: $fontMontserrat;
     margin-bottom: 1rem;
     @include tiny {
       margin-bottom: 0;
-    }
-  }
-  &.hide-tiny {
-    @include tiny {
-      display: none;
     }
   }
 }
@@ -766,6 +764,11 @@ export default {
       justify-content: space-between;
       flex: 1 1 auto;
       margin: 0 1rem;
+    }
+    &.big-number {
+      @include tiny {
+        flex-direction: column-reverse;
+      }
     }
   }
 }
