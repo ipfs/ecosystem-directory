@@ -959,31 +959,38 @@ export default {
   margin-top: 1rem;
 }
 
+.outerbox {
+  @include customMaxMQ ($containerWidth + 4rem) {
+    padding: 0 calc(4.1665% + 0.5rem);
+  }
+  @include mini {
+    padding: 0;
+  }
+}
+
 .featured-box {
-  padding-top: 4.75rem;
-  max-width: 90rem;
-  margin: auto;
-  border: 2px solid #E5E5E5;
   @include borderRadius3;
-  @include xlarge {
-    margin: auto 3.75rem;
-  }
-  @include large {
-    padding-top: 3.75rem;
-    margin: auto 1.5rem;
-  }
+  padding-top: 4.75rem;
+  max-width: $containerWidth;
+  margin: 0 auto;
+  border: 2px solid #E5E5E5;
   @include mini {
     border: none;
     padding-top: 0;
     margin: 0;
   }
-  .mini-box{
+  [class~=grid],
+  [class*=grid-],
+  [class*=grid_] {
+    max-width: 67rem;
+  }
+  .mini-box {
     @include mini {
+      @include borderRadius3;
       margin: 0 0.5rem;
       padding: 0 2rem;
       padding-top: 3rem;
       border: 2px solid #E5E5E5;
-      @include borderRadius3;
     }
   }
 }
