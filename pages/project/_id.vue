@@ -144,16 +144,13 @@
                       <li
                         v-if="link.text && link.url"
                         :key="`link-group-${j}`">
-                        <a :href="link.url" target="_blank">
+                        <a
+                          :href="link.url"
+                          target="_blank"
+                          :data-tooltip="link.text.length > 23 ? link.text : false"
+                          data-tooltip-theme="dark">
                           {{ $truncateString(link.text, 12, '...', type = 'double') }}
                         </a>
-                        <div
-                          v-if="link.text.length > 23"
-                          class="link-tooltip"
-                          :data-tooltip="link.text"
-                          data-tooltip-theme="dark">
-                          ?
-                        </div>
                       </li>
                     </template>
                   </ul>
