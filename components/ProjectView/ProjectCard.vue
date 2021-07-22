@@ -61,11 +61,14 @@ export default {
 // ///////////////////////////////////////////////////////////////////// General
 .project-card {
   padding: 0 0.5rem 1rem;
+  opacity: 0;
+  animation: fadein 0.3s 1;
+  animation-fill-mode: forwards;
   transition: width 0ms;
   &:hover {
     .title {
-      text-decoration: underline;
-      text-underline-offset: $underlineSpacing;
+      transition: text-decoration-color 250ms ease-in;
+      text-decoration-color: currentColor;
     }
     .thumbnail img {
       transform: scale(1.05);
@@ -105,6 +108,11 @@ export default {
   }
 }
 
+@keyframes fadein {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
 .thumbnail {
   @include borderRadius3;
   display: flex;
@@ -133,6 +141,9 @@ export default {
   font-family: $fontMontserrat;
   color: $tiber;
   margin-bottom: 0.25rem;
+  text-decoration: underline transparent;
+  text-underline-offset: $underlineSpacing;
+  transition: text-decoration-color 250ms ease-out;
 }
 
 .description {

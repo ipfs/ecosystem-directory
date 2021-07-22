@@ -12,15 +12,19 @@
           :class="{ sliding: animate }"
           :style="{ left: `${left}px`, width: slidingRowWidth }">
 
-          <ProjectCard
+          <div
             v-for="(project, index) in featured"
             :key="index"
-            :title="project.name"
-            :slug="project.slug"
-            :description="project.description.short"
-            :logo="project.logo.icon"
             :style="{ width: `${cardWidth}px` }"
-            format="block-view" />
+            class="click-wrapper"
+            @click="projectCardClicked(project)">
+            <ProjectCard
+              :title="project.name"
+              :slug="project.slug"
+              :description="project.description.short"
+              :logo="project.logo.icon"
+              format="block-view" />
+          </div>
 
         </div>
       </div>
@@ -76,6 +80,13 @@ export default {
 
   components: {
     ProjectCard
+  },
+
+  props: {
+    parent: { // name of parent page, used for Countly
+      type: String,
+      required: true
+    }
   },
 
   data () {
@@ -138,6 +149,13 @@ export default {
       if (ind > 0 && e.type === 'swiperight') {
         this.range = min + (rng * (ind - 1) / this.indices)
       }
+    },
+    projectCardClicked (project) {
+      this.$Countly.trackEvent('Featured Slider | Project Card Clicked', {
+        name: project.name,
+        slug: project.slug,
+        from: this.parent
+      })
     }
   }
 }
@@ -172,6 +190,7 @@ export default {
 
 // /////////////////////////////////////////////////////////////////////// Cards
 ::v-deep .project-card {
+  display: block;
   padding-bottom: 0;
   @include tiny {
     padding: 0;

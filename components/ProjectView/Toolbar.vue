@@ -8,7 +8,7 @@
         type="C"
         :text="filterPanelToggleButtonLabel"
         :class="[filterButtonFloating, { 'active': filterPanelOpen }]"
-        @clicked="$emit('toggleFilterPanel')">
+        @clicked="toggleFilterPanel">
         <template #icon-before>
           <FiltersToggleIcon />
         </template>
@@ -32,7 +32,8 @@
       <SortBySelector
         class="sort-by-selector"
         :label="sortDropdownLabel"
-        :sort-options="sortOptions">
+        :sort-options="sortOptions"
+        @changed="sortBySelectorChanged">
         <template #dropdown-icon>
           <SelectorToggleIcon />
         </template>
@@ -121,13 +122,25 @@ export default {
 
   methods: {
     toggleFilterPanel () {
-      this.$emit('toggleFilterPanel')
+      this.$emit('toggleFilterPanel', 'filters')
     },
     toggleListBlockView () {
       this.$emit('toggleListBlockView')
     },
     clearSelectedFilters () {
+      this.$Countly.trackEvent('Clear Filters Button Clicked', {
+        count: this.selectedFiltersCount
+      })
       this.$emit('clearSelectedFilters')
+    },
+    sortBySelectorChanged (change) {
+      const event = change.event
+      const data = change.data
+      if (event === 'toggleDropdown') {
+        this.$Countly.trackEvent('Sort-By Dropdown Toggled', data)
+      } else if (event === 'optionSelected') {
+        this.$Countly.trackEvent('Sort-By Option Selected', data)
+      }
     }
   }
 }
