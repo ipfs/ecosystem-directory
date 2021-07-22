@@ -10,7 +10,7 @@
     </div>
 
     <div class="grid">
-      <div class="col-5_md-8_sm-10_mi-12">
+      <div class="col-5_md-12">
         <section id="section-project-info">
           <img
             v-if="project.logo && project.logo.full"
@@ -45,7 +45,7 @@
         </section>
       </div>
 
-      <div class="col-6_md-8_mi-12" data-push-left="off-1_md-0">
+      <div class="col-6_md-10_mi-12" data-push-left="off-1_md-0">
         <section v-if="project.stats" id="section-statistics">
 
           <template v-for="(stat, i) in project.stats">
