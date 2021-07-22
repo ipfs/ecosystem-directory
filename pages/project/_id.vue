@@ -913,7 +913,7 @@ export default {
     top: 0;
     right: 0.3125rem;
     width: 0.75rem;
-    height: 100%;
+    height: calc(100% - 1rem);
     background: url('~assets/theme/svgs/chevrondown.svg') no-repeat right center;
   }
 }
