@@ -25,7 +25,9 @@
       <div id="filter-panel-wrapper" ref="panelWrapper" :style="`height: ${toggleHeight};`">
         <div id="filter-panel-toolbar">
 
-          <div id="filter-panel-close-icon" @click="toggleFilterPanel">
+          <div
+            id="filter-panel-close-icon"
+            @click="toggleFilterPanel('x-icon')">
             <CloseIcon />
           </div>
 
@@ -34,6 +36,7 @@
           </h4>
 
           <FilterBar
+            id="filter-bar"
             :filter-value="searchQuery"
             action="store">
             <template #icon>
@@ -61,14 +64,15 @@
           class="paginate-root">
           <div class="grid">
             <ProjectCard
-              v-for="project in paginated"
-              :key="project.name"
+              v-for="(project, index) in paginated"
+              :key="`${project.name}-${(listViewActive ? 'list' : 'block')}`"
               :format="(listViewActive ? 'list-view' : 'block-view')"
               :title="project.name"
               :slug="project.slug"
               :description="project.description.short"
               :logo="project.logo.icon"
-              :class="projectCardColumns" />
+              :class="projectCardColumns"
+              :style="`animation-delay: ${30 * index}ms`" />
           </div>
         </Paginate>
 
@@ -78,7 +82,9 @@
 
         <div v-if="sortedCollection" id="paginated-list-navigation-controls">
 
-          <PaginationControls breaker="...">
+          <PaginationControls
+            breaker="..."
+            @navigateToPage="navigateToPage">
             <template #first-page>
               <FirstArrow stroke="#494949" />
             </template>
@@ -96,7 +102,8 @@
           <ResultsPerPageSelector
             id="results-per-page-selector"
             :label="resultsPerPageDropdownLabel"
-            :collection="sortedCollection">
+            :collection="sortedCollection"
+            @changed="resultsPerPageSelectorChanged">
             <template #dropdown-icon>
               <SelectorToggleIcon />
             </template>
@@ -164,7 +171,8 @@ export default {
     return {
       panelHeight: false,
       listViewActive: false,
-      scroll: false
+      scroll: false,
+      searchQueryTimer: undefined
     }
   },
 
@@ -228,6 +236,14 @@ export default {
         key: 'display-type',
         data: val ? 'list' : 'block'
       })
+    },
+    searchQuery (query) {
+      clearTimeout(this.searchQueryTimer)
+      this.searchQueryTimer = setTimeout(() => {
+        this.$Countly.trackEvent('Filter Panel Search Input', {
+          query
+        })
+      }, 500)
     }
   },
 
@@ -274,8 +290,12 @@ export default {
       setFilterPanelOpen: 'filters/setFilterPanelOpen',
       setFilterButtonFloating: 'global/setFilterButtonFloating'
     }),
-    toggleFilterPanel (forceOpen) {
+    toggleFilterPanel (button) {
       this.setFilterPanelOpen(!this.filterPanelOpen)
+      this.$Countly.trackEvent('Filter Panel Toggled', {
+        button,
+        state: this.filterPanelOpen ? 'open' : 'closed'
+      })
       if (!this.routeQuery.hasOwnProperty('filters') || this.routeQuery.filters !== 'enabled') {
         this.setRouteQuery({ key: 'filters', data: 'enabled' })
       }
@@ -283,9 +303,24 @@ export default {
     },
     toggleListBlockView () {
       this.listViewActive = !this.listViewActive
+      this.$Countly.trackEvent('Grid-List View Toggled', {
+        view: this.listViewActive ? 'list' : 'grid'
+      })
     },
     clearSelectedFilters () {
       this.$refs.filterPanel.clearSelected()
+    },
+    navigateToPage (page) {
+      this.$Countly.trackEvent('Pagination Button Clicked', { page })
+    },
+    resultsPerPageSelectorChanged (change) {
+      const event = change.event
+      const data = change.data
+      if (event === 'toggleDropdown') {
+        this.$Countly.trackEvent('Results-Per-Page Dropdown Toggled', data)
+      } else if (event === 'optionSelected') {
+        this.$Countly.trackEvent('Results-Per-Page Option Selected', data)
+      }
     }
   }
 }
@@ -398,22 +433,26 @@ $paginateRoot_PaddingOffset: 3.5rem;
   }
 }
 
-// #filter-panel-toolbar,
-// #filter-panel-controls {
-//   @include small {
-//     position: absolute;
-//     left: 0;
-//   }
-// }
-
 #filter-panel-toolbar {
-  // @include small {
-  //   top: 0;
-  // }
   margin-bottom: 2rem;
   .title {
     font-family: $fontMontserrat;
     margin-bottom: 0.5rem;
+  }
+}
+
+::v-deep #filter-bar {
+  position: relative;
+  .icon-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  .input {
+    padding-left: calc(2.25rem - 2px);
+    &:focus {
+      box-shadow: 0 0 0 5px rgba(0, 123, 255, 0.5);
+    }
   }
 }
 
@@ -422,12 +461,6 @@ $paginateRoot_PaddingOffset: 3.5rem;
     overflow-y: scroll;
   }
 }
-
-// #filter-panel-controls {
-//   @include small {
-//     bottom: 0;
-//   }
-// }
 
 // ////////////////////////////////////////////////////////////// Paginated List
 #paginated-list {
