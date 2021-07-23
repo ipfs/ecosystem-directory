@@ -293,8 +293,7 @@ export default {
       setRouteQuery: 'filters/setRouteQuery',
       setTotalFilters: 'filters/setTotalFilters',
       setFilterPanelOpen: 'filters/setFilterPanelOpen',
-      setFilterButtonFloating: 'global/setFilterButtonFloating',
-      setFilterValue: 'core/setFilterValue'
+      setFilterButtonFloating: 'global/setFilterButtonFloating'
     }),
     toggleFilterPanel (button) {
       this.setFilterPanelOpen(!this.filterPanelOpen)
@@ -315,7 +314,6 @@ export default {
     },
     clearSelectedFilters () {
       this.$refs.filterPanel.clearSelected()
-      this.setFilterValue('')
     },
     navigateToPage (page) {
       this.$Countly.trackEvent('Pagination Button Clicked', { page })
@@ -505,10 +503,17 @@ $paginateRoot_PaddingOffset: 3.5rem;
   text-align: center;
   background-color: white;
   .clear-all-null-results {
-    background-color: $blackHaze;
-    padding: 0.3rem;
-    @include borderRadius2;
+    @include borderRadius3;
+    padding: 0.3125rem 0.75rem;
+    color: $blackPearl;
+    background: $blackHaze;
+    transition: 250ms ease-out;
     cursor: pointer;
+    &:hover {
+      transition: 250ms ease-in;
+      background-color: $ming;
+      color: white;
+    }
   }
 }
 
