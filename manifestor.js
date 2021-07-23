@@ -90,7 +90,7 @@ const generateShowcaseDataFile = async (slugs) => {
 
       data.projects.push({
         name: project.name,
-        logo: project.logo.full,
+        logo: project.logo.icon,
         tags: tags
       })
     }
