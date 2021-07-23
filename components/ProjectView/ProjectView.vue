@@ -78,6 +78,11 @@
 
         <div v-else class="placeholder-results-empty">
           {{ pageData.section_filter.results_empty_placeholder }}
+          <span
+            class="clear-all-null-results"
+            @click="clearSelectedFilters">
+            Clear all
+          </span>
         </div>
 
         <div v-if="sortedCollection" id="paginated-list-navigation-controls">
@@ -288,7 +293,8 @@ export default {
       setRouteQuery: 'filters/setRouteQuery',
       setTotalFilters: 'filters/setTotalFilters',
       setFilterPanelOpen: 'filters/setFilterPanelOpen',
-      setFilterButtonFloating: 'global/setFilterButtonFloating'
+      setFilterButtonFloating: 'global/setFilterButtonFloating',
+      setFilterValue: 'core/setFilterValue'
     }),
     toggleFilterPanel (button) {
       this.setFilterPanelOpen(!this.filterPanelOpen)
@@ -309,6 +315,7 @@ export default {
     },
     clearSelectedFilters () {
       this.$refs.filterPanel.clearSelected()
+      this.setFilterValue('')
     },
     navigateToPage (page) {
       this.$Countly.trackEvent('Pagination Button Clicked', { page })
@@ -497,6 +504,12 @@ $paginateRoot_PaddingOffset: 3.5rem;
   font-weight: 600;
   text-align: center;
   background-color: white;
+  .clear-all-null-results {
+    background-color: $blackHaze;
+    padding: 0.3rem;
+    @include borderRadius2;
+    cursor: pointer;
+  }
 }
 
 // ///////////////////////////////////////////////////////// Pagination Controls
