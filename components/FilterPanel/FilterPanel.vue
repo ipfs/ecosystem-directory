@@ -323,8 +323,11 @@ export default {
 .granular-filter-clear {
   font-size: 7pt;
   margin: 0 0.125rem;
+  text-decoration: underline transparent;
+  transition: text-decoration-color 250ms ease-out;
   &:hover {
-    text-decoration: underline;
+    transition: text-decoration-color 250ms ease-in;
+    text-decoration-color: currentColor;
   }
 }
 
