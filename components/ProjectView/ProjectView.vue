@@ -256,26 +256,8 @@ export default {
       }
     }
     clearPanelHeight(this)
-    const scroll = () => {
-      const projectViewContainer = this.$refs.projectViewContainer
-      const bottom = projectViewContainer.getBoundingClientRect().bottom
-      const top = projectViewContainer.parentNode.getBoundingClientRect().top
-      // console.log(top, window.innerHeight, window.innerHeight + (window.innerWidth * 0.041665) + 36)
-      const filterButtonFloating = this.filterButtonFloating
-      const offset = window.innerWidth <= 640 ? (window.innerWidth * 0.041665) + 84 - 16 : 0
-      // console.log(window.innerHeight, top + (window.innerWidth * 0.041665) * 2 + 36, bottom, window.innerHeight + offset)
-      if (window.innerHeight < top + (window.innerWidth * 0.041665) * 2 + 36 && filterButtonFloating !== 'top') {
-        // console.log('A')
-        this.setFilterButtonFloating('top')
-      } else if (window.innerHeight >= top + (window.innerWidth * 0.041665) * 2 + 36 && bottom >= window.innerHeight + offset && filterButtonFloating !== 'middle') {
-        // console.log('B')
-        this.setFilterButtonFloating('middle')
-      } else if (bottom < window.innerHeight + offset && filterButtonFloating !== 'bottom') {
-        // console.log('C')
-        this.setFilterButtonFloating('bottom')
-      }
-    }; scroll()
-    this.scroll = this.$throttle(scroll, 10)
+    this.positionFilterPanelButton()
+    this.scroll = this.$throttle(this.positionFilterPanelButton, 10)
     window.addEventListener('scroll', this.scroll)
   },
 
@@ -290,6 +272,20 @@ export default {
       setFilterPanelOpen: 'filters/setFilterPanelOpen',
       setFilterButtonFloating: 'global/setFilterButtonFloating'
     }),
+    positionFilterPanelButton () {
+      const projectViewContainer = this.$refs.projectViewContainer
+      const bottom = projectViewContainer.getBoundingClientRect().bottom
+      const top = projectViewContainer.parentNode.getBoundingClientRect().top
+      const filterButtonFloating = this.filterButtonFloating
+      const offset = window.innerWidth <= 640 ? (window.innerWidth * 0.041665) + 84 - 16 : 0
+      if (window.innerHeight < top + (window.innerWidth * 0.041665) * 2 + 36 && filterButtonFloating !== 'top') {
+        this.setFilterButtonFloating('top')
+      } else if (window.innerHeight >= top + (window.innerWidth * 0.041665) * 2 + 36 && bottom >= window.innerHeight + offset && filterButtonFloating !== 'middle') {
+        this.setFilterButtonFloating('middle')
+      } else if (bottom < window.innerHeight + offset && filterButtonFloating !== 'bottom') {
+        this.setFilterButtonFloating('bottom')
+      }
+    },
     toggleFilterPanel (button) {
       this.setFilterPanelOpen(!this.filterPanelOpen)
       this.$Countly.trackEvent('Filter Panel Toggled', {
@@ -300,6 +296,9 @@ export default {
         this.setRouteQuery({ key: 'filters', data: 'enabled' })
       }
       clearPanelHeight(this)
+      if (!this.filterPanelOpen) {
+        this.positionFilterPanelButton()
+      }
     },
     toggleListBlockView () {
       this.listViewActive = !this.listViewActive
@@ -309,6 +308,10 @@ export default {
     },
     clearSelectedFilters () {
       this.$refs.filterPanel.clearSelected()
+      const timeout = setTimeout(() => {
+        this.positionFilterPanelButton()
+        clearTimeout(timeout)
+      }, 100)
     },
     navigateToPage (page) {
       this.$Countly.trackEvent('Pagination Button Clicked', { page })
