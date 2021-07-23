@@ -411,9 +411,9 @@ $paginateRoot_PaddingOffset: 3.5rem;
     position: absolute;
     top: 0;
     right: 100%;
-    width: $gutter;
+    width: 100%;
     height: 100%;
-    background-color: white;
+    background: linear-gradient(to left, white, transparent);
     @include small {
       display: none;
     }
