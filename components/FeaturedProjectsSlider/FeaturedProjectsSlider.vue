@@ -127,7 +127,7 @@ export default {
     handleFeatureSliderResize(this)
     this.resize = () => { handleFeatureSliderResize(this) }
     window.addEventListener('resize', this.resize)
-    this.$emit('init')
+    this.$nextTick(() => { this.$emit('init') })
   },
 
   beforeDestroy () {

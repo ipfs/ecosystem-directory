@@ -287,7 +287,7 @@ export default {
           const y = this.$refs.featuredSection.offsetHeight
           const z = this.$refs.filterHeading.offsetHeight
           this.sectionHeight = Math.ceil(x + y + z)
-        }, 150)
+        }, 300)
       }
     }
   }
