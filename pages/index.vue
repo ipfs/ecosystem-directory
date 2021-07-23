@@ -90,7 +90,9 @@ const parseURLParams = (instance, next) => {
 
   if (cloned.hasOwnProperty('filters')) {
     if (cloned.filters === 'enabled') {
-      instance.setFilterPanelOpen(true)
+      if (!window.matchMedia('(max-width: 53.125rem)').matches) {
+        instance.setFilterPanelOpen(true)
+      }
       instance.setRouteQuery({
         key: 'filters',
         data: cloned.filters
