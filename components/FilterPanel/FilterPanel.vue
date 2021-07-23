@@ -22,6 +22,12 @@
                 <span class="filter-category number-active">
                   {{ numberInCategory[heading.slug] }} of {{ heading.tags.length }}
                 </span>
+                <span
+                  v-if="includeClearCategory && (numberInCategory[heading.slug] > 0)"
+                  class="granular-filter-clear"
+                  @click.stop="clearCategory(heading.slug)">
+                  Clear
+                </span>
                 <h5 v-if="getSublabel(heading)" class="filter-category sub-heading">
                   {{ getSublabel(heading) }}
                 </h5>
@@ -83,6 +89,7 @@ const toggleAllCategoryTags = (instance, heading) => {
   filters.forEach((item) => {
     if (item.slug === heading) {
       const checker = []
+      let state = 'on'
       for (let i = 0; i < item.tags.length; i++) {
         if (!instance.routeQuery.tags.includes(item.tags[i].slug)) {
           instance.setRouteQuery({ key: 'tags', data: item.tags[i].slug })
@@ -92,8 +99,14 @@ const toggleAllCategoryTags = (instance, heading) => {
         }
       }
       if (checker.every((val) => { return val })) {
+        state = 'off'
         instance.clearRouteQueryTags(heading)
       }
+      instance.$Countly.trackEvent('Filter Chiclet Clicked', {
+        tag: 'all',
+        category: heading,
+        state
+      })
     }
   })
 }
@@ -131,6 +144,12 @@ export default {
         return !Settings.behavior.excludeFilterAllTag
       }
       return true
+    },
+    includeClearCategory () {
+      if (typeof Settings.behavior.includeGranularFilterClearButton === 'boolean') {
+        return Settings.behavior.includeGranularFilterClearButton
+      }
+      return false
     },
     filterPanelContent () {
       return this.siteContent.index.page_content.section_filter.filter_panel
@@ -177,16 +196,24 @@ export default {
       return false
     },
     applyFilter (tag, category) {
+      this.$Countly.trackEvent('Filter Chiclet Clicked', {
+        tag,
+        category,
+        state: this.routeQuery.tags.includes(tag) ? 'off' : 'on'
+      })
       this.setRouteQuery({ key: 'tags', data: tag })
     },
     toggleAll (heading) {
       toggleAllCategoryTags(this, heading)
     },
+    clearCategory (heading) {
+      this.clearRouteQueryTags(heading)
+    },
     clearSelected () {
       this.clearAllTags()
     },
     closePanel () {
-      this.$emit('toggleFilterPanel')
+      this.$emit('toggleFilterPanel', 'done')
     }
   }
 }
@@ -231,6 +258,11 @@ export default {
     padding: 0.4rem 1.2rem;
     font-size: 10pt;
     margin: 0.5rem 1rem 0.5rem 0;
+    transition: 250ms ease-out;
+    &:hover {
+      transition: 250ms ease-in;
+      background-color: $ming;
+    }
   }
   .clear-selected {
     background-color: $blackHaze;
@@ -264,6 +296,7 @@ export default {
   }
   &.number-active {
     font-size: 8pt;
+    margin: 0 .75rem 0 0.35rem;
   }
   &.toggle {
     display: inline-block;
@@ -287,6 +320,14 @@ export default {
   }
 }
 
+.granular-filter-clear {
+  font-size: 7pt;
+  margin: 0 0.125rem;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .accordion-header {
   position: relative;
   cursor: pointer;
@@ -299,6 +340,7 @@ export default {
     width: 0.75rem;
     height: 100%;
     background: url('~assets/theme/svgs/chevrondown.svg') no-repeat right center;
+    transition: 250ms ease-out;
   }
 }
 
@@ -306,7 +348,8 @@ export default {
   &.open {
     .accordion-header {
       &:after {
-        transform: rotate(180deg);
+        transition: 250ms ease-in;
+        transform: rotate(-180deg);
       }
     }
   }

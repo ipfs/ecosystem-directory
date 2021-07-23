@@ -219,9 +219,12 @@ export default {
   color: blue;
   border: 2px solid blue;
   &:not(:disabled) {
+    text-decoration: underline transparent;
+    text-underline-offset: $underlineSpacing;
+    transition: text-decoration-color 250ms ease-out;
     &:hover {
-      text-decoration: underline;
-      text-underline-offset: $underlineSpacing;
+      transition: text-decoration-color 250ms ease-in;
+      text-decoration-color: currentColor;
     }
   }
   &:disabled {

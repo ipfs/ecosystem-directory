@@ -223,3 +223,185 @@ When either transferring or inputting a project from a copied `json`, the follow
 _This process could be further automated with a variety of tooling at a later date._
 
 ***
+
+## Analytics
+
+The following environment variables are required:
+
+```bash
+NODE_ENV=<production|development>
+COUNTLY_APP_KEY=<key>
+COUNTLY_SITE_URL=<url>
+```
+
+The following `nuxt.config.js` entries are required:
+
+```js
+{
+  countly: {
+    debug: Boolean,
+    disableInDevelopment: Boolean,
+    suppressErrorLogs: Boolean
+  }
+}
+```
+
+Below is a breakdown of all events captured by Countly.
+
+### → General
+
+```js
+Countly.track_sessions()
+Countly.track_pageview()
+Countly.track_links()
+```
+
+### → Segment Chart
+
+**Segment clicked**
+
+`name: <category_label>`
+
+`slug: <category_slug>`
+
+```js
+Countly.trackEvent('Segment Chart | Segment Clicked', { label, slug })
+```
+
+**View All button clicked**
+
+`name: <category_label>`
+
+`slug: <category_slug>`
+
+```js
+Countly.trackEvent('Segment Chart | View All Button Clicked', { label, slug })
+```
+
+### → Featured Slider
+
+**Project card clicked**
+
+`name: <project_name>`
+
+`slug: <project_slug>`
+
+`from: Home Page | Detail Page`
+
+```js
+Countly.trackEvent('Featured Slider | Project Card Clicked', { name, slug, from })
+```
+
+### → Events
+
+**Filter Panel Toggled**
+
+`button: filters | x-icon | done`
+
+`state: open | closed`
+
+```js
+Countly.trackEvent('Filter Panel Toggled', { button, state })
+```
+
+**Sort-By Dropdown Toggled**
+
+`state: open | closed`
+
+```js
+Countly.trackEvent('Sort-By Dropdown Toggled', { state })
+```
+
+**Sort-By Option Selected**
+
+`label: <sort_option_label>`
+
+`slug: <sort_option_slug>`
+
+```js
+Countly.trackEvent('Sort-By Option Selected', { label, slug })
+```
+
+**Pagination Button Clicked**
+
+`page: <number>`
+
+```js
+Countly.trackEvent('Pagination Button Clicked', { page })
+```
+
+**Results-Per-Page Dropdown Toggled**
+
+`state: open | closed`
+
+```js
+Countly.trackEvent('Results-Per-Page Dropdown Toggled', { state })
+```
+
+**Results-Per-Page Option Selected**
+
+`option: <number>`
+
+```js
+Countly.trackEvent('Results-Per-Page Option Selected', { option })
+```
+
+**Grid-List View Toggled**
+
+`view: list | grid`
+
+```js
+Countly.trackEvent('Grid-List View Toggled', { view })
+```
+
+**Filter Chiclet Clicked**
+
+`tag: all | <tag>`
+
+`category: <parent_category>`
+
+`state: on | off`
+
+```js
+Countly.trackEvent('Filter Chiclet Clicked', { tag, category, state })
+```
+
+**Clear Filters Button Clicked**
+`count: <number>`
+
+```js
+Countly.trackEvent('Clear Filters Button Clicked', { count })
+```
+
+**Filter Panel Search Input**
+
+There exists a 500ms debounce function in the search input so as to provide a greater chance of capturing a full rather than partial search query.
+
+`query: <search_term>`
+
+```js
+Countly.trackEvent('Filter Panel Search Input', { query })
+```
+
+### → Header/Footer
+
+Links get automatically tracked by `Countly.track_links()`
+
+### → 404
+
+```js
+Countly.trackEvent('404_NOT_FOUND', {
+  path: this.$route.path,
+  referrer: document.referrer
+})
+```
+
+### → Query params
+
+Track URL entire query param object when interacting with project filtering system. Since every param change is already tracked individually as per the list above, this tracker exists as an added layer for testing.
+
+`query: Object`
+
+```js
+Countly.trackEvent('Query Param Debug', { query })
+```

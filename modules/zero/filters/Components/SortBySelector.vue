@@ -1,49 +1,32 @@
 <template>
-  <div class="dropdown-wrapper">
+  <div
+    v-if="options.length > 0"
+    v-click-outside="closeAllSelect"
+    :class="['dropdown-wrapper', { closed }]"
+    :style="{ minWidth: `${maxLength * 10}px` }">
+
     <div
-      class="dropdown-root"
-      :style="`min-width: ${maxLength * 10}px`">
+      ref="dropdownButton"
+      class="dropdown-button"
+      @click="toggleDropDown()">
 
-      <div class="dropdown-button" @click.stop="toggleDropDown()">
+      <label>
+        {{ label }}
+      </label>
 
-        <label>
-          {{ label }}
-        </label>
+      <span>
+        {{ selected }}
+      </span>
 
-        <div>
-          <span>
-            {{ selected }}
-          </span>
+      <button class="dropdown-toggle">
+        <slot name="dropdown-icon"></slot>
+      </button>
 
-          <button class="dropdown-toggle">
-            <slot name="dropdown-icon"></slot>
-          </button>
-        </div>
+    </div>
 
-      </div>
+    <div class="dropdown-root" :style="{ paddingTop: `${dropdownButtonHeight}px`, height: `${height}px` }">
 
-      <div
-        v-if="sortOptions"
-        v-click-outside="closeAllSelect"
-        :class="['dropdown-list', { hidden: closed }]">
-
-        <div class="dropdown-button" @click.stop="toggleDropDown()">
-
-          <label>
-            {{ label }}
-          </label>
-
-          <div>
-            <span>
-              {{ selected }}
-            </span>
-
-            <button class="dropdown-toggle">
-              <slot name="dropdown-icon"></slot>
-            </button>
-          </div>
-        </div>
-
+      <div ref="dropdownList" class="dropdown-list">
         <template v-for="option in options">
           <div
             :key="`div-option-${option.label}`"
@@ -54,10 +37,12 @@
             {{ option.label }}
           </div>
         </template>
-
       </div>
 
     </div>
+
+    <div class="shadow" :style="{ height: `${height}px` }"></div>
+
   </div>
 </template>
 
@@ -85,28 +70,23 @@ export default {
   data () {
     return {
       closed: true,
-      selected: 'Alphabetical (A-Z)'
+      selected: 'Alphabetical (A-Z)',
+      dropdownButtonHeight: 0,
+      dropdownListHeight: 0,
+      height: 0,
+      resize: false
     }
   },
 
   computed: {
     ...mapGetters({
-      // collection: 'core/collection',
       collection: 'core/collection'
     }),
     options () {
-      const displayOptions = []
-      Object.keys(this.sortOptions).forEach((key) => {
-        displayOptions.push(this.sortOptions[key])
-      })
-      return displayOptions
+      return Object.values(this.sortOptions)
     },
     maxLength () {
-      const chars = []
-      Object.keys(this.sortOptions).forEach((key) => {
-        chars.push(this.sortOptions[key].label.split('').length)
-      })
-      return Math.max(...chars)
+      return this.options.reduce((a, b) => a.label.length > b.label.length ? a : b).label.length
     }
   },
 
@@ -139,6 +119,13 @@ export default {
     } else {
       this.sortAlphabetically('name', 'DESC')
     }
+    this.setHeights()
+    this.resize = () => { this.setHeights() }
+    window.addEventListener('resize', this.resize)
+  },
+
+  beforeDestroy () {
+    if (this.resize) { window.removeEventListener('resize', this.resize) }
   },
 
   methods: {
@@ -146,15 +133,41 @@ export default {
       setRouteQuery: 'filters/setRouteQuery',
       setCollection: 'core/setCollection'
     }),
+    setHeights () {
+      this.dropdownButtonHeight = this.$refs.dropdownButton.clientHeight
+      this.dropdownListHeight = this.$refs.dropdownList.clientHeight
+      this.height = this.$refs.dropdownButton.clientHeight
+    },
     toggleDropDown () {
+      const dropdownButtonHeight = this.dropdownButtonHeight
+      if (this.closed) {
+        this.height = dropdownButtonHeight + this.dropdownListHeight
+      } else {
+        this.height = dropdownButtonHeight
+      }
       this.closed = !this.closed
+      this.$emit('changed', {
+        event: 'toggleDropdown',
+        data: {
+          state: !this.closed ? 'open' : 'closed'
+        }
+      })
     },
     closeAllSelect () {
+      this.height = this.dropdownButtonHeight
+      if (!this.closed) {
+        this.$emit('changed', {
+          event: 'toggleDropdown',
+          data: {
+            state: 'closed'
+          }
+        })
+      }
       this.closed = true
     },
     optionSelected (obj) {
       this.selected = obj.label
-      this.closed = true
+      this.toggleDropDown()
       if (obj.type === 'alphabetical') {
         this.sortAlphabetically(obj.key, obj.direction)
       } else if (obj.type === 'number') {
@@ -163,6 +176,13 @@ export default {
       this.setRouteQuery({
         key: 'sort-by',
         data: obj.slug
+      })
+      this.$emit('changed', {
+        event: 'optionSelected',
+        data: {
+          label: obj.label,
+          slug: obj.slug
+        }
       })
     },
     sortAlphabetically (key, mode) {
@@ -194,7 +214,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 ::selection {
   color: none;
   background: none;
@@ -205,24 +224,33 @@ export default {
   background: none;
 }
 
-.hidden {
-  display: none;
-}
-
-.dropdown-root {
+.dropdown-wrapper {
+  position: relative;
   white-space: nowrap;
-  @include borderRadius3;
-  background-color: #FFFFFF;
-  cursor: pointer;
   font-family: $fontInter;
   font-weight: 400;
   line-height: 1.7;
+  cursor: pointer;
+  z-index: 1000;
+  transition: 250ms ease-out;
+  &:not(.closed) {
+    .shadow {
+      transition: opacity 250ms ease-in, height 0ms;
+      opacity: 1;
+    }
+    .dropdown-toggle {
+      transition: 250ms ease-in;
+      transform: rotate(-180deg);
+    }
+  }
 }
 
 .dropdown-button {
-  padding: 0.25rem 1.0rem;
+  position: relative;
   display: flex;
   justify-content: space-between;
+  padding: 0.25rem 1.0rem;
+  z-index: 20;
   label {
     margin-right: 0.25rem;
   }
@@ -232,50 +260,65 @@ export default {
   transform: translateY(-5%);
   opacity: 0.5;
   margin-left: 0.5rem;
+  transition: 250ms ease-out;
   &:hover {
     cursor: pointer;
     opacity: 1.0;
   }
 }
 
-.dropdown-list {
+.dropdown-root {
+  @include borderRadius3;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  overflow: hidden;
+  z-index: 10;
+  transition: height 250ms ease-in-out;
+}
+
+.shadow {
+  @include borderRadius3;
   position: absolute;
   width: 100%;
+  height: 100%;
   top: 0;
+  left: 0;
+  background-color: white;
+  pointer-events: none;
+  filter: drop-shadow(0 0 0.3rem rgba(73, 73, 73, 0.2));
+  opacity: 0;
+  z-index: 0;
+  transition: 250ms ease-out;
+}
+
+.dropdown-list {
+  width: 100%;
   text-align: right;
   box-sizing: border-box;
-  background-color: #ffffff;
-  @include borderRadius3;
-  z-index: 1000;
-  padding-bottom: 0.25rem;
-  &::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background-color: #FFFFFF;
-    z-index: -1;
-    @include borderRadius3;
-    filter: drop-shadow(0 0 0.3rem rgba(73, 73, 73, 0.2));
-  }
 }
 
 .dropdown-item {
   padding: 0.25rem 1.0rem;
   width: 100%;
   white-space: normal;
-  &:hover {
-    cursor: pointer;
-    text-decoration: underline;
+  &:not(.highlighted) {
+    text-decoration: underline transparent;
     text-underline-offset: $underlineSpacing;
+    cursor: pointer;
+    transition: text-decoration-color 250ms ease-out;
+    &:hover {
+      transition: text-decoration-color 250ms ease-in;
+      text-decoration-color: currentColor;
+    }
   }
 }
 
 .highlighted {
-  background-color: #6BC4CE;
+  background-color: $downy;
   color: white;
+  cursor: default;
 }
-
 </style>

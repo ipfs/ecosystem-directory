@@ -10,7 +10,8 @@
         "defaultView": "grid",
         "externalLinksTargetBlank": true,
         "tagMatchType": "or",
-        "excludeFilterAllTag": true
+        "excludeFilterAllTag": true,
+        "includeGranularFilterClearButton": true
     },
     "visibility": {
         "excludeSingulars": false,
