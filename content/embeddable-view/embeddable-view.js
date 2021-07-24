@@ -74,12 +74,12 @@ function ecodir_initDirectory(el) {
       const ecodir_size = ecodir_responsive_keys[i]
       if(ecodir_parentContainerWidth > ecodir_responsive_sizes[ecodir_size]) {
         el.classList.add(`ecodir_${ecodir_size}`)
-        break;
+        break
       }
     }
   }
 
-  ecodir_updateElementClasses(el);
+  ecodir_updateElementClasses(el)
 
   el.classList.add(`ecosystem-${ecodir_theme}`)
 
@@ -87,8 +87,8 @@ function ecodir_initDirectory(el) {
     <h2 class="ecodir_heading">INJECT_SETTINGS_HEADING</h2>
     <h3 class="ecodir_subheading">INJECT_SETTINGS_SUBHEADING</h3>
     <div class="ecodir_filters">
-      <dropdown name="Filter by:" :options="filterOptions" :callback="filterProjects"></dropdown>
-      <dropdown name="Sort by:" :options="sortOptions" :callback="sortProjects"></dropdown>
+      <dropdown id="filterBy" name="Filter by:" :options="filterOptions" :callback="filterProjects"></dropdown>
+      <dropdown id="sortBy" name="Sort by:" :options="sortOptions" :callback="sortProjects"></dropdown>
     </div>
     <div class="ecodir_container">
       <slider></slider>
@@ -97,9 +97,10 @@ function ecodir_initDirectory(el) {
   `
 
   const dropdownComponent = {
-    props: ['name', 'options', 'callback'],
+    props: ['id', 'name', 'options', 'callback'],
     data () {
       return {
+        dropdownEl: null,
         selected: null,
         value: null,
         open: false
@@ -108,16 +109,14 @@ function ecodir_initDirectory(el) {
     methods: {
       toggleDropdown () {
         this.open = !this.open
-        if (this.open)
-          this.$parent.$emit('toggle-dropdown', this)
       },
       closeDropdown () {
-        this.open = false
+        if (this.open) this.open = false
       },
-      selectOption (option) {
+      selectOption (option, context = this) {
         this.selected = option.label
         this.value = option.value
-        this.open = false
+        context.open = false
         this.callback(option.value)
       }
     },
@@ -125,21 +124,26 @@ function ecodir_initDirectory(el) {
       this.selectOption(this.options[0])
     },
     mounted () {
-      this.$parent.$on('toggle-dropdown', target => {
-        if (target !== this) this.open = false
-      })
+      const dropdownEl = this.$el.querySelector('.ecodir_dropdown')
+      const dropdownToggleEl = this.$el.querySelector('.ecodir_dropdown-toggle')
+
+      dropdownEl.setAttribute('data-height', dropdownEl.clientHeight)
+      dropdownEl.style.height = 0
+
+      if (dropdownEl.clientWidth > dropdownToggleEl.clientWidth)
+        dropdownToggleEl.style.width = `${dropdownEl.clientWidth + 100}px`
     },
     template: `
-      <div class="ecodir_dropdown-wrapper">
-        <button class="ecodir_dropdown-toggle" v-on:click.stop="toggleDropdown">
+      <div :id="id" class="ecodir_dropdown-wrapper" v-on:click="toggleDropdown">
+        <button class="ecodir_dropdown-toggle">
           <label>{{ name }}&emsp;{{ selected }}</label>${ecodir_caret_svg()}</button>
 
-        <div v-if="options.length" v-click-outside="closeDropdown" :class="{ecodir_dropdown: true, hidden: !open }">
+        <div v-if="options.length" v-click-outside="closeDropdown" :class="{ecodir_dropdown: true }">
             <div v-for="option in options"
               :key="option.value"
               :data-value="option.value"
               :class="{ 'ecodir_dropdown-option': true, selected: (value === option.value) }"
-              v-on:click="selectOption(option)">
+              v-on:click="selectOption(option, this)">
               {{ option.label }}
             </div>
         </div>
@@ -150,12 +154,12 @@ function ecodir_initDirectory(el) {
   const sliderComponent = {
     data () {
       return {
-      animate: true,
-      currentIndex: 0,
-      cardWidth: 180,
-      display: 6,
-      left: 0,
-      range: 0,
+        animate: true,
+        currentIndex: 0,
+        cardWidth: 180,
+        display: 6,
+        left: 0,
+        range: 0,
       }
     },
     methods: {
@@ -200,6 +204,16 @@ function ecodir_initDirectory(el) {
     watch: {
       projects (val) {
         this.range = 0
+        const ecodir_sliderInput = this.$el.querySelector('.ecodir_range-slider')
+
+        if(val.length <= this.display) {
+          ecodir_sliderInput.setAttribute('disabled', 'true')
+          ecodir_sliderInput.style.opacity = 0
+        } else {
+          ecodir_sliderInput.removeAttribute('disabled')
+          ecodir_sliderInput.style.opacity = 1
+        }
+        // ecodir_sliderInput.style.display =  ? 'none' : 'inline'
       },
       range (val) {
         this.animate = true
@@ -242,6 +256,16 @@ function ecodir_initDirectory(el) {
   }
 
   const projectViewComponent = {
+    methods: {
+      setProjectContainerHeight () {
+        // const projectWrapperEl =  this.$el.querySelector('.ecodir_project-view-wrapper')
+        // this.$el.style.height = `${projectWrapperEl.scrollHeight}px` 
+
+        // setTimeout(() => {
+        //   this.$el.style.opacity = 1
+        // }, 500);
+      }
+    },
     computed: {
       project () {
         return this.$parent.project
@@ -250,14 +274,24 @@ function ecodir_initDirectory(el) {
         return this.$parent.project.org ? this.$parent.project.org.join(', ') : ''
       }
     },
+    mounted () {
+      this.setProjectContainerHeight()
+    },
+    watch: {
+      project () {
+        Vue.nextTick(this.setProjectContainerHeight)    
+      }
+    },
     template: `
       <div v-if="project" class="ecodir_project-view-container">
-        <h4 v-if="project.name" class="ecodir_project-title">{{ project.name }}</h4>
-        <h5 v-if="org" class="ecodir_project-organization">{{ org }}</h5>
-        <p v-if="project.description && project.description.long" class="ecodir_project-description">{{ project.description.long }}</p>
-        <a :href="'${ecodir_host}/project/' + project.slug" class="ecodir_project-link" target="_blank">INJECT_SETTINGS_PROJECT_LINK ${ecodir_caret_svg()}</a>
-        <br/>
-        <a href="${ecodir_host}" class="ecodir_project-home-link" target="_blank">INJECT_SETTINGS_ECOSYSTEM_LINK</a>
+        <div class="ecodir_project-view-wrapper">
+          <h4 v-if="project.name" class="ecodir_project-title">{{ project.name }}</h4>
+          <h5 v-if="org" class="ecodir_project-organization">{{ org }}</h5>
+          <p v-if="project.description && project.description.long" class="ecodir_project-description">{{ project.description.long }}</p>
+          <a :href="'${ecodir_host}/project/' + project.slug" class="ecodir_project-link" target="_blank">INJECT_SETTINGS_PROJECT_LINK ${ecodir_caret_svg()}</a>
+          <br/>
+          <a href="${ecodir_host}" class="ecodir_project-home-link" target="_blank">INJECT_SETTINGS_ECOSYSTEM_LINK</a>
+        </div>
       </div>
     `
   }
@@ -269,7 +303,9 @@ function ecodir_initDirectory(el) {
       const vm = vnode && vnode.context || this.vm
 
       el.clickOutsideEvent = function (e) {
-        if (!(el === e.target || el.contains(e.target))) vm[funcName](e)
+        const dropdownEl = e.target.closest('.ecodir_dropdown-wrapper')
+        if (dropdownEl && dropdownEl.id === vm.id) return
+        vm[funcName](e)
       }
       el.pressEscKey = function (e) {
         if (e.defaultPrevented) { return }
@@ -315,6 +351,11 @@ function ecodir_initDirectory(el) {
 
         if (!project.length) return
 
+        // const projectWrapperEl =  this.$el.querySelector('.ecodir_project-view-container')
+        // this.$el.style.height = `${projectWrapperEl.scrollHeight}px` 
+        // projectWrapperEl.style.opacity = 0
+
+        // setTimeout(this.project = project[0], 5000);
         this.project = project[0]
       },
       filterProjects (slug) {

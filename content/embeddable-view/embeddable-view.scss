@@ -17,8 +17,8 @@ $grey-medium: #D4D4D4;
 $grey-dark: #707070;
 $grey-x-dark: #181818;
 
-$light-teal: #3D8F96;
 $teal: #0E4F72;
+$teal-light: #3D8F96;
 $teal-medium: #09344B;
 $teal-dark: #052437;
 $teal-x-dark: #04202F;
@@ -54,6 +54,7 @@ $teal-x-dark: #04202F;
   .ecodir_filters {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     margin-bottom: 39px;
 
     .ecodir_dropdown-wrapper {
@@ -70,11 +71,12 @@ $teal-x-dark: #04202F;
       cursor: pointer;
       border-radius: 5px;
       border: none;
-      min-width: 150px;
+      width: 0;
       padding: 8px 15px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      overflow: hidden;
 
       label {
         @include font(13, 500);
@@ -93,15 +95,17 @@ $teal-x-dark: #04202F;
     }
 
     .ecodir_dropdown {
-      border-radius: 5px;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
       text-align: right;
 
       position: absolute;
-      top: 25px;
+      top: 30px;
       left: 0;
-      width: 100%;
-      padding: 5px 0;
+      min-width: 100%;
+      // padding-bottom: 5px;
       z-index: 1000;
+      overflow: hidden;
 
       &:before {
         content: '';
@@ -122,7 +126,7 @@ $teal-x-dark: #04202F;
       .ecodir_dropdown-option {
         cursor: pointer;
         @include font(13, 400);
-        white-space: normal;
+        white-space: nowrap;
         position: relative;
         padding: 4px 15px;
 
@@ -166,11 +170,13 @@ $teal-x-dark: #04202F;
               user-select: none;
               text-align: center;
               width: 160px;
+              min-height: 160px;
               padding: 27px 10px 21px;
               display: flex;
               flex-direction: column;
               align-items: center;
               justify-content: center;
+              transition: background 500ms ease-out;
 
               &.active {
                 border-radius: 5px;
@@ -266,7 +272,11 @@ $teal-x-dark: #04202F;
     }
 
     .ecodir_project-view-container {
+      // opacity: 0;
+      // height: 0;
       padding: 0 25px;
+      overflow: hidden;
+      transition: all 500ms;
 
       h4.ecodir_project-title {
         @include font(24);
@@ -293,12 +303,16 @@ $teal-x-dark: #04202F;
         .ecodir_caret-svg {
           width: auto;
           height: 10px;
-          margin-left: 30px;
+          margin-left: 20px;
 
           path {
             stroke-linecap: round;
             stroke-width: 1.5;
           }
+        }
+
+        &:hover {
+          text-decoration: underline;
         }
       }
 
@@ -308,6 +322,10 @@ $teal-x-dark: #04202F;
         text-decoration: none;
         padding: 13px 20px;
         display: inline-block;
+        transition: 250ms ease-out;
+        &:hover {
+          transition: 250ms ease-in;
+        }
       }
     }
   }
@@ -321,6 +339,7 @@ $teal-x-dark: #04202F;
     }
 
     .ecodir_dropdown-wrapper {
+      cursor: pointer;
       .ecodir_dropdown-toggle {
         background: $white;
         color: $grey-x-dark;
@@ -357,6 +376,8 @@ $teal-x-dark: #04202F;
     }
 
     .ecodir_range-slider {
+      transition: opacity 250ms;
+
       &::-webkit-slider-runnable-track {
         border-color: $grey-medium;
       }
@@ -398,6 +419,9 @@ $teal-x-dark: #04202F;
       a.ecodir_project-home-link {
         background-color: $teal-dark;
         color: $white;
+        &:hover {
+          background-color: $teal-light;
+        }
       }
     }
   }
@@ -494,6 +518,9 @@ $teal-x-dark: #04202F;
       a.ecodir_project-home-link {
         background-color: $white;
         color: $teal-dark;
+        &:hover {
+          background-color: $teal-light;
+        }
       }
     }
   }
@@ -507,7 +534,7 @@ $teal-x-dark: #04202F;
 
     .ecodir_error-block-section {
       border-radius: 3px;
-      background-color: $light-teal;
+      background-color: $teal-light;
 
       &:nth-child(1) { flex: 3 1 auto; }
       &:nth-child(2) { flex: 12 1 auto; }
@@ -548,6 +575,7 @@ $teal-x-dark: #04202F;
     }
 
     .ecodir_filters {
+      justify-content: flex-start;
       .ecodir_dropdown-wrapper {
         margin-right: 36px;
       }
