@@ -228,7 +228,7 @@ function ecodir_initDirectory(el) {
         <div class="ecodir_slider">
           <div class="ecodir_slider-row-container">
             <div class="ecodir_slider-row" :class="{ sliding: animate }"
-            :style="{ left: left + 'px'}">
+            :style="{ left: left + 'px', transition: 'left 300ms ease-in-out' }">
 
               <div v-for="project in projects" :key="project.slug" class="ecodir_card" :class="{ active: activeSlug === project.slug }" v-on:click="setActiveProject(project.slug)">
                 <div v-if="project.logo && project.logo.icon" class="ecodir_card-thumbnail">
