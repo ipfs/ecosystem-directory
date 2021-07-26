@@ -582,7 +582,8 @@ export default {
     color: $blackPearl;
     &.primary-cta {
       @include borderRadius3;
-      border: 2px solid $tiber;
+      color: white;
+      background-color: $tiber;
       padding: 0.625rem 1.25rem;
       margin-right: 1.5rem;
       @include tiny {
@@ -590,8 +591,7 @@ export default {
         margin-bottom: 1rem;
       }
       &:hover {
-        color: white;
-        background-color: $blackPearl;
+        background-color: $ming;
       }
     }
     &.secondary-cta {
@@ -679,7 +679,7 @@ export default {
     }
   }
   &.case-study {
-    border: 2px solid $tiber;
+    border: 2px solid $blackHaze;
     @include tiny {
       padding: 3rem 2rem;
     }
@@ -704,15 +704,17 @@ export default {
     .cta {
       @include borderRadius3;
       @include fontSize_Small;
-      padding: 0.5rem 2rem;
+      padding: 0.5625rem 2rem;
       margin-top: 2rem;
-      color: $white;
       font-weight: 600;
-      background-color: $tiber;
+      color: $tiber;
+      border: 2px solid $tiber;
       transition: 250ms ease-out;
       &:hover {
         transition: 250ms ease-in;
         background-color: $ming;
+        border-color: $ming;
+        color: white;
       }
     }
   }
