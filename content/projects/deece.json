@@ -19,7 +19,7 @@
       "long": "Deece is an open, collaborative, and decentralized search mechanism for IPFS. Any node running the Deece client is able to crawl content on IPFS and add it to the index, which itself is stored in a decentralized manner on IPFS. This allows for decentralized search on decentralized content."
     },
     "primaryCta": {
-      "url": "www.deece.nl/web",
+      "url": "//deece.nl/web",
       "text": "Project Website"
     },
     "links": [
@@ -27,7 +27,7 @@
         "label": "Website",
         "links": [
           {
-            "url": "www.deece.nl/web",
+            "url": "//deece.nl/web",
             "text": "www.deece.nl/web"
           }
         ]
@@ -96,4 +96,3 @@
       }
     ]
   }
-  
