@@ -287,10 +287,6 @@ export default {
     resetSectionHeight () {
       if (this.$refs.segmentSlider && this.$refs.featuredSection && this.$refs.filterHeading) {
         setTimeout(() => {
-          // const x = this.$refs.segmentSlider.offsetHeight
-          // const y = this.$refs.featuredSection.offsetHeight
-          // const z = this.$refs.filterHeading.offsetHeight
-          // console.log(`${this.$refs.collapsibleSection.firstElementChild.clientHeight} | ${Math.ceil(x + y + z)}`)
           this.sectionHeight = Math.ceil(this.$refs.collapsibleSection.firstElementChild.clientHeight)
         }, 300)
       }
