@@ -187,7 +187,8 @@ export default {
     ...mapActions({
       setRouteQuery: 'filters/setRouteQuery',
       clearRouteQueryTags: 'filters/clearRouteQueryTags',
-      clearAllTags: 'filters/clearAllTags'
+      clearAllTags: 'filters/clearAllTags',
+      setFilterValue: 'core/setFilterValue'
     }),
     getSublabel (heading) {
       if (!heading.hasOwnProperty('sublabel')) { return `Filter by ${heading.label}` }
@@ -211,6 +212,7 @@ export default {
     },
     clearSelected () {
       this.clearAllTags()
+      this.setFilterValue('')
     },
     closePanel () {
       this.$emit('toggleFilterPanel', 'done')

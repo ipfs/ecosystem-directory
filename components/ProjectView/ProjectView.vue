@@ -78,6 +78,11 @@
 
         <div v-else class="placeholder-results-empty">
           {{ pageData.section_filter.results_empty_placeholder }}
+          <span
+            class="clear-all-null-results"
+            @click="clearSelectedFilters">
+            Clear all
+          </span>
         </div>
 
         <div v-if="sortedCollection" id="paginated-list-navigation-controls">
@@ -497,6 +502,19 @@ $paginateRoot_PaddingOffset: 3.5rem;
   font-weight: 600;
   text-align: center;
   background-color: white;
+  .clear-all-null-results {
+    @include borderRadius3;
+    padding: 0.3125rem 0.75rem;
+    color: $blackPearl;
+    background: $blackHaze;
+    transition: 250ms ease-out;
+    cursor: pointer;
+    &:hover {
+      transition: 250ms ease-in;
+      background-color: $ming;
+      color: white;
+    }
+  }
 }
 
 // ///////////////////////////////////////////////////////// Pagination Controls
