@@ -163,7 +163,9 @@ const setRouteQueryPage = (instance, cloned) => {
 
 const initResize = (instance) => {
   clearTimeout(instance.timeOutFunction)
-  instance.timeOutFunction = setTimeout(() => { instance.resetSectionHeight() }, 150)
+  instance.timeOutFunction = setTimeout(() => {
+    instance.resetSectionHeight()
+  }, 150)
 }
 
 // ====================================================================== Export
@@ -285,10 +287,11 @@ export default {
     resetSectionHeight () {
       if (this.$refs.segmentSlider && this.$refs.featuredSection && this.$refs.filterHeading) {
         setTimeout(() => {
-          const x = this.$refs.segmentSlider.offsetHeight
-          const y = this.$refs.featuredSection.offsetHeight
-          const z = this.$refs.filterHeading.offsetHeight
-          this.sectionHeight = Math.ceil(x + y + z)
+          // const x = this.$refs.segmentSlider.offsetHeight
+          // const y = this.$refs.featuredSection.offsetHeight
+          // const z = this.$refs.filterHeading.offsetHeight
+          // console.log(`${this.$refs.collapsibleSection.firstElementChild.clientHeight} | ${Math.ceil(x + y + z)}`)
+          this.sectionHeight = Math.ceil(this.$refs.collapsibleSection.firstElementChild.clientHeight)
         }, 300)
       }
     }
