@@ -10,7 +10,7 @@
     </div>
 
     <div class="grid">
-      <div class="col-5_md-8_sm-10_mi-12">
+      <div class="col-5_md-12">
         <section id="section-project-info">
           <img
             v-if="project.logo && project.logo.full"
@@ -45,7 +45,7 @@
         </section>
       </div>
 
-      <div class="col-6_md-8_mi-12" data-push-left="off-1_md-0">
+      <div class="col-6_md-10_mi-12" data-push-left="off-1_md-0">
         <section v-if="project.stats" id="section-statistics">
 
           <template v-for="(stat, i) in project.stats">
@@ -144,16 +144,13 @@
                       <li
                         v-if="link.text && link.url"
                         :key="`link-group-${j}`">
-                        <a :href="link.url" target="_blank">
+                        <a
+                          :href="link.url"
+                          target="_blank"
+                          :data-tooltip="link.text.length > 23 ? link.text : false"
+                          data-tooltip-theme="dark">
                           {{ $truncateString(link.text, 12, '...', type = 'double') }}
                         </a>
-                        <div
-                          v-if="link.text.length > 23"
-                          class="link-tooltip"
-                          :data-tooltip="link.text"
-                          data-tooltip-theme="dark">
-                          ?
-                        </div>
                       </li>
                     </template>
                   </ul>
@@ -520,7 +517,7 @@ export default {
 
 // /////////////////////////////////////////////////////// [Section] Breadcrumbs
 #section-breadcrumbs {
-  padding: 3rem 0 1.75rem;
+  padding: 2rem 0 1.75rem;
 }
 
 // ////////////////////////////////////////////////////// [Section] Project Info
@@ -585,7 +582,8 @@ export default {
     color: $blackPearl;
     &.primary-cta {
       @include borderRadius3;
-      border: 2px solid $tiber;
+      color: white;
+      background-color: $tiber;
       padding: 0.625rem 1.25rem;
       margin-right: 1.5rem;
       @include tiny {
@@ -593,8 +591,7 @@ export default {
         margin-bottom: 1rem;
       }
       &:hover {
-        color: white;
-        background-color: $blackPearl;
+        background-color: $ming;
       }
     }
     &.secondary-cta {
@@ -674,13 +671,15 @@ export default {
       @include fontSize_Large;
       @include leading_Mini;
       @include small {
-        @include fontSize_Regular;
         margin-bottom: 1rem;
+      }
+      @include tiny {
+        margin-top: 1rem;
       }
     }
   }
   &.case-study {
-    border: 2px solid $tiber;
+    border: 2px solid $blackHaze;
     @include tiny {
       padding: 3rem 2rem;
     }
@@ -692,11 +691,7 @@ export default {
       @include fontSize_Large;
       @include leading_Mini;
       @include tiny {
-        @include fontSize_Medium;
-        margin: 1rem 0.5rem;
-      }
-      @media screen and (max-width: 20rem) {
-        @include fontSize_Small;
+        margin: 1rem 0;
       }
     }
     .description {
@@ -709,16 +704,23 @@ export default {
     .cta {
       @include borderRadius3;
       @include fontSize_Small;
-      padding: 0.5rem 2rem;
+      padding: 0.5625rem 2rem;
       margin-top: 2rem;
-      color: $white;
       font-weight: 600;
-      background-color: $tiber;
+      color: $tiber;
+      border: 2px solid $tiber;
       transition: 250ms ease-out;
       &:hover {
         transition: 250ms ease-in;
         background-color: $ming;
+        border-color: $ming;
+        color: white;
       }
+    }
+  }
+  &.hide-tiny {
+    @include tiny {
+      display: none;
     }
   }
   .statistic,
@@ -727,11 +729,6 @@ export default {
     margin-bottom: 1rem;
     @include tiny {
       margin-bottom: 0;
-    }
-  }
-  &.hide-tiny {
-    @include tiny {
-      display: none;
     }
   }
 }
@@ -766,6 +763,11 @@ export default {
       justify-content: space-between;
       flex: 1 1 auto;
       margin: 0 1rem;
+    }
+    &.big-number {
+      @include tiny {
+        flex-direction: column-reverse;
+      }
     }
   }
 }
@@ -913,7 +915,7 @@ export default {
     top: 0;
     right: 0.3125rem;
     width: 0.75rem;
-    height: 100%;
+    height: calc(100% - 1rem);
     background: url('~assets/theme/svgs/chevrondown.svg') no-repeat right center;
   }
 }
@@ -959,31 +961,38 @@ export default {
   margin-top: 1rem;
 }
 
+.outerbox {
+  @include customMaxMQ ($containerWidth + 4rem) {
+    padding: 0 calc(4.1665% + 0.5rem);
+  }
+  @include mini {
+    padding: 0;
+  }
+}
+
 .featured-box {
-  padding-top: 4.75rem;
-  max-width: 90rem;
-  margin: auto;
-  border: 2px solid #E5E5E5;
   @include borderRadius3;
-  @include xlarge {
-    margin: auto 3.75rem;
-  }
-  @include large {
-    padding-top: 3.75rem;
-    margin: auto 1.5rem;
-  }
+  padding-top: 4.75rem;
+  max-width: $containerWidth;
+  margin: 0 auto;
+  border: 2px solid #E5E5E5;
   @include mini {
     border: none;
     padding-top: 0;
     margin: 0;
   }
-  .mini-box{
+  [class~=grid],
+  [class*=grid-],
+  [class*=grid_] {
+    max-width: 67rem;
+  }
+  .mini-box {
     @include mini {
+      @include borderRadius3;
       margin: 0 0.5rem;
       padding: 0 2rem;
       padding-top: 3rem;
       border: 2px solid #E5E5E5;
-      @include borderRadius3;
     }
   }
 }
