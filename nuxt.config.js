@@ -1,6 +1,7 @@
 /* eslint require-await: "off" */
 
 import Projects from './content/data/project-manifest.json'
+import { SetProjectDefaults } from './plugins/global-methods'
 
 export default {
   // //////////////////////////////////////////// Static Site Generation Options
@@ -18,6 +19,7 @@ export default {
             const route = `/project/${slug}`
             const payload = require(`./content/projects/${slug}`)
             payload.slug = slug
+            SetProjectDefaults(payload)
             routes.push({ route, payload })
           } catch (e) {
             if (e.code === 'MODULE_NOT_FOUND') {

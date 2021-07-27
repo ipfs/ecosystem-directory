@@ -2,12 +2,15 @@
 // -----------------------------------------------------------------------------
 const Fs = require('fs-extra')
 
+const { SetProjectDefaults } = require('./plugins/global-methods')
+
 const paths = {
   data: `${__dirname}/content/data`,
   projects: `${__dirname}/content/projects`,
   manifest: `${__dirname}/content/data/project-manifest.json`,
-  project_list: `${__dirname}/static/project-list.json`, // ← to be used by embedable-view.js
-  showcase_data: `${__dirname}/static/showcase-data.json`
+  showcase_data: `${__dirname}/content/data/showcase-data.json`,
+  project_list_full: `${__dirname}/content/data/project-list-full.json`, // ← to be used by main app
+  project_list_mini: `${__dirname}/content/data/project-list-mini.json` // ← to be used by embedable-view.js
 }
 
 // /////////////////////////////////////////////////////////////////// Functions
@@ -30,17 +33,23 @@ const getSlugs = async () => {
 
 /*
   - Open and parse all project JSON files
+  - Push all of them into an array (to be used by main app)
   - Push all of them into an array with some information removed (to be used by embedable-view.js)
   - Write to a JSON file
 */
-const generateProjectListFile = async (slugs) => {
+const generateProjectListFiles = async (slugs) => {
   try {
     const len = slugs.length
-    const compiled = []
+    const payload = {
+      full: [],
+      mini: []
+    }
     for (let i = 0; i < len; i++) {
       const slug = slugs[i]
       const project = JSON.parse(await Fs.readFileSync(`${paths.projects}/${slug}.json`))
-      compiled.push({
+      project.slug = slug
+      payload.full.push(SetProjectDefaults(project))
+      payload.mini.push({
         slug,
         name: project.name,
         logo: project.logo,
@@ -48,9 +57,9 @@ const generateProjectListFile = async (slugs) => {
         org: project.org
       })
     }
-    return compiled
+    return payload
   } catch (e) {
-    console.log('============================= [generateProjectListFile] Error')
+    console.log('============================ [generateProjectListFiles] Error')
     throw e
   }
 }
@@ -108,10 +117,11 @@ const Manifestor = async () => {
     console.log('🚀️ Manifest projects started')
     const slugs = await getSlugs()
     await Fs.writeFileSync(paths.manifest, JSON.stringify(slugs))
-    const projectList = await generateProjectListFile(slugs)
-    await Fs.writeFileSync(paths.project_list, JSON.stringify(projectList))
+    const payload = await generateProjectListFiles(slugs)
     const showcaseData = await generateShowcaseDataFile(slugs)
     await Fs.writeFileSync(paths.showcase_data, JSON.stringify(showcaseData))
+    await Fs.writeFileSync(paths.project_list_full, JSON.stringify(payload.full))
+    await Fs.writeFileSync(paths.project_list_mini, JSON.stringify(payload.mini))
     console.log('🏁 Manifest projects complete')
   } catch (e) {
     console.log('========================================== [Manifestor] Error')

@@ -32,7 +32,7 @@
 import { mapGetters } from 'vuex'
 
 import Settings from '@/content/data/settings.json'
-import ShowcaseData from '@/static/showcase-data.json'
+import ShowcaseData from '@/content/data/showcase-data.json'
 
 // =================================================================== Functions
 

@@ -78,6 +78,11 @@
 
         <div v-else class="placeholder-results-empty">
           {{ pageData.section_filter.results_empty_placeholder }}
+          <span
+            class="clear-all-null-results"
+            @click="clearSelectedFilters">
+            Clear all
+          </span>
         </div>
 
         <div v-if="sortedCollection" id="paginated-list-navigation-controls">
@@ -256,26 +261,8 @@ export default {
       }
     }
     clearPanelHeight(this)
-    const scroll = () => {
-      const projectViewContainer = this.$refs.projectViewContainer
-      const bottom = projectViewContainer.getBoundingClientRect().bottom
-      const top = projectViewContainer.parentNode.getBoundingClientRect().top
-      // console.log(top, window.innerHeight, window.innerHeight + (window.innerWidth * 0.041665) + 36)
-      const filterButtonFloating = this.filterButtonFloating
-      const offset = window.innerWidth <= 640 ? (window.innerWidth * 0.041665) + 84 - 16 : 0
-      // console.log(window.innerHeight, top + (window.innerWidth * 0.041665) * 2 + 36, bottom, window.innerHeight + offset)
-      if (window.innerHeight < top + (window.innerWidth * 0.041665) * 2 + 36 && filterButtonFloating !== 'top') {
-        // console.log('A')
-        this.setFilterButtonFloating('top')
-      } else if (window.innerHeight >= top + (window.innerWidth * 0.041665) * 2 + 36 && bottom >= window.innerHeight + offset && filterButtonFloating !== 'middle') {
-        // console.log('B')
-        this.setFilterButtonFloating('middle')
-      } else if (bottom < window.innerHeight + offset && filterButtonFloating !== 'bottom') {
-        // console.log('C')
-        this.setFilterButtonFloating('bottom')
-      }
-    }; scroll()
-    this.scroll = this.$throttle(scroll, 10)
+    this.positionFilterPanelButton()
+    this.scroll = this.$throttle(this.positionFilterPanelButton, 10)
     window.addEventListener('scroll', this.scroll)
   },
 
@@ -290,6 +277,20 @@ export default {
       setFilterPanelOpen: 'filters/setFilterPanelOpen',
       setFilterButtonFloating: 'global/setFilterButtonFloating'
     }),
+    positionFilterPanelButton () {
+      const projectViewContainer = this.$refs.projectViewContainer
+      const bottom = projectViewContainer.getBoundingClientRect().bottom
+      const top = projectViewContainer.parentNode.getBoundingClientRect().top
+      const filterButtonFloating = this.filterButtonFloating
+      const offset = window.innerWidth <= 640 ? (window.innerWidth * 0.041665) + 84 - 16 : 0
+      if (window.innerHeight < top + (window.innerWidth * 0.041665) * 2 + 36 && filterButtonFloating !== 'top') {
+        this.setFilterButtonFloating('top')
+      } else if (window.innerHeight >= top + (window.innerWidth * 0.041665) * 2 + 36 && bottom >= window.innerHeight + offset && filterButtonFloating !== 'middle') {
+        this.setFilterButtonFloating('middle')
+      } else if (bottom < window.innerHeight + offset && filterButtonFloating !== 'bottom') {
+        this.setFilterButtonFloating('bottom')
+      }
+    },
     toggleFilterPanel (button) {
       this.setFilterPanelOpen(!this.filterPanelOpen)
       this.$Countly.trackEvent('Filter Panel Toggled', {
@@ -300,6 +301,9 @@ export default {
         this.setRouteQuery({ key: 'filters', data: 'enabled' })
       }
       clearPanelHeight(this)
+      if (!this.filterPanelOpen) {
+        this.positionFilterPanelButton()
+      }
     },
     toggleListBlockView () {
       this.listViewActive = !this.listViewActive
@@ -309,6 +313,10 @@ export default {
     },
     clearSelectedFilters () {
       this.$refs.filterPanel.clearSelected()
+      const timeout = setTimeout(() => {
+        this.positionFilterPanelButton()
+        clearTimeout(timeout)
+      }, 100)
     },
     navigateToPage (page) {
       this.$Countly.trackEvent('Pagination Button Clicked', { page })
@@ -408,9 +416,9 @@ $paginateRoot_PaddingOffset: 3.5rem;
     position: absolute;
     top: 0;
     right: 100%;
-    width: $gutter;
+    width: 100%;
     height: 100%;
-    background-color: white;
+    background: linear-gradient(to left, white, transparent);
     @include small {
       display: none;
     }
@@ -497,6 +505,19 @@ $paginateRoot_PaddingOffset: 3.5rem;
   font-weight: 600;
   text-align: center;
   background-color: white;
+  .clear-all-null-results {
+    @include borderRadius3;
+    padding: 0.3125rem 0.75rem;
+    color: $blackPearl;
+    background: $blackHaze;
+    transition: 250ms ease-out;
+    cursor: pointer;
+    &:hover {
+      transition: 250ms ease-in;
+      background-color: $ming;
+      color: white;
+    }
+  }
 }
 
 // ///////////////////////////////////////////////////////// Pagination Controls
@@ -527,4 +548,5 @@ $paginateRoot_PaddingOffset: 3.5rem;
     margin-bottom: 0.5rem;
   }
 }
+
 </style>
