@@ -11,12 +11,12 @@
 
     <div id="taxonomy-grid">
       <div v-for="(block, blockIndex) in getTaxonomyData()" :key="`block-${blockIndex}`" :class="`block block-${block.size}`">
-        <div v-for="(taxonomy, taxonomyIndex) in block.taxonomies" :key="`taxonomy-${taxonomyIndex}`" :class="`taxonomy taxonomy-${taxonomy.size}`">
+        <div v-for="(tax, taxonomyIndex) in block.taxonomies" :key="`taxonomy-${taxonomyIndex}`" :class="`taxonomy taxonomy-${tax.size}`">
           <h2 class="taxonomy-label">
-            {{ taxonomy.label }}
+            {{ tax.label }}
           </h2>
           <div class="taxonomy-projects">
-            <div v-for="(project, projectIndex) in taxonomy.projects" :key="`project-${projectIndex}`" class="thumbnail">
+            <div v-for="(project, projectIndex) in tax.projects" :key="`project-${projectIndex}`" class="thumbnail">
               <img :src="$relativity(`/images/projects/${project.logo}`)" :alt="project.name" title="project.name" />
             </div>
           </div>
@@ -40,7 +40,7 @@ import ShowcaseData from '@/static/showcase-data.json'
 export default {
   name: 'ShowcaseView',
 
-  layout: 'zero',
+  layout: 'showcase',
 
   data () {
     return {

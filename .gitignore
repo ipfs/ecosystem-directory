@@ -17,6 +17,7 @@ server.crt
 # Files
 project-manifest.json
 project-list.json
+showcase-data.json
 
 # Runtime data
 pids
