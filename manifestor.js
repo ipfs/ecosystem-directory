@@ -2,13 +2,17 @@
 // -----------------------------------------------------------------------------
 const Fs = require('fs-extra')
 
+const { SetProjectDefaults } = require('./plugins/global-methods')
+
 const paths = {
   data: `${__dirname}/content/data`,
   embeddable_view: `${__dirname}/content/embeddable-view`,
   projects: `${__dirname}/content/projects`,
   settings: `${__dirname}/content/data/settings.json`,
   manifest: `${__dirname}/content/data/project-manifest.json`,
-  embeddable_view_script: `${__dirname}/static/embeddable-view.js`
+  embeddable_view_script: `${__dirname}/static/embeddable-view.js`,
+  project_list_full: `${__dirname}/content/data/project-list-full.json`, // ← to be used by main app
+  project_list_mini: `${__dirname}/content/data/project-list-mini.json` // ← to be used by embedable-view.js
 }
 
 // /////////////////////////////////////////////////////////////////// Functions
@@ -21,7 +25,7 @@ const getSlugs = async () => {
     const slugs = await Fs.readdirSync(paths.projects)
       .filter(obj => obj !== '.DS_Store')
       .map(obj => obj.split('.')[0])
-      // console.log(slugs.join('\n'))
+      console.log(slugs.join('\n'))
     return slugs
   } catch (e) {
     console.log('============================================ [getSlugs] Error')
@@ -31,31 +35,35 @@ const getSlugs = async () => {
 
 const getPrimaryCategory = async () => {
   try {
-    const category = JSON.parse(await Fs.readFileSync(paths.settings)).behavior.primaryCategorySlug
-    console.log(category)
-    return category
+    return JSON.parse(await Fs.readFileSync(paths.settings)).behavior.primaryCategorySlug
   } catch (e) {
-    console.log('============================================ [getPrimaryCategory] Error')
+    console.log('================================== [getPrimaryCategory] Error')
     throw e
   }
 }
 
 /*
   - Open and parse all project JSON files
+  - Push all of them into an array (to be used by main app)
   - Push all of them into an array with some information removed (to be used by embedable-view.js)
   - Write to a JSON file
 */
-const generateProjectListFile = async (primaryCategory, slugs) => {
+const generateProjectListFiles = async (primaryCategory, slugs) => {
   try {
     const len = slugs.length
-    let compiled = []
-    let activeFilters = []
+    const payload = {
+      full: [],
+      mini: [],
+      activeFilters: []
+    }
     for (let i = 0; i < len; i++) {
       const slug = slugs[i]
       const project = JSON.parse(await Fs.readFileSync(`${paths.projects}/${slug}.json`))
       const filterItems = project.taxonomies.filter(taxonomy => taxonomy.slug === primaryCategory)
       const filters = filterItems.length && filterItems[0].tags ? filterItems[0].tags : []
-      compiled.push({
+      project.slug = slug
+      payload.full.push(SetProjectDefaults(project))
+      payload.mini.push({
         slug,
         name: project.name,
         logo: project.logo,
@@ -65,31 +73,33 @@ const generateProjectListFile = async (primaryCategory, slugs) => {
         sortNumbers: project.sortNumbers,
         filters
       })
-
       filters.forEach(filter => {
-        if (activeFilters.indexOf(filter) < 0) activeFilters.push(filter)
+        if (payload.activeFilters.indexOf(filter) < 0) {
+          payload.activeFilters.push(filter)
+        }
       })
     }
-    return { data: compiled, activeFilters }
+    return payload
   } catch (e) {
-    console.log('============================= [generateProjectListFile] Error')
+    console.log('============================ [generateProjectListFiles] Error')
     throw e
   }
 }
+
 const generateTaxonomyListFile = async (slug, activeFilters) => {
   try {
     const taxonomies = JSON.parse(await Fs.readFileSync(`${paths.data}/taxonomy.json`))
     const category = taxonomies.categories.filter(category => category.slug === slug)
     const tags = category.length && category[0] ? category[0].tags : []
-
     const len = tags.length
     const compiled = []
     for (let i = 0; i < len; i++) {
-      if (activeFilters.indexOf(tags[i].slug) > -1)
+      if (activeFilters.indexOf(tags[i].slug) > -1) {
         compiled.push({
           label: tags[i].label,
           value: tags[i].slug
         })
+      }
     }
     return compiled
   } catch (e) {
@@ -102,17 +112,15 @@ const generateTaxonomyListFile = async (slug, activeFilters) => {
 /*
   - Generate Embeddable View File
 */
-const generateEmbeddableViewFile = async (primaryCategory, slugs) => {
+const generateEmbeddableViewFile = async (projectList, activeFilters, primaryCategory, slugs) => {
   try {
     const settings = JSON.parse(await Fs.readFileSync(`${paths.embeddable_view}/embeddable-view-settings.json`, 'utf8'))
-    const projectList = await generateProjectListFile(primaryCategory, slugs)
-    const taxonomyList = await generateTaxonomyListFile(primaryCategory, projectList.activeFilters)
+    const taxonomyList = await generateTaxonomyListFile(primaryCategory, activeFilters)
     const embeddableCSS = await Fs.readFileSync(`${paths.embeddable_view}/embeddable-view.min.css`, 'utf8')
     const vueJS = await Fs.readFileSync(`${paths.embeddable_view}/vue.2.6.14.min.js`, 'utf8')
-    
     let embeddableView = await Fs.readFileSync(`${paths.embeddable_view}/embeddable-view.js`, 'utf8')
 
-    embeddableView = embeddableView.replace('INJECT_PROJECTS_LIST', JSON.stringify(projectList.data))
+    embeddableView = embeddableView.replace('INJECT_PROJECTS_LIST', JSON.stringify(projectList))
     embeddableView = embeddableView.replace('INJECT_FILTERS', JSON.stringify(taxonomyList))
     embeddableView = embeddableView.replace('INJECT_PROJECTS_STYLES', embeddableCSS)
     embeddableView = embeddableView.replace('INJECT_VUE_SCRIPT', vueJS)
@@ -131,7 +139,7 @@ const generateEmbeddableViewFile = async (primaryCategory, slugs) => {
 
     return embeddableView
   } catch (e) {
-    console.log('============================= [generateEmbeddableViewFile] Error')
+    console.log('========================== [generateEmbeddableViewFile] Error')
     throw e
   }
 }
@@ -142,13 +150,12 @@ const Manifestor = async () => {
     console.log('🚀️ Manifest projects started')
     const slugs = await getSlugs()
     const primaryCategory = await getPrimaryCategory()
+    const payload = await generateProjectListFiles(primaryCategory, slugs)
+    const embeddableViewScript = await generateEmbeddableViewFile(payload.mini, payload.activeFilters, primaryCategory, slugs)
     await Fs.writeFileSync(paths.manifest, JSON.stringify(slugs))
-    // const projectList = await generateProjectListFile(primaryCategory, slugs)
-    // await Fs.writeFileSync(paths.project_list, JSON.stringify(projectList.data))å
-    // const taxonomyList = await generateTaxonomyListFile(primaryCategory, projectList.activeFilters)
-    // await Fs.writeFileSync(paths.taxonomy_list, JSON.stringify(taxonomyList))
-    const embeddableViewScript = await generateEmbeddableViewFile(primaryCategory, slugs)
     await Fs.writeFileSync(paths.embeddable_view_script, embeddableViewScript)
+    await Fs.writeFileSync(paths.project_list_full, JSON.stringify(payload.full))
+    await Fs.writeFileSync(paths.project_list_mini, JSON.stringify(payload.mini))
     console.log('🏁 Manifest projects complete')
   } catch (e) {
     console.log('========================================== [Manifestor] Error')

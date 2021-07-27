@@ -16,7 +16,9 @@ server.crt
 
 # Files
 project-manifest.json
-project-list.json
+project-list-full.json
+project-list-mini.json
+embeddable-view.js
 
 # Runtime data
 pids
