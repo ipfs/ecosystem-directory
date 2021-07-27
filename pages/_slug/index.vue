@@ -30,6 +30,7 @@
 <script>
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
+
 import Settings from '@/content/data/settings.json'
 import ShowcaseData from '@/static/showcase-data.json'
 
@@ -38,6 +39,7 @@ import ShowcaseData from '@/static/showcase-data.json'
 // ====================================================================== Export
 export default {
   name: 'ShowcaseView',
+
   layout: 'zero',
 
   data () {
@@ -52,7 +54,12 @@ export default {
     }
   },
 
-  async fetch ({ store, req }) {
+  async fetch ({ store, req, route, payload, error }) {
+    if (!Settings.hasOwnProperty('general') ||
+        !Settings.general.hasOwnProperty('showcaseBaseRoute') ||
+        route.path !== Settings.general.showcaseBaseRoute) {
+      return error({ statusCode: 400 })
+    }
     await store.dispatch('global/getBaseData', 'showcase')
     await store.dispatch('global/getBaseData', 'taxonomy')
     await store.dispatch('projects/getProjects')
