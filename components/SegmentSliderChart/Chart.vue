@@ -297,7 +297,7 @@ export default {
       }
       this.reduceOffset(12, 4, () => {
         this.dropOverLappingLabels()
-        this.$emit('chart-mounted')
+        this.$nextTick(() => { this.$emit('chart-mounted') })
       })
     }
   }
@@ -320,6 +320,12 @@ export default {
     padding-bottom: 7rem;
   }
   @include small {
+    padding: 0 3rem;
+    padding-bottom: 0;
+  }
+  @include tiny {
+    min-width: 16rem;
+    padding: 0 2rem;
     padding-bottom: 0;
   }
   > div {
