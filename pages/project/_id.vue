@@ -384,6 +384,7 @@ export default {
     },
     description () {
       const description = this.project.description
+      if (!description) { return false }
       const long = description.long
       const short = description.short
       if (!long && !short) { return false }
