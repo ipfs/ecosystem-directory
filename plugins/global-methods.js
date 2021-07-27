@@ -1,8 +1,8 @@
 // ///////////////////////////////////////////////////////////////////// Imports
 // -----------------------------------------------------------------------------
-import Filesize from 'filesize'
+const Filesize = require('filesize')
 
-import ProjectSchema from '../content/data/project-schema.json' // ← needs to be relative because this file is loaded in nuxt.config.js during `npm run generate`
+const ProjectSchema = require('../content/data/project-schema.json') // ← needs to be relative because this file is loaded in nuxt.config.js during `npm run generate`
 
 // /////////////////////////////////////////////////////////////////// Functions
 // -----------------------------------------------------------------------------
@@ -47,7 +47,7 @@ const SetProjectDefaults = (project) => {
 
 // ///////////////////////////////////////////////////////////////////// Exports
 // -----------------------------------------------------------------------------
-export default ({ store, app }, inject) => {
+const methods = module.exports = ({ store, app }, inject) => {
   // /////////////////////////////////////////////////////////////////// Slugify
   // ----------------------- Options: 'dash', 'underscore', 'underscore-no-trim'
   inject('slugify', (text, type = 'dash') => {
@@ -330,4 +330,4 @@ export default ({ store, app }, inject) => {
   inject('setProjectDefaults', SetProjectDefaults)
 }
 
-export { SetProjectDefaults }
+methods.SetProjectDefaults = SetProjectDefaults
