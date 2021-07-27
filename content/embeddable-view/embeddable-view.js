@@ -126,19 +126,20 @@ function ecodir_initDirectory(el) {
     mounted () {
       const dropdownEl = this.$el.querySelector('.ecodir_dropdown')
       const dropdownToggleEl = this.$el.querySelector('.ecodir_dropdown-toggle')
+      dropdownEl.classList.remove('hidden')
 
-      dropdownEl.setAttribute('data-height', dropdownEl.clientHeight)
-      dropdownEl.style.height = 0
-
-      if (dropdownEl.clientWidth > dropdownToggleEl.clientWidth)
-        dropdownToggleEl.style.width = `${dropdownEl.clientWidth + 100}px`
+      Vue.nextTick(() => {
+        if (dropdownEl.clientWidth > dropdownToggleEl.clientWidth)
+          dropdownToggleEl.style.width = `${dropdownEl.clientWidth + 100}px`
+          dropdownEl.classList.add('hidden')
+      })
     },
     template: `
       <div :id="id" class="ecodir_dropdown-wrapper" v-on:click="toggleDropdown">
         <button class="ecodir_dropdown-toggle">
           <label>{{ name }}&emsp;{{ selected }}</label>${ecodir_caret_svg()}</button>
 
-        <div v-if="options.length" v-click-outside="closeDropdown" :class="{ecodir_dropdown: true }">
+        <div v-if="options.length" v-click-outside="closeDropdown" :class="{ecodir_dropdown: true, hidden: !open }">
             <div v-for="option in options"
               :key="option.value"
               :data-value="option.value"

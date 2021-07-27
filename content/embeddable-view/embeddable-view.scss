@@ -71,7 +71,7 @@ $teal-x-dark: #04202F;
       cursor: pointer;
       border-radius: 5px;
       border: none;
-      width: 0;
+      // width: 0;
       padding: 8px 15px;
       display: flex;
       align-items: center;
@@ -103,7 +103,7 @@ $teal-x-dark: #04202F;
       top: 30px;
       left: 0;
       min-width: 100%;
-      // padding-bottom: 5px;
+      padding: 5px 0;
       z-index: 1000;
       overflow: hidden;
 
