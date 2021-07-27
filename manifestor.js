@@ -7,8 +7,8 @@ const { SetProjectDefaults } = require('./plugins/global-methods')
 const paths = {
   projects: `${__dirname}/content/projects`,
   manifest: `${__dirname}/content/data/project-manifest.json`,
-  project_list_full: `${__dirname}/static/project-list-full.json`, // ← to be used by main app
-  project_list_mini: `${__dirname}/static/project-list-mini.json` // ← to be used by embedable-view.js
+  project_list_full: `${__dirname}/content/data/project-list-full.json`, // ← to be used by main app
+  project_list_mini: `${__dirname}/content/data/project-list-mini.json` // ← to be used by embedable-view.js
 }
 
 // /////////////////////////////////////////////////////////////////// Functions
