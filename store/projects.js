@@ -1,4 +1,6 @@
-import Projects from '@/content/data/project-manifest.json'
+// ///////////////////////////////////////////////////////// Imports & Variables
+// -----------------------------------------------------------------------------
+import Projects from '@/static/project-list-full.json'
 
 // /////////////////////////////////////////////////////////////////////// State
 // -----------------------------------------------------------------------------
@@ -21,26 +23,7 @@ const actions = {
   },
   // /////////////////////////////////////////////////////////////// getProjects
   getProjects ({ commit }) {
-    try {
-      const compiled = []
-      const len = Projects.length
-      for (let i = 0; i < len; i++) {
-        const id = Projects[i]
-        try {
-          const project = require(`@/content/projects/${id}.json`)
-          project.slug = id
-          compiled.push(project)
-        } catch (e) {
-          console.log(e)
-          continue
-        }
-      }
-      if (compiled.length > 0) {
-        commit('SET_PROJECTS', compiled)
-      }
-    } catch (e) {
-      // Silent fail
-    }
+    commit('SET_PROJECTS', Projects)
   }
 }
 

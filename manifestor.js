@@ -45,6 +45,7 @@ const generateProjectListFiles = async (slugs) => {
     for (let i = 0; i < len; i++) {
       const slug = slugs[i]
       const project = JSON.parse(await Fs.readFileSync(`${paths.projects}/${slug}.json`))
+      project.slug = slug
       payload.full.push(SetProjectDefaults(project))
       payload.mini.push({
         slug,
