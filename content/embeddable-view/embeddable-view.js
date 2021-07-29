@@ -276,13 +276,8 @@ function ecodir_initDirectory(el) {
 
   const projectViewComponent = {
     methods: {
-      setProjectContainerHeight () {
-        // const projectWrapperEl =  this.$el.querySelector('.ecodir_project-view-wrapper')
-        // this.$el.style.height = `${projectWrapperEl.scrollHeight}px` 
-
-        // setTimeout(() => {
-        //   this.$el.style.opacity = 1
-        // }, 500);
+      setProjectContainerVisibility () {
+        setTimeout(() => this.$parent.projectWapperEl.style.opacity = 1, 250);
       }
     },
     computed: {
@@ -294,11 +289,12 @@ function ecodir_initDirectory(el) {
       }
     },
     mounted () {
-      this.setProjectContainerHeight()
+      this.$parent.projectWapperEl = this.$el.querySelector('.ecodir_project-view-wrapper')
+      this.setProjectContainerVisibility()
     },
     watch: {
       project () {
-        Vue.nextTick(this.setProjectContainerHeight)    
+        Vue.nextTick(this.setProjectContainerVisibility)
       }
     },
     template: `
@@ -359,7 +355,8 @@ function ecodir_initDirectory(el) {
       activeSort: 'alphabetical-asc',
       activeDropdown: null,
       projects: ecodir_projects,
-      project: ecodir_projects[0]
+      project: ecodir_projects[0],
+      projectWapperEl: null
     },
     mounted () {
       window.addEventListener('resize', this.updateResponsiveClass)
@@ -367,15 +364,12 @@ function ecodir_initDirectory(el) {
     methods: {
       setActiveProject (slug) {
         const project = this.projects.filter(project => project.slug === slug)
-
         if (!project.length) return
 
-        // const projectWrapperEl =  this.$el.querySelector('.ecodir_project-view-container')
-        // this.$el.style.height = `${projectWrapperEl.scrollHeight}px` 
-        // projectWrapperEl.style.opacity = 0
-
-        // setTimeout(this.project = project[0], 5000);
-        this.project = project[0]
+        if(this.projectWapperEl) {
+          this.projectWapperEl.style.opacity = 0
+          setTimeout(() => this.project = project[0], 250);
+        }
       },
       filterProjects (slug) {
         if (slug == 'all') {
