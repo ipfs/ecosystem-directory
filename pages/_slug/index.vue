@@ -66,7 +66,7 @@ export default {
   },
 
   head () {
-    const title = `${this.seo.title} : ${this.taxonomy.label}`
+    const title = `${this.seo.title}`
     const description = this.seo.description
     return {
       title,
