@@ -100,7 +100,9 @@ function ecodir_initDirectory(el) {
     props: ['id', 'name', 'options', 'callback'],
     data () {
       return {
-        dropdownEl: null,
+        dropdownContainerEl: null,
+        dropdownHeight: null,
+        dropdownToggleHeight: 3,
         selected: null,
         value: null,
         open: false
@@ -118,35 +120,51 @@ function ecodir_initDirectory(el) {
         this.value = option.value
         context.open = false
         this.callback(option.value)
+      },
+      setDimensions () {
+        const dropdownToggleEl = this.$el.querySelector('.ecodir_dropdown-toggle')
+        const dropdownEl = this.$el.querySelector('.ecodir_dropdown')
+        this.dropdownContainerEl = this.$el.querySelector('.ecodir_dropdown-container')
+
+        if (dropdownEl.clientWidth > dropdownToggleEl.clientWidth)
+          dropdownToggleEl.style.width = `${dropdownEl.clientWidth + 100}px`
+
+        this.dropdownHeight = dropdownEl.scrollHeight
+
+        this.$nextTick(() => setTimeout(() => this.dropdownHeight = dropdownEl.scrollHeight, 1500))
       }
     },
     created () {
       this.selectOption(this.options[0])
     },
     mounted () {
-      const dropdownEl = this.$el.querySelector('.ecodir_dropdown')
-      const dropdownToggleEl = this.$el.querySelector('.ecodir_dropdown-toggle')
-      dropdownEl.classList.remove('hidden')
-
-      Vue.nextTick(() => {
-        if (dropdownEl.clientWidth > dropdownToggleEl.clientWidth)
-          dropdownToggleEl.style.width = `${dropdownEl.clientWidth + 100}px`
-          dropdownEl.classList.add('hidden')
-      })
+      this.setDimensions()
+      this.resize = this.setDimensions
+    },
+    watch: {
+      open (val) {
+        if (val) {
+          this.dropdownContainerEl.style.height = `${this.dropdownHeight}px`
+        } else {
+          this.dropdownContainerEl.style.height = `${this.dropdownToggleHeight}px`
+        }
+      }
     },
     template: `
       <div :id="id" class="ecodir_dropdown-wrapper" v-on:click="toggleDropdown">
         <button class="ecodir_dropdown-toggle">
           <label>{{ name }}&emsp;{{ selected }}</label>${ecodir_caret_svg()}</button>
 
-        <div v-if="options.length" v-click-outside="closeDropdown" :class="{ecodir_dropdown: true, hidden: !open }">
-            <div v-for="option in options"
-              :key="option.value"
-              :data-value="option.value"
-              :class="{ 'ecodir_dropdown-option': true, selected: (value === option.value) }"
-              v-on:click="selectOption(option, this)">
-              {{ option.label }}
-            </div>
+        <div :class="{'ecodir_dropdown-container': true, hidden: open}">
+          <div v-if="options.length" v-click-outside="closeDropdown" :class="{ecodir_dropdown: true}">
+              <div v-for="option in options"
+                :key="option.value"
+                :data-value="option.value"
+                :class="{ 'ecodir_dropdown-option': true, selected: (value === option.value) }"
+                v-on:click="selectOption(option, this)">
+                {{ option.label }}
+              </div>
+          </div>
         </div>
       </div>
     `

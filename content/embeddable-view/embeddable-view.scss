@@ -71,12 +71,10 @@ $teal-x-dark: #04202F;
       cursor: pointer;
       border-radius: 5px;
       border: none;
-      // width: 0;
       padding: 8px 15px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      overflow: hidden;
 
       label {
         @include font(13, 500);
@@ -94,34 +92,26 @@ $teal-x-dark: #04202F;
       }
     }
 
+    .ecodir_dropdown-container {
+      border-radius: 5px;
+      position: absolute;
+      min-width: 100%;
+      height: 3px;
+      top: 0;
+      padding-top: 30px;
+      overflow: hidden;
+      z-index: 1000;
+      transition: 250ms ease-out;
+    }
+
     .ecodir_dropdown {
       border-bottom-left-radius: 5px;
       border-bottom-right-radius: 5px;
       text-align: right;
-
-      position: absolute;
-      top: 30px;
+      // position: absolute;
+      top: -8px; // 25px;
       left: 0;
-      min-width: 100%;
       padding: 5px 0;
-      z-index: 1000;
-      overflow: hidden;
-
-      &:before {
-        content: '';
-        border-radius: 5px;
-        position: absolute;
-        top: -25px;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        padding-bottom: 25px;
-        display: block;
-      }
-
-      &.hidden {
-        display: none;
-      }
 
       .ecodir_dropdown-option {
         cursor: pointer;
@@ -355,13 +345,15 @@ $teal-x-dark: #04202F;
         }
       }
 
+      .ecodir_dropdown-container {
+        &.hidden {
+          box-shadow: 3px 3px 15px rgba($grey-dark, 0.5);
+        }
+      }
+
       .ecodir_dropdown {
         background: $white;
         color: $grey-x-dark;
-
-        &:before {
-          box-shadow: 3px 3px 15px rgba($grey-dark, 0.5);
-        }
       }
     }
 
@@ -451,13 +443,15 @@ $teal-x-dark: #04202F;
         }
       }
 
+      .ecodir_dropdown-container {
+        &.hidden {
+          box-shadow: 3px 3px 15px rgba($black, 0.4);
+        }
+      }
+
       .ecodir_dropdown {
         background: $teal-medium;
         color: $white;
-
-        &:before {
-          box-shadow: 3px 3px 15px rgba($black, 0.4);
-        }
       }
     }
 
