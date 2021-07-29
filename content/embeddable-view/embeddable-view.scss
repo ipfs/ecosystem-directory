@@ -57,6 +57,10 @@ $teal-x-dark: #04202F;
     justify-content: center;
     margin-bottom: 39px;
 
+    #filterBy {
+      z-index: 1001;
+    }
+
     .ecodir_dropdown-wrapper {
       margin-right: 15px;
     }
@@ -270,12 +274,6 @@ $teal-x-dark: #04202F;
       padding: 0 25px;
       overflow: hidden;
       transition: all 250ms;
-
-      // .ecodir_project-view-wrapper {
-        
-      //   overflow: hidden;
-      //   transition: 250ms linear;
-      // }
 
       h4.ecodir_project-title {
         @include font(24);
