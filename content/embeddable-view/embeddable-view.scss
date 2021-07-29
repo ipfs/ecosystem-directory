@@ -265,16 +265,17 @@ $teal-x-dark: #04202F;
     }
 
     .ecodir_project-view-container {
+      height: 0;
+        opacity: 0;
       padding: 0 25px;
       overflow: hidden;
-      transition: all 500ms;
+      transition: all 250ms;
 
-      .ecodir_project-view-wrapper {
-        // height: 0;
-        opacity: 0;
-        overflow: hidden;
-        transition: 250ms linear;
-      }
+      // .ecodir_project-view-wrapper {
+        
+      //   overflow: hidden;
+      //   transition: 250ms linear;
+      // }
 
       h4.ecodir_project-title {
         @include font(24);

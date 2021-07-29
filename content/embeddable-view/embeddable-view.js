@@ -277,7 +277,12 @@ function ecodir_initDirectory(el) {
   const projectViewComponent = {
     methods: {
       setProjectContainerVisibility () {
-        setTimeout(() => this.$parent.projectWapperEl.style.opacity = 1, 250);
+        const projectContainerEl = this.$parent.projectContainerEl
+        const projectWrapperEl = this.$parent.projectWrapperEl
+        setTimeout(() => {
+          projectContainerEl.style.height = `${projectWrapperEl.scrollHeight}px`
+          projectContainerEl.style.opacity = 1
+        }, 250);
       }
     },
     computed: {
@@ -289,8 +294,10 @@ function ecodir_initDirectory(el) {
       }
     },
     mounted () {
-      this.$parent.projectWapperEl = this.$el.querySelector('.ecodir_project-view-wrapper')
+      this.$parent.projectContainerEl = this.$el
+      this.$parent.projectWrapperEl = this.$el.querySelector('.ecodir_project-view-wrapper')
       this.setProjectContainerVisibility()
+      Vue.nextTick(() => setTimeout(this.setProjectContainerVisibility, 1500))
     },
     watch: {
       project () {
@@ -356,7 +363,8 @@ function ecodir_initDirectory(el) {
       activeDropdown: null,
       projects: ecodir_projects,
       project: ecodir_projects[0],
-      projectWapperEl: null
+      projectContainerEl: null,
+      projectWrapperEl: null
     },
     mounted () {
       window.addEventListener('resize', this.updateResponsiveClass)
@@ -366,8 +374,9 @@ function ecodir_initDirectory(el) {
         const project = this.projects.filter(project => project.slug === slug)
         if (!project.length) return
 
-        if(this.projectWapperEl) {
-          this.projectWapperEl.style.opacity = 0
+        if(this.projectWrapperEl) {
+          this.projectContainerEl.style.height = this.projectWrapperEl.scrollHeight
+          this.projectContainerEl.style.opacity = 0
           setTimeout(() => this.project = project[0], 250);
         }
       },
