@@ -1,11 +1,11 @@
 <template>
-  <section v-if="headerState" id="header-hero">
+  <section v-if="headerState" id="header-hero" :class="`hero-header transition ${headerState}`">
 
     <section
       v-if="pageData"
       :class="`panel-top transition ${headerState}`">
 
-      <div :class="`grid-noGutter transition ${headerState} hero-breadcrumbs`">
+      <div :class="`grid-noGutter ${headerState} hero-breadcrumbs`">
         <div class="col">
           <Breadcrumbs :breadcrumbs="breadcrumbs" />
         </div>
@@ -182,8 +182,7 @@ export default {
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
 .transition {
-  transition: all 0.5s ease;
-  transition-delay: 500ms;
+  transition: all 0.5s ease 0ms;
 }
 
 // ////////////////////////////////////////////////////////////// [Panel] Bottom
@@ -208,9 +207,15 @@ export default {
 }
 
 // ////////////////////////////////////////////////////////////////// Index View
+.index-view {
+  &.hero-header {
+    background-color: transparent;
+  }
+}
+
 ::v-deep .index-view {
   .breadcrumbs {
-    margin-top: 1rem;
+    margin-top: 2rem;
   }
   .breadcrumb-link {
     color: $downy;
@@ -228,7 +233,9 @@ export default {
 // /////////////////////////////// Filters View (All Projects) & Filters Applied
 .filters-applied,
 .filters-view {
-  background-color: $blackHaze;
+  &.hero-header {
+    background-color: $blackHaze;
+  }
   color: #181818;
   h1 {
     @include leading_Mini;
@@ -244,7 +251,7 @@ export default {
 ::v-deep .filters-applied,
 .filters-view {
   .breadcrumbs {
-    margin-top: 1rem;
+    margin-top: 2rem;
   }
 }
 

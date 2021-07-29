@@ -47,11 +47,14 @@ export default {
 .breadcrumb-link {
   display: inline-flex;
   color: $paradiso;
-}
-
-.label {
-  &:hover {
-    text-decoration: underline;
+  .label {
+    text-decoration: underline transparent;
+    text-underline-offset: $underlineSpacing;
+    transition: text-decoration-color 250ms ease-out;
+    &:hover {
+      transition: text-decoration-color 250ms ease-in;
+      text-decoration-color: currentColor;
+    }
   }
 }
 

@@ -4,6 +4,8 @@ Interactive IPFS ecosystem directory and showcase
 
 _(in the future this readme may be split into multiple Github wiki files)_
 
+**Just want to add a new project to the IPFS ecosystem directory? [Use this form](https://airtable.com/shrjwvk9pAeAk0Ci7).**
+
 ***
 
 ## General Information
