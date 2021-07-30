@@ -1,6 +1,7 @@
 /* eslint require-await: "off" */
 
 import Projects from './content/data/project-manifest.json'
+import Settings from './content/data/settings.json'
 import { SetProjectDefaults } from './plugins/global-methods'
 
 export default {
@@ -10,6 +11,7 @@ export default {
   generate: {
     async routes (a, b) {
       const routes = []
+      routes.push({ route: Settings.general.showcaseBaseRoute })
       try {
         const len = Projects.length
         if (len === 0) { throw new Error('[nuxt.config.js] Unable to generate Project routes because no projects exist') }

@@ -1,0 +1,18 @@
+{
+  "seo": {
+    "title": "IPFS Ecosystem Directory Showcase",
+    "description": "Interactive IPFS ecosystem directory and showcase"
+  },
+  "og": {
+    "site_name": "IPFS Ecosystem Directory",
+    "url": "",
+    "type": "website",
+    "image": ""
+  },
+  "page_content": {
+    "heading": {
+      "title": "IPFS",
+      "logo": "logo.svg"
+    }
+  }
+}

@@ -5,8 +5,10 @@ const Fs = require('fs-extra')
 const { SetProjectDefaults } = require('./plugins/global-methods')
 
 const paths = {
+  data: `${__dirname}/content/data`,
   projects: `${__dirname}/content/projects`,
   manifest: `${__dirname}/content/data/project-manifest.json`,
+  showcase_data: `${__dirname}/content/data/showcase-data.json`,
   project_list_full: `${__dirname}/content/data/project-list-full.json`, // ← to be used by main app
   project_list_mini: `${__dirname}/content/data/project-list-mini.json` // ← to be used by embedable-view.js
 }
@@ -62,6 +64,52 @@ const generateProjectListFiles = async (slugs) => {
   }
 }
 
+const generateShowcaseDataFile = async (slugs) => {
+  try {
+    const taxonomies = JSON.parse(await Fs.readFileSync(`${paths.data}/taxonomy.json`))
+    const data = { taxonomies: {}, projects: [] }
+    const len = slugs.length
+
+    taxonomies.categories.forEach(category => {
+      const tags = {}
+      category.tags.forEach(tag => {
+        tags[tag.slug] = tag.label
+      })
+
+      data.taxonomies[category.slug] = {
+        label: category.label,
+        tags
+      }
+    })
+
+    for (let i = 0; i < len; i++) {
+      const slug = slugs[i]
+      const project = JSON.parse(await Fs.readFileSync(`${paths.projects}/${slug}.json`))
+      const tags = {}
+
+      project.taxonomies.forEach(tax => {
+        const category = taxonomies.categories.filter(cat => cat.slug === tax.slug)
+
+        if(!category.length || !category[0].tags) return
+
+        tags[tax.slug] = tax.tags.filter(
+          tag => category[0].tags.map(t => t.slug).includes(tag)
+        )
+      })
+
+      data.projects.push({
+        name: project.name,
+        logo: project.logo.icon,
+        tags: tags
+      })
+    }
+    return data
+  } catch (e) {
+    console.log('============================= [generateShowcaseDataFile] Error')
+    throw e
+  }
+}
+
 // ////////////////////////////////////////////////////////////////// Manifestor
 // -----------------------------------------------------------------------------
 const Manifestor = async () => {
@@ -70,6 +118,8 @@ const Manifestor = async () => {
     const slugs = await getSlugs()
     await Fs.writeFileSync(paths.manifest, JSON.stringify(slugs))
     const payload = await generateProjectListFiles(slugs)
+    const showcaseData = await generateShowcaseDataFile(slugs)
+    await Fs.writeFileSync(paths.showcase_data, JSON.stringify(showcaseData))
     await Fs.writeFileSync(paths.project_list_full, JSON.stringify(payload.full))
     await Fs.writeFileSync(paths.project_list_mini, JSON.stringify(payload.mini))
     console.log('🏁 Manifest projects complete')
