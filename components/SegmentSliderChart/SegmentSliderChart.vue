@@ -76,11 +76,11 @@ const createLabels = (instance, projects) => {
 
   for (let i = 0; i < len; i++) {
     const projectTaxonomy = projects[i].taxonomies.find(category => category.slug === instance.primaryCategory.slug)
-    if (projectTaxonomy.hasOwnProperty('tags')) {
+    if (projectTaxonomy.tags) {
       const primaryTags = projectTaxonomy.tags
       if (Array.isArray(primaryTags)) {
         for (let j = 0; j < primaryTags.length; j++) {
-          if (typeof projects[i].logo.icon === 'string' && logos.hasOwnProperty(primaryTags[j])) {
+          if (projects[i].logo.icon && logos.hasOwnProperty(primaryTags[j])) {
             if (!logos[primaryTags[j]].includes(projects[i].logo.icon)) {
               logos[primaryTags[j]].push(projects[i].logo.icon)
             }

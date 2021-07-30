@@ -23,7 +23,35 @@ const actions = {
   },
   // /////////////////////////////////////////////////////////////// getProjects
   getProjects ({ commit }) {
-    commit('SET_PROJECTS', Projects)
+    const includedProjects = []
+    const len = Projects.length
+    for (let i = 0; i < len; i++) {
+      const project = Projects[i]
+      if (project.name && project.description.short && project.logo.icon && project.taxonomies) {
+        const check = []
+        if (Array.isArray(project.taxonomies)) {
+          for (let j = 0; j < project.taxonomies.length; j++) {
+            if (typeof project.taxonomies[j] === 'object') {
+              if (project.taxonomies[j].slug && project.taxonomies[j].tags) {
+                if (Array.isArray(project.taxonomies[j].tags)) {
+                  check.push(project.taxonomies[j].tags.every(tag => typeof tag === 'string'))
+                } else {
+                  check.push(false)
+                }
+              } else {
+                check.push(false)
+              }
+            } else {
+              check.push(false)
+            }
+          }
+        }
+        if (check.length && check.every(Boolean)) {
+          includedProjects.push(project)
+        }
+      }
+    }
+    commit('SET_PROJECTS', includedProjects)
   }
 }
 
