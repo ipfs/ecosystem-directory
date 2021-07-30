@@ -40,6 +40,7 @@
       </SortBySelector>
 
       <div
+        v-if="showViewToggleButton"
         id="list-block-toggle-button"
         :class="{ 'list-view-active': listViewActive }"
         @click="toggleListBlockView">
@@ -63,6 +64,8 @@ import CloseIcon from '@/components/Icons/Close'
 import ListViewIcon from '@/components/Icons/ListView'
 import BlockViewIcon from '@/components/Icons/BlockView'
 import SelectorToggleIcon from '@/modules/zero/core/Components/Icons/SelectorToggle'
+
+import Settings from '@/content/data/settings.json'
 
 // ====================================================================== Export
 export default {
@@ -117,6 +120,12 @@ export default {
     selectedFiltersCount () {
       if (this.routeQuery.tags) { return this.routeQuery.tags.split(',').length }
       return 0
+    },
+    showViewToggleButton () {
+      if (Settings.visibility.hideNonDefaultView) {
+        return false
+      }
+      return true
     }
   },
 
@@ -226,7 +235,6 @@ export default {
   }
   .sort-by-selector {
     position: relative;
-    margin-right: 1rem;
     @include mini {
       margin-bottom: 1rem;
     }
@@ -238,6 +246,7 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-left: 1rem;
   position: relative;
   height: 2.25rem;
   background-color: white;

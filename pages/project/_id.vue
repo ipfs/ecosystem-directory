@@ -4,7 +4,7 @@
     <div v-if="breadcrumbs" class="grid">
       <div class="col">
         <section id="section-breadcrumbs">
-          <Breadcrumbs :breadcrumbs="breadcrumbs" />
+          <Breadcrumbs v-if="breadcrumbs" :breadcrumbs="breadcrumbs" />
         </section>
       </div>
     </div>
@@ -267,6 +267,8 @@ import PrevArrow from '@/components/Icons/PrevArrow'
 import NextArrow from '@/components/Icons/NextArrow'
 import SelectorToggleIcon from '@/modules/zero/core/Components/Icons/SelectorToggle'
 
+import Settings from '@/content/data/settings.json'
+
 // =================================================================== Functions
 const repositionSliderLeft = (instance) => {
   if (window.matchMedia('(max-width: 25.9375rem)').matches && instance.$refs.sliderFlex) { // tiny
@@ -371,12 +373,15 @@ export default {
       return this.pageData.metadata_heading
     },
     breadcrumbs () {
-      const breadcrumbs = CloneDeep(this.pageData.breadcrumbs)
-      breadcrumbs.push({
-        type: 'div',
-        label: this.project.name
-      })
-      return breadcrumbs
+      if (Settings.visibility.breadcrumbs) {
+        const breadcrumbs = CloneDeep(this.pageData.breadcrumbs)
+        breadcrumbs.push({
+          type: 'div',
+          label: this.project.name
+        })
+        return breadcrumbs
+      }
+      return false
     },
     // Project Content
     generalPageData () {

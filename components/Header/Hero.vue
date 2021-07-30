@@ -7,7 +7,7 @@
 
       <div :class="`grid-noGutter ${headerState} hero-breadcrumbs`">
         <div class="col">
-          <Breadcrumbs :breadcrumbs="breadcrumbs" />
+          <Breadcrumbs v-if="breadcrumbs" :breadcrumbs="breadcrumbs" />
         </div>
       </div>
 
@@ -79,6 +79,8 @@ import { mapGetters } from 'vuex'
 
 import Breadcrumbs from '@/modules/zero/core/Components/Breadcrumbs'
 
+import Settings from '@/content/data/settings.json'
+
 // ====================================================================== Export
 export default {
   name: 'HeaderHero',
@@ -109,11 +111,14 @@ export default {
       return this.siteContent.index.page_content
     },
     breadcrumbs () {
-      const breadcrumbs = this.pageData.breadcrumbs
-      const headerState = this.headerState
-      if (headerState === 'filters-view') { return breadcrumbs.filters_view }
-      if (headerState === 'filters-applied') { return breadcrumbs.filters_applied_view }
-      return breadcrumbs.index_view
+      if (Settings.visibility.breadcrumbs) {
+        const breadcrumbs = this.pageData.breadcrumbs
+        const headerState = this.headerState
+        if (headerState === 'filters-view') { return breadcrumbs.filters_view }
+        if (headerState === 'filters-applied') { return breadcrumbs.filters_applied_view }
+        return breadcrumbs.index_view
+      }
+      return false
     },
     heading () {
       const heading = this.pageData.hero.heading
@@ -210,6 +215,7 @@ export default {
 .index-view {
   &.hero-header {
     background-color: transparent;
+    margin-bottom: 3rem;
   }
 }
 

@@ -142,6 +142,8 @@ import PrevArrow from '@/components/Icons/PrevArrow'
 import NextArrow from '@/components/Icons/NextArrow'
 import LastArrow from '@/components/Icons/LastArrow'
 
+import Settings from '@/content/data/settings.json'
+
 // =================================================================== Functions
 const clearPanelHeight = (instance) => {
   if (!instance.filterPanelOpen) {
@@ -172,10 +174,18 @@ export default {
     LastArrow
   },
 
+  props: {
+    defaultview: {
+      type: Boolean,
+      default: false,
+      required: false
+    }
+  },
+
   data () {
     return {
       panelHeight: false,
-      listViewActive: false,
+      listViewActive: this.defaultview,
       scroll: false,
       searchQueryTimer: undefined
     }
@@ -253,11 +263,13 @@ export default {
   },
 
   mounted () {
-    if (this.$route.query['display-type']) {
-      if (this.$route.query['display-type'] === 'list') {
-        this.listViewActive = true
-      } else if (this.$route.query['display-type'] === 'block') {
-        this.listViewActive = false
+    if (!Settings.visibility.hideNonDefaultView) {
+      if (this.$route.query['display-type']) {
+        if (this.$route.query['display-type'] === 'list') {
+          this.listViewActive = true
+        } else if (this.$route.query['display-type'] === 'block') {
+          this.listViewActive = false
+        }
       }
     }
     clearPanelHeight(this)

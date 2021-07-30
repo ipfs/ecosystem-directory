@@ -7,7 +7,6 @@
         "primaryCategorySlug": "industry",
         "firstTag": "",
         "lastTag": "other",
-        "defaultView": "grid",
         "externalLinksTargetBlank": true,
         "tagMatchType": "or",
         "excludeFilterAllTag": true,
@@ -19,6 +18,8 @@
         "segmentChart": true,
         "featuredSlider": true,
         "embeddableObject": true,
+        "showcase": true,
+        "defaultView": "grid",
         "alternateLayout": true,
         "hideNonDefaultView": false
     }
