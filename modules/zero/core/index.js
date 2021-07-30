@@ -26,12 +26,12 @@ const GetScrollSpeedPlugin = Path.resolve(__dirname, 'Plugins/get-scroll-speed.j
 // ////////////////////////////////////////////////////////////// registerRoutes
 const registerRoutes = (instance, next) => {
   const additions = [
-    {
-      name: 'kitchen-sink',
-      path: '/kitchen-sink',
-      component: KitchenSinkPage,
-      chunkName: 'zero/core/kitchen-sink'
-    }
+    // {
+    //   name: 'kitchen-sink',
+    //   path: '/kitchen-sink',
+    //   component: KitchenSinkPage,
+    //   chunkName: 'zero/core/kitchen-sink'
+    // }
   ]
   instance.extendRoutes((routes) => {
     additions.forEach(route => routes.push(route))
