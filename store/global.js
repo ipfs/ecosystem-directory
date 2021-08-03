@@ -5,16 +5,16 @@ import IndexSiteData from '@/content/pages/index.json'
 import ProjectSiteData from '@/content/pages/project.json'
 import ShowcaseSiteData from '@/content/pages/showcase.json'
 import TaxonomyData from '@/content/data/taxonomy.json'
+import Settings from '@/content/data/settings.json'
 
 // /////////////////////////////////////////////////////////////////// Functions
 // -----------------------------------------------------------------------------
 
 const insertEntityTerm = (input) => {
-  console.log(input)
-  // const string = input.stringify()
-  // const replaced = input.replace(/projects/g, 'entities')
-  // const obj = JSON.parse(replaced)
-  return input
+  const string = JSON.stringify(input)
+  const mapObj = Settings.nomenclature
+  const replaced = string.replace(/\b(?:entityTermPlural|entityTerm)\b/gi, matched => mapObj[matched])
+  return JSON.parse(replaced)
 }
 
 // /////////////////////////////////////////////////////////////////////// State
@@ -50,10 +50,10 @@ const actions = {
     const key = typeof payload === 'string' ? payload : payload.key
     let data = false
     switch (key) {
-      case 'taxonomy': data = TaxonomyData; break
+      case 'taxonomy': data = insertEntityTerm(TaxonomyData); break
       case 'general': data = insertEntityTerm(GeneralSiteData); break
       case 'index': data = insertEntityTerm(IndexSiteData); break
-      case 'project': data = ProjectSiteData; break
+      case 'project': data = insertEntityTerm(ProjectSiteData); break
       case 'showcase': data = ShowcaseSiteData; break
       default : data = payload.data; break
     }

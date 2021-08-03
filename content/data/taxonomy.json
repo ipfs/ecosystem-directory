@@ -86,7 +86,7 @@
     },
     {
       "label": "Focus areas",
-      "sublabel": "Filter by project focus or specialty",
+      "sublabel": "Filter by entityTerm focus or specialty",
       "slug": "focus",
       "tags": [
         {
