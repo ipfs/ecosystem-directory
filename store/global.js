@@ -5,6 +5,17 @@ import IndexSiteData from '@/content/pages/index.json'
 import ProjectSiteData from '@/content/pages/project.json'
 import TaxonomyData from '@/content/data/taxonomy.json'
 
+// /////////////////////////////////////////////////////////////////// Functions
+// -----------------------------------------------------------------------------
+
+const insertEntityTerm = (input) => {
+  console.log(input)
+  // const string = input.stringify()
+  // const replaced = input.replace(/projects/g, 'entities')
+  // const obj = JSON.parse(replaced)
+  return input
+}
+
 // /////////////////////////////////////////////////////////////////////// State
 // -----------------------------------------------------------------------------
 const state = () => ({
@@ -39,8 +50,8 @@ const actions = {
     let data = false
     switch (key) {
       case 'taxonomy': data = TaxonomyData; break
-      case 'general': data = GeneralSiteData; break
-      case 'index': data = IndexSiteData; break
+      case 'general': data = insertEntityTerm(GeneralSiteData); break
+      case 'index': data = insertEntityTerm(IndexSiteData); break
       case 'project': data = ProjectSiteData; break
       default : data = payload.data; break
     }
