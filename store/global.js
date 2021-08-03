@@ -3,6 +3,7 @@
 import GeneralSiteData from '@/content/pages/general.json'
 import IndexSiteData from '@/content/pages/index.json'
 import ProjectSiteData from '@/content/pages/project.json'
+import ShowcaseSiteData from '@/content/pages/showcase.json'
 import TaxonomyData from '@/content/data/taxonomy.json'
 
 // /////////////////////////////////////////////////////////////////// Functions
@@ -53,6 +54,7 @@ const actions = {
       case 'general': data = insertEntityTerm(GeneralSiteData); break
       case 'index': data = insertEntityTerm(IndexSiteData); break
       case 'project': data = ProjectSiteData; break
+      case 'showcase': data = ShowcaseSiteData; break
       default : data = payload.data; break
     }
     if (data) {
