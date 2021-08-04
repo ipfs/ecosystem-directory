@@ -21,7 +21,7 @@
     "segmentChart": true,
     "featuredSlider": true,
     "embeddableObject": true,
-    "showcase": false,
+    "showcase": true,
     "defaultView": "grid",
     "alternateLayout": true,
     "hideNonDefaultView": false
