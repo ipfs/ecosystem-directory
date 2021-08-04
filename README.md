@@ -2,13 +2,29 @@
 
 Interactive IPFS ecosystem directory and showcase
 
-_(in the future this readme may be split into multiple Github wiki files)_
-
 **Just want to add a new project to the IPFS ecosystem directory? [Use this form](https://airtable.com/shrjwvk9pAeAk0Ci7).**
 
 ***
 
-## General Information
+## Project Add/Change Workflow
+
+The existing workflow for adding a project to the ecosystem directory, or amending an existing project, is as described below.
+
+### Adding a New Project
+- Project info is added to the [master IPFS project database](https://airtable.com/tblxBjPTzHXiUVZAA/viwpijXTIFraPRkhE?blocks=hide) in one of two ways:
+     - Directly in the base as a new row
+     - By requesting a project's representative fill in the [IPFS Ecosystem Directory Submission Form](https://airtable.com/shrjwvk9pAeAk0Ci7)
+- Once a record is added to the database, an IPFS core team member reviews the record for accuracy, consistency, typos, etc, as well as determining whether the project should be included in the directory (a decision largely based on project maturity)
+- If the project is approved to be included in the directory, directions for adding the data to the repo can be found [here](#transforming-project-data)
+
+### Amending an Existing Project
+- Project info should be amended in the [master IPFS project database](https://airtable.com/tblxBjPTzHXiUVZAA/viwpijXTIFraPRkhE?blocks=hide) as a single source of truth
+- From there, un-tick and re-tick the `Include in directory?` box to regenerate the JSON
+- Replace the JSON and/or images in the repo as indicated in the [instructions](#transforming-project-data)
+
+***
+
+## General Developer Information
 
 ### Deployment
 
@@ -204,7 +220,7 @@ Each project that is to be included in the ecosystem must have a `json` file in 
 
 #### Transferring a Project
 
-The primary source of truth for the Ecosystem Directory is a CRM, which has a field that indicates whether a project is ready for inclusion. A script has been added there, which converts that ecosystem entry to `json`, per the project model described. This script runs each time a project is checked for inclusion in the Ecosystem Directory.
+The primary source of truth for the Ecosystem Directory is the [master IPFS project database](https://airtable.com/tblxBjPTzHXiUVZAA/viwpijXTIFraPRkhE?blocks=hide), which has a field `Include in directory?` that indicates whether a project is ready for inclusion. A script has been added there, which converts that ecosystem entry to `json`, per the project model described. This script runs each time a project is checked for inclusion in the Ecosystem Directory.
 
 #### Inputting a Project
 
