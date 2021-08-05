@@ -39,7 +39,7 @@
             <div v-if="(headerState === 'filters-applied')" class="filters-heading">
               <h1>
                 {{ heading }}
-                <span class="display-total">
+                <span v-if="showNumberOfResults" class="display-total">
                   ({{ collection.array.length || '0' }})
                 </span>
               </h1>
@@ -146,6 +146,10 @@ export default {
     selectedFilters () {
       if (this.routeQuery.tags) { return this.routeQuery.tags.split(',') }
       return []
+    },
+    showNumberOfResults () {
+      if (Settings.visibility.hideNumResults) { return false }
+      return true
     },
     headerState () {
       const route = this.$route

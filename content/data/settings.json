@@ -25,6 +25,9 @@
     "defaultView": "grid",
     "alternateLayout": true,
     "hideNonDefaultView": false,
-    "hidePagination": false
+    "hidePagination": false,
+    "hideSort": false,
+    "hideNumResults": false,
+    "setSort": "a_z"
   }
 }

@@ -30,9 +30,11 @@
     <div class="radio-sort-wrapper">
 
       <SortBySelector
+        v-if="showSortBySelector"
         class="sort-by-selector"
         :label="sortDropdownLabel"
         :sort-options="sortOptions"
+        :default-sort="defaultSort"
         @changed="sortBySelectorChanged">
         <template #dropdown-icon>
           <SelectorToggleIcon />
@@ -103,6 +105,9 @@ export default {
     sortOptions () {
       return this.siteContent.taxonomy.sort
     },
+    defaultSort () {
+      return Settings.visibility.setSort
+    },
     sectionFilterContent () {
       return this.siteContent.index.page_content.section_filter
     },
@@ -122,9 +127,11 @@ export default {
       return 0
     },
     showViewToggleButton () {
-      if (Settings.visibility.hideNonDefaultView) {
-        return false
-      }
+      if (Settings.visibility.hideNonDefaultView) { return false }
+      return true
+    },
+    showSortBySelector () {
+      if (Settings.visibility.hideSort) { return false }
       return true
     }
   },
