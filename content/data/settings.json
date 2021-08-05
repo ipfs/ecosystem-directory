@@ -24,6 +24,7 @@
     "showcase": true,
     "defaultView": "grid",
     "alternateLayout": true,
-    "hideNonDefaultView": false
+    "hideNonDefaultView": false,
+    "hidePagination": false
   }
 }

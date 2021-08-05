@@ -85,7 +85,9 @@
           </span>
         </div>
 
-        <div v-if="sortedCollection" id="paginated-list-navigation-controls">
+        <div
+          v-if="sortedCollection && showPaginationControls"
+          id="paginated-list-navigation-controls">
 
           <PaginationControls
             breaker="..."
@@ -205,6 +207,9 @@ export default {
       return this.collection.array
     },
     display () {
+      if (Settings.visibility.hidePagination) {
+        return this.projects.length
+      }
       return this.routeQuery.results
     },
     pageData () {
@@ -242,6 +247,9 @@ export default {
     toggleHeight () {
       if (this.filterPanelOpen) { return 'unset' }
       return this.panelHeight + 'px'
+    },
+    showPaginationControls () {
+      return !Settings.visibility.hidePagination
     }
   },
 
