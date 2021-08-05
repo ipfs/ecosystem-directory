@@ -2,13 +2,74 @@
 
 Interactive IPFS ecosystem directory and showcase
 
-_(in the future this readme may be split into multiple Github wiki files)_
-
 **Just want to add a new project to the IPFS ecosystem directory? [Use this form](https://airtable.com/shrjwvk9pAeAk0Ci7).**
 
 ***
 
-## General Information
+## Project Add/Change Workflow
+
+The existing workflow for adding a project to the ecosystem directory, or amending an existing project, is as described below.
+
+### Adding a New Project
+- Project info is added to the [master IPFS project database](https://airtable.com/tblxBjPTzHXiUVZAA/viwpijXTIFraPRkhE?blocks=hide) in one of two ways:
+     - Directly in the base as a new row
+     - By requesting a project's representative fill in the [IPFS Ecosystem Directory Submission Form](https://airtable.com/shrjwvk9pAeAk0Ci7)
+- Once a record is added to the database, an IPFS core team member reviews the record for accuracy, consistency, typos, etc, as well as determining whether the project should be included in the directory (a decision largely based on project maturity)
+- If the project is approved to be included in the directory, directions for adding the data to the repo can be found [here](#transforming-project-data)
+
+### Amending an Existing Project
+- Project info should be amended in the [master IPFS project database](https://airtable.com/tblxBjPTzHXiUVZAA/viwpijXTIFraPRkhE?blocks=hide) as a single source of truth
+- From there, un-tick and re-tick the `Include in directory?` box to regenerate the JSON
+- Replace the JSON and/or images in the repo as indicated in the [instructions](#transforming-project-data)
+
+***
+
+## Generating the Showcase Grid
+
+To view all projects in the ecosystem directory in a "logo parade" showcase format suitable for including in a slide deck, see the instructions below — this includes how to customize the grid to get the representation that's most useful for you.
+
+TLDR: https://ecosystem.ipfs.io/showcase/?category=focus is a general-purpose, useful grid if you don't want to build a custom one.
+
+## Behavior
+
+- The showcase view is visible in its bare form at [ecosystem.ipfs.io/showcase](https://ecosystem.ipfs.io/showcase)
+- It provides a logo-based visual summary of the projects in the app by category
+- Each tag within the selected category is assigned a block
+- The container for the tag is sized based on whether there's a small, medium, or large quantity of projects within it
+
+## Customization
+
+### Category
+
+Customizing the view is done using GET parameters. You might notice that the base showcase link feels a little empty. 
+
+Adding a target top-level `category` param to showcase solves this issue. Examples:
+- [/showcase/?category=industry](https://ecosystem.ipfs.io/showcase/?category=industry)
+- [/showcase/?category=focus](https://ecosystem.ipfs.io/showcase/?category=focus)
+- [/showcase/?category=benefits](https://ecosystem.ipfs.io/showcase/?category=benefits)
+
+> Note: This category selection will work for _both_ categories that allow one tag per project (category in which tags are mutually exclusive) and categories that allow multiple tags.
+
+### Containers
+
+Instances of this app may have varying quantities of projects. To help the showcase address both large and small ecosystems, there are params that define container limits. These define what the limits are in terms of number of projects that fit into medium, or large containers.
+
+- `md` minimum projects with a tag to display in a medium container (default is 10, if no value is provided)
+- `lg` minimum projects with a tag to display in a large container ((default is 25, if no value is provided)
+
+Example use case: [/showcase/?category=focus&md=5&lg=15](https://ecosystem.ipfs.io/showcase/?category=focus&md=5&lg=15)
+
+> Note: The Showcase view is designed to support rows of 5 logos, so setting `lg` and `md` as multiples of 5 is recommended for the ideal visual appearance.
+
+### Location
+
+- The showcase path may be redefined in the app's `settings.json` under the key `showcaseBaseRoute`
+  - Currently implemented as: `"showcaseBaseRoute": "/showcase"`
+- The showcase has no links, and is not discoverable by search engines
+
+***
+
+## General Developer Information
 
 ### Deployment
 
@@ -204,7 +265,7 @@ Each project that is to be included in the ecosystem must have a `json` file in 
 
 #### Transferring a Project
 
-The primary source of truth for the Ecosystem Directory is a CRM, which has a field that indicates whether a project is ready for inclusion. A script has been added there, which converts that ecosystem entry to `json`, per the project model described. This script runs each time a project is checked for inclusion in the Ecosystem Directory.
+The primary source of truth for the Ecosystem Directory is the [master IPFS project database](https://airtable.com/tblxBjPTzHXiUVZAA/viwpijXTIFraPRkhE?blocks=hide), which has a field `Include in directory?` that indicates whether a project is ready for inclusion. A script has been added there, which converts that ecosystem entry to `json`, per the project model described. This script runs each time a project is checked for inclusion in the Ecosystem Directory.
 
 #### Inputting a Project
 
