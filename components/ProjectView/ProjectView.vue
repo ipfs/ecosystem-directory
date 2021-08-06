@@ -73,6 +73,7 @@
               :logo="project.logo.icon"
               :url="project.primaryCta.url"
               :navigation-behavior="projectCardBehavior"
+              :enable-image-alt="enableImageAlt"
               :class="projectCardColumns"
               :style="`animation-delay: ${30 * index}ms`" />
           </div>
@@ -255,6 +256,9 @@ export default {
     },
     projectCardBehavior () {
       return parseInt(Settings.visibility.disableSingulars)
+    },
+    enableImageAlt () {
+      return Settings.visibility.mediaAltAtts
     }
   },
 

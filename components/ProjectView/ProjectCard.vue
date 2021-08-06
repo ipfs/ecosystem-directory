@@ -2,12 +2,13 @@
   <component
     :is="componentType"
     :to="navigateToProject"
-    :href="navigateToProject"
+    :href="primaryCta"
+    :target="primaryCta ? '_blank' : null"
     :class="['project-card', format]">
     <div class="card-inner-wrapper">
 
       <div class="thumbnail">
-        <img :src="$relativity(`/images/projects/${logo}`)" />
+        <img :src="$relativity(`/images/projects/${logo}`)" :alt="imageAlt" />
       </div>
 
       <div class="content">
@@ -64,6 +65,11 @@ export default {
       type: Number,
       default: 2,
       required: false
+    },
+    enableImageAlt: {
+      type: Boolean,
+      default: true,
+      required: false
     }
   },
 
@@ -77,10 +83,22 @@ export default {
       return 'NuxtLink'
     },
     navigateToProject () {
+      if (this.navigationBehavior === 0) {
+        return null
+      }
+      return `/project/${this.slug}`
+    },
+    primaryCta () {
       if (this.navigationBehavior === 1) {
         return this.url
       }
-      return `/project/${this.slug}`
+      return null
+    },
+    imageAlt () {
+      if (!this.enableImageAlt) {
+        return null
+      }
+      return this.title
     }
   }
 }

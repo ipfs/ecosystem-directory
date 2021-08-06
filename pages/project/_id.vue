@@ -147,9 +147,9 @@
                         <a
                           :href="link.url"
                           target="_blank"
-                          :data-tooltip="link.text.length > 23 ? link.text : false"
+                          :data-tooltip="generateToolTip(link.text)"
                           data-tooltip-theme="dark">
-                          {{ $truncateString(link.text, 12, '...', type = 'double') }}
+                          {{ truncateLinks ? $truncateString(link.text, 12, '...', type = 'double') : link.text }}
                         </a>
                       </li>
                     </template>
@@ -438,6 +438,9 @@ export default {
         return 'div'
       }
       return 'NuxtLink'
+    },
+    truncateLinks () {
+      return Settings.visibility.truncateLinks
     }
   },
 
@@ -478,6 +481,12 @@ export default {
         }
       })
       return compiled.length > 0 ? compiled : false
+    },
+    generateToolTip (text) {
+      if (!Settings.visibility.truncateLinks) {
+        return null
+      }
+      return text.length > 23 ? text : false
     },
     incrementLeft () {
       this.$refs.sliderFlex.classList.remove('slider-transition')

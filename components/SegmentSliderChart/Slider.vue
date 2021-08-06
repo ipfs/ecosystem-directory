@@ -48,9 +48,10 @@
         <div v-if="logos" class="logo-wrapper">
 
           <img
-            v-for="path in logos"
-            :key="path"
-            :src="$relativity(`/images/projects/${path}`)" />
+            v-for="item in logos"
+            :key="item.path"
+            :src="$relativity(`/images/projects/${item.path}`)"
+            :alt="enableImageAlt ? item.alt : null" />
 
         </div>
       </div>
@@ -93,6 +94,11 @@ export default {
     containerHeight: {
       type: Number,
       default: 440
+    },
+    enableImageAlt: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
 

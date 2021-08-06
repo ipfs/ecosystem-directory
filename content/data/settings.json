@@ -31,6 +31,9 @@
     "setSort": "a_z",
     "setPageSize": 20,
     "disableSingulars": 2,
+    "truncateLinks": true,
+    "mediaAltAtts": true,
+    "linksAltAtts": true,
     "singularTagLinks": true
   }
 }
