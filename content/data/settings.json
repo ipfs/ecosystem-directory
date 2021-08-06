@@ -29,6 +29,7 @@
     "hideSort": false,
     "hideNumResults": false,
     "setSort": "a_z",
-    "setPageSize": 20
+    "setPageSize": 20,
+    "disableSingulars": 2
   }
 }

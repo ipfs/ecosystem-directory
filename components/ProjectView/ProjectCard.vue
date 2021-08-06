@@ -1,6 +1,8 @@
 <template>
-  <NuxtLink
-    :to="`/project/${slug}`"
+  <component
+    :is="componentType"
+    :to="navigateToProject"
+    :href="navigateToProject"
     :class="['project-card', format]">
     <div class="card-inner-wrapper">
 
@@ -21,7 +23,7 @@
       </div>
 
     </div>
-  </NuxtLink>
+  </component>
 </template>
 
 <script>
@@ -30,6 +32,11 @@ export default {
   name: 'ProjectCard',
 
   props: {
+    format: {
+      type: String,
+      default: 'block-view',
+      required: false
+    },
     title: {
       type: String,
       required: true
@@ -48,10 +55,32 @@ export default {
       default: '',
       required: false
     },
-    format: {
+    url: {
       type: String,
-      default: 'block-view',
+      default: '',
       required: false
+    },
+    navigationBehavior: {
+      type: Number,
+      default: 2,
+      required: false
+    }
+  },
+
+  computed: {
+    componentType () {
+      if (this.navigationBehavior === 0) {
+        return 'div'
+      } else if (this.navigationBehavior === 1) {
+        return 'a'
+      }
+      return 'NuxtLink'
+    },
+    navigateToProject () {
+      if (this.navigationBehavior === 1) {
+        return this.url
+      }
+      return `/project/${this.slug}`
     }
   }
 }

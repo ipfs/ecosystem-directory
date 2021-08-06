@@ -71,6 +71,8 @@
               :slug="project.slug"
               :description="project.description.short"
               :logo="project.logo.icon"
+              :url="project.primaryCta.url"
+              :navigation-behavior="projectCardBehavior"
               :class="projectCardColumns"
               :style="`animation-delay: ${30 * index}ms`" />
           </div>
@@ -250,6 +252,9 @@ export default {
     },
     showPaginationControls () {
       return !Settings.visibility.hidePagination
+    },
+    projectCardBehavior () {
+      return parseInt(Settings.visibility.disableSingulars)
     }
   },
 
