@@ -209,13 +209,14 @@
                 </AccordionHeader>
                 <AccordionContent>
                   <div class="chiclet-list">
-                    <NuxtLink
+                    <component
+                      :is="chicletType"
                       v-for="(taxonomyTag, j) in filterTags(taxonomy.slug, taxonomy.tags)"
                       :key="`taxonomy-tag-${j}`"
                       :to="{ path: '/', query: { filters: 'enabled', tags: taxonomyTag } }"
                       class="chiclet">
                       {{ $getTaxonomyTagLabel(taxonomy.slug, taxonomyTag) }}
-                    </NuxtLink>
+                    </component>
                   </div>
                 </AccordionContent>
               </AccordionSection>
@@ -431,6 +432,12 @@ export default {
         return items
       }
       return false
+    },
+    chicletType () {
+      if (!Settings.visibility.singularTagLinks) {
+        return 'div'
+      }
+      return 'NuxtLink'
     }
   },
 

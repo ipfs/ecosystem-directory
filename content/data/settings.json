@@ -30,6 +30,7 @@
     "hideNumResults": false,
     "setSort": "a_z",
     "setPageSize": 20,
-    "disableSingulars": 2
+    "disableSingulars": 2,
+    "singularTagLinks": true
   }
 }
