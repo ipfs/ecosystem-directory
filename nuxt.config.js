@@ -11,7 +11,7 @@ export default {
   generate: {
     async routes (a, b) {
       const routes = []
-      if (Settings.visibility.showcase) { routes.push({ route: Settings.general.showcaseBaseRoute }) }
+      if (Settings.visibility.showcase) { routes.push({ route: Settings.behavior.showcaseBaseRoute }) }
       try {
         const len = Projects.length
         if (len === 0) { throw new Error('[nuxt.config.js] Unable to generate Project routes because no projects exist') }

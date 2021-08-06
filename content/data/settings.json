@@ -1,12 +1,10 @@
 {
-  "general": {
-    "showcaseBaseRoute": "/showcase"
-  },
   "nomenclature": {
     "entityTerm": "project",
     "entityTermPlural": "projects"
   },
   "behavior": {
+    "showcaseBaseRoute": "/showcase",
     "primaryCategorySlug": "industry",
     "firstTag": "",
     "lastTag": "other",
