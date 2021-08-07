@@ -26,7 +26,7 @@ The existing workflow for adding a project to the ecosystem directory, or amendi
 
 ## Generating the Showcase Grid
 
-To view all projects in the ecosystem directory in a "logo parade" showcase format suitable for including in a slide deck, see the instructions below — this includes how to customize the grid to get the representation that's most useful for you.
+To view all projects in the ecosystem directory in a "logo parade" showcase format suitable for including in a slide deck, [see the instructions below](#Showcase) — this includes how to customize the grid to get the representation that's most useful for you.
 
 TLDR: https://ecosystem.ipfs.io/showcase/?category=focus is a general-purpose, useful grid if you don't want to build a custom one.
 
@@ -284,6 +284,52 @@ When either transferring or inputting a project from a copied `json`, the follow
 - Pull request the new projec(s) into the repository and use the build preview to see how it looks—or check locally
 
 _This process could be further automated with a variety of tooling at a later date._
+
+***
+
+## Showcase
+
+This application is shipped with an alternative data visualization, for the purpose of use in presentations and other media where a visual summary of the projects in the ecosystem is needed.
+
+By default this view is called the _Showcase_, which is also the URL through which it's accessed. This path _can_ be changed.
+
+### Behavior
+
+- The showcase view is visible in its bare form at [ecosystem.ipfs.io/showcase](https://ecosystem.ipfs.io/showcase)
+- It provides a logo-based visual summary of the projects in the app by category
+- Each tag within the selected category is assigned a block
+- The container for the tag is sized based on whether there's a small, medium, or large quantity of projects within it
+
+### Customization
+
+#### Category
+
+Customizing the view is done using GET parameters. The base showcase path will render projects, but may seem bare if no arguments are passed in the URI.
+
+Adding a target top-level `category` param to showcase solves this issue. Examples:
+- [/showcase/?category=industry](https://ecosystem.ipfs.io/showcase/?category=industry)
+- [/showcase/?category=focus](https://ecosystem.ipfs.io/showcase/?category=focus)
+- [/showcase/?category=benefits](https://ecosystem.ipfs.io/showcase/?category=benefits)
+
+> Note: This category selection will work for _both_ categories that allow one tag per project (category in which tags are mutually exclusive) and categories that allow multiple tags.
+
+#### Containers
+
+Instances of this app may have varying quantities of projects. To help the showcase address both large and small ecosystems, there are params that define container limits. These define what the limits are in terms of number of projects that fit into medium, or large containers.
+
+- `md` minimum projects with a tag to display in a medium container (default is 10, if no value is provided)
+- `lg` minimum projects with a tag to display in a large container ((default is 25, if no value is provided)
+
+Example use case: [/showcase/?category=focus&md=5&lg=15](https://ecosystem.ipfs.io/showcase/?category=focus&md=5&lg=15)
+
+> Note: The Showcase view is designed to support rows of 5 logos, so setting `lg` and `md` as multiples of 5 is recommended for the ideal visual appearance.
+
+#### Location
+
+- The showcase path may be redefined in the app's `settings.json` under the key `showcaseBaseRoute`
+  - Currently implemented as: `"showcaseBaseRoute": "/showcase"`
+- The showcase has no links, and is _not_ discoverable (`noindex, nofollow`) by search engines
+
 
 ***
 
