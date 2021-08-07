@@ -241,9 +241,7 @@ export default {
 
   watch: {
     '$route' (route) {
-      this.$Countly.trackEvent('Query Param Debug', {
-        query: route.query
-      })
+      this.$Countly.trackEvent('Query Param Debug', route.query)
       if (route.query.filters === 'enabled') {
         this.collapseSegmentAndFeaturedSliders()
       }
