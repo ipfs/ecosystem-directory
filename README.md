@@ -287,6 +287,12 @@ _This process could be further automated with a variety of tooling at a later da
 
 ***
 
+## Embeddable View
+
+_To be populated_
+
+***
+
 ## Showcase
 
 This application is shipped with an alternative data visualization, for the purpose of use in presentations and other media where a visual summary of the projects in the ecosystem is needed.
@@ -334,6 +340,8 @@ Example use case: [/showcase/?category=focus&md=5&lg=15](https://ecosystem.ipfs.
 ***
 
 ## Analytics
+
+Analytics are implemented through Countly, using the Web SDK. 
 
 The following environment variables are required:
 
