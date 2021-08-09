@@ -1,5 +1,7 @@
 // ///////////////////////////////////////////////////////// Imports & Variables
 // -----------------------------------------------------------------------------
+const Settings = require('./content/data/settings.json')
+
 const Fs = require('fs-extra')
 
 const { SetProjectDefaults } = require('./plugins/global-methods')
@@ -151,11 +153,13 @@ const Manifestor = async () => {
     const slugs = await getSlugs()
     const primaryCategory = await getPrimaryCategory()
     const payload = await generateProjectListFiles(primaryCategory, slugs)
-    const embeddableViewScript = await generateEmbeddableViewFile(payload.mini, payload.activeFilters, primaryCategory, slugs)
     await Fs.writeFileSync(paths.manifest, JSON.stringify(slugs))
-    await Fs.writeFileSync(paths.embeddable_view_script, embeddableViewScript)
     await Fs.writeFileSync(paths.project_list_full, JSON.stringify(payload.full))
     await Fs.writeFileSync(paths.project_list_mini, JSON.stringify(payload.mini))
+    if (Settings.visibility.embeddableObject) {
+      const embeddableViewScript = await generateEmbeddableViewFile(payload.mini, payload.activeFilters, primaryCategory, slugs)
+      await Fs.writeFileSync(paths.embeddable_view_script, embeddableViewScript)
+    }
     console.log('🏁 Manifest projects complete')
   } catch (e) {
     console.log('========================================== [Manifestor] Error')
