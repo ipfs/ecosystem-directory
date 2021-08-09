@@ -201,7 +201,7 @@ Keys should be retained when not in  use. This ensures that if anyone wants to a
 
 - `ctaCard`: this card will always be displayed as the last block in the stats section. The button text can be changed in `@/content/pages/project.json`
 
-- `taxonomies`: the taxonomies contain a `slug` that will match a master taxonomy object (found in: `@/content/pages/general.json`); if none match, this taxonomy and its tags will not be displayed
+- `taxonomies`: the taxonomies contain a `slug` that will match a master taxonomy object (found in: `@/content/pages/taxonomy.json`); if a tag does not match, it will not be displayed. In other words, `taxonomy.json` acts as a source of truth, regardless of the tags assiged in a particular project's content.
 
 ### Schema
 
@@ -228,22 +228,22 @@ The schema can be found in `@/content/data/project-schema.js` and _must_ be upda
     url: String,
     text: String
   },
-  links: [{
+  links: [ {
     label: String,
-    links: [{
+    links: [ {
       url: String,
       text: String
-    }]
-  }],
-  keyInfo: [{
+    } ]
+  } ],
+  keyInfo: [ {
     label: String,
     value: String
-  }],
+  } ],
   video: String,
-  stats: [{
+  stats: [ {
     label: String,
     value: String
-  }],
+  } ],
   ctaCard: {
     title: String,
     description: String,
