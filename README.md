@@ -289,7 +289,41 @@ _This process could be further automated with a variety of tooling at a later da
 
 ## Embeddable View
 
-_To be populated_
+An interactive summary of the state of the app can be injected into external sites. It contains a slider with sample projects that can be filtered by one dimension, and sorted. This view is embeddable in 2 steps: 
+
+1. Include a single Javascript file in the external site, from the path `/embeddable-view.js`
+
+2. Specify a target container on the external site, with the either a class or _id_ as follows
+  - `class="ipfs-ecosystem-embed"`
+  - `id="ipfs-ecosystem-embed"`
+
+
+### Customization
+
+The content for the embeddable view, and target category for the dropdown, can be specified in the `embeddable-view-settings.json` file.
+
+The embeddable view inherits the theming from the Ecosystem itself, but is also available in a light and a dark mode
+- For light mode (default), `data-theme="light"` can be added to the target container
+- For dark mode, add `data-theme="dark"` to the target container
+
+On the external site, it might be useful to provide a `max-width` for the container
+```css
+.ipfs-ecosystem-embed, #ipfs-ecosystem-embed {
+  max-width: 600px;
+}
+```
+
+If a class is used, multiple embeddable views can be instantiated on a single page. This is also useful for support of single page applications. The following html will call in two embeddable views, one light, and the other dark.
+
+```html
+  <div class="ipfs-ecosystem-embed" data-theme="light"></div>
+  <div class="ipfs-ecosystem-embed" data-theme="dark"></div>
+```
+
+- The embeddable view is namespaced to avoid conflicts
+- This view calls in VueJS on the target site. If Vue is already loaded, it does not call it in
+- As such, this view is loosely compatible with legacy Vue 1 and Vue 3 sites (more extensive testing may need to be performed)
+- This view is compatible with all modern browsers, and many older browsers, including Internet Explorer 11
 
 ***
 
