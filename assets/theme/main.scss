@@ -38,23 +38,8 @@ $fontAssetPath: '~assets/theme/fonts';
 ////////////////////////////////////////////////////////////////////////// Inter
 @font-face {
   font-family: 'Inter';
-  src: url('#{$fontAssetPath}/Inter/Inter-Regular.ttf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Inter';
-  src: url('#{$fontAssetPath}/Inter/Inter-Medium.ttf') format('opentype');
-  font-weight: 500;
-  font-style: bold;
-}
-
-@font-face {
-  font-family: 'Inter';
-  src: url('#{$fontAssetPath}/Inter/Inter-SemiBold.ttf') format('opentype');
-  font-weight: 600;
-  font-style: bold;
+  src: url('#{$fontAssetPath}/Inter/Inter-Variable.ttf') format('truetype');
+  font-weight: 100 900;
 }
 
 // ///////////////////////////////////////////////////////////////////// General
