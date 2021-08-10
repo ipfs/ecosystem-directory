@@ -7,7 +7,7 @@ const { SetProjectDefaults } = require('./plugins/global-methods')
 const paths = {
   data: `${__dirname}/content/data`,
   projects: `${__dirname}/content/projects`,
-  manifest: `${__dirname}/content/data/project-manifest.json`,
+  project_routes: `${__dirname}/content/data/project-routes.json`,
   project_list: `${__dirname}/content/data/project-list.json`,
   showcase_data: `${__dirname}/content/data/showcase-data.json`
 }
@@ -32,28 +32,34 @@ const getSlugs = async () => {
 
 /*
   - Open and parse all project JSON files
-  - Push all of them into an array (to be used by main app)
+  - Push all of them into an array (to be used by main app and nuxt.config.js routes/generate block)
   - Push all of them into an array with some information removed (to be used by embedable-view.js)
-  - Write to a JSON file
 */
 const generateProjectListFiles = async (slugs) => {
   try {
     const len = slugs.length
+    if (len === 0) { throw new Error('[manifestor.js] Unable to generate Project files because no projects exist') }
     const payload = {
       full: [],
-      mini: []
+      mini: [],
+      routes: []
     }
     for (let i = 0; i < len; i++) {
       const slug = slugs[i]
       const project = JSON.parse(await Fs.readFileSync(`${paths.projects}/${slug}.json`))
+      SetProjectDefaults(project)
       project.slug = slug
-      payload.full.push(SetProjectDefaults(project))
+      payload.full.push(project)
       payload.mini.push({
         slug,
         name: project.name,
         logo: project.logo,
         description: project.description,
         org: project.org
+      })
+      payload.routes.push({
+        route: `/project/${slug}`,
+        payload: project
       })
     }
     return payload
@@ -117,7 +123,7 @@ const Manifestor = async () => {
     const slugs = await getSlugs()
     const payload = await generateProjectListFiles(slugs)
     const showcaseData = await generateShowcaseDataFile(slugs)
-    await Fs.writeFileSync(paths.manifest, JSON.stringify(slugs))
+    await Fs.writeFileSync(paths.project_routes, JSON.stringify(payload.routes))
     await Fs.writeFileSync(paths.project_list, JSON.stringify(payload.full))
     await Fs.writeFileSync(paths.showcase_data, JSON.stringify(showcaseData))
     console.log('🏁 Manifest projects complete')
