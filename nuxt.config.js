@@ -2,7 +2,6 @@
 
 import Routes from './content/data/project-routes.json'
 import Settings from './content/data/settings.json'
-import { SetProjectDefaults } from './plugins/global-methods'
 
 export default {
   // //////////////////////////////////////////// Static Site Generation Options
