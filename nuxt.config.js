@@ -1,41 +1,15 @@
 /* eslint require-await: "off" */
 
-import Projects from './content/data/project-manifest.json'
-import { SetProjectDefaults } from './plugins/global-methods'
+import Routes from './content/data/project-routes.json'
+import Settings from './content/data/settings.json'
 
 export default {
   // //////////////////////////////////////////// Static Site Generation Options
   // ---------------------------------------------------------------------------
   target: 'static',
   generate: {
-    async routes (a, b) {
-      const routes = []
-      try {
-        const len = Projects.length
-        if (len === 0) { throw new Error('[nuxt.config.js] Unable to generate Project routes because no projects exist') }
-        for (let i = 0; i < len; i++) {
-          try {
-            const slug = Projects[i]
-            const route = `/project/${slug}`
-            const payload = require(`./content/projects/${slug}`)
-            payload.slug = slug
-            SetProjectDefaults(payload)
-            routes.push({ route, payload })
-          } catch (e) {
-            if (e.code === 'MODULE_NOT_FOUND') {
-              const slug = e.message.split('\'')[1].split('/').pop()
-              console.log(`========== Attempting to generate route /project/${slug} that does not have a corresponding project file`)
-              continue
-            } else {
-              throw e
-            }
-          }
-        }
-        return routes
-      } catch (e) {
-        console.log(e)
-        return routes
-      }
+    routes (a, b) {
+      return Routes.concat([{ route: Settings.general.showcaseBaseRoute }])
     }
   },
   // ///////////////////////////////////////////////////// Runtime Configuration

@@ -1,0 +1,99 @@
+{
+    "display": true,
+    "featured": false,
+    "sortNumbers": [
+      {
+        "since": 2021
+      }
+    ],
+    "logo": {
+      "icon": "web3storage-icon-square.svg",
+      "full": "web3storage-logo-text.svg"
+    },
+    "name": "Web3.Storage",
+    "org": [
+      "Protocol Labs"
+    ],
+    "description": {
+      "short": "Build apps with data persisted by Filecoin and available over IPFS",
+      "long": "Build applications with data persisted by Filecoin and available over IPFS using one simple, free service. Get started in minutes with an easy API and web interface."
+    },
+    "primaryCta": {
+      "url": "//web3.storage",
+      "text": "Project Website"
+    },
+    "links": [
+      {
+        "label": "Website",
+        "links": [
+          {
+            "url": "//web3.storage",
+            "text": "web3.storage"
+          }
+        ]
+      },
+      {
+        "label": "Repo",
+        "links": [
+          {
+            "url": "//github.com/web3-storage",
+            "text": "github.com/web3-storage"
+          }
+        ]
+      }
+    ],
+    "keyInfo": [
+      {
+        "label": "Using IPFS since",
+        "value": "2021"
+      }
+    ],
+    "video": "",
+    "stats": [
+      {
+        "label": "",
+        "value": ""
+      },
+      {
+        "label": "",
+        "value": ""
+      },
+      {
+        "label": "",
+        "value": ""
+      }
+    ],
+    "ctaCard": {
+      "title": "Web3.Storage docs",
+      "description": "Jump in to using Web3.Storage with a quickstart guide and more.",
+      "buttonText": "Get started",
+      "url": "//docs.web3.storage"
+    },
+    "taxonomies": [
+      {
+        "slug": "industry",
+        "tags": [
+          "content-delivery"
+        ]
+      },
+      {
+        "slug": "focus",
+        "tags": [
+          "dev-tools", "file-sharing", "public-data", "research-data", "web-hosting-publishing", "storage-pinning"
+        ]
+      },
+      {
+        "slug": "benefits",
+        "tags": [
+          "data-integrity", "couldnt-exist-without-ipfs", "interoperability"
+        ]
+      },
+      {
+        "slug": "tooling",
+        "tags": [
+          "go-ipfs", "filecoin", "pinning-services"
+        ]
+      }
+    ]
+  }
+ 
