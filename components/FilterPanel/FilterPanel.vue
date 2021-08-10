@@ -37,15 +37,19 @@
               <div class="filter-category chiclet-list">
                 <div
                   v-if="includeFilterAllTag"
+                  tabindex="0"
                   :class="['filter-category tag chiclet', { 'active-button': numberInCategory[heading.slug] === heading.tags.length }]"
-                  @click="toggleAll(heading.slug)">
+                  @click="toggleAll(heading.slug)"
+                  @keyup.enter="toggleAll(heading.slug)">
                   All
                 </div>
                 <div
                   v-for="(tag, j) in heading.tags"
                   :key="`taxonomy-category-${j}`"
+                  tabindex="0"
                   :class="['filter-category tag chiclet', { 'active-button': selectedTags.includes(tag.slug) }]"
-                  @click="applyFilter(tag.slug, heading.slug)">
+                  @click="applyFilter(tag.slug, heading.slug)"
+                  @keyup.enter="applyFilter(tag.slug, heading.slug)">
                   {{ tag.label }}
                 </div>
               </div>
@@ -289,6 +293,9 @@ export default {
   &.heading-wrapper {
     display: flex;
     justify-content: space-between;
+    &:focus-visible {
+      @include focus_BoxShadow_Small;
+    }
   }
   &.heading {
     font-family: $fontMontserrat;
@@ -319,6 +326,12 @@ export default {
   &.chiclet-list {
     padding: 6px 0;
     margin: 0 6px;
+  }
+}
+
+::v-deep .chiclet {
+  &:focus-visible {
+    @include focus_BoxShadow_Small;
   }
 }
 

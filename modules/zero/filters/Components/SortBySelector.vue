@@ -4,7 +4,7 @@
     v-click-outside="closeAllSelect"
     :class="['dropdown-wrapper', { closed }]"
     :style="{ minWidth: `${maxLength * 10}px` }"
-    >
+    @keyup.enter="toggleDropDown()">
 
     <div
       ref="dropdownButton"
@@ -34,6 +34,7 @@
             :value="option.label"
             class="dropdown-item"
             :class="{ highlighted: (selected === option.label) }"
+            :tabindex="closed ? -1 : 0"
             @click="optionSelected(option)"
             @keyup.enter.self="optionSelected(option)">
             {{ option.label }}
@@ -315,6 +316,9 @@ export default {
       transition: text-decoration-color 250ms ease-in;
       text-decoration-color: currentColor;
     }
+  }
+  &:focus-visible {
+    @include focus_BoxShadow_Small;
   }
 }
 

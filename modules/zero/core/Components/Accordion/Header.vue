@@ -1,5 +1,9 @@
 <template>
-  <div class="accordion-header" @click="toggle">
+  <div
+    class="accordion-header"
+    tabindex="0"
+    @click="toggle"
+    @keyup.enter="toggle">
 
     <slot />
 

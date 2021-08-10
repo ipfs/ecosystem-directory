@@ -99,6 +99,8 @@ strong {
 }
 
 input[type="range"],
+input[type="submit"],
+input[type="checkbox"],
 select {
   &:focus-visible {
     @include focus_BoxShadow_Small;

@@ -41,8 +41,10 @@
 
       <div
         id="list-block-toggle-button"
+        tabindex="0"
         :class="{ 'list-view-active': listViewActive }"
-        @click="toggleListBlockView">
+        @click="toggleListBlockView"
+        @keyup.enter="toggleListBlockView">
         <ListViewIcon class="list-view-icon" />
         <BlockViewIcon class="block-view-icon" />
       </div>
@@ -270,6 +272,9 @@ export default {
         stroke: white;
       }
     }
+  }
+  &:focus-visible {
+    @include focus_BoxShadow_Small;
   }
 }
 
