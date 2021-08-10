@@ -8,9 +8,8 @@ const paths = {
   data: `${__dirname}/content/data`,
   projects: `${__dirname}/content/projects`,
   manifest: `${__dirname}/content/data/project-manifest.json`,
-  showcase_data: `${__dirname}/content/data/showcase-data.json`,
-  project_list_full: `${__dirname}/content/data/project-list-full.json`, // ← to be used by main app
-  project_list_mini: `${__dirname}/content/data/project-list-mini.json` // ← to be used by embedable-view.js
+  project_list: `${__dirname}/content/data/project-list.json`,
+  showcase_data: `${__dirname}/content/data/showcase-data.json`
 }
 
 // /////////////////////////////////////////////////////////////////// Functions
@@ -116,12 +115,11 @@ const Manifestor = async () => {
   try {
     console.log('🚀️ Manifest projects started')
     const slugs = await getSlugs()
-    await Fs.writeFileSync(paths.manifest, JSON.stringify(slugs))
     const payload = await generateProjectListFiles(slugs)
     const showcaseData = await generateShowcaseDataFile(slugs)
+    await Fs.writeFileSync(paths.manifest, JSON.stringify(slugs))
+    await Fs.writeFileSync(paths.project_list, JSON.stringify(payload.full))
     await Fs.writeFileSync(paths.showcase_data, JSON.stringify(showcaseData))
-    await Fs.writeFileSync(paths.project_list_full, JSON.stringify(payload.full))
-    await Fs.writeFileSync(paths.project_list_mini, JSON.stringify(payload.mini))
     console.log('🏁 Manifest projects complete')
   } catch (e) {
     console.log('========================================== [Manifestor] Error')

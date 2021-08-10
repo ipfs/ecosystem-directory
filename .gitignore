@@ -16,8 +16,7 @@ server.crt
 
 # Files
 project-manifest.json
-project-list-full.json
-project-list-mini.json
+project-list.json
 showcase-data.json
 
 # Runtime data
