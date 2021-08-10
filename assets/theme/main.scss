@@ -98,6 +98,13 @@ strong {
   font-weight: 500;
 }
 
+input[type="range"],
+select {
+  &:focus-visible {
+    @include focus_BoxShadow_Small;
+  }
+}
+
 a,
 ol,
 ul,
@@ -167,6 +174,9 @@ input[type=week] {
   &:hover, &:active, &:focus {
     background-color: transparent;
   }
+  &:focus-visible {
+    @include focus_BoxShadow_Small;
+  }
 }
 
 a,
@@ -186,6 +196,9 @@ textarea {
   &:active, &:focus, &:hover {
     transition: 250ms;
     background-color: transparent;
+  }
+  &:focus-visible {
+    @include focus_BoxShadow_Small;
   }
 }
 
@@ -208,6 +221,9 @@ button, .button {
   &:active, &:focus, &:hover {
     transition: 250ms;
     outline: none;
+  }
+  &:focus-visible {
+    @include focus_BoxShadow_Small;
   }
 }
 

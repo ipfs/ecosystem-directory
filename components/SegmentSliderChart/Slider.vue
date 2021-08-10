@@ -294,7 +294,6 @@ export default {
   }
   &:focus {
     outline: none;
-    box-shadow: none;
   }
 }
 
@@ -352,7 +351,6 @@ export default {
   }
   &:focus {
     outline: none;
-    box-shadow: none;
   }
 }
 
