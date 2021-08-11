@@ -89,10 +89,8 @@ const processHtmlFiles = async (generateRoot) => {
       'base.href = (ipfsMatch=window.location.pathname.match(/\\/ip[fn]s\\/[^/]+/),(ipfsMatch?ipfsMatch[0]+\'/\':\'/\'))\n' +
       'document.getElementsByTagName(\'head\')[0].appendChild(base)\n' +
       '</script>'
-      // '<base onload="this.href=(ipfsMatch=window.location.pathname.match(/\\/ip[fn]s\\/[^/]+/),(ipfsMatch?ipfsMatch[0]:\'\'))">'
     ))
     seds(/"\/ipfs\/hash\//gms, htmlFile, `"${prefix}`)
-    // seds(/rel="preload" href=\"_nuxt/gms, htmlFile, `rel="preload" href="${prefix}_nuxt`)
     seds(/".\/images\//gms, htmlFile, `"${prefix}images/`)
     seds(/"\/favicon\//gms, htmlFile, `"${prefix}favicon/`)
     seds(/url\(\/ipfs\/hash\//gms, htmlFile, `url(${prefix}`)
