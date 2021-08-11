@@ -4,7 +4,9 @@
  *
  */
 
-console.log(`🔌 [Module | NuxtModuleIpfs] Methods`)
+if (process.server) {
+  console.log(`🔌 [Module | NuxtModuleIpfs] Methods`)
+}
 
 // /////////////////////////////////////////////////////////////////// Functions
 // -----------------------------------------------------------------------------
