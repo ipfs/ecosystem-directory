@@ -94,6 +94,7 @@ const processHtmlFiles = async (generateRoot) => {
     seds(/"\/ipfs\/hash\//gms, htmlFile, `"${prefix}`)
     // seds(/rel="preload" href=\"_nuxt/gms, htmlFile, `rel="preload" href="${prefix}_nuxt`)
     seds(/".\/images\//gms, htmlFile, `"${prefix}images/`)
+    seds(/"\/favicon\//gms, htmlFile, `"${prefix}favicon/`)
     seds(/url\(\/ipfs\/hash\//gms, htmlFile, `url(${prefix}`)
   }
 }
