@@ -325,6 +325,7 @@ export default {
   head () {
     const title = this.page_Title
     const description = this.page_Description
+    const url = this.seo.og_url + this.$route.params.id
     return {
       title,
       meta: [
@@ -336,13 +337,19 @@ export default {
         { hid: 'og:title', property: 'og:title', content: title },
         { hid: 'og:description', property: 'og:description', content: description },
         { hid: 'og:site_name', property: 'og:site_name', content: this.seo.og_site_name },
-        { hid: 'og:url', property: 'og:url', content: this.seo.og_url + this.$route.params.id },
+        { hid: 'og:url', property: 'og:url', content: url },
         { hid: 'og:type', property: 'og:type', content: this.seo.og_type },
         { hid: 'og:image', property: 'og:image', content: this.seo.og_image + this.project.logo.full },
         { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
+        { hid: 'twitter:title', name: 'twitter:title', content: title },
+        { hid: 'twitter:description', name: 'twitter:description', content: description },
         { hid: 'twitter:image', name: 'twitter:image', content: this.seo.og_image + this.project.logo.full }
       ],
-      link: [{ rel: 'canonical', href: this.seo.og_url + this.$route.params.id }]
+      link: [
+        { rel: 'canonical', href: url },
+        { rel: 'alternate', hreflang: 'en', href: url },
+        { rel: 'alternate', hreflang: 'x-default', href: url }
+      ]
     }
   },
 
