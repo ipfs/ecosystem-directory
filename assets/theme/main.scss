@@ -98,15 +98,6 @@ strong {
   font-weight: 500;
 }
 
-input[type="range"],
-input[type="submit"],
-input[type="checkbox"],
-select {
-  &:focus-visible {
-    @include focus_BoxShadow_Small;
-  }
-}
-
 a,
 ol,
 ul,
@@ -176,9 +167,6 @@ input[type=week] {
   &:hover, &:active, &:focus {
     background-color: transparent;
   }
-  &:focus-visible {
-    @include focus_BoxShadow_Small;
-  }
 }
 
 a,
@@ -198,9 +186,6 @@ textarea {
   &:active, &:focus, &:hover {
     transition: 250ms;
     background-color: transparent;
-  }
-  &:focus-visible {
-    @include focus_BoxShadow_Small;
   }
 }
 
@@ -224,6 +209,21 @@ button, .button {
     transition: 250ms;
     outline: none;
   }
+}
+
+a,
+button,
+input[type="range"],
+input[type="submit"],
+input[type="checkbox"],
+select,
+textarea {
+  // &:focus {
+  //   @include focus_BoxShadow_Small;
+  // }
+  // &:focus:not(:focus-visible) {
+  //   outline: none;
+  // }
   &:focus-visible {
     @include focus_BoxShadow_Small;
   }
