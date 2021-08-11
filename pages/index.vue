@@ -215,7 +215,8 @@ export default {
         { hid: 'og:image', property: 'og:image', content: this.seo.og_image },
         { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
         { hid: 'twitter:image', name: 'twitter:image', content: this.seo.og_image }
-      ]
+      ],
+      link: [{ rel: 'canonical', href: this.seo.og_url }]
     }
   },
 
