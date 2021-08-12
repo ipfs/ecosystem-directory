@@ -9,7 +9,7 @@
       :href="link.disabled ? '' : link.href + $CompileQueryString(link.query)"
       :disabled="link.disabled"
       :target="link.target"
-      :class="link.type === 'div' ? 'breadcrumb-button' : 'breadcrumb-link'">
+      :class="[link.type === 'div' ? 'breadcrumb-button' : 'breadcrumb-link', 'focus-visible']">
       <span class="label">{{ link.label }}</span>
       <span class="divider">|</span>
     </component>

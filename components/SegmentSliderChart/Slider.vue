@@ -7,7 +7,7 @@
 
       <div class="slide-nav">
         <button
-          class="nav-arrow"
+          class="nav-arrow focus-visible"
           @click="incrementSelection(selectedSeg - 1)">
           <PrevArrow
             stroke="#052437"
@@ -23,7 +23,7 @@
         </h3>
 
         <button
-          class="nav-arrow"
+          class="nav-arrow focus-visible"
           @click="incrementSelection(selectedSeg + 1)">
           <NextArrow
             stroke="#052437"
@@ -57,7 +57,7 @@
       </div>
 
       <button
-        class="view-all button noselect"
+        class="view-all button noselect focus-visible"
         @click="jump2Filters">
         {{ filterToggleButtonText }}
       </button>

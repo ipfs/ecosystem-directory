@@ -32,10 +32,10 @@
               v-if="project.primaryCta && project.primaryCta.url && project.primaryCta.text"
               :href="project.primaryCta.url"
               target="_blank"
-              class="primary-cta">
+              class="primary-cta focus-visible">
               {{ project.primaryCta.text }}
             </a>
-            <nuxt-link to="/" class="secondary-cta">
+            <nuxt-link to="/" class="secondary-cta focus-visible">
               <span class="text">
                 {{ secondaryCtaButtonText }}
               </span>
@@ -73,7 +73,7 @@
             </p>
             <a
               v-if="project.ctaCard.url && project.ctaCard.buttonText"
-              class="cta"
+              class="cta focus-visible"
               :href="project.ctaCard.url"
               target="_blank">
               {{ project.ctaCard.buttonText }}
@@ -86,12 +86,12 @@
             <div
               class="slide-nav">
               <button
-                class="nav-arrow"
+                class="nav-arrow focus-visible"
                 @click="incrementLeft">
                 <PrevArrow stroke="#052437" width="10" height="15" />
               </button>
               <button
-                class="nav-arrow"
+                class="nav-arrow focus-visible"
                 @click="incrementRight">
                 <NextArrow stroke="#052437" width="10" height="15" />
               </button>
@@ -147,6 +147,7 @@
                         <a
                           :href="link.url"
                           target="_blank"
+                          class="focus-visible"
                           :data-tooltip="generateToolTip(link.text)"
                           data-tooltip-theme="dark">
                           {{ truncateLinks ? $truncateString(link.text, 12, '...', type = 'double') : link.text }}
@@ -202,7 +203,7 @@
                 :active="active"
                 :selected="true"
                 class="filters">
-                <AccordionHeader>
+                <AccordionHeader class="focus-visible">
                   <h3 class="heading">
                     {{ $getTaxonomyCategoryLabel(taxonomy.slug) }}
                   </h3>
@@ -214,7 +215,7 @@
                       v-for="(taxonomyTag, j) in filterTags(taxonomy.slug, taxonomy.tags)"
                       :key="`taxonomy-tag-${j}`"
                       :to="{ path: '/', query: { filters: 'enabled', tags: taxonomyTag } }"
-                      class="chiclet">
+                      class="chiclet focus-visible">
                       {{ $getTaxonomyTagLabel(taxonomy.slug, taxonomyTag) }}
                     </component>
                   </div>
@@ -826,7 +827,6 @@ export default {
   }
   &:focus {
     outline: none;
-    box-shadow: none;
   }
 }
 

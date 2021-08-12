@@ -2,7 +2,7 @@
   <button
     v-if="options.length > 0"
     v-click-outside="closeAllSelect"
-    :class="['dropdown-wrapper', { closed }]"
+    :class="['dropdown-wrapper', 'focus-visible', { closed }]"
     :style="{ minWidth: `${maxLength * 10}px` }"
     @keyup.enter="toggleDropDown()">
 
@@ -32,8 +32,7 @@
           <div
             :key="`div-option-${option.label}`"
             :value="option.label"
-            class="dropdown-item"
-            :class="{ highlighted: (selected === option.label) }"
+            :class="['dropdown-item', 'focus-visible', { highlighted: (selected === option.label) }]"
             :tabindex="closed ? -1 : 0"
             @click="optionSelected(option)"
             @keyup.enter.self="optionSelected(option)">
@@ -320,9 +319,6 @@ export default {
       transition: text-decoration-color 250ms ease-in;
       text-decoration-color: currentColor;
     }
-  }
-  &:focus-visible {
-    @include focus_BoxShadow_Small;
   }
 }
 

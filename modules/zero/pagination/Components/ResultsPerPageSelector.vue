@@ -2,7 +2,7 @@
   <component
     :is="rootNode"
     v-click-outside="closeAllSelect"
-    :class="['dropdown-root', { closed }]"
+    :class="['dropdown-root', 'focus-visible', { closed }]"
     @keyup.enter="toggleDropdown()">
 
     <div class="dropdown dropdown-button" @click.stop="toggleDropdown()">
@@ -26,7 +26,7 @@
           :key="`div-option-${option}`"
           :value="option"
           :tabindex="closed ? -1 : 0"
-          class="dropdown dropdown-item"
+          class="dropdown dropdown-item focus-visible"
           :class="{ highlighted: (display === option) }"
           @click="optionSelected(option)"
           @keyup.enter="optionSelected(option)">
@@ -271,9 +271,6 @@ export default {
       transition: text-decoration-color 250ms ease-in;
       text-decoration-color: currentColor;
     }
-  }
-  &:focus-visible {
-    @include focus_BoxShadow_Small;
   }
 }
 

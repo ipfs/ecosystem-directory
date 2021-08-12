@@ -16,7 +16,7 @@
             :active="active"
             :selected="true"
             class="filter-category container">
-            <AccordionHeader class="filter-category heading-wrapper">
+            <AccordionHeader class="filter-category heading-wrapper focus-visible">
               <div class="filter-category heading">
                 {{ heading.label }}
                 <span class="filter-category number-active">
@@ -38,7 +38,7 @@
                 <div
                   v-if="includeFilterAllTag"
                   tabindex="0"
-                  :class="['filter-category tag chiclet', { 'active-button': numberInCategory[heading.slug] === heading.tags.length }]"
+                  :class="['filter-category', 'tag', 'chiclet', 'focus-visible', { 'active-button': numberInCategory[heading.slug] === heading.tags.length }]"
                   @click="toggleAll(heading.slug)"
                   @keyup.enter="toggleAll(heading.slug)">
                   All
@@ -47,7 +47,7 @@
                   v-for="(tag, j) in heading.tags"
                   :key="`taxonomy-category-${j}`"
                   tabindex="0"
-                  :class="['filter-category tag chiclet', { 'active-button': selectedTags.includes(tag.slug) }]"
+                  :class="['filter-category', 'tag', 'chiclet', 'focus-visible', { 'active-button': selectedTags.includes(tag.slug) }]"
                   @click="applyFilter(tag.slug, heading.slug)"
                   @keyup.enter="applyFilter(tag.slug, heading.slug)">
                   {{ tag.label }}
@@ -61,11 +61,11 @@
       <div id="filter-panel-controls" class="bottom-buttons">
         <button
           v-if="selectedTags.length"
-          class="clear-selected"
+          class="clear-selected focus-visible"
           @click="clearSelected">
           {{ clearSelectedFiltersButtonText }}
         </button>
-        <button class="done" @click="closePanel">
+        <button class="done focus-visible" @click="closePanel">
           {{ submitButtonText }}
         </button>
       </div>
@@ -293,9 +293,6 @@ export default {
   &.heading-wrapper {
     display: flex;
     justify-content: space-between;
-    &:focus-visible {
-      @include focus_BoxShadow_Small;
-    }
   }
   &.heading {
     font-family: $fontMontserrat;
@@ -326,12 +323,6 @@ export default {
   &.chiclet-list {
     padding: 6px 0;
     margin: 0 6px;
-  }
-}
-
-::v-deep .chiclet {
-  &:focus-visible {
-    @include focus_BoxShadow_Small;
   }
 }
 
