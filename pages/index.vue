@@ -203,7 +203,7 @@ export default {
     const url = this.seo.og_url
     const structuredData = {
       '@context': 'http://schema.org',
-      '@type': 'Website',
+      '@type': 'WebSite',
       name: title,
       abstract: description,
       mainEntity: this.generalPageData.navigation.index.href,
