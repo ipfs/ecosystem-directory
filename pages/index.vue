@@ -212,7 +212,7 @@ export default {
         '@type': 'WebSite',
         name: 'IPFS',
         url: this.generalPageData.navigation.index.href
-      }
+      },
       image,
       url
     }
