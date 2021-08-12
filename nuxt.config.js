@@ -107,7 +107,7 @@ export default {
     '~/modules/zero/pagination',
     '~/modules/zero/filters',
     // Doc: https://github.com/agency-undone/nuxt-module-ipfs
-    '~/modules/nuxt-module-ipfs'
+    'nuxt-module-ipfs'
   ],
   // ///////////////////////////////////////////////////////// [Module] MomentJS
   // ---------------------- Doc: https://github.com/nuxt-community/moment-module
