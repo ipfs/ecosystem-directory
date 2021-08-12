@@ -327,7 +327,7 @@ export default {
 
   head () {
     const title = this.page_Title
-    const description = this.page_Description
+    const description = this.project.description.short
     const image = this.seo.og_image + this.project.logo.full
     const url = this.seo.og_url + this.$route.params.id
     const structuredData = {
@@ -335,6 +335,10 @@ export default {
       '@type': 'Product',
       name: title,
       logo: image,
+      brand: {
+        '@type': 'Organization',
+        name: this.project.org
+      },
       description,
       url
     }
