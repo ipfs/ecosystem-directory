@@ -55,9 +55,9 @@ export default {
   },
 
   async fetch ({ store, req, route, payload, error }) {
-    if (!Settings.hasOwnProperty('general') ||
-        !Settings.general.hasOwnProperty('showcaseBaseRoute') ||
-        route.path !== Settings.general.showcaseBaseRoute) {
+    if (!Settings.hasOwnProperty('behavior') ||
+        !Settings.behavior.hasOwnProperty('showcaseBaseRoute') ||
+        route.path !== Settings.behavior.showcaseBaseRoute) {
       return error({ statusCode: 400 })
     }
     await store.dispatch('global/getBaseData', 'showcase')

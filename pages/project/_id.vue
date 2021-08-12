@@ -4,7 +4,7 @@
     <div v-if="breadcrumbs" class="grid">
       <div class="col">
         <section id="section-breadcrumbs">
-          <Breadcrumbs :breadcrumbs="breadcrumbs" />
+          <Breadcrumbs v-if="breadcrumbs" :breadcrumbs="breadcrumbs" />
         </section>
       </div>
     </div>
@@ -147,9 +147,9 @@
                         <a
                           :href="link.url"
                           target="_blank"
-                          :data-tooltip="link.text.length > 23 ? link.text : false"
+                          :data-tooltip="generateToolTip(link.text)"
                           data-tooltip-theme="dark">
-                          {{ $truncateString(link.text, 12, '...', type = 'double') }}
+                          {{ truncateLinks ? $truncateString(link.text, 12, '...', type = 'double') : link.text }}
                         </a>
                       </li>
                     </template>
@@ -209,13 +209,14 @@
                 </AccordionHeader>
                 <AccordionContent>
                   <div class="chiclet-list">
-                    <NuxtLink
+                    <component
+                      :is="chicletType"
                       v-for="(taxonomyTag, j) in filterTags(taxonomy.slug, taxonomy.tags)"
                       :key="`taxonomy-tag-${j}`"
                       :to="{ path: '/', query: { filters: 'enabled', tags: taxonomyTag } }"
                       class="chiclet">
                       {{ $getTaxonomyTagLabel(taxonomy.slug, taxonomyTag) }}
-                    </NuxtLink>
+                    </component>
                   </div>
                 </AccordionContent>
               </AccordionSection>
@@ -266,6 +267,8 @@ import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/Featured
 import PrevArrow from '@/components/Icons/PrevArrow'
 import NextArrow from '@/components/Icons/NextArrow'
 import SelectorToggleIcon from '@/modules/zero/core/Components/Icons/SelectorToggle'
+
+import Settings from '@/content/data/settings.json'
 
 // =================================================================== Functions
 const repositionSliderLeft = (instance) => {
@@ -390,12 +393,15 @@ export default {
       return this.pageData.metadata_heading
     },
     breadcrumbs () {
-      const breadcrumbs = CloneDeep(this.pageData.breadcrumbs)
-      breadcrumbs.push({
-        type: 'div',
-        label: this.project.name
-      })
-      return breadcrumbs
+      if (Settings.visibility.breadcrumbs) {
+        const breadcrumbs = CloneDeep(this.pageData.breadcrumbs)
+        breadcrumbs.push({
+          type: 'div',
+          label: this.project.name
+        })
+        return breadcrumbs
+      }
+      return false
     },
     // Project Content
     generalPageData () {
@@ -445,6 +451,15 @@ export default {
         return items
       }
       return false
+    },
+    chicletType () {
+      if (!Settings.visibility.singularTagLinks) {
+        return 'div'
+      }
+      return 'NuxtLink'
+    },
+    truncateLinks () {
+      return Settings.visibility.truncateLinks
     }
   },
 
@@ -485,6 +500,12 @@ export default {
         }
       })
       return compiled.length > 0 ? compiled : false
+    },
+    generateToolTip (text) {
+      if (!Settings.visibility.truncateLinks) {
+        return null
+      }
+      return text.length > 23 ? text : false
     },
     incrementLeft () {
       this.$refs.sliderFlex.classList.remove('slider-transition')

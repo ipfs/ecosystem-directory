@@ -9,7 +9,7 @@ export default {
   target: 'static',
   generate: {
     routes (a, b) {
-      return Routes.concat([{ route: Settings.general.showcaseBaseRoute }])
+      return Routes.concat([{ route: Settings.behavior.showcaseBaseRoute }])
     }
   },
   // ///////////////////////////////////////////////////// Runtime Configuration
@@ -107,7 +107,7 @@ export default {
     '~/modules/zero/pagination',
     '~/modules/zero/filters',
     // Doc: https://github.com/agency-undone/nuxt-module-ipfs
-    '~/modules/nuxt-module-ipfs'
+    'nuxt-module-ipfs'
   ],
   // ///////////////////////////////////////////////////////// [Module] MomentJS
   // ---------------------- Doc: https://github.com/nuxt-community/moment-module

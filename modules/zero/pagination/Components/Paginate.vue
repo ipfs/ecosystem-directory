@@ -25,11 +25,6 @@ export default {
       required: false,
       default: 20
     },
-    increment: {
-      type: Number,
-      required: false,
-      default: 20
-    },
     collection: {
       type: [Boolean, Array],
       required: false,

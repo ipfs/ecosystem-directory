@@ -47,7 +47,7 @@
         </section>
 
         <section
-          v-if="featuredSlider"
+          v-if="routeQuery.filters !== 'enabled'"
           id="section-filter"
           ref="filterHeading"
           key="filters-heading">
@@ -69,7 +69,7 @@
       </transition-group>
     </div>
 
-    <ProjectView />
+    <ProjectView :defaultview="gridOrListView" />
 
   </div>
 </template>
@@ -82,6 +82,8 @@ import CloneDeep from 'lodash/cloneDeep'
 import SegmentSliderChart from '@/components/SegmentSliderChart/SegmentSliderChart'
 import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
 import ProjectView from '@/components/ProjectView/ProjectView'
+
+import Settings from '@/content/data/settings.json'
 
 // =================================================================== Functions
 const parseURLParams = (instance, next) => {
@@ -256,6 +258,12 @@ export default {
     },
     pageData () {
       return this.siteContent.index.page_content
+    },
+    gridOrListView () {
+      if (Settings.visibility.defaultView === 'list') {
+        return true
+      }
+      return false
     }
   },
 
@@ -287,23 +295,29 @@ export default {
       clearAllTags: 'filters/clearAllTags'
     }),
     mountSegmentAndFeaturedSliders () {
-      if (!this.segmentSlider) { this.segmentSlider = true }
-      if (!this.featuredSlider) { this.featuredSlider = true }
+      if (Settings.visibility.segmentChart) {
+        if (!this.segmentSlider) { this.segmentSlider = true }
+      }
+      if (Settings.visibility.featuredSlider) {
+        if (!this.featuredSlider) { this.featuredSlider = true }
+      }
       if (this.filterPanelOpen) { this.setFilterPanelOpen(false) }
       this.setRouteQuery({ key: 'filters', data: '' })
       this.clearAllTags()
       this.resetSectionHeight()
     },
     collapseSegmentAndFeaturedSliders () {
-      if (this.segmentSlider && this.featuredSlider) {
+      if (this.segmentSlider) {
         this.segmentSlider = false
-        this.featuredSlider = false
-        this.sectionHeight = 0
-        window.scrollTo(0, 0)
       }
+      if (this.featuredSlider) {
+        this.featuredSlider = false
+      }
+      this.sectionHeight = 0
+      window.scrollTo(0, 0)
     },
     resetSectionHeight () {
-      if (this.$refs.segmentSlider && this.$refs.featuredSection && this.$refs.filterHeading) {
+      if (this.$refs.collapsibleSection.firstElementChild) {
         setTimeout(() => {
           this.sectionHeight = Math.ceil(this.$refs.collapsibleSection.firstElementChild.clientHeight)
         }, 300)
@@ -327,7 +341,6 @@ export default {
 }
 
 #segment-slider-chart {
-  margin-top: 3rem;
   margin-bottom: 5rem;
   @include small {
     margin-top: calc(4.1665vw / 2);

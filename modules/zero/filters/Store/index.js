@@ -2,12 +2,13 @@
 // -----------------------------------------------------------------------------
 import TaxonomyData from '@/content/data/taxonomy.json'
 import CloneDeep from 'lodash/cloneDeep'
+import Settings from '@/content/data/settings.json'
 
 const params = {
   filters: '',
   tags: '',
   page: 1,
-  results: 20,
+  results: Settings.visibility.setPageSize,
   'sort-by': '',
   'display-type': ''
 }
@@ -18,7 +19,7 @@ const append2URL = (state, router) => {
   if (JSON.stringify(state.routeQuery) !== JSON.stringify(router.currentRoute.query)) {
     const cloned = CloneDeep(state.routeQuery)
     if (cloned.page === 1) { delete cloned.page }
-    if (cloned.results === 20) { delete cloned.results }
+    if (cloned.results === Settings.visibility.setPageSize) { delete cloned.results }
     Object.keys(cloned).forEach((key) => {
       if (!cloned[key]) { delete cloned[key] }
     })
@@ -128,7 +129,7 @@ const mutations = {
       if (key === 'page') {
         state.routeQuery[key] = 1
       } else if (key === 'results') {
-        state.routeQuery[key] = 20
+        state.routeQuery[key] = Settings.visibility.setPageSize
       } else {
         state.routeQuery[key] = ''
       }
