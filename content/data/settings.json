@@ -1,16 +1,13 @@
 {
-  "general": {
-    "showcaseBaseRoute": "/showcase"
-  },
   "nomenclature": {
     "entityTerm": "project",
     "entityTermPlural": "projects"
   },
   "behavior": {
+    "showcaseBaseRoute": "/showcase",
     "primaryCategorySlug": "industry",
     "firstTag": "",
     "lastTag": "other",
-    "defaultView": "grid",
     "externalLinksTargetBlank": true,
     "tagMatchType": "or",
     "excludeFilterAllTag": true,
@@ -22,7 +19,19 @@
     "segmentChart": true,
     "featuredSlider": true,
     "embeddableObject": true,
+    "showcase": true,
+    "defaultView": "grid",
     "alternateLayout": true,
-    "hideNonDefaultView": false
+    "hideNonDefaultView": false,
+    "hidePagination": false,
+    "hideSort": false,
+    "hideNumResults": false,
+    "setSort": "a_z",
+    "setPageSize": 20,
+    "disableSingulars": 2,
+    "truncateLinks": true,
+    "mediaAltAtts": true,
+    "linksAltAtts": true,
+    "singularTagLinks": true
   }
 }

@@ -9,7 +9,7 @@ export default {
   target: 'static',
   generate: {
     routes (a, b) {
-      return Routes.concat([{ route: Settings.general.showcaseBaseRoute }])
+      return Routes.concat([{ route: Settings.behavior.showcaseBaseRoute }])
     }
   },
   // ///////////////////////////////////////////////////// Runtime Configuration

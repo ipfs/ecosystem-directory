@@ -71,6 +71,9 @@
               :slug="project.slug"
               :description="project.description.short"
               :logo="project.logo.icon"
+              :url="project.primaryCta.url"
+              :navigation-behavior="projectCardBehavior"
+              :enable-image-alt="enableImageAlt"
               :class="projectCardColumns"
               :style="`animation-delay: ${30 * index}ms`" />
           </div>
@@ -85,7 +88,9 @@
           </span>
         </div>
 
-        <div v-if="sortedCollection" id="paginated-list-navigation-controls">
+        <div
+          v-if="sortedCollection && showPaginationControls"
+          id="paginated-list-navigation-controls">
 
           <PaginationControls
             breaker="..."
@@ -142,6 +147,8 @@ import PrevArrow from '@/components/Icons/PrevArrow'
 import NextArrow from '@/components/Icons/NextArrow'
 import LastArrow from '@/components/Icons/LastArrow'
 
+import Settings from '@/content/data/settings.json'
+
 // =================================================================== Functions
 const clearPanelHeight = (instance) => {
   if (!instance.filterPanelOpen) {
@@ -172,10 +179,18 @@ export default {
     LastArrow
   },
 
+  props: {
+    defaultview: {
+      type: Boolean,
+      default: false,
+      required: false
+    }
+  },
+
   data () {
     return {
       panelHeight: false,
-      listViewActive: false,
+      listViewActive: this.defaultview,
       scroll: false,
       searchQueryTimer: undefined
     }
@@ -195,6 +210,9 @@ export default {
       return this.collection.array
     },
     display () {
+      if (Settings.visibility.hidePagination) {
+        return this.projects.length
+      }
       return this.routeQuery.results
     },
     pageData () {
@@ -232,6 +250,15 @@ export default {
     toggleHeight () {
       if (this.filterPanelOpen) { return 'unset' }
       return this.panelHeight + 'px'
+    },
+    showPaginationControls () {
+      return !Settings.visibility.hidePagination
+    },
+    projectCardBehavior () {
+      return parseInt(Settings.visibility.disableSingulars)
+    },
+    enableImageAlt () {
+      return Settings.visibility.mediaAltAtts
     }
   },
 
@@ -253,11 +280,13 @@ export default {
   },
 
   mounted () {
-    if (this.$route.query['display-type']) {
-      if (this.$route.query['display-type'] === 'list') {
-        this.listViewActive = true
-      } else if (this.$route.query['display-type'] === 'block') {
-        this.listViewActive = false
+    if (!Settings.visibility.hideNonDefaultView) {
+      if (this.$route.query['display-type']) {
+        if (this.$route.query['display-type'] === 'list') {
+          this.listViewActive = true
+        } else if (this.$route.query['display-type'] === 'block') {
+          this.listViewActive = false
+        }
       }
     }
     clearPanelHeight(this)

@@ -6,7 +6,7 @@
         <div class="col">
 
           <div class="breadcrumbs">
-            <Breadcrumbs :breadcrumbs="pageData.breadcrumbs" />
+            <Breadcrumbs v-if="breadcrumbsVisible" :breadcrumbs="pageData.breadcrumbs" />
           </div>
 
           <div class="segments-container">
@@ -56,6 +56,8 @@ import { mapGetters } from 'vuex'
 
 import Breadcrumbs from '@/modules/zero/core/Components/Breadcrumbs'
 
+import Settings from '@/content/data/settings.json'
+
 // ====================================================================== Export
 export default {
   name: 'ErrorPage',
@@ -82,6 +84,9 @@ export default {
     }),
     pageData () {
       return this.siteContent.general['404_error_page']
+    },
+    breadcrumbsVisible () {
+      return Settings.visibility.breadcrumbs
     },
     segmentsBefore () {
       return this.generateWidths()
