@@ -208,7 +208,11 @@ export default {
       '@type': 'WebSite',
       name: title,
       abstract: description,
-      mainEntity: this.generalPageData.navigation.index.href,
+      mainEntity: {
+        '@type': 'WebSite',
+        name: 'IPFS',
+        url: this.generalPageData.navigation.index.href
+      }
       image,
       url
     }
