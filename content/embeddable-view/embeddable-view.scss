@@ -279,7 +279,7 @@ $teal-x-dark: #04202F;
 
     .ecodir_project-view-container {
       height: 0;
-        opacity: 0;
+      opacity: 0;
       padding: 0 25px;
       overflow: hidden;
       transition: all 250ms;
@@ -323,8 +323,8 @@ $teal-x-dark: #04202F;
       }
 
       a.ecodir_project-home-link {
-        border-radius: 5px;
         @include font2(18, 600);
+        border-radius: 5px;
         text-decoration: none;
         padding: 13px 20px;
         display: inline-block;
@@ -563,8 +563,8 @@ $teal-x-dark: #04202F;
     }
 
     h2.ecodir_error-heading {
-      background-color: $teal-dark;
       @include font(20, 500);
+      background-color: $teal-dark;
       line-height: 34px;
       color: $white;
       text-align: center;

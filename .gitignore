@@ -18,6 +18,7 @@ server.crt
 project-routes.json
 project-list.json
 showcase-data.json
+static/embeddable-view.min.css
 static/embeddable-view.js
 
 # Runtime data

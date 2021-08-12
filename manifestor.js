@@ -8,6 +8,7 @@ const { SetProjectDefaults } = require('./plugins/global-methods')
 
 const paths = {
   data: `${__dirname}/content/data`,
+  static: `${__dirname}/static`,
   embeddable_view: `${__dirname}/content/embeddable-view`,
   embeddable_view_script: `${__dirname}/static/embeddable-view.js`,
   projects: `${__dirname}/content/projects`,
@@ -178,7 +179,7 @@ const generateEmbeddableViewFile = async (projectList, activeFilters, primaryCat
   try {
     const settings = JSON.parse(await Fs.readFileSync(`${paths.embeddable_view}/embeddable-view-settings.json`, 'utf8'))
     const taxonomyList = await generateTaxonomyListFile(primaryCategory, activeFilters)
-    const embeddableCSS = await Fs.readFileSync(`${paths.embeddable_view}/embeddable-view.min.css`, 'utf8')
+    const embeddableCSS = await Fs.readFileSync(`${paths.static}/embeddable-view.min.css`, 'utf8')
     const vueJS = await Fs.readFileSync(`${paths.embeddable_view}/vue.2.6.14.min.js`, 'utf8')
     let embeddableView = await Fs.readFileSync(`${paths.embeddable_view}/embeddable-view.js`, 'utf8')
     // Inject content
