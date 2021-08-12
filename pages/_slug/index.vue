@@ -69,7 +69,7 @@ export default {
     const title = `${this.seo.title}`
     const description = this.seo.description
     const image = this.seo.og_image
-    const url = this.seo.og_url
+    const url = this.seo.og_url + Settings.behavior.showcaseBaseRoute
     const structuredData = {
       '@context': 'http://schema.org',
       '@type': 'WebSite',
