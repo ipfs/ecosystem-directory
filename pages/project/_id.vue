@@ -325,7 +325,16 @@ export default {
   head () {
     const title = this.page_Title
     const description = this.page_Description
+    const image = this.seo.og_image + this.project.logo.full
     const url = this.seo.og_url + this.$route.params.id
+    const structuredData = {
+      "@context": "http://schema.org",
+      "@type": "Product",
+      "name": title,
+      "description": description,
+      "logo": image,
+      "url": url
+    }
     return {
       title,
       meta: [
@@ -339,17 +348,19 @@ export default {
         { hid: 'og:site_name', property: 'og:site_name', content: this.seo.og_site_name },
         { hid: 'og:url', property: 'og:url', content: url },
         { hid: 'og:type', property: 'og:type', content: this.seo.og_type },
-        { hid: 'og:image', property: 'og:image', content: this.seo.og_image + this.project.logo.full },
+        { hid: 'og:image', property: 'og:image', content: image },
         { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
         { hid: 'twitter:title', name: 'twitter:title', content: title },
         { hid: 'twitter:description', name: 'twitter:description', content: description },
-        { hid: 'twitter:image', name: 'twitter:image', content: this.seo.og_image + this.project.logo.full }
+        { hid: 'twitter:image', name: 'twitter:image', content: image }
       ],
       link: [
         { rel: 'canonical', href: url },
         { rel: 'alternate', hreflang: 'en', href: url },
         { rel: 'alternate', hreflang: 'x-default', href: url }
-      ]
+      ],
+      __dangerouslyDisableSanitizers: ['script'],
+      script: [{ innerHTML: JSON.stringify(structuredData), type: 'application/ld+json' }]
     }
   },
 
