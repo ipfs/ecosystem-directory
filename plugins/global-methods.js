@@ -2,7 +2,7 @@
 // -----------------------------------------------------------------------------
 const Filesize = require('filesize')
 
-const ProjectSchema = require('../content/data/project-schema.json') // ← needs to be relative because this file is loaded in nuxt.config.js during `npm run generate`
+const ProjectSchema = require('../content/data/project-schema.json') // ← needs to be relative because this file is loaded in manifestor.js during `npm run generate`
 
 // /////////////////////////////////////////////////////////////////// Functions
 // -----------------------------------------------------------------------------

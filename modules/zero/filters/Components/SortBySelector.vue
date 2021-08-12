@@ -67,6 +67,10 @@ export default {
     sortOptions: {
       type: Object,
       required: true
+    },
+    defaultSort: {
+      type: String,
+      required: true
     }
   },
 
@@ -120,7 +124,7 @@ export default {
         }
       })
     } else {
-      this.sortAlphabetically('name', 'DESC')
+      this.optionSelected(this.sortOptions[this.defaultSort])
     }
     this.setHeights()
     this.resize = () => { this.setHeights() }
@@ -170,7 +174,7 @@ export default {
     },
     optionSelected (obj) {
       this.selected = obj.label
-      this.toggleDropDown()
+      this.closeAllSelect()
       if (obj.type === 'alphabetical') {
         this.sortAlphabetically(obj.key, obj.direction)
       } else if (obj.type === 'number') {

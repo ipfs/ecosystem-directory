@@ -12,6 +12,7 @@
         :selected-seg="selected"
         :parent-category="primaryCategory.slug"
         :container-height="containerHeight"
+        :enable-image-alt="enableImageAlt"
         @update-slider="setSliderContent" />
 
       <Chart
@@ -82,7 +83,10 @@ const createLabels = (instance, projects) => {
         for (let j = 0; j < primaryTags.length; j++) {
           if (projects[i].logo.icon && logos.hasOwnProperty(primaryTags[j])) {
             if (!logos[primaryTags[j]].includes(projects[i].logo.icon)) {
-              logos[primaryTags[j]].push(projects[i].logo.icon)
+              logos[primaryTags[j]].push({
+                path: projects[i].logo.icon,
+                alt: projects[i].name
+              })
             }
           }
           tags.push(primaryTags[j])
@@ -170,6 +174,9 @@ export default {
     },
     primaryCategory () {
       return this.siteContent.taxonomy.categories.find(category => category.slug === Settings.behavior.primaryCategorySlug)
+    },
+    enableImageAlt () {
+      return Settings.visibility.mediaAltAtts
     }
   },
 
