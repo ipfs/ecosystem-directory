@@ -75,7 +75,6 @@ export default {
       '@type': 'Website',
       name: title,
       abstract: description,
-      mainEntity: this.siteContent.general.navigation.index.href,
       image,
       url
     }
