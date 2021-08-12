@@ -202,13 +202,13 @@ export default {
     const image = this.seo.og_image
     const url = this.seo.og_url
     const structuredData = {
-      "@context": "http://schema.org",
-      "@type": "Website",
-      "name": title,
-      "abstract": description,
-      "image": image,
-      "url": url,
-      "mainEntity": this.generalPageData.navigation.index.href
+      '@context': 'http://schema.org',
+      '@type': 'Website',
+      name: title,
+      abstract: description,
+      mainEntity: this.generalPageData.navigation.index.href,
+      image,
+      url
     }
     return {
       title,

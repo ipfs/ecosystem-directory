@@ -328,12 +328,12 @@ export default {
     const image = this.seo.og_image + this.project.logo.full
     const url = this.seo.og_url + this.$route.params.id
     const structuredData = {
-      "@context": "http://schema.org",
-      "@type": "Product",
-      "name": title,
-      "description": description,
-      "logo": image,
-      "url": url
+      '@context': 'http://schema.org',
+      '@type': 'Product',
+      name: title,
+      logo: image,
+      description,
+      url
     }
     return {
       title,
