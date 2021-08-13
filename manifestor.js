@@ -12,7 +12,6 @@ const paths = {
   embeddable_view: `${__dirname}/content/embeddable-view`,
   embeddable_view_script: `${__dirname}/static/embeddable-view.js`,
   projects: `${__dirname}/content/projects`,
-  settings: `${__dirname}/content/data/settings.json`,
   taxonomies: `${__dirname}/content/data/taxonomy.json`,
   project_routes: `${__dirname}/content/data/project-routes.json`,
   project_list: `${__dirname}/content/data/project-list.json`,
@@ -33,18 +32,6 @@ const getSlugs = async () => {
     return slugs
   } catch (e) {
     console.log('============================================ [getSlugs] Error')
-    throw e
-  }
-}
-
-/*
-  Get the primaryCategorySlug settings value
-*/
-const getPrimaryCategory = async () => {
-  try {
-    return JSON.parse(await Fs.readFileSync(paths.settings)).behavior.primaryCategorySlug
-  } catch (e) {
-    console.log('================================== [getPrimaryCategory] Error')
     throw e
   }
 }
@@ -157,7 +144,7 @@ const generateProjectManifestFiles = async (slugs, primaryCategory) => {
       })
       payload.showcase.projects.push({
         name: project.name,
-        logo: project.logo.icon,
+        logo: project.logo.icon || project.logo.full,
         tags
       })
       payload.routes.push({
@@ -177,7 +164,7 @@ const generateProjectManifestFiles = async (slugs, primaryCategory) => {
 */
 const generateEmbeddableViewFile = async (projectList, activeFilters, primaryCategory, slugs) => {
   try {
-    const settings = JSON.parse(await Fs.readFileSync(`${paths.embeddable_view}/embeddable-view-settings.json`, 'utf8'))
+    const settings = Settings.embeddable_view;
     const taxonomyList = await generateTaxonomyListFile(primaryCategory, activeFilters)
     const embeddableCSS = await Fs.readFileSync(`${paths.static}/embeddable-view.min.css`, 'utf8')
     const vueJS = await Fs.readFileSync(`${paths.embeddable_view}/vue.2.6.14.min.js`, 'utf8')
@@ -212,7 +199,7 @@ const Manifestor = async () => {
   try {
     console.log('🚀️ Manifest projects started')
     const slugs = await getSlugs()
-    const primaryCategory = await getPrimaryCategory()
+    const primaryCategory = Settings.behavior.primaryCategorySlug;
     const payload = await generateProjectManifestFiles(slugs, primaryCategory)
     await Fs.writeFileSync(paths.project_routes, JSON.stringify(payload.routes))
     await Fs.writeFileSync(paths.project_list, JSON.stringify(payload.full))

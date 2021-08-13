@@ -84,15 +84,17 @@ function ecodir_initDirectory(el) {
   el.classList.add(`ecosystem-${ecodir_theme}`)
 
   el.innerHTML = `
-    <h2 class="ecodir_heading">INJECT_SETTINGS_HEADING</h2>
-    <h3 class="ecodir_subheading">INJECT_SETTINGS_SUBHEADING</h3>
-    <div class="ecodir_filters">
-      <dropdown id="filterBy" name="Filter by:" :options="filterOptions" :callback="filterProjects"></dropdown>
-      <dropdown id="sortBy" name="Sort by:" :options="sortOptions" :callback="sortProjects"></dropdown>
-    </div>
     <div class="ecodir_container">
-      <slider></slider>
-      <project-view></project-view>
+      <h2 class="ecodir_heading">INJECT_SETTINGS_HEADING</h2>
+      <h3 class="ecodir_subheading">INJECT_SETTINGS_SUBHEADING</h3>
+      <div class="ecodir_filters">
+        <dropdown id="filterBy" name="Filter by:" :options="filterOptions" :callback="filterProjects"></dropdown>
+        <dropdown id="sortBy" name="Sort by:" :options="sortOptions" :callback="sortProjects"></dropdown>
+      </div>
+      <div class="ecodir_container">
+        <slider></slider>
+        <project-view></project-view>
+      </div>
     </div>
   `
 
@@ -153,7 +155,7 @@ function ecodir_initDirectory(el) {
     template: `
       <div :id="id" class="ecodir_dropdown-wrapper" v-on:click="toggleDropdown">
         <button class="ecodir_dropdown-toggle">
-          <label>{{ name }}&emsp;{{ selected }}</label>${ecodir_caret_svg()}</button>
+          <label>{{ name }}&emsp;<span>{{ selected }}</span></label>${ecodir_caret_svg()}</button>
 
         <div :class="{'ecodir_dropdown-container': true, hidden: open}">
           <div v-if="options.length" v-click-outside="closeDropdown" :class="{ecodir_dropdown: true}">
@@ -197,7 +199,7 @@ function ecodir_initDirectory(el) {
         const ecodir_horizontalCardCount = Math.floor(ecodir_sliderEl.offsetWidth/ecodir_cardWidth)
 
         this.cardWidth = ecodir_cardWidth
-        ecodir_sliderRowEl.style.width = `${ecodir_horizontalCardCount * ecodir_cardWidth}px`
+        ecodir_sliderRowEl.style.width = `${(ecodir_horizontalCardCount * ecodir_cardWidth) + 20}px`
         this.display = ecodir_horizontalCardCount * 2
         this.range = this.indices * Math.min(this.currentIndex, this.indices / 2)
       },
@@ -282,7 +284,7 @@ function ecodir_initDirectory(el) {
         setTimeout(() => {
           projectContainerEl.style.height = `${projectWrapperEl.scrollHeight}px`
           projectContainerEl.style.opacity = 1
-        }, 250);
+        }, 175);
       }
     },
     computed: {
@@ -377,7 +379,7 @@ function ecodir_initDirectory(el) {
         if(this.projectWrapperEl) {
           this.projectContainerEl.style.height = this.projectWrapperEl.scrollHeight
           this.projectContainerEl.style.opacity = 0
-          setTimeout(() => this.project = project[0], 250);
+          setTimeout(() => this.project = project[0], 175);
         }
       },
       filterProjects (slug) {

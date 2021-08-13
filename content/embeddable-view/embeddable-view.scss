@@ -33,18 +33,23 @@ $teal-x-dark: #04202F;
   font-family: 'Inter', sans-serif;
   font-size: #{$size}px;
   font-weight: $weight;
+  letter-spacing: 0.02em;
 }
 
 .ipfs-ecosystem-embed {
   @import 'eric-meyers-reset';
   line-height: 1.4;
-  max-width: 1440px;
   padding: 32px 38px 34px;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
 
   * {
     line-height: 1.4;
+  }
+
+  .ecodir_container {
+    max-width: 1000px;
+    margin: 0 auto;
   }
 
   h2.ecodir_heading {
@@ -62,7 +67,7 @@ $teal-x-dark: #04202F;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-bottom: 39px;
+    margin-bottom: 29px;
 
     #filterBy {
       z-index: 1001;
@@ -88,7 +93,10 @@ $teal-x-dark: #04202F;
       justify-content: space-between;
 
       label {
-        @include font(13, 500);
+        @include font(13, 600);
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
       }
 
       &:active, &:focus {
@@ -155,6 +163,7 @@ $teal-x-dark: #04202F;
         .ecodir_slider-row-container {
           position: relative;
           width: 360px;
+          padding-top: 10px;
           margin: 0 auto;
 
           overflow: hidden;
@@ -180,11 +189,16 @@ $teal-x-dark: #04202F;
               flex-direction: column;
               align-items: center;
               justify-content: center;
-              transition: background 500ms ease-out;
+              transition: all 250ms ease-out;
+              transform-origin: center;
 
               &.active {
                 border-radius: 5px;
                 background: $white;
+              }
+
+              &:hover {
+                transform: scale(1.05);
               }
 
               .ecodir_card-thumbnail {
@@ -367,6 +381,13 @@ $teal-x-dark: #04202F;
       .ecodir_dropdown {
         background: $white;
         color: $grey-x-dark;
+
+        .ecodir_dropdown-option {
+          &:hover {
+            background: $teal-light;
+            color: $white;
+          }
+        }
       }
     }
 
@@ -465,6 +486,13 @@ $teal-x-dark: #04202F;
       .ecodir_dropdown {
         background: $teal-medium;
         color: $white;
+
+        .ecodir_dropdown-option {
+          &:hover {
+            background: $teal-light;
+            color: $white;
+          }
+        }
       }
     }
 
@@ -574,12 +602,12 @@ $teal-x-dark: #04202F;
 
   &.ecodir_medium, &.ecodir_large {
     h2.ecodir_heading {
-      @include font(16);
-      margin-bottom: 13px;
+      @include font(20, 500);
+      margin-bottom: 20px;
     }
 
     h3.ecodir_subheading {
-      @include font(30, 500);
+      @include font(35, 600);
       line-height: 46px;
       margin-bottom: 47px;
     }
