@@ -17,7 +17,7 @@
           </h2>
           <div class="taxonomy-projects">
             <div v-for="(project, projectIndex) in tax.projects" :key="`project-${projectIndex}`" class="thumbnail">
-              <img :src="$relativity(`/images/projects/${project.logo}`)" :alt="project.name" title="project.name" />
+              <img :src="$relativity(`/images/projects/${project.logo}`)" :alt="project.name" :title="project.name" />
             </div>
           </div>
         </div>
