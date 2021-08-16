@@ -503,6 +503,33 @@ li {
   }
 }
 
+.breadcrumb-link {
+  @include borderRadius3;
+}
+
+.project-card {
+  @include borderRadius3;
+}
+
+.pagination-controls {
+  .page-button,
+  .control-button {
+    @include borderRadius3;
+  }
+}
+
+#site-footer {
+  a {
+    @include borderRadius3;
+  }
+}
+
+.page-project {
+  .focus-visible {  
+    @include borderRadius3;
+  }
+}
+
 // ///////////////////////////////////////////////// Markdown content formatting
 // -----------------------------------------------------------------------------
 .markdown-post-content {
@@ -795,8 +822,8 @@ li {
     }
   }
 }
-// /////////////////////////////////////////////////////////////// Accessibility
 
+// /////////////////////////////////////////////////////////////// Accessibility
 a:focus {
   @include focus_BoxShadow_Small;
   outline: 0;

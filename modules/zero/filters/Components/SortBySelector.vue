@@ -231,6 +231,7 @@ export default {
 }
 
 .dropdown-wrapper {
+  @include borderRadius3;
   position: relative;
   white-space: nowrap;
   font-family: $fontInter;
