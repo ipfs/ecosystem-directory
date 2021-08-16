@@ -331,7 +331,7 @@ export default {
     const image = this.seo.og_image + this.project.logo.full
     const url = this.seo.og_url + this.$route.params.id
     const structuredData = {
-      '@context': 'http://schema.org',
+      '@context': 'https://schema.org',
       '@type': 'Product',
       name: title,
       logo: image,

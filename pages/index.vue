@@ -204,7 +204,7 @@ export default {
     const image = this.seo.og_image
     const url = this.seo.og_url
     const structuredData = {
-      '@context': 'http://schema.org',
+      '@context': 'https://schema.org',
       '@type': 'WebSite',
       name: title,
       abstract: description,
