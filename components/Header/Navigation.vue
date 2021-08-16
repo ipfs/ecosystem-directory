@@ -254,7 +254,6 @@ export default {
   @include customMaxMQ (768px) { // ← requested interim solution
     align-self: start;
     margin-bottom: 0.75rem;
-    font-family: $fontMontserrat;
     font-size: 2.1875rem;
     font-weight: 500;
     line-height: 1.2;

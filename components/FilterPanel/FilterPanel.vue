@@ -245,7 +245,6 @@ export default {
 }
 
 .active-button {
-  background-color: $tiber;
   color: #ffffff;
 }
 
@@ -253,26 +252,21 @@ export default {
   display: flex;
   flex-wrap: wrap;
   margin-top: 2rem;
-  font-family: $fontMontserrat;
   .clear-selected,
   .done {
-    @include borderRadius3;
+    @include borderRadius_Medium;
     padding: 0.4rem 1.2rem;
     font-size: 10pt;
     margin: 0.5rem 1rem 0.5rem 0;
     transition: 250ms ease-out;
     &:hover {
       transition: 250ms ease-in;
-      background-color: $ming;
     }
   }
   .clear-selected {
-    background-color: $blackHaze;
-    color: $tiber;
     margin-left: 0;
   }
   .done {
-    background-color: $tiber;
     color: white;
     font-weight: bold;
   }
@@ -291,7 +285,6 @@ export default {
     justify-content: space-between;
   }
   &.heading {
-    font-family: $fontMontserrat;
     font-weight: 500;
     margin: 0 6px;
     margin-bottom: 1rem;
@@ -312,7 +305,6 @@ export default {
     }
   }
   &.sub-heading {
-    font-family: $fontInter;
     white-space: normal;
     margin-right: 2rem;
   }
@@ -344,7 +336,7 @@ export default {
     right: 0.3125rem;
     width: 0.75rem;
     height: 100%;
-    background: url('~assets/theme/svgs/chevrondown.svg') no-repeat right center;
+    background: url('~assets/core/svgs/chevrondown.svg') no-repeat right center;
     transition: 250ms ease-out;
   }
 }

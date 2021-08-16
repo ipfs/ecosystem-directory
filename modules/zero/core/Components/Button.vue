@@ -207,7 +207,6 @@ export default {
 
 // //////////////////////////////////////////////////////////////////// [Type] A
 .type-A {
-  @include shadow1;
   // background-color: blue;
   &:disabled {
     box-shadow: none;
@@ -235,8 +234,8 @@ export default {
 
 // //////////////////////////////////////////////////////////////////// [Type] A
 .type-C {
+  @include borderRadius_Medium;
   background-color: #ffffff;
-  @include borderRadius3;
 }
 
 // //////////////////////////////////////////////////////////////////// [Type] A

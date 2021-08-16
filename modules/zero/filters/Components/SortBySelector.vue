@@ -231,7 +231,6 @@ export default {
 .dropdown-wrapper {
   position: relative;
   white-space: nowrap;
-  font-family: $fontInter;
   font-weight: 400;
   line-height: 1.7;
   cursor: pointer;
@@ -272,7 +271,7 @@ export default {
 }
 
 .dropdown-root {
-  @include borderRadius3;
+  @include borderRadius_Medium;
   position: absolute;
   top: 0;
   left: 0;
@@ -284,7 +283,7 @@ export default {
 }
 
 .shadow {
-  @include borderRadius3;
+  @include borderRadius_Medium;
   position: absolute;
   width: 100%;
   height: 100%;
@@ -321,7 +320,6 @@ export default {
 }
 
 .highlighted {
-  background-color: $downy;
   color: white;
   cursor: default;
 }

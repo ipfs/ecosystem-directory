@@ -95,7 +95,6 @@ export default {
 ::v-deep .subheading,
 ::v-deep .copyright {
   a {
-    color: $downy;
     text-decoration: underline transparent;
     text-underline-offset: $underlineSpacing;
     transition: text-decoration-color 250ms ease-out;
@@ -148,7 +147,7 @@ export default {
   input {
     &[type="email"],
     &[type="submit"] {
-      @include borderRadius3;
+      @include borderRadius_Medium;
     }
     &[type="email"] {
       flex: 1;
@@ -161,7 +160,6 @@ export default {
       padding: 0 0.75rem;
       margin-left: 1rem;
       font-weight: 600;
-      background-color: $paradiso;
       transition: 250ms ease-out;
       @include mini {
         line-height: 1.5;
@@ -192,7 +190,6 @@ export default {
 }
 
 .navigation-link {
-  font-family: $fontMontserrat;
   color: white;
   &:not(:last-child) {
     margin-right: 1.6875rem;

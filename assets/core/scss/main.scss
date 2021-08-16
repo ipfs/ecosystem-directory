@@ -1,61 +1,7 @@
 // ///////////////////////////////////////////////////////////////////// Imports
 // -----------------------------------------------------------------------------
 @import 'normalize';
-@import 'gridlex-2.7.1/gridlex';
-
-// /////////////////////////////////////////////////////////////////////// Fonts
-// -----------------------------------------------------------------------------
-$fontAssetPath: '~assets/theme/fonts';
-
-///////////////////////////////////////////////////////////////////// Montserrat
-@font-face {
-  font-family: 'Montserrat';
-  src: url('#{$fontAssetPath}/Montserrat/Montserrat-Medium.ttf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  src: url('#{$fontAssetPath}/Montserrat/Montserrat-Medium.ttf') format('opentype');
-  font-weight: 500;
-  font-style: bold;
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  src: url('#{$fontAssetPath}/Montserrat/Montserrat-SemiBold.ttf') format('opentype');
-  font-weight: 600;
-  font-style: bold;
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  src: url('#{$fontAssetPath}/Montserrat/Montserrat-Bold.ttf') format('opentype');
-  font-weight: 700;
-}
-
-////////////////////////////////////////////////////////////////////////// Inter
-@font-face {
-  font-family: 'Inter';
-  src: url('#{$fontAssetPath}/Inter/Inter-Regular.ttf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Inter';
-  src: url('#{$fontAssetPath}/Inter/Inter-Medium.ttf') format('opentype');
-  font-weight: 500;
-  font-style: bold;
-}
-
-@font-face {
-  font-family: 'Inter';
-  src: url('#{$fontAssetPath}/Inter/Inter-SemiBold.ttf') format('opentype');
-  font-weight: 600;
-  font-style: bold;
-}
+@import 'grid/gridlex-2.7.1';
 
 // ///////////////////////////////////////////////////////////////////// General
 // -----------------------------------------------------------------------------
@@ -64,9 +10,9 @@ html, body {
   padding: 0;
   margin: 0;
   height: auto;
-  background-color: $blackHaze;
-  font-family: $fontInter;
-  color: $codGray;
+  background-color: $gray50;
+  font-family: $font_Primary;
+  color: black;
   font-size: 16px;
   letter-spacing: 0px;
   -moz-osx-font-smoothing: grayscale;
@@ -257,18 +203,6 @@ button, .button {
 
 // /////////////////////////////////////////////////////////////////////// Fonts
 // -----------------------------------------------------------------------------
-// Font Sizing
-// 10px = 0.625rem
-// 12px = 0.75rem
-// 14px = 0.875rem
-// 16px = 1rem (base)
-// 18px = 1.125rem
-// 19px = 1.1875rem
-// 20px = 1.25rem
-// 24px = 1.5rem
-// 30px = 1.875rem
-// 32px = 2rem
-
 h1, .h1,
 h2, .h2,
 h3, .h3,
@@ -290,7 +224,7 @@ h4, .h4,
 h5, .h5,
 h6, .h6 {
   display: block;
-  font-family: $fontMontserrat;
+  font-family: $font_Secondary;
 }
 
 h1, .h1 {
@@ -333,7 +267,7 @@ li {
   @include fontSize_Regular;
 }
 
-// ///////////////////////////////////////////////////////////////////// General
+// ///////////////////////////////////////////////////////////////// Nuxt & Grid
 // -----------------------------------------------------------------------------
 #__nuxt {
   position: relative;
@@ -396,7 +330,7 @@ li {
   }
 }
 
-// Companion mixin: tooltipMobilePosition | found in variables.scss
+// Companion mixin: tooltipMobilePosition | found in core/utilities.scss
 [data-tooltip] {
   position: relative;
   &:hover {
@@ -458,16 +392,15 @@ li {
   row-gap: 0.75rem;
   column-gap: 0.625rem;
   .chiclet {
-    @include borderRadius3;
     @include fontSize_Mini;
     padding: 0.3125rem 0.75rem;
     font-weight: 500;
-    color: $blackPearl;
-    background: $blackHaze;
+    color: black;
+    background: white;
     transition: 250ms ease-out;
     &:hover {
       transition: 250ms ease-in;
-      background-color: $ming;
+      background-color: black;
       color: white;
     }
   }
@@ -476,7 +409,7 @@ li {
 .navigation-link {
   @include leading_Small;
   display: inline-block;
-  font-family: $fontMontserrat;
+  font-family: $font_Secondary;
   color: white;
   &.onhover-line {
     &:hover {
@@ -628,7 +561,7 @@ li {
         li {
           &:before {
             background-color: transparent;
-            border: 1px solid blue;
+            border: 1px solid black;
             height: 0.4rem;
             width: 0.4rem;
             left: -1.25rem;
@@ -684,34 +617,6 @@ li {
     }
   }
 
-  .yt-video {
-    width: 672px;
-    height: 410px;
-    margin: 0 auto;
-    display: block;
-    @include small {
-      width: 560px;
-      height: 315px;
-    }
-    @include mini {
-      width: 280px;
-      height: 158px;
-    }
-  }
-
-  figure {
-    margin: 1rem 0 3rem;
-    &.align-left {
-      text-align: left;
-    }
-    &.align-center {
-      text-align: center;
-    }
-    &.align-right {
-      text-align: right;
-    }
-  }
-
   img {
     border-radius: 0.25rem;
     position: relative;
@@ -761,41 +666,4 @@ li {
     background-color: $gray200;
     color: blue;
   }
-
-  .quote {
-    margin: 5rem 0;
-    @include mini {
-      margin: 3rem 0;
-    }
-  }
-
-  .gallery {
-    display: inline-block;
-    &.gallery-columns-3 {
-      .gallery-item {
-        margin-right: 1rem !important;
-        width: calc(33.333% - 0.6667rem) !important;
-        &:nth-child(3n) {
-          margin-right: 0 !important;
-        }
-      }
-    }
-    .gallery-item {
-      margin: 0 !important;
-      margin-bottom: 1rem !important;
-      br {
-        display: none;
-      }
-      a {
-        display: block;
-      }
-      img {
-        border: 0 !important;
-      }
-    }
-  }
 }
-
-// ///////////////////////////////////////////////////////////////////// Imports
-// -----------------------------------------------------------------------------
-// @import '';

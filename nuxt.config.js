@@ -78,11 +78,13 @@ export default {
   // /////////////////////////////////////////////////////////// Global CSS/SCSS
   // ---------------------------------------------------------------------------
   css: [
-    '~/assets/theme/main.scss'
+    '~/assets/core/scss/main.scss' // core
+    // '~/assets/theme/scss/main.scss' // theme
   ],
   styleResources: {
     scss: [
-      '~/assets/theme/variables.scss'
+      '~/assets/core/scss/utilities.scss' // core
+      // '~/assets/theme/scss/utilities.scss' // theme
     ]
   },
   // /////////////////////////////////////////////////////// Nuxt.js Dev Modules

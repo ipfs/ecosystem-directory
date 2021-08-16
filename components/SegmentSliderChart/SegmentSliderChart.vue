@@ -204,7 +204,6 @@ export default {
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
 #segment-slider-chart {
-  font-family: $fontInter;
   font-weight: 500;
   font-size: 13pt;
   line-height: 1.4;

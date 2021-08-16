@@ -46,7 +46,6 @@ export default {
 
 .breadcrumb-link {
   display: inline-flex;
-  color: $paradiso;
   .label {
     text-decoration: underline transparent;
     text-underline-offset: $underlineSpacing;

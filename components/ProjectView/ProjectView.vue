@@ -473,7 +473,6 @@ $paginateRoot_PaddingOffset: 3.5rem;
 #filter-panel-toolbar {
   margin-bottom: 2rem;
   .title {
-    font-family: $fontMontserrat;
     margin-bottom: 0.5rem;
   }
 }
@@ -528,22 +527,19 @@ $paginateRoot_PaddingOffset: 3.5rem;
 }
 
 .placeholder-results-empty {
-  @include borderRadius3;
+  @include borderRadius_Medium;
   padding: 2rem;
   margin: 0 $paginateRoot_PaddingOffset;
   font-weight: 600;
   text-align: center;
   background-color: white;
   .clear-all-null-results {
-    @include borderRadius3;
+    @include borderRadius_Medium;
     padding: 0.3125rem 0.75rem;
-    color: $blackPearl;
-    background: $blackHaze;
     transition: 250ms ease-out;
     cursor: pointer;
     &:hover {
       transition: 250ms ease-in;
-      background-color: $ming;
       color: white;
     }
   }
@@ -577,5 +573,4 @@ $paginateRoot_PaddingOffset: 3.5rem;
     margin-bottom: 0.5rem;
   }
 }
-
 </style>

@@ -151,7 +151,7 @@ export default {
 
 .block-segment,
 .block-404 {
-  @include borderRadius2;
+  @include borderRadius_Small;
   height: 100%;
 }
 
@@ -171,7 +171,6 @@ export default {
   text-align: center;
   background-color: #052437;
   .four-o-four {
-    font-family: $fontMontserrat;
     font-size: 5rem;
     font-weight: 600;
     @include mini {
@@ -189,12 +188,9 @@ export default {
   padding: 1.5rem;
   text-align: center;
   font-weight: 400;
-  font: $fontInter;
 }
 
 .prompt-link {
   font-weight: 500;
-  color: $paradiso;
 }
-
 </style>

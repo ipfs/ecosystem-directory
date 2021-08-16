@@ -212,7 +212,6 @@ export default {
     }
   }
   &.active {
-    background-color: $tiber;
     color: white;
     .svg-icon {
       path {
@@ -249,7 +248,7 @@ export default {
 }
 
 ::v-deep #list-block-toggle-button {
-  @include borderRadius3;
+  @include borderRadius_Medium;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -259,14 +258,13 @@ export default {
   background-color: white;
   cursor: pointer;
   &:before {
-    @include borderRadius3;
+    @include borderRadius_Medium;
     content: '';
     position: absolute;
     top: 0;
     left: 50%;
     width: 50%;
     height: 100%;
-    background-color: $tiber;
     transition: 300ms cubic-bezier(0.61, 1.6, 0.64, 0.88);
     z-index: 5;
   }
@@ -291,7 +289,7 @@ export default {
 
 .list-view-icon,
 .block-view-icon {
-  @include borderRadius3;
+  @include borderRadius_Medium;
   white-space: nowrap;
   padding: 0 1rem;
   z-index: 10;

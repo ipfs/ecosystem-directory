@@ -138,7 +138,7 @@ export default {
   }
   &.list-view {
     .card-inner-wrapper {
-      @include borderRadius3;
+      @include borderRadius_Medium;
       display: flex;
       flex-direction: row;
       background-color: #FFFFFF;
@@ -161,7 +161,7 @@ export default {
 }
 
 .thumbnail {
-  @include borderRadius3;
+  @include borderRadius_Medium;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -185,8 +185,6 @@ export default {
 .title {
   @include fontSize_Medium;
   font-weight: 600;
-  font-family: $fontMontserrat;
-  color: $tiber;
   margin-bottom: 0.25rem;
   text-decoration: underline transparent;
   text-underline-offset: $underlineSpacing;
@@ -197,7 +195,6 @@ export default {
   @include fontSize_Small;
   @include leading_Small;
   position: relative;
-  color: $tundora;
   &:hover {
     &[data-tooltip] {
       &:before,

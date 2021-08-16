@@ -205,7 +205,6 @@ export default {
   li {
     list-style: none;
     line-height: 2.0;
-    color: $codGray;
     &:not(:last-child) {
       margin-bottom: 0.25rem;
     }
@@ -227,9 +226,6 @@ export default {
   .breadcrumbs {
     margin-top: 2rem;
   }
-  .breadcrumb-link {
-    color: $downy;
-  }
   .index-subheading {
     @include fontSize_ExtraLarge;
   }
@@ -243,9 +239,6 @@ export default {
 // /////////////////////////////// Filters View (All Projects) & Filters Applied
 .filters-applied,
 .filters-view {
-  &.hero-header {
-    background-color: $blackHaze;
-  }
   color: #181818;
   h1 {
     @include leading_Mini;

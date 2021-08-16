@@ -195,121 +195,108 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  // ///////////////////////////////////////////////////////////////////// General
-  .page {
-    background-color: $white;
-    padding: 2rem 0;
-  }
+// ///////////////////////////////////////////////////////////////////// General
+.page {
+  background-color: white;
+  padding: 2rem 0;
+}
 
-  // ///////////////////////////////////////////////////////////////////// Heading
-  #heading {
-    font-family: $fontInter;
-    font-weight: 500;
-    font-size: 2rem;
-    padding: 0 2rem;
-    margin-bottom: 2rem;
+// ///////////////////////////////////////////////////////////////////// Heading
+#heading {
+  font-family: $font_Primary;
+  font-weight: 500;
+  font-size: 2rem;
+  padding: 0 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  img {
+    width: auto;
+    height: 3.75rem;
+    margin-right: 0.35rem;
+  }
+}
+
+// //////////////////////////////////////////////////////////////// Project Grid
+#taxonomy-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 20rem);
+  row-gap: 1.75rem;
+  column-gap: 1.25rem;
+  justify-content: center;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  &.block-md {
+    gap: 1.2rem;
+  }
+  &.block-sm {
+    gap: 1.2rem;
+  }
+  &.block-sm-double {
+    gap: 1.2rem;
+  }
+  &.block-md-single {
+    gap: 1.2rem;
+  }
+  &.block-md-sm {
+    gap: 1.2rem; // 2.5rem
+  }
+}
+
+.taxonomy {
+  border-radius: 0.5rem;
+  position: relative;
+  padding-top: 0.5rem;
+  display: inline-flex;
+  &.taxonomy-sm {
+    .taxonomy-projects {
+      grid-template-rows: 1fr;
+    }
+  }
+  &.taxonomy-md {
+    .taxonomy-projects {
+      grid-template-rows: repeat(2, 1fr);
+    }
+  }
+  &.taxonomy-lg {
+    .taxonomy-projects {
+      grid-template-rows: repeat(5, 1fr);
+    }
+  }
+}
+
+.taxonomy-label {
+  background-color: white;
+  font-size: 0.75rem;
+  font-weight: 500;
+  position: absolute;
+  top: -0.65rem;
+  left: 1.5rem;
+  padding: 0 1.5rem 0 0.75rem;
+}
+
+.taxonomy-projects {
+  padding: 1.25rem 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  row-gap: 1.1rem;
+  column-gap: 1.25rem;
+  .thumbnail {
+    width: 2.3rem;
+    height: 2.3rem;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     img {
       width: auto;
-      height: 3.75rem;
-      margin-right: 0.35rem;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
     }
   }
-
-  // ///////////////////////////////////////////////////////////////////// Project Grid
-  #taxonomy-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 20rem);
-    row-gap: 1.75rem;
-    column-gap: 1.25rem;
-    justify-content: center;
-
-    .block {
-      display: flex;
-      flex-direction: column;
-
-      &.block-md {
-        gap: 1.2rem;
-      }
-
-      &.block-sm {
-        gap: 1.2rem;
-      }
-
-      &.block-sm-double {
-        gap: 1.2rem;
-      }
-
-      &.block-md-single {
-        gap: 1.2rem;
-      }
-
-      &.block-md-sm {
-        gap: 1.2rem; // 2.5rem
-      }
-    }
-
-    .taxonomy {
-      border-radius: 0.5rem;
-      border: 2px solid rgba($showcaseGray, 0.5);
-      position: relative;
-      padding-top: 0.5rem;
-      display: inline-flex;
-
-      .taxonomy-label {
-        background: $white;
-        font-family: $fontInter;
-        font-size: 0.75rem;
-        font-weight: 500;
-        color: $codGray;
-        position: absolute;
-        top: -0.65rem;
-        left: 1.5rem;
-        padding: 0 1.5rem 0 0.75rem;
-      }
-
-      .taxonomy-projects {
-        padding: 1.25rem 1.5rem;
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        row-gap: 1.1rem;
-        column-gap: 1.25rem;
-
-        .thumbnail {
-          width: 2.3rem;
-          height: 2.3rem;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-
-          img {
-            width: auto;
-            height: auto;
-            max-width: 100%;
-            max-height: 100%;
-          }
-        }
-      }
-
-      &.taxonomy-sm {
-        .taxonomy-projects {
-          grid-template-rows: 1fr;
-        }
-      }
-
-      &.taxonomy-md {
-        .taxonomy-projects {
-          grid-template-rows: repeat(2, 1fr);
-        }
-      }
-
-      &.taxonomy-lg {
-        .taxonomy-projects {
-          grid-template-rows: repeat(5, 1fr);
-        }
-      }
-    }
-  }
+}
 </style>

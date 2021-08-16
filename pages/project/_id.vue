@@ -534,7 +534,7 @@ export default {
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
 .page {
-  background-color: $white;
+  background-color: white;
 }
 
 // /////////////////////////////////////////////////////// [Section] Breadcrumbs
@@ -568,7 +568,6 @@ export default {
   }
   .description {
     @include fontSize_Medium;
-    font-family: $fontInter;
     margin-bottom: 3rem;
   }
 }
@@ -583,7 +582,6 @@ export default {
 
 .company {
   @include fontSize_Medium;
-  font-family: $fontInter;
   margin-bottom: 2.5rem;
   opacity: 0.7;
 }
@@ -601,19 +599,14 @@ export default {
     flex-direction: row;
     align-items: center;
     font-weight: 600;
-    color: $blackPearl;
     &.primary-cta {
-      @include borderRadius3;
+      @include borderRadius_Medium;
       color: white;
-      background-color: $tiber;
       padding: 0.625rem 1.25rem;
       margin-right: 1.5rem;
       @include tiny {
         margin-right: 0;
         margin-bottom: 1rem;
-      }
-      &:hover {
-        background-color: $ming;
       }
     }
     &.secondary-cta {
@@ -641,7 +634,7 @@ export default {
 }
 
 .card {
-  @include borderRadius3;
+  @include borderRadius_Medium;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -670,8 +663,6 @@ export default {
     }
   }
   &.big-number {
-    color: $tiber;
-    background-color: $blackHaze;
     @include mini {
       padding: 2rem 1rem;
     }
@@ -701,13 +692,9 @@ export default {
     }
   }
   &.case-study {
-    border: 2px solid $blackHaze;
+    border: 2px solid;
     @include tiny {
       padding: 3rem 2rem;
-    }
-    .title,
-    .description {
-      color: $tundora;
     }
     .title {
       @include fontSize_Large;
@@ -724,18 +711,15 @@ export default {
       }
     }
     .cta {
-      @include borderRadius3;
+      @include borderRadius_Medium;
       @include fontSize_Small;
       padding: 0.5625rem 2rem;
       margin-top: 2rem;
       font-weight: 600;
-      color: $tiber;
-      border: 2px solid $tiber;
+      border: 2px solid;
       transition: 250ms ease-out;
       &:hover {
         transition: 250ms ease-in;
-        background-color: $ming;
-        border-color: $ming;
         color: white;
       }
     }
@@ -747,7 +731,6 @@ export default {
   }
   .statistic,
   .title {
-    font-family: $fontMontserrat;
     margin-bottom: 1rem;
     @include tiny {
       margin-bottom: 0;
@@ -805,7 +788,7 @@ export default {
 }
 
 .nav-arrow {
-  @include borderRadius3;
+  @include borderRadius_Medium;
   transform: translateY(calc(100% + 1.5rem));
   display: flex;
   flex-direction: row;
@@ -874,7 +857,6 @@ export default {
     }
 
     a {
-      color: $ming;
       text-decoration: underline transparent;
       text-underline-offset: $underlineSpacing;
       transition: text-decoration-color 250ms ease-out;
@@ -885,12 +867,11 @@ export default {
     }
 
     .link-tooltip {
-      @include borderRadius3;
+      @include borderRadius_Medium;
       @include fontSize_Mini;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background-color: $blackHaze;
       width: 1rem;
       height: 1rem;
       cursor: help;
@@ -898,7 +879,7 @@ export default {
       &[data-tooltip] {
         &:before,
         &:after {
-          @include borderRadius3;
+          @include borderRadius_Medium;
           @include fontSize_Small;
           z-index: 1;
         }
@@ -913,7 +894,7 @@ export default {
 }
 
 .video {
-  @include borderRadius3;
+  @include borderRadius_Medium;
 }
 
 // /////////////////////////////////////////////////////////// [Section] Filters
@@ -938,7 +919,7 @@ export default {
     right: 0.3125rem;
     width: 0.75rem;
     height: calc(100% - 1rem);
-    background: url('~assets/theme/svgs/chevrondown.svg') no-repeat right center;
+    background: url('~assets/core/svgs/chevrondown.svg') no-repeat right center;
   }
 }
 
@@ -993,7 +974,7 @@ export default {
 }
 
 .featured-box {
-  @include borderRadius3;
+  @include borderRadius_Medium;
   padding-top: 4.75rem;
   max-width: $containerWidth;
   margin: 0 auto;
@@ -1010,7 +991,7 @@ export default {
   }
   .mini-box {
     @include mini {
-      @include borderRadius3;
+      @include borderRadius_Medium;
       margin: 0 0.5rem;
       padding: 0 2rem;
       padding-top: 3rem;

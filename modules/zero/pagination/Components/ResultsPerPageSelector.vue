@@ -180,12 +180,11 @@ export default {
 }
 
 .dropdown-root {
-  @include borderRadius3;
+  @include borderRadius_Medium;
   position: relative;
   white-space: nowrap;
   background-color: white;
   cursor: pointer;
-  font-family: $fontInter;
   font-weight: 400;
   line-height: 1.7;
   &:not(.closed) {
@@ -226,7 +225,7 @@ export default {
 }
 
 .dropdown-list {
-  @include borderRadius3;
+  @include borderRadius_Medium;
   background-color: white;
   position: absolute;
   right: 1.0rem;
@@ -246,7 +245,7 @@ export default {
     left: 0;
     background-color: #FFFFFF;
     z-index: -1;
-    @include borderRadius3;
+    @include borderRadius_Medium;
     filter: drop-shadow(0 0 0.3rem rgba(73, 73, 73, 0.2));
   }
 }
@@ -272,7 +271,6 @@ export default {
 }
 
 .highlighted {
-  background-color: $downy;
   color: white;
   cursor: default;
 }

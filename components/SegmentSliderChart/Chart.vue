@@ -312,7 +312,7 @@ export default {
 }
 
 .segments-container {
-  @include borderRadius3;
+  @include borderRadius_Medium;
   position: relative;
   padding: 0 2.5rem;
   @include medium {
@@ -334,7 +334,6 @@ export default {
 }
 
 .chart-title {
-  font-family: $fontMontserrat;
   color: #181818;
   visibility: hidden;
   padding: 4.75rem 0;
@@ -383,14 +382,14 @@ export default {
 }
 
 .block-segment {
-  @include borderRadius2;
+  @include borderRadius_Small;
   position: relative;
   max-width: 20%;
   min-width: 7px;
   cursor: pointer;
   transition: background-color 250ms linear, font-weight 250ms linear;
   &:before {
-    @include borderRadius2;
+    @include borderRadius_Small;
     content: '';
     background-color: inherit;
     width: 100%;

@@ -204,7 +204,7 @@ export default {
 }
 
 .slider-card {
-  @include borderRadius3;
+  @include borderRadius_Medium;
   background-color: #ffffff;
   width: 100%;
   padding: 2rem;
@@ -280,7 +280,7 @@ export default {
 }
 
 .nav-arrow {
-  @include borderRadius3;
+  @include borderRadius_Medium;
   display: flex;
   padding: 0.25rem;
   flex-direction: row;
@@ -333,7 +333,7 @@ export default {
 }
 
 .view-all {
-  @include borderRadius3;
+  @include borderRadius_Medium;
   position: absolute;
   margin: 0 auto;
   padding: 0.25rem 0;
@@ -354,7 +354,6 @@ export default {
   }
   &:hover {
     transition: 250ms ease-in;
-    background-color: $ming;
   }
   &:focus {
     outline: none;
