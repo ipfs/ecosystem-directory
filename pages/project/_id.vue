@@ -203,10 +203,12 @@
                 :active="active"
                 :selected="true"
                 class="filters">
-                <AccordionHeader class="focus-visible">
-                  <h3 class="heading">
-                    {{ $getTaxonomyCategoryLabel(taxonomy.slug) }}
-                  </h3>
+                <AccordionHeader>
+                  <div tabindex="0" class="heading-wrapper focus-visible">
+                    <h3 class="heading">
+                      {{ $getTaxonomyCategoryLabel(taxonomy.slug) }}
+                    </h3>
+                  </div>
                 </AccordionHeader>
                 <AccordionContent>
                   <div class="chiclet-list">
@@ -951,7 +953,7 @@ export default {
 
 .accordion-header {
   position: relative;
-  padding: 0 0.3125rem 1rem;
+  padding: 0 0.3125rem 0.875rem;
   cursor: pointer;
   &:after {
     content: '';
@@ -962,6 +964,9 @@ export default {
     width: 0.75rem;
     height: calc(100% - 1rem);
     background: url('~assets/theme/svgs/chevrondown.svg') no-repeat right center;
+  }
+  .heading-wrapper {
+    margin-top: 0.125rem;
   }
 }
 

@@ -17,17 +17,19 @@
             :selected="true"
             class="filter-category container">
             <AccordionHeader class="filter-category heading-wrapper focus-visible">
-              <div class="filter-category heading">
+              <div
+                tabindex="0"
+                class="filter-category heading">
                 {{ heading.label }}
                 <span class="filter-category number-active">
                   {{ numberInCategory[heading.slug] }} of {{ heading.tags.length }}
                 </span>
-                <span
+                <button
                   v-if="includeClearCategory && (numberInCategory[heading.slug] > 0)"
-                  class="granular-filter-clear"
+                  class="granular-filter-clear focus-visible"
                   @click.stop="clearCategory(heading.slug)">
                   Clear
-                </span>
+                </button>
                 <h5 v-if="getSublabel(heading)" class="filter-category sub-heading">
                   {{ getSublabel(heading) }}
                 </h5>
@@ -297,7 +299,7 @@ export default {
   &.heading {
     font-family: $fontMontserrat;
     font-weight: 500;
-    margin: 0 6px;
+    margin: 0.125rem 0.375rem 1rem 0.375rem ;
     margin-bottom: 1rem;
   }
   &.number-active {
