@@ -5,9 +5,9 @@
   },
   "og": {
     "site_name": "IPFS Ecosystem Directory",
-    "url": "",
+    "url": "https://ecosystem.ipfs.io/",
     "type": "website",
-    "image": ""
+    "image": "https://ecosystem.ipfs.io/images/open-graph.png"
   },
   "navigation": {
     "index": {
