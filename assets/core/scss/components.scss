@@ -437,3 +437,15 @@
     }
   }
 }
+
+// /////////////////////////////////////////////////////////////// Showcase Page
+// -----------------------------------------------------------------------------
+#taxonomy-grid {
+  .taxonomy {
+    border-color: rgba($fill_Light, 0.5);
+  }
+  .taxonomy-label {
+    font-family: $font_Primary;
+    background-color: white;
+  }
+}

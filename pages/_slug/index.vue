@@ -251,6 +251,8 @@ export default {
   border-radius: 0.5rem;
   position: relative;
   padding-top: 0.5rem;
+  border-width: 2px;
+  border-style: solid;
   display: inline-flex;
   &.taxonomy-sm {
     .taxonomy-projects {
@@ -270,7 +272,6 @@ export default {
 }
 
 .taxonomy-label {
-  background-color: white;
   font-size: 0.75rem;
   font-weight: 500;
   position: absolute;
