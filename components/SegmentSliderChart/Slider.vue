@@ -1,5 +1,5 @@
 <template>
-  <div class="slider-container">
+  <div id="segment-slider-card" class="slider-container">
     <div
       v-hammer:swipe.horizontal="onSwipe"
       class="slider-card"
@@ -10,7 +10,6 @@
           class="nav-arrow"
           @click="incrementSelection(selectedSeg - 1)">
           <PrevArrow
-            stroke="#052437"
             width="10"
             height="15" />
         </button>
@@ -26,7 +25,6 @@
           class="nav-arrow"
           @click="incrementSelection(selectedSeg + 1)">
           <NextArrow
-            stroke="#052437"
             width="10"
             height="15" />
         </button>
@@ -205,7 +203,6 @@ export default {
 
 .slider-card {
   @include borderRadius_Medium;
-  background-color: #ffffff;
   width: 100%;
   padding: 2rem;
   position: relative;
@@ -249,7 +246,6 @@ export default {
   font-weight: 400;
   margin-bottom: 2rem;
   line-height: 1.4;
-  color: #494949;
   @include small {
     max-width: 50%;
     margin-left: auto;
@@ -287,16 +283,11 @@ export default {
   align-items: center;
   justify-content: center;
   margin: 0.5rem;
-  color: rgba(0, 0, 0, 0.5);
-  background-color: #FFFFFF;
   border: none;
   font-weight: 900;
   width: 3.75rem;
   @include small {
     width: auto;
-  }
-  &:hover {
-    color: rgb(2, 28, 54);
   }
   &:focus {
     outline: none;
@@ -344,8 +335,6 @@ export default {
   font-weight: 500;
   text-align: center;
   text-decoration: none;
-  color: white;
-  background-color: rgb(2, 28, 54);
   border: none;
   transform: translateY(50%);
   transition: 250ms ease-out;

@@ -244,9 +244,7 @@ input {
       height: 3px;
       cursor: pointer;
       animate: 0.2s;
-      background: #D7D9D8;
       border-radius: 20px;
-      border: 0px solid #000101;
     }
     &::-webkit-slider-thumb {
       height: 20px;
@@ -261,9 +259,7 @@ input {
       height: 3px;
       cursor: pointer;
       animate: 0.2s;
-      background: #D7D9D8;
       border-radius: 20px;
-      border: 0px solid #000101;
     }
     &::-moz-range-thumb {
       height: 20px;
@@ -281,11 +277,7 @@ input {
       border-color: transparent;
       color: transparent;
     }
-    &::-ms-fill-lower {
-      background: #D7D9D8;
-    }
     &::-ms-fill-upper {
-      background: #D7D9D8;
       border-radius: 20px;
     }
     &::-ms-thumb {

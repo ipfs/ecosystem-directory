@@ -1,6 +1,7 @@
 <template>
   <div
     v-if="options.length > 0"
+    id="sort-by-selector"
     v-click-outside="closeAllSelect"
     :class="['dropdown-wrapper', { closed }]"
     :style="{ minWidth: `${maxLength * 10}px` }">
@@ -276,7 +277,6 @@ export default {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: white;
   overflow: hidden;
   z-index: 10;
   transition: height 250ms ease-in-out;
@@ -289,7 +289,6 @@ export default {
   height: 100%;
   top: 0;
   left: 0;
-  background-color: white;
   pointer-events: none;
   filter: drop-shadow(0 0 0.3rem rgba(73, 73, 73, 0.2));
   opacity: 0;
@@ -320,7 +319,6 @@ export default {
 }
 
 .highlighted {
-  color: white;
   cursor: default;
 }
 </style>

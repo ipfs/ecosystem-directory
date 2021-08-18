@@ -111,6 +111,7 @@ export default {
   opacity: 0;
   animation: fadein 0.3s 1;
   animation-fill-mode: forwards;
+  cursor: pointer;
   transition: width 0ms;
   &:hover {
     .title {

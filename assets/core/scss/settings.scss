@@ -41,11 +41,6 @@ $leading_Large: 2;
 $leading_ExtraLarge: 2.2;
 $leading_ExtraExtraLarge: 2.4;
 
-// --------------------------------------------------------------- Border Radius
-$borderRadius_Small: 0.1875rem; // 3px
-$borderRadius_Medium: 0.3125rem; // 5px
-$borderRadius_Large: 0.5rem; // 8px
-
 // ////////////////////////////////////////////////////////////////// Components
 // -----------------------------------------------------------------------------
 $navigationHeight: 5rem;
@@ -53,3 +48,26 @@ $navigationHeight: 5rem;
 // ///////////////////////////////////////////////////////////////////// General
 // -----------------------------------------------------------------------------
 $underlineSpacing: 0.1875rem;
+
+// --------------------------------------------------------------- Border Radius
+$borderRadius_Small: 0.1875rem; // 3px
+$borderRadius_Medium: 0.3125rem; // 5px
+$borderRadius_Large: 0.5rem; // 8px
+
+// -------------------------------------------------------------------- Coloring
+$site_backgroundColor: $gray50;
+$font_Color_Primary: black;
+$font_Color_Secondary: $gray600;
+
+$fill_Dark_Primary: black;
+$fill_Dark_Secondary: black;
+$fill_Dark_Tertiary: black;
+$fill_Light: $gray200;
+
+$highlight_Light: $gray400;
+$highlight_Medium: $gray600;
+$highlight_Dark: $gray800;
+
+$border_Color_Light: $gray200;
+$border_Color_Medium: $gray400;
+$border_Color_Dark: $gray600;

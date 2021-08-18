@@ -532,7 +532,6 @@ $paginateRoot_PaddingOffset: 3.5rem;
   margin: 0 $paginateRoot_PaddingOffset;
   font-weight: 600;
   text-align: center;
-  background-color: white;
   .clear-all-null-results {
     @include borderRadius_Medium;
     padding: 0.3125rem 0.75rem;

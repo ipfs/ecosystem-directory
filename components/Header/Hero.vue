@@ -217,7 +217,6 @@ export default {
 // ////////////////////////////////////////////////////////////////// Index View
 .index-view {
   &.hero-header {
-    background-color: transparent;
     margin-bottom: 3rem;
   }
 }
@@ -239,7 +238,6 @@ export default {
 // /////////////////////////////// Filters View (All Projects) & Filters Applied
 .filters-applied,
 .filters-view {
-  color: #181818;
   h1 {
     @include leading_Mini;
     font-weight: 500;
@@ -274,7 +272,6 @@ export default {
   .display-total {
     @include fontSize_Medium;
     font-weight: 300;
-    color: #181818;
   }
 }
 </style>

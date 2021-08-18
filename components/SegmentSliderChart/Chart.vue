@@ -1,5 +1,5 @@
 <template>
-  <div ref="chartFlex" class="chart-container">
+  <div id="segment-slider-chart" ref="chartFlex" class="chart-container">
     <div ref="segmentsCtn" class="segments-container">
 
       <div class="chart-title">
@@ -334,7 +334,6 @@ export default {
 }
 
 .chart-title {
-  color: #181818;
   visibility: hidden;
   padding: 4.75rem 0;
   @include medium {
@@ -362,7 +361,6 @@ export default {
 }
 
 .segments-tiny {
-  background-color: #ffffff;
   min-height: 10rem;
   top: 1.5rem;
 }
@@ -373,12 +371,7 @@ export default {
 
 // //////////////////////////////////////////////////////////////////// Segments
 .segment-foreground {
-  background-color: #052437;
   font-weight: bold;
-}
-
-.segment-background {
-  background-color: #3D8F96;
 }
 
 .block-segment {
@@ -430,7 +423,6 @@ export default {
 .segment-line {
   position: absolute;
   left: 50%;
-  background-color: rgba(0, 0, 0, 0.1);
   width: 2px;
   transform-origin: top left;
   @include small {

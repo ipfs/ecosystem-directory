@@ -211,14 +211,6 @@ export default {
       z-index: 10;
     }
   }
-  &.active {
-    color: white;
-    .svg-icon {
-      path {
-        stroke: white;
-      }
-    }
-  }
 }
 
 // ///////////////////////////////////////////// [Button] Clear selected filters

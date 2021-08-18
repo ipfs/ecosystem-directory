@@ -601,7 +601,6 @@ export default {
     font-weight: 600;
     &.primary-cta {
       @include borderRadius_Medium;
-      color: white;
       padding: 0.625rem 1.25rem;
       margin-right: 1.5rem;
       @include tiny {
@@ -978,7 +977,8 @@ export default {
   padding-top: 4.75rem;
   max-width: $containerWidth;
   margin: 0 auto;
-  border: 2px solid #E5E5E5;
+  border-width: 2px;
+  border-style: solid;
   @include mini {
     border: none;
     padding-top: 0;
@@ -1002,7 +1002,8 @@ export default {
 
 ::v-deep .project-card {
   .thumbnail {
-    border: 2px solid #F5F4F4;
+    border-width: 2px;
+    border-style: solid;
   }
 }
 </style>

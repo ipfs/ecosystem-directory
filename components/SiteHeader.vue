@@ -27,8 +27,6 @@ export default {
 <style lang="scss" scoped>
 // ///////////////////////////////////////////////////////////////////// General
 #site-header {
-  color: white;
   padding-top: $navigationHeight;
-  background: linear-gradient(to bottom, #041727 0, #062B3F);
 }
 </style>
