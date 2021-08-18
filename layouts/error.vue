@@ -1,51 +1,49 @@
 <template>
   <div class="error-page">
 
-    <section class="content">
-      <div class="grid">
-        <div class="col">
+    <div class="grid">
+      <div class="col">
 
-          <div class="breadcrumbs">
-            <Breadcrumbs v-if="breadcrumbsVisible" :breadcrumbs="pageData.breadcrumbs" />
-          </div>
+        <Breadcrumbs
+          v-if="breadcrumbsVisible"
+          :breadcrumbs="pageData.breadcrumbs" />
 
-          <div class="segments-container">
+        <div class="segments-container">
 
-            <div class="segments-row">
+          <div class="segments-row">
 
-              <div
-                v-for="(width, i) in segmentsBefore"
-                :key="`segment-before-${i}`"
-                class="block-segment"
-                :style="`width: ${width}%`">
-              </div>
-
-              <div class="block-404">
-                <p class="four-o-four">
-                  404
-                </p>
-              </div>
-
-              <div
-                v-for="(width, i) in segmentsAfter"
-                :key="`segment-after-${i}`"
-                class="block-segment"
-                :style="`width: ${width}%`">
-              </div>
-
+            <div
+              v-for="(width, i) in segmentsBefore"
+              :key="`segment-before-${i}`"
+              class="block-segment"
+              :style="`width: ${width}%`">
             </div>
 
-            <div class="prompt">
-              {{ pageData.message + ' ' }}
-              <a :href="pageData.link.href" class="prompt-link">
-                {{ pageData.link.prompt }}
-              </a>
+            <div class="block-404">
+              <p class="four-o-four">
+                404
+              </p>
+            </div>
+
+            <div
+              v-for="(width, i) in segmentsAfter"
+              :key="`segment-after-${i}`"
+              class="block-segment"
+              :style="`width: ${width}%`">
             </div>
 
           </div>
+
+          <div class="prompt">
+            {{ pageData.message + ' ' }}
+            <a :href="pageData.link.href" class="prompt-link">
+              {{ pageData.link.prompt }}
+            </a>
+          </div>
+
         </div>
       </div>
-    </section>
+    </div>
 
   </div>
 </template>
@@ -128,7 +126,7 @@ export default {
 }
 
 .breadcrumbs {
-  padding: 1.5rem 0;
+  padding: 3rem 0;
 }
 
 .segments-container {
@@ -156,7 +154,6 @@ export default {
 }
 
 .block-segment {
-  background-color: #3D8F96;
   flex: 0 1 auto;
   @include tiny {
     display: none;
@@ -169,7 +166,6 @@ export default {
   padding: 2.25rem;
   color: white;
   text-align: center;
-  background-color: #052437;
   .four-o-four {
     font-size: 5rem;
     font-weight: 600;

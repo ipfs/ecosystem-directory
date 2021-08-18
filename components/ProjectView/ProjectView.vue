@@ -110,7 +110,6 @@
           </PaginationControls>
 
           <ResultsPerPageSelector
-            id="results-per-page-selector"
             :label="resultsPerPageDropdownLabel"
             :collection="sortedCollection"
             @changed="resultsPerPageSelectorChanged">

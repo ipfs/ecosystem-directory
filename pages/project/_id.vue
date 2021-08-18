@@ -691,7 +691,8 @@ export default {
     }
   }
   &.case-study {
-    border: 2px solid;
+    border-width: 2px;
+    border-style: solid;
     @include tiny {
       padding: 3rem 2rem;
     }

@@ -57,11 +57,11 @@
       <div id="filter-panel-controls" class="bottom-buttons">
         <button
           v-if="selectedTags.length"
-          class="clear-selected"
+          class="clear-selected-button"
           @click="clearSelected">
           {{ clearSelectedFiltersButtonText }}
         </button>
-        <button class="done" @click="closePanel">
+        <button class="done-button" @click="closePanel">
           {{ submitButtonText }}
         </button>
       </div>
@@ -244,16 +244,12 @@ export default {
   height: 0px;
 }
 
-.active-button {
-  color: #ffffff;
-}
-
 #filter-panel-controls {
   display: flex;
   flex-wrap: wrap;
   margin-top: 2rem;
-  .clear-selected,
-  .done {
+  .clear-selected-button,
+  .done-button {
     @include borderRadius_Medium;
     padding: 0.4rem 1.2rem;
     font-size: 10pt;
@@ -263,11 +259,10 @@ export default {
       transition: 250ms ease-in;
     }
   }
-  .clear-selected {
+  .clear-selected-button {
     margin-left: 0;
   }
-  .done {
-    color: white;
+  .done-button {
     font-weight: bold;
   }
 }
@@ -276,9 +271,6 @@ export default {
 .filter-category {
   &.container {
     margin-bottom: 1rem;
-  }
-  &:hover {
-    cursor: pointer;
   }
   &.heading-wrapper {
     display: flex;

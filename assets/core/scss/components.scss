@@ -7,6 +7,15 @@
 
 // ////////////////////////////////////////////////////////////////// Navigation
 // -----------------------------------------------------------------------------
+#header-navigation {
+  &:before {
+    background: $fill_Dark_Primary;
+  }
+  .modal-background {
+    background: $fill_Dark_Primary;
+  }
+}
+
 .navigation-link {
   @include leading_Small;
   display: inline-block;
@@ -42,7 +51,7 @@
 #header-hero {
   .index-view {
     .breadcrumb-link {
-      color: $highlight_Medium;
+      color: $highlight_Light;
     }
   }
   &.filters-applied,
@@ -107,6 +116,18 @@
   }
 }
 
+// //////////////////////////////////////////////////////////////// Project Card
+// -----------------------------------------------------------------------------
+.project-card {
+  .title {
+    color: $fill_Dark_Primary;
+    font-family: $font_Secondary;
+  }
+  .description {
+    color: $font_Color_Secondary;
+  }
+}
+
 // ///////////////////////////////////////////////////////////////////// Toolbar
 // -----------------------------------------------------------------------------
 // ------------------------------------------------ [Toggle Button] Filter Panel
@@ -147,23 +168,48 @@
 .filter-bar {
   .input {
     background-color: $fill_Light;
+    font-family: $font_Secondary;
   }
 }
 
 // //////////////////////////////////////////////////////////////// Filter Panel
 // -----------------------------------------------------------------------------
+// --------------------------------------------------------------------- General
 #filter-panel {
   .filter-category {
     &.heading {
       font-family: $font_Secondary;
     }
+    &.sub-heading {
+      font-family: $font_Primary;
+    }
+  }
+}
+
+// -------------------------------------------------------------------- Controls
+#filter-panel-controls {
+  font-family: $font_Secondary;
+  .clear-selected-button,
+  .done-button {
+    &:hover {
+      color: white;
+      background-color: $highlight_Dark;
+    }
+  }
+  .clear-selected-button {
+    background-color: $fill_Light;
+    color: $fill_Dark_Primary;
+  }
+  .done-button {
+    color: white;
+    background-color: $fill_Dark_Primary;
   }
 }
 
 // //////////////////////////////////////////////////////////////// Project List
 // -----------------------------------------------------------------------------
+// --------------------------------------------------------------------- General
 #project-view-container {
-  // -------------------------------------------------- Null Results Placeholder
   .placeholder-results-empty {
     background-color: white;
     .clear-all-null-results {
@@ -172,6 +218,20 @@
         background-color: $highlight_Dark;
       }
     }
+  }
+}
+
+#results-per-page-selector {
+  background-color: white;
+  .dropdown-list {
+    background-color: white;
+    &:after {
+      background-color: white;
+    }
+  }
+  .highlighted {
+    color: white;
+    background-color: $highlight_Light;
   }
 }
 
@@ -189,9 +249,11 @@
   padding: 0.3125rem 0.75rem;
   font-weight: 500;
   background-color: $fill_Light;
+  cursor: pointer;
   transition: 250ms ease-out;
   &.active-button {
     background-color: $fill_Dark_Primary;
+    color: white;
   }
   &:hover {
     transition: 250ms ease-in;
@@ -262,6 +324,12 @@
 // -----------------------------------------------------------------------------
 // --------------------------------------------------------------------- General
 .page-project {
+  .breadcrumb-link {
+    color: $highlight_Medium;
+  }
+  .company {
+    font-family: $font_Primary;
+  }
   .ctas {
     a {
       &.primary-cta {
@@ -324,6 +392,48 @@
       &::-ms-fill-upper {
         background: $border_Color_Dark;
       }
+    }
+  }
+}
+
+// ////////////////////////////////////////////////////////////// 404/Error Page
+// -----------------------------------------------------------------------------
+.error-page {
+  .breadcrumb-link {
+    color: $highlight_Medium;
+  }
+  .block-segment {
+    background-color: $highlight_Medium;
+  }
+  .block-404 {
+    background-color: $fill_Dark_Primary;
+  }
+}
+
+// ///////////////////////////////////////////////////////////////// Site Footer
+// -----------------------------------------------------------------------------
+#site-footer {
+  color: white;
+  background-color: $fill_Dark_Primary;
+  .subheading,
+  .copyright {
+    a {
+      color: $highlight_Light;
+    }
+  }
+  .navigation-link {
+    font-family: $font_Secondary;
+  }
+}
+
+#mailchimp-form {
+  input {
+    &[type="submit"] {
+      background-color: $highlight_Medium;
+    }
+    &[type="email"] {
+      background-color: white;
+      color: black;
     }
   }
 }

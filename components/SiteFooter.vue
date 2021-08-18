@@ -85,8 +85,6 @@ export default {
 // ///////////////////////////////////////////////////////////////////// General
 #site-footer {
   padding: 4rem 0;
-  background: linear-gradient(180deg, #041727 0, #062B3F);
-  color: white;
   @include small {
     padding: 2rem 0;
   }
@@ -151,10 +149,8 @@ export default {
     }
     &[type="email"] {
       flex: 1;
-      background-color: white;
       padding: 0.5rem;
       line-height: 1.5;
-      color: black;
     }
     &[type="submit"] {
       padding: 0 0.75rem;
@@ -169,7 +165,6 @@ export default {
       }
       &:hover {
         transition: 250ms ease-in;
-        background-color: #66989A;
       }
     }
   }
@@ -190,7 +185,6 @@ export default {
 }
 
 .navigation-link {
-  color: white;
   &:not(:last-child) {
     margin-right: 1.6875rem;
   }
