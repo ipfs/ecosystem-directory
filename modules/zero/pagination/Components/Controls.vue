@@ -3,20 +3,20 @@
 
     <template v-if="currentPage !== 1">
       <button
-        class="control-button first"
+        class="control-button first focus-visible"
         @click="navigateToPage(1)">
 
         <slot name="first-page"></slot>
 
       </button>
       <button
-        class="control-button prev"
+        class="control-button prev focus-visible"
         @click="navigateToPage(currentPage - 1)">
 
         <slot name="prev-page"></slot>
 
       </button>
-      <div class="breaker">
+      <div class="breaker focus-visible">
         {{ breaker }}
       </div>
     </template>
@@ -24,24 +24,24 @@
     <button
       v-for="page in pages"
       :key="`page-${page.num}`"
-      :class="['page-button', { current: page.current, display: page.display }]"
+      :class="['page-button', 'focus-visible', { current: page.current, display: page.display }]"
       @click="navigateToPage(page.num)">
       {{ page.num }}
     </button>
 
     <template v-if="currentPage !== totalPages">
-      <div class="breaker">
+      <div class="breaker focus-visible">
         {{ breaker }}
       </div>
       <button
-        class="control-button next"
+        class="control-button next focus-visible"
         @click="navigateToPage(currentPage + 1)">
 
         <slot name="next-page"></slot>
 
       </button>
       <button
-        class="control-button last"
+        class="control-button last focus-visible"
         @click="navigateToPage(totalPages)">
 
         <slot name="last-page"></slot>

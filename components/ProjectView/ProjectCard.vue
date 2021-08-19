@@ -4,7 +4,8 @@
     :to="navigateToProject"
     :href="primaryCta"
     :target="primaryCta ? '_blank' : null"
-    :class="['project-card', format]">
+    tabindex="0"
+    :class="['project-card', 'focus-visible', format]">
     <div class="card-inner-wrapper">
 
       <div class="thumbnail">

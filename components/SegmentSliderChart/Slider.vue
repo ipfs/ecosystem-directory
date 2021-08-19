@@ -7,7 +7,7 @@
 
       <div class="slide-nav">
         <button
-          class="nav-arrow"
+          class="nav-arrow focus-visible"
           @click="incrementSelection(selectedSeg - 1)">
           <PrevArrow
             width="10"
@@ -22,7 +22,7 @@
         </h3>
 
         <button
-          class="nav-arrow"
+          class="nav-arrow focus-visible"
           @click="incrementSelection(selectedSeg + 1)">
           <NextArrow
             width="10"
@@ -55,7 +55,7 @@
       </div>
 
       <button
-        class="view-all button noselect"
+        class="view-all button noselect focus-visible"
         @click="jump2Filters">
         {{ filterToggleButtonText }}
       </button>
@@ -291,7 +291,6 @@ export default {
   }
   &:focus {
     outline: none;
-    box-shadow: none;
   }
 }
 
@@ -346,7 +345,6 @@ export default {
   }
   &:focus {
     outline: none;
-    box-shadow: none;
   }
 }
 

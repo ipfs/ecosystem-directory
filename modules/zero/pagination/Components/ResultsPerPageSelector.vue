@@ -3,7 +3,8 @@
     :is="rootNode"
     id="results-per-page-selector"
     v-click-outside="closeAllSelect"
-    :class="['dropdown-root', { closed }]">
+    :class="['dropdown-root', 'focus-visible', { closed }]"
+    @keyup.enter="toggleDropdown()">
 
     <div class="dropdown dropdown-button" @click.stop="toggleDropdown()">
 
@@ -11,11 +12,11 @@
         {{ label + (display === totalItems ? 'All' : display) }}
       </label>
 
-      <button class="dropdown dropdown-slot">
+      <div class="dropdown dropdown-slot">
 
         <slot name="dropdown-icon"></slot>
 
-      </button>
+      </div>
 
     </div>
 
@@ -25,9 +26,11 @@
           v-if="!isNaN(option)"
           :key="`div-option-${option}`"
           :value="option"
-          class="dropdown dropdown-item"
+          :tabindex="closed ? -1 : 0"
+          class="dropdown dropdown-item focus-visible"
           :class="{ highlighted: (display === option) }"
-          @click="optionSelected(option)">
+          @click="optionSelected(option)"
+          @keyup.enter="optionSelected(option)">
           {{ option === totalItems ? 'All' : option }}
         </div>
       </template>
@@ -49,7 +52,7 @@ export default {
     rootNode: {
       type: String,
       required: false,
-      default: 'div'
+      default: 'button'
     },
     label: {
       type: String,

@@ -61,3 +61,14 @@
     border-color: rgba($showcaseGray, 0.5);
   }
 }
+
+// /////////////////////////////////////////////////////////////// Accessibility
+// -----------------------------------------------------------------------------
+.breadcrumb-link,
+.project-card,
+.pagination-controls .page-button,
+.pagination-controls .control-button,
+#site-footer a,
+.page-project .focus-visible {
+  @include borderRadius_Medium;
+}
