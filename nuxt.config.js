@@ -63,7 +63,7 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Proof of concepts for AU web frontend implementations in NuxtJS' }
+      { hid: 'description', name: 'description', content: 'Interactive IPFS ecosystem directory and showcase.' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon/favicon.ico' }
