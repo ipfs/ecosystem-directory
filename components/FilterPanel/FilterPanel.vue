@@ -16,10 +16,10 @@
             :active="active"
             :selected="true"
             class="filter-category container">
-            <AccordionHeader class="filter-category heading-wrapper focus-visible">
+            <AccordionHeader class="filter-category heading-wrapper">
               <div
                 tabindex="0"
-                class="filter-category heading">
+                class="filter-category heading focus-visible">
                 {{ heading.label }}
                 <span class="filter-category number-active">
                   {{ numberInCategory[heading.slug] }} of {{ heading.tags.length }}
