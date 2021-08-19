@@ -41,6 +41,7 @@
           v-model="range"
           type="range"
           step="0.1"
+          class="focus-visible"
           :min="indices / 2"
           :max="indices * indices + 1">
       </div>

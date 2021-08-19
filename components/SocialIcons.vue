@@ -1,7 +1,7 @@
 <template>
   <div v-if="icons" class="social-icons-container">
 
-    <div class="social-icons" v-html="icons"></div>
+    <div ref="container" class="social-icons" v-html="icons"></div>
 
   </div>
 </template>
@@ -25,6 +25,12 @@ export default {
       }
       return false
     }
+  },
+
+  mounted () {
+    Array.from(this.$refs.container.children).forEach((child) => {
+      child.classList.add('focus-visible')
+    })
   }
 }
 </script>
