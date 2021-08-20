@@ -158,12 +158,11 @@ $teal-x-dark: #04202F;
       margin-bottom: 15px;
 
       .ecodir_slider {
-        padding-bottom: 5px;
-
+        
         .ecodir_slider-row-container {
           position: relative;
           width: 360px;
-          padding-top: 10px;
+          padding: 10px 5px 30px;
           margin: 0 auto;
 
           overflow: hidden;
@@ -395,7 +394,7 @@ $teal-x-dark: #04202F;
       .ecodir_card {
 
         &.active {
-          box-shadow: 3px 3px 15px rgba($grey, 0.5);
+          box-shadow: 3px 3px 13px rgba($grey, 0.5);
         }
 
         p.ecodir_card-title {
@@ -614,6 +613,8 @@ $teal-x-dark: #04202F;
 
     .ecodir_filters {
       justify-content: flex-start;
+      padding-left: 10px;
+      
       .ecodir_dropdown-wrapper {
         margin-right: 36px;
       }

@@ -192,16 +192,18 @@ function ecodir_initDirectory(el) {
       },
       updateSliderDisplay () {
         if (!this.$el) return
-        const ecodir_sliderEl = this.$el.querySelector('.ecodir_slider')
-        const ecodir_sliderRowEl = this.$el.querySelector('.ecodir_slider-row-container')
-        const ecodir_sliderCardEl = this.$el.querySelector('.ecodir_card')
-        const ecodir_cardWidth = ecodir_sliderCardEl.clientWidth
-        const ecodir_horizontalCardCount = Math.floor(ecodir_sliderEl.offsetWidth/ecodir_cardWidth)
+        setTimeout(() => {
+          const ecodir_sliderEl = this.$el.querySelector('.ecodir_slider')
+          const ecodir_sliderRowEl = this.$el.querySelector('.ecodir_slider-row-container')
+          const ecodir_sliderCardEl = this.$el.querySelector('.ecodir_card')
+          const ecodir_cardWidth = ecodir_sliderCardEl.clientWidth
+          const ecodir_horizontalCardCount = Math.floor(ecodir_sliderEl.offsetWidth/ecodir_cardWidth)
 
-        this.cardWidth = ecodir_cardWidth
-        ecodir_sliderRowEl.style.width = `${(ecodir_horizontalCardCount * ecodir_cardWidth) + 20}px`
-        this.display = ecodir_horizontalCardCount * 2
-        this.range = this.indices * Math.min(this.currentIndex, this.indices / 2)
+          this.cardWidth = ecodir_cardWidth
+          ecodir_sliderRowEl.style.width = `${(ecodir_horizontalCardCount * ecodir_cardWidth) + 10}px`
+          this.display = ecodir_horizontalCardCount * 2
+          this.range = this.indices * Math.min(this.currentIndex, this.indices / 2)
+        }, 5)
       },
     },
     computed: {
@@ -300,6 +302,7 @@ function ecodir_initDirectory(el) {
       this.$parent.projectWrapperEl = this.$el.querySelector('.ecodir_project-view-wrapper')
       this.setProjectContainerVisibility()
       Vue.nextTick(() => setTimeout(this.setProjectContainerVisibility, 1500))
+      window.addEventListener('resize', this.setProjectContainerVisibility)
     },
     watch: {
       project () {
