@@ -155,10 +155,12 @@ export default {
       this.setRouteQuery({ key: 'filters', data: 'enabled' })
       this.setRouteQuery({ key: 'tags', data: slug })
       this.setFilterPanelOpen(true)
-      this.$Countly.trackEvent('Segment Chart | View All Button Clicked', {
-        label: category.label,
-        slug: category.slug
-      })
+      if (this.$Countly) {
+        this.$Countly.trackEvent('Segment Chart | View All Button Clicked', {
+          label: category.label,
+          slug: category.slug
+        })
+      }
     },
     onSwipe (e) {
       if (e.type === 'swipeleft') {

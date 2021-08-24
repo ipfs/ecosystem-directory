@@ -207,11 +207,13 @@ export default {
 
   watch: {
     selectedSeg (val) {
-      const segment = this.segmentCollection[val]
-      this.$Countly.trackEvent('Segment Chart | Segment Clicked', {
-        label: segment.label,
-        slug: segment.slug
-      })
+      if (this.$Countly) {
+        const segment = this.segmentCollection[val]
+        this.$Countly.trackEvent('Segment Chart | Segment Clicked', {
+          label: segment.label,
+          slug: segment.slug
+        })
+      }
     }
   },
 

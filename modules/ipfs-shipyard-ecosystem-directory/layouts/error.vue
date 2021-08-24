@@ -100,10 +100,12 @@ export default {
   },
 
   mounted () {
-    this.$Countly.trackEvent('404_NOT_FOUND', {
-      path: this.$route.path,
-      referrer: document.referrer
-    })
+    if (this.$Countly) {
+      this.$Countly.trackEvent('404_NOT_FOUND', {
+        path: this.$route.path,
+        referrer: document.referrer
+      })
+    }
   },
 
   methods: {

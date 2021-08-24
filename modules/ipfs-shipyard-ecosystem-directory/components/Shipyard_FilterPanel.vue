@@ -105,11 +105,13 @@ const toggleAllCategoryTags = (instance, heading) => {
         state = 'off'
         instance.clearRouteQueryTags(heading)
       }
-      instance.$Countly.trackEvent('Filter Chiclet Clicked', {
-        tag: 'all',
-        category: heading,
-        state
-      })
+      if (instance.$Countly) {
+        instance.$Countly.trackEvent('Filter Chiclet Clicked', {
+          tag: 'all',
+          category: heading,
+          state
+        })
+      }
     }
   })
 }
@@ -201,11 +203,13 @@ export default {
       return false
     },
     applyFilter (tag, category) {
-      this.$Countly.trackEvent('Filter Chiclet Clicked', {
-        tag,
-        category,
-        state: this.routeQuery.tags.includes(tag) ? 'off' : 'on'
-      })
+      if (this.$Countly) {
+        this.$Countly.trackEvent('Filter Chiclet Clicked', {
+          tag,
+          category,
+          state: this.routeQuery.tags.includes(tag) ? 'off' : 'on'
+        })
+      }
       this.setRouteQuery({ key: 'tags', data: tag })
     },
     toggleAll (heading) {

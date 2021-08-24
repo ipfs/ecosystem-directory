@@ -250,9 +250,11 @@ export default {
     searchQuery (query) {
       clearTimeout(this.searchQueryTimer)
       this.searchQueryTimer = setTimeout(() => {
-        this.$Countly.trackEvent('Filter Panel Search Input', {
-          query
-        })
+        if (this.$Countly) {
+          this.$Countly.trackEvent('Filter Panel Search Input', {
+            query
+          })
+        }
       }, 500)
     }
   },
@@ -300,10 +302,12 @@ export default {
     },
     toggleFilterPanel (button) {
       this.setFilterPanelOpen(!this.filterPanelOpen)
-      this.$Countly.trackEvent('Filter Panel Toggled', {
-        button,
-        state: this.filterPanelOpen ? 'open' : 'closed'
-      })
+      if (this.$Countly) {
+        this.$Countly.trackEvent('Filter Panel Toggled', {
+          button,
+          state: this.filterPanelOpen ? 'open' : 'closed'
+        })
+      }
       if (!this.routeQuery.hasOwnProperty('filters') || this.routeQuery.filters !== 'enabled') {
         this.setRouteQuery({ key: 'filters', data: 'enabled' })
       }
@@ -314,9 +318,11 @@ export default {
     },
     toggleListBlockView () {
       this.listViewActive = !this.listViewActive
-      this.$Countly.trackEvent('Grid-List View Toggled', {
-        view: this.listViewActive ? 'list' : 'grid'
-      })
+      if (this.$Countly) {
+        this.$Countly.trackEvent('Grid-List View Toggled', {
+          view: this.listViewActive ? 'list' : 'grid'
+        })
+      }
     },
     clearSelectedFilters () {
       this.$refs.filterPanel.clearSelected()
@@ -326,15 +332,19 @@ export default {
       }, 100)
     },
     navigateToPage (page) {
-      this.$Countly.trackEvent('Pagination Button Clicked', { page })
+      if (this.$Countly) {
+        this.$Countly.trackEvent('Pagination Button Clicked', { page })
+      }
     },
     resultsPerPageSelectorChanged (change) {
-      const event = change.event
-      const data = change.data
-      if (event === 'toggleDropdown') {
-        this.$Countly.trackEvent('Results-Per-Page Dropdown Toggled', data)
-      } else if (event === 'optionSelected') {
-        this.$Countly.trackEvent('Results-Per-Page Option Selected', data)
+      if (this.$Countly) {
+        const event = change.event
+        const data = change.data
+        if (event === 'toggleDropdown') {
+          this.$Countly.trackEvent('Results-Per-Page Dropdown Toggled', data)
+        } else if (event === 'optionSelected') {
+          this.$Countly.trackEvent('Results-Per-Page Option Selected', data)
+        }
       }
     }
   }

@@ -59,8 +59,6 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
-    // Doc: https://github.com/nuxt-community/analytics-module
-    // '@nuxtjs/google-analytics', // removed dependencies for Vue Analytics due to issues
     // Doc: https://github.com/nuxt-community/moment-module#readme
     '@nuxtjs/moment'
   ],
@@ -99,7 +97,9 @@ export default {
   axios: {},
   // ////////////////////////////////////////////////////////// [Module] Countly
   // ---------------------------------------------------------------------------
+  // Doc: https://support.count.ly/hc/en-us/articles/360037441932-Web-analytics-JavaScript
   countly: {
+    initialize: true, // if set to false, Countly will be DISABLED
     debug: process.env.NODE_ENV === 'development',
     disableInDevelopment: true,
     suppressErrorLogs: true
@@ -109,9 +109,7 @@ export default {
   plugins: [
     '~/modules/zero/core/Plugins/click-outside',
     '~/modules/zero/core/Plugins/scroll-to',
-    '~/modules/zero/core/Plugins/nuxt-hammer',
-    // Doc: https://support.count.ly/hc/en-us/articles/360037441932-Web-analytics-JavaScript
-    { src: '~/plugins/countly', mode: 'client' }
+    '~/modules/zero/core/Plugins/nuxt-hammer'
   ],
   // /////////////////////////////////////////////////////// Router + Middleware
   // ---------------------------------------------------------------------------

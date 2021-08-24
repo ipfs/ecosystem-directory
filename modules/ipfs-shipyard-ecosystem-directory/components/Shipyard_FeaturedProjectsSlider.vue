@@ -156,11 +156,13 @@ export default {
       }
     },
     projectCardClicked (project) {
-      this.$Countly.trackEvent('Featured Slider | Project Card Clicked', {
-        name: project.name,
-        slug: project.slug,
-        from: this.parent
-      })
+      if (this.$Countly) {
+        this.$Countly.trackEvent('Featured Slider | Project Card Clicked', {
+          name: project.name,
+          slug: project.slug,
+          from: this.parent
+        })
+      }
     }
   }
 }

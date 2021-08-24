@@ -216,7 +216,18 @@ const compileStore = (instance) => {
 // ///////////////////////////////////////////////////////////// registerPlugins
 const registerPlugins = (instance) => {
   return new Promise((next) => {
-    plugins.forEach(plugin => instance.addPlugin(plugin))
+    // Add all required plugins
+    plugins.forEach((plugin) => {
+      instance.addPlugin(plugin)
+    })
+    // Add Countly plugin if required
+    const initialize = instance.options.hasOwnProperty('countly') && instance.options.countly.initialize
+    if (initialize) {
+      instance.addPlugin({
+        src: Path.resolve(instance.options.rootDir, 'modules/zero/core/Plugins/countly.js'),
+        filename: 'ipfs-shipyard-ecosystem-directory/countly.js'
+      })
+    }
     next()
   })
 }
