@@ -17,10 +17,12 @@ const paths = {
 */
 const compilePaths = (instance) => {
   const appRootDir = instance.options.rootDir
+  console.log(appRootDir)
   return new Promise((next) => {
     Object.keys(paths).map((key) => {
       paths[key] = `${appRootDir}/${paths[key]}`
     })
+    console.log(paths)
     next()
   })
 }
@@ -29,6 +31,7 @@ const compilePaths = (instance) => {
   Grab the project list and generate an array of slugs based on project filenames
 */
 const getSlugs = async () => {
+  console.log(paths)
   try {
     const slugs = await Fs.readdirSync(paths.projects)
       .filter(obj => obj !== '.DS_Store')
