@@ -1,0 +1,1 @@
+// At least one store file must exist in this @/store directory. If you are using a store, you can delete this file. If you are not using a store then this is a required file and should be commited to your git repo. DO NOT DELETE.

@@ -1,0 +1,66 @@
+{
+  "categories": [
+    {
+      "label": "Industry",
+      "sublabel": "Filter by primary application area",
+      "slug": "industry",
+      "tags": [
+        {
+          "label": "Browsers",
+          "slug": "browsers",
+          "description": "Projects bringing technology into the browser, or melding browser-like capabilities with technology."
+        },
+        {
+          "label": "Data & machine learning",
+          "slug": "data-machine-learning",
+          "description": "Projects using technology to improve availability, reliability, and more for datasets of all sizes."
+        }
+      ]
+    },
+    {
+      "label": "Focus areas",
+      "sublabel": "Filter by entityTerm focus or specialty",
+      "slug": "focus",
+      "tags": [
+        {
+          "label": "Community networks",
+          "slug": "community-networks"
+        },
+        {
+          "label": "Developer tools",
+          "slug": "dev-tools"
+        }
+      ]
+    }
+  ],
+  "sort": {
+    "a_z": {
+      "type": "alphabetical",
+      "key": "name",
+      "slug": "a-z",
+      "label": "Alphabetical (A-Z)",
+      "direction": "DESC"
+    },
+    "z_a": {
+      "type": "alphabetical",
+      "key": "name",
+      "slug": "z-a",
+      "label": "Alphabetical (Z-A)",
+      "direction": "ASC"
+    },
+    "date_desc": {
+      "type": "number",
+      "slug": "time-descending",
+      "label": "Time (newer)",
+      "direction": "DESC",
+      "sortNumber": "since"
+    },
+    "date_asc": {
+      "type": "number",
+      "slug": "time-ascending",
+      "label": "Time (older)",
+      "direction": "ASC",
+      "sortNumber": "since"
+    }
+  }
+}

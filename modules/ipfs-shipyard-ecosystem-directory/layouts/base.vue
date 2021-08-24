@@ -1,7 +1,11 @@
 <template>
   <div class="master-container">
 
+    <Shipyard_SiteHeader />
+
     <nuxt />
+
+    <Shipyard_SiteFooter />
 
   </div>
 </template>

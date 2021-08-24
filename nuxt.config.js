@@ -1,37 +1,13 @@
 /* eslint require-await: "off" */
 
-import Routes from './content/data/project-routes.json'
-import Settings from './content/data/settings.json'
-
 export default {
   // //////////////////////////////////////////// Static Site Generation Options
   // ---------------------------------------------------------------------------
   target: 'static',
-  generate: {
-    routes (a, b) {
-      return Routes.concat([{ route: Settings.behavior.showcaseBaseRoute }])
-    }
-  },
   // ///////////////////////////////////////////////////// Runtime Configuration
   // ---------------------------------------------------------------------------
   // ---------------------------------------------------------- [Runtime] Public
   publicRuntimeConfig: {
-    backendUrl: (function () {
-      const env = process.env.SERVER_ENV
-      let uri = 'https://localhost:21000' // development
-      switch (env) {
-        case 'stable': uri = ''; break
-        case 'production': uri = ''; break
-      } return uri
-    }()),
-    apolloURI: (function () {
-      const env = process.env.SERVER_ENV
-      let uri = 'https://localhost:21000/graphql' // development
-      switch (env) {
-        case 'stable': uri = ''; break
-        case 'production': uri = ''; break
-      } return uri
-    }()),
     countlyAppKey: process.env.COUNTLY_APP_KEY,
     countlySiteUrl: process.env.COUNTLY_SITE_URL,
     nodeEnv: process.env.NODE_ENV
@@ -41,14 +17,7 @@ export default {
   // /////////////////////////////////////////////////////////// Server & Render
   // ---------------------------------------------------------------------------
   server: {
-    port: (function () {
-      const env = process.env.SERVER_ENV
-      let port = 20000 // development
-      switch (env) {
-        case 'stable': port = 20001; break
-        case 'production': port = 20002; break
-      } return port
-    }()),
+    port: 20000,
     host: process.env.NODE_ENV !== 'development' ? '0.0.0.0' : 'localhost'
   },
   render: {
@@ -59,11 +28,9 @@ export default {
   // /////////////////////////////////////////////////////// Headers of the Page
   // ---------------------------------------------------------------------------
   head: {
-    title: 'IPFS Ecosystem Directory',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Interactive IPFS ecosystem directory and showcase.' }
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon/favicon.ico' }
@@ -78,13 +45,13 @@ export default {
   // /////////////////////////////////////////////////////////// Global CSS/SCSS
   // ---------------------------------------------------------------------------
   css: [
-    '~/assets/core/scss/main.scss', // core
-    '~/assets/theme/scss/main.scss' // theme
+    // '~/assets/core/scss/main.scss' // core
+    '~/assets/scss/main.scss' // theme
   ],
   styleResources: {
     scss: [
-      '~/assets/core/scss/utilities.scss', // core
-      '~/assets/theme/scss/utilities.scss' // theme
+      // '~/assets/core/scss/utilities.scss' // core
+      '~/assets/scss/utilities.scss' // theme
     ]
   },
   // /////////////////////////////////////////////////////// Nuxt.js Dev Modules
@@ -102,6 +69,7 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '~/modules/ipfs-shipyard-ecosystem-directory',
     // Doc: https://github.com/nuxt-community/style-resources-module/
     '@nuxtjs/style-resources',
     // Collection of helper modules, plugins and functions
@@ -139,10 +107,8 @@ export default {
   // /////////////////////////////////// Plugins to load before mounting the App
   // ---------------------------------------------------------------------------
   plugins: [
-    '~/plugins/directives',
-    '~/plugins/global-methods',
-    '~/plugins/taxonomy-methods',
-    '~/plugins/scroll-to',
+    '~/modules/zero/core/Plugins/click-outside',
+    '~/modules/zero/core/Plugins/scroll-to',
     '~/modules/zero/core/Plugins/nuxt-hammer',
     // Doc: https://support.count.ly/hc/en-us/articles/360037441932-Web-analytics-JavaScript
     { src: '~/plugins/countly', mode: 'client' }

@@ -20,6 +20,7 @@ const ToasterPlugin = Path.resolve(__dirname, 'Plugins/toaster.js')
 const UUIDPlugin = Path.resolve(__dirname, 'Plugins/uuid.js')
 const VueLsPlugin = Path.resolve(__dirname, 'Plugins/vue-ls.js')
 const GetScrollSpeedPlugin = Path.resolve(__dirname, 'Plugins/get-scroll-speed.js')
+const ScrollToPlugin = Path.resolve(__dirname, 'Plugins/scroll-to.js')
 
 // /////////////////////////////////////////////////////////////////// Functions
 // -----------------------------------------------------------------------------

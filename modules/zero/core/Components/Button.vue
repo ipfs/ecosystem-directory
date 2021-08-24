@@ -33,7 +33,7 @@
 // ===================================================================== Imports
 import { mapGetters, mapActions } from 'vuex'
 
-import LoaderTripleDot from '@/components/Spinners/TripleDot'
+import LoaderTripleDot from '@/modules/zero/core/Components/Spinners/TripleDot'
 
 // ===================================================================== Functions
 const checkSlots = (instance) => {

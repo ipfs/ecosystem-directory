@@ -8,10 +8,10 @@
   },
   "private": true,
   "scripts": {
-    "dev": "node manifestor.js && nuxt",
+    "dev": "nuxt",
     "start": "nuxt start",
-    "build": "node manifestor.js && nuxt build",
-    "generate": "node manifestor.js && nuxt generate --fail-on-error",
+    "build": "nuxt build",
+    "generate": "nuxt generate --fail-on-error",
     "launch": "nuxt build && pm2 restart ipfs-ecosystem-directory",
     "reload": "pm2 restart ipfs-ecosystem-directory"
   },
