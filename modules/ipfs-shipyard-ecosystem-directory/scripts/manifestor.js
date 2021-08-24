@@ -133,7 +133,6 @@ const Manifestor = async (instance) => {
   try {
     console.log('🚀️ Manifest projects started')
     await compilePaths(instance)
-    console.log(paths)
     const slugs = await getSlugs()
     const payload = await generateProjectManifestFiles(slugs)
     await Fs.writeFileSync(paths.project_routes, JSON.stringify(payload.routes))

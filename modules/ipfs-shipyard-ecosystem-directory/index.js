@@ -89,6 +89,9 @@ const runCheckers = (instance) => {
     const appRootDir = instance.options.rootDir
     const entities = [
       { type: 'dir', path: `${appRootDir}/static/content` },
+      { type: 'dir', path: `${appRootDir}/pages` },
+      { type: 'dir', path: `${appRootDir}/components` },
+      { type: 'dir', path: `${appRootDir}/store` },
       { type: 'file', path: `${appRootDir}/store/index.js`, data: '// At least one store file must exist in this @/store directory. If you are using a store, you can delete this file. If you are not using a store then this is a required file and should be commited to your git repo. DO NOT DELETE.' }
     ]
     entities.forEach((entity) => {
