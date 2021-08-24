@@ -3,6 +3,7 @@
 const Fs = require('fs-extra')
 
 const paths = {
+  prefixed: false, // key to ensure path prefixing only happens once during compile
   projects: `content/projects`,
   taxonomies: `static/content/core_taxonomy.json`,
   project_routes: `static/content/project-routes.json`,
@@ -13,16 +14,17 @@ const paths = {
 // /////////////////////////////////////////////////////////////////// Functions
 // -----------------------------------------------------------------------------
 /*
-  Grab the project list and generate an array of slugs based on project filenames
+  Prefix paths with the application root directory
 */
-const compilePaths = (instance) => {
+const prefixPaths = (instance) => {
   const appRootDir = instance.options.rootDir
-  console.log(appRootDir)
   return new Promise((next) => {
-    Object.keys(paths).map((key) => {
-      paths[key] = `${appRootDir}/${paths[key]}`
-    })
-    console.log(paths)
+    if (!paths.prefixed) {
+      Object.keys(paths).map((key) => {
+        paths[key] = `${appRootDir}/${paths[key]}`
+      })
+      paths.prefixed = true
+    }
     next()
   })
 }
@@ -31,7 +33,6 @@ const compilePaths = (instance) => {
   Grab the project list and generate an array of slugs based on project filenames
 */
 const getSlugs = async () => {
-  console.log(paths)
   try {
     const slugs = await Fs.readdirSync(paths.projects)
       .filter(obj => obj !== '.DS_Store')
@@ -135,7 +136,7 @@ const generateProjectManifestFiles = async (slugs) => {
 const Manifestor = async (instance) => {
   try {
     console.log('🚀️ Manifest projects started')
-    await compilePaths(instance)
+    await prefixPaths(instance)
     const slugs = await getSlugs()
     const payload = await generateProjectManifestFiles(slugs)
     await Fs.writeFileSync(paths.project_routes, JSON.stringify(payload.routes))
