@@ -1,0 +1,94 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2020
+  },
+  "logo": {
+    "icon": "logo.svg",
+    "full": "logo.svg"
+  },
+  "name": "Project Name",
+  "org": [
+    "Project organization"
+  ],
+  "description": {
+    "short": "This description appears as a short preview in the project explorer",
+    "long": "This is a long description that has no character limits and will appear on the project detail/singular page."
+  },
+  "primaryCta": {
+    "url": "//project-website.com",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//project-website.com",
+          "text": "project-website.com"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/project",
+          "text": "github.com/project"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using this platform since",
+      "value": "2020"
+    }
+  ],
+  "video": "//youtube.com/watch?v=<youtube_video_id>",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "",
+    "description": "",
+    "buttonText": "",
+    "url": ""
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "content-delivery"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "public-data"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "disaster-resilience",
+        "corporate-government-independence",
+        "self-sovereign-data",
+        "couldnt-exist-without-ipfs"
+      ]
+    }
+  ]
+}
