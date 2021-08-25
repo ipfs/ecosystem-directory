@@ -3,6 +3,9 @@
 #site-header {
   color: white;
   background-color: $fill_Dark_Primary;
+  .site-logo-placeholder {
+    fill: #ffffff;
+  }
 }
 
 // ////////////////////////////////////////////////////////////////// Navigation
