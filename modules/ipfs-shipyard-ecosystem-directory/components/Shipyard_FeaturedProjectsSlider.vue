@@ -229,6 +229,17 @@ export default {
 }
 
 // ////////////////////////////////////////////////////////////////////// Inputs
+@mixin thumb() {
+  height: 20px;
+  width: 50px;
+  cursor: pointer;
+  border-radius: 0px;
+  background-color: #ffffff;
+  border: 2px solid $gray400;
+  border-radius: $borderRadius_Medium;
+  // background: 
+}
+
 input {
   &[type=range] {
     height: 28px;
@@ -243,12 +254,10 @@ input {
       border-radius: 20px;
     }
     &::-webkit-slider-thumb {
-      height: 20px;
-      width: 51px;
-      cursor: pointer;
       -webkit-appearance: none;
       margin-top: -9px;
       // background: url('~assets/core/svgs/sliderthumb.svg') no-repeat;
+      @include thumb
     }
     &::-moz-range-track {
       width: 100%;
@@ -258,12 +267,8 @@ input {
       border-radius: 20px;
     }
     &::-moz-range-thumb {
-      height: 20px;
-      width: 51px;
-      cursor: pointer;
       // background: url('~assets/core/svgs/sliderthumb.svg') no-repeat;
-      border: none;
-      border-radius: 0px;
+      @include thumb
     }
     &::-ms-track {
       width: 100%;
@@ -278,12 +283,8 @@ input {
     }
     &::-ms-thumb {
       margin-top: 1px;
-      height: 20px;
-      width: 51px;
-      cursor: pointer;
       // background: url('~assets/core/svgs/sliderthumb.svg') no-repeat;
-      border: none;
-      border-radius: 0px;
+      @include thumb
     }
   }
 }
