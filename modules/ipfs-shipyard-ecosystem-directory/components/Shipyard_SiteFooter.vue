@@ -8,11 +8,59 @@
           <h2 class="heading">
             {{ pageData.heading }}
           </h2>
-          <div ref="subheading" class="subheading" v-html="pageData.subheading"></div>
+          <div ref="subheading" class="subheading">
+            <component
+              :is="getElementTag(element.type)"
+              v-for="(element, index) in pageData.subheading"
+              :key="`subheading-element-${index}`"
+              :href="element.href"
+              target="_blank"
+              class="focus-visible">{{ element.content ? element.content : '' }}</component>
+          </div>
         </div>
 
         <div class="col-5_sm-12">
-          <div ref="mailform" class="mailchimp-form" v-html="pageData.mailchimp_form"></div>
+          <div ref="mailform" class="mailchimp-form">
+            <form
+              v-if="pageData.mailchimp_form.input"
+              id="mailchimp-form"
+              :action="pageData.mailchimp_form.input.action"
+              method="post"
+              target="_blank">
+              <div class="panel-top">
+                <input
+                  required="required"
+                  type="email"
+                  aria-label="Email Address"
+                  :placeholder="pageData.mailchimp_form.input.placeholder"
+                  name="EMAIL" />
+                <input
+                  type="submit"
+                  :value="pageData.mailchimp_form.input.button_text"
+                  name="subscribe" />
+              </div>
+              <div
+                v-if="pageData.mailchimp_form.checkbox"
+                class="panel-bottom">
+                <input
+                  type="checkbox"
+                  required=""
+                  :name="pageData.mailchimp_form.checkbox.name"
+                  value="Y" />
+                <span>{{ pageData.mailchimp_form.checkbox.label }}</span>
+              </div>
+              <div
+                v-if="pageData.mailchimp_form.checkbox"
+                aria-hidden="true"
+                style="position: absolute; left: -5000px">
+                <input
+                  type="text"
+                  :name="pageData.mailchimp_form.hidden.name"
+                  tabindex="-1"
+                  value="">
+              </div>
+            </form>
+          </div>
         </div>
 
       </div>
@@ -42,7 +90,17 @@
         </div>
 
         <div class="col-12">
-          <div ref="copyright" class="copyright" v-html="pageData.copyright"></div>
+          <div ref="copyright" class="copyright">
+            <template v-if="pageData.copyright.length">
+              <component
+                :is="getElementTag(element.type)"
+                v-for="(element, index) in pageData.copyright"
+                :key="`copyright-element-${index}`"
+                :href="element.href"
+                target="_blank"
+                class="focus-visible">{{ element.content ? element.content : '' }}</component>
+            </template>
+          </div>
         </div>
 
       </div>
@@ -83,6 +141,19 @@ export default {
     Array.from(this.$refs.copyright.getElementsByTagName('a')).forEach((input) => {
       input.classList.add('focus-visible')
     })
+  },
+
+  methods: {
+    getElementTag (string) {
+      switch (string) {
+        case 'text':
+          return 'span'
+        case 'link':
+          return 'a'
+        default:
+          return 'span'
+      }
+    }
   }
 }
 </script>
