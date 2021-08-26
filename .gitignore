@@ -16,7 +16,7 @@ server.crt
 
 # Files
 static/content
-static/embeddable-view
+static/embeddable-view.js
 
 # Runtime data
 pids
