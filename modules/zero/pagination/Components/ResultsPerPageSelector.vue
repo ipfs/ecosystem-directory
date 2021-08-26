@@ -1,6 +1,7 @@
 <template>
   <component
     :is="rootNode"
+    id="results-per-page-selector"
     v-click-outside="closeAllSelect"
     :class="['dropdown-root', 'focus-visible', { closed }]"
     @keyup.enter="toggleDropdown()">
@@ -183,12 +184,10 @@ export default {
 }
 
 .dropdown-root {
-  @include borderRadius3;
+  @include borderRadius_Medium;
   position: relative;
   white-space: nowrap;
-  background-color: white;
   cursor: pointer;
-  font-family: $fontInter;
   font-weight: 400;
   line-height: 1.7;
   &:not(.closed) {
@@ -229,8 +228,7 @@ export default {
 }
 
 .dropdown-list {
-  @include borderRadius3;
-  background-color: white;
+  @include borderRadius_Medium;
   position: absolute;
   right: 1.0rem;
   top: 2.5rem;
@@ -241,16 +239,15 @@ export default {
   z-index: -1;
   transition: 250ms ease-out;
   &:after {
+    @include borderRadius_Medium;
     content: '';
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
-    background-color: #FFFFFF;
-    z-index: -1;
-    @include borderRadius3;
     filter: drop-shadow(0 0 0.3rem rgba(73, 73, 73, 0.2));
+    z-index: -1;
   }
 }
 
@@ -275,8 +272,6 @@ export default {
 }
 
 .highlighted {
-  background-color: $downy;
-  color: white;
   cursor: default;
 }
 </style>

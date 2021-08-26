@@ -1,0 +1,72 @@
+// //////////////////////////////////////////////////////////////////////// Grid
+// -----------------------------------------------------------------------------
+// --------------------------------------------------------------------- General
+$containerWidth: 75rem;
+$containerWidthPlusOnePixel: 75.0625rem;
+$containerSingleColumn: 4.1665%;
+$standardGutter: 0.75rem;
+
+// ----------------------------------------------------------------- Breakpoints
+$breakpoint_Tiny: 25.9375rem; // 415px
+$breakpoint_Mini: 40rem; // 640px
+$breakpoint_Small: 53.125rem; // 850px
+$breakpoint_Medium: 64rem; // 1024px
+$breakpoint_Large: 75rem; // 1200px
+$breakpoint_Xlarge: 90rem; // 1440px
+$breakpoint_UltraLarge: 140.625rem; // 2250px
+
+// ////////////////////////////////////////////////////////////////// Typography
+// -----------------------------------------------------------------------------
+// -------------------------------------------------------------------- Families
+$font_Primary: 'Helvetica', sans-serif, monospace;
+$font_Secondary: 'Helvetica', sans-serif, monospace;
+
+// ---------------------------------------------------------------------- Sizing
+$fontSize_Mini: 0.6875rem;
+$fontSize_Small: 0.875rem;
+$fontSize_Regular: 1rem;
+$fontSize_Medium: 1.125rem;
+$fontSize_Large: 1.25rem;
+$fontSize_ExtraLarge: 1.5rem;
+$fontSize_ExtraMediumLarge: 1.75rem;
+$fontSize_ExtraExtraLarge: 3.125rem;
+
+// --------------------------------------------------------------------- Leading
+$leading_Tiny: 1;
+$leading_Mini: 1.2;
+$leading_Small: 1.4;
+$leading_Regular: 1.6;
+$leading_Medium: 1.8;
+$leading_Large: 2;
+$leading_ExtraLarge: 2.2;
+$leading_ExtraExtraLarge: 2.4;
+
+// ////////////////////////////////////////////////////////////////// Components
+// -----------------------------------------------------------------------------
+$navigationHeight: 5rem;
+
+// ///////////////////////////////////////////////////////////////////// General
+// -----------------------------------------------------------------------------
+$underlineSpacing: 0.1875rem;
+
+// --------------------------------------------------------------- Border Radius
+$borderRadius_Small: 0.1875rem; // 3px
+$borderRadius_Medium: 0.3125rem; // 5px
+$borderRadius_Large: 0.5rem; // 8px
+
+// -------------------------------------------------------------------- Coloring
+$site_backgroundColor: $gray50;
+$font_Color_Primary: black;
+$font_Color_Secondary: $gray600;
+
+$fill_Dark_Primary: black;
+$fill_Dark_Secondary: black;
+$fill_Light: $gray200;
+
+$highlight_Light: $gray400;
+$highlight_Medium: $gray600;
+$highlight_Dark: $gray800;
+
+$border_Color_Light: $gray200;
+$border_Color_Medium: $gray400;
+$border_Color_Dark: $gray600;

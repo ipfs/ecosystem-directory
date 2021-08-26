@@ -1,0 +1,426 @@
+// /////////////////////////////////////////////////////////////// [Pre] Imports
+// -----------------------------------------------------------------------------
+@import 'normalize';
+@import 'grid/gridlex-2.7.1';
+
+// ///////////////////////////////////////////////////////////////////// General
+// -----------------------------------------------------------------------------
+html, body {
+  @include leading_Regular;
+  padding: 0;
+  margin: 0;
+  height: auto;
+  background-color: $site_backgroundColor;
+  font-family: $font_Primary;
+  color: $font_Color_Primary;
+  font-size: 16px;
+  letter-spacing: 0px;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+  &.no-scroll {
+    overflow-y: hidden;
+  }
+  &.no-cursor {
+    cursor: none;
+  }
+}
+
+button::-moz-focus-inner,
+input[type="reset"]::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner,
+select::-moz-focus-inner,
+input[type="file"] > input[type="button"]::-moz-focus-inner {
+  outline: none !important;
+}
+
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+
+strong {
+  font-weight: 500;
+}
+
+a,
+ol,
+ul,
+li,
+div,
+nav,
+pre,
+span,
+input,
+label,
+video,
+button,
+section,
+textarea,
+figcaption,
+select option,
+h1, h2, h3, h4, h5, h6,
+input[type=tel],
+input[type=url],
+input[type=text],
+input[type=time],
+input[type=week],
+input[type=date],
+input[type=month],
+input:not([type]),
+input[type=color],
+input[type=email],
+input[type=number],
+input[type=search],
+input[type="radio"],
+input[type=datetime],
+input[type=password],
+input[type="submit"],
+input[type="checkbox"],
+input[type=datetime-local] {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  outline: none;
+  box-shadow: none;
+  font-family: inherit;
+  font-size: inherit;
+  background-color: transparent;
+  box-sizing: border-box;
+}
+
+textarea,
+input[type=email],
+input[type=month],
+input[type=number],
+input[type=password],
+input[type=search],
+input[type=tel],
+input[type=text],
+input[type=time],
+input[type=url],
+input[type=week] {
+  @include placeholder {
+    opacity: 0.5;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    font-style: inherit;
+    color: inherit;
+  }
+  &:hover, &:active, &:focus {
+    background-color: transparent;
+  }
+}
+
+a,
+input[type="button"],
+button, .button {
+  outline: none;
+  &:hover, &:active, &:focus {
+    outline: none;
+    background-color: transparent;
+  }
+}
+
+textarea {
+  background-color: transparent;
+  resize: none;
+  transition: 250ms;
+  &:active, &:focus, &:hover {
+    transition: 250ms;
+    background-color: transparent;
+  }
+}
+
+ol, ul {
+  margin: 0;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+a,
+button, .button {
+  font-family: inherit;
+  color: inherit;
+  outline: none;
+  text-decoration: none;
+  position: relative;
+  transition: 250ms;
+  &:active, &:focus, &:hover {
+    transition: 250ms;
+    outline: none;
+  }
+}
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+}
+
+::-webkit-file-upload-button {
+  cursor: pointer;
+}
+
+.placeholder-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 25rem;
+  margin: 1rem 0;
+  background-color: $gray300;
+  color: $gray900;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  &.tiny {
+    height: 3rem;
+  }
+  &.mini {
+    height: 5rem;
+  }
+  &.small {
+    height: 10rem;
+  }
+  &.no-margin {
+    margin: 0;
+  }
+}
+
+// /////////////////////////////////////////////////////////////////////// Fonts
+// -----------------------------------------------------------------------------
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6,
+p,
+div,
+button {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-weight: normal;
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+  display: block;
+  font-family: $font_Secondary;
+}
+
+h1, .h1 {
+  @include fontSize_ExtraExtraLarge;
+  @include small {
+    @include fontSize_ExtraLarge;
+  }
+}
+
+h2, .h2 {
+  @include fontSize_ExtraLarge;
+  @include small {
+    @include fontSize_Large;
+  }
+}
+
+h3, .h3 {
+  @include fontSize_Large;
+}
+
+h4, .h4 {
+  @include fontSize_Medium;
+  @include small {
+    @include fontSize_Regular;
+  }
+}
+
+h5, .h5 {
+  @include fontSize_Small;
+}
+
+h6, .h6 {
+  @include fontSize_Mini;
+}
+
+div,
+button,
+p,
+li {
+  @include fontSize_Regular;
+}
+
+// ///////////////////////////////////////////////////////////////// Nuxt & Grid
+// -----------------------------------------------------------------------------
+#__nuxt {
+  position: relative;
+  z-index: 2;
+}
+
+#__layout {
+  overflow: hidden;
+  .master-container {
+    position: relative;
+  }
+}
+
+.layout {
+  position: relative;
+  z-index: 100;
+}
+
+[class~="grid"],
+[class*="grid-"],
+[class*="grid_"] {
+  width: $containerWidth;
+  margin: 0 auto;
+  @include customMaxMQ ($containerWidth + 4rem) {
+    padding: 0 4.1665%;
+    width: 100%;
+  }
+  &[class*="-noGutter"] {
+    margin: 0 auto;
+  }
+  &.full {
+    width: 100%;
+    padding: 0 0.5rem;
+    &.maxed {
+      max-width: 90rem;
+    }
+  }
+  &.no-padding {
+    padding: 0;
+  }
+  [class~="grid"],
+  [class*="grid-"],
+  [class*="grid_"] {
+    width: 100%;
+    padding: 0;
+  }
+}
+
+// /////////////////////////////////////////////////////////////// Accessibility
+// -----------------------------------------------------------------------------
+a,
+div,
+input,
+button,
+select,
+textarea {
+  &:focus {
+    @include focus_BoxShadow_Small;
+    outline: 0;
+  }
+  &.focus-visible {
+    :focus:not(:focus-visible) {
+      box-shadow: none;
+      outline: 0;
+    }
+    &:focus-visible,
+    &:moz-focusring {
+      @include focus_BoxShadow_Small;
+      outline: 0;
+    }
+  }
+}
+
+// a:focus {
+//   @include focus_BoxShadow_Small;
+//   outline: 0;
+// }
+// a.focus-visible:focus:not(:focus-visible) {
+//   box-shadow: none;
+//   outline: 0;
+// }
+// a.focus-visible:focus-visible,
+// a.focus-visible:moz-focusring {
+//   @include focus_BoxShadow_Small;
+//   outline: 0;
+// }
+// button:focus {
+//   @include focus_BoxShadow_Small;
+//   outline: 0;
+// }
+// button.focus-visible:focus:not(:focus-visible) {
+//   box-shadow: none;
+//   outline: 0;
+// }
+// button.focus-visible:focus-visible,
+// button.focus-visible:moz-focusring {
+//   @include focus_BoxShadow_Small;
+//   outline: 0;
+// }
+
+// div:focus {
+//   @include focus_BoxShadow_Small;
+//   outline: 0;
+// }
+// div.focus-visible:focus:not(:focus-visible) {
+//   box-shadow: none;
+//   outline: 0;
+// }
+// div.focus-visible:focus-visible, div.focus-visible:moz-focusring {
+//   @include focus_BoxShadow_Small;
+//   outline: 0;
+// }
+
+// input:focus {
+//   @include focus_BoxShadow_Small;
+//   outline: 0;
+// }
+// input.focus-visible:focus:not(:focus-visible) {
+//   box-shadow: none;
+//   outline: 0;
+// }
+// input.focus-visible:focus-visible, input.focus-visible:moz-focusring {
+//   @include focus_BoxShadow_Small;
+//   outline: 0;
+// }
+
+// select:focus {
+//   @include focus_BoxShadow_Small;
+//   outline: 0;
+// }
+// select.focus-visible:focus:not(:focus-visible) {
+//   box-shadow: none;
+//   outline: 0;
+// }
+// select.focus-visible:focus-visible, select.focus-visible:moz-focusring {
+//   @include focus_BoxShadow_Small;
+//   outline: 0;
+// }
+
+// textarea:focus {
+//   @include focus_BoxShadow_Small;
+//   outline: 0;
+// }
+// textarea.focus-visible:focus:not(:focus-visible) {
+//   box-shadow: none;
+//   outline: 0;
+// }
+// textarea.focus-visible:focus-visible, textarea.focus-visible:moz-focusring {
+//   @include focus_BoxShadow_Small;
+//   outline: 0;
+// }
+
+// ////////////////////////////////////////////////////////////// [Post] Imports
+// -----------------------------------------------------------------------------
+@import 'components';

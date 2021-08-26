@@ -33,7 +33,7 @@
 // ===================================================================== Imports
 import { mapGetters, mapActions } from 'vuex'
 
-import LoaderTripleDot from '@/components/Spinners/TripleDot'
+import LoaderTripleDot from '@/modules/zero/core/Components/Spinners/TripleDot'
 
 // ===================================================================== Functions
 const checkSlots = (instance) => {
@@ -207,7 +207,6 @@ export default {
 
 // //////////////////////////////////////////////////////////////////// [Type] A
 .type-A {
-  @include shadow1;
   // background-color: blue;
   &:disabled {
     box-shadow: none;
@@ -235,8 +234,8 @@ export default {
 
 // //////////////////////////////////////////////////////////////////// [Type] A
 .type-C {
+  @include borderRadius_Medium;
   background-color: #ffffff;
-  @include borderRadius3;
 }
 
 // //////////////////////////////////////////////////////////////////// [Type] A

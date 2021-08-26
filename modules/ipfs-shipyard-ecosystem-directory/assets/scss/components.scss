@@ -1,0 +1,454 @@
+// ///////////////////////////////////////////////////////////////// Site Header
+// -----------------------------------------------------------------------------
+#site-header {
+  color: white;
+  background-color: $fill_Dark_Primary;
+  .site-logo-placeholder {
+    fill: white;
+  }
+}
+
+// ////////////////////////////////////////////////////////////////// Navigation
+// -----------------------------------------------------------------------------
+#header-navigation {
+  &:before {
+    background: $fill_Dark_Primary;
+  }
+  .modal-background {
+    background: $fill_Dark_Primary;
+  }
+}
+
+.navigation-link {
+  @include leading_Small;
+  display: inline-block;
+  font-family: $font_Secondary;
+  color: white;
+  &.onhover-line {
+    &:hover {
+      &:after {
+        opacity: 1;
+      }
+    }
+    &:after {
+      content: "";
+      height: 1px;
+      bottom: -5px;
+      background-color: currentColor;
+      position: absolute;
+      width: 100%;
+      left: 0;
+      opacity: 0;
+      transition: all .2s cubic-bezier(0.4, 0.0, 0.2, 1.0);
+    }
+  }
+  &.onhover-opacity {
+    &:hover {
+      opacity: 0.75;
+    }
+  }
+}
+
+// //////////////////////////////////////////////////////////////////////// Hero
+// -----------------------------------------------------------------------------
+#header-hero {
+  .index-view {
+    .breadcrumb-link {
+      color: $highlight_Light;
+    }
+  }
+  &.filters-applied,
+  &.filters-view {
+    &.hero-header {
+      background-color: $site_backgroundColor;
+      color: $font_Color_Primary;
+      .breadcrumb-link {
+        color: $highlight_Medium;
+      }
+    }
+  }
+}
+
+.filters-heading {
+  .display-total {
+    color: $font_Color_Primary;
+  }
+}
+
+// ////////////////////////////////////////////////////////////// Segment Slider
+// -----------------------------------------------------------------------------
+#segment-slider-card {
+  // ------------------------------------------------------------------- General
+  .slider-card {
+    background-color: white;
+  }
+  .description {
+    color: $font_Color_Secondary;
+  }
+  // -------------------------------------------------------------------- Arrows
+  .nav-arrow {
+    .prev-arrow,
+    .next-arrow {
+      line,
+      path {
+        stroke: $fill_Dark_Primary;
+      }
+    }
+  }
+  // -------------------------------------------------------------------- Arrows
+  .view-all {
+    color: white;
+    background-color: $fill_Dark_Secondary;
+  }
+}
+
+#segment-slider-chart {
+  // -------------------------------------------------------------------- Mobile
+  .segments-tiny {
+    background-color: $site_backgroundColor;
+  }
+  // ------------------------------------------------------------------ Segments
+  .segment-foreground {
+    background-color: $fill_Dark_Primary;
+  }
+  .segment-background {
+    background-color: $highlight_Medium;
+  }
+  .segment-line {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+// //////////////////////////////////////////////////////////////// Project Card
+// -----------------------------------------------------------------------------
+.project-card {
+  .title {
+    color: $fill_Dark_Primary;
+    font-family: $font_Secondary;
+  }
+  .description {
+    color: $font_Color_Secondary;
+  }
+}
+
+// ///////////////////////////////////////////////////////////////////// Toolbar
+// -----------------------------------------------------------------------------
+// ------------------------------------------------ [Toggle Button] Filter Panel
+#filter-panel-toggle-button {
+  &.active {
+    color: white;
+    background-color: $fill_Dark_Primary;
+    .svg-icon {
+      path {
+        stroke: white;
+      }
+    }
+  }
+}
+
+// ------------------------------------------------------------ Sort-By Selector
+#sort-by-selector {
+  .dropdown-root {
+    background-color: white;
+  }
+  .shadow {
+    background-color: white;
+  }
+  .highlighted {
+    color: white;
+    background-color: $highlight_Light;
+  }
+}
+
+// --------------------------------------------- [Toggle Button] List Block View
+#list-block-toggle-button {
+  &:before {
+    background-color: $fill_Dark_Primary;
+  }
+}
+
+// ------------------------------------------------------------------ Filter Bar
+.filter-bar {
+  .input {
+    background-color: $fill_Light;
+    font-family: $font_Secondary;
+  }
+}
+
+// //////////////////////////////////////////////////////////////// Filter Panel
+// -----------------------------------------------------------------------------
+// --------------------------------------------------------------------- General
+#filter-panel {
+  .filter-category {
+    &.heading {
+      font-family: $font_Secondary;
+    }
+    &.sub-heading {
+      font-family: $font_Primary;
+    }
+  }
+}
+
+// -------------------------------------------------------------------- Controls
+#filter-panel-controls {
+  font-family: $font_Secondary;
+  .clear-selected-button,
+  .done-button {
+    &:hover {
+      color: white;
+      background-color: $highlight_Dark;
+    }
+  }
+  .clear-selected-button {
+    background-color: $fill_Light;
+    color: $fill_Dark_Primary;
+  }
+  .done-button {
+    color: white;
+    background-color: $fill_Dark_Primary;
+  }
+}
+
+// //////////////////////////////////////////////////////////////// Project List
+// -----------------------------------------------------------------------------
+// --------------------------------------------------------------------- General
+#project-explorer-container {
+  .placeholder-results-empty {
+    background-color: white;
+    .clear-all-null-results {
+      background: $site_backgroundColor;
+      &:hover {
+        background-color: $highlight_Dark;
+      }
+    }
+  }
+}
+
+#results-per-page-selector {
+  background-color: white;
+  .dropdown-list {
+    background-color: white;
+    &:after {
+      background-color: white;
+    }
+  }
+  .highlighted {
+    color: white;
+    background-color: $highlight_Light;
+  }
+}
+
+// //////////////////////////////////////////////////////////////////// Chiclets
+// -----------------------------------------------------------------------------
+.chiclet-list {
+  display: flex;
+  flex-flow: row wrap;
+  row-gap: 0.75rem;
+  column-gap: 0.625rem;
+}
+
+.chiclet {
+  @include fontSize_Mini;
+  padding: 0.3125rem 0.75rem;
+  font-weight: 500;
+  background-color: $fill_Light;
+  cursor: pointer;
+  transition: 250ms ease-out;
+  &.active-button {
+    background-color: $fill_Dark_Primary;
+    color: white;
+  }
+  &:hover {
+    transition: 250ms ease-in;
+    background-color: $highlight_Dark;
+    color: white;
+  }
+}
+
+// ///////////////////////////////////////////////////////////////////// Tooltip
+// -----------------------------------------------------------------------------
+// Companion mixin: tooltipMobilePosition | found in @/assets/core/utilities.scss
+[data-tooltip] {
+  position: relative;
+  &:hover {
+    &:before,
+    &:after {
+      transition: 250ms ease-in;
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+  }
+  &:before,
+  &:after {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0.5rem);
+    pointer-events: none;
+    opacity: 0;
+    transition: 250ms ease-out;
+  }
+  &:before {
+    content: '';
+    top: calc(100% + 2px);
+    border-left: 0.5rem solid transparent;
+    border-right: 0.5rem solid transparent;
+    border-bottom: 0.375rem solid $fill_Dark_Primary;
+  }
+  &:after {
+    @include fontSize_Mini;
+    content: attr(data-tooltip);
+    top: calc(100% + 0.5rem);
+    background-color: $fill_Dark_Primary;
+    white-space: nowrap;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.125rem;
+  }
+  &[data-tooltip-theme="light"] {
+    &:before {
+      border-bottom-color: $fill_Light;
+    }
+    &:after {
+      color: $fill_Dark_Primary;
+      background-color: $fill_Light;
+    }
+  }
+  &[data-tooltip-theme="dark"] {
+    &:before {
+      border-bottom-color: $fill_Dark_Primary;
+    }
+    &:after {
+      color: $fill_Light;
+      background-color: $fill_Dark_Primary;
+    }
+  }
+}
+
+// ///////////////////////////////////////////////////////////////// Detail Page
+// -----------------------------------------------------------------------------
+// --------------------------------------------------------------------- General
+.page-project {
+  .breadcrumb-link {
+    color: $highlight_Medium;
+  }
+  .company {
+    font-family: $font_Primary;
+  }
+  .ctas {
+    a {
+      &.primary-cta {
+        color: white;
+        background-color: $fill_Dark_Primary;
+        &:hover {
+          background-color: $highlight_Dark;
+        }
+      }
+    }
+  }
+  .card {
+    &.big-number {
+      color: $fill_Dark_Primary;
+      background-color: $fill_Light;
+    }
+    &.case-study {
+      border-color: $fill_Light;
+      .title,
+      .description {
+        color: $fill_Dark_Primary;
+      }
+      .cta {
+        color: $fill_Dark_Primary;
+        border-color: $fill_Dark_Primary;
+        &:hover {
+          background-color: $highlight_Dark;
+          border-color: $highlight_Dark;
+        }
+      }
+    }
+  }
+  .statistic,
+  .title {
+    font-family: $font_Secondary;
+  }
+  .featured-box {
+    border-color: $border_Color_Medium;
+  }
+  .project-card {
+    .thumbnail {
+      border-color: $border_Color_Light;
+    }
+  }
+}
+
+// ---------------------------------------------------- Featured Projects Slider
+#featured-projects-slider {
+  input {
+    &[type=range] {
+      &::-webkit-slider-runnable-track {
+        background: $border_Color_Dark;
+      }
+      &::-moz-range-track {
+        background: $border_Color_Dark;
+      }
+      &::-ms-fill-lower {
+        background: $border_Color_Dark;
+      }
+      &::-ms-fill-upper {
+        background: $border_Color_Dark;
+      }
+    }
+  }
+}
+
+// ////////////////////////////////////////////////////////////// 404/Error Page
+// -----------------------------------------------------------------------------
+.error-page {
+  .breadcrumb-link {
+    color: $highlight_Medium;
+  }
+  .block-segment {
+    background-color: $highlight_Medium;
+  }
+  .block-404 {
+    background-color: $fill_Dark_Primary;
+  }
+}
+
+// ///////////////////////////////////////////////////////////////// Site Footer
+// -----------------------------------------------------------------------------
+#site-footer {
+  color: white;
+  background-color: $fill_Dark_Primary;
+  .subheading,
+  .copyright {
+    a {
+      color: $highlight_Light;
+    }
+  }
+  .navigation-link {
+    font-family: $font_Secondary;
+  }
+}
+
+#mailchimp-form {
+  input {
+    &[type="submit"] {
+      background-color: $highlight_Medium;
+    }
+    &[type="email"] {
+      background-color: white;
+      color: black;
+    }
+  }
+}
+
+// /////////////////////////////////////////////////////////////// Showcase Page
+// -----------------------------------------------------------------------------
+#taxonomy-grid {
+  .taxonomy {
+    border-color: rgba($fill_Light, 0.5);
+  }
+  .taxonomy-label {
+    font-family: $font_Primary;
+    background-color: white;
+  }
+}

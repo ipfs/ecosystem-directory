@@ -1,6 +1,7 @@
 <template>
   <button
     v-if="options.length > 0"
+    id="sort-by-selector"
     v-click-outside="closeAllSelect"
     :class="['dropdown-wrapper', 'focus-visible', { closed }]"
     :style="{ minWidth: `${maxLength * 10}px` }"
@@ -231,10 +232,9 @@ export default {
 }
 
 .dropdown-wrapper {
-  @include borderRadius3;
+  @include borderRadius_Medium;
   position: relative;
   white-space: nowrap;
-  font-family: $fontInter;
   font-weight: 400;
   line-height: 1.7;
   cursor: pointer;
@@ -275,25 +275,23 @@ export default {
 }
 
 .dropdown-root {
-  @include borderRadius3;
+  @include borderRadius_Medium;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  background-color: white;
   overflow: hidden;
   z-index: 10;
   transition: height 250ms ease-in-out;
 }
 
 .shadow {
-  @include borderRadius3;
+  @include borderRadius_Medium;
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
-  background-color: white;
   pointer-events: none;
   filter: drop-shadow(0 0 0.3rem rgba(73, 73, 73, 0.2));
   opacity: 0;
@@ -324,8 +322,6 @@ export default {
 }
 
 .highlighted {
-  background-color: $downy;
-  color: white;
   cursor: default;
 }
 </style>

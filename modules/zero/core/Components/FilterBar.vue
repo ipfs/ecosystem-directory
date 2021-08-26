@@ -94,19 +94,16 @@ $dimensions: 2.25rem;
 }
 
 .input {
-  @include borderRadius3;
+  @include borderRadius_Medium;
   flex: 1;
   height: 100%;
   padding: 0.66rem 0;
-  font-family: $fontMontserrat;
   font-size: 10pt;
   font-weight: 300;
-  background-color: $blackHaze;
   transition: 250ms ease-out;
   -webkit-appearance: none;
   &:hover, &:active, &:focus {
     transition: 250ms ease-in;
-    background-color: $blackHaze;
   }
 }
 </style>

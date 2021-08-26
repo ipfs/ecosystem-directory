@@ -15,11 +15,8 @@ server.key
 server.crt
 
 # Files
-project-routes.json
-project-list.json
-showcase-data.json
-static/embeddable-view.min.css
-static/embeddable-view.js
+static/content
+static/embeddable-view
 
 # Runtime data
 pids

@@ -144,7 +144,6 @@ export default {
   padding: 0.5rem;
   margin-right: 0.25rem;
   margin-left: 0.25rem;
-  color: $tiber;
   opacity: 0.5;
   font-weight: 600;
 }
@@ -166,15 +165,12 @@ export default {
     display: flex;
   }
   &.current {
-    color: $tiber;
     cursor: default;
     opacity: 1;
   }
 }
 
 .control-button {
-  color: $tiber;
-  opacity: 0.5;
   &:hover {
     opacity: 1;
   }
