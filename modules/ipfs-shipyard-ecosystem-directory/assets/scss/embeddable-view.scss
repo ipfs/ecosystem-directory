@@ -1,0 +1,649 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+$host: INJECT_SETTINGS_HOST;
+
+$slider-thumb-light-svg: url('#{$host}/images/slider-thumb-light.svg') no-repeat;
+$slider-thumb-dark-svg: url('#{$host}/images/slider-thumb-dark.svg') no-repeat;
+
+$white: white;
+$black: black;
+
+$highlight: #6BC4CE;
+
+$grey-light: #F1F3F2;
+$grey: #D0DCDD;
+$grey-medium: #D4D4D4;
+$grey-dark: #707070;
+$grey-x-dark: #181818;
+
+$teal: #0E4F72;
+$teal-light: #3D8F96;
+$teal-medium: #09344B;
+$teal-dark: #052437;
+$teal-x-dark: #04202F;
+
+@mixin font($size, $weight: 400) {
+  font-family: 'Montserrat', sans-serif;
+  font-size: #{$size}px;
+  font-weight: $weight;
+}
+
+@mixin font2($size, $weight: 400) {
+  font-family: 'Inter', sans-serif;
+  font-size: #{$size}px;
+  font-weight: $weight;
+  letter-spacing: 0.02em;
+}
+
+.ipfs-ecosystem-embed {
+  @import 'eric-meyers-reset';
+  line-height: 1.4;
+  padding: 32px 38px 34px;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+
+  * {
+    line-height: 1.4;
+  }
+
+  .ecodir_container {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  h2.ecodir_heading {
+    @include font(14);
+    margin-bottom: 10px;
+  }
+
+  h3.ecodir_subheading {
+    @include font(21, 500);
+    line-height: 32px;
+    margin-bottom: 25px;
+  }
+
+  .ecodir_filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 29px;
+
+    #filterBy {
+      z-index: 1001;
+    }
+
+    .ecodir_dropdown-wrapper {
+      margin-right: 15px;
+    }
+  }
+
+  .ecodir_dropdown-wrapper {
+    white-space: nowrap;
+    position: relative;
+    margin-bottom: 10px;
+
+    .ecodir_dropdown-toggle {
+      cursor: pointer;
+      border-radius: 5px;
+      border: none;
+      padding: 8px 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      label {
+        @include font(13, 600);
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      &:active, &:focus {
+        outline: none;
+      }
+
+      .ecodir_caret-svg {
+        width: auto;
+        height: 12px;
+        margin-left: 10px;
+        transform: rotate(90deg);
+      }
+    }
+
+    .ecodir_dropdown-container {
+      border-radius: 5px;
+      position: absolute;
+      min-width: 100%;
+      height: 3px;
+      top: 0;
+      padding-top: 30px;
+      overflow: hidden;
+      z-index: 1000;
+      transition: 250ms ease-out;
+    }
+
+    .ecodir_dropdown {
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+      text-align: right;
+      // position: absolute;
+      top: -8px; // 25px;
+      left: 0;
+      padding: 5px 0;
+
+      .ecodir_dropdown-option {
+        cursor: pointer;
+        @include font(13, 400);
+        white-space: nowrap;
+        position: relative;
+        padding: 4px 15px;
+
+        &:hover {
+          text-decoration: underline;
+        }
+
+        &.selected {
+          background: $highlight;
+          color: $white;
+        }
+      }
+    }
+  }
+
+  .ecodir_container {
+    overflow: hidden;
+
+    .ecodir_slider-container {
+      margin-bottom: 15px;
+
+      .ecodir_slider {
+
+        .ecodir_slider-row-container {
+          position: relative;
+          width: 360px;
+          padding: 10px 5px 30px;
+          margin: 0 auto;
+
+          overflow: hidden;
+
+          .ecodir_slider-row {
+            position: relative;
+            width: 100%;
+            display: grid;
+            grid-auto-flow: column;
+            grid-template-rows: repeat(2, auto);
+            &.sliding {
+              transition: left 300ms ease-in-out;
+            }
+
+            .ecodir_card {
+              cursor: pointer;
+              user-select: none;
+              text-align: center;
+              width: 160px;
+              min-height: 160px;
+              padding: 27px 10px 21px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              transition: all 250ms ease-out;
+              transform-origin: center;
+
+              &.active {
+                border-radius: 5px;
+                background: $white;
+              }
+
+              &:hover {
+                transform: scale(1.05);
+              }
+
+              .ecodir_card-thumbnail {
+                width: 100%;
+                height: 100px;
+                display: flex;
+                justify-content: center;
+
+                img.ecodir_card-logo {
+                  max-width: 50%;
+                  max-height: 60%;
+                  width: auto;
+                }
+              }
+
+              p.ecodir_card-title {
+                @include font(15, 600);
+                margin: 0;
+              }
+            }
+          }
+        }
+      }
+
+      .ecodir_slider-controls {
+
+        .ecodir_range-slider {
+          width: 100%;
+          height: 28px;
+          background: transparent;
+          -webkit-appearance: none;
+
+          &:focus {
+            outline: none;
+          }
+
+          // Style thumb
+          @mixin slider-thumb() {
+            cursor: pointer;
+            height: 20px;
+            width: 55px;
+          }
+          &::-webkit-slider-thumb {
+            @include slider-thumb;
+            -webkit-appearance: none;
+            margin-top: -11px;
+          }
+          &::-moz-range-thumb {
+            @include slider-thumb;
+            border: none;
+            border-radius: 0px;
+          }
+          &::-ms-thumb {
+            @include slider-thumb;
+          }
+
+          // Style track
+          @mixin slider-track() {
+            cursor: pointer;
+            border-radius: 20px;
+            width: 100%;
+            height: 2px;
+            animate: 0.2s;
+          }
+          &::-webkit-slider-runnable-track {
+            @include slider-track;
+            border-width: 1px;
+            border-style: solid;
+          }
+          &::-moz-range-track {
+            @include slider-track;
+          }
+          &::-ms-track {
+            border-width: 16px 0;
+            cursor: pointer;
+            background: transparent;
+            border-color: transparent;
+            color: transparent;
+            width: 100%;
+            height: 2px;
+          }
+          &::-ms-fill-lower {
+            background: pink;
+          }
+          &::-ms-fill-upper {
+            border-radius: 20px;
+            background: magenta;
+          }
+        }
+      }
+    }
+
+    .ecodir_project-view-container {
+      height: 0;
+      opacity: 0;
+      padding: 0 25px;
+      overflow: hidden;
+      transition: all 250ms;
+
+      h4.ecodir_project-title {
+        @include font(24);
+        margin: 0 0 8px;
+      }
+
+      h5.ecodir_project-organization {
+        @include font(15, 600);
+        margin: 0 0 25px;
+      }
+
+      p.ecodir_project-description {
+        @include font2(14);
+        line-height: 22px;
+        margin: 0 0 25px;
+      }
+
+      a.ecodir_project-link {
+        @include font2(15, 600);
+        text-decoration: none;
+        display: inline-block;
+        margin-bottom: 40px;
+
+        .ecodir_caret-svg {
+          width: auto;
+          height: 10px;
+          margin-left: 20px;
+
+          path {
+            stroke-linecap: round;
+            stroke-width: 1.5;
+          }
+        }
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      a.ecodir_project-home-link {
+        @include font2(18, 600);
+        border-radius: 5px;
+        text-decoration: none;
+        padding: 13px 20px;
+        display: inline-block;
+        transition: 250ms ease-out;
+        &:hover {
+          transition: 250ms ease-in;
+        }
+      }
+    }
+  }
+
+  &.ecosystem-light {
+    background-color: $grey-light;
+
+    h2.ecodir_heading,
+    h3.ecodir_subheading {
+      color: $grey-x-dark;
+    }
+
+    .ecodir_dropdown-wrapper {
+      cursor: pointer;
+      .ecodir_dropdown-toggle {
+        background: $white;
+        color: $grey-x-dark;
+        box-shadow: 3px 3px 15px rgba($grey, 0.5);
+
+        .ecodir_caret-svg {
+          path {
+            stroke: $grey-x-dark;
+          }
+        }
+      }
+
+      .ecodir_dropdown-container {
+        &.hidden {
+          box-shadow: 3px 3px 15px rgba($grey-dark, 0.5);
+        }
+      }
+
+      .ecodir_dropdown {
+        background: $white;
+        color: $grey-x-dark;
+
+        .ecodir_dropdown-option {
+          &:hover {
+            background: $teal-light;
+            color: $white;
+          }
+        }
+      }
+    }
+
+    .ecodir_slider {
+      .ecodir_card {
+
+        &.active {
+          box-shadow: 3px 3px 13px rgba($grey, 0.5);
+        }
+
+        p.ecodir_card-title {
+          color: $teal-dark;
+        }
+      }
+    }
+
+    .ecodir_range-slider {
+      transition: opacity 250ms;
+
+      &::-webkit-slider-runnable-track {
+        border-color: $grey-medium;
+      }
+      &::-moz-range-track {
+        background: $grey-medium;
+      }
+      &::-webkit-slider-thumb {
+        background: $slider-thumb-light-svg;
+      }
+      &::-moz-range-thumb {
+        background: $slider-thumb-light-svg;
+      }
+      &::-ms-thumb {
+        background: $slider-thumb-light-svg;
+      }
+    }
+
+    .ecodir_project-view-container {
+      h4.ecodir_project-title {
+        color: $teal-dark;
+      }
+
+      h5.ecodir_project-organization {
+        color: $teal-dark;
+      }
+
+      p.ecodir_project-description {
+        color: $teal-dark;
+      }
+
+      a.ecodir_project-link {
+        color: $teal-dark;
+
+        .ecodir_caret-svg path {
+          stroke: $teal-dark;
+        }
+      }
+
+      a.ecodir_project-home-link {
+        background-color: $teal-dark;
+        color: $white;
+        &:hover {
+          background-color: $teal-light;
+        }
+      }
+    }
+  }
+
+
+  &.ecosystem-dark {
+    background-color: $teal-dark;
+
+    h2.ecodir_heading,
+    h3.ecodir_subheading {
+      color: $white;
+    }
+
+    .ecodir_dropdown-wrapper {
+      .ecodir_dropdown-toggle {
+        background: $teal-medium;
+        box-shadow: 3px 3px 15px rgba($teal-x-dark, 0.5);
+        color: $white;
+
+        .ecodir_caret-svg {
+          path {
+            stroke: $white;
+          }
+        }
+      }
+
+      .ecodir_dropdown-container {
+        &.hidden {
+          box-shadow: 3px 3px 15px rgba($black, 0.4);
+        }
+      }
+
+      .ecodir_dropdown {
+        background: $teal-medium;
+        color: $white;
+
+        .ecodir_dropdown-option {
+          &:hover {
+            background: $teal-light;
+            color: $white;
+          }
+        }
+      }
+    }
+
+    .ecodir_slider {
+      .ecodir_card {
+        &.active {
+          box-shadow: 3px 3px 15px rgba($teal-x-dark, 0.5);
+        }
+
+        p.ecodir_card-title {
+          color: $white;
+        }
+
+        &.active {
+          p.ecodir_card-title {
+            color: $teal-dark;
+          }
+        }
+      }
+    }
+
+    .ecodir_range-slider {
+      &::-webkit-slider-runnable-track {
+        border-color: $teal;
+      }
+      &::-moz-range-track {
+        background: $teal;
+      }
+      &::-webkit-slider-thumb {
+        background: $slider-thumb-dark-svg;
+      }
+      &::-moz-range-thumb {
+        background: $slider-thumb-dark-svg;
+      }
+      &::-ms-thumb {
+        background: $slider-thumb-dark-svg;
+      }
+    }
+
+    .ecodir_project-view-container {
+      h4.ecodir_project-title {
+        color: $white;
+      }
+
+      h5.ecodir_project-organization {
+        color: $white;
+      }
+
+      p.ecodir_project-description {
+        color: $white;
+      }
+
+      a.ecodir_project-link {
+        color: $white;
+
+        .ecodir_caret-svg path {
+          stroke: $white;
+        }
+      }
+
+      a.ecodir_project-home-link {
+        background-color: $white;
+        color: $teal-dark;
+        &:hover {
+          background-color: $teal-light;
+        }
+      }
+    }
+  }
+
+  .ecodir_error-unsupported {
+    display: flex;
+
+    * {
+      margin: 0 0.3vw;
+    }
+
+    .ecodir_error-block-section {
+      border-radius: 3px;
+      background-color: $teal-light;
+
+      &:nth-child(1) { flex: 3 1 auto; }
+      &:nth-child(2) { flex: 12 1 auto; }
+      &:nth-child(3) { flex: 7 1 auto; }
+      &:nth-child(4) { flex: 2 1 auto; }
+      &:nth-child(5) { flex: 2 1 auto; }
+      &:nth-child(6) { flex: 9 1 auto; }
+
+      &:nth-child(8) { flex: 10 1 auto; }
+      &:nth-child(9) { flex: 7 1 auto; }
+      &:nth-child(10) { flex: 3 1 auto; }
+      &:nth-child(11) { flex: 2 1 auto; }
+      &:nth-child(12) { flex: 6 1 auto; }
+      &:nth-child(13) { flex: 4 1 auto; }
+      &:nth-child(14) { flex: 3 1 auto; }
+    }
+
+    h2.ecodir_error-heading {
+      @include font(20, 500);
+      background-color: $teal-dark;
+      line-height: 34px;
+      color: $white;
+      text-align: center;
+      padding: 40px 2vw;
+    }
+  }
+
+  &.ecodir_medium, &.ecodir_large {
+    h2.ecodir_heading {
+      @include font(20, 500);
+      margin-bottom: 20px;
+    }
+
+    h3.ecodir_subheading {
+      @include font(35, 600);
+      line-height: 46px;
+      margin-bottom: 47px;
+    }
+
+    .ecodir_filters {
+      justify-content: flex-start;
+      padding-left: 10px;
+
+      .ecodir_dropdown-wrapper {
+        margin-right: 36px;
+      }
+    }
+  }
+
+  &.ecodir_large {
+    padding: 60px 50px 40px;
+
+    .ecodir_container {
+      .ecodir_slider-container {
+        min-width: 560px;
+        width: 49%;
+        padding-left: 25px;
+        margin-bottom: 0;
+        float: left;
+
+        .ecodir_slider {
+          .ecodir_slider-row-container {
+            margin: 0;
+          }
+        }
+      }
+
+      .ecodir_project-view-container {
+        width: 29%;
+        float: right;
+        padding: 0;
+      }
+    }
+  }
+}
