@@ -7,6 +7,7 @@
 
 <script>
 // ====================================================================== Export
-export default { name: 'ShipyardTwitterIcon' }
-
+export default {
+  name: 'ShipyardTwitterIcon'
+}
 </script>

@@ -7,6 +7,7 @@
 
 <script>
 // ====================================================================== Export
-export default { name: 'ShipyardYoutubeIcon' }
-
+export default {
+  name: 'ShipyardYoutubeIcon'
+}
 </script>

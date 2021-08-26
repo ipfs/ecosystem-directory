@@ -35,7 +35,7 @@ export default {
       if (siteContent.general && siteContent.general.social_icons) {
         if (Array.isArray(siteContent.general.social_icons)) {
           siteContent.general.social_icons.forEach((item) => {
-            if (networks.includes(item.network) && typeof item.href === 'string') {
+            if (networks.includes(item.network) && typeof item.href === 'string' && item.href !== '') {
               links.push(item)
             }
           })

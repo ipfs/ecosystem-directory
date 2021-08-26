@@ -7,6 +7,7 @@
 
 <script>
 // ====================================================================== Export
-export default { name: 'ShipyardGithubIcon' }
-
+export default {
+  name: 'ShipyardGithubIcon'
+}
 </script>

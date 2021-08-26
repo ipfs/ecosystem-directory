@@ -1,13 +1,11 @@
 <template>
   <div :class="`page page-${tag} container`">
-    <h1 v-if="showcase.heading && showcase.heading.title" id="heading">
-      <img
-        v-if="showcase.heading.logo"
-        class="logo"
-        :src="$relativity(`/images/${showcase.heading.logo}`)"
-        :alt="`${showcase.heading.title} logo`">
-      {{ showcase.heading.title }}
-    </h1>
+    <div class="logo-wrapper">
+      <Shipyard_Logo color="#000000" />
+      <h1 v-if="showcase.heading && showcase.heading.title" id="heading">
+        {{ showcase.heading.title }}
+      </h1>
+    </div>
 
     <div id="taxonomy-grid">
       <div v-for="(block, blockIndex) in getTaxonomyData()" :key="`block-${blockIndex}`" :class="`block block-${block.size}`">
@@ -221,15 +219,22 @@ export default {
 }
 
 // ///////////////////////////////////////////////////////////////////// Heading
+.logo-wrapper {
+  display: flex;
+  padding: 0 2rem;
+  margin-bottom: 2rem;
+  height: 3.25rem;
+}
+
 #heading {
   font-family: $font_Primary;
   font-weight: 500;
   font-size: 2rem;
   padding: 0 2rem;
   margin-bottom: 2rem;
-  display: flex;
+  display: inline-block;
   align-items: center;
-  justify-content: flex-start;
+  vertical-align: middle;
   img {
     width: auto;
     height: 3.75rem;

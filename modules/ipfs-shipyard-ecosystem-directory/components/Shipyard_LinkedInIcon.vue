@@ -7,6 +7,7 @@
 
 <script>
 // ====================================================================== Export
-export default { name: 'ShipyardLinkedInIcon' }
-
+export default {
+  name: 'ShipyardLinkedInIcon'
+}
 </script>
