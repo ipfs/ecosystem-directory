@@ -7,7 +7,7 @@
         id="filter-panel-toggle-button"
         type="C"
         :text="filterPanelToggleButtonLabel"
-        :class="[filterButtonFloating, { 'active': filterPanelOpen }]"
+        :class="['focus-visible', filterButtonFloating, { 'active': filterPanelOpen }]"
         @clicked="toggleFilterPanel">
         <template #icon-before>
           <FiltersToggleIcon />
@@ -17,6 +17,7 @@
       <Button
         v-if="selectedFiltersCount"
         id="clear-selected-filters-button"
+        class="focus-visible"
         type="C"
         :text="clearSelectedFiltersButtonText"
         @clicked="clearSelectedFilters">
@@ -44,8 +45,10 @@
       <div
         v-if="showViewToggleButton"
         id="list-block-toggle-button"
-        :class="{ 'list-view-active': listViewActive }"
-        @click="toggleListBlockView">
+        tabindex="0"
+        :class="[{ 'list-view-active': listViewActive }, 'focus-visible']"
+        @click="toggleListBlockView"
+        @keyup.enter="toggleListBlockView">
         <ListViewIcon class="list-view-icon" />
         <BlockViewIcon class="block-view-icon" />
       </div>

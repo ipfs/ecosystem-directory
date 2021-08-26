@@ -488,6 +488,33 @@ li {
   }
 }
 
+.breadcrumb-link {
+  @include borderRadius3;
+}
+
+.project-card {
+  @include borderRadius3;
+}
+
+.pagination-controls {
+  .page-button,
+  .control-button {
+    @include borderRadius3;
+  }
+}
+
+#site-footer {
+  a {
+    @include borderRadius3;
+  }
+}
+
+.page-project {
+  .focus-visible {  
+    @include borderRadius3;
+  }
+}
+
 // ///////////////////////////////////////////////// Markdown content formatting
 // -----------------------------------------------------------------------------
 .markdown-post-content {
@@ -779,6 +806,85 @@ li {
       }
     }
   }
+}
+
+// /////////////////////////////////////////////////////////////// Accessibility
+a:focus {
+  @include focus_BoxShadow_Small;
+  outline: 0;
+}
+a.focus-visible:focus:not(:focus-visible) {
+  box-shadow: none;
+  outline: 0;
+}
+a.focus-visible:focus-visible, a.focus-visible:moz-focusring {
+  @include focus_BoxShadow_Small;
+  outline: 0;
+}
+
+button:focus {
+  @include focus_BoxShadow_Small;
+  outline: 0;
+}
+button.focus-visible:focus:not(:focus-visible) {
+  box-shadow: none;
+  outline: 0;
+}
+button.focus-visible:focus-visible, button.focus-visible:moz-focusring {
+  @include focus_BoxShadow_Small;
+  outline: 0;
+}
+
+div:focus {
+  @include focus_BoxShadow_Small;
+  outline: 0;
+}
+div.focus-visible:focus:not(:focus-visible) {
+  box-shadow: none;
+  outline: 0;
+}
+div.focus-visible:focus-visible, div.focus-visible:moz-focusring {
+  @include focus_BoxShadow_Small;
+  outline: 0;
+}
+
+input:focus {
+  @include focus_BoxShadow_Small;
+  outline: 0;
+}
+input.focus-visible:focus:not(:focus-visible) {
+  box-shadow: none;
+  outline: 0;
+}
+input.focus-visible:focus-visible, input.focus-visible:moz-focusring {
+  @include focus_BoxShadow_Small;
+  outline: 0;
+}
+
+select:focus {
+  @include focus_BoxShadow_Small;
+  outline: 0;
+}
+select.focus-visible:focus:not(:focus-visible) {
+  box-shadow: none;
+  outline: 0;
+}
+select.focus-visible:focus-visible, select.focus-visible:moz-focusring {
+  @include focus_BoxShadow_Small;
+  outline: 0;
+}
+
+textarea:focus {
+  @include focus_BoxShadow_Small;
+  outline: 0;
+}
+textarea.focus-visible:focus:not(:focus-visible) {
+  box-shadow: none;
+  outline: 0;
+}
+textarea.focus-visible:focus-visible, textarea.focus-visible:moz-focusring {
+  @include focus_BoxShadow_Small;
+  outline: 0;
 }
 
 // ///////////////////////////////////////////////////////////////////// Imports

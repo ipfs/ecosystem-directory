@@ -39,6 +39,7 @@
     "eslint-plugin-nuxt": "^2.0.0",
     "fibers": "^5.0.0",
     "filesize": "^6.2.2",
+    "focus-visible": "^5.2.0",
     "fs-extra": "^10.0.0",
     "graphql": "^15.5.0",
     "graphql-tag": "^2.11.0",
