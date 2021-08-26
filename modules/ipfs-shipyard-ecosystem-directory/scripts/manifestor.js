@@ -1,17 +1,17 @@
 // ///////////////////////////////////////////////////////// Imports & Variables
 // -----------------------------------------------------------------------------
-const Settings = require('./content/data/settings.json')
-
 const Fs = require('fs-extra')
+const Sass = require('node-sass')
 
 const paths = {
   prefixed: false, // key to ensure path prefixing only happens once during compile
   projects: `content/projects`,
   taxonomies: `static/content/core_taxonomy.json`,
+  settings: `static/content/core_settings.json`,
   project_routes: `static/content/project-routes.json`,
   project_list: `static/content/project-list.json`,
   showcase_data: `static/content/showcase-data.json`,
-  embeddable_view: `static/embeddable-view`
+  embeddable_view_dist: `static/embeddable-view`
 }
 
 // /////////////////////////////////////////////////////////////////// Functions
@@ -76,7 +76,7 @@ const reformatTaxonomies = async (taxonomies) => {
 */
 const generateTaxonomyListFile = async (slug, activeFilters) => {
   try {
-    const taxonomies = JSON.parse(await Fs.readFileSync(`${paths.data}/taxonomy.json`))
+    const taxonomies = JSON.parse(await Fs.readFileSync(paths.taxonomies))
     const category = taxonomies.categories.filter(category => category.slug === slug)
     const tags = category.length && category[0] ? category[0].tags : []
     const len = tags.length
@@ -117,11 +117,10 @@ const compileTags = (project, categories, tags) => {
   - Push all of them into an array (to be used by main app and nuxt.config.js routes/generate block)
   - Push all of them into an array with some information removed (to be used by embedable-view.js and the showcase view)
 */
-const generateProjectManifestFiles = async (slugs, primaryCategory) => {
+const generateProjectManifestFiles = async (slugs, primaryCategory, taxonomies) => {
   try {
     const len = slugs.length
     if (len === 0) { throw new Error('[manifestor.js] Unable to generate Project files because no projects exist') }
-    const taxonomies = JSON.parse(await Fs.readFileSync(paths.taxonomies))
     const payload = {
       full: [],
       mini: [],
@@ -173,17 +172,20 @@ const generateProjectManifestFiles = async (slugs, primaryCategory) => {
 /*
   Generate Embeddable View File
 */
-const generateEmbeddableViewFile = async (projectList, activeFilters, primaryCategory, slugs) => {
+const generateEmbeddableViewFile = async (projectList, activeFilters, primaryCategory, slugs, settings) => {
   try {
-    const settings = Settings.embeddable_view;
+    settings = settings.embeddable_view
     const taxonomyList = await generateTaxonomyListFile(primaryCategory, activeFilters)
-    const embeddableCSS = await Fs.readFileSync(`${paths.embeddable_view}/embeddable-view.min.css`, 'utf8')
-    const vueJS = await Fs.readFileSync(`${paths.embeddable_view}/vue.2.6.14.min.js`, 'utf8')
-    let embeddableView = await Fs.readFileSync(`${paths.embeddable_view}/embeddable-view.js`, 'utf8')
+    const compiledCSS = Sass.renderSync({
+      file: `${__dirname}/../assets/scss/embeddable-view.scss`,
+      outputStyle: 'compressed'
+    }).css
+    const vueJS = await Fs.readFileSync(`${__dirname}/../assets/js/vue.2.6.14.min.js`, 'utf8')
+    let embeddableView = await Fs.readFileSync(`${__dirname}/../assets/js/embeddable-view.js`, 'utf8')
     // Inject content
     embeddableView = embeddableView.replace('INJECT_PROJECTS_LIST', JSON.stringify(projectList))
     embeddableView = embeddableView.replace('INJECT_FILTERS', JSON.stringify(taxonomyList))
-    embeddableView = embeddableView.replace('INJECT_PROJECTS_STYLES', embeddableCSS)
+    embeddableView = embeddableView.replace('INJECT_PROJECTS_STYLES', compiledCSS)
     embeddableView = embeddableView.replace('INJECT_VUE_SCRIPT', vueJS)
     // Inject settings
     embeddableView = embeddableView.replace(/INJECT_SETTINGS_HOST/g, settings.host)
@@ -211,14 +213,16 @@ const Manifestor = async (instance) => {
     console.log('🚀️ Manifest projects started')
     await prefixPaths(instance)
     const slugs = await getSlugs()
-    const primaryCategory = Settings.behavior.primaryCategorySlug;
-    const payload = await generateProjectManifestFiles(slugs, primaryCategory)
+    const settings = JSON.parse(Fs.readFileSync(paths.settings))
+    const taxonomies = JSON.parse(await Fs.readFileSync(paths.taxonomies))
+    const primaryCategory = settings.behavior.primaryCategorySlug
+    const payload = await generateProjectManifestFiles(slugs, primaryCategory, taxonomies)
     await Fs.writeFileSync(paths.project_routes, JSON.stringify(payload.routes))
     await Fs.writeFileSync(paths.project_list, JSON.stringify(payload.full))
     await Fs.writeFileSync(paths.showcase_data, JSON.stringify(payload.showcase))
-    if (Settings.visibility.embeddableObject) {
-      const embeddableViewScript = await generateEmbeddableViewFile(payload.mini, payload.activeFilters, primaryCategory, slugs)
-      await Fs.writeFileSync(`${paths.embeddable_view}/embeddable-view.js`, embeddableViewScript)
+    if (settings.visibility.embeddableObject) {
+      const embeddableViewScript = await generateEmbeddableViewFile(payload.mini, payload.activeFilters, primaryCategory, slugs, settings)
+      await Fs.writeFileSync(`${paths.embeddable_view_dist}/embeddable-view.js`, embeddableViewScript)
     }
     console.log('🏁 Manifest projects complete')
   } catch (e) {

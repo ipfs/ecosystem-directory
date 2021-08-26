@@ -6,8 +6,8 @@ $host: INJECT_SETTINGS_HOST;
 $slider-thumb-light-svg: url('#{$host}/images/slider-thumb-light.svg') no-repeat;
 $slider-thumb-dark-svg: url('#{$host}/images/slider-thumb-dark.svg') no-repeat;
 
-$white: #fff;
-$black: #000;
+$white: white;
+$black: black;
 
 $highlight: #6BC4CE;
 
@@ -158,7 +158,7 @@ $teal-x-dark: #04202F;
       margin-bottom: 15px;
 
       .ecodir_slider {
-        
+
         .ecodir_slider-row-container {
           position: relative;
           width: 360px;
@@ -614,7 +614,7 @@ $teal-x-dark: #04202F;
     .ecodir_filters {
       justify-content: flex-start;
       padding-left: 10px;
-      
+
       .ecodir_dropdown-wrapper {
         margin-right: 36px;
       }
