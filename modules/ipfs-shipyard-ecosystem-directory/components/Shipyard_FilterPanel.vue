@@ -333,17 +333,6 @@ export default {
 .accordion-header {
   position: relative;
   cursor: pointer;
-  &:after {
-    content: '';
-    display: inline-block;
-    position: absolute;
-    top: 0;
-    right: 0.3125rem;
-    width: 0.75rem;
-    height: 100%;
-    // background: url('~assets/core/svgs/chevrondown.svg') no-repeat right center;
-    transition: 250ms ease-out;
-  }
 }
 
 .accordion-section {

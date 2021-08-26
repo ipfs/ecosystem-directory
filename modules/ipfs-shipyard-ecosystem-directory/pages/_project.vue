@@ -935,16 +935,6 @@ export default {
   position: relative;
   padding: 0 0.3125rem 0.875rem;
   cursor: pointer;
-  &:after {
-    content: '';
-    display: inline-block;
-    position: absolute;
-    top: 0;
-    right: 0.3125rem;
-    width: 0.75rem;
-    height: calc(100% - 1rem);
-    // background: url('~assets/core/svgs/chevrondown.svg') no-repeat right center;
-  }
   .heading-wrapper {
     margin-top: 0.125rem;
     display: flex;
