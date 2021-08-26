@@ -6,12 +6,12 @@ const Sass = require('node-sass')
 const paths = {
   prefixed: false, // key to ensure path prefixing only happens once during compile
   projects: `content/projects`,
+  staticDir: `static`,
   taxonomies: `static/content/core_taxonomy.json`,
   settings: `static/content/core_settings.json`,
   project_routes: `static/content/project-routes.json`,
   project_list: `static/content/project-list.json`,
-  showcase_data: `static/content/showcase-data.json`,
-  embeddable_view_dist: `static/embeddable-view`
+  showcase_data: `static/content/showcase-data.json`
 }
 
 // /////////////////////////////////////////////////////////////////// Functions
@@ -222,7 +222,7 @@ const Manifestor = async (instance) => {
     await Fs.writeFileSync(paths.showcase_data, JSON.stringify(payload.showcase))
     if (settings.visibility.embeddableObject) {
       const embeddableViewScript = await generateEmbeddableViewFile(payload.mini, payload.activeFilters, primaryCategory, slugs, settings)
-      await Fs.writeFileSync(`${paths.embeddable_view_dist}/embeddable-view.js`, embeddableViewScript)
+      await Fs.writeFileSync(`${paths.staticDir}/embeddable-view.js`, embeddableViewScript)
     }
     console.log('🏁 Manifest projects complete')
   } catch (e) {
