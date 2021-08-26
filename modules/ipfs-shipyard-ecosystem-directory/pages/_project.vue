@@ -208,6 +208,9 @@
                     <h3 class="heading">
                       {{ $getTaxonomyCategoryLabel(taxonomy.slug) }}
                     </h3>
+                    <div>
+                      <SelectorToggleIcon class="dropdown-toggle"/>
+                    </div>
                   </div>
                 </AccordionHeader>
                 <AccordionContent>
@@ -944,13 +947,19 @@ export default {
   }
   .heading-wrapper {
     margin-top: 0.125rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
 }
 
 .accordion-section {
+  .dropdown-toggle {
+    transition: 250ms ease-in;
+  }
   &.open {
     .accordion-header {
-      &:after {
+      .dropdown-toggle {
         transform: rotate(180deg);
       }
     }

@@ -34,6 +34,9 @@
                   {{ getSublabel(heading) }}
                 </h5>
               </div>
+              <div>
+                <SelectorToggleIcon class="dropdown-toggle"/>
+              </div>
             </AccordionHeader>
             <AccordionContent>
               <div class="filter-category chiclet-list">
@@ -85,6 +88,7 @@ import Accordion from '@/modules/zero/core/Components/Accordion/Accordion'
 import AccordionHeader from '@/modules/zero/core/Components/Accordion/Header'
 import AccordionSection from '@/modules/zero/core/Components/Accordion/Section'
 import AccordionContent from '@/modules/zero/core/Components/Accordion/Content'
+import SelectorToggleIcon from '@/modules/zero/core/Components/Icons/SelectorToggle'
 
 // =================================================================== Functions
 const toggleAllCategoryTags = (instance, heading) => {
@@ -126,7 +130,8 @@ export default {
     Accordion,
     AccordionHeader,
     AccordionSection,
-    AccordionContent
+    AccordionContent,
+    SelectorToggleIcon
   },
 
   props: {
@@ -342,11 +347,13 @@ export default {
 }
 
 .accordion-section {
+  .dropdown-toggle {
+    transition: 250ms ease-in;
+  }
   &.open {
     .accordion-header {
-      &:after {
-        transition: 250ms ease-in;
-        transform: rotate(-180deg);
+      .dropdown-toggle {
+        transform: rotate(180deg);
       }
     }
   }
