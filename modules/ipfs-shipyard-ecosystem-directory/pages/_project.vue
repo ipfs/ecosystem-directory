@@ -209,7 +209,7 @@
                       {{ $getTaxonomyCategoryLabel(taxonomy.slug) }}
                     </h3>
                     <div>
-                      <SelectorToggleIcon class="dropdown-toggle"/>
+                      <SelectorToggleIcon class="dropdown-toggle" />
                     </div>
                   </div>
                 </AccordionHeader>
