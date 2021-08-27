@@ -47,7 +47,7 @@
     "node-sass": "^5.0.0",
     "nuxt": "^2.15.4",
     "nuxt-hammer": "^2.1.3",
-    "nuxt-module-ecosystem-directory": "^1.0.0",
+    "nuxt-module-ecosystem-directory": "^1.0.2",
     "nuxt-module-ipfs": "^1.0.2-alpha.2",
     "papaparse": "^5.3.0",
     "paper": "^0.12.15",
