@@ -65,9 +65,10 @@ export default {
   // /////////////////////////////////////////////////////////// Nuxt.js Modules
   // ---------------------------------------------------------------------------
   modules: [
+    // Doc: https://github.com/ipfs-shipyard/nuxt-module-ecosystem-directory
+    'nuxt-module-ecosystem-directory',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '~/modules/ipfs-shipyard-ecosystem-directory',
     // Doc: https://github.com/nuxt-community/style-resources-module/
     '@nuxtjs/style-resources',
     // Collection of helper modules, plugins and functions
