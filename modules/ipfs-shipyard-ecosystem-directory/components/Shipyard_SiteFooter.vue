@@ -8,11 +8,21 @@
           <h2 class="heading">
             {{ pageData.heading }}
           </h2>
-          <div ref="subheading" class="subheading" v-html="pageData.subheading"></div>
+          <div ref="subheading" class="subheading">
+            <component
+              :is="getElementTag(element.type)"
+              v-for="(element, index) in pageData.subheading"
+              :key="`subheading-element-${index}`"
+              :href="element.href"
+              target="_blank"
+              class="focus-visible">{{ element.content ? element.content : '' }}</component>
+          </div>
         </div>
 
         <div class="col-5_sm-12">
-          <div ref="mailform" class="mailchimp-form" v-html="pageData.mailchimp_form"></div>
+          <div ref="mailform" class="mailchimp-form">
+            <Shipyard_MailchimpForm />
+          </div>
         </div>
 
       </div>
@@ -42,7 +52,18 @@
         </div>
 
         <div class="col-12">
-          <div ref="copyright" class="copyright" v-html="pageData.copyright"></div>
+          <div ref="copyright" class="copyright">
+            <template v-if="pageData.copyright.length">
+              <Shipyard_CopyrightLogo />
+              <component
+                :is="getElementTag(element.type)"
+                v-for="(element, index) in pageData.copyright"
+                :key="`copyright-element-${index}`"
+                :href="element.href"
+                target="_blank"
+                class="focus-visible">{{ element.content ? element.content : '' }}</component>
+            </template>
+          </div>
         </div>
 
       </div>
@@ -73,16 +94,17 @@ export default {
     }
   },
 
-  mounted () {
-    Array.from(this.$refs.subheading.getElementsByTagName('a')).forEach((child) => {
-      child.classList.add('focus-visible')
-    })
-    Array.from(this.$refs.mailform.getElementsByTagName('input')).forEach((input) => {
-      input.classList.add('focus-visible')
-    })
-    Array.from(this.$refs.copyright.getElementsByTagName('a')).forEach((input) => {
-      input.classList.add('focus-visible')
-    })
+  methods: {
+    getElementTag (string) {
+      switch (string) {
+        case 'text':
+          return 'span'
+        case 'link':
+          return 'a'
+        default:
+          return 'span'
+      }
+    }
   }
 }
 </script>

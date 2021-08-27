@@ -76,7 +76,78 @@
     "description": "Check out some new and notable additions to the ecosystem directory."
   },
   "footer_content": {
-    "heading": "Stay informed"
+    "heading": "Stay informed",
+    "subheading": [
+      {
+        "type": "text",
+        "content": "Sign up for the Weekly newsletter ("
+      },
+      {
+        "type": "link",
+        "href": "https://example.com",
+        "content": "example"
+      },
+      {
+        "type": "text",
+        "content": ") for the latest on releases, upcoming developments, community events, and more."
+      }
+    ],
+    "copyright": [
+      {
+        "type": "text",
+        "content": " © "
+      },
+      {
+        "type": "link",
+        "href": "https://example.com",
+        "content": "Protocol Labs"
+      },
+      {
+       "type": "text",
+       "content": " | Except as "
+      },
+      {
+       "type": "link",
+       "href": "https://example.com",
+       "content": "noted"
+      },
+      {
+       "type": "text",
+       "content": ", content licensed "
+      },
+      {
+       "type": "link",
+       "href": "https://example.com",
+       "content": "CC-BY 3.0"
+      },
+      {
+       "type": "text",
+       "content": " | "
+      },
+      {
+       "type": "link",
+       "href": "https://example.com",
+       "content": "Terms"
+      },
+      {
+       "type": "text",
+       "content": " | "
+      },
+      {
+       "type": "link",
+       "href": "https://example.com",
+       "content": "Privacy"
+      },
+      {
+       "type": "text",
+       "content": " | "
+      },
+      {
+       "type": "link",
+       "href": "https://example.com",
+       "content": "DMCA"
+      }
+    ]
   },
   "social_icons": [
     {
