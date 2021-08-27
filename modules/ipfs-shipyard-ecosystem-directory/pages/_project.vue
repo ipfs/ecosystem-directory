@@ -208,6 +208,9 @@
                     <h3 class="heading">
                       {{ $getTaxonomyCategoryLabel(taxonomy.slug) }}
                     </h3>
+                    <div>
+                      <SelectorToggleIcon class="dropdown-toggle"/>
+                    </div>
                   </div>
                 </AccordionHeader>
                 <AccordionContent>
@@ -932,25 +935,21 @@ export default {
   position: relative;
   padding: 0 0.3125rem 0.875rem;
   cursor: pointer;
-  &:after {
-    content: '';
-    display: inline-block;
-    position: absolute;
-    top: 0;
-    right: 0.3125rem;
-    width: 0.75rem;
-    height: calc(100% - 1rem);
-    // background: url('~assets/core/svgs/chevrondown.svg') no-repeat right center;
-  }
   .heading-wrapper {
     margin-top: 0.125rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
   }
 }
 
 .accordion-section {
+  .dropdown-toggle {
+    transition: 250ms ease-in;
+  }
   &.open {
     .accordion-header {
-      &:after {
+      .dropdown-toggle {
         transform: rotate(180deg);
       }
     }

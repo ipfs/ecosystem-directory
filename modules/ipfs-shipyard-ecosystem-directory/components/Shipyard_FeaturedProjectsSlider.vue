@@ -35,6 +35,10 @@
 
     <div id="slider-controls">
       <div id="slider-line">
+        <div class="dummy-thumb" :style="`left: ${thumbPosition}px;`">
+          <SelectorToggleIcon class="chevron-left" />
+          <SelectorToggleIcon class="chevron-right" />
+        </div>
         <input
           id="feature-range-slider"
           ref="sliderInput"
@@ -53,6 +57,8 @@
 <script>
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
+
+import SelectorToggleIcon from '@/modules/zero/core/Components/Icons/SelectorToggle'
 
 // =================================================================== Functions
 const handleFeatureSliderResize = (instance) => {
@@ -74,11 +80,17 @@ const handleFeatureSliderResize = (instance) => {
   instance.cardWidth = cardWidth
   instance.slidingRowWidth = cardWidth * instance.featured.length + 'px'
   instance.setSliderPosition()
+
+  instance.inputWidth = instance.$refs.sliderInput.getBoundingClientRect().width
 }
 
 // ====================================================================== Export
 export default {
   name: 'ShipyardFeaturedProjectsSlider',
+
+  components: {
+    SelectorToggleIcon
+  },
 
   props: {
     parent: { // name of parent page, used for Countly
@@ -96,7 +108,8 @@ export default {
       left: 0,
       cardWidth: 0,
       display: 4,
-      slidingRowWidth: '100%'
+      slidingRowWidth: '100%',
+      inputWidth: false
     }
   },
 
@@ -116,6 +129,10 @@ export default {
     },
     enableImageAlt () {
       return this.settings.visibility.mediaAltAtts
+    },
+    thumbPosition () {
+      const pos = (this.range - (this.indices / 2)) / ((this.indices * this.indices + 1) - (this.indices / 2))
+      return Math.max(pos * (this.inputWidth - 48), 0)
     }
   },
 
@@ -217,10 +234,23 @@ export default {
 }
 
 #slider-line {
-  display: inline-block;
+  position: relative;
+  display: block;
   width: 40%;
   @include tiny {
     width: 75%;
+  }
+  &:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 0px;
+    border: 1px solid $gray400;
+    transform: translateY(-50);
+    border-radius: 10px;
+    z-index: -10;
   }
 }
 
@@ -229,47 +259,84 @@ export default {
 }
 
 // ////////////////////////////////////////////////////////////////////// Inputs
+.dummy-thumb {
+  position: absolute;
+  height: 20px;
+  width: 50px;
+  background-color: #ffffff;
+  border: 2px solid $gray400;
+  border-radius: $borderRadius_Medium;
+  z-index: -1;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.chevron-left,
+.chevron-right {
+  position: relative;
+  top: -6px;
+}
+
+.chevron-left {
+  transform: rotateZ(90deg) scale(0.9);
+  left: 2px;
+}
+
+.chevron-right {
+  transform: rotateZ(-90deg) scale(0.9);
+  left: 16px;
+}
+
+@mixin thumb() {
+  height: 20px;
+  width: 50px;
+  cursor: pointer;
+  border-radius: 0px;
+  background-color: transparent;
+  border: 2px solid transparent;
+  border-radius: $borderRadius_Medium;
+}
+
 input {
   &[type=range] {
     height: 28px;
     -webkit-appearance: none;
     margin: 10px 0;
     width: 100%;
+    z-index: 10000;
     &::-webkit-slider-runnable-track {
       width: 100%;
-      height: 3px;
+      height: 0px;
       cursor: pointer;
       animate: 0.2s;
       border-radius: 20px;
+      background-color: transparent;
+      border-color: transparent;
+      color: transparent;
     }
     &::-webkit-slider-thumb {
-      height: 20px;
-      width: 51px;
-      cursor: pointer;
       -webkit-appearance: none;
       margin-top: -9px;
-      // background: url('~assets/core/svgs/sliderthumb.svg') no-repeat;
+      @include thumb
     }
     &::-moz-range-track {
       width: 100%;
-      height: 3px;
+      height: 0px;
       cursor: pointer;
       animate: 0.2s;
       border-radius: 20px;
+      background-color: transparent;
+      border-color: transparent;
+      color: transparent;
     }
     &::-moz-range-thumb {
-      height: 20px;
-      width: 51px;
-      cursor: pointer;
-      // background: url('~assets/core/svgs/sliderthumb.svg') no-repeat;
-      border: none;
-      border-radius: 0px;
+      @include thumb
     }
     &::-ms-track {
       width: 100%;
-      height: 3px;
+      height: 0px;
       cursor: pointer;
-      background: transparent;
+      background-color: transparent;
       border-color: transparent;
       color: transparent;
     }
@@ -278,12 +345,7 @@ input {
     }
     &::-ms-thumb {
       margin-top: 1px;
-      height: 20px;
-      width: 51px;
-      cursor: pointer;
-      // background: url('~assets/core/svgs/sliderthumb.svg') no-repeat;
-      border: none;
-      border-radius: 0px;
+      @include thumb
     }
   }
 }
