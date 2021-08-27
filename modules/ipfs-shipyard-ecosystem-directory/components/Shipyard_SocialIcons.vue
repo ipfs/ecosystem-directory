@@ -1,7 +1,17 @@
 <template>
-  <div v-if="icons" class="social-icons-container">
+  <div v-if="links.length" class="social-icons-container">
 
-    <div ref="container" class="social-icons" v-html="icons"></div>
+    <div ref="container" class="social-icons">
+      <a
+        v-for="link in links"
+        :key="link.network"
+        :href="link.href"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="focus-visible">
+        <component :is="`Shipyard_${link.network}Icon`"></component>
+      </a>
+    </div>
 
   </div>
 </template>
@@ -18,19 +28,21 @@ export default {
     ...mapGetters({
       siteContent: 'global/siteContent'
     }),
-    icons () {
+    links () {
+      const networks = ['Github', 'Youtube', 'Twitter', 'LinkedIn']
       const siteContent = this.siteContent
+      const links = []
       if (siteContent.general && siteContent.general.social_icons) {
-        return siteContent.general.social_icons
+        if (Array.isArray(siteContent.general.social_icons)) {
+          siteContent.general.social_icons.forEach((item) => {
+            if (networks.includes(item.network) && typeof item.href === 'string' && item.href !== '') {
+              links.push(item)
+            }
+          })
+        }
       }
-      return false
+      return links
     }
-  },
-
-  mounted () {
-    Array.from(this.$refs.container.children).forEach((child) => {
-      child.classList.add('focus-visible')
-    })
   }
 }
 </script>

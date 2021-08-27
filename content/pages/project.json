@@ -1,19 +1,19 @@
 {
   "seo": {
-    "title": "Ecosystem Directory",
-    "description": "Interactive ecosystem directory and showcase"
+    "title": "IPFS Ecosystem Directory",
+    "description": "Interactive IPFS ecosystem directory and showcase"
   },
   "og": {
-    "site_name": "Ecosystem Directory",
-    "url": "https://example.com/project/",
+    "site_name": "IPFS Ecosystem Directory",
+    "url": "https://ecosystem.ipfs.io/project/",
     "type": "website",
-    "image": "https://example.com/images/projects/"
+    "image": "https://ecosystem.ipfs.io/images/projects/"
   },
   "page_content": {
     "breadcrumbs": [
       {
         "type": "a",
-        "href": "https://example.com",
+        "href": "https://ipfs.io",
         "label": "Home"
       },
       {
