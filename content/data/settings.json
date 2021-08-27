@@ -33,5 +33,20 @@
     "mediaAltAtts": true,
     "linksAltAtts": true,
     "singularTagLinks": true
-  }
+  },
+  "embeddable_view": {
+    "host": "https://bafybeibjasmf2bvswm3ejg4shppxtw5l36bfn7uouypjm6teqwpcpxi4pi.on.fleek.co/",
+    "target": ".ipfs-ecosystem-embed",
+    "copy": {
+      "heading": "Who's using IPFS?",
+      "subheading": "Discover projects successfully leveraging IPFS",
+      "project_link": "Learn More",
+      "ecosystem_link": "View the entire ecosystem",
+      "filter_all": "All",
+      "sort_a_z": "Alphabetical (A-Z)",
+      "sort_z_a": "Alphabetical (Z-A)",
+      "sort_date_asc": "Time on IPFS (newer)",
+      "sort_date_desc": "Time on IPFS (older)"
+    }
+  }  
 }

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="55" height="20" viewBox="0 0 55 20">
+  <g id="Group_861" data-name="Group 861" transform="translate(-455 -1521)">
+    <g id="Rectangle_1351" data-name="Rectangle 1351" transform="translate(455 1521)" fill="#04202f" stroke="#0e4f72" stroke-width="2">
+      <rect width="55" height="20" rx="5" stroke="none"/>
+      <rect x="1" y="1" width="53" height="18" rx="4" fill="none"/>
+    </g>
+    <g id="Group_818" data-name="Group 818" transform="translate(126.133 790.274)">
+      <g id="Group_444" data-name="Group 444" transform="translate(123.621 1310.199) rotate(-90)">
+        <path id="Path_8" data-name="Path 8" d="M0,0,2.756,2.517" transform="translate(572.473 246.247) rotate(90)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1.5"/>
+        <path id="Path_9" data-name="Path 9" d="M0,2.517,2.756,0" transform="translate(569.955 246.247) rotate(90)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1.5"/>
+      </g>
+      <g id="Group_445" data-name="Group 445" transform="translate(589.871 170.288) rotate(90)">
+        <path id="Path_8-2" data-name="Path 8" d="M0,0,2.756,2.517" transform="translate(572.473 246.247) rotate(90)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1.5"/>
+        <path id="Path_9-2" data-name="Path 9" d="M0,2.517,2.756,0" transform="translate(569.955 246.247) rotate(90)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1.5"/>
+      </g>
+    </g>
+  </g>
+</svg>

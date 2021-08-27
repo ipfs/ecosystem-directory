@@ -1,13 +1,13 @@
 {
   "seo": {
-    "title": "Ecosystem Directory",
-    "description": "Interactive ecosystem directory and showcase"
+    "title": "IPFS Ecosystem Directory",
+    "description": "Interactive IPFS ecosystem directory and showcase"
   },
   "og": {
-    "site_name": "Ecosystem Directory",
-    "url": "https://example.com",
+    "site_name": "IPFS Ecosystem Directory",
+    "url": "https://ecosystem.ipfs.io/",
     "type": "website",
-    "image": "https://example.com/images/open-graph.png"
+    "image": "https://ecosystem.ipfs.io/images/open-graph.png"
   },
   "404_error_message": "Not Found",
   "page_content": {
@@ -15,7 +15,7 @@
       "index_view": [
         {
           "type": "a",
-          "href": "https://example.com",
+          "href": "https://ipfs.io",
           "label": "Home"
         },
         {
@@ -26,7 +26,7 @@
       "filters_view": [
         {
           "type": "a",
-          "href": "https://example.com",
+          "href": "https://ipfs.io",
           "label": "Home"
         },
         {
@@ -42,7 +42,7 @@
       "filters_applied_view": [
         {
           "type": "a",
-          "href": "https://example.com",
+          "href": "https://ipfs.io",
           "label": "Home"
         },
         {
@@ -63,7 +63,7 @@
         "filters_applied_view": "Filtered results"
       },
       "subheading": {
-        "index_view": "Explore entityTermPlural and products in this interactive filterable showcase.",
+        "index_view": "Explore the world of entityTermPlural and products built on IPFS in this interactive showcase filterable by industry, tooling, and more.",
         "filters_view": {
           "show_all": "Showing all entityTermPlural, no filters selected",
           "show_search": "Showing entityTermPlural matching"
@@ -72,11 +72,11 @@
     },
     "segment_slider": {
       "filter_toggle_button_text": "View All",
-      "mobile_chart_title": "Explore"
+      "mobile_chart_title": "Explore IPFS"
     },
     "section_filter": {
       "heading": "All entityTermPlural",
-      "description": "Explore the entire ecosystem, or use the filters to drill down by factors.",
+      "description": "Explore the entire IPFS ecosystem, or use the filters to drill down by factors like industry, focus area, and tooling.",
       "results_empty_placeholder": "No results found that match the selected filters.",
       "filter_panel_toggle_button_label": "Filters",
       "sort_dropdown_label": "Sort by:",
