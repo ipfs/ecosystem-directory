@@ -21,45 +21,7 @@
 
         <div class="col-5_sm-12">
           <div ref="mailform" class="mailchimp-form">
-            <form
-              v-if="pageData.mailchimp_form.input"
-              id="mailchimp-form"
-              :action="pageData.mailchimp_form.input.action"
-              method="post"
-              target="_blank">
-              <div class="panel-top">
-                <input
-                  required="required"
-                  type="email"
-                  aria-label="Email Address"
-                  :placeholder="pageData.mailchimp_form.input.placeholder"
-                  name="EMAIL" />
-                <input
-                  type="submit"
-                  :value="pageData.mailchimp_form.input.button_text"
-                  name="subscribe" />
-              </div>
-              <div
-                v-if="pageData.mailchimp_form.checkbox"
-                class="panel-bottom">
-                <input
-                  type="checkbox"
-                  required=""
-                  :name="pageData.mailchimp_form.checkbox.name"
-                  value="Y" />
-                <span>{{ pageData.mailchimp_form.checkbox.label }}</span>
-              </div>
-              <div
-                v-if="pageData.mailchimp_form.checkbox"
-                aria-hidden="true"
-                style="position: absolute; left: -5000px">
-                <input
-                  type="text"
-                  :name="pageData.mailchimp_form.hidden.name"
-                  tabindex="-1"
-                  value="">
-              </div>
-            </form>
+            <Shipyard_MailchimpForm />
           </div>
         </div>
 
@@ -92,6 +54,7 @@
         <div class="col-12">
           <div ref="copyright" class="copyright">
             <template v-if="pageData.copyright.length">
+              <Shipyard_CopyrightLogo />
               <component
                 :is="getElementTag(element.type)"
                 v-for="(element, index) in pageData.copyright"
@@ -129,18 +92,6 @@ export default {
       }
       return false
     }
-  },
-
-  mounted () {
-    Array.from(this.$refs.subheading.getElementsByTagName('a')).forEach((child) => {
-      child.classList.add('focus-visible')
-    })
-    Array.from(this.$refs.mailform.getElementsByTagName('input')).forEach((input) => {
-      input.classList.add('focus-visible')
-    })
-    Array.from(this.$refs.copyright.getElementsByTagName('a')).forEach((input) => {
-      input.classList.add('focus-visible')
-    })
   },
 
   methods: {
