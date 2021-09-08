@@ -13,6 +13,39 @@
   }
 }
 
+// ///////////////////////////////////////////////////////////// Featured Slider
+// -----------------------------------------------------------------------------
+#slider-line {
+  &:after {
+    height: 1px !important;
+    border: 1px solid $pumice !important;
+    background-color: $pumice !important;
+  }
+}
+
+.dummy-thumb {
+  height: 21px !important;
+  width: 53px !important;
+  top: calc(50% + 1px) !important;
+  border: 2.5px solid #C6C8C7 !important;
+  border-radius: 6px !important;
+  .chevron-left,
+  .chevron-right {
+    top: -7px !important;
+    path {
+      stroke-width: 2;
+    }
+  }
+  .chevron-left {
+    transform: rotateZ(90deg) scale(0.65) !important;
+    left: 3px !important;
+  }
+  .chevron-right {
+    transform: rotateZ(-90deg) scale(0.65) !important;
+    left: 18px !important;
+  }
+}
+
 // //////////////////////////////////////////////////////////////////// Chiclets
 // -----------------------------------------------------------------------------
 .chiclet-list {
