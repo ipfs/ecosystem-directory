@@ -58,9 +58,7 @@ export default {
   // ---------------------------------------------------------------------------
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module',
-    // Doc: https://github.com/nuxt-community/moment-module#readme
-    '@nuxtjs/moment'
+    '@nuxtjs/eslint-module'
   ],
   // /////////////////////////////////////////////////////////// Nuxt.js Modules
   // ---------------------------------------------------------------------------
@@ -78,12 +76,6 @@ export default {
     // Doc: https://github.com/agency-undone/nuxt-module-ipfs
     'nuxt-module-ipfs'
   ],
-  // ///////////////////////////////////////////////////////// [Module] MomentJS
-  // ---------------------- Doc: https://github.com/nuxt-community/moment-module
-  moment: {
-    timezone: true,
-    defaultTimezone: 'UTC'
-  },
   // ///////////////////////////////////////////////////////////// [Module] Zero
   // ---------------------------------------------------------------------------
   zero: {
