@@ -62,6 +62,7 @@
 <script>
 // ===================================================================== Imports
 import { mapGetters } from 'vuex'
+import Throttle from 'lodash/throttle'
 
 // =================================================================== Functions
 const checkScreenWidth = (instance) => {
@@ -123,7 +124,7 @@ export default {
   },
 
   mounted () {
-    this.resize = this.$throttle(() => { checkScreenWidth(this) }, 310)
+    this.resize = Throttle(() => { checkScreenWidth(this) }, 310)
     this.scroll = () => { this.updateScrollPosition() }
     window.addEventListener('resize', this.resize)
     window.addEventListener('scroll', this.scroll)
