@@ -59,6 +59,16 @@ $fontAssetPath: '~assets/theme/fonts';
 
 // ///////////////////////////////////////////////////////////////////// General
 // -----------------------------------------------------------------------------
+
+::-moz-selection { 
+  background: $paradiso; 
+  color: white;
+}
+::selection {
+  background: $paradiso;
+  color: white;
+}
+
 html, body {
   @include leading_Regular;
   padding: 0;
