@@ -7,7 +7,7 @@
 
       <div class="slide-nav">
         <button
-          class="nav-arrow"
+          class="nav-arrow focus-visible"
           @click="incrementSelection(selectedSeg - 1)">
           <PrevArrow
             stroke="#052437"
@@ -23,7 +23,7 @@
         </h3>
 
         <button
-          class="nav-arrow"
+          class="nav-arrow focus-visible"
           @click="incrementSelection(selectedSeg + 1)">
           <NextArrow
             stroke="#052437"
@@ -48,15 +48,16 @@
         <div v-if="logos" class="logo-wrapper">
 
           <img
-            v-for="path in logos"
-            :key="path"
-            :src="$relativity(`/images/projects/${path}`)" />
+            v-for="item in logos"
+            :key="item.path"
+            :src="$relativity(`/images/projects/${item.path}`)"
+            :alt="enableImageAlt ? item.alt : null" />
 
         </div>
       </div>
 
       <button
-        class="view-all button noselect"
+        class="view-all button noselect focus-visible"
         @click="jump2Filters">
         {{ filterToggleButtonText }}
       </button>
@@ -93,6 +94,11 @@ export default {
     containerHeight: {
       type: Number,
       default: 440
+    },
+    enableImageAlt: {
+      type: Boolean,
+      required: false,
+      default: true
     }
   },
 
@@ -294,7 +300,6 @@ export default {
   }
   &:focus {
     outline: none;
-    box-shadow: none;
   }
 }
 
@@ -352,7 +357,6 @@ export default {
   }
   &:focus {
     outline: none;
-    box-shadow: none;
   }
 }
 

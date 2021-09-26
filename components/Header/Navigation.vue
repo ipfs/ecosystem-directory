@@ -11,7 +11,7 @@
       <div class="col">
         <div class="navigation-content">
 
-          <a :href="navigation.index.href">
+          <a :href="navigation.index.href" tabindex="0" class="logo-link focus-visible">
             <svg id="ipfs-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 553 235.3">
               <path d="M239 63h17.8v105H239V63zm35.6 0h36.3c7.9 0 14.5.9 19.6 2.6s9.2 4.1 12.1 7.1a24.45 24.45 0 0 1 6.2 10.2 40.75 40.75 0 0 1 1.8 12.1 45.69 45.69 0 0 1-1.8 12.9 26.58 26.58 0 0 1-6.2 10.8 30.59 30.59 0 0 1-12.1 7.3c-5.1 1.8-11.5 2.7-19.3 2.7h-19.1V168h-17.5V63zm36.2 51a38.37 38.37 0 0 0 11.1-1.3 16.3 16.3 0 0 0 6.8-3.7 13.34 13.34 0 0 0 3.5-5.8 29.75 29.75 0 0 0 1-7.6 25.68 25.68 0 0 0-1-7.7 12 12 0 0 0-3.6-5.5 17.15 17.15 0 0 0-6.9-3.4 41.58 41.58 0 0 0-10.9-1.2h-18.5V114h18.5zm119.9-51v15.3h-49.2V108h46.3v15.4h-46.3V168h-17.8V63h67zm26.2 72.9c.8 6.9 3.3 11.9 7.4 15s10.4 4.7 18.6 4.7a32.61 32.61 0 0 0 10.1-1.3 20.52 20.52 0 0 0 6.6-3.5 12 12 0 0 0 3.5-5.2 19.08 19.08 0 0 0 1-6.4 16.14 16.14 0 0 0-.7-4.9 12.87 12.87 0 0 0-2.6-4.5 16.59 16.59 0 0 0-5.1-3.6 35 35 0 0 0-8.2-2.4l-13.4-2.5a89.76 89.76 0 0 1-14.1-3.7 33.51 33.51 0 0 1-10.4-5.8 22.28 22.28 0 0 1-6.3-8.8 34.1 34.1 0 0 1-2.1-12.7 26 26 0 0 1 11.3-22.4 36.35 36.35 0 0 1 12.6-5.6 65.89 65.89 0 0 1 15.8-1.8c7.2 0 13.3.8 18.2 2.5a34.46 34.46 0 0 1 11.9 6.5 28.21 28.21 0 0 1 6.9 9.3 42.1 42.1 0 0 1 3.2 11l-16.8 2.6c-1.4-5.9-3.7-10.2-7.1-13.1s-8.7-4.3-16.1-4.3a43.9 43.9 0 0 0-10.5 1.1 19.47 19.47 0 0 0-6.8 3.1 11.63 11.63 0 0 0-3.7 4.6 14.08 14.08 0 0 0-1.1 5.4c0 4.6 1.2 8 3.7 10.3s6.9 4 13.2 5.3l14.5 2.8c11.1 2.1 19.2 5.6 24.4 10.5s7.8 12.1 7.8 21.4a31.37 31.37 0 0 1-2.4 12.3 25.27 25.27 0 0 1-7.4 9.8 36.58 36.58 0 0 1-12.4 6.6 56 56 0 0 1-17.3 2.4c-13.4 0-24-2.8-31.6-8.5s-11.9-14.4-12.6-26.2h18z" style="fill:#fff" />
               <path fill="#469ea2" d="m30.3 164 84 48.5 84-48.5V67l-84-48.5-84 48.5v97z" />
@@ -23,6 +23,13 @@
             </svg>
           </a>
 
+          <div
+            :class="['hamburger-icon', 'focus-visible', {'close-icon' : navOpen}]"
+            tabindex="0"
+            @click="toggleNav"
+            @keyup.enter="toggleNav">
+          </div>
+
           <div :class="['navigation', { 'modal-open' : navOpen, 'transition-out': modalClosing }]">
             <div class="links-container">
               <component
@@ -33,7 +40,7 @@
                 :href="link.disabled ? '' : link.href"
                 :disabled="link.disabled"
                 :target="link.target"
-                class="navigation-link onhover-line">
+                class="navigation-link onhover-line focus-visible">
                 {{ link.label }}
               </component>
             </div>
@@ -41,8 +48,6 @@
               <SocialIcons />
             </div>
           </div>
-
-          <div :class="['hamburger-icon', {'close-icon' : navOpen}]" @click="toggleNav"></div>
 
         </div>
       </div>
@@ -204,6 +209,10 @@ export default {
   cursor: pointer;
 }
 
+.logo-link {
+  @include borderRadius3;
+}
+
 #ipfs-logo {
   display: block;
   position: relative;
@@ -251,6 +260,7 @@ export default {
 }
 
 .navigation-link {
+  @include borderRadius3;
   @include customMaxMQ (768px) { // ← requested interim solution
     align-self: start;
     margin-bottom: 0.75rem;

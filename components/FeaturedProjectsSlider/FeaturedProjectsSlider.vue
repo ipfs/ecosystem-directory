@@ -23,6 +23,9 @@
               :slug="project.slug"
               :description="project.description.short"
               :logo="project.logo.icon"
+              :url="project.primaryCta.url"
+              :navigation-behavior="projectCardBehavior"
+              :enable-image-alt="enableImageAlt"
               format="block-view" />
           </div>
 
@@ -38,6 +41,7 @@
           v-model="range"
           type="range"
           step="0.1"
+          class="focus-visible"
           :min="indices / 2"
           :max="indices * indices + 1">
       </div>
@@ -51,6 +55,8 @@
 import { mapGetters } from 'vuex'
 
 import ProjectCard from '@/components/ProjectView/ProjectCard'
+
+import Settings from '@/content/data/settings.json'
 
 // =================================================================== Functions
 const handleFeatureSliderResize = (instance) => {
@@ -111,6 +117,12 @@ export default {
     },
     indices () {
       return this.featured.length - this.display
+    },
+    projectCardBehavior () {
+      return parseInt(Settings.visibility.disableSingulars)
+    },
+    enableImageAlt () {
+      return Settings.visibility.mediaAltAtts
     }
   },
 

@@ -1,11 +1,15 @@
 <template>
-  <NuxtLink
-    :to="`/project/${slug}`"
-    :class="['project-card', format]">
+  <component
+    :is="componentType"
+    :to="navigateToProject"
+    :href="primaryCta"
+    :target="primaryCta ? '_blank' : null"
+    tabindex="0"
+    :class="['project-card', 'focus-visible', format]">
     <div class="card-inner-wrapper">
 
       <div class="thumbnail">
-        <img :src="$relativity(`/images/projects/${logo}`)" />
+        <img :src="$relativity(`/images/projects/${logo}`)" :alt="imageAlt" />
       </div>
 
       <div class="content">
@@ -21,7 +25,7 @@
       </div>
 
     </div>
-  </NuxtLink>
+  </component>
 </template>
 
 <script>
@@ -30,6 +34,11 @@ export default {
   name: 'ProjectCard',
 
   props: {
+    format: {
+      type: String,
+      default: 'block-view',
+      required: false
+    },
     title: {
       type: String,
       required: true
@@ -48,10 +57,49 @@ export default {
       default: '',
       required: false
     },
-    format: {
+    url: {
       type: String,
-      default: 'block-view',
+      default: '',
       required: false
+    },
+    navigationBehavior: {
+      type: Number,
+      default: 2,
+      required: false
+    },
+    enableImageAlt: {
+      type: Boolean,
+      default: true,
+      required: false
+    }
+  },
+
+  computed: {
+    componentType () {
+      if (this.navigationBehavior === 0) {
+        return 'div'
+      } else if (this.navigationBehavior === 1) {
+        return 'a'
+      }
+      return 'NuxtLink'
+    },
+    navigateToProject () {
+      if (this.navigationBehavior === 0) {
+        return null
+      }
+      return `/project/${this.slug}`
+    },
+    primaryCta () {
+      if (this.navigationBehavior === 1) {
+        return this.url
+      }
+      return null
+    },
+    imageAlt () {
+      if (!this.enableImageAlt) {
+        return null
+      }
+      return this.title
     }
   }
 }

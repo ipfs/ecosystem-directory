@@ -4,7 +4,7 @@
     <div v-if="breadcrumbs" class="grid">
       <div class="col">
         <section id="section-breadcrumbs">
-          <Breadcrumbs :breadcrumbs="breadcrumbs" />
+          <Breadcrumbs v-if="breadcrumbs" :breadcrumbs="breadcrumbs" />
         </section>
       </div>
     </div>
@@ -32,10 +32,10 @@
               v-if="project.primaryCta && project.primaryCta.url && project.primaryCta.text"
               :href="project.primaryCta.url"
               target="_blank"
-              class="primary-cta">
+              class="primary-cta focus-visible">
               {{ project.primaryCta.text }}
             </a>
-            <nuxt-link to="/" class="secondary-cta">
+            <nuxt-link to="/" class="secondary-cta focus-visible">
               <span class="text">
                 {{ secondaryCtaButtonText }}
               </span>
@@ -73,7 +73,7 @@
             </p>
             <a
               v-if="project.ctaCard.url && project.ctaCard.buttonText"
-              class="cta"
+              class="cta focus-visible"
               :href="project.ctaCard.url"
               target="_blank">
               {{ project.ctaCard.buttonText }}
@@ -86,12 +86,12 @@
             <div
               class="slide-nav">
               <button
-                class="nav-arrow"
+                class="nav-arrow focus-visible"
                 @click="incrementLeft">
                 <PrevArrow stroke="#052437" width="10" height="15" />
               </button>
               <button
-                class="nav-arrow"
+                class="nav-arrow focus-visible"
                 @click="incrementRight">
                 <NextArrow stroke="#052437" width="10" height="15" />
               </button>
@@ -147,9 +147,10 @@
                         <a
                           :href="link.url"
                           target="_blank"
-                          :data-tooltip="link.text.length > 23 ? link.text : false"
+                          class="focus-visible"
+                          :data-tooltip="generateToolTip(link.text)"
                           data-tooltip-theme="dark">
-                          {{ $truncateString(link.text, 12, '...', type = 'double') }}
+                          {{ truncateLinks ? $truncateString(link.text, 12, '...', type = 'double') : link.text }}
                         </a>
                       </li>
                     </template>
@@ -203,19 +204,22 @@
                 :selected="true"
                 class="filters">
                 <AccordionHeader>
-                  <h3 class="heading">
-                    {{ $getTaxonomyCategoryLabel(taxonomy.slug) }}
-                  </h3>
+                  <div tabindex="0" class="heading-wrapper focus-visible">
+                    <h3 class="heading">
+                      {{ $getTaxonomyCategoryLabel(taxonomy.slug) }}
+                    </h3>
+                  </div>
                 </AccordionHeader>
                 <AccordionContent>
                   <div class="chiclet-list">
-                    <NuxtLink
+                    <component
+                      :is="chicletType"
                       v-for="(taxonomyTag, j) in filterTags(taxonomy.slug, taxonomy.tags)"
                       :key="`taxonomy-tag-${j}`"
                       :to="{ path: '/', query: { filters: 'enabled', tags: taxonomyTag } }"
-                      class="chiclet">
+                      class="chiclet focus-visible">
                       {{ $getTaxonomyTagLabel(taxonomy.slug, taxonomyTag) }}
-                    </NuxtLink>
+                    </component>
                   </div>
                 </AccordionContent>
               </AccordionSection>
@@ -266,6 +270,8 @@ import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/Featured
 import PrevArrow from '@/components/Icons/PrevArrow'
 import NextArrow from '@/components/Icons/NextArrow'
 import SelectorToggleIcon from '@/modules/zero/core/Components/Icons/SelectorToggle'
+
+import Settings from '@/content/data/settings.json'
 
 // =================================================================== Functions
 const repositionSliderLeft = (instance) => {
@@ -324,7 +330,21 @@ export default {
 
   head () {
     const title = this.page_Title
-    const description = this.page_Description
+    const description = this.project.description.short
+    const image = this.seo.og_image + this.project.logo.full
+    const url = this.seo.og_url + this.$route.params.id
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: title,
+      logo: image,
+      brand: {
+        '@type': 'Organization',
+        name: this.project.org
+      },
+      description,
+      url
+    }
     return {
       title,
       meta: [
@@ -336,12 +356,21 @@ export default {
         { hid: 'og:title', property: 'og:title', content: title },
         { hid: 'og:description', property: 'og:description', content: description },
         { hid: 'og:site_name', property: 'og:site_name', content: this.seo.og_site_name },
-        { hid: 'og:url', property: 'og:url', content: this.seo.og_url },
+        { hid: 'og:url', property: 'og:url', content: url },
         { hid: 'og:type', property: 'og:type', content: this.seo.og_type },
-        { hid: 'og:image', property: 'og:image', content: this.seo.og_image },
+        { hid: 'og:image', property: 'og:image', content: image },
         { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
-        { hid: 'twitter:image', name: 'twitter:image', content: this.seo.og_image }
-      ]
+        { hid: 'twitter:title', name: 'twitter:title', content: title },
+        { hid: 'twitter:description', name: 'twitter:description', content: description },
+        { hid: 'twitter:image', name: 'twitter:image', content: image }
+      ],
+      link: [
+        { rel: 'canonical', href: url },
+        { rel: 'alternate', hreflang: 'en', href: url },
+        { rel: 'alternate', hreflang: 'x-default', href: url }
+      ],
+      __dangerouslyDisableSanitizers: ['script'],
+      script: [{ innerHTML: JSON.stringify(structuredData), type: 'application/ld+json' }]
     }
   },
 
@@ -371,12 +400,15 @@ export default {
       return this.pageData.metadata_heading
     },
     breadcrumbs () {
-      const breadcrumbs = CloneDeep(this.pageData.breadcrumbs)
-      breadcrumbs.push({
-        type: 'div',
-        label: this.project.name
-      })
-      return breadcrumbs
+      if (Settings.visibility.breadcrumbs) {
+        const breadcrumbs = CloneDeep(this.pageData.breadcrumbs)
+        breadcrumbs.push({
+          type: 'div',
+          label: this.project.name
+        })
+        return breadcrumbs
+      }
+      return false
     },
     // Project Content
     generalPageData () {
@@ -426,6 +458,15 @@ export default {
         return items
       }
       return false
+    },
+    chicletType () {
+      if (!Settings.visibility.singularTagLinks) {
+        return 'div'
+      }
+      return 'NuxtLink'
+    },
+    truncateLinks () {
+      return Settings.visibility.truncateLinks
     }
   },
 
@@ -466,6 +507,12 @@ export default {
         }
       })
       return compiled.length > 0 ? compiled : false
+    },
+    generateToolTip (text) {
+      if (!Settings.visibility.truncateLinks) {
+        return null
+      }
+      return text.length > 23 ? text : false
     },
     incrementLeft () {
       this.$refs.sliderFlex.classList.remove('slider-transition')
@@ -805,7 +852,6 @@ export default {
   }
   &:focus {
     outline: none;
-    box-shadow: none;
   }
 }
 
@@ -907,7 +953,7 @@ export default {
 
 .accordion-header {
   position: relative;
-  padding: 0 0.3125rem 1rem;
+  padding: 0 0.3125rem 0.875rem;
   cursor: pointer;
   &:after {
     content: '';
@@ -918,6 +964,9 @@ export default {
     width: 0.75rem;
     height: calc(100% - 1rem);
     background: url('~assets/theme/svgs/chevrondown.svg') no-repeat right center;
+  }
+  .heading-wrapper {
+    margin-top: 0.125rem;
   }
 }
 

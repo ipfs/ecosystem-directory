@@ -7,7 +7,7 @@
         id="filter-panel-toggle-button"
         type="C"
         :text="filterPanelToggleButtonLabel"
-        :class="[filterButtonFloating, { 'active': filterPanelOpen }]"
+        :class="['focus-visible', filterButtonFloating, { 'active': filterPanelOpen }]"
         @clicked="toggleFilterPanel">
         <template #icon-before>
           <FiltersToggleIcon />
@@ -17,6 +17,7 @@
       <Button
         v-if="selectedFiltersCount"
         id="clear-selected-filters-button"
+        class="focus-visible"
         type="C"
         :text="clearSelectedFiltersButtonText"
         @clicked="clearSelectedFilters">
@@ -30,9 +31,11 @@
     <div class="radio-sort-wrapper">
 
       <SortBySelector
+        v-if="showSortBySelector"
         class="sort-by-selector"
         :label="sortDropdownLabel"
         :sort-options="sortOptions"
+        :default-sort="defaultSort"
         @changed="sortBySelectorChanged">
         <template #dropdown-icon>
           <SelectorToggleIcon />
@@ -40,9 +43,12 @@
       </SortBySelector>
 
       <div
+        v-if="showViewToggleButton"
         id="list-block-toggle-button"
-        :class="{ 'list-view-active': listViewActive }"
-        @click="toggleListBlockView">
+        tabindex="0"
+        :class="[{ 'list-view-active': listViewActive }, 'focus-visible']"
+        @click="toggleListBlockView"
+        @keyup.enter="toggleListBlockView">
         <ListViewIcon class="list-view-icon" />
         <BlockViewIcon class="block-view-icon" />
       </div>
@@ -63,6 +69,8 @@ import CloseIcon from '@/components/Icons/Close'
 import ListViewIcon from '@/components/Icons/ListView'
 import BlockViewIcon from '@/components/Icons/BlockView'
 import SelectorToggleIcon from '@/modules/zero/core/Components/Icons/SelectorToggle'
+
+import Settings from '@/content/data/settings.json'
 
 // ====================================================================== Export
 export default {
@@ -100,6 +108,9 @@ export default {
     sortOptions () {
       return this.siteContent.taxonomy.sort
     },
+    defaultSort () {
+      return Settings.visibility.setSort
+    },
     sectionFilterContent () {
       return this.siteContent.index.page_content.section_filter
     },
@@ -117,6 +128,14 @@ export default {
     selectedFiltersCount () {
       if (this.routeQuery.tags) { return this.routeQuery.tags.split(',').length }
       return 0
+    },
+    showViewToggleButton () {
+      if (Settings.visibility.hideNonDefaultView) { return false }
+      return true
+    },
+    showSortBySelector () {
+      if (Settings.visibility.hideSort) { return false }
+      return true
     }
   },
 
@@ -226,7 +245,6 @@ export default {
   }
   .sort-by-selector {
     position: relative;
-    margin-right: 1rem;
     @include mini {
       margin-bottom: 1rem;
     }
@@ -238,6 +256,7 @@ export default {
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-left: 1rem;
   position: relative;
   height: 2.25rem;
   background-color: white;

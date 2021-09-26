@@ -17,17 +17,19 @@
             :selected="true"
             class="filter-category container">
             <AccordionHeader class="filter-category heading-wrapper">
-              <div class="filter-category heading">
+              <div
+                tabindex="0"
+                class="filter-category heading focus-visible">
                 {{ heading.label }}
                 <span class="filter-category number-active">
                   {{ numberInCategory[heading.slug] }} of {{ heading.tags.length }}
                 </span>
-                <span
+                <button
                   v-if="includeClearCategory && (numberInCategory[heading.slug] > 0)"
-                  class="granular-filter-clear"
+                  class="granular-filter-clear focus-visible"
                   @click.stop="clearCategory(heading.slug)">
                   Clear
-                </span>
+                </button>
                 <h5 v-if="getSublabel(heading)" class="filter-category sub-heading">
                   {{ getSublabel(heading) }}
                 </h5>
@@ -37,15 +39,19 @@
               <div class="filter-category chiclet-list">
                 <div
                   v-if="includeFilterAllTag"
-                  :class="['filter-category tag chiclet', { 'active-button': numberInCategory[heading.slug] === heading.tags.length }]"
-                  @click="toggleAll(heading.slug)">
+                  tabindex="0"
+                  :class="['filter-category', 'tag', 'chiclet', 'focus-visible', { 'active-button': numberInCategory[heading.slug] === heading.tags.length }]"
+                  @click="toggleAll(heading.slug)"
+                  @keyup.enter="toggleAll(heading.slug)">
                   All
                 </div>
                 <div
                   v-for="(tag, j) in heading.tags"
                   :key="`taxonomy-category-${j}`"
-                  :class="['filter-category tag chiclet', { 'active-button': selectedTags.includes(tag.slug) }]"
-                  @click="applyFilter(tag.slug, heading.slug)">
+                  tabindex="0"
+                  :class="['filter-category', 'tag', 'chiclet', 'focus-visible', { 'active-button': selectedTags.includes(tag.slug) }]"
+                  @click="applyFilter(tag.slug, heading.slug)"
+                  @keyup.enter="applyFilter(tag.slug, heading.slug)">
                   {{ tag.label }}
                 </div>
               </div>
@@ -57,11 +63,11 @@
       <div id="filter-panel-controls" class="bottom-buttons">
         <button
           v-if="selectedTags.length"
-          class="clear-selected"
+          class="clear-selected focus-visible"
           @click="clearSelected">
           {{ clearSelectedFiltersButtonText }}
         </button>
-        <button class="done" @click="closePanel">
+        <button class="done focus-visible" @click="closePanel">
           {{ submitButtonText }}
         </button>
       </div>
@@ -293,7 +299,7 @@ export default {
   &.heading {
     font-family: $fontMontserrat;
     font-weight: 500;
-    margin: 0 6px;
+    margin: 0.125rem 0.375rem 1rem 0.375rem ;
     margin-bottom: 1rem;
   }
   &.number-active {

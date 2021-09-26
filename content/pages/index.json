@@ -5,9 +5,9 @@
   },
   "og": {
     "site_name": "IPFS Ecosystem Directory",
-    "url": "",
+    "url": "https://ecosystem.ipfs.io/",
     "type": "website",
-    "image": ""
+    "image": "https://ecosystem.ipfs.io/images/open-graph.png"
   },
   "404_error_message": "Not Found",
   "page_content": {
@@ -36,7 +36,7 @@
         },
         {
           "type": "div",
-          "label": "All projects"
+          "label": "All entityTermPlural"
         }
       ],
       "filters_applied_view": [
@@ -59,14 +59,14 @@
     "hero": {
       "heading": {
         "index_view": "Ecosystem directory",
-        "filters_view": "All projects",
+        "filters_view": "All entityTermPlural",
         "filters_applied_view": "Filtered results"
       },
       "subheading": {
-        "index_view": "Explore the world of projects and products built on IPFS in this interactive showcase filterable by industry, tooling, and more.",
+        "index_view": "Explore the world of entityTermPlural and products built on IPFS in this interactive showcase filterable by industry, tooling, and more.",
         "filters_view": {
-          "show_all": "Showing all projects, no filters selected",
-          "show_search": "Showing projects matching"
+          "show_all": "Showing all entityTermPlural, no filters selected",
+          "show_search": "Showing entityTermPlural matching"
         }
       }
     },
@@ -75,7 +75,7 @@
       "mobile_chart_title": "Explore IPFS"
     },
     "section_filter": {
-      "heading": "All projects",
+      "heading": "All entityTermPlural",
       "description": "Explore the entire IPFS ecosystem, or use the filters to drill down by factors like industry, focus area, and tooling.",
       "results_empty_placeholder": "No results found that match the selected filters.",
       "filter_panel_toggle_button_label": "Filters",

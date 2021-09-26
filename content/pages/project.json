@@ -5,9 +5,9 @@
   },
   "og": {
     "site_name": "IPFS Ecosystem Directory",
-    "url": "",
+    "url": "https://ecosystem.ipfs.io/project/",
     "type": "website",
-    "image": ""
+    "image": "https://ecosystem.ipfs.io/images/projects/"
   },
   "page_content": {
     "breadcrumbs": [
@@ -25,7 +25,7 @@
         "type": "nuxt-link",
         "href": "/",
         "query": { "filters": "enabled" },
-        "label": "All projects"
+        "label": "All entityTermPlural"
       }
     ],
     "secondary_cta_button_text": "Explore ecosystem",

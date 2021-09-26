@@ -47,7 +47,7 @@
         </section>
 
         <section
-          v-if="featuredSlider"
+          v-if="routeQuery.filters !== 'enabled'"
           id="section-filter"
           ref="filterHeading"
           key="filters-heading">
@@ -69,7 +69,7 @@
       </transition-group>
     </div>
 
-    <ProjectView />
+    <ProjectView :defaultview="gridOrListView" />
 
   </div>
 </template>
@@ -82,6 +82,8 @@ import CloneDeep from 'lodash/cloneDeep'
 import SegmentSliderChart from '@/components/SegmentSliderChart/SegmentSliderChart'
 import FeaturedProjectsSlider from '@/components/FeaturedProjectsSlider/FeaturedProjectsSlider'
 import ProjectView from '@/components/ProjectView/ProjectView'
+
+import Settings from '@/content/data/settings.json'
 
 // =================================================================== Functions
 const parseURLParams = (instance, next) => {
@@ -199,6 +201,21 @@ export default {
   head () {
     const title = this.seo.title
     const description = this.seo.description
+    const image = this.seo.og_image
+    const url = this.seo.og_url
+    const structuredData = {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: title,
+      abstract: description,
+      mainEntity: {
+        '@type': 'WebSite',
+        name: 'IPFS',
+        url: this.generalPageData.navigation.index.href
+      },
+      image,
+      url
+    }
     return {
       title,
       meta: [
@@ -210,12 +227,21 @@ export default {
         { hid: 'og:title', property: 'og:title', content: title },
         { hid: 'og:description', property: 'og:description', content: description },
         { hid: 'og:site_name', property: 'og:site_name', content: this.seo.og_site_name },
-        { hid: 'og:url', property: 'og:url', content: this.seo.og_url },
+        { hid: 'og:url', property: 'og:url', content: url },
         { hid: 'og:type', property: 'og:type', content: this.seo.og_type },
-        { hid: 'og:image', property: 'og:image', content: this.seo.og_image },
+        { hid: 'og:image', property: 'og:image', content: image },
         { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
-        { hid: 'twitter:image', name: 'twitter:image', content: this.seo.og_image }
-      ]
+        { hid: 'twitter:title', name: 'twitter:title', content: title },
+        { hid: 'twitter:description', name: 'twitter:description', content: description },
+        { hid: 'twitter:image', name: 'twitter:image', content: image }
+      ],
+      link: [
+        { rel: 'canonical', href: url },
+        { rel: 'alternate', hreflang: 'en', href: url },
+        { rel: 'alternate', hreflang: 'x-default', href: url }
+      ],
+      __dangerouslyDisableSanitizers: ['script'],
+      script: [{ innerHTML: JSON.stringify(structuredData), type: 'application/ld+json' }]
     }
   },
 
@@ -236,6 +262,12 @@ export default {
     },
     pageData () {
       return this.siteContent.index.page_content
+    },
+    gridOrListView () {
+      if (Settings.visibility.defaultView === 'list') {
+        return true
+      }
+      return false
     }
   },
 
@@ -267,23 +299,29 @@ export default {
       clearAllTags: 'filters/clearAllTags'
     }),
     mountSegmentAndFeaturedSliders () {
-      if (!this.segmentSlider) { this.segmentSlider = true }
-      if (!this.featuredSlider) { this.featuredSlider = true }
+      if (Settings.visibility.segmentChart) {
+        if (!this.segmentSlider) { this.segmentSlider = true }
+      }
+      if (Settings.visibility.featuredSlider) {
+        if (!this.featuredSlider) { this.featuredSlider = true }
+      }
       if (this.filterPanelOpen) { this.setFilterPanelOpen(false) }
       this.setRouteQuery({ key: 'filters', data: '' })
       this.clearAllTags()
       this.resetSectionHeight()
     },
     collapseSegmentAndFeaturedSliders () {
-      if (this.segmentSlider && this.featuredSlider) {
+      if (this.segmentSlider) {
         this.segmentSlider = false
-        this.featuredSlider = false
-        this.sectionHeight = 0
-        window.scrollTo(0, 0)
       }
+      if (this.featuredSlider) {
+        this.featuredSlider = false
+      }
+      this.sectionHeight = 0
+      window.scrollTo(0, 0)
     },
     resetSectionHeight () {
-      if (this.$refs.segmentSlider && this.$refs.featuredSection && this.$refs.filterHeading) {
+      if (this.$refs.collapsibleSection.firstElementChild) {
         setTimeout(() => {
           this.sectionHeight = Math.ceil(this.$refs.collapsibleSection.firstElementChild.clientHeight)
         }, 300)
@@ -307,7 +345,6 @@ export default {
 }
 
 #segment-slider-chart {
-  margin-top: 3rem;
   margin-bottom: 5rem;
   @include small {
     margin-top: calc(4.1665vw / 2);

@@ -8,11 +8,11 @@
           <h2 class="heading">
             {{ pageData.heading }}
           </h2>
-          <div class="subheading" v-html="pageData.subheading"></div>
+          <div ref="subheading" class="subheading" v-html="pageData.subheading"></div>
         </div>
 
         <div class="col-5_sm-12">
-          <div class="mailchimp-form" v-html="pageData.mailchimp_form"></div>
+          <div ref="mailform" class="mailchimp-form" v-html="pageData.mailchimp_form"></div>
         </div>
 
       </div>
@@ -31,7 +31,7 @@
               :href="link.disabled ? '' : link.href"
               :disabled="link.disabled"
               :target="link.target"
-              class="navigation-link onhover-opacity">
+              class="navigation-link onhover-opacity focus-visible">
               {{ link.label }}
             </component>
           </nav>
@@ -42,7 +42,7 @@
         </div>
 
         <div class="col-12">
-          <div class="copyright" v-html="pageData.copyright"></div>
+          <div ref="copyright" class="copyright" v-html="pageData.copyright"></div>
         </div>
 
       </div>
@@ -77,6 +77,18 @@ export default {
       }
       return false
     }
+  },
+
+  mounted () {
+    Array.from(this.$refs.subheading.getElementsByTagName('a')).forEach((child) => {
+      child.classList.add('focus-visible')
+    })
+    Array.from(this.$refs.mailform.getElementsByTagName('input')).forEach((input) => {
+      input.classList.add('focus-visible')
+    })
+    Array.from(this.$refs.copyright.getElementsByTagName('a')).forEach((input) => {
+      input.classList.add('focus-visible')
+    })
   }
 }
 </script>

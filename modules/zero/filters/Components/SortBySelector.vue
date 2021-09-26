@@ -1,9 +1,10 @@
 <template>
-  <div
+  <button
     v-if="options.length > 0"
     v-click-outside="closeAllSelect"
-    :class="['dropdown-wrapper', { closed }]"
-    :style="{ minWidth: `${maxLength * 10}px` }">
+    :class="['dropdown-wrapper', 'focus-visible', { closed }]"
+    :style="{ minWidth: `${maxLength * 10}px` }"
+    @keyup.enter="toggleDropDown()">
 
     <div
       ref="dropdownButton"
@@ -18,9 +19,9 @@
         {{ selected }}
       </span>
 
-      <button class="dropdown-toggle">
+      <div class="dropdown-toggle">
         <slot name="dropdown-icon"></slot>
-      </button>
+      </div>
 
     </div>
 
@@ -31,9 +32,10 @@
           <div
             :key="`div-option-${option.label}`"
             :value="option.label"
-            class="dropdown-item"
-            :class="{ highlighted: (selected === option.label) }"
-            @click="optionSelected(option)">
+            :class="['dropdown-item', 'focus-visible', { highlighted: (selected === option.label) }]"
+            :tabindex="closed ? -1 : 0"
+            @click="optionSelected(option)"
+            @keyup.enter.self="optionSelected(option)">
             {{ option.label }}
           </div>
         </template>
@@ -43,7 +45,7 @@
 
     <div class="shadow" :style="{ height: `${height}px` }"></div>
 
-  </div>
+  </button>
 </template>
 
 <script>
@@ -63,6 +65,10 @@ export default {
     },
     sortOptions: {
       type: Object,
+      required: true
+    },
+    defaultSort: {
+      type: String,
       required: true
     }
   },
@@ -117,7 +123,7 @@ export default {
         }
       })
     } else {
-      this.sortAlphabetically('name', 'DESC')
+      this.optionSelected(this.sortOptions[this.defaultSort])
     }
     this.setHeights()
     this.resize = () => { this.setHeights() }
@@ -167,7 +173,7 @@ export default {
     },
     optionSelected (obj) {
       this.selected = obj.label
-      this.toggleDropDown()
+      this.closeAllSelect()
       if (obj.type === 'alphabetical') {
         this.sortAlphabetically(obj.key, obj.direction)
       } else if (obj.type === 'number') {
@@ -225,6 +231,7 @@ export default {
 }
 
 .dropdown-wrapper {
+  @include borderRadius3;
   position: relative;
   white-space: nowrap;
   font-family: $fontInter;
