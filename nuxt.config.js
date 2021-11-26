@@ -45,12 +45,10 @@ export default {
   // /////////////////////////////////////////////////////////// Global CSS/SCSS
   // ---------------------------------------------------------------------------
   css: [
-    // '~/assets/core/scss/main.scss' // core
     '~/assets/scss/main.scss' // theme
   ],
   styleResources: {
     scss: [
-      // '~/assets/core/scss/utilities.scss' // core
       '~/assets/scss/utilities.scss' // theme
     ]
   },
@@ -64,21 +62,12 @@ export default {
   // ---------------------------------------------------------------------------
   modules: [
     // Doc: https://github.com/ipfs-shipyard/nuxt-module-ecosystem-directory
-    'nuxt-module-ecosystem-directory',
+    '@agency-undone/nuxt-module-ecosystem-directory',
     // Doc: https://github.com/nuxt-community/style-resources-module/
     '@nuxtjs/style-resources',
     // Doc: https://github.com/agency-undone/nuxt-module-ipfs
-    'nuxt-module-ipfs'
+    '@agency-undone/nuxt-module-ipfs'
   ],
-  // ////////////////////////////////////////////////////////// [Module] Countly
-  // ---------------------------------------------------------------------------
-  // Doc: https://support.count.ly/hc/en-us/articles/360037441932-Web-analytics-JavaScript
-  countly: {
-    initialize: true, // if set to false, Countly will be DISABLED
-    debug: process.env.NODE_ENV === 'development',
-    disableInDevelopment: true,
-    suppressErrorLogs: true
-  },
   // ///////////////////////////////////////////////////////////// [Module] Zero
   // ---------------------------------------------------------------------------
   zero: {
@@ -95,6 +84,15 @@ export default {
     pagination: {
       include: true
     }
+  },
+  // ////////////////////////////////////////////////////////// [Module] Countly
+  // ---------------------------------------------------------------------------
+  // Doc: https://support.count.ly/hc/en-us/articles/360037441932-Web-analytics-JavaScript
+  countly: {
+    initialize: true, // if set to false, Countly will be DISABLED
+    debug: process.env.NODE_ENV === 'development',
+    disableInDevelopment: true,
+    suppressErrorLogs: true
   },
   // /////////////////////////////////// Plugins to load before mounting the App
   // ---------------------------------------------------------------------------
