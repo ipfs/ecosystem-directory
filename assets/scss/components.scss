@@ -1,0 +1,74 @@
+// ///////////////////////////////////////////////////////////////// Site Header
+// -----------------------------------------------------------------------------
+#site-header {
+  background: linear-gradient(to bottom, #041727 0, #062B3F);
+}
+
+#header-navigation {
+  &:before {
+    background: linear-gradient(to bottom, #041727 0, #062B3F);
+  }
+  .modal-background {
+    background: linear-gradient(to bottom, #041727 0, #062B3F);
+  }
+}
+
+// //////////////////////////////////////////////////////////////////// Chiclets
+// -----------------------------------------------------------------------------
+.chiclet-list {
+  .chiclet {
+    @include borderRadius_Medium;
+    color: $blackPearl;
+    &:hover,
+    &.active-button {
+      color: white;
+    }
+  }
+}
+
+// ///////////////////////////////////////////////////////////////// Site Footer
+// -----------------------------------------------------------------------------
+#site-footer {
+  background: linear-gradient(180deg, #041727 0, #062B3F);
+}
+
+#mailchimp-form {
+  input {
+    &[type="submit"] {
+      &:hover {
+        background-color: #66989A;
+      }
+    }
+  }
+}
+
+// ///////////////////////////////////////////////////////////////// Detail Page
+// -----------------------------------------------------------------------------
+.page-project {
+  .values {
+    .links {
+      a {
+        color: $highlight_Dark;
+      }
+    }
+  }
+}
+
+// /////////////////////////////////////////////////////////////// Showcase Page
+// -----------------------------------------------------------------------------
+#taxonomy-grid {
+  .taxonomy {
+    border-color: rgba($showcaseGray, 0.5);
+  }
+}
+
+// /////////////////////////////////////////////////////////////// Accessibility
+// -----------------------------------------------------------------------------
+.breadcrumb-link,
+.project-card,
+.pagination-controls .page-button,
+.pagination-controls .control-button,
+#site-footer a,
+.page-project .focus-visible {
+  @include borderRadius_Medium;
+}
