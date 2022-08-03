@@ -28,11 +28,11 @@ The existing workflow for adding a project to the ecosystem directory, or amendi
 
 To view all projects in the ecosystem directory in a "logo parade" showcase format suitable for including in a slide deck, [see the instructions below](#Showcase) — this includes how to customize the grid to get the representation that's most useful for you.
 
-TLDR: https://ecosystem.ipfs.io/showcase/?category=focus is a general-purpose, useful grid if you don't want to build a custom one.
+TLDR: https://ecosystem.ipfs.tech/showcase/?category=focus is a general-purpose, useful grid if you don't want to build a custom one.
 
 ## Behavior
 
-- The showcase view is visible in its bare form at [ecosystem.ipfs.io/showcase](https://ecosystem.ipfs.io/showcase)
+- The showcase view is visible in its bare form at [ecosystem.ipfs.tech/showcase](https://ecosystem.ipfs.tech/showcase)
 - It provides a logo-based visual summary of the projects in the app by category
 - Each tag within the selected category is assigned a block
 - The container for the tag is sized based on whether there's a small, medium, or large quantity of projects within it
@@ -44,9 +44,9 @@ TLDR: https://ecosystem.ipfs.io/showcase/?category=focus is a general-purpose, u
 Customizing the view is done using GET parameters. You might notice that the base showcase link feels a little empty.
 
 Adding a target top-level `category` param to showcase solves this issue. Examples:
-- [/showcase/?category=industry](https://ecosystem.ipfs.io/showcase/?category=industry)
-- [/showcase/?category=focus](https://ecosystem.ipfs.io/showcase/?category=focus)
-- [/showcase/?category=benefits](https://ecosystem.ipfs.io/showcase/?category=benefits)
+- [/showcase/?category=industry](https://ecosystem.ipfs.tech/showcase/?category=industry)
+- [/showcase/?category=focus](https://ecosystem.ipfs.tech/showcase/?category=focus)
+- [/showcase/?category=benefits](https://ecosystem.ipfs.tech/showcase/?category=benefits)
 
 > Note: This category selection will work for _both_ categories that allow one tag per project (category in which tags are mutually exclusive) and categories that allow multiple tags.
 
@@ -57,7 +57,7 @@ Instances of this app may have varying quantities of projects. To help the showc
 - `md` minimum projects with a tag to display in a medium container (default is 10, if no value is provided)
 - `lg` minimum projects with a tag to display in a large container ((default is 25, if no value is provided)
 
-Example use case: [/showcase/?category=focus&md=5&lg=15](https://ecosystem.ipfs.io/showcase/?category=focus&md=5&lg=15)
+Example use case: [/showcase/?category=focus&md=5&lg=15](https://ecosystem.ipfs.tech/showcase/?category=focus&md=5&lg=15)
 
 > Note: The Showcase view is designed to support rows of 5 logos, so setting `lg` and `md` as multiples of 5 is recommended for the ideal visual appearance.
 
@@ -75,7 +75,7 @@ Example use case: [/showcase/?category=focus&md=5&lg=15](https://ecosystem.ipfs.
 
 This repo is currently deployed to Fleek on the following URLs:
 
-`main` branch: https://ecosystem.ipfs.io/
+`main` branch: https://ecosystem.ipfs.tech/
 
 `develop` branch: https://ipfs-ecosystem-develop.on.fleek.co/
 
@@ -123,7 +123,7 @@ $ cd ecosystem-directory
 
 # Add your user information
 $ git config user.name "Your Name"
-$ git config user.email "your.email@ipfs.io"
+$ git config user.email "your.email@example.com"
 
 # Install npm dependencies
 $ npm ci
@@ -336,7 +336,7 @@ By default this view is called the _Showcase_, which is also the URL through whi
 
 ### Behavior
 
-- The showcase view is visible in its bare form at [ecosystem.ipfs.io/showcase](https://ecosystem.ipfs.io/showcase)
+- The showcase view is visible in its bare form at [ecosystem.ipfs.tech/showcase](https://ecosystem.ipfs.tech/showcase)
 - It provides a logo-based visual summary of the projects in the app by category
 - Each tag within the selected category is assigned a block
 - The container for the tag is sized based on whether there's a small, medium, or large quantity of projects within it
@@ -348,9 +348,9 @@ By default this view is called the _Showcase_, which is also the URL through whi
 Customizing the view is done using GET parameters. The base showcase path will render projects, but may seem bare if no arguments are passed in the URI.
 
 Adding a target top-level `category` param to showcase solves this issue. Examples:
-- [/showcase/?category=industry](https://ecosystem.ipfs.io/showcase/?category=industry)
-- [/showcase/?category=focus](https://ecosystem.ipfs.io/showcase/?category=focus)
-- [/showcase/?category=benefits](https://ecosystem.ipfs.io/showcase/?category=benefits)
+- [/showcase/?category=industry](https://ecosystem.ipfs.tech/showcase/?category=industry)
+- [/showcase/?category=focus](https://ecosystem.ipfs.tech/showcase/?category=focus)
+- [/showcase/?category=benefits](https://ecosystem.ipfs.tech/showcase/?category=benefits)
 
 > Note: This category selection will work for _both_ categories that allow one tag per project (category in which tags are mutually exclusive) and categories that allow multiple tags.
 
@@ -361,7 +361,7 @@ Instances of this app may have varying quantities of projects. To help the showc
 - `md` minimum projects with a tag to display in a medium container (default is 10, if no value is provided)
 - `lg` minimum projects with a tag to display in a large container ((default is 25, if no value is provided)
 
-Example use case: [/showcase/?category=focus&md=5&lg=15](https://ecosystem.ipfs.io/showcase/?category=focus&md=5&lg=15)
+Example use case: [/showcase/?category=focus&md=5&lg=15](https://ecosystem.ipfs.tech/showcase/?category=focus&md=5&lg=15)
 
 > Note: The Showcase view is designed to support rows of 5 logos, so setting `lg` and `md` as multiples of 5 is recommended for the ideal visual appearance.
 

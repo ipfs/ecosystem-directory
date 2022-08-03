@@ -5,34 +5,34 @@
   },
   "og": {
     "site_name": "IPFS Ecosystem Directory",
-    "url": "https://ecosystem.ipfs.io/",
+    "url": "https://ecosystem.ipfs.tech/",
     "type": "website",
-    "image": "https://ecosystem.ipfs.io/images/open-graph.png"
+    "image": "https://ecosystem.ipfs.tech/images/open-graph.png"
   },
   "navigation": {
     "index": {
       "type": "a",
-      "href": "https://ipfs.io"
+      "href": "https://ipfs.tech"
     },
     "header": [
       {
         "type": "a",
-        "href": "https://ipfs.io/#why",
+        "href": "https://ipfs.tech/#why",
         "label": "About"
       },
       {
         "type": "a",
-        "href": "https://ipfs.io/#install",
+        "href": "https://ipfs.tech/#install",
         "label": "Install"
       },
       {
         "type": "a",
-        "href": "https://docs.ipfs.io",
+        "href": "https://docs.ipfs.tech",
         "label": "Docs"
       },
       {
         "type": "a",
-        "href": "https://ipfs.io/team",
+        "href": "https://ipfs.tech/team",
         "label": "Team"
       },
       {
@@ -42,7 +42,7 @@
       },
       {
         "type": "a",
-        "href": "https://ipfs.io/help",
+        "href": "https://ipfs.tech/help",
         "label": "Help"
       }
     ],
@@ -54,7 +54,7 @@
       },
       {
         "type": "a",
-        "href": "https://ipfs.io/media",
+        "href": "https://ipfs.tech/media",
         "label": "Press"
       },
       {
@@ -144,7 +144,7 @@
       },
       {
        "type": "link",
-       "href": "https://ipfs.io/legal/",
+       "href": "https://ipfs.tech/legal/",
        "content": "DMCA"
       }
     ]
@@ -171,7 +171,7 @@
     "breadcrumbs": [
       {
         "type": "a",
-        "href": "https://ipfs.io",
+        "href": "https://ipfs.tech",
         "label": "Home"
       },
       {
