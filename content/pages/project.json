@@ -5,15 +5,15 @@
   },
   "og": {
     "site_name": "IPFS Ecosystem Directory",
-    "url": "https://ecosystem.ipfs.io/project/",
+    "url": "https://ecosystem.ipfs.tech/project/",
     "type": "website",
-    "image": "https://ecosystem.ipfs.io/images/projects/"
+    "image": "https://ecosystem.ipfs.tech/images/projects/"
   },
   "page_content": {
     "breadcrumbs": [
       {
         "type": "a",
-        "href": "https://ipfs.io",
+        "href": "https://ipfs.tech",
         "label": "Home"
       },
       {
