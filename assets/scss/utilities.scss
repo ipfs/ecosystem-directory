@@ -1,0 +1,113 @@
+// ///////////////////////////////////////////////////////////////////// Imports
+// -----------------------------------------------------------------------------
+@import 'variables';
+@import 'settings';
+
+// ////////////////////////////////////////////////////////////////////// Mixins
+// --------------------------------------------------------------------- Styling
+@mixin shadow1 {
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05), 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+@mixin focus_BoxShadow_Small {
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5);
+}
+
+@mixin focus_BoxShadow_Regular {
+  box-shadow: 0 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+@mixin focus_BoxShadow_Link {
+  box-shadow: 0 0 0 5px rgba(0, 123, 255, 0.5);
+  border-radius: 0.125rem;
+}
+
+@mixin selection_Dark {
+  ::-moz-selection { background: $translucentWhite; color: black; }
+  ::selection { background: $translucentWhite; color: black; }
+}
+
+@mixin selection_Light {
+  ::-moz-selection { background: $translucentBlack; color: white; }
+  ::selection { background: $translucentBlack; color: white; }
+}
+
+@mixin selection_Invisible {
+  ::-moz-selection { background: transparent; color: transparent; }
+  ::selection { background: transparent; color: transparent; }
+}
+
+@mixin centerImage {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+// ------------------------------------------------------------------ Components
+@mixin subtitle {
+	@include fontSize_Mini;
+	@include leading_Mini;
+  font-weight: 700;
+	text-transform: uppercase;
+}
+
+@mixin label {
+  @include fontSize_Mini;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+@mixin button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 0.75rem;
+  height: 2.5rem;
+  border-radius: 0.125rem;
+  background-color: $gray300;
+  white-space: nowrap;
+  cursor: no-drop;
+  &:focus {
+    border: 2px solid blue;
+  }
+  &:not(:disabled) {
+    @include shadow1;
+    background-color: $gray200;
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+@mixin tooltipMobilePosition {
+  &:hover {
+    &:before,
+    &:after {
+      transform: translate(0, 0);
+    }
+  }
+  &:before,
+  &:after {
+    transform: translate(0, 0.5rem);
+  }
+  &:before {
+    left: 1rem;
+  }
+  &:after {
+    left: 0.5rem;
+  }
+  &[data-tooltip-mobile-position="right"] {
+    &:before,
+    &:after {
+      left: auto;
+    }
+    &:before {
+      right: 1rem;
+    }
+    &:after {
+      right: 0.5rem;
+    }
+  }
+}

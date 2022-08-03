@@ -26,13 +26,13 @@ The existing workflow for adding a project to the ecosystem directory, or amendi
 
 ## Generating the Showcase Grid
 
-To view all projects in the ecosystem directory in a "logo parade" showcase format suitable for including in a slide deck, see the instructions below — this includes how to customize the grid to get the representation that's most useful for you.
+To view all projects in the ecosystem directory in a "logo parade" showcase format suitable for including in a slide deck, [see the instructions below](#Showcase) — this includes how to customize the grid to get the representation that's most useful for you.
 
-TLDR: https://ecosystem.ipfs.io/showcase/?category=focus is a general-purpose, useful grid if you don't want to build a custom one.
+TLDR: https://ecosystem.ipfs.tech/showcase/?category=focus is a general-purpose, useful grid if you don't want to build a custom one.
 
 ## Behavior
 
-- The showcase view is visible in its bare form at [ecosystem.ipfs.io/showcase](https://ecosystem.ipfs.io/showcase)
+- The showcase view is visible in its bare form at [ecosystem.ipfs.tech/showcase](https://ecosystem.ipfs.tech/showcase)
 - It provides a logo-based visual summary of the projects in the app by category
 - Each tag within the selected category is assigned a block
 - The container for the tag is sized based on whether there's a small, medium, or large quantity of projects within it
@@ -41,12 +41,12 @@ TLDR: https://ecosystem.ipfs.io/showcase/?category=focus is a general-purpose, u
 
 ### Category
 
-Customizing the view is done using GET parameters. You might notice that the base showcase link feels a little empty. 
+Customizing the view is done using GET parameters. You might notice that the base showcase link feels a little empty.
 
 Adding a target top-level `category` param to showcase solves this issue. Examples:
-- [/showcase/?category=industry](https://ecosystem.ipfs.io/showcase/?category=industry)
-- [/showcase/?category=focus](https://ecosystem.ipfs.io/showcase/?category=focus)
-- [/showcase/?category=benefits](https://ecosystem.ipfs.io/showcase/?category=benefits)
+- [/showcase/?category=industry](https://ecosystem.ipfs.tech/showcase/?category=industry)
+- [/showcase/?category=focus](https://ecosystem.ipfs.tech/showcase/?category=focus)
+- [/showcase/?category=benefits](https://ecosystem.ipfs.tech/showcase/?category=benefits)
 
 > Note: This category selection will work for _both_ categories that allow one tag per project (category in which tags are mutually exclusive) and categories that allow multiple tags.
 
@@ -57,7 +57,7 @@ Instances of this app may have varying quantities of projects. To help the showc
 - `md` minimum projects with a tag to display in a medium container (default is 10, if no value is provided)
 - `lg` minimum projects with a tag to display in a large container ((default is 25, if no value is provided)
 
-Example use case: [/showcase/?category=focus&md=5&lg=15](https://ecosystem.ipfs.io/showcase/?category=focus&md=5&lg=15)
+Example use case: [/showcase/?category=focus&md=5&lg=15](https://ecosystem.ipfs.tech/showcase/?category=focus&md=5&lg=15)
 
 > Note: The Showcase view is designed to support rows of 5 logos, so setting `lg` and `md` as multiples of 5 is recommended for the ideal visual appearance.
 
@@ -75,7 +75,8 @@ Example use case: [/showcase/?category=focus&md=5&lg=15](https://ecosystem.ipfs.
 
 This repo is currently deployed to Fleek on the following URLs:
 
-`main` branch: https://ecosystem.ipfs.io/
+`main` branch: https://ecosystem.ipfs.tech/
+
 `develop` branch: https://ipfs-ecosystem-develop.on.fleek.co/
 
 Pushes made to the `main` or `develop` branches of this repo will automatically be reflected in the URLs above. Please allow 2-5 minutes for the application to re-build before seeing changes in your browser.
@@ -111,7 +112,7 @@ SERVER_ENV → development|stable|production
 In a terminal, run the commands below to get set up
 
 ```bash
-# Navigate to directory within which to clone the git repo. A new directory is created within this one called ecosystem-directory
+# Navigate to directory within which to clone the git repo.
 $ cd ~/Desktop
 
 # Clone the repo
@@ -122,7 +123,7 @@ $ cd ecosystem-directory
 
 # Add your user information
 $ git config user.name "Your Name"
-$ git config user.email "your.email@ipfs.io"
+$ git config user.email "your.email@example.com"
 
 # Install npm dependencies
 $ npm ci
@@ -165,7 +166,7 @@ $ npm run dev
 
 ## Project Model
 
-Below is an outline of the project model. An empty JSON file can be found in `@/content/projects/template.json`. This template file can be duplicated, filled out and renamed to create a new project. It is not necessary to generate a project ID since the filename of each project will serve as a project `slug`.
+Below is an outline of the project model. A boilerplate JSON file can be found in `@/static/project-template.json`. This template file can be duplicated, filled out and renamed to create a new project. It is not necessary to generate a project ID since the filename of each project will serve as a project `slug`. The project logo must be placed in the `@/static/images/projects` directory and committed to git. Just the logo name (ex: `project-logo.svg`) needs to be added to the project JSON file, no need to write out the full path.
 
 ### Naming Convention
 
@@ -181,7 +182,7 @@ Keys should be retained when not in  use. This ensures that if anyone wants to a
 
 - `sortNumbers`: these labels and numbers will be used in the sort-by filter
 
-- `logo`: all logos will be in SVG format and must be placed in the `static` directory
+- `logo`: all logos will be in SVG format and must be placed in the `@/static/images` directory
 
 - `name`: name of the product
 
@@ -201,11 +202,11 @@ Keys should be retained when not in  use. This ensures that if anyone wants to a
 
 - `ctaCard`: this card will always be displayed as the last block in the stats section. The button text can be changed in `@/content/pages/project.json`
 
-- `taxonomies`: the taxonomies contain a `slug` that will match a master taxonomy object (found in: `@/content/pages/general.json`); if none match, this taxonomy and its tags will not be displayed
+- `taxonomies`: the taxonomies contain a `slug` that will match a master taxonomy object (found in: `@/content/pages/taxonomy.json`); if a tag does not match, it will not be displayed. In other words, `taxonomy.json` acts as a source of truth, regardless of the tags assiged in a particular project's content.
 
 ### Schema
 
-The schema can be found in `@/content/data/project-schema.js` and _must_ be updated if the schema ever changes. The `$setProjectDefaults()` global method (found in `@/plugins/global-methods.js`) uses `project-schema.js` in order to perform type checking.
+The schema can be found [here](https://github.com/ipfs-shipyard/nuxt-module-ecosystem-directory/blob/main/content/data/project-schema.json) and _must_ be updated if the schema ever changes. The `$setProjectDefaults()` global method (found [here](https://github.com/ipfs-shipyard/nuxt-module-ecosystem-directory/blob/main/plugins/helpers.js)) uses [`project-schema.json`](https://github.com/ipfs-shipyard/nuxt-module-ecosystem-directory/blob/main/content/data/project-schema.json) in order to perform type checking.
 
 ```ts
 {
@@ -228,22 +229,22 @@ The schema can be found in `@/content/data/project-schema.js` and _must_ be upda
     url: String,
     text: String
   },
-  links: [{
+  links: [ {
     label: String,
-    links: [{
+    links: [ {
       url: String,
       text: String
-    }]
-  }],
-  keyInfo: [{
+    } ]
+  } ],
+  keyInfo: [ {
     label: String,
     value: String
-  }],
+  } ],
   video: String,
-  stats: [{
+  stats: [ {
     label: String,
     value: String
-  }],
+  } ],
   ctaCard: {
     title: String,
     description: String,
@@ -261,33 +262,121 @@ The schema can be found in `@/content/data/project-schema.js` and _must_ be upda
 
 ## Transforming Project Data
 
-Each project that is to be included in the ecosystem must have a `json` file in `content/projects`, with the project name in `kebab-case`. For instance, `content/projects/foo-bar.json`.
+Each project that is to be included in the ecosystem must have a `json` file in `@/content/projects`, with the project name in `kebab-case`. For instance, `@/content/projects/foo-bar.json`.
 
 #### Transferring a Project
 
-The primary source of truth for the Ecosystem Directory is the [master IPFS project database](https://airtable.com/tblxBjPTzHXiUVZAA/viwpijXTIFraPRkhE?blocks=hide), which has a field `Include in directory?` that indicates whether a project is ready for inclusion. A script has been added there, which converts that ecosystem entry to `json`, per the project model described. This script runs each time a project is checked for inclusion in the Ecosystem Directory.
+The primary source of truth for the Ecosystem Directory is the [master IPFS project database](https://airtable.com/tblxBjPTzHXiUVZAA/viwpijXTIFraPRkhE?blocks=hide), which has a field `Include in directory?` that indicates whether a project is ready for inclusion. A script has been added there, which converts that ecosystem entry to `JSON`, per the project model described. This script runs each time a project is checked for inclusion in the Ecosystem Directory.
 
 #### Inputting a Project
 
-Alternatively, any of the existing projects in `content/projects` can be copied, and the new `json` file can be altered to create a new project.
+Alternatively, any of the existing projects in `@/content/projects` can be copied, and the new `JSON` file can be altered to create a new project.
 
 ### Process
 
-When either transferring or inputting a project from a copied `json`, the following process should be observed:
+When either transferring or inputting a project from a copied `JSON`, the following process should be observed:
 
 - Copy the generated JSON output
-- Create a new file in `content/projects/.`. with the project name in `kebab-case` as the file name, (with a `.json` extension)
-- Make sure the project's contents look correct, and ideally ensure that `json` formatting is preserved, including an empty line at the end of the file
-  - Using a code editor's prettify function for `json` can correct this
-- Download the images (icon and full logo) from the CRM or from the project organization, and place them in `static/images/projects/.`
+- Create a new file in `@/content/projects/.`. with the project name in `kebab-case` as the file name, (with a `.json` extension)
+- Make sure the project's contents look correct, and ideally ensure that `JSON` formatting is preserved, including an empty line at the end of the file
+  - Using a code editor's prettify function for `JSON` can correct this
+- Download the images (icon and full logo) from the CRM or from the project organization, and place them in `@/static/images/projects/.`
 - Ensure any of the `stat`s (also known as "big numbers") have the correct values, as the CRM script is not good at recognizing where to split the big number
-- Pull request the new projec(s) into the repository and use the build preview to see how it looks—or check locally
+- Pull request the new project(s) into the repository and use the build preview to see how it looks — or check locally
 
-_This process could be further automated with a variety of tooling at a later date._
+_This process may be further automated with a variety of tooling at a later date._
+
+***
+
+## Embeddable View
+
+An interactive summary of the state of the app can be injected into external sites. It contains a slider with sample projects that can be filtered by one dimension, and sorted. This view is embeddable in 2 steps:
+
+1. Include a single Javascript file in the external site, from the path `/embeddable-view.js`
+
+2. Specify a target container on the external site, with either a class or _id_ as follows
+  - `class="ipfs-ecosystem-embed"`
+  - `id="ipfs-ecosystem-embed"`
+
+
+### Customization
+
+The content for the embeddable view, and target category for the dropdown, can be specified in the `embeddable-view-settings.json` file.
+
+The embeddable view inherits the theming from the Ecosystem itself, but is also available in a light and a dark mode
+- For light mode (default), `data-theme="light"` can be added to the target container
+- For dark mode, add `data-theme="dark"` to the target container
+
+On the external site, it might be useful to provide a `max-width` for the container
+```css
+.ipfs-ecosystem-embed, #ipfs-ecosystem-embed {
+  max-width: 600px;
+}
+```
+
+If a class is used, multiple embeddable views can be instantiated on a single page. This is also useful for support of single page applications. The following HTML will call in two embeddable views, one light, and the other dark.
+
+```html
+  <div class="ipfs-ecosystem-embed" data-theme="light"></div>
+  <div class="ipfs-ecosystem-embed" data-theme="dark"></div>
+```
+
+- The embeddable view is namespaced to avoid conflicts
+- This view calls in VueJS on the target site. If Vue is already loaded, it does not call it in
+- As such, this view is loosely compatible with legacy Vue 1 as well as Vue 3 sites (more extensive testing may need to be performed)
+- This view is compatible with all modern browsers, and many older browsers, including Internet Explorer 11
+
+***
+
+## Showcase
+
+This application is shipped with an alternative data visualization, for the purpose of use in presentations and other media where a visual summary of the projects in the ecosystem is needed.
+
+By default this view is called the _Showcase_, which is also the URL through which it's accessed. This path _can_ be changed.
+
+### Behavior
+
+- The showcase view is visible in its bare form at [ecosystem.ipfs.tech/showcase](https://ecosystem.ipfs.tech/showcase)
+- It provides a logo-based visual summary of the projects in the app by category
+- Each tag within the selected category is assigned a block
+- The container for the tag is sized based on whether there's a small, medium, or large quantity of projects within it
+
+### Customization
+
+#### Category
+
+Customizing the view is done using GET parameters. The base showcase path will render projects, but may seem bare if no arguments are passed in the URI.
+
+Adding a target top-level `category` param to showcase solves this issue. Examples:
+- [/showcase/?category=industry](https://ecosystem.ipfs.tech/showcase/?category=industry)
+- [/showcase/?category=focus](https://ecosystem.ipfs.tech/showcase/?category=focus)
+- [/showcase/?category=benefits](https://ecosystem.ipfs.tech/showcase/?category=benefits)
+
+> Note: This category selection will work for _both_ categories that allow one tag per project (category in which tags are mutually exclusive) and categories that allow multiple tags.
+
+#### Containers
+
+Instances of this app may have varying quantities of projects. To help the showcase address both large and small ecosystems, there are params that define container limits. These define what the limits are in terms of number of projects that fit into medium, or large containers.
+
+- `md` minimum projects with a tag to display in a medium container (default is 10, if no value is provided)
+- `lg` minimum projects with a tag to display in a large container ((default is 25, if no value is provided)
+
+Example use case: [/showcase/?category=focus&md=5&lg=15](https://ecosystem.ipfs.tech/showcase/?category=focus&md=5&lg=15)
+
+> Note: The Showcase view is designed to support rows of 5 logos, so setting `lg` and `md` as multiples of 5 is recommended for the ideal visual appearance.
+
+#### Location
+
+- The showcase path may be redefined in the app's `settings.json` under the key `showcaseBaseRoute`
+  - Currently implemented as: `"showcaseBaseRoute": "/showcase"`
+- The showcase has no links, and is _not_ discoverable (`noindex, nofollow`) by search engines
+
 
 ***
 
 ## Analytics
+
+Analytics are implemented through Countly, using the Web SDK.
 
 The following environment variables are required:
 
@@ -302,6 +391,7 @@ The following `nuxt.config.js` entries are required:
 ```js
 {
   countly: {
+    initialize: true, // if set to false, Countly will be DISABLED
     debug: Boolean,
     disableInDevelopment: Boolean,
     suppressErrorLogs: Boolean

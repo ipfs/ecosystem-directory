@@ -1,37 +1,13 @@
 /* eslint require-await: "off" */
 
-import Routes from './content/data/project-routes.json'
-import Settings from './content/data/settings.json'
-
 export default {
   // //////////////////////////////////////////// Static Site Generation Options
   // ---------------------------------------------------------------------------
   target: 'static',
-  generate: {
-    routes (a, b) {
-      return Routes.concat([{ route: Settings.behavior.showcaseBaseRoute }])
-    }
-  },
   // ///////////////////////////////////////////////////// Runtime Configuration
   // ---------------------------------------------------------------------------
   // ---------------------------------------------------------- [Runtime] Public
   publicRuntimeConfig: {
-    backendUrl: (function () {
-      const env = process.env.SERVER_ENV
-      let uri = 'https://localhost:21000' // development
-      switch (env) {
-        case 'stable': uri = ''; break
-        case 'production': uri = ''; break
-      } return uri
-    }()),
-    apolloURI: (function () {
-      const env = process.env.SERVER_ENV
-      let uri = 'https://localhost:21000/graphql' // development
-      switch (env) {
-        case 'stable': uri = ''; break
-        case 'production': uri = ''; break
-      } return uri
-    }()),
     countlyAppKey: process.env.COUNTLY_APP_KEY,
     countlySiteUrl: process.env.COUNTLY_SITE_URL,
     nodeEnv: process.env.NODE_ENV
@@ -41,14 +17,7 @@ export default {
   // /////////////////////////////////////////////////////////// Server & Render
   // ---------------------------------------------------------------------------
   server: {
-    port: (function () {
-      const env = process.env.SERVER_ENV
-      let port = 20000 // development
-      switch (env) {
-        case 'stable': port = 20001; break
-        case 'production': port = 20002; break
-      } return port
-    }()),
+    port: 20000,
     host: process.env.NODE_ENV !== 'development' ? '0.0.0.0' : 'localhost'
   },
   render: {
@@ -59,11 +28,9 @@ export default {
   // /////////////////////////////////////////////////////// Headers of the Page
   // ---------------------------------------------------------------------------
   head: {
-    title: 'IPFS Ecosystem Directory',
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Interactive IPFS ecosystem directory and showcase.' }
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon/favicon.ico' }
@@ -78,73 +45,58 @@ export default {
   // /////////////////////////////////////////////////////////// Global CSS/SCSS
   // ---------------------------------------------------------------------------
   css: [
-    '~/assets/theme/main.scss'
+    '~/assets/scss/main.scss' // theme
   ],
   styleResources: {
     scss: [
-      '~/assets/theme/variables.scss'
+      '~/assets/scss/utilities.scss' // theme
     ]
   },
   // /////////////////////////////////////////////////////// Nuxt.js Dev Modules
   // ---------------------------------------------------------------------------
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module',
-    // Doc: https://github.com/nuxt-community/analytics-module
-    // '@nuxtjs/google-analytics', // removed dependencies for Vue Analytics due to issues
-    // Doc: https://github.com/nuxt-community/moment-module#readme
-    '@nuxtjs/moment'
+    '@nuxtjs/eslint-module'
   ],
   // /////////////////////////////////////////////////////////// Nuxt.js Modules
   // ---------------------------------------------------------------------------
   modules: [
-    // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
+    // Doc: https://github.com/ipfs-shipyard/nuxt-module-ecosystem-directory
+    '@agency-undone/nuxt-module-ecosystem-directory',
     // Doc: https://github.com/nuxt-community/style-resources-module/
     '@nuxtjs/style-resources',
-    // Collection of helper modules, plugins and functions
-    '~/modules/zero/core',
-    '~/modules/zero/pagination',
-    '~/modules/zero/filters',
     // Doc: https://github.com/agency-undone/nuxt-module-ipfs
-    'nuxt-module-ipfs'
+    '@agency-undone/nuxt-module-ipfs'
   ],
-  // ///////////////////////////////////////////////////////// [Module] MomentJS
-  // ---------------------- Doc: https://github.com/nuxt-community/moment-module
-  moment: {
-    timezone: true,
-    defaultTimezone: 'UTC'
-  },
   // ///////////////////////////////////////////////////////////// [Module] Zero
   // ---------------------------------------------------------------------------
   zero: {
-    // -------------------------------------------------------- [Plugin] Toaster
-    toaster: {
-      display: 10,
-      timeout: 5000
+    core: {
+      include: true,
+      toaster: {
+        display: 10,
+        timeout: 5000
+      }
+    },
+    filters: {
+      include: true
+    },
+    pagination: {
+      include: true
     }
   },
-  // //////////////////////////////////////////////////////////// [Module] Axios
-  // -------------------------------------- See https://axios.nuxtjs.org/options
-  axios: {},
   // ////////////////////////////////////////////////////////// [Module] Countly
   // ---------------------------------------------------------------------------
+  // Doc: https://support.count.ly/hc/en-us/articles/360037441932-Web-analytics-JavaScript
   countly: {
+    initialize: true, // if set to false, Countly will be DISABLED
     debug: process.env.NODE_ENV === 'development',
     disableInDevelopment: true,
     suppressErrorLogs: true
   },
   // /////////////////////////////////// Plugins to load before mounting the App
   // ---------------------------------------------------------------------------
-  plugins: [
-    '~/plugins/directives',
-    '~/plugins/global-methods',
-    '~/plugins/taxonomy-methods',
-    '~/plugins/scroll-to',
-    '~/modules/zero/core/Plugins/nuxt-hammer',
-    // Doc: https://support.count.ly/hc/en-us/articles/360037441932-Web-analytics-JavaScript
-    { src: '~/plugins/countly', mode: 'client' }
-  ],
+  plugins: [],
   // /////////////////////////////////////////////////////// Router + Middleware
   // ---------------------------------------------------------------------------
   router: {

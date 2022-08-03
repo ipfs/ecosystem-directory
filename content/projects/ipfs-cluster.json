@@ -17,7 +17,7 @@
     "long": "IPFS Cluster provides data orchestration across a swarm of IPFS daemons by allocating, replicating and tracking a global pinset distributed among multiple peers."
   },
   "primaryCta": {
-    "url": "//cluster.ipfs.io",
+    "url": "//ipfscluster.io",
     "text": "Project website"
   },
   "links": [
@@ -25,8 +25,8 @@
       "label": "Website",
       "links": [
         {
-          "url": "//cluster.ipfs.io",
-          "text": "cluster.ipfs.io"
+          "url": "//ipfscluster.io",
+          "text": "ipfscluster.io"
         }
       ]
     },
