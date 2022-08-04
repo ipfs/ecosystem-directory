@@ -103,6 +103,10 @@ export default {
     base: process.env.NODE_ENV === 'development' ? '/' : '/ipfs/hash/'
     // extendRoutes (routes, resolve) {}
   },
+  // //////////////////////////////////////////////////// Generate configuration
+  generate: {
+    fallback: 'ipfs-404.html'
+  },
   // /////////////////////////////////////////////////////// Build configuration
   // ------------------------------------------------ Extend webpack config here
   build: {
