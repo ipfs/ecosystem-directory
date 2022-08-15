@@ -31,6 +31,7 @@ module.exports = {
     'vue/no-v-html': 'off',
     'no-lonely-if': 'off',
     'no-new': 'off',
-    'no-prototype-builtins': 'off'
+    'no-prototype-builtins': 'off',
+    'vue/singleline-html-element-content-newline': 'off'
   }
 }
