@@ -2,17 +2,8 @@
   <footer v-if="pageData" id="site-footer">
 
     <section class="panel-top">
+
       <div class="grid-spaceBetween-noGutter">
-
-        <div class="col-6_sm-12">
-          <h2 class="heading">
-            Add your project
-          </h2>
-          <div class="subheading">
-            Don't see your project here? <a href="https://airtable.com/shrjwvk9pAeAk0Ci7" target="_blank">Send it our way</a>.
-          </div>
-        </div>
-
         <div class="col-5_sm-12">
           <div ref="mailform" class="mailchimp-form">
             <h2 class="heading">
@@ -28,6 +19,17 @@
                 class="focus-visible">{{ element.content ? element.content : '' }}</component>
             </div>
             <Shipyard_MailchimpForm />
+          </div>
+        </div>
+
+        <div class="col-5_sm-12" data-push-left="off-1_sm-0">
+          <div class="project-add-inner">
+            <h2 class="heading">
+              Add your project
+            </h2>
+            <div class="subheading">
+              Don't see your project here? <a href="https://airtable.com/shrjwvk9pAeAk0Ci7" target="_blank">Send it our way</a>.
+            </div>
           </div>
         </div>
 
@@ -201,6 +203,13 @@ export default {
         transition: 250ms ease-in;
       }
     }
+  }
+}
+
+::v-deep .project-add-inner {
+  @include small {
+    margin-top: 3rem;
+    margin-bottom: 2rem;
   }
 }
 
