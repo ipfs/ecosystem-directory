@@ -3,7 +3,7 @@ var kebabCase = require('lodash.kebabcase')
 const path = require('path')
 const fs = require('fs')
 const buffer = require('node:buffer')
-const client = require('https')
+const https = require('https')
 
 require('dotenv').config()
 
@@ -20,8 +20,15 @@ base('Main')
   })
     .eachPage(
       async (records, next) => {
+        // variables for json file cleanup
         const currentProjectsFiles = fs.readdirSync(path.join(__dirname, '../content/projects/'))
         let activeProjectFiles = []
+        // variables for icon file cleanup
+        const currentIcons = fs.readdirSync(path.join(__dirname, '../static/images/projects/'))
+        let activeIcons = [] 
+        // variables for logo file cleanup
+        const currentLogos = fs.readdirSync(path.join(__dirname, '../static/images/projects/'))
+        let activeLogos = [] 
         for (const record of records) {
           const jsonPath = getProjectJsonPath(record.fields.file)
           // check if the row gets included
@@ -39,8 +46,6 @@ base('Main')
             // PHOTO STUFF
             // check if there is an icon in the data
             if (record.fields['Icon (square)']) {
-              const currentIcons = fs.readdirSync(path.join(__dirname, '../static/images/projects/'))
-              let activeIcons = [] 
               let iconPath
               let iconName
               // write the icon file path
@@ -69,18 +74,60 @@ base('Main')
               // check if the icon already exists
               if (!fs.existsSync(iconPath)) {
                 // if it doesn't exist download it
-                downloadImage(record.fields['Icon (square)'][0].thumbnails.large.url, iconPath)
+                downloadImage(record.fields['Icon (square)'][0].url, iconPath)
               }
-              // delete any unused icons that are not in the airtable records
-              // const inactiveIcons = currentIcons.filter( file => {
-              //   return !activeIcons.includes(file)
-              // })
+              //delete any unused icons that are not in the airtable records
+              const inactiveIcons = currentIcons.filter( file => {
+
+                return !activeIcons.includes(file)
+              })
+              console.log("inactiveIcons ", inactiveIcons)
               // inactiveIcons.forEach((fileName) => {
               //   deleteImageFile(fileName)
               // })
             } else {
               console.log(`There is no Icon (square) data for ${record.fields.file}`)
             } // end of icon logic
+            // check if there is a logo in the data
+            if (record.fields['Logo (non-square)']) {
+              let logoPath
+              let logoName
+              // write the logo file path
+              switch(true) {
+                case ( record.fields['Logo (non-square)'][0].type === 'image/png' ):
+                  logoName = (`logo-${record.fields.file}.png`)
+                  logoPath = getImagePath(logoName)
+                  activeLogos.push(logoName)
+                  break
+                case ( record.fields['Logo (non-square)'][0].type === 'image/svg+xml' ):
+                  logoName = (`logo-${record.fields.file}.svg`)
+                  logoPath = getImagePath(logoName)
+                  activeLogos.push(logoName)
+                  break
+                case ( record.fields['Logo (non-square)'][0].type === 'image/jpeg' ):
+                  logoName = (`logo-${record.fields.file}.jpeg`)
+                  logoPath = getImagePath(logoName)
+                  activeLogos.push(logoName)
+                  break
+                default:
+                  console.log('Unknown logo file type: ', record.fields['Logo (non-square)'][0].type)
+              } 
+              // check if the logo already exists
+              if (!(fs.existsSync(logoPath))) {
+                // if it doesn't exist download it
+                downloadImage(record.fields['Logo (non-square)'][0].url, logoPath)
+              }
+              // delete any unused Logos that are not in the airtable records
+              const inactiveLogos = currentLogos.filter( file => {
+                  return !activeLogos.includes(file)
+                })
+              console.log("inactiveLogos ", inactiveLogos)
+              // inactiveLogos.forEach((fileName) => {
+              //   deleteImageFile(fileName)
+              // })
+            } else {
+              console.log(`There is no Logo (non-square) data for ${record.fields.file}`)
+            } // end of logo logic
           }
         } // end of interating over records
         // delete any existing files that are not in the airtable records
@@ -161,12 +208,22 @@ function downloadFileToBuffer(url) {
   })
 }
 
-function downloadImage(url, path) {
-  client.get(url, (res) => {
-    res.on('data', (d) => {
-      writeFile(path, d)
-    })
-  }).on('error', (e) => {
-    console.error(e)
+function downloadImage (url, savePath) {
+  const file = fs.createWriteStream(savePath)
+
+  const request = https.get(url, (res) => {
+      if (res.statusCode !== 200) {
+          return console.log('Response status was ' + res.statusCode);
+      }
+      res.pipe(file)
+  })
+  file.on('finish', () => file.close())
+
+  request.on('error', (err) => {
+      fs.unlink(savePath, () => console.error(err.message))
+  })
+
+  file.on('error', (err) => {
+      fs.unlink(savePath, () => console.error(err.message))
   })
 }
