@@ -1,246 +1,194 @@
-var Airtable = require('airtable')
-var kebabCase = require('lodash.kebabcase')
-const path = require('path')
-const fs = require('fs')
-const buffer = require('node:buffer')
-// const https = require('https')
-const axios = require('axios')
-const sharp = require('sharp')
+/**
+ *
+ * [Script] Airtable Fetch
+ *
+ */
 
-// require('dotenv').config('../.env')
-require('dotenv').config({ path: path.resolve(__dirname, '../.env') })
+// ///////////////////////////////////////////////////// Imports + general setup
+// -----------------------------------------------------------------------------
+const Airtable = require('airtable')
+const Path = require('path')
+const Fs = require('fs-extra')
+const Buffer = require('node:buffer')
+const Axios = require('axios')
+const Sharp = require('sharp')
+const Mime = require('mime')
+require('dotenv').config({ path: Path.resolve(__dirname, '../.env') })
 
 Airtable.configure({
   endpointUrl: 'https://api.airtable.com',
-  apiKey: process.env.AIRTABLE_API_KEY,
+  apiKey: process.env.AIRTABLE_API_KEY
 })
 
-var base = Airtable.base('appLWiIrg9SQaEtEq')
+const PROJECT_DIR_PATH = Path.resolve(__dirname, '../content/projects/')
+const IMAGE_DIR_PATH = Path.resolve(__dirname, '../static/images/projects/')
 
-base('Main')
-  .select({
-    view: 'submissions-to-be-published',
+// /////////////////////////////////////////////////////////////////// Functions
+// -----------------------------------------------------------------------------
+// ---------------------------------------------------------- getAirtableRecords
+const getAirtableRecords = () => {
+  return new Promise((resolve) => {
+    const base = Airtable.base(process.env.AIRTABLE_BASE_ID)
+    base('Main')
+      .select({ view: 'submissions-to-be-published' })
+      .eachPage((records, next) => {
+        resolve(records)
+      })
   })
-    .eachPage((records, next) => {
-      // variables for json file cleanup
-      const currentProjectsFiles = fs.readdirSync(path.join(__dirname, '../content/projects/'))
-      let activeProjectFiles = []
-      // variables for icon file cleanup
-      const currentIcons = fs.readdirSync(path.join(__dirname, '../static/images/projects/'))
-      let activeIcons = []
-      // variables for logo file cleanup
-      const currentLogos = fs.readdirSync(path.join(__dirname, '../static/images/projects/'))
-      let activeLogos = []
-      for (const record of records) {
-        const jsonPath = getProjectJsonPath(record.fields.file)
-        // check if the row gets included
-        if (record.fields['Include in directory?']) {
-          // check if the file already exists
-          if (fs.existsSync(jsonPath)) {
-            // compare data from api to filesystem and if not identical update files in system
-            makeFilesIdentical(record.fields.json, jsonPath)
-          } else {
-            // if the file doesn't exist make it
-            writeFile(jsonPath, record.fields.json)
-          }
-          // add it to activeProjectFiles
-          activeProjectFiles.push(`${record.fields.file}.json`)
-          // PHOTO STUFF
-          // check if there is an icon in the data
-          if (record.fields['Icon (square)']) {
-            let iconPath
-            let iconName
-            // write the icon file path
-            switch(true) {
-              case ( record.fields['Icon (square)'][0].type === 'image/png' ):
-                iconName = (`icon-${record.fields.file}.png`)
-                iconPath = getImagePath(iconName)
-                activeIcons.push(iconName)
-                isIconSquare(record.fields['Icon (square)'][0], iconName)
-                break
-              case ( record.fields['Icon (square)'][0].type === 'image/svg+xml' ):
-                iconName = (`icon-${record.fields.file}.svg`)
-                iconPath = getImagePath(iconName)
-                activeIcons.push(iconName)
-                isIconSquare(record.fields['Icon (square)'][0], iconName)
-                break
-              case ( record.fields['Icon (square)'][0].type === 'image/jpeg' ):
-                iconName = (`icon-${record.fields.file}.jpeg`)
-                iconPath = getImagePath(iconName)
-                activeIcons.push(iconName)
-                isIconSquare(record.fields['Icon (square)'][0], iconName)
-                break
-              default:
-                console.log('Unknown icon file type: ', record.fields['Icon (square)'][0].type)
-            }
-            downloadImage(record.fields['Icon (square)'][0], iconPath, 'icon')
-            //delete any unused icons that are not in the airtable records
-            const inactiveIcons = currentIcons.filter( file => {
-              return !activeIcons.includes(file)
-            })
-            // console.log("inactiveIcons ", inactiveIcons)
-            // inactiveIcons.forEach((fileName) => {
-            //   deleteImageFile(fileName)
-            // })
-          } else {
-            console.log(`There is no Icon (square) data for ${record.fields.file}`)
-          } // end of icon logic
-          // check if there is a logo in the data
-          if (record.fields['Logo (non-square)']) {
-            let logoPath
-            let logoName
-            // write the logo file path
-            switch(true) {
-              case ( record.fields['Logo (non-square)'][0].type === 'image/png' ):
-                logoName = (`logo-${record.fields.file}.png`)
-                logoPath = getImagePath(logoName)
-                activeLogos.push(logoName)
-                break
-              case ( record.fields['Logo (non-square)'][0].type === 'image/svg+xml' ):
-                logoName = (`logo-${record.fields.file}.svg`)
-                logoPath = getImagePath(logoName)
-                activeLogos.push(logoName)
-                break
-              case ( record.fields['Logo (non-square)'][0].type === 'image/jpeg' ):
-                logoName = (`logo-${record.fields.file}.jpeg`)
-                logoPath = getImagePath(logoName)
-                activeLogos.push(logoName)
-                break
-              default:
-                console.log('Unknown logo file type: ', record.fields['Logo (non-square)'][0].type)
-            }
-            downloadImage(record.fields['Logo (non-square)'][0], logoPath, 'logo')
-            // delete any unused Logos that are not in the airtable records
-            const inactiveLogos = currentLogos.filter( file => {
-                return !activeLogos.includes(file)
-              })
-            // console.log("inactiveLogos ", inactiveLogos)
-            // inactiveLogos.forEach((fileName) => {
-            //   deleteImageFile(fileName)
-            // })
-          } else {
-            console.log(`There is no Logo (non-square) data for ${record.fields.file}`)
-          } // end of logo logic
-        }
-      } // end of interating over records
-      // delete any existing files that are not in the airtable records
-      const inactiveProjectFiles = currentProjectsFiles.filter( file => {
-        return !activeProjectFiles.includes(file)
-      })
-      inactiveProjectFiles.forEach((fileName) => {
-        deleteJsonFile(fileName)
-      })
-      // await resizeImages()
-      next()
-    },
-    (err) => {
-      if (err) {
-        console.log('ERR')
-        console.error(err)
-        return
-      }
-    },
-  )
+}
 
-function resizeImage (data, imageData, savePath, writeableStream, imageType) { // imageType = 'icon' or 'logo'
+// ----------------------------------------------------------- diffAmountDeleted
+const diffAmountDeleted = async (count) => {
+  try {
+    let files = await Fs.readdir(PROJECT_DIR_PATH)
+    files = files.filter(file => file !== '.DS_Store')
+    if (count / files.length <= 0.75) {
+      console.log('   ❗️ Greater than 25% of projects were deleted from the Airtable. Cancelling import.')
+      process.exit(0)
+    }
+    return false
+  } catch (e) {
+    console.log('=============================== [function: diffAmountDeleted]')
+    throw e
+  }
+}
+
+// ------------------------------------------------------- deleteAllLocalRecords
+const deleteAllLocalRecords = async (count) => {
+  try {
+    const projectFiles = await Fs.readdir(PROJECT_DIR_PATH)
+    const imageFiles = await Fs.readdir(IMAGE_DIR_PATH)
+    const files = projectFiles
+      .map(file => `${PROJECT_DIR_PATH}/${file}`)
+      .concat(
+        imageFiles.map(file => `${IMAGE_DIR_PATH}/${file}`)
+      )
+    const len = files.length
+    for (let i = 0; i < len; i++) {
+      const path = files[i]
+      if (Fs.existsSync(path)) {
+        await Fs.unlink(path)
+      }
+    }
+  } catch (e) {
+    console.log('=========================== [function: deleteAllLocalRecords]')
+    throw e
+  }
+}
+
+// ------------------------------------------------------ writeProjectFileToDisk
+const writeProjectFileToDisk = async (record) => {
+  try {
+    await Fs.writeFile(
+      `${PROJECT_DIR_PATH}/${record.file}.json`,
+      JSON.stringify(JSON.parse(record.json), null)
+    )
+    return true
+  } catch (e) {
+    console.log(`   ❗️ [Bad JSON] project: ${record.file}`)
+    return false
+  }
+}
+
+// ----------------------------------------------------------------- resizeImage
+const resizeImage = async (data, recordName, imageData, savePath, writeableStream, imageType) => { // imageType = 'icon-square' or 'logo'
   try {
     const width = imageData.width
     const height = imageData.height
     let transformer
-    if (imageType === 'icon' && (width > 400 || height > 400)) {
-      transformer = sharp().resize(400)
+    // data.pipe(writeableStream)
+    if (imageType === 'icon-square' && (width > 400 || height > 400)) {
+      transformer = await Sharp().resize(400)
       data.pipe(transformer).pipe(writeableStream)
     } else if (imageType === 'logo' && (width > 1200 || height > 1200)) {
-      transformer = sharp().resize(1200)
+      transformer = await Sharp().resize(1200)
       data.pipe(transformer).pipe(writeableStream)
     } else {
       data.pipe(writeableStream)
     }
   } catch (e) {
-    console.log(e)
+    console.log(`   ❗️ [Image Resize Failed] ${recordName}`)
+    throw e
   }
 }
 
-async function saveSubmission(record) {
-  const path = getProjectJsonPath(record.fields.file)
-  let fd
-  try {
-    const json = JSON.stringify(JSON.parse(record.fields.json), null, '  ')
-    fd = await fs.open(path, 'w')
-    await fd.writeFile(json)
-  } catch (e) {
-    if (e instanceof SyntaxError) {
-      console.error(`bad json for record: ${record.fields.file}`, e)
-      return
+// --------------------------------------------------------------- downloadImage
+const downloadImage = async (recordName, imageData, savePath, imageType, fileExt) => {
+  const writeableStream = Fs.createWriteStream(savePath, { highWaterMark: 64000 })
+  writeableStream.on('finish', () => writeableStream.close())
+  writeableStream.on('error', (e) => {
+    console.log('=========== [function: downloadImage | writeableStream error]')
+    if (Fs.existsSync(savePath)) {
+      Fs.unlink(savePath)
     }
-    console.err(e)
-  } finally {
-    await fd?.close()
-  }
-}
-
-function makeFilesIdentical(newFile, filePath) {
-  if (!fs.readFileSync(filePath).equals(Buffer.from(newFile))) {
-    writeFile(filePath, newFile)
-  }
-}
-
-function getImagePath(fileName) {
-  return path.join(__dirname, '../static/images/projects/', fileName)
-}
-
-function getProjectJsonPath(fileName) {
-  // if the file name already has .json on the end don't add the extension to the path name
-  return (fileName.match(/\.json/) ? path.join(__dirname, '../content/projects/', fileName) : path.join(__dirname, '../content/projects/', `${fileName}.json`))
-}
-
-function writeFile(path, data) {
-  fs.writeFileSync(path, data, (err) => {if(err) throw err })
-}
-
-function deleteJsonFile(fileName) {
-  const filePath = getProjectJsonPath(fileName)
-  if (fs.existsSync(filePath)) {
-    fs.unlinkSync(filePath, (err) => {
-      if (err) throw err })
-    console.log(`Deleted ${fileName} from /content/projects/`)
-  }
-}
-
-function deleteImageFile(fileName) {
-  fs.unlinkSync(getImagePath(fileName), (err) => {
-    if (err) throw err })
-  console.log(`Deleted ${fileName} from /static/images/projects/`)
-}
-
-function isIconSquare (imageData, iconName) {
-  if (imageData.width !== imageData.height) {
-    console.log(`${iconName} is not square`)
-  }
-}
-
-function downloadFileToBuffer(url) {
-  client.get(url, (res) => {
-    return Buffer.from(res)
   })
-}
-
-async function downloadImage (imageData, savePath, imageType) {
-  const writeableStream = fs.createWriteStream(savePath)
   try {
-    const response = await axios.get(imageData.url, { responseType: 'stream' })
-    if (imageData.type !== 'image/svg+xml') {
-      resizeImage(response.data, imageData, savePath, writeableStream, imageType)
+    const response = await Axios.get(imageData.url, { responseType: 'stream' })
+    if (fileExt !== 'svg') {
+      await resizeImage(response.data, recordName, imageData, savePath, writeableStream, imageType)
     } else {
       response.data.pipe(writeableStream)
     }
   } catch (e) {
-    if (fs.existsSync(savePath)) {
-      fs.unlink(savePath, () => console.error(e))
+    console.log(`   ❗️ [Image Download Failed] ${recordName}`)
+    if (Fs.existsSync(savePath)) {
+      Fs.unlink(savePath)
     }
   }
-  writeableStream.on('finish', () => writeableStream.close())
-  writeableStream.on('error', (err) => {
-    fs.unlink(savePath, () => console.error(err.message))
+}
+
+// -------------------------------------------------------- fetchAndProcessImage
+const fetchAndProcessImage = async (recordName, imageData, imageType) => {
+  try {
+    const fileExt = Mime.getExtension(imageData.type)
+    const prefix = imageType === 'icon-square' ? 'icon' : 'logo'
+    const savePath = `${IMAGE_DIR_PATH}/${prefix}-${recordName}.${fileExt}`
+    await downloadImage(recordName, imageData, savePath, imageType, fileExt)
+  } catch (e) {
+    console.log('============================ [function: fetchAndProcessImage]')
+    throw e
+  }
+}
+
+// ---------------------------------------------------------------- isIconSquare
+const isIconSquare = (imageData, iconName) => {
+  return new Promise((resolve) => {
+    if (imageData.width !== imageData.height) {
+      console.log(`   📸 ${iconName} is not square`)
+    }
+    resolve()
   })
 }
+
+// ////////////////////////////////////////////////////////////////// Initialize
+// -----------------------------------------------------------------------------
+const AirtableFetch = async () => {
+  console.log('🤖 Airtable fetch started', '\n')
+  try {
+    const records = await getAirtableRecords()
+    const count = records.length
+    await diffAmountDeleted(count)
+    await deleteAllLocalRecords()
+    for (let i = 0; i < count; i++) {
+      const record = records[i].fields
+      const success = await writeProjectFileToDisk(record)
+      if (!success) { continue }
+      const icons = record['Icon (square)']
+      const logos = record['Logo (non-square)']
+      if (icons) {
+        await isIconSquare(icons[0], record.file)
+        await fetchAndProcessImage(record.file, icons[0], 'icon-square')
+      }
+      if (logos) {
+        await fetchAndProcessImage(record.file, logos[0], 'logo')
+      }
+    }
+    console.log('\n')
+    console.log('🏁 Airtable fetch complete')
+    process.exit(0)
+  } catch (e) {
+    console.log('=================================== [function: AirtableFetch]')
+    console.log(e)
+    process.exit(0)
+  }
+}; AirtableFetch()

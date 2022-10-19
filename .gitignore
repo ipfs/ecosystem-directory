@@ -16,6 +16,8 @@ server.crt
 
 # Files
 static/content
+static/images/projects
+content/projects
 static/embeddable-view.js
 
 # Runtime data
