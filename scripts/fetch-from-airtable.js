@@ -96,7 +96,6 @@ const resizeImage = async (data, recordName, imageData, savePath, writeableStrea
     const width = imageData.width
     const height = imageData.height
     let transformer
-    // data.pipe(writeableStream)
     if (imageType === 'icon-square' && (width > 400 || height > 400)) {
       transformer = await Sharp().resize(400)
       data.pipe(transformer).pipe(writeableStream)
