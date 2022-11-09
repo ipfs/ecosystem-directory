@@ -17,7 +17,7 @@
     "long": "Built using IPFS and OrbitDB, Watchit is a video streaming and playback dApp running as a standalone Electron application."
   },
   "primaryCta": {
-    "url": "//watchitapp.site",
+    "url": "//watchit.movie",
     "text": "Project website"
   },
   "links": [
@@ -25,8 +25,8 @@
       "label": "Website",
       "links": [
         {
-          "url": "//watchitapp.site",
-          "text": "watchitapp.site"
+          "url": "//watchit.movie",
+          "text": "watchit.movie"
         }
       ]
     },
@@ -65,7 +65,7 @@
     "title": "Watchit FAQ",
     "description": "Quick Q-and-A for the most common questions about Watchit.",
     "buttonText": "Read more",
-    "url": "//github.com/ZorrillosDev/watchit-app/blob/v0.1.0/FAQ.md"
+    "url": "//github.com/ZorrillosDev/watchit-app/blob/v0.3.0/FAQ.md"
   },
   "taxonomies": [
     {
