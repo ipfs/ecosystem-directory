@@ -6,13 +6,13 @@
 
 // ///////////////////////////////////////////////////// Imports + general setup
 // -----------------------------------------------------------------------------
-const Airtable = require('airtable')
 const Path = require('path')
+const Airtable = require('airtable')
 const Fs = require('fs-extra')
-const Buffer = require('node:buffer')
 const Axios = require('axios')
 const Sharp = require('sharp')
 const Mime = require('mime')
+
 require('dotenv').config({ path: Path.resolve(__dirname, '../.env') })
 
 Airtable.configure({
@@ -159,11 +159,22 @@ const isIconSquare = (imageData, iconName) => {
   })
 }
 
+const verifyEnvVars = () => {
+  if (!process.env.AIRTABLE_BASE_ID) {
+    throw new Error('AIRTABLE_BASE_ID env var is required')
+  }
+
+  if (!process.env.AIRTABLE_API_KEY) {
+    throw new Error('AIRTABLE_API_KEY env var is required')
+  }
+}
+
 // ////////////////////////////////////////////////////////////////// Initialize
 // -----------------------------------------------------------------------------
 const AirtableFetch = async () => {
   console.log('🤖 Airtable fetch started', '\n')
   try {
+    verifyEnvVars()
     const records = await getAirtableRecords()
     const count = records.length
     await diffAmountDeleted(count)
@@ -190,4 +201,6 @@ const AirtableFetch = async () => {
     console.log(e)
     process.exit(0)
   }
-}; AirtableFetch()
+}
+
+AirtableFetch()
