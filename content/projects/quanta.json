@@ -1,0 +1,102 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2018
+  },
+  "logo": {
+    "icon": "quanta.jpeg",
+    "full": "quanta.jpeg"
+  },
+  "name": "Quanta",
+  "org": [
+    "Quanta"
+  ],
+  "description": {
+    "short": "Content management, social media, and publishing platform",
+    "long": "Quanta is a decentralized and federated content management, social media, and publishing platform that allows users to create hierarchically organized, always-editable content. Because content is \"quantized\" as tree nodes, it enables a more fine-grained, hierarchical approach to collaborative content."
+  },
+  "primaryCta": {
+    "url": "//quanta.wiki",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//quanta.wiki",
+          "text": "quanta.wiki"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/Clay-Ferguson/quantizr",
+          "text": "github.com/Clay-Ferguson/quantizr"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2018"
+    }
+  ],
+  "video": "",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "",
+    "description": "",
+    "buttonText": "",
+    "url": ""
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "social-media"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "file-sharing",
+        "storage-pinning",
+        "public-data",
+        "web-hosting-publishing"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "interoperability",
+        "corporate-government-independence"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs",
+        "http-gateway"
+      ]
+    }
+  ]
+}

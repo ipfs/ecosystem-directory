@@ -1,1 +1,102 @@
-{"display":true,"featured":false,"sortNumbers":[{"since":2017}],"logo":{"icon":"icon-decentralized-identity-wallet.png","full":"logo-decentralized-identity-wallet.png"},"name":"Decentralized Identity Wallet","org":["Bloom Protocol"],"description":{"short":"DeFi data validation with self-sovereign identity focus","long":"Bloom enables DeFi applications to verify anything about anyone without compromising on privacy. Bloom's interoperable decentralized identity technology can connect to any protocol that needs to know their customers. Bloom uses IPFS as a way to store DID documents as part of the Sidetree protocol, which is supported by multiple companies."},"primaryCta":{"url":"//bloom.co/defi","text":"Project Website"},"links":[{"label":"Website","links":[{"url":"//bloom.co/defi","text":"bloom.co/defi"}]},{"label":"Repo","links":[{"url":"//github.com/hellobloom","text":"github.com/hellobloom"}]}],"keyInfo":[{"label":"Using IPFS since","value":"2017"}],"video":"","stats":[{"label":"","value":""},{"label":"","value":""},{"label":"","value":""}],"ctaCard":{"title":"","description":"","buttonText":"","url":""},"taxonomies":[{"slug":"industry","tags":["defi"]},{"slug":"focus","tags":["dev-tools","reputation-ip","medical","supply-chain","public-data"]},{"slug":"benefits","tags":["data-integrity and verifiability","interoperability","self-sovereign-data"]},{"slug":"tooling","tags":["js-ipfs"]}]}
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2017
+  },
+  "logo": {
+    "icon": "bloom.png",
+    "full": "bloom-protocol.png"
+  },
+  "name": "Decentralized Identity Wallet",
+  "org": [
+    "Bloom Protocol"
+  ],
+  "description": {
+    "short": "DeFi data validation with self-sovereign identity focus",
+    "long": "Bloom enables DeFi applications to verify anything about anyone without compromising on privacy. Bloom's interoperable decentralized identity technology can connect to any protocol that needs to know their customers. Bloom uses IPFS as a way to store DID documents as part of the Sidetree protocol, which is supported by multiple companies."
+  },
+  "primaryCta": {
+    "url": "//bloom.co/defi",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//bloom.co",
+          "text": "bloom.co"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/hellobloom",
+          "text": "github.com/hellobloom"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2017"
+    }
+  ],
+  "video": "//youtube.com/watch?v=ntNKcBlw9FU",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "",
+    "description": "",
+    "buttonText": "",
+    "url": ""
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "defi"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "dev-tools",
+        "reputation-ip",
+        "medical",
+        "supply-chain",
+        "public-data"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "interoperability",
+        "self-sovereign-data"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "js-ipfs"
+      ]
+    }
+  ]
+}

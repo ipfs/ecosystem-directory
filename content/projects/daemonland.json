@@ -1,0 +1,101 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2020
+  },
+  "logo": {
+    "icon": "daemonland.png",
+    "full": "daemonland.png"
+  },
+  "name": "daemon.land",
+  "org": [
+    "Infinite Scroll"
+  ],
+  "description": {
+    "short": "Easy-to-use API for building dweb apps",
+    "long": "daemon.land takes the hardest parts of developing dweb apps — user authentication, databases, key management, and access control — and wraps them up into a single, fast, easy-to-use API.\n"
+  },
+  "primaryCta": {
+    "url": "//daemon.land",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//daemon.land",
+          "text": "daemon.land"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "",
+          "text": ""
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2020"
+    }
+  ],
+  "video": "",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "",
+    "description": "",
+    "buttonText": "",
+    "url": ""
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "content-delivery"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "dev-tools",
+        "infrastructure"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "self-sovereign-data"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs",
+        "js-ipfs",
+        "js-ipfs-https-client",
+        "pinning-services",
+        "ecosystem-tools"
+      ]
+    }
+  ]
+}

@@ -1,1 +1,114 @@
-{"display":true,"featured":false,"sortNumbers":[{"since":2018}],"logo":{"icon":"icon-pinata.svg","full":"icon-pinata.svg"},"name":"Pinata","org":["Pinata"],"description":{"short":"Pinning service that aims to make IPFS as easy as possible","long":"IPFS pinning service with easy API and toolkit, designed to make IPFS as easy as possible while also providing the speed and stability required for production applications."},"primaryCta":{"url":"//pinata.cloud","text":"Project Website"},"links":[{"label":"Website","links":[{"url":"//pinata.cloud","text":"pinata.cloud"}]},{"label":"Repo","links":[{"url":"//github.com/PinataCloud","text":"github.com/PinataCloud"}]}],"keyInfo":[{"label":"Using IPFS since","value":"2018"}],"video":"//youtube.com/watch?v=29k2C1JXyg4&list=PL_0VrY55uV1-THfh1GVoE6v0SxKO9M0gs","stats":[{"label":"","value":""},{"label":"","value":""},{"label":"","value":""}],"ctaCard":{"title":"Pinata on Medium","description":"Blog posts, how-to guides, and more from the Pinata team.","buttonText":"Read more","url":"//medium.com/pinata"},"taxonomies":[{"slug":"industry","tags":["data-persistence"]},{"slug":"focus","tags":["storage-pinning","dev-tools","file-sharing","infrastructure","music","public-data","streaming","supply-chain","video","web-hosting-publishing"]},{"slug":"benefits","tags":["data-integrity and verifiability","disaster-resilience","interoperability","local-first-model","couldnt-exist-without-ipfs"]},{"slug":"tooling","tags":["Kubo (formerly go-ipfs)","ipfs-cluster","IPFS http-gateway","ipld","js-ipfs","ipfs-http-client"]}]}
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2018
+  },
+  "logo": {
+    "icon": "pinataSVG_df766bc6.svg",
+    "full": "pinataSVG_df766bc6.svg"
+  },
+  "name": "Pinata",
+  "org": [
+    "Pinata"
+  ],
+  "description": {
+    "short": "Pinning service that aims to make IPFS as easy as possible",
+    "long": "IPFS pinning service with easy API and toolkit, designed to make IPFS as easy as possible while also providing the speed and stability required for production applications."
+  },
+  "primaryCta": {
+    "url": "//pinata.cloud",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//pinata.cloud",
+          "text": "pinata.cloud"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/PinataCloud",
+          "text": "github.com/PinataCloud"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2018"
+    }
+  ],
+  "video": "//youtube.com/watch?v=29k2C1JXyg4&list=PL_0VrY55uV1-THfh1GVoE6v0SxKO9M0gs",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "Pinata on Medium",
+    "description": "Blog posts, how-to guides, and more from the Pinata team.",
+    "buttonText": "Read more",
+    "url": "//medium.com/pinata"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "data-persistence"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "storage-pinning",
+        "dev-tools",
+        "file-sharing",
+        "infrastructure",
+        "music",
+        "public-data",
+        "streaming",
+        "supply-chain",
+        "video",
+        "web-hosting-publishing"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "disaster-resilience",
+        "interoperability",
+        "local-first-model",
+        "couldnt-exist-without-ipfs"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs",
+        "ipfs-cluster",
+        "http-gateway",
+        "ipld",
+        "js-ipfs",
+        "js-ipfs-https-client"
+      ]
+    }
+  ]
+}

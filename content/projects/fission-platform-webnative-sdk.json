@@ -1,1 +1,106 @@
-{"display":true,"featured":false,"sortNumbers":[{"since":2019}],"logo":{"icon":"icon-fission-platform-webnative-sdk.png","full":"logo-fission-platform-webnative-sdk.svg"},"name":"Fission Platform & Webnative SDK","org":["Fission"],"description":{"short":"Platform for using front-end frameworks with dweb-focused back-end tools","long":"Fission is a fast app publishing platform that enables front-end devs to build, host, and sell apps. The Webnative SDK is powered by IPFS and adds accounts and an encrypted file system to any app."},"primaryCta":{"url":"//fission.codes","text":"Project Website"},"links":[{"label":"Website","links":[{"url":"//fission.codes","text":"fission.codes"}]},{"label":"Repo","links":[{"url":"//github.com/fission-suite","text":"github.com/fission-suite"}]}],"keyInfo":[{"label":"Using IPFS since","value":"2019"}],"video":"//youtube.com/watch?v=wvmZj7IE9Bo","stats":[{"label":"","value":""},{"label":"","value":""},{"label":"","value":""}],"ctaCard":{"title":"Fission quick-start guide","description":"Learn how to get up and running with Fission, fast.","buttonText":"Get started","url":""},"taxonomies":[{"slug":"industry","tags":["content-delivery"]},{"slug":"focus","tags":["dev-tools","infrastructure","storage-pinning","web-hosting-publishing","mobile"]},{"slug":"benefits","tags":["self-sovereign-data","interoperability","local-first-model"]},{"slug":"tooling","tags":["Kubo (formerly go-ipfs)","ipfs-cluster","ipld","js-ipfs","js-libp2p"]}]}
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2019
+  },
+  "logo": {
+    "icon": "fission.png",
+    "full": "logo-fission.svg"
+  },
+  "name": "Fission Platform & Webnative SDK",
+  "org": [
+    "Fission"
+  ],
+  "description": {
+    "short": "Platform for using front-end frameworks with dweb-focused back-end tools",
+    "long": "Fission is a fast app publishing platform that enables front-end devs to build, host, and sell apps. The Webnative SDK is powered by IPFS and adds accounts and an encrypted file system to any app."
+  },
+  "primaryCta": {
+    "url": "//fission.codes",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//fission.codes",
+          "text": "fission.codes"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/fission-suite",
+          "text": "github.com/fission-suite"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2019"
+    }
+  ],
+  "video": "//youtube.com/watch?v=wvmZj7IE9Bo",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "Fission quick-start guide",
+    "description": "Learn how to get up and running with Fission, fast.",
+    "buttonText": "Get started",
+    "url": "//guide.fission.codes/"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "content-delivery"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "dev-tools",
+        "infrastructure",
+        "storage-pinning",
+        "web-hosting-publishing",
+        "mobile"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "self-sovereign-data",
+        "interoperability",
+        "local-first-model"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs",
+        "ipfs-cluster",
+        "ipld",
+        "js-ipfs",
+        "js-libp2p"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2020
+  },
+  "logo": {
+    "icon": "decrypt-mark-100.png",
+    "full": "decrypt-mark-100.png"
+  },
+  "name": "decrypt.co",
+  "org": [
+    "Decrypt Media"
+  ],
+  "description": {
+    "short": "Decrypt news sites, hosted on IPFS",
+    "long": "Decrypt is a popular crypto- and blockchain-focused news site devoted to demystifying the decentralized web — and hosting their content on IPFS as part of a commitment to using web3 to cover web3."
+  },
+  "primaryCta": {
+    "url": "//decrypt.co",
+    "text": "Project website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//decrypt.co",
+          "text": "decrypt.co"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "",
+          "text": ""
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2020"
+    }
+  ],
+  "video": "//youtube.com/watch?v=EZ0-UFVoP60",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "title": "Decentralizing Decrypt",
+    "description": "Get the details of how the Decrypt team ported to IPFS.",
+    "buttonText": "Read more",
+    "url": "//decrypt.co/57109/decrypt-diaries-why-we-built-on-ipfs"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "content-delivery"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "education",
+        "web-hosting-publishing"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "disaster-resilience",
+        "corporate-government-independence"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs",
+        "ipfs-cluster",
+        "http-gateway",
+        "js-ipfs"
+      ]
+    }
+  ]
+}

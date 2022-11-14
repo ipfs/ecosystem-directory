@@ -1,0 +1,98 @@
+{
+    "display": true,
+    "featured": false,
+    "sortNumbers": [
+      {
+        "since": 2021
+      }
+    ],
+    "logo": {
+      "icon": "deece_square.jpg",
+      "full": "DEECE-logo-hires.png"
+    },
+    "name": "Deece Search",
+    "org": [
+      "Deece"
+    ],
+    "description": {
+      "short": "Collaborative, decentralized search for IPFS",
+      "long": "Deece is an open, collaborative, and decentralized search mechanism for IPFS. Any node running the Deece client is able to crawl content on IPFS and add it to the index, which itself is stored in a decentralized manner on IPFS. This allows for decentralized search on decentralized content."
+    },
+    "primaryCta": {
+      "url": "//deece.nl/web",
+      "text": "Project Website"
+    },
+    "links": [
+      {
+        "label": "Website",
+        "links": [
+          {
+            "url": "//deece.nl/web",
+            "text": "www.deece.nl/web"
+          }
+        ]
+      },
+      {
+        "label": "Repo",
+        "links": [
+          {
+            "url": "//github.com/navinkeizer/Deece",
+            "text": "github.com/navinkeizer/Deece"
+          }
+        ]
+      }
+    ],
+    "keyInfo": [
+      {
+        "label": "Using IPFS since",
+        "value": "2021"
+      }
+    ],
+    "video": "",
+    "stats": [
+      {
+        "label": "",
+        "value": ""
+      },
+      {
+        "label": "",
+        "value": ""
+      },
+      {
+        "label": "",
+        "value": ""
+      }
+    ],
+    "ctaCard": {
+      "title": "Deece readme & roadmap",
+      "description": "Peek behind the curtain and learn what's next for Deece Search.",
+      "buttonText": "Learn more",
+      "url": "//github.com/navinkeizer/Deece/blob/master/README.md"
+    },
+    "taxonomies": [
+      {
+        "slug": "industry",
+        "tags": [
+          "content-delivery"
+        ]
+      },
+      {
+        "slug": "focus",
+        "tags": [
+          "community-networks", "file-sharing", "education", "web-hosting-publishing", "public-data"
+        ]
+      },
+      {
+        "slug": "benefits",
+        "tags": [
+          "disaster-resilience", "data-integrity", "local-first-model", "self-sovereign-data", "corporate-government-independence", "interoperability"
+        ]
+      },
+      {
+        "slug": "tooling",
+        "tags": [
+          "go-ipfs", "pinning-services", "http-gateway"
+        ]
+      }
+    ]
+  }
