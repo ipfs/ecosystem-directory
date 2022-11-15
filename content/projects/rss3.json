@@ -49,12 +49,12 @@
   ],
   "stats": [
     {
-      "label": "15K users",
-      "value": ""
+      "label": "users",
+      "value": "15K"
     },
     {
-      "label": ">1K repo stars",
-      "value": ""
+      "label": "repo stars",
+      "value": ">1K"
     },
     {
       "label": "",

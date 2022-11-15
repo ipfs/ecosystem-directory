@@ -50,16 +50,16 @@
   "video": "//youtube.com/watch?v=mCvYpl6wqB0",
   "stats": [
     {
-      "label": "99.99% guaranteed uptime on Fleek Edge",
-      "value": ""
+      "label": "guaranteed uptime on Fleek Edge",
+      "value": "99.99%"
     },
     {
-      "label": "150+ global Fleek Edge locations",
-      "value": ""
+      "label": "global Fleek Edge locations",
+      "value": "150+"
     },
     {
-      "label": ">8K Fleek URLs and DNSLink records",
-      "value": ""
+      "label": "Fleek URLs and DNSLink records",
+      "value": ">8K"
     }
   ],
   "ctaCard": {

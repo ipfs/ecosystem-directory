@@ -49,16 +49,16 @@
   ],
   "stats": [
     {
-      "label": ">300K pieces of content on LikeCoin",
-      "value": ""
+      "label": "pieces of content on LikeCoin",
+      "value": ">300K"
     },
     {
-      "label": ">80K Likers using the LikeCoin platform",
-      "value": ""
+      "label": "Likers using the LikeCoin platform",
+      "value": ">80K"
     },
     {
-      "label": ">11K creators sharing content on LikeCoin",
-      "value": ""
+      "label": "creators sharing content on LikeCoin",
+      "value": ">11K"
     }
   ],
   "ctaCard": {

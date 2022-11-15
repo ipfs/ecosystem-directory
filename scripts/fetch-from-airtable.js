@@ -98,6 +98,9 @@ const transformProject = (record, { iconFileName, logoFileName }) => {
   const numOne = record['Big-number benefit 1']
   const numTwo = record['Big-number benefit 2']
   const numThree = record['Big-number benefit 3']
+  const numOneValue = record['big-number-benefit-1-value']
+  const numTwoValue = record['big-number-benefit-2-value']
+  const numThreeValue = record['big-number-benefit-3-value']
   const ctaTitle = record['CTA card title']
   const ctaDesc = record['CTA card description']
   const ctaButton = record['CTA card button text']
@@ -232,15 +235,15 @@ const transformProject = (record, { iconFileName, logoFileName }) => {
     stats: [
       {
         label: numOne ?? "",
-        value: '',
+        value: numOneValue ?? "",
       },
       {
         label: numTwo ?? "",
-        value: '',
+        value: numTwoValue ?? "",
       },
       {
         label: numThree ?? "",
-        value: '',
+        value: numThreeValue ?? "",
       },
     ],
     ctaCard: {
