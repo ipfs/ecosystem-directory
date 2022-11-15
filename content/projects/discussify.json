@@ -1,14 +1,15 @@
 {
+  "name": "Discussify",
+  "file": "discussify",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2018
   },
   "logo": {
-    "icon": "discussify.jpg",
-    "full": "discussify.jpg"
+    "icon": "icon-discussify.jpeg",
+    "full": "icon-discussify.jpeg"
   },
-  "name": "Discussify",
   "org": [
     "MOXY"
   ],
@@ -18,7 +19,7 @@
   },
   "primaryCta": {
     "url": "//chrome.google.com/webstore/detail/discussify/bfmnjjkobeboejeocbompgljbiafbgcc?hl=en",
-    "text": "Project website"
+    "text": "Project Website"
   },
   "links": [
     {
@@ -26,7 +27,7 @@
       "links": [
         {
           "url": "//chrome.google.com/webstore/detail/discussify/bfmnjjkobeboejeocbompgljbiafbgcc?hl=en",
-          "text": "chrome.google.com/webstore/detail/discussify/bfmnjjkobeboejeocbompgljbiafbgcc?hl=en"
+          "text": "https://chrome.google.com/webstore/detail/discussify/bfmnjjkobeboejeocbompgljbiafbgcc?hl=en"
         }
       ]
     },
@@ -35,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/ipfs-shipyard/pm-discussify",
-          "text": "github.com/ipfs-shipyard/pm-discussify"
+          "text": "https://github.com/ipfs-shipyard/pm-discussify"
         }
       ]
     }
@@ -46,7 +47,6 @@
       "value": "2018"
     }
   ],
-  "video": "",
   "stats": [
     {
       "label": "",
@@ -61,12 +61,7 @@
       "value": ""
     }
   ],
-  "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
-  },
+  "ctaCard": {},
   "taxonomies": [
     {
       "slug": "industry",

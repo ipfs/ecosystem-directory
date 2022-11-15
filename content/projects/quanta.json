@@ -1,14 +1,15 @@
 {
+  "name": "Quanta",
+  "file": "quanta",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2018
   },
   "logo": {
-    "icon": "quanta.jpeg",
-    "full": "quanta.jpeg"
+    "icon": "icon-quanta.jpeg",
+    "full": "icon-quanta.jpeg"
   },
-  "name": "Quanta",
   "org": [
     "Quanta"
   ],
@@ -17,16 +18,16 @@
     "long": "Quanta is a decentralized and federated content management, social media, and publishing platform that allows users to create hierarchically organized, always-editable content. Because content is \"quantized\" as tree nodes, it enables a more fine-grained, hierarchical approach to collaborative content."
   },
   "primaryCta": {
-    "url": "//quanta.wiki",
-    "text": "Project website"
+    "url": "//quanta.wiki/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//quanta.wiki",
-          "text": "quanta.wiki"
+          "url": "//quanta.wiki/",
+          "text": "https://quanta.wiki/"
         }
       ]
     },
@@ -35,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/Clay-Ferguson/quantizr",
-          "text": "github.com/Clay-Ferguson/quantizr"
+          "text": "https://github.com/Clay-Ferguson/quantizr"
         }
       ]
     }
@@ -46,7 +47,6 @@
       "value": "2018"
     }
   ],
-  "video": "",
   "stats": [
     {
       "label": "",
@@ -61,12 +61,7 @@
       "value": ""
     }
   ],
-  "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
-  },
+  "ctaCard": {},
   "taxonomies": [
     {
       "slug": "industry",
@@ -95,7 +90,7 @@
       "slug": "tooling",
       "tags": [
         "go-ipfs",
-        "http-gateway"
+        "IPFS http-gateway"
       ]
     }
   ]

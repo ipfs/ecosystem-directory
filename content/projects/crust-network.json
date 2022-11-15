@@ -1,14 +1,15 @@
 {
+  "name": "Crust Network",
+  "file": "crust-network",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2019
   },
   "logo": {
-    "icon": "c-logo.svg",
-    "full": "c-logo.svg"
+    "icon": "icon-crust-network.svg",
+    "full": "icon-crust-network.svg"
   },
-  "name": "Crust Network",
   "org": [
     "Decentralized Cloud Foundation Ltd"
   ],
@@ -18,7 +19,7 @@
   },
   "primaryCta": {
     "url": "//crust.network",
-    "text": "Project website"
+    "text": "Project Website"
   },
   "links": [
     {
@@ -26,7 +27,7 @@
       "links": [
         {
           "url": "//crust.network",
-          "text": "crust.network"
+          "text": "https://crust.network"
         }
       ]
     },
@@ -34,8 +35,8 @@
       "label": "Repo",
       "links": [
         {
-          "url": "//github.com/crustio",
-          "text": "github.com/crustio"
+          "url": "//github.com/crustio/",
+          "text": "https://github.com/crustio/"
         }
       ]
     }
@@ -49,23 +50,23 @@
   "video": "//youtube.com/watch?v=desd_RPQTTw",
   "stats": [
     {
-      "label": "IPFS storage nodes",
-      "value": "2000+"
+      "label": "2000+ IPFS storage nodes",
+      "value": ""
     },
     {
-      "label": "Storage space",
-      "value": "400+ PB"
+      "label": "400+ PB storage space",
+      "value": ""
     },
     {
-      "label": "Average replicas for each file",
-      "value": "101"
+      "label": "101 average replicas for each file",
+      "value": ""
     }
   ],
   "ctaCard": {
     "title": "Understand Crust",
     "description": "Learn how Crust supports IPFS as a file layer protocol.",
     "buttonText": "Read more",
-    "url": "//medium.com/crustnetwork/crust-a-decentralized-storage-network-based-on-ipfs-85fbf247ac45"
+    "url": "https://medium.com/crustnetwork/crust-a-decentralized-storage-network-based-on-ipfs-85fbf247ac45"
   },
   "taxonomies": [
     {
@@ -95,7 +96,7 @@
       "slug": "tooling",
       "tags": [
         "bitswap",
-        "http-gateway",
+        "IPFS http-gateway",
         "go-ipfs",
         "ipld"
       ]

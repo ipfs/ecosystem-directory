@@ -1,14 +1,15 @@
 {
+  "name": "IPFS Cluster",
+  "file": "ipfs-cluster",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2018
   },
   "logo": {
-    "icon": "ipfs-clusterandroid-chrome-192x192.png",
-    "full": "ipfs-clusterandroid-chrome-192x192.png"
+    "icon": "icon-ipfs-cluster.png",
+    "full": "icon-ipfs-cluster.png"
   },
-  "name": "IPFS Cluster",
   "org": [
     "Protocol Labs"
   ],
@@ -17,16 +18,16 @@
     "long": "IPFS Cluster provides data orchestration across a swarm of IPFS daemons by allocating, replicating and tracking a global pinset distributed among multiple peers."
   },
   "primaryCta": {
-    "url": "//ipfscluster.io",
-    "text": "Project website"
+    "url": "//cluster.ipfs.io/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//ipfscluster.io",
-          "text": "ipfscluster.io"
+          "url": "//cluster.ipfs.io/",
+          "text": "https://cluster.ipfs.io/"
         }
       ]
     },
@@ -35,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/ipfs/ipfs-cluster",
-          "text": "github.com/ipfs/ipfs-cluster"
+          "text": "https://github.com/ipfs/ipfs-cluster"
         }
       ]
     }
@@ -65,7 +66,7 @@
     "title": "New: Collaborative clusters",
     "description": "Learn about how collaborative clusters improve dataset distribution and availability.",
     "buttonText": "More details",
-    "url": "//blog.ipfs.io/2020-01-09-collaborative-clusters"
+    "url": "https://blog.ipfs.io/2020-01-09-collaborative-clusters/"
   },
   "taxonomies": [
     {

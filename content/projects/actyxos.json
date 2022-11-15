@@ -1,14 +1,15 @@
 {
+  "name": "ActyxOS",
+  "file": "actyxos",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2017
   },
   "logo": {
-    "icon": "actyx.png",
-    "full": "actyx-logo.svg"
+    "icon": "icon-actyxos.png",
+    "full": "logo-actyxos.svg"
   },
-  "name": "ActyxOS",
   "org": [
     "Actyx AG"
   ],
@@ -17,16 +18,16 @@
     "long": "An operating system and developer tools for factory and workflow management, Actyx enables developers to build resilient, real-time applications that run across a network of devices."
   },
   "primaryCta": {
-    "url": "//actyx.com",
-    "text": "Project website"
+    "url": "//developer.actyx.com/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//actyx.com",
-          "text": "actyx.com"
+          "url": "//developer.actyx.com/",
+          "text": "https://developer.actyx.com/"
         }
       ]
     },
@@ -35,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/actyx",
-          "text": "github.com/actyx"
+          "text": "https://github.com/actyx"
         }
       ]
     }
@@ -65,7 +66,7 @@
     "title": "Developer resources",
     "description": "How-tos, reference guides, concept docs, and tutorials.",
     "buttonText": "Learn more",
-    "url": "//developer.actyx.com/"
+    "url": "https://developer.actyx.com/"
   },
   "taxonomies": [
     {

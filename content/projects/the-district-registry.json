@@ -1,14 +1,15 @@
 {
+  "name": "The District Registry",
+  "file": "the-district-registry",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2017
   },
   "logo": {
-    "icon": "district0x-logo.svg",
-    "full": "district0x-logo.svg"
+    "icon": "icon-the-district-registry.svg",
+    "full": "icon-the-district-registry.svg"
   },
-  "name": "The District Registry",
   "org": [
     "district0x"
   ],
@@ -17,16 +18,16 @@
     "long": "A registry for decentralized, user-governed marketplaces. Built on Ethereum, Aragon, and IPFS."
   },
   "primaryCta": {
-    "url": "//education.district0x.io/district0x-specific-topics/understanding-distict0x/the-district-registry",
-    "text": "Project website"
+    "url": "//education.district0x.io/district0x-specific-topics/understanding-distict0x/the-district-registry/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//education.district0x.io/district0x-specific-topics/understanding-distict0x/the-district-registry",
-          "text": "education.district0x.io/district0x-specific-topics/understanding-distict0x/the-district-registry"
+          "url": "//education.district0x.io/district0x-specific-topics/understanding-distict0x/the-district-registry/",
+          "text": "https://education.district0x.io/district0x-specific-topics/understanding-distict0x/the-district-registry/"
         }
       ]
     },
@@ -34,8 +35,8 @@
       "label": "Repo",
       "links": [
         {
-          "url": "//github.com/district0x",
-          "text": "github.com/district0x"
+          "url": "//github.com/district0x/",
+          "text": "https://github.com/district0x/"
         }
       ]
     }
@@ -65,7 +66,7 @@
     "title": "district0x whitepaper",
     "description": "Dig into the details of district0x projects including The District Registry in the whitepaper.",
     "buttonText": "Read more",
-    "url": "//district0x.io/docs/district0x-whitepaper.pdf"
+    "url": "https://district0x.io/docs/district0x-whitepaper.pdf"
   },
   "taxonomies": [
     {
@@ -94,7 +95,6 @@
     {
       "slug": "tooling",
       "tags": [
-        "cljs-ipfs",
         "js-ipfs"
       ]
     }

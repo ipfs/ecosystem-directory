@@ -1,14 +1,15 @@
 {
+  "name": "Pinata",
+  "file": "pinata",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2018
   },
   "logo": {
-    "icon": "pinataSVG_df766bc6.svg",
-    "full": "pinataSVG_df766bc6.svg"
+    "icon": "icon-pinata.svg",
+    "full": "icon-pinata.svg"
   },
-  "name": "Pinata",
   "org": [
     "Pinata"
   ],
@@ -17,16 +18,16 @@
     "long": "IPFS pinning service with easy API and toolkit, designed to make IPFS as easy as possible while also providing the speed and stability required for production applications."
   },
   "primaryCta": {
-    "url": "//pinata.cloud",
-    "text": "Project website"
+    "url": "//pinata.cloud/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//pinata.cloud",
-          "text": "pinata.cloud"
+          "url": "//pinata.cloud/",
+          "text": "https://pinata.cloud/"
         }
       ]
     },
@@ -35,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/PinataCloud",
-          "text": "github.com/PinataCloud"
+          "text": "https://github.com/PinataCloud"
         }
       ]
     }
@@ -46,7 +47,7 @@
       "value": "2018"
     }
   ],
-  "video": "//youtube.com/watch?v=29k2C1JXyg4&list=PL_0VrY55uV1-THfh1GVoE6v0SxKO9M0gs",
+  "video": "//www.youtube.com/watch?v=29k2C1JXyg4&list=PL_0VrY55uV1-THfh1GVoE6v0SxKO9M0gs",
   "stats": [
     {
       "label": "",
@@ -65,7 +66,7 @@
     "title": "Pinata on Medium",
     "description": "Blog posts, how-to guides, and more from the Pinata team.",
     "buttonText": "Read more",
-    "url": "//medium.com/pinata"
+    "url": "https://medium.com/pinata"
   },
   "taxonomies": [
     {
@@ -104,10 +105,10 @@
       "tags": [
         "go-ipfs",
         "ipfs-cluster",
-        "http-gateway",
+        "IPFS http-gateway",
         "ipld",
         "js-ipfs",
-        "js-ipfs-https-client"
+        "ipfs-http-client"
       ]
     }
   ]

@@ -1,14 +1,15 @@
 {
+  "name": "dClimate",
+  "file": "dclimate",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2019
   },
   "logo": {
-    "icon": "dclimate.png",
-    "full": "dclimate.png"
+    "icon": "icon-dclimate.png",
+    "full": "icon-dclimate.png"
   },
-  "name": "dClimate",
   "org": [
     "dClimate"
   ],
@@ -18,7 +19,7 @@
   },
   "primaryCta": {
     "url": "//dclimate.net",
-    "text": "Project website"
+    "text": "Project Website"
   },
   "links": [
     {
@@ -26,7 +27,7 @@
       "links": [
         {
           "url": "//dclimate.net",
-          "text": "dclimate.net"
+          "text": "https://dclimate.net"
         }
       ]
     },
@@ -35,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/orgs/dClimate",
-          "text": "github.com/orgs/dClimate"
+          "text": "https://github.com/orgs/dClimate"
         }
       ]
     }
@@ -46,7 +47,6 @@
       "value": "2019"
     }
   ],
-  "video": "",
   "stats": [
     {
       "label": "",
@@ -65,7 +65,7 @@
     "title": "dClimate case study",
     "description": "Learn how dClimate uses IPFS to bring climate data to the world.",
     "buttonText": "Case study",
-    "url": "//docs.ipfs.tech/concepts/case-study-arbol"
+    "url": "https://docs.ipfs.io/concepts/case-study-arbol/"
   },
   "taxonomies": [
     {
@@ -94,7 +94,7 @@
       "tags": [
         "go-ipfs",
         "ipfs-cluster",
-        "http-gateway",
+        "IPFS http-gateway",
         "js-ipfs",
         "py-ipfs-http-client"
       ]

@@ -1,14 +1,15 @@
 {
+  "name": "NameBazaar",
+  "file": "namebazaar",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2017
   },
   "logo": {
-    "icon": "logo-name-bazaar.png",
-    "full": "logo-name-bazaar.png"
+    "icon": "icon-namebazaar.png",
+    "full": "icon-namebazaar.png"
   },
-  "name": "NameBazaar",
   "org": [
     "district0x"
   ],
@@ -17,16 +18,16 @@
     "long": "A peer-to-peer, trustless, user-governed marketplace for ENS names. Built on Ethereum, Aragon, and IPFS."
   },
   "primaryCta": {
-    "url": "//namebazaar.io",
-    "text": "Project website"
+    "url": "//namebazaar.io/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//namebazaar.io",
-          "text": "namebazaar.io"
+          "url": "//namebazaar.io/",
+          "text": "https://namebazaar.io/"
         }
       ]
     },
@@ -34,8 +35,8 @@
       "label": "Repo",
       "links": [
         {
-          "url": "//github.com/district0x",
-          "text": "github.com/district0x"
+          "url": "//github.com/district0x/",
+          "text": "https://github.com/district0x/"
         }
       ]
     }
@@ -46,7 +47,6 @@
       "value": "2017"
     }
   ],
-  "video": "",
   "stats": [
     {
       "label": "",
@@ -63,9 +63,8 @@
   ],
   "ctaCard": {
     "title": "district0x whitepaper",
-    "description": "Dig into the details of district0x projects including NameBazaar in the whitepaper.",
-    "buttonText": "Read more",
-    "url": "//district0x.io/docs/district0x-whitepaper.pdf"
+    "description": "Dig into the details of district0x's projects in the whitepaper.",
+    "buttonText": "Read more"
   },
   "taxonomies": [
     {
@@ -95,7 +94,6 @@
     {
       "slug": "tooling",
       "tags": [
-        "cljs-ipfs",
         "js-ipfs"
       ]
     }

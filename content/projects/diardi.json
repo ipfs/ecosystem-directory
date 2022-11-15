@@ -1,14 +1,15 @@
 {
+  "name": "Diardi",
+  "file": "diardi",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2021
   },
   "logo": {
-    "icon": "scala.png",
-    "full": "scala.png"
+    "icon": "icon-diardi.png",
+    "full": "icon-diardi.png"
   },
-  "name": "Diardi",
   "org": [
     "Scala"
   ],
@@ -18,7 +19,7 @@
   },
   "primaryCta": {
     "url": "//scalaproject.io",
-    "text": "Project website"
+    "text": "Project Website"
   },
   "links": [
     {
@@ -26,7 +27,7 @@
       "links": [
         {
           "url": "//scalaproject.io",
-          "text": "scalaproject.io"
+          "text": "https://scalaproject.io"
         }
       ]
     },
@@ -35,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/scala-network",
-          "text": "github.com/scala-network"
+          "text": "https://github.com/scala-network"
         }
       ]
     }
@@ -65,7 +66,7 @@
     "title": "Introducing Scala Share",
     "description": "Learn how Diardi and IPFS storage come together to create an easy-to-use file share app.",
     "buttonText": "Read more",
-    "url": "//medium.com/scala-network/scala-share-decentralized-file-sharing-2df781738193"
+    "url": "https://medium.com/scala-network/scala-share-decentralized-file-sharing-2df781738193"
   },
   "taxonomies": [
     {
@@ -99,7 +100,7 @@
       "tags": [
         "go-ipfs",
         "ipfs-cluster",
-        "http-gateway"
+        "IPFS http-gateway"
       ]
     }
   ]

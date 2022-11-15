@@ -1,14 +1,15 @@
 {
+  "name": "OrbitDB",
+  "file": "orbitdb",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2015
   },
   "logo": {
-    "icon": "orbitdb.png",
-    "full": "orbit_db_logo_color.png"
+    "icon": "icon-orbitdb.png",
+    "full": "logo-orbitdb.png"
   },
-  "name": "OrbitDB",
   "org": [
     "Equilibrium"
   ],
@@ -17,16 +18,16 @@
     "long": "OrbitDB is a serverless, distributed, peer-to-peer database built on IPFS for data storage and IPFS pubsub for automatically syncing databases with peers."
   },
   "primaryCta": {
-    "url": "//orbitdb.org",
-    "text": "Project website"
+    "url": "//orbitdb.org/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//orbitdb.org",
-          "text": "orbitdb.org"
+          "url": "//orbitdb.org/",
+          "text": "https://orbitdb.org/"
         }
       ]
     },
@@ -35,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/orbitdb",
-          "text": "github.com/orbitdb"
+          "text": "https://github.com/orbitdb"
         }
       ]
     }
@@ -65,7 +66,7 @@
     "title": "OrbitDB Field Manual",
     "description": "The official user's guide to OrbitDB.",
     "buttonText": "Learn more",
-    "url": "//github.com/orbitdb/field-manual"
+    "url": "https://github.com/orbitdb/field-manual"
   },
   "taxonomies": [
     {
@@ -98,7 +99,7 @@
         "go-ipfs",
         "go-libp2p",
         "js-ipfs",
-        "js-ipfs-https-client",
+        "ipfs-http-client",
         "js-libp2p"
       ]
     }

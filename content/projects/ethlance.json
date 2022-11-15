@@ -1,14 +1,15 @@
 {
+  "name": "Ethlance",
+  "file": "ethlance",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2017
   },
   "logo": {
-    "icon": "icon-ethlance.png",
-    "full": "ethlance.png"
+    "icon": "logo-ethlance.png",
+    "full": "logo-ethlance.png"
   },
-  "name": "Ethlance",
   "org": [
     "district0x"
   ],
@@ -17,16 +18,16 @@
     "long": "A decentralized, user-governed marketplace for freelance talent, enabling hiring and working for Ether cryptocurrency. Built on Ethereum, Aragon, and IPFS."
   },
   "primaryCta": {
-    "url": "//ethlance.com",
-    "text": "Project website"
+    "url": "//ethlance.com/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//ethlance.com",
-          "text": "ethlance.com"
+          "url": "//ethlance.com/",
+          "text": "https://ethlance.com/"
         }
       ]
     },
@@ -34,8 +35,8 @@
       "label": "Repo",
       "links": [
         {
-          "url": "//github.com/district0x",
-          "text": "github.com/district0x"
+          "url": "//github.com/district0x/",
+          "text": "https://github.com/district0x/"
         }
       ]
     }
@@ -61,12 +62,7 @@
       "value": ""
     }
   ],
-  "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
-  },
+  "ctaCard": {},
   "taxonomies": [
     {
       "slug": "industry",
@@ -94,7 +90,6 @@
     {
       "slug": "tooling",
       "tags": [
-        "cljs-ipfs",
         "js-ipfs"
       ]
     }

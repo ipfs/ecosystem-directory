@@ -1,14 +1,15 @@
 {
+  "name": "Morpheus.Network Platform",
+  "file": "morpheus-network-platform",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2019
   },
   "logo": {
-    "icon": "logo-morpheus_b5cf0557.png",
-    "full": "logo-morpheus_b5cf0557.png"
+    "icon": "icon-morpheus-network-platform.png",
+    "full": "icon-morpheus-network-platform.png"
   },
-  "name": "Morpheus.Network Platform",
   "org": [
     "Morpheus.Network"
   ],
@@ -17,26 +18,23 @@
     "long": "Optimize and automate supply chains by providing shipment and item visibility for safe and secure supply chains, saving companies time and money."
   },
   "primaryCta": {
-    "url": "//morpheus.network",
-    "text": "Project website"
+    "url": "//morpheus.network/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//morpheus.network",
-          "text": "morpheus.network"
+          "url": "//morpheus.network/",
+          "text": "https://morpheus.network/"
         }
       ]
     },
     {
       "label": "Repo",
       "links": [
-        {
-          "url": "",
-          "text": ""
-        }
+        {}
       ]
     }
   ],
@@ -46,26 +44,25 @@
       "value": "2019"
     }
   ],
-  "video": "",
   "stats": [
     {
-      "label": "Successful cross-border shipments using IPFS",
-      "value": "> 1K"
+      "label": ">1K successful cross-border shipments using IPFS",
+      "value": ""
     },
     {
-      "label": "Potential reduction in client email volume",
-      "value": "> 90%"
+      "label": ">90% potential reduction in client email volume",
+      "value": ""
     },
     {
-      "label": "Potential reduction in client manual errors",
-      "value": "> 95%"
+      "label": ">95% potential reduction in client manual errors",
+      "value": ""
     }
   ],
   "ctaCard": {
     "title": "Morpheus.Network case study",
     "description": "Learn how Morpheus.Network is revolutionizing the supply chain using IPFS.",
     "buttonText": "Case study",
-    "url": "//docs.ipfs.tech/concepts/case-study-morpheus"
+    "url": "https://docs.ipfs.io/concepts/case-study-morpheus/"
   },
   "taxonomies": [
     {

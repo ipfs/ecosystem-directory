@@ -1,14 +1,15 @@
 {
+  "name": "Augur",
+  "file": "augur",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2016
   },
   "logo": {
-    "icon": "augur.png",
-    "full": "augur-logo.png"
+    "icon": "icon-augur.png",
+    "full": "logo-augur.png"
   },
-  "name": "Augur",
   "org": [
     "Forecast Foundation OU"
   ],
@@ -17,16 +18,16 @@
     "long": "Augur is a global, no-limit betting platform and decentralized oracle that uses a combination of community pinning and self-pinning clients to keep itself distributed through the network. It also uses IPFS to host snapshot data computed by all clients, and uses Augur's own market for consensus."
   },
   "primaryCta": {
-    "url": "//augur.net",
-    "text": "Project website"
+    "url": "//augur.net/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//augur.net",
-          "text": "augur.net"
+          "url": "//augur.net/",
+          "text": "https://augur.net/"
         }
       ]
     },
@@ -35,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/AugurProject/augur",
-          "text": "github.com/AugurProject/augur"
+          "text": "https://github.com/AugurProject/augur"
         }
       ]
     }
@@ -46,7 +47,6 @@
       "value": "2016"
     }
   ],
-  "video": "",
   "stats": [
     {
       "label": "",
@@ -65,7 +65,7 @@
     "title": "Augur whitepaper",
     "description": "Dig into the details of Augur in the project whitepaper.",
     "buttonText": "Read more",
-    "url": "//augur.net/whitepaper.pdf"
+    "url": "https://augur.net/whitepaper.pdf"
   },
   "taxonomies": [
     {
@@ -98,7 +98,7 @@
         "go-libp2p",
         "ipld",
         "js-ipfs",
-        "js-ipfs-https-client",
+        "ipfs-http-client",
         "js-libp2p"
       ]
     }

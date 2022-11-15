@@ -1,14 +1,15 @@
 {
+  "name": "Unstoppable Domains",
+  "file": "unstoppable-domains",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2019
   },
   "logo": {
-    "icon": "unstoppable-domains.png",
-    "full": "unstoppable-logo.svg"
+    "icon": "icon-unstoppable-domains.png",
+    "full": "logo-unstoppable-domains.svg"
   },
-  "name": "Unstoppable Domains",
   "org": [
     "Unstoppable Domains"
   ],
@@ -17,16 +18,16 @@
     "long": "Unstoppable Domains builds domain names on blockchain, enabling anyone with a website on IPFS to get a fully decentralized site by connecting its IPFS hash to its domain."
   },
   "primaryCta": {
-    "url": "//unstoppabledomains.com",
-    "text": "Project website"
+    "url": "//unstoppabledomains.com/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//unstoppabledomains.com",
-          "text": "unstoppabledomains.com"
+          "url": "//unstoppabledomains.com/",
+          "text": "https://unstoppabledomains.com/"
         }
       ]
     },
@@ -35,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/unstoppabledomains",
-          "text": "github.com/unstoppabledomains"
+          "text": "https://github.com/unstoppabledomains"
         }
       ]
     }
@@ -61,12 +62,7 @@
       "value": ""
     }
   ],
-  "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
-  },
+  "ctaCard": {},
   "taxonomies": [
     {
       "slug": "industry",

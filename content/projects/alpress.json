@@ -1,14 +1,15 @@
 {
+  "name": "Alpress",
+  "file": "alpress",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2021
   },
   "logo": {
-    "icon": "almonit-logo.svg",
-    "full": "almonit-logo.svg"
+    "icon": "icon-alpress.svg",
+    "full": "icon-alpress.svg"
   },
-  "name": "Alpress",
   "org": [
     "Almonit"
   ],
@@ -17,16 +18,16 @@
     "long": "A self-governing ENS + IPFS publishing platform designed to make decentralized content publication simpler."
   },
   "primaryCta": {
-    "url": "//alpress.eth.link",
-    "text": "Project website"
+    "url": "//alpress.eth.link/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//alpress.eth.link",
-          "text": "alpress.eth.link"
+          "url": "//alpress.eth.link/",
+          "text": "https://alpress.eth.link/"
         }
       ]
     },
@@ -35,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/almonit/dlog",
-          "text": "github.com/almonit/dlog"
+          "text": "https://github.com/almonit/dlog"
         }
       ]
     }
@@ -65,7 +66,7 @@
     "title": "Alpress testnet launch",
     "description": "Announcing the Alpress testnet and how to use it.",
     "buttonText": "Learn more",
-    "url": "//blog.almonit.eth.link/2021-03-22/Alpress-rinkey-testnet.html"
+    "url": "https://blog.almonit.eth.link/2021-03-22/Alpress-rinkey-testnet.html"
   },
   "taxonomies": [
     {

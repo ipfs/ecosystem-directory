@@ -1,14 +1,15 @@
 {
+  "name": "WeatherChainXM",
+  "file": "weatherchainxm",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2021
   },
   "logo": {
-    "icon": "exmachina.png",
-    "full": "EXM_LOGO_KIT-13.png"
+    "icon": "icon-weatherchainxm.png",
+    "full": "logo-weatherchainxm.png"
   },
-  "name": "WeatherChainXM",
   "org": [
     "Ex Machina"
   ],
@@ -18,7 +19,7 @@
   },
   "primaryCta": {
     "url": "//exm.gr",
-    "text": "Project website"
+    "text": "Project Website"
   },
   "links": [
     {
@@ -26,7 +27,7 @@
       "links": [
         {
           "url": "//exm.gr",
-          "text": "exm.gr"
+          "text": "https://exm.gr"
         }
       ]
     },
@@ -35,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/exmgr/WeatherChainXM",
-          "text": "github.com/exmgr/WeatherChainXM"
+          "text": "https://github.com/exmgr/WeatherChainXM"
         }
       ]
     }
@@ -65,7 +66,7 @@
     "title": "ESP32 + IPFS",
     "description": "Check out WeatherChainXM's ESP32 Arduino library for adding and retrieving files to and from IPFS.",
     "buttonText": "Learn more",
-    "url": "//github.com/exmgr/ipfs-client-esp32"
+    "url": "https://github.com/exmgr/ipfs-client-esp32"
   },
   "taxonomies": [
     {

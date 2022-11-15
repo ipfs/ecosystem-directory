@@ -1,14 +1,15 @@
 {
+  "name": "Valist",
+  "file": "valist",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2020
   },
   "logo": {
-    "icon": "ValistLogo128.png",
-    "full": "ValistLogo128.png"
+    "icon": "icon-valist.png",
+    "full": "icon-valist.png"
   },
-  "name": "Valist",
   "org": [
     "Valist, Inc."
   ],
@@ -17,16 +18,16 @@
     "long": "Easily and securely distribute any software or firmware using Web3 technologies, while enforcing strong access control and security best practices. Valist also integrates with existing package managers like NPM and Pip, as well as deployment systems like Docker."
   },
   "primaryCta": {
-    "url": "//valist.io",
-    "text": "Project website"
+    "url": "//valist.io/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//valist.io",
-          "text": "valist.io"
+          "url": "//valist.io/",
+          "text": "https://valist.io/"
         }
       ]
     },
@@ -35,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/valist-io/valist",
-          "text": "github.com/valist-io/valist"
+          "text": "https://github.com/valist-io/valist"
         }
       ]
     }
@@ -65,7 +66,7 @@
     "title": "Valist FAQ",
     "description": "Quick Q-and-A for the most common questions about Valist.",
     "buttonText": "Read more",
-    "url": "//valist.io/faq"
+    "url": "https://valist.io/faq"
   },
   "taxonomies": [
     {
@@ -102,7 +103,7 @@
         "filecoin",
         "go-ipfs",
         "js-ipfs",
-        "js-ipfs-https-client",
+        "ipfs-http-client",
         "ecosystem-tools"
       ]
     }

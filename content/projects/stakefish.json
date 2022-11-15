@@ -1,14 +1,15 @@
 {
+  "name": "stakefish",
+  "file": "stakefish",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2019
   },
   "logo": {
-    "icon": "stakefish-9e55d54e-cee8-4dc8-8956-5f5809ef15f0.png",
-    "full": "stakefish-9e55d54e-cee8-4dc8-8956-5f5809ef15f0.png"
+    "icon": "icon-stakefish.png",
+    "full": "icon-stakefish.png"
   },
-  "name": "stakefish",
   "org": [
     "stakefish"
   ],
@@ -18,7 +19,7 @@
   },
   "primaryCta": {
     "url": "//stake.fish",
-    "text": "Project website"
+    "text": "Project Website"
   },
   "links": [
     {
@@ -26,17 +27,14 @@
       "links": [
         {
           "url": "//stake.fish",
-          "text": "stake.fish"
+          "text": "https://stake.fish"
         }
       ]
     },
     {
       "label": "Repo",
       "links": [
-        {
-          "url": "",
-          "text": ""
-        }
+        {}
       ]
     }
   ],
@@ -61,12 +59,7 @@
       "value": ""
     }
   ],
-  "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
-  },
+  "ctaCard": {},
   "taxonomies": [
     {
       "slug": "industry",
@@ -92,7 +85,7 @@
       "slug": "tooling",
       "tags": [
         "go-ipfs",
-        "http-gateway",
+        "IPFS http-gateway",
         "js-ipfs",
         "pinning-services"
       ]

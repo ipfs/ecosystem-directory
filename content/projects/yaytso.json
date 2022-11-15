@@ -1,14 +1,15 @@
 {
+  "name": "Yaytso",
+  "file": "yaytso",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2021
   },
   "logo": {
-    "icon": "eggvg.svg",
-    "full": "eggvg.svg"
+    "icon": "icon-yaytso.svg",
+    "full": "icon-yaytso.svg"
   },
-  "name": "Yaytso",
   "org": [
     "Yaytso"
   ],
@@ -18,7 +19,7 @@
   },
   "primaryCta": {
     "url": "//yaytso.art",
-    "text": "Project website"
+    "text": "Project Website"
   },
   "links": [
     {
@@ -26,7 +27,7 @@
       "links": [
         {
           "url": "//yaytso.art",
-          "text": "yaytso.art"
+          "text": "https://yaytso.art"
         }
       ]
     },
@@ -35,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/aklevecz/yaytso",
-          "text": "github.com/aklevecz/yaytso"
+          "text": "https://github.com/aklevecz/yaytso"
         }
       ]
     }
@@ -61,12 +62,7 @@
       "value": ""
     }
   ],
-  "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
-  },
+  "ctaCard": {},
   "taxonomies": [
     {
       "slug": "industry",

@@ -1,14 +1,15 @@
 {
+  "name": "Request Invoicing",
+  "file": "request-invoicing",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2017
   },
   "logo": {
-    "icon": "request.png",
-    "full": "request-banner-logo.png"
+    "icon": "icon-request-invoicing.png",
+    "full": "logo-request-invoicing.png"
   },
-  "name": "Request Invoicing",
   "org": [
     "REQUEST"
   ],
@@ -17,16 +18,16 @@
     "long": "Compliant invoicing tools for paying and getting paid in cryptocurrency as a freelancer or business. Uses IPFS private networks on self-hosted nodes, delivered as Docker images for others to run."
   },
   "primaryCta": {
-    "url": "//request.network/en/invoicing",
-    "text": "Project website"
+    "url": "//request.network/en/invoicing/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//request.network/en/invoicing",
-          "text": "request.network/en/invoicing"
+          "url": "//request.network/en/invoicing/",
+          "text": "https://request.network/en/invoicing/"
         }
       ]
     },
@@ -35,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/RequestNetwork/requestNetwork",
-          "text": "github.com/RequestNetwork/requestNetwork"
+          "text": "https://github.com/RequestNetwork/requestNetwork"
         }
       ]
     }
@@ -65,7 +66,7 @@
     "title": "Getting started with Request",
     "description": "Developer-focused documentation for integrating Request into invoicing workflows.",
     "buttonText": "Learn more",
-    "url": "//docs.request.network/docs/guides/0-getting-started"
+    "url": "https://docs.request.network/docs/guides/0-getting-started"
   },
   "taxonomies": [
     {

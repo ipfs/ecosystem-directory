@@ -1,14 +1,15 @@
 {
+  "name": "The Convo Space",
+  "file": "the-convo-space",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2020
   },
   "logo": {
-    "icon": "convo-space-icon.png",
-    "full": "convo-space-icon.png"
+    "icon": "icon-the-convo-space.png",
+    "full": "icon-the-convo-space.png"
   },
-  "name": "The Convo Space",
   "org": [
     "The Convo Space"
   ],
@@ -18,7 +19,7 @@
   },
   "primaryCta": {
     "url": "//theconvo.space",
-    "text": "Project website"
+    "text": "Project Website"
   },
   "links": [
     {
@@ -26,7 +27,7 @@
       "links": [
         {
           "url": "//theconvo.space",
-          "text": "theconvo.space"
+          "text": "https://theconvo.space"
         }
       ]
     },
@@ -35,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/anudit/convo",
-          "text": "github.com/anudit/convo"
+          "text": "https://github.com/anudit/convo"
         }
       ]
     }
@@ -61,12 +62,7 @@
       "value": ""
     }
   ],
-  "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
-  },
+  "ctaCard": {},
   "taxonomies": [
     {
       "slug": "industry",
@@ -101,7 +97,7 @@
         "ecosystem-tools",
         "filecoin",
         "js-ipfs",
-        "js-ipfs-https-client",
+        "ipfs-http-client",
         "pinning-services"
       ]
     }
