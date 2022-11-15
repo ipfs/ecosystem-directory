@@ -81,6 +81,7 @@ const removeProtocol = (url) => {
   return url?.replace(/^https?:\/\//, '//')
 }
 
+// strip url of all protocol details and remove trailing slashes
 const beautifyUrl = (url) => {
   return url?.replace(/^https?:\/\//, '').replace(/\/$/, '')
 }
