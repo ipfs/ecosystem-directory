@@ -101,6 +101,7 @@ const transformProject = (record, { iconFileName, logoFileName }) => {
   const ctaTitle = record['CTA card title']
   const ctaDesc = record['CTA card description']
   const ctaButton = record['CTA card button text']
+  const featured = Boolean(record.featured)
   
   const linkWebsites = record.Website
   const linkRepos = record.Repo
@@ -183,7 +184,7 @@ const transformProject = (record, { iconFileName, logoFileName }) => {
     name,
     file,
     display: true,
-    featured: false,
+    featured,
     sortNumbers: {
       since: parseInt(sortSince),
     },

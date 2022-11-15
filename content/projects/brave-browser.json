@@ -2,7 +2,7 @@
   "name": "Brave Browser",
   "file": "brave-browser",
   "display": true,
-  "featured": false,
+  "featured": true,
   "sortNumbers": {
     "since": 2018
   },

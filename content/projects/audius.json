@@ -2,7 +2,7 @@
   "name": "Audius",
   "file": "audius",
   "display": true,
-  "featured": false,
+  "featured": true,
   "sortNumbers": {
     "since": 2018
   },
@@ -51,15 +51,15 @@
   "stats": [
     {
       "label": "5M content identifiers",
-      "value": "5m"
+      "value": ""
     },
     {
       "label": "12 independent discovery and creator node providers",
-      "value": "12"
+      "value": ""
     },
     {
       "label": "40K registered users",
-      "value": "40k"
+      "value": ""
     }
   ],
   "ctaCard": {

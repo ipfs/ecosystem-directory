@@ -2,7 +2,7 @@
   "name": "ION",
   "file": "ion",
   "display": true,
-  "featured": false,
+  "featured": true,
   "sortNumbers": {
     "since": 2019
   },

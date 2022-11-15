@@ -2,7 +2,7 @@
   "name": "Fission Platform & Webnative SDK",
   "file": "fission-platform-webnative-sdk",
   "display": true,
-  "featured": false,
+  "featured": true,
   "sortNumbers": {
     "since": 2019
   },

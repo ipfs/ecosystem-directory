@@ -2,7 +2,7 @@
   "name": "nft.storage",
   "file": "nft-storage",
   "display": true,
-  "featured": false,
+  "featured": true,
   "sortNumbers": {
     "since": 2021
   },
