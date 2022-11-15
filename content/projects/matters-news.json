@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//matters.news/",
-          "text": "https://matters.news/"
+          "text": "matters.news"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/thematters/developer-resource",
-          "text": "https://github.com/thematters/developer-resource"
+          "text": "github.com/thematters/developer-resource"
         }
       ]
     }
@@ -65,7 +65,7 @@
     "title": "Matters News in action",
     "description": "Learn how Matters News used IPFS to empower Chinese citizens to speak more freely about COVID-19.",
     "buttonText": "Read more",
-    "url": "https://coindesk.com/interplanetary-file-system-is-uncensorable-during-coronavirus-news-fog"
+    "url": "//coindesk.com/interplanetary-file-system-is-uncensorable-during-coronavirus-news-fog"
   },
   "taxonomies": [
     {

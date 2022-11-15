@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//kyber.network/",
-          "text": "https://kyber.network/"
+          "text": "kyber.network"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/kybernetwork",
-          "text": "https://github.com/kybernetwork"
+          "text": "github.com/kybernetwork"
         }
       ]
     }
@@ -66,7 +66,7 @@
     "title": "Kyber developer portal",
     "description": "The KyberDeveloper portal offers guidance for developers looking to get started or dig deeper.",
     "buttonText": "Read more",
-    "url": "https://developer.kyber.network/"
+    "url": "//developer.kyber.network/"
   },
   "taxonomies": [
     {

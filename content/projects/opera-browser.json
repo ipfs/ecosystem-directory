@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//opera.com/",
-          "text": "https://opera.com/"
+          "text": "opera.com"
         }
       ]
     },
@@ -63,7 +63,7 @@
     "title": "IPFS in Opera Touch",
     "description": "Opera's iOS browser adds support for IPFS addressing.",
     "buttonText": "Read more",
-    "url": "https://blog.ipfs.io/2021-02-08-opera-ios-and-ipfs/"
+    "url": "//blog.ipfs.io/2021-02-08-opera-ios-and-ipfs/"
   },
   "taxonomies": [
     {

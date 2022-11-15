@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//iscn.io",
-          "text": "http://iscn.io"
+          "text": "iscn.io"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/likecoin",
-          "text": "https://github.com/likecoin"
+          "text": "github.com/likecoin"
         }
       ]
     }
@@ -65,7 +65,7 @@
     "title": "LikeCoin case study",
     "description": "Learn how LikeCoin relies on IPFS for storing and serving ISCN-linked content.",
     "buttonText": "Case study",
-    "url": "https://docs.ipfs.io/concepts/case-study-likecoin/"
+    "url": "//docs.ipfs.io/concepts/case-study-likecoin/"
   },
   "taxonomies": [
     {

@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//ravencoin.org/",
-          "text": "https://ravencoin.org/"
+          "text": "ravencoin.org"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/RavenProject",
-          "text": "https://github.com/RavenProject"
+          "text": "github.com/RavenProject"
         }
       ]
     }
@@ -65,7 +65,7 @@
     "title": "Whitepapers & roadmaps",
     "description": "Read the Ravencoin whitepapers and stay abreast of roadmap developments.",
     "buttonText": "Learn more",
-    "url": "https://ravencoin.org/whitepaper"
+    "url": "//ravencoin.org/whitepaper"
   },
   "taxonomies": [
     {

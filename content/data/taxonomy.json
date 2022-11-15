@@ -248,8 +248,12 @@
           "slug": "js-ipfs"
         },
         {
-          "label": "js-ipfs-https-client",
+          "label": "ipfs-http-client",
           "slug": "js-ipfs-https-client"
+        },
+        {
+          "label": "ipfs-http-client",
+          "slug": "ipfs-http-client"
         },
         {
           "label": "js-libp2p",

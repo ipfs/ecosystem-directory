@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//education.district0x.io/district0x-specific-topics/understanding-distict0x/the-district-registry/",
-          "text": "https://education.district0x.io/district0x-specific-topics/understanding-distict0x/the-district-registry/"
+          "text": "education.district0x.io/district0x-specific-topics/understanding-distict0x/the-district-registry"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/district0x/",
-          "text": "https://github.com/district0x/"
+          "text": "github.com/district0x"
         }
       ]
     }
@@ -66,7 +66,7 @@
     "title": "district0x whitepaper",
     "description": "Dig into the details of district0x projects including The District Registry in the whitepaper.",
     "buttonText": "Read more",
-    "url": "https://district0x.io/docs/district0x-whitepaper.pdf"
+    "url": "//district0x.io/docs/district0x-whitepaper.pdf"
   },
   "taxonomies": [
     {

@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//audius.org",
-          "text": "https://audius.org"
+          "text": "audius.org"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/AudiusProject",
-          "text": "https://github.com/AudiusProject"
+          "text": "github.com/AudiusProject"
         }
       ]
     }
@@ -66,7 +66,7 @@
     "title": "Audius case study",
     "description": "Learn how Audius uses IPFS to directly connect creators and listeners.",
     "buttonText": "Case study",
-    "url": "https://docs.ipfs.tech/concepts/case-study-audius/"
+    "url": "//docs.ipfs.tech/concepts/case-study-audius/"
   },
   "taxonomies": [
     {

@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//watchitapp.site",
-          "text": "https://watchitapp.site"
+          "text": "watchitapp.site"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/ZorrillosDev/watchit-app",
-          "text": "https://github.com/ZorrillosDev/watchit-app"
+          "text": "github.com/ZorrillosDev/watchit-app"
         }
       ]
     }
@@ -65,7 +65,7 @@
     "title": "Watchit FAQ",
     "description": "Quick Q-and-A for the most common questions about Watchit.",
     "buttonText": "Read more",
-    "url": "https://github.com/ZorrillosDev/watchit-app/blob/v0.1.0/FAQ.md"
+    "url": "//github.com/ZorrillosDev/watchit-app/blob/v0.1.0/FAQ.md"
   },
   "taxonomies": [
     {

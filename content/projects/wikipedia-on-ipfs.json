@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//kiwix.org/",
-          "text": "https://kiwix.org/"
+          "text": "kiwix.org"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/kiwix/ipfs-portal",
-          "text": "https://github.com/kiwix/ipfs-portal"
+          "text": "github.com/kiwix/ipfs-portal"
         }
       ]
     }
@@ -65,7 +65,7 @@
     "title": "Why Wikipedia on IPFS",
     "description": "Learn why putting Wikipedia on IPFS improves humanity's access to information.",
     "buttonText": "Read more",
-    "url": "https://blog.ipfs.io/24-uncensorable-wikipedia/"
+    "url": "//blog.ipfs.io/24-uncensorable-wikipedia/"
   },
   "taxonomies": [
     {

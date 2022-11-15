@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//eternum.io",
-          "text": "https://eternum.io"
+          "text": "eternum.io"
         }
       ]
     },
@@ -62,7 +62,7 @@
     "title": "Eterrnum API",
     "description": "Quick Swagger reference for the Eternum API.",
     "buttonText": "Learn more",
-    "url": "https://eternum.io/api/docs/#/api"
+    "url": "//eternum.io/api/docs/#/api"
   },
   "taxonomies": [
     {

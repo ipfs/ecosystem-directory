@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//nomios.io/",
-          "text": "https://nomios.io/"
+          "text": "nomios.io"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/ipfs-shipyard/pm-idm",
-          "text": "https://github.com/ipfs-shipyard/pm-idm"
+          "text": "github.com/ipfs-shipyard/pm-idm"
         }
       ]
     }

@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//dether.io/",
-          "text": "https://dether.io/"
+          "text": "dether.io"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/dethertech",
-          "text": "https://github.com/dethertech"
+          "text": "github.com/dethertech"
         }
       ]
     }
@@ -65,7 +65,7 @@
     "title": "Dether + IPFS",
     "description": "Learn how the Dether team built a decentralized in-app chat feature using IPFS.",
     "buttonText": "Read more",
-    "url": "https://medium.com/dether/building-a-decentralized-chat-client-using-ipfs-2bcf5812e9d8"
+    "url": "//medium.com/dether/building-a-decentralized-chat-client-using-ipfs-2bcf5812e9d8"
   },
   "taxonomies": [
     {

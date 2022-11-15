@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//quanta.wiki/",
-          "text": "https://quanta.wiki/"
+          "text": "quanta.wiki"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/Clay-Ferguson/quantizr",
-          "text": "https://github.com/Clay-Ferguson/quantizr"
+          "text": "github.com/Clay-Ferguson/quantizr"
         }
       ]
     }

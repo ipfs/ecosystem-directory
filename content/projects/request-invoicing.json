@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//request.network/en/invoicing/",
-          "text": "https://request.network/en/invoicing/"
+          "text": "request.network/en/invoicing"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/RequestNetwork/requestNetwork",
-          "text": "https://github.com/RequestNetwork/requestNetwork"
+          "text": "github.com/RequestNetwork/requestNetwork"
         }
       ]
     }
@@ -66,7 +66,7 @@
     "title": "Getting started with Request",
     "description": "Developer-focused documentation for integrating Request into invoicing workflows.",
     "buttonText": "Learn more",
-    "url": "https://docs.request.network/docs/guides/0-getting-started"
+    "url": "//docs.request.network/docs/guides/0-getting-started"
   },
   "taxonomies": [
     {

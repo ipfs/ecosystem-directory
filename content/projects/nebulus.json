@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//nebulus.dev",
-          "text": "https://nebulus.dev"
+          "text": "nebulus.dev"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/skogard/nebulus",
-          "text": "https://github.com/skogard/nebulus"
+          "text": "github.com/skogard/nebulus"
         }
       ]
     }
@@ -65,7 +65,7 @@
     "title": "Getting started with Nebulus",
     "description": "Developer-focused documentation on how Nebulus works and a variety of use cases.",
     "buttonText": "Learn more",
-    "url": "https://docs.nebulus.dev/"
+    "url": "//docs.nebulus.dev/"
   },
   "taxonomies": [
     {

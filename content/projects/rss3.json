@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//rss3.io",
-          "text": "https://rss3.io"
+          "text": "rss3.io"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/NaturalSelectionLabs/RSS3",
-          "text": "https://github.com/NaturalSelectionLabs/RSS3"
+          "text": "github.com/NaturalSelectionLabs/RSS3"
         }
       ]
     }
@@ -65,7 +65,7 @@
     "title": "RSS3 whitepaper",
     "description": "Dig into the details of how RSS3 works in the whitepaper.",
     "buttonText": "Read more",
-    "url": "https://gateway.pinata.cloud/ipfs/QmPYZWZeKJt2b6CrmPcEPfUtAzUW44mD16vUK6fVfM1pvS"
+    "url": "//gateway.pinata.cloud/ipfs/QmPYZWZeKJt2b6CrmPcEPfUtAzUW44mD16vUK6fVfM1pvS"
   },
   "taxonomies": [
     {

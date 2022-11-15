@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//myetherwallet.com/",
-          "text": "https://myetherwallet.com/"
+          "text": "myetherwallet.com"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/myetherwallet",
-          "text": "https://github.com/myetherwallet"
+          "text": "github.com/myetherwallet"
         }
       ]
     }
@@ -66,7 +66,7 @@
     "title": "Host your own website with MEW",
     "description": "Learn about MyEtherWallet's IPFS support for .eth and .crypto domains.",
     "buttonText": "Read more",
-    "url": "https://medium.com/myetherwallet/host-your-own-site-with-mew-introducing-ipfs-support-for-eth-and-crypto-domains-903ea852f2d7"
+    "url": "//medium.com/myetherwallet/host-your-own-site-with-mew-introducing-ipfs-support-for-eth-and-crypto-domains-903ea852f2d7"
   },
   "taxonomies": [
     {

@@ -81,6 +81,10 @@ const removeProtocol = (url) => {
   return url?.replace(/^https?:\/\//, '//')
 }
 
+const beautifyUrl = (url) => {
+  return url?.replace(/^https?:\/\//, '').replace(/\/$/, '')
+}
+
 // This function transforms the raw record data that was filled into the Airtable database into the format
 // needed by the UI. A lot of the logic was copied from the Airtable utomation that would do this transformation 
 // and populate the record.json field. 
@@ -211,7 +215,7 @@ const transformProject = (record, { iconFileName, logoFileName }) => {
         links: [
           {
             url: removeProtocol(linkWebsites),
-            text: linkWebsites,
+            text: beautifyUrl(linkWebsites),
           },
         ],
       },
@@ -220,7 +224,7 @@ const transformProject = (record, { iconFileName, logoFileName }) => {
         links: [
           {
             url: removeProtocol(linkRepos),
-            text: linkRepos,
+            text: beautifyUrl(linkRepos),
           },
         ],
       },
@@ -250,7 +254,7 @@ const transformProject = (record, { iconFileName, logoFileName }) => {
       title: ctaTitle,
       description: ctaDesc,
       buttonText: ctaButton,
-      url: ctaLink,
+      url: removeProtocol(ctaLink),
     },
     taxonomies: [
       {
@@ -271,7 +275,7 @@ const transformProject = (record, { iconFileName, logoFileName }) => {
       },
     ],
   }
-  console.log(transformedProject)
+
   return transformedProject
 }
 

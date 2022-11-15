@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//decrypt.co/",
-          "text": "https://decrypt.co/"
+          "text": "decrypt.co"
         }
       ]
     },
@@ -62,7 +62,7 @@
     "title": "Decentralizing Decrypt",
     "description": "Get the details of how the Decrypt team ported to IPFS.",
     "buttonText": "Read more",
-    "url": "https://decrypt.co/57109/decrypt-diaries-why-we-built-on-ipfs"
+    "url": "//decrypt.co/57109/decrypt-diaries-why-we-built-on-ipfs"
   },
   "taxonomies": [
     {

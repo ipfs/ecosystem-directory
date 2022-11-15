@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//anytype.io/",
-          "text": "https://anytype.io/"
+          "text": "anytype.io"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/anytypeio",
-          "text": "https://github.com/anytypeio"
+          "text": "github.com/anytypeio"
         }
       ]
     }
@@ -66,7 +66,7 @@
     "title": "Anytype news",
     "description": "Follow the Anytype project's progress in the news section of Anytype's community site.",
     "buttonText": "Read more",
-    "url": "https://community.anytype.io/t/news"
+    "url": "//community.anytype.io/t/news"
   },
   "taxonomies": [
     {

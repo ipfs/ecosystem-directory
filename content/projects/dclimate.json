@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//dclimate.net",
-          "text": "https://dclimate.net"
+          "text": "dclimate.net"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/orgs/dClimate",
-          "text": "https://github.com/orgs/dClimate"
+          "text": "github.com/orgs/dClimate"
         }
       ]
     }
@@ -65,7 +65,7 @@
     "title": "dClimate case study",
     "description": "Learn how dClimate uses IPFS to bring climate data to the world.",
     "buttonText": "Case study",
-    "url": "https://docs.ipfs.io/concepts/case-study-arbol/"
+    "url": "//docs.ipfs.io/concepts/case-study-arbol/"
   },
   "taxonomies": [
     {

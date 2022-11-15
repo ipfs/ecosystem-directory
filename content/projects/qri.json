@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//qri.io/",
-          "text": "https://qri.io/"
+          "text": "qri.io"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/qri-io/qri",
-          "text": "https://github.com/qri-io/qri"
+          "text": "github.com/qri-io/qri"
         }
       ]
     }
@@ -66,7 +66,7 @@
     "title": "Qri Data Bazaar",
     "description": "Explore this home for versioned open datasets on the distributed web.",
     "buttonText": "Learn more",
-    "url": "https://qri.cloud/"
+    "url": "//qri.cloud/"
   },
   "taxonomies": [
     {

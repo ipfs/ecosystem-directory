@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//almonit.eth.link",
-          "text": "https://almonit.eth.link"
+          "text": "almonit.eth.link"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/almonit/",
-          "text": "https://github.com/almonit/"
+          "text": "github.com/almonit"
         }
       ]
     }

@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//pinata.cloud/",
-          "text": "https://pinata.cloud/"
+          "text": "pinata.cloud"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/PinataCloud",
-          "text": "https://github.com/PinataCloud"
+          "text": "github.com/PinataCloud"
         }
       ]
     }
@@ -66,7 +66,7 @@
     "title": "Pinata on Medium",
     "description": "Blog posts, how-to guides, and more from the Pinata team.",
     "buttonText": "Read more",
-    "url": "https://medium.com/pinata"
+    "url": "//medium.com/pinata"
   },
   "taxonomies": [
     {

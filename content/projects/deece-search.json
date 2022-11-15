@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//www.deece.nl/web/",
-          "text": "https://www.deece.nl/web/"
+          "text": "www.deece.nl/web"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/navinkeizer/Deece",
-          "text": "https://github.com/navinkeizer/Deece"
+          "text": "github.com/navinkeizer/Deece"
         }
       ]
     }
@@ -65,7 +65,7 @@
     "title": "Deece readme & roadmap",
     "description": "Peek behind the curtain and learn what's next for Deece Search.",
     "buttonText": "Learn more",
-    "url": "https://github.com/navinkeizer/Deece/blob/master/README.md"
+    "url": "//github.com/navinkeizer/Deece/blob/master/README.md"
   },
   "taxonomies": [
     {

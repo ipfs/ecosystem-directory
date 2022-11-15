@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//scalaproject.io",
-          "text": "https://scalaproject.io"
+          "text": "scalaproject.io"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/scala-network",
-          "text": "https://github.com/scala-network"
+          "text": "github.com/scala-network"
         }
       ]
     }
@@ -66,7 +66,7 @@
     "title": "Introducing Scala Share",
     "description": "Learn how Diardi and IPFS storage come together to create an easy-to-use file share app.",
     "buttonText": "Read more",
-    "url": "https://medium.com/scala-network/scala-share-decentralized-file-sharing-2df781738193"
+    "url": "//medium.com/scala-network/scala-share-decentralized-file-sharing-2df781738193"
   },
   "taxonomies": [
     {

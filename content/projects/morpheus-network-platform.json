@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//morpheus.network/",
-          "text": "https://morpheus.network/"
+          "text": "morpheus.network"
         }
       ]
     },
@@ -62,7 +62,7 @@
     "title": "Morpheus.Network case study",
     "description": "Learn how Morpheus.Network is revolutionizing the supply chain using IPFS.",
     "buttonText": "Case study",
-    "url": "https://docs.ipfs.io/concepts/case-study-morpheus/"
+    "url": "//docs.ipfs.io/concepts/case-study-morpheus/"
   },
   "taxonomies": [
     {

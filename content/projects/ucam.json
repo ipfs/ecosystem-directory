@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//ucam.iotex.io/",
-          "text": "https://ucam.iotex.io/"
+          "text": "ucam.iotex.io"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/iotexproject/ucam-pe-lib",
-          "text": "https://github.com/iotexproject/ucam-pe-lib"
+          "text": "github.com/iotexproject/ucam-pe-lib"
         }
       ]
     }

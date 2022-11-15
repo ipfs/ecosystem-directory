@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//cluster.ipfs.io/",
-          "text": "https://cluster.ipfs.io/"
+          "text": "cluster.ipfs.io"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/ipfs/ipfs-cluster",
-          "text": "https://github.com/ipfs/ipfs-cluster"
+          "text": "github.com/ipfs/ipfs-cluster"
         }
       ]
     }
@@ -66,7 +66,7 @@
     "title": "New: Collaborative clusters",
     "description": "Learn about how collaborative clusters improve dataset distribution and availability.",
     "buttonText": "More details",
-    "url": "https://blog.ipfs.io/2020-01-09-collaborative-clusters/"
+    "url": "//blog.ipfs.io/2020-01-09-collaborative-clusters/"
   },
   "taxonomies": [
     {

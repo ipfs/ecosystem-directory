@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//valist.io/",
-          "text": "https://valist.io/"
+          "text": "valist.io"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/valist-io/valist",
-          "text": "https://github.com/valist-io/valist"
+          "text": "github.com/valist-io/valist"
         }
       ]
     }
@@ -66,7 +66,7 @@
     "title": "Valist FAQ",
     "description": "Quick Q-and-A for the most common questions about Valist.",
     "buttonText": "Read more",
-    "url": "https://valist.io/faq"
+    "url": "//valist.io/faq"
   },
   "taxonomies": [
     {

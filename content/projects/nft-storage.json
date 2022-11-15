@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//nft.storage",
-          "text": "https://nft.storage"
+          "text": "nft.storage"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/ipfs-shipyard/nft.storage",
-          "text": "https://github.com/ipfs-shipyard/nft.storage"
+          "text": "github.com/ipfs-shipyard/nft.storage"
         }
       ]
     }
@@ -66,7 +66,7 @@
     "title": "Overview: nft.storage",
     "description": "Learn how nft.storage makes NFT best practices easier.",
     "buttonText": "More details",
-    "url": "https://filecoin.io/blog/posts/introducing-nft.storage-free-decentralized-storage-for-nfts/"
+    "url": "//filecoin.io/blog/posts/introducing-nft.storage-free-decentralized-storage-for-nfts/"
   },
   "taxonomies": [
     {

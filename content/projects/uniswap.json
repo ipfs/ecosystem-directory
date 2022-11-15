@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//uniswap.org",
-          "text": "https://uniswap.org"
+          "text": "uniswap.org"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/Uniswap",
-          "text": "https://github.com/Uniswap"
+          "text": "github.com/Uniswap"
         }
       ]
     }
@@ -65,7 +65,7 @@
     "title": "Uniswap Interface + IPFS",
     "description": "Learn how Uniswap uses IPFS to empower its community to host the Uniswap Interface",
     "buttonText": "Read more",
-    "url": "https://uniswap.org/blog/ipfs-uniswap-interface/"
+    "url": "//uniswap.org/blog/ipfs-uniswap-interface/"
   },
   "taxonomies": [
     {

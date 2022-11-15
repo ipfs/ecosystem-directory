@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//orbitdb.org/",
-          "text": "https://orbitdb.org/"
+          "text": "orbitdb.org"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/orbitdb",
-          "text": "https://github.com/orbitdb"
+          "text": "github.com/orbitdb"
         }
       ]
     }
@@ -66,7 +66,7 @@
     "title": "OrbitDB Field Manual",
     "description": "The official user's guide to OrbitDB.",
     "buttonText": "Learn more",
-    "url": "https://github.com/orbitdb/field-manual"
+    "url": "//github.com/orbitdb/field-manual"
   },
   "taxonomies": [
     {

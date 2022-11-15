@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//chrome.google.com/webstore/detail/discussify/bfmnjjkobeboejeocbompgljbiafbgcc?hl=en",
-          "text": "https://chrome.google.com/webstore/detail/discussify/bfmnjjkobeboejeocbompgljbiafbgcc?hl=en"
+          "text": "chrome.google.com/webstore/detail/discussify/bfmnjjkobeboejeocbompgljbiafbgcc?hl=en"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/ipfs-shipyard/pm-discussify",
-          "text": "https://github.com/ipfs-shipyard/pm-discussify"
+          "text": "github.com/ipfs-shipyard/pm-discussify"
         }
       ]
     }

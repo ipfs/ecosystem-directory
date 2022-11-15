@@ -27,7 +27,7 @@
       "links": [
         {
           "url": "//identity.foundation/",
-          "text": "https://identity.foundation/"
+          "text": "identity.foundation"
         }
       ]
     },
@@ -36,7 +36,7 @@
       "links": [
         {
           "url": "//github.com/decentralized-identity/ion",
-          "text": "https://github.com/decentralized-identity/ion"
+          "text": "github.com/decentralized-identity/ion"
         }
       ]
     }
@@ -66,7 +66,7 @@
     "title": "Own your identity",
     "description": "Learn how ION brings decentralized identity to maturity.",
     "buttonText": "Read more",
-    "url": "https://blog.ipfs.io/2021-03-24-own-your-identity-with-ion/"
+    "url": "//blog.ipfs.io/2021-03-24-own-your-identity-with-ion/"
   },
   "taxonomies": [
     {
