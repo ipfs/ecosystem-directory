@@ -64,7 +64,8 @@
   "ctaCard": {
     "title": "BitSong web player",
     "description": "Explore BitSong's player in a web app.",
-    "buttonText": "Try it"
+    "buttonText": "Try it",
+    "url": "//play.bitsong.io"
   },
   "taxonomies": [
     {

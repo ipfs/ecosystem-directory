@@ -18,7 +18,7 @@
     "long": "ION is a public, permissionless, decentralized Identifier (DID) network that implements the blockchain-agnostic Sidetree protocol on top of Bitcoin (as a \"Layer 2\" overlay) to support DIDs/DPKI (Decentralized Public Key Infrastructure) at scale."
   },
   "primaryCta": {
-    "url": "//identity.foundation/",
+    "url": "//identity.foundation/ion/",
     "text": "Project Website"
   },
   "links": [
@@ -26,8 +26,8 @@
       "label": "Website",
       "links": [
         {
-          "url": "//identity.foundation/",
-          "text": "identity.foundation"
+          "url": "//identity.foundation/ion/",
+          "text": "identity.foundation/ion"
         }
       ]
     },
