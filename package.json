@@ -11,6 +11,7 @@
     "dev": "node_modules/.bin/nuxt",
     "start": "node_modules/.bin/nuxt start",
     "build": "node_modules/.bin/nuxt build",
+    "airtable-pull": "node scripts/fetch-from-airtable.js",
     "generate": "node_modules/.bin/nuxt generate --fail-on-error"
   },
   "engines": {
