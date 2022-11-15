@@ -177,7 +177,7 @@
           "slug": "couldnt-exist-without-ipfs"
         },
         {
-          "label": "Data integrity",
+          "label": "Data integrity and verifiability",
           "slug": "data-integrity"
         },
         {
@@ -220,7 +220,7 @@
           "slug": "filecoin"
         },
         {
-          "label": "go-ipfs",
+          "label": "Kubo (formerly go-ipfs)",
           "slug": "go-ipfs"
         },
         {
