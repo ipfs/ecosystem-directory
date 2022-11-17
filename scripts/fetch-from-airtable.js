@@ -54,7 +54,7 @@ const diffAmountDeleted = async (count) => {
 }
 
 // ------------------------------------------------------- deleteAllLocalRecords
-const deleteAllLocalRecords = async (count) => {
+const deleteAllLocalRecords = async () => {
   try {
     const projectFiles = await Fs.readdir(PROJECT_DIR_PATH)
     const imageFiles = await Fs.readdir(IMAGE_DIR_PATH)
