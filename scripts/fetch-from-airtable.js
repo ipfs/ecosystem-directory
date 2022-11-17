@@ -384,7 +384,7 @@ const AirtableFetch = async () => {
     const records = await getAirtableRecords()
     const count = records.length
     await diffAmountDeleted(count)
-    // await deleteAllLocalRecords()
+    await deleteAllLocalRecords()
     for (let i = 0; i < count; i++) {
       const record = records[i].fields
       const icons = record['Icon (square)']
