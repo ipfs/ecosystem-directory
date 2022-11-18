@@ -1,0 +1,97 @@
+{
+  "name": "Filebase",
+  "file": "filebase",
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2021
+  },
+  "logo": {
+    "icon": "icon-filebase.png",
+    "full": "logo-filebase.png"
+  },
+  "org": [
+    "Filebase"
+  ],
+  "description": {
+    "short": "S3-Compatible Object Storage Powered by Web3 - IPFS Pinning backed by Decentralized Storage"
+  },
+  "primaryCta": {
+    "url": "//filebase.com",
+    "text": "Project Website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//filebase.com",
+          "text": "filebase.com"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/filebase",
+          "text": "github.com/filebase"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2021"
+    }
+  ],
+  "video": "//spotlight.s3.filebase.com/Filebase.mp4",
+  "stats": [
+    {
+      "label": "Objects Processed",
+      "value": "> 1 Billion"
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {},
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "data-persistence"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "dev-tools",
+        "file-sharing",
+        "infrastructure",
+        "storage-pinning",
+        "web-hosting-publishing",
+        "streaming"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "interoperability",
+        "disaster-resilience"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "go-ipfs"
+      ]
+    }
+  ]
+}
