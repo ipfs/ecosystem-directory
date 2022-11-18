@@ -165,12 +165,13 @@ const fetchAndProcessImage = async (recordName, imageData, imageType) => {
 
 // ---------------------------------------------------------------- isIconSquare
 const isIconSquare = (imageData, iconName) => {
-  return new Promise((resolve) => {
-    if (imageData.width !== imageData.height) {
-      console.log(`   📸 ${iconName} is not square`)
-    }
-    resolve()
-  })
+  if (imageData.width === imageData.height) {
+    return true
+  }
+
+  console.log(`   📸 ${iconName} is not square`)
+  return false
+
 }
 
 const verifyEnvVars = () => {
@@ -200,7 +201,7 @@ const AirtableFetch = async () => {
 
       let iconFileName, logoFileName
       if (icons) {
-        await isIconSquare(icons[0], record.file)
+        isIconSquare(icons[0], record.file)
         iconFileName = await fetchAndProcessImage(record.file, icons[0], 'icon-square')
       }
       if (logos) {
