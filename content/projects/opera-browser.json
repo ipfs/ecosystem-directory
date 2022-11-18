@@ -15,7 +15,7 @@
   ],
   "description": {
     "short": "Internet browsers for iOS, Android, and desktop",
-    "long": "OrbitDB is a serverless, distributed, peer-to-peer database built on IPFS for data storage and IPFS pubsub for automatically syncing databases with peers."
+    "long": "Lightweight browser with privacy focus, available with IPFS integration for iOS, Android and Desktop."
   },
   "primaryCta": {
     "url": "//opera.com/",
@@ -63,7 +63,7 @@
     "title": "IPFS in Opera Touch",
     "description": "Opera's iOS browser adds support for IPFS addressing.",
     "buttonText": "Read more",
-    "url": "//blog.ipfs.io/2021-02-08-opera-ios-and-ipfs/"
+    "url": "//blog.ipfs.tech/2021-02-08-opera-ios-and-ipfs/"
   },
   "taxonomies": [
     {

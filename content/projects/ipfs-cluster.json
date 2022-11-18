@@ -18,7 +18,7 @@
     "long": "IPFS Cluster provides data orchestration across a swarm of IPFS daemons by allocating, replicating and tracking a global pinset distributed among multiple peers."
   },
   "primaryCta": {
-    "url": "//cluster.ipfs.io/",
+    "url": "//ipfscluster.io/",
     "text": "Project Website"
   },
   "links": [
@@ -26,8 +26,8 @@
       "label": "Website",
       "links": [
         {
-          "url": "//cluster.ipfs.io/",
-          "text": "cluster.ipfs.io"
+          "url": "//ipfscluster.io/",
+          "text": "ipfscluster.io"
         }
       ]
     },
@@ -66,7 +66,7 @@
     "title": "New: Collaborative clusters",
     "description": "Learn about how collaborative clusters improve dataset distribution and availability.",
     "buttonText": "More details",
-    "url": "//blog.ipfs.io/2020-01-09-collaborative-clusters/"
+    "url": "//blog.ipfs.tech/2020-01-09-collaborative-clusters/"
   },
   "taxonomies": [
     {
