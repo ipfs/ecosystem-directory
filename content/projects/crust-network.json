@@ -1,14 +1,15 @@
 {
+  "name": "Crust Network",
+  "file": "crust-network",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2019
   },
   "logo": {
-    "icon": "c-logo.svg",
-    "full": "c-logo.svg"
+    "icon": "icon-crust-network.svg",
+    "full": "icon-crust-network.svg"
   },
-  "name": "Crust Network",
   "org": [
     "Decentralized Cloud Foundation Ltd"
   ],
@@ -18,7 +19,7 @@
   },
   "primaryCta": {
     "url": "//crust.network",
-    "text": "Project website"
+    "text": "Project Website"
   },
   "links": [
     {
@@ -34,7 +35,7 @@
       "label": "Repo",
       "links": [
         {
-          "url": "//github.com/crustio",
+          "url": "//github.com/crustio/",
           "text": "github.com/crustio"
         }
       ]
@@ -53,11 +54,11 @@
       "value": "2000+"
     },
     {
-      "label": "Storage space",
+      "label": "storage space",
       "value": "400+ PB"
     },
     {
-      "label": "Average replicas for each file",
+      "label": "average replicas for each file",
       "value": "101"
     }
   ],
@@ -95,7 +96,7 @@
       "slug": "tooling",
       "tags": [
         "bitswap",
-        "http-gateway",
+        "IPFS http-gateway",
         "go-ipfs",
         "ipld"
       ]

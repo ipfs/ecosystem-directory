@@ -1,14 +1,15 @@
 {
+  "name": "MetaMask",
+  "file": "metamask",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2019
   },
   "logo": {
-    "icon": "metamask.png",
-    "full": "metamask-logo.svg"
+    "icon": "icon-metamask.png",
+    "full": "logo-metamask.svg"
   },
-  "name": "MetaMask",
   "org": [
     "ConsenSys"
   ],
@@ -17,15 +18,15 @@
     "long": "A web3 wallet designed to facilitate access to blockchain-based apps, available as a browser extention and a mobile app to provide simple, secure access to the decentralized web."
   },
   "primaryCta": {
-    "url": "//metamask.io",
-    "text": "Project website"
+    "url": "//metamask.io/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//metamask.io",
+          "url": "//metamask.io/",
           "text": "metamask.io"
         }
       ]
@@ -61,12 +62,7 @@
       "value": ""
     }
   ],
-  "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
-  },
+  "ctaCard": {},
   "taxonomies": [
     {
       "slug": "industry",
@@ -93,7 +89,7 @@
       "slug": "tooling",
       "tags": [
         "filecoin",
-        "http-gateway"
+        "IPFS http-gateway"
       ]
     }
   ]

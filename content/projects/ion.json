@@ -1,14 +1,15 @@
 {
+  "name": "ION",
+  "file": "ion",
   "display": true,
   "featured": true,
   "sortNumbers": {
     "since": 2019
   },
   "logo": {
-    "icon": "ion-logo.png",
-    "full": "ion-logo.png"
+    "icon": "logo-ion.png",
+    "full": "logo-ion.png"
   },
-  "name": "ION",
   "org": [
     "Microsoft"
   ],
@@ -17,16 +18,16 @@
     "long": "ION is a public, permissionless, decentralized Identifier (DID) network that implements the blockchain-agnostic Sidetree protocol on top of Bitcoin (as a \"Layer 2\" overlay) to support DIDs/DPKI (Decentralized Public Key Infrastructure) at scale."
   },
   "primaryCta": {
-    "url": "//identity.foundation",
-    "text": "Project website"
+    "url": "//identity.foundation/ion/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//identity.foundation",
-          "text": "identity.foundation"
+          "url": "//identity.foundation/ion/",
+          "text": "identity.foundation/ion"
         }
       ]
     },
@@ -65,7 +66,7 @@
     "title": "Own your identity",
     "description": "Learn how ION brings decentralized identity to maturity.",
     "buttonText": "Read more",
-    "url": "//blog.ipfs.io/2021-03-24-own-your-identity-with-ion"
+    "url": "//blog.ipfs.io/2021-03-24-own-your-identity-with-ion/"
   },
   "taxonomies": [
     {

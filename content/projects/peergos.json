@@ -1,14 +1,15 @@
 {
+  "name": "Peergos",
+  "file": "peergos",
   "display": true,
-  "featured": true,
+  "featured": false,
   "sortNumbers": {
     "since": 2015
   },
   "logo": {
-    "icon": "peergos-19786214.png",
-    "full": "peergos-19786214.png"
+    "icon": "icon-peergos.png",
+    "full": "icon-peergos.png"
   },
-  "name": "Peergos",
   "org": [
     "Peergos"
   ],
@@ -17,15 +18,15 @@
     "long": "Peergos is a peer-to-peer, secure file storage, social network, and application protocol that aims to build a private web that protects people.\n"
   },
   "primaryCta": {
-    "url": "//peergos.org",
-    "text": "Project website"
+    "url": "//peergos.org/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//peergos.org",
+          "url": "//peergos.org/",
           "text": "peergos.org"
         }
       ]

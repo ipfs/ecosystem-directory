@@ -1,14 +1,15 @@
 {
+  "name": "Fission Platform & Webnative SDK",
+  "file": "fission-platform-webnative-sdk",
   "display": true,
-  "featured": false,
+  "featured": true,
   "sortNumbers": {
     "since": 2019
   },
   "logo": {
-    "icon": "fission.png",
-    "full": "logo-fission.svg"
+    "icon": "icon-fission-platform-webnative-sdk.png",
+    "full": "logo-fission-platform-webnative-sdk.svg"
   },
-  "name": "Fission Platform & Webnative SDK",
   "org": [
     "Fission"
   ],
@@ -17,15 +18,15 @@
     "long": "Fission is a fast app publishing platform that enables front-end devs to build, host, and sell apps. The Webnative SDK is powered by IPFS and adds accounts and an encrypted file system to any app."
   },
   "primaryCta": {
-    "url": "//fission.codes",
-    "text": "Project website"
+    "url": "//fission.codes/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//fission.codes",
+          "url": "//fission.codes/",
           "text": "fission.codes"
         }
       ]
@@ -64,8 +65,7 @@
   "ctaCard": {
     "title": "Fission quick-start guide",
     "description": "Learn how to get up and running with Fission, fast.",
-    "buttonText": "Get started",
-    "url": "//guide.fission.codes/"
+    "buttonText": "Get started"
   },
   "taxonomies": [
     {

@@ -1,14 +1,15 @@
 {
+  "name": "Qri",
+  "file": "qri",
   "display": true,
-  "featured": true,
+  "featured": false,
   "sortNumbers": {
     "since": 2017
   },
   "logo": {
-    "icon": "qri-apple-touch-icon.png",
-    "full": "qri-apple-touch-icon.png"
+    "icon": "icon-qri.png",
+    "full": "icon-qri.png"
   },
-  "name": "Qri",
   "org": [
     "Qri, Inc."
   ],
@@ -17,15 +18,15 @@
     "long": "Free, open-source tooling for cleaning, versioning, and sharing distributed datasets."
   },
   "primaryCta": {
-    "url": "//qri.io",
-    "text": "Project website"
+    "url": "//qri.io/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//qri.io",
+          "url": "//qri.io/",
           "text": "qri.io"
         }
       ]

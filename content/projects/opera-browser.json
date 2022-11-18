@@ -1,31 +1,32 @@
 {
+  "name": "Opera Browser",
+  "file": "opera-browser",
   "display": true,
   "featured": true,
   "sortNumbers": {
     "since": 2019
   },
   "logo": {
-    "icon": "opera.png",
-    "full": "logo-header-opera2x_51a1322c5662.png"
+    "icon": "icon-opera-browser.png",
+    "full": "logo-opera-browser.png"
   },
-  "name": "Opera Browser",
   "org": [
     "Opera"
   ],
   "description": {
     "short": "Internet browsers for iOS, Android, and desktop",
-    "long": "Lightweight browser with privacy focus, available with IPFS integration for iOS, Android and Desktop."
+    "long": "OrbitDB is a serverless, distributed, peer-to-peer database built on IPFS for data storage and IPFS pubsub for automatically syncing databases with peers."
   },
   "primaryCta": {
-    "url": "//opera.com",
-    "text": "Project website"
+    "url": "//opera.com/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//opera.com",
+          "url": "//opera.com/",
           "text": "opera.com"
         }
       ]
@@ -33,10 +34,7 @@
     {
       "label": "Repo",
       "links": [
-        {
-          "url": "",
-          "text": ""
-        }
+        {}
       ]
     }
   ],
@@ -65,7 +63,7 @@
     "title": "IPFS in Opera Touch",
     "description": "Opera's iOS browser adds support for IPFS addressing.",
     "buttonText": "Read more",
-    "url": "//blog.ipfs.io/2021-02-08-opera-ios-and-ipfs"
+    "url": "//blog.ipfs.io/2021-02-08-opera-ios-and-ipfs/"
   },
   "taxonomies": [
     {
@@ -92,7 +90,7 @@
     {
       "slug": "tooling",
       "tags": [
-        "http-gateway"
+        "IPFS http-gateway"
       ]
     }
   ]

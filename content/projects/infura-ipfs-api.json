@@ -1,14 +1,15 @@
 {
+  "name": "Infura IPFS API",
+  "file": "infura-ipfs-api",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2016
   },
   "logo": {
-    "icon": "infura_logo_red.png",
-    "full": "infura_logo_red.png"
+    "icon": "icon-infura-ipfs-api.png",
+    "full": "icon-infura-ipfs-api.png"
   },
-  "name": "Infura IPFS API",
   "org": [
     "Infura"
   ],
@@ -17,15 +18,15 @@
     "long": "Scalable and distributed storage infrastructure to power the demands of applications of all sizes. Connect seamlessly and reliably to the IPFS network with Infura's IPFS API."
   },
   "primaryCta": {
-    "url": "//infura.io",
-    "text": "Project website"
+    "url": "//infura.io/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//infura.io",
+          "url": "//infura.io/",
           "text": "infura.io"
         }
       ]

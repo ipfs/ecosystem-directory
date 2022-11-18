@@ -1,14 +1,15 @@
 {
+  "name": "Audius",
+  "file": "audius",
   "display": true,
   "featured": true,
   "sortNumbers": {
     "since": 2018
   },
   "logo": {
-    "icon": "logo-audius.png",
-    "full": "logo-audius.png"
+    "icon": "icon-audius.png",
+    "full": "icon-audius.png"
   },
-  "name": "Audius",
   "org": [
     "Audius"
   ],
@@ -18,7 +19,7 @@
   },
   "primaryCta": {
     "url": "//audius.org",
-    "text": "Project website"
+    "text": "Project Website"
   },
   "links": [
     {
@@ -49,15 +50,15 @@
   "video": "//youtube.com/watch?v=c50licHTOik",
   "stats": [
     {
-      "label": "Content identifiers",
+      "label": "content identifiers",
       "value": "5M"
     },
     {
-      "label": "Independent discovery and creator node providers",
+      "label": "independent discovery and creator node providers",
       "value": "12 "
     },
     {
-      "label": "Registered users",
+      "label": "registered users",
       "value": "40K"
     }
   ],
@@ -65,7 +66,7 @@
     "title": "Audius case study",
     "description": "Learn how Audius uses IPFS to directly connect creators and listeners.",
     "buttonText": "Case study",
-    "url": "//docs.ipfs.tech/concepts/case-study-audius"
+    "url": "//docs.ipfs.tech/concepts/case-study-audius/"
   },
   "taxonomies": [
     {
@@ -92,7 +93,7 @@
     {
       "slug": "tooling",
       "tags": [
-        "js-ipfs-https-client",
+        "ipfs-http-client",
         "go-ipfs"
       ]
     }

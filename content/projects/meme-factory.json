@@ -1,14 +1,15 @@
 {
+  "name": "Meme Factory",
+  "file": "meme-factory",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2017
   },
   "logo": {
-    "icon": "memefactory-mememouth.png",
-    "full": "memefactory-mememouth.png"
+    "icon": "icon-meme-factory.png",
+    "full": "icon-meme-factory.png"
   },
-  "name": "Meme Factory",
   "org": [
     "district0x"
   ],
@@ -17,15 +18,15 @@
     "long": "Decentralized, Ethereum-based NFT marketplace and token curated registry for unique, rare memes. Built on the Ethereum blockchain, the primary goal is to enable provable ownership of memes for their creators, attaching economic and legal value to a piece of art."
   },
   "primaryCta": {
-    "url": "//memefactory.io",
-    "text": "Project website"
+    "url": "//memefactory.io/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//memefactory.io",
+          "url": "//memefactory.io/",
           "text": "memefactory.io"
         }
       ]
@@ -34,7 +35,7 @@
       "label": "Repo",
       "links": [
         {
-          "url": "//github.com/district0x",
+          "url": "//github.com/district0x/",
           "text": "github.com/district0x"
         }
       ]
@@ -94,7 +95,6 @@
     {
       "slug": "tooling",
       "tags": [
-        "cljs-ipfs",
         "js-ipfs"
       ]
     }

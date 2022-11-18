@@ -1,14 +1,15 @@
 {
+  "name": "Ucam",
+  "file": "ucam",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2020
   },
   "logo": {
-    "icon": "iotex.png",
-    "full": "iotex_logo_repo-card.png"
+    "icon": "icon-ucam.png",
+    "full": "logo-ucam.png"
   },
-  "name": "Ucam",
   "org": [
     "IoTeX Network"
   ],
@@ -17,15 +18,15 @@
     "long": "Ucam is a privacy-focused home security camera utilizing the IoTeX blockchain and offering control over video access."
   },
   "primaryCta": {
-    "url": "//ucam.iotex.io",
-    "text": "Project website"
+    "url": "//ucam.iotex.io/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//ucam.iotex.io",
+          "url": "//ucam.iotex.io/",
           "text": "ucam.iotex.io"
         }
       ]
@@ -46,7 +47,6 @@
       "value": "2020"
     }
   ],
-  "video": "",
   "stats": [
     {
       "label": "",
@@ -61,12 +61,7 @@
       "value": ""
     }
   ],
-  "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
-  },
+  "ctaCard": {},
   "taxonomies": [
     {
       "slug": "industry",

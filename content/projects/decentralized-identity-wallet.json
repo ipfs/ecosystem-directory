@@ -1,14 +1,15 @@
 {
+  "name": "Decentralized Identity Wallet",
+  "file": "decentralized-identity-wallet",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2017
   },
   "logo": {
-    "icon": "bloom.png",
-    "full": "bloom-protocol.png"
+    "icon": "icon-decentralized-identity-wallet.png",
+    "full": "logo-decentralized-identity-wallet.png"
   },
-  "name": "Decentralized Identity Wallet",
   "org": [
     "Bloom Protocol"
   ],
@@ -18,15 +19,15 @@
   },
   "primaryCta": {
     "url": "//bloom.co/defi",
-    "text": "Project website"
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//bloom.co",
-          "text": "bloom.co"
+          "url": "//bloom.co/defi",
+          "text": "bloom.co/defi"
         }
       ]
     },
@@ -46,7 +47,6 @@
       "value": "2017"
     }
   ],
-  "video": "//youtube.com/watch?v=ntNKcBlw9FU",
   "stats": [
     {
       "label": "",
@@ -61,12 +61,7 @@
       "value": ""
     }
   ],
-  "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
-  },
+  "ctaCard": {},
   "taxonomies": [
     {
       "slug": "industry",

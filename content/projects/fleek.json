@@ -1,14 +1,15 @@
 {
+  "name": "Fleek",
+  "file": "fleek",
   "display": true,
   "featured": true,
   "sortNumbers": {
     "since": 2020
   },
   "logo": {
-    "icon": "fleek.png",
-    "full": "FleekForLight.png"
+    "icon": "icon-fleek.png",
+    "full": "logo-fleek.png"
   },
-  "name": "Fleek",
   "org": [
     "Fleek"
   ],
@@ -17,15 +18,15 @@
     "long": "Fleek is a dweb developer platform with everything needed to build and manage sites and apps on web3 and the underlying protocols that power it: hosting, storage, gateways, domains, and more."
   },
   "primaryCta": {
-    "url": "//fleek.co",
-    "text": "Project website"
+    "url": "//fleek.co/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//fleek.co",
+          "url": "//fleek.co/",
           "text": "fleek.co"
         }
       ]
@@ -49,23 +50,23 @@
   "video": "//youtube.com/watch?v=mCvYpl6wqB0",
   "stats": [
     {
-      "label": "Guaranteed uptime on Fleek Edge",
+      "label": "guaranteed uptime on Fleek Edge",
       "value": "99.99%"
     },
     {
-      "label": "Global Fleek Edge locations",
+      "label": "global Fleek Edge locations",
       "value": "150+"
     },
     {
       "label": "Fleek URLs and DNSLink records",
-      "value": "> 8K"
+      "value": ">8K"
     }
   ],
   "ctaCard": {
     "title": "Fleek case study",
     "description": "Learn how Fleek relies on IPFS for its suite of developer tools and services.",
     "buttonText": "Case study",
-    "url": "//docs.ipfs.tech/concepts/case-study-fleek"
+    "url": "//docs.ipfs.io/concepts/case-study-fleek/"
   },
   "taxonomies": [
     {
@@ -98,8 +99,8 @@
       "tags": [
         "go-ipfs",
         "ipfs-cluster",
-        "http-gateway",
-        "js-ipfs-https-client",
+        "IPFS http-gateway",
+        "ipfs-http-client",
         "filecoin"
       ]
     }

@@ -1,14 +1,15 @@
 {
+  "name": "Almonit Search Engine",
+  "file": "almonit-search-engine",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2020
   },
   "logo": {
-    "icon": "almonit-logo.svg",
-    "full": "almonit-logo.svg"
+    "icon": "icon-almonit-search-engine.svg",
+    "full": "icon-almonit-search-engine.svg"
   },
-  "name": "Almonit Search Engine",
   "org": [
     "Almonit"
   ],
@@ -18,7 +19,7 @@
   },
   "primaryCta": {
     "url": "//almonit.eth.link",
-    "text": "Project website"
+    "text": "Project Website"
   },
   "links": [
     {
@@ -34,7 +35,7 @@
       "label": "Repo",
       "links": [
         {
-          "url": "//github.com/almonit",
+          "url": "//github.com/almonit/",
           "text": "github.com/almonit"
         }
       ]
@@ -61,12 +62,7 @@
       "value": ""
     }
   ],
-  "ctaCard": {
-    "title": "",
-    "description": "",
-    "buttonText": "",
-    "url": ""
-  },
+  "ctaCard": {},
   "taxonomies": [
     {
       "slug": "industry",

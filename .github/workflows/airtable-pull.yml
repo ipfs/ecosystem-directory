@@ -1,0 +1,26 @@
+name: Pull projects from Airtable
+on:
+  schedule:
+    - cron: "00 12 * * 1-5"
+  workflow_dispatch:
+jobs:
+  CloudList:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm ci
+      - run: npm run airtable-pull
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          commit-message: pull projects from airtable
+          title: Update projects from Airtable
+          body: Script pulls project from airtable
+          base: main
+          labels: automated-pr
+          branch: airtable-pull
+          delete-branch: true

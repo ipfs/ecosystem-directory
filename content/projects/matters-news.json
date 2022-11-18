@@ -1,14 +1,15 @@
 {
+  "name": "Matters News",
+  "file": "matters-news",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2018
   },
   "logo": {
-    "icon": "matters-31415379.png",
-    "full": "matters-31415379.png"
+    "icon": "icon-matters-news.png",
+    "full": "icon-matters-news.png"
   },
-  "name": "Matters News",
   "org": [
     "Matters"
   ],
@@ -17,15 +18,15 @@
     "long": "Matters integrates Web3 technologies and services in order to enable writers, journalists, novelists, and other creators to publish and monetize in a decentralized, censorship-resilient way."
   },
   "primaryCta": {
-    "url": "//matters.news",
-    "text": "Project website"
+    "url": "//matters.news/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//matters.news",
+          "url": "//matters.news/",
           "text": "matters.news"
         }
       ]
@@ -46,7 +47,6 @@
       "value": "2018"
     }
   ],
-  "video": "",
   "stats": [
     {
       "label": "",

@@ -1,14 +1,15 @@
 {
+  "name": "Diardi",
+  "file": "diardi",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2021
   },
   "logo": {
-    "icon": "scala.png",
-    "full": "scala.png"
+    "icon": "icon-diardi.png",
+    "full": "icon-diardi.png"
   },
-  "name": "Diardi",
   "org": [
     "Scala"
   ],
@@ -18,7 +19,7 @@
   },
   "primaryCta": {
     "url": "//scalaproject.io",
-    "text": "Project website"
+    "text": "Project Website"
   },
   "links": [
     {
@@ -99,7 +100,7 @@
       "tags": [
         "go-ipfs",
         "ipfs-cluster",
-        "http-gateway"
+        "IPFS http-gateway"
       ]
     }
   ]

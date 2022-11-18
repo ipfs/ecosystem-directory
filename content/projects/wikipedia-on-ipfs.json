@@ -1,14 +1,15 @@
 {
+  "name": "Wikipedia on IPFS",
+  "file": "wikipedia-on-ipfs",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2021
   },
   "logo": {
-    "icon": "kiwix.jpg",
-    "full": "kiwix-logo-995x200-1.png"
+    "icon": "icon-wikipedia-on-ipfs.jpeg",
+    "full": "logo-wikipedia-on-ipfs.png"
   },
-  "name": "Wikipedia on IPFS",
   "org": [
     "Kiwix"
   ],
@@ -17,15 +18,15 @@
     "long": "Offline reader for online content using IPFS to provide access to a Wikipedia mirror."
   },
   "primaryCta": {
-    "url": "//kiwix.org",
-    "text": "Project website"
+    "url": "//kiwix.org/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//kiwix.org",
+          "url": "//kiwix.org/",
           "text": "kiwix.org"
         }
       ]
@@ -46,7 +47,6 @@
       "value": "2021"
     }
   ],
-  "video": "",
   "stats": [
     {
       "label": "",
@@ -65,7 +65,7 @@
     "title": "Why Wikipedia on IPFS",
     "description": "Learn why putting Wikipedia on IPFS improves humanity's access to information.",
     "buttonText": "Read more",
-    "url": "//blog.ipfs.io/24-uncensorable-wikipedia"
+    "url": "//blog.ipfs.io/24-uncensorable-wikipedia/"
   },
   "taxonomies": [
     {

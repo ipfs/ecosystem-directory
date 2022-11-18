@@ -1,14 +1,15 @@
 {
+  "name": "Anytype",
+  "file": "anytype",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2018
   },
   "logo": {
-    "icon": "anytype.png",
-    "full": "anytype.png"
+    "icon": "icon-anytype.png",
+    "full": "icon-anytype.png"
   },
-  "name": "Anytype",
   "org": [
     "Anytype"
   ],
@@ -17,15 +18,15 @@
     "long": "A multi-app operating system focusing on privacy and users' ownership of their own data while also breaking down the barriers between applications present in today's digital world."
   },
   "primaryCta": {
-    "url": "//anytype.io",
-    "text": "Project website"
+    "url": "//anytype.io/",
+    "text": "Project Website"
   },
   "links": [
     {
       "label": "Website",
       "links": [
         {
-          "url": "//anytype.io",
+          "url": "//anytype.io/",
           "text": "anytype.io"
         }
       ]

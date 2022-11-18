@@ -1,14 +1,15 @@
 {
+  "name": "Eternum",
+  "file": "eternum",
   "display": true,
   "featured": false,
   "sortNumbers": {
     "since": 2017
   },
   "logo": {
-    "icon": "eternum.png",
-    "full": "eternum.png"
+    "icon": "icon-eternum.png",
+    "full": "icon-eternum.png"
   },
-  "name": "Eternum",
   "org": [
     "Eternum"
   ],
@@ -18,7 +19,7 @@
   },
   "primaryCta": {
     "url": "//eternum.io",
-    "text": "Project website"
+    "text": "Project Website"
   },
   "links": [
     {
@@ -33,10 +34,7 @@
     {
       "label": "Repo",
       "links": [
-        {
-          "url": "",
-          "text": ""
-        }
+        {}
       ]
     }
   ],
@@ -46,7 +44,6 @@
       "value": "2017"
     }
   ],
-  "video": "",
   "stats": [
     {
       "label": "",
@@ -62,7 +59,7 @@
     }
   ],
   "ctaCard": {
-    "title": "Eternum API",
+    "title": "Eterrnum API",
     "description": "Quick Swagger reference for the Eternum API.",
     "buttonText": "Learn more",
     "url": "//eternum.io/api/docs/#/api"
