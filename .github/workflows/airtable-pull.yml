@@ -4,7 +4,7 @@ on:
     - cron: "00 12 * * 1-5"
   workflow_dispatch:
 jobs:
-  CloudList:
+  airtable-pull:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -14,6 +14,9 @@ jobs:
           node-version: 16
       - run: npm ci
       - run: npm run airtable-pull
+        env:
+          AIRTABLE_API_KEY: ${{ secrets.AIRTABLE_API_KEY }}
+          AIRTABLE_BASE_ID: ${{ secrets.AIRTABLE_BASE_ID }}
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4
         with:
