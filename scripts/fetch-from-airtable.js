@@ -224,7 +224,7 @@ const AirtableFetch = async () => {
   } catch (e) {
     console.log('=================================== [function: AirtableFetch]')
     console.log(e)
-    process.exit(0)
+    process.exit(1)
   }
 }
 
