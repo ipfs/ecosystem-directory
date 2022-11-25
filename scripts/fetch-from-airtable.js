@@ -12,7 +12,7 @@ const Fs = require('fs-extra')
 const Axios = require('axios')
 const Sharp = require('sharp')
 const Mime = require('mime')
-const { transformAirtableRecord } = require("./transform-airtable-record")
+const { transformAirtableRecord, getProjectNameSlug } = require("./transform-airtable-record")
 
 require('dotenv').config({ path: Path.resolve(__dirname, '../.env') })
 
@@ -78,15 +78,15 @@ const deleteAllLocalRecords = async () => {
 }
 
 // ------------------------------------------------------ writeProjectFileToDisk
-const writeProjectFileToDisk = async (transformedProject) => {
+const writeProjectFileToDisk = async (fileName, transformedProject) => {
   try {
     await Fs.writeFile(
-      `${PROJECT_DIR_PATH}/${transformedProject.file}.json`,
+      `${PROJECT_DIR_PATH}/${fileName}.json`,
       JSON.stringify(transformedProject, null, 2)
     )
     return true
   } catch (e) {
-    console.log(`   ❗️ [Bad JSON] project: ${record.file}`)
+    console.log(`   ❗️ [Bad JSON] project: ${fileName}`)
     return false
   }
 }
@@ -196,23 +196,24 @@ const AirtableFetch = async () => {
     await deleteAllLocalRecords()
     for (let i = 0; i < count; i++) {
       const record = records[i].fields
+      const projectSlug = getProjectNameSlug(record['Product/project name'])
       const icons = record['Icon (square)']
       const logos = record['Logo (non-square)']
 
       let iconFileName, logoFileName
       if (icons) {
-        isIconSquare(icons[0], record.file)
-        iconFileName = await fetchAndProcessImage(record.file, icons[0], 'icon-square')
+        isIconSquare(icons[0], projectSlug)
+        iconFileName = await fetchAndProcessImage(projectSlug, icons[0], 'icon-square')
       }
       if (logos) {
-        logoFileName = await fetchAndProcessImage(record.file, logos[0], 'logo')
+        logoFileName = await fetchAndProcessImage(projectSlug, logos[0], 'logo')
       }
       if(!await isProjectLive(record)) {
         console.log(`   🚫 ${record['Product/project name']} url: ${record.Website} appears to be down. Double check the URL and remove from Airtable if unavailable`)
       }
       // Transform from Airtable representation to the directory's schema format
       const transformedProject = transformAirtableRecord(record, { iconFileName, logoFileName })
-      const success = await writeProjectFileToDisk(transformedProject)
+      const success = await writeProjectFileToDisk(projectSlug, transformedProject)
 
       if(!success) {
           console.log(`   🚫 ${record['Product/project name']} failed to be saved`) 

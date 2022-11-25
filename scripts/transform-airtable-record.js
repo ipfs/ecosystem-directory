@@ -13,10 +13,8 @@ const beautifyUrl = (url) => {
 // The target schema and return value of this should adhere to: https://github.com/ipfs-shipyard/nuxt-module-ecosystem-directory/blob/main/content/data/project-schema.json
 // This is intended to replace and eliminate the Airtable transformation
 exports.transformAirtableRecord = (record, { iconFileName, logoFileName }) => {
-  const file = record['Product/project name']
-    .toLowerCase()
-    .replace(/[^a-zA-Z0-9\s\.]/gi, '')
-    .replace(/[\s\.]+/g, '-')
+  const file = getProjectNameSlug(record['Product/project name'])
+
   const name = record['Product/project name']
   const org = record['Org/company name']
   const descShort = record['Short description']
@@ -207,3 +205,12 @@ exports.transformAirtableRecord = (record, { iconFileName, logoFileName }) => {
 
   return transformedProject
 }
+
+function getProjectNameSlug(name) {
+  return name
+    .toLowerCase()
+    .replace(/[^a-zA-Z0-9\s\.]/gi, '')
+    .replace(/[\s\.]+/g, '-')
+}
+
+exports.getProjectNameSlug = getProjectNameSlug
