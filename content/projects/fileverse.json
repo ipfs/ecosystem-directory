@@ -1,0 +1,99 @@
+{
+  "name": "Fileverse",
+  "file": "fileverse",
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2022
+  },
+  "logo": {
+    "icon": "icon-fileverse.jpeg",
+    "full": "logo-fileverse.jpeg"
+  },
+  "org": [
+    "Fileverse"
+  ],
+  "description": {
+    "short": "File sharing and collaboration between addresses. Share information, chat, and collaborate, in just a few clicks –using nothing but your digital wallet."
+  },
+  "primaryCta": {
+    "url": "//fileverse.io/",
+    "text": "Project Website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//fileverse.io/",
+          "text": "fileverse.io"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/fileverse",
+          "text": "github.com/fileverse"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2022"
+    }
+  ],
+  "stats": [
+    {
+      "label": " Gitcoin contributors backed Fileverse",
+      "value": ""
+    },
+    {
+      "label": "12,000",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {},
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "social-media"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "community-networks",
+        "file-sharing",
+        "storage-pinning",
+        "web-hosting-publishing"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "self-sovereign-data",
+        "couldnt-exist-without-ipfs",
+        "data-integrity"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "filecoin",
+        "Web3.storage",
+        "IPFS http-gateway",
+        "ipfs-http-client",
+        "pinning-services"
+      ]
+    }
+  ]
+}
