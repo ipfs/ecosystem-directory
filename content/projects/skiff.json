@@ -1,24 +1,23 @@
 {
-  "name": "Eternum",
-  "file": "eternum",
+  "name": "Skiff",
+  "file": "skiff",
   "display": true,
   "featured": false,
   "sortNumbers": {
-    "since": 2017
+    "since": 2020
   },
   "logo": {
-    "icon": "icon-eternum.png",
-    "full": "icon-eternum.png"
+    "icon": "icon-skiff.svg",
+    "full": "icon-skiff.svg"
   },
   "org": [
-    "Eternum"
+    "Skiff World"
   ],
   "description": {
-    "short": "Simple, easy-to-use IPFS pinning service",
-    "long": "Simple, easy-to-use, inexpensive IPFS pinning service with a Dropbox-like desktop client and a comprehensive API."
+    "short": "Skiff is privacy-first, end-to-end encrypted email, file storage, and collaboration, built on IPFS."
   },
   "primaryCta": {
-    "url": "//eternum.io",
+    "url": "//skiff.com/",
     "text": "Project Website"
   },
   "links": [
@@ -26,22 +25,25 @@
       "label": "Website",
       "links": [
         {
-          "url": "//eternum.io",
-          "text": "eternum.io"
+          "url": "//skiff.com/",
+          "text": "skiff.com"
         }
       ]
     },
     {
       "label": "Repo",
       "links": [
-        {}
+        {
+          "url": "//github.com/skiff-org/",
+          "text": "github.com/skiff-org"
+        }
       ]
     }
   ],
   "keyInfo": [
     {
       "label": "Using IPFS since",
-      "value": "2017"
+      "value": "2020"
     }
   ],
   "stats": [
@@ -58,37 +60,38 @@
       "value": ""
     }
   ],
-  "ctaCard": {
-    "title": "Eterrnum API",
-    "description": "Quick Swagger reference for the Eternum API.",
-    "buttonText": "Learn more",
-    "url": "//eternum.io/api/docs/#/api"
-  },
+  "ctaCard": {},
   "taxonomies": [
     {
       "slug": "industry",
       "tags": [
-        "data-persistence"
+        "other"
       ]
     },
     {
       "slug": "focus",
       "tags": [
-        "storage-pinning"
+        "file-sharing",
+        "community-networks",
+        "medical",
+        "mobile"
       ]
     },
     {
       "slug": "benefits",
       "tags": [
-        "disaster-resilience",
-        "couldnt-exist-without-ipfs"
+        "corporate-government-independence",
+        "data-integrity",
+        "self-sovereign-data",
+        "interoperability"
       ]
     },
     {
       "slug": "tooling",
       "tags": [
-        "go-ipfs",
-        "ipfs-cluster"
+        "ipfs-http-client",
+        "js-libp2p",
+        "js-ipfs"
       ]
     }
   ]
