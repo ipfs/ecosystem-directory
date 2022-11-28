@@ -2,7 +2,7 @@
 
 Interactive IPFS ecosystem directory and showcase
 
-**Just want to add a new project to the IPFS ecosystem directory? [Use this form](https://airtable.com/shrjwvk9pAeAk0Ci7).**
+**Just want to add a new project to the IPFS ecosystem directory? [Use this form](https://ipfs.fyi/ecosystem-form).**
 
 ***
 
@@ -15,12 +15,12 @@ The existing workflow for adding a project to the ecosystem directory, or amendi
      - Directly in the base as a new row
      - By requesting a project's representative fill in the [IPFS Ecosystem Directory Submission Form](https://airtable.com/shrjwvk9pAeAk0Ci7)
 - Once a record is added to the database, an IPFS core team member reviews the record for accuracy, consistency, typos, etc, as well as determining whether the project should be included in the directory (a decision largely based on project maturity)
-- If the project is approved to be included in the directory, directions for adding the data to the repo can be found [here](#transforming-project-data)
+- If the project is approved to be included in the directory (the "Include in directory" checkbox is ticked), a PR will be created automatically with the JSON by the [script](./scripts/fetch-from-airtable.js) which is run by [GitHub Actions](https://github.com/ipfs/ecosystem-directory/actions/workflows/airtable-pull.yml).
 
 ### Amending an Existing Project
-- Project info should be amended in the [master IPFS project database](https://airtable.com/tblxBjPTzHXiUVZAA/viwpijXTIFraPRkhE?blocks=hide) as a single source of truth
-- From there, un-tick and re-tick the `Include in directory?` box to regenerate the JSON
-- Replace the JSON and/or images in the repo as indicated in the [instructions](#transforming-project-data)
+
+- Project info should be amended in the [IPFS Builder Database (Ecosystem page)](https://airtable.com/tblxBjPTzHXiUVZAA/viwpijXTIFraPRkhE?blocks=hide) as a single source of truth
+- From there, update the project details and a PR will be created automatically by GitHub Actions (within 24 hours). You can also trigger the [GitHub Action](https://github.com/ipfs/ecosystem-directory/actions/workflows/airtable-pull.yml) manually by clicking `Run workflow`.
 
 ***
 
@@ -263,28 +263,6 @@ The schema can be found [here](https://github.com/ipfs-shipyard/nuxt-module-ecos
 ## Transforming Project Data
 
 Each project that is to be included in the ecosystem must have a `json` file in `@/content/projects`, with the project name in `kebab-case`. For instance, `@/content/projects/foo-bar.json`.
-
-#### Transferring a Project
-
-The primary source of truth for the Ecosystem Directory is the [master IPFS project database](https://airtable.com/tblxBjPTzHXiUVZAA/viwpijXTIFraPRkhE?blocks=hide), which has a field `Include in directory?` that indicates whether a project is ready for inclusion. A script has been added there, which converts that ecosystem entry to `JSON`, per the project model described. This script runs each time a project is checked for inclusion in the Ecosystem Directory.
-
-#### Inputting a Project
-
-Alternatively, any of the existing projects in `@/content/projects` can be copied, and the new `JSON` file can be altered to create a new project.
-
-### Process
-
-When either transferring or inputting a project from a copied `JSON`, the following process should be observed:
-
-- Copy the generated JSON output
-- Create a new file in `@/content/projects/.`. with the project name in `kebab-case` as the file name, (with a `.json` extension)
-- Make sure the project's contents look correct, and ideally ensure that `JSON` formatting is preserved, including an empty line at the end of the file
-  - Using a code editor's prettify function for `JSON` can correct this
-- Download the images (icon and full logo) from the CRM or from the project organization, and place them in `@/static/images/projects/.`
-- Ensure any of the `stat`s (also known as "big numbers") have the correct values, as the CRM script is not good at recognizing where to split the big number
-- Pull request the new project(s) into the repository and use the build preview to see how it looks — or check locally
-
-_This process may be further automated with a variety of tooling at a later date._
 
 ***
 
