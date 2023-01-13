@@ -31,7 +31,7 @@ const getAirtableRecords = () => {
   return new Promise((resolve) => {
     const base = Airtable.base(process.env.AIRTABLE_BASE_ID)
     base('Main')
-      .select({ filterByFormula: 'IF({Include in directory?} = TRUE(), TRUE(), FALSE())' })
+      .select({ filterByFormula: 'IF(AND({Include in directory?}, NOT({Rejected})), TRUE(), FALSE())' })
       .eachPage((records, next) => {
         resolve(records)
       })
