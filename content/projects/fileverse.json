@@ -8,13 +8,14 @@
   },
   "logo": {
     "icon": "icon-fileverse.jpeg",
-    "full": "logo-fileverse.jpeg"
+    "full": "logo-fileverse.png"
   },
   "org": [
     "Fileverse"
   ],
   "description": {
-    "short": "File sharing and collaboration between addresses. Share information, chat, and collaborate, in just a few clicks –using nothing but your digital wallet."
+    "short": "Private file-sharing & collaboration, in just a few clicks.",
+    "long": "Like Google Workspace, but on-chain, encrypted, and privacy-enhancing. Use Fileverse Solo for file-sharing & Fileverse Portal for online coordination and collaboration."
   },
   "primaryCta": {
     "url": "//fileverse.io/",
@@ -48,11 +49,11 @@
   ],
   "stats": [
     {
-      "label": " Gitcoin contributors backed Fileverse",
+      "label": "Fileverse is backed by 13,000+ individual donors from the ethereum community & Gitcoin.",
       "value": ""
     },
     {
-      "label": "12,000",
+      "label": "",
       "value": ""
     },
     {
@@ -65,7 +66,7 @@
     {
       "slug": "industry",
       "tags": [
-        "social-media"
+        "content-delivery"
       ]
     },
     {
@@ -73,26 +74,33 @@
       "tags": [
         "community-networks",
         "file-sharing",
+        "infrastructure",
         "storage-pinning",
-        "web-hosting-publishing"
+        "web-hosting-publishing",
+        "public-data",
+        "streaming",
+        "video"
       ]
     },
     {
       "slug": "benefits",
       "tags": [
+        "data-integrity",
         "self-sovereign-data",
-        "couldnt-exist-without-ipfs",
-        "data-integrity"
+        "couldnt-exist-without-ipfs"
       ]
     },
     {
       "slug": "tooling",
       "tags": [
         "filecoin",
-        "Web3.storage",
+        "ipld",
         "IPFS http-gateway",
-        "ipfs-http-client",
-        "pinning-services"
+        "pinning-services",
+        "nft.storage",
+        "Web3.storage",
+        "go-libp2p",
+        "ecosystem-tools"
       ]
     }
   ]

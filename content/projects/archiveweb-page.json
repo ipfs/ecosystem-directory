@@ -1,0 +1,93 @@
+{
+  "name": "ArchiveWeb.page",
+  "file": "archiveweb-page",
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": null
+  },
+  "logo": {
+    "icon": "icon-archiveweb-page.svg",
+    "full": "icon-archiveweb-page.svg"
+  },
+  "org": [
+    "Webrecorder"
+  ],
+  "description": {
+    "short": "Browser extension for creating web archives to IPFS",
+    "long": "Chromium-based browser extension that creates web archives viewable in any modern browser as part of the Webrecorder open-source archiving project."
+  },
+  "primaryCta": {
+    "url": "//archiveweb.page/",
+    "text": "Project Website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//archiveweb.page/",
+          "text": "archiveweb.page"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/webrecorder/archiveweb.page",
+          "text": "github.com/webrecorder/archiveweb.page"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since"
+    }
+  ],
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {},
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "content-delivery"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "research-data",
+        "education",
+        "glam",
+        "public-data"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        ""
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        ""
+      ]
+    }
+  ]
+}
