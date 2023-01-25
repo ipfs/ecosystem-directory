@@ -1,0 +1,106 @@
+{
+  "name": "ipfs-search",
+  "file": "ipfssearch",
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2016
+  },
+  "logo": {
+    "icon": "icon-ipfssearch.svg",
+    "full": "logo-ipfssearch.svg"
+  },
+  "org": [
+    "ipfs-search"
+  ],
+  "description": {
+    "short": "ipfs-search is the search engine for web3/ipfs. It offers ad-free, private, unbiased and open-source search products without collecting user data. ",
+    "long": "With ipfs-search, you get access to anything shared on IPFS. It offers a full-capability search website rich with metadata, and an easy to use API, and a host of related tools. Moreover, there is no user tracking or profiling, no ads, it is completely open source and open data. \n\nIpfs-search will be your portal to Web3."
+  },
+  "primaryCta": {
+    "url": "//ipfs-search.com",
+    "text": "Project Website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//ipfs-search.com",
+          "text": "ipfs-search.com"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/ipfs-search",
+          "text": "github.com/ipfs-search"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2016"
+    }
+  ],
+  "video": "//www.youtube.com/watch?v=88rb83EftjU",
+  "stats": [
+    {
+      "label": "documents indexed",
+      "value": "~ 1 billion"
+    },
+    {
+      "label": " documents indexed per day.",
+      "value": "1 million"
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {},
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "browsers"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "file-sharing",
+        "community-networks",
+        "storage-pinning",
+        "web-hosting-publishing",
+        "public-data",
+        "infrastructure",
+        "research-data"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "self-sovereign-data",
+        "couldnt-exist-without-ipfs"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "js-ipfs",
+        "ipfs-cluster",
+        "go-ipfs",
+        "IPFS http-gateway",
+        "ipld",
+        "ipfs-http-client",
+        "pinning-services",
+        "ecosystem-tools"
+      ]
+    }
+  ]
+}
