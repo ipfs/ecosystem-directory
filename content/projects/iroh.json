@@ -1,24 +1,23 @@
 {
-  "name": "Coinomi",
-  "file": "coinomi",
+  "name": "Iroh",
+  "file": "iroh",
   "display": true,
   "featured": false,
   "sortNumbers": {
-    "since": 2014
+    "since": 2022
   },
   "logo": {
-    "icon": "icon-coinomi.png",
-    "full": "logo-coinomi.svg"
+    "icon": "icon-iroh.png",
+    "full": "logo-iroh.png"
   },
   "org": [
-    "Coinomi"
+    "Number0"
   ],
   "description": {
-    "short": "Crypto wallet offering access over IPFS",
-    "long": "Coinomi is a security-forward, multi-chain wallet with support for a wide variety of blockchains and tokens — as well as access available over IPFS."
+    "short": "Iroh is a next-generation implementation of IPFS. It's a ground-up rethink of what IPFS can be, written in Rust by IPFS community veterans."
   },
   "primaryCta": {
-    "url": "//coinomi.com/",
+    "url": "//iroh.computer/",
     "text": "Project Website"
   },
   "links": [
@@ -26,8 +25,8 @@
       "label": "Website",
       "links": [
         {
-          "url": "//coinomi.com/",
-          "text": "coinomi.com"
+          "url": "//iroh.computer/",
+          "text": "iroh.computer"
         }
       ]
     },
@@ -35,8 +34,8 @@
       "label": "Repo",
       "links": [
         {
-          "url": "//github.com/coinomi/",
-          "text": "github.com/coinomi"
+          "url": "//github.com/n0-computer/iroh",
+          "text": "github.com/n0-computer/iroh"
         }
       ]
     }
@@ -44,14 +43,14 @@
   "keyInfo": [
     {
       "label": "Using IPFS since",
-      "value": "2014"
+      "value": "2022"
     }
   ],
-  "video": "//youtube.com/watch?v=1GKilQeBwK0",
+  "video": "//www.youtube.com/watch?v=H_dw8SLSQlQ",
   "stats": [
     {
-      "label": "",
-      "value": ""
+      "label": "req/second throughput",
+      "value": "6926"
     },
     {
       "label": "",
@@ -67,25 +66,26 @@
     {
       "slug": "industry",
       "tags": [
-        "defi"
+        ""
       ]
     },
     {
       "slug": "focus",
       "tags": [
-        "mobile"
+        "infrastructure"
       ]
     },
     {
       "slug": "benefits",
       "tags": [
+        "interoperability",
         "data-integrity"
       ]
     },
     {
       "slug": "tooling",
       "tags": [
-        "ecosystem-tools"
+        ""
       ]
     }
   ]
