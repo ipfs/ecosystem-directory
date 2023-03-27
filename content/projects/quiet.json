@@ -1,0 +1,102 @@
+{
+  "name": "Quiet",
+  "file": "quiet",
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2021
+  },
+  "logo": {
+    "icon": "icon-quiet.png",
+    "full": "logo-quiet.png"
+  },
+  "org": [
+    "Quiet"
+  ],
+  "description": {
+    "short": "Quiet is an alternative to team chat apps like Slack, Discord, and Element that does not require trusting a central server or running one's own. In Quiet, all data syncs directly between a team's devices over Tor with no server required.",
+    "long": "While apps like Slack, Discord, and Signal use central servers, Quiet syncs messages directly between a team's devices, over Tor, with no server required.\n\nEach group of people (Quiet calls them \"communities\") gets their own insular IPFS network, so that data from one community never touches the devices of Quiet users in other communities. \n\nMessage syncing is taken care of by an IPFS-based CRDT called OrbitDB, which works like a mashup of Git, a gossip protocol, and BitTorrent; it broadcasts new messages, syncs the latest messages, and fetches data. Syncing means that users typically receive all messages sent while they were offline.\n\nInvites, access, and usernames are granted by a community owner, i.e. whoever creates the community. The owner hands out an \"invitation code\" which invitees use to connect to the owner's device, register a username, and get a standard cryptographic certificate so they can prove to other peers they're part of the community."
+  },
+  "primaryCta": {
+    "url": "//tryquiet.org/",
+    "text": "Project Website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//tryquiet.org/",
+          "text": "tryquiet.org"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/tryquiet",
+          "text": "github.com/tryquiet"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2021"
+    }
+  ],
+  "video": "//www.youtube.com/watch?v=owSd7uuGwmw",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {
+    "buttonText": "Try Quiet",
+    "url": "//tryquiet.org/"
+  },
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "other"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "community-networks",
+        "file-sharing",
+        "mobile"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "corporate-government-independence",
+        "local-first-model"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "js-ipfs",
+        "bitswap",
+        "js-libp2p",
+        "ipld"
+      ]
+    }
+  ]
+}
