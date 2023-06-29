@@ -2,7 +2,7 @@
   "name": "Skiff",
   "file": "skiff",
   "display": true,
-  "featured": false,
+  "featured": true,
   "sortNumbers": {
     "since": 2020
   },
