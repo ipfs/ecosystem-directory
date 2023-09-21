@@ -4,21 +4,21 @@
   "display": true,
   "featured": false,
   "sortNumbers": {
-    "since": 2018
+    "since": 2019
   },
   "logo": {
     "icon": "icon-anytype.png",
-    "full": "icon-anytype.png"
+    "full": "logo-anytype.png"
   },
   "org": [
     "Anytype"
   ],
   "description": {
-    "short": "Operating system for a user-owned digital world",
-    "long": "A multi-app operating system focusing on privacy and users' ownership of their own data while also breaking down the barriers between applications present in today's digital world."
+    "short": "Anytype is a no-code, modular web builder designed to give ownership back to creators. It's built on our private, local-first, p2p-synced and open Anysync protocol.",
+    "long": "Please use existing description"
   },
   "primaryCta": {
-    "url": "//anytype.io/",
+    "url": "//anytype.io",
     "text": "Project Website"
   },
   "links": [
@@ -26,7 +26,7 @@
       "label": "Website",
       "links": [
         {
-          "url": "//anytype.io/",
+          "url": "//anytype.io",
           "text": "anytype.io"
         }
       ]
@@ -35,8 +35,8 @@
       "label": "Repo",
       "links": [
         {
-          "url": "//github.com/anytypeio",
-          "text": "github.com/anytypeio"
+          "url": "//github.com/anyproto",
+          "text": "github.com/anyproto"
         }
       ]
     }
@@ -44,10 +44,10 @@
   "keyInfo": [
     {
       "label": "Using IPFS since",
-      "value": "2018"
+      "value": "2019"
     }
   ],
-  "video": "//youtube.com/watch?v=NAF-4AFSqIo",
+  "video": "//youtu.be/dh_3NHY5eVs",
   "stats": [
     {
       "label": "",
@@ -62,12 +62,7 @@
       "value": ""
     }
   ],
-  "ctaCard": {
-    "title": "Anytype news",
-    "description": "Follow the Anytype project's progress in the news section of Anytype's community site.",
-    "buttonText": "Read more",
-    "url": "//community.anytype.io/t/news"
-  },
+  "ctaCard": {},
   "taxonomies": [
     {
       "slug": "industry",
@@ -78,33 +73,23 @@
     {
       "slug": "focus",
       "tags": [
-        "web-hosting-publishing",
-        "file-sharing",
-        "education",
-        "reputation-ip",
-        "mobile",
-        "music",
-        "storage-pinning",
-        "public-data",
-        "video"
+        "community-networks",
+        "infrastructure"
       ]
     },
     {
       "slug": "benefits",
       "tags": [
+        "data-integrity",
         "corporate-government-independence",
-        "self-sovereign-data",
-        "local-first-model"
+        "local-first-model",
+        "self-sovereign-data"
       ]
     },
     {
       "slug": "tooling",
       "tags": [
-        "go-ipfs",
-        "go-libp2p",
-        "ipld",
-        "filecoin",
-        "ecosystem-tools"
+        "filecoin"
       ]
     }
   ]
