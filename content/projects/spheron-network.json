@@ -1,0 +1,100 @@
+{
+  "name": "Spheron Network",
+  "file": "spheron-network",
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2018
+  },
+  "logo": {
+    "icon": "icon-spheron-network.png",
+    "full": "logo-spheron-network.svg"
+  },
+  "org": [
+    "Spheron Foundation"
+  ],
+  "description": {
+    "short": "Spheron Network - Bridging the Gap Between Web2 and Web3 with IPFS pinning and dec",
+    "long": "Spheron Network offers web3 infrastructure solutions such web hosting, storage, and compute facilities. \n\nSpheron offers IPFS pinning service and dedicated gateways. "
+  },
+  "primaryCta": {
+    "url": "//spheron.network/",
+    "text": "Project Website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//spheron.network/",
+          "text": "spheron.network"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/spheronFdn",
+          "text": "github.com/spheronFdn"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2018"
+    }
+  ],
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {},
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "content-delivery"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "dev-tools",
+        "infrastructure",
+        "public-data",
+        "research-data",
+        "storage-pinning",
+        "web-hosting-publishing"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "interoperability"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "ipfs-cluster",
+        "filecoin",
+        "pinning-services",
+        "IPFS http-gateway"
+      ]
+    }
+  ]
+}
