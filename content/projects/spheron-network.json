@@ -14,7 +14,7 @@
     "Spheron Foundation"
   ],
   "description": {
-    "short": "Spheron Network - Bridging the Gap Between Web2 and Web3 with IPFS pinning and dec",
+    "short": "Deploy, manage & scale your applications utilising Web3 Infrastructure",
     "long": "Spheron Network offers web3 infrastructure solutions such web hosting, storage, and compute facilities. \n\nSpheron offers IPFS pinning service and dedicated gateways. "
   },
   "primaryCta": {
@@ -47,6 +47,7 @@
       "value": "2018"
     }
   ],
+  "video": "//www.youtube.com/watch?v=cxMFpU6q7XI",
   "stats": [
     {
       "label": "",
@@ -75,7 +76,6 @@
         "dev-tools",
         "infrastructure",
         "public-data",
-        "research-data",
         "storage-pinning",
         "web-hosting-publishing"
       ]
