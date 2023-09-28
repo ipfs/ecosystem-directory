@@ -1,0 +1,99 @@
+{
+  "name": "dAppling",
+  "file": "dappling",
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2022
+  },
+  "logo": {
+    "icon": "icon-dappling.png",
+    "full": "logo-dappling.svg"
+  },
+  "org": [
+    "Always Be Growing"
+  ],
+  "description": {
+    "short": "Simple way for web3 developers to deploy their website to IPFS.",
+    "long": "Easy way for web3 developers to deploy their frontend to IPFS with a great developer experience.\n\nConnect your github and have a deployed site in a few clicks. Automatic CI/CD / Preview Builds / ENS support"
+  },
+  "primaryCta": {
+    "url": "//dappling.network",
+    "text": "Project Website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//dappling.network",
+          "text": "dappling.network"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/alwaysbegrowing",
+          "text": "github.com/alwaysbegrowing"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2022"
+    }
+  ],
+  "video": "//www.youtube.com/watch?v=WSx5bFl2h70&t=144s",
+  "stats": [
+    {
+      "label": "99.99% Uptime ",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {},
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "defi"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "dev-tools",
+        "infrastructure",
+        "web-hosting-publishing",
+        "storage-pinning"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "couldnt-exist-without-ipfs",
+        "data-integrity",
+        "interoperability"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "IPFS http-gateway",
+        "ecosystem-tools",
+        "Web3.storage"
+      ]
+    }
+  ]
+}
