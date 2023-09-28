@@ -1,24 +1,24 @@
 {
-  "name": "Spheron Network",
-  "file": "spheron-network",
+  "name": "ODD SDK",
+  "file": "odd-sdk",
   "display": true,
   "featured": false,
   "sortNumbers": {
-    "since": 2020
+    "since": 2019
   },
   "logo": {
-    "icon": "icon-spheron-network.png",
-    "full": "logo-spheron-network.svg"
+    "icon": "icon-odd-sdk.png",
+    "full": "logo-odd-sdk.png"
   },
   "org": [
-    "Spheron Foundation"
+    "Fission"
   ],
   "description": {
-    "short": "Deploy, manage & scale your applications utilising Web3 Infrastructure",
-    "long": "Spheron Network offers web3 infrastructure solutions such web hosting, storage, and compute facilities. \n\nSpheron offers IPFS pinning service and dedicated gateways. "
+    "short": "A true local-first, edge computing stack",
+    "long": "ODD SDK is Fission's true local-first, edge computing stack. ODD SDK empowers you to build fully distributed web applications with auth and storage without needing a complex backend. "
   },
   "primaryCta": {
-    "url": "//spheron.network/",
+    "url": "//odd.dev/",
     "text": "Project Website"
   },
   "links": [
@@ -26,8 +26,8 @@
       "label": "Website",
       "links": [
         {
-          "url": "//spheron.network/",
-          "text": "spheron.network"
+          "url": "//odd.dev/",
+          "text": "odd.dev"
         }
       ]
     },
@@ -35,8 +35,8 @@
       "label": "Repo",
       "links": [
         {
-          "url": "//github.com/spheronFdn",
-          "text": "github.com/spheronFdn"
+          "url": "//github.com/oddsdk",
+          "text": "github.com/oddsdk"
         }
       ]
     }
@@ -44,10 +44,9 @@
   "keyInfo": [
     {
       "label": "Using IPFS since",
-      "value": "2020"
+      "value": "2019"
     }
   ],
-  "video": "//www.youtube.com/watch?v=cxMFpU6q7XI",
   "stats": [
     {
       "label": "",
@@ -73,27 +72,31 @@
     {
       "slug": "focus",
       "tags": [
-        "dev-tools",
         "infrastructure",
+        "file-sharing",
+        "dev-tools",
         "public-data",
-        "storage-pinning",
-        "web-hosting-publishing"
+        "web-hosting-publishing",
+        "mobile",
+        "storage-pinning"
       ]
     },
     {
       "slug": "benefits",
       "tags": [
-        "data-integrity",
-        "interoperability"
+        "local-first-model",
+        "interoperability",
+        "self-sovereign-data"
       ]
     },
     {
       "slug": "tooling",
       "tags": [
         "ipfs-cluster",
-        "filecoin",
-        "pinning-services",
-        "IPFS http-gateway"
+        "ipld",
+        "js-ipfs",
+        "go-ipfs",
+        "js-libp2p"
       ]
     }
   ]
