@@ -18,7 +18,7 @@
     "long": "4EVERLAND is a pinning service that provides IPFS infrastructure and tooling making it easier and faster to host frontends, store data/NFT/file and fetch data with IPFS."
   },
   "primaryCta": {
-    "url": "www.4everland.org",
+    "url": "//www.4everland.org",
     "text": "Project Website"
   },
   "links": [
@@ -26,7 +26,7 @@
       "label": "Website",
       "links": [
         {
-          "url": "www.4everland.org",
+          "url": "//www.4everland.org",
           "text": "www.4everland.org"
         }
       ]
@@ -54,8 +54,8 @@
       "value": "20 million+"
     },
     {
-      "label": "dapps",
-      "value": "40000+"
+      "label": "",
+      "value": ""
     },
     {
       "label": "",
@@ -63,8 +63,8 @@
     }
   ],
   "ctaCard": {
-    "title": "Get started with 4EVERLAND",
-    "buttonText": "Get started",
+    "title": "Getting started",
+    "buttonText": "Get started with 4EVERLAND",
     "url": "//dashboard.4everland.org/"
   },
   "taxonomies": [

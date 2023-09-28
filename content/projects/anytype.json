@@ -8,14 +8,14 @@
   },
   "logo": {
     "icon": "icon-anytype.png",
-    "full": "logo-anytype.png"
+    "full": "icon-anytype.png"
   },
   "org": [
     "Anytype"
   ],
   "description": {
-    "short": "Anytype is a no-code, modular web builder designed to give ownership back to creators. It's built on our private, local-first, p2p-synced and open Anysync protocol.",
-    "long": "Please use existing description"
+    "short": "Anytype is a no-code, modular web builder designed to give ownership back to creators. ",
+    "long": "Anytype is a no-code, modular web builder designed to give ownership back to creators. It's built on our private, local-first, p2p-synced and open Anysync protocol."
   },
   "primaryCta": {
     "url": "//anytype.io",
@@ -62,7 +62,12 @@
       "value": ""
     }
   ],
-  "ctaCard": {},
+  "ctaCard": {
+    "title": "Anytype news",
+    "description": "Follow the Anytype project's progress in the news section of Anytype's community site.",
+    "buttonText": "Read more",
+    "url": "//community.anytype.io/c/news-announcements/"
+  },
   "taxonomies": [
     {
       "slug": "industry",
@@ -89,7 +94,7 @@
     {
       "slug": "tooling",
       "tags": [
-        "filecoin"
+        "ipld"
       ]
     }
   ]
