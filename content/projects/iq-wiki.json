@@ -1,0 +1,99 @@
+{
+  "name": "IQ.wiki",
+  "file": "iq-wiki",
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2022
+  },
+  "logo": {
+    "icon": "icon-iq-wiki.png",
+    "full": "logo-iq-wiki.png"
+  },
+  "org": [
+    "BrainDAO"
+  ],
+  "description": {
+    "short": "Blockchain and cryptocurrency encyclopedia.",
+    "long": "IQ.Wiki is the world's largest blockchain and cryptocurrency encyclopedic  with thousands of wikis on all topics and branches of knowledge in crypto. IQ.wiki’s vision is to make blockchain more discoverable and accessible worldwide and empower users with information they can trust. "
+  },
+  "primaryCta": {
+    "url": "//IQ.wiki",
+    "text": "Project Website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//IQ.wiki",
+          "text": "IQ.wiki"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/EveripediaNetwork  ",
+          "text": "github.com/EveripediaNetwork  "
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2022"
+    }
+  ],
+  "video": "//youtu.be/bIIn2qPT9HY?t=689 ",
+  "stats": [
+    {
+      "label": "daily visitors across our projects",
+      "value": "25,000"
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {},
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "content-delivery"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "community-networks",
+        "education",
+        "public-data",
+        "research-data",
+        "web-hosting-publishing"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "data-integrity",
+        "self-sovereign-data"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "js-ipfs",
+        "ipfs-http-client",
+        "pinning-services"
+      ]
+    }
+  ]
+}
