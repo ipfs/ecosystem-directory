@@ -37,7 +37,7 @@
       },
       {
         "type": "a",
-        "href": "https://blog.ipfs.io",
+        "href": "https://blog.ipfs.tech",
         "label": "Blog"
       },
       {
@@ -49,7 +49,7 @@
     "footer": [
       {
         "type": "a",
-        "href": "https://blog.ipfs.io",
+        "href": "https://blog.ipfs.tech",
         "label": "Blog & news"
       },
       {
@@ -84,7 +84,7 @@
       },
       {
         "type": "link",
-        "href": "https://blog.ipfs.io/?tags=weekly",
+        "href": "https://blog.ipfs.tech/?tags=weekly",
         "content": "example"
       },
       {
