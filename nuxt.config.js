@@ -89,7 +89,7 @@ export default {
   // ---------------------------------------------------------------------------
   // Doc: https://support.count.ly/hc/en-us/articles/360037441932-Web-analytics-JavaScript
   countly: {
-    initialize: true, // if set to false, Countly will be DISABLED
+    initialize: false, // if set to false, Countly will be DISABLED
     debug: process.env.NODE_ENV === 'development',
     disableInDevelopment: true,
     suppressErrorLogs: true
