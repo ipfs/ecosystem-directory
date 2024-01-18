@@ -1,44 +1,31 @@
 <template>
   <footer v-if="pageData" id="site-footer">
-
     <section class="panel-top">
-
       <div class="grid-spaceBetween-noGutter">
         <div class="col-5_sm-12">
-          <div ref="mailform" class="mailchimp-form">
-            <h2 class="heading">
-              {{ pageData.heading }}
-            </h2>
-            <div ref="subheading" class="subheading">
-              <component
-                :is="getElementTag(element.type)"
-                v-for="(element, index) in pageData.subheading"
-                :key="`subheading-element-${index}`"
-                :href="element.href"
-                target="_blank"
-                class="focus-visible">{{ element.content ? element.content : '' }}</component>
-            </div>
-            <Shipyard_MailchimpForm />
+          <div class="flex-shrink lg:max-w-sm xl:max-w-xl mb-4 lg:mb-0">
+            <h2 class="heading">Stay informed</h2>
+            <p class="subheading">
+              <a target="_blank" href="https://ipfs.fyi/newsletter">Sign up</a> for the IPFS newsletter for
+              the latest on releases, upcoming developments, community events, and more.
+            </p>
           </div>
         </div>
 
         <div class="col-5_sm-12" data-push-left="off-1_sm-0">
           <div class="project-add-inner">
-            <h2 class="heading">
-              Add your project
-            </h2>
+            <h2 class="heading">Add your project</h2>
             <div class="subheading">
-              Don't see your project here? <a href="https://airtable.com/shrjwvk9pAeAk0Ci7" target="_blank">Send it our way</a>.
+              Don't see your project here?
+              <a href="https://airtable.com/shrjwvk9pAeAk0Ci7" target="_blank">Send it our way</a>.
             </div>
           </div>
         </div>
-
       </div>
     </section>
 
     <section class="panel-bottom">
       <div class="grid-spaceBetween-noGutter">
-
         <div v-if="navigation" class="col-7_sm-12">
           <nav id="footer-navigation">
             <component
@@ -73,10 +60,8 @@
             </template>
           </div>
         </div>
-
       </div>
     </section>
-
   </footer>
 </template>
 
