@@ -1,0 +1,94 @@
+{
+  "name": "DScan",
+  "file": "dscan",
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2021
+  },
+  "logo": {
+    "icon": "icon-dscan.png",
+    "full": "logo-dscan.png"
+  },
+  "org": [
+    "p2plabs.xyz"
+  ],
+  "description": {
+    "short": "A decentralized storage and file-sharing tool that uploads content to IPFS and generates decentralized QR codes.",
+    "long": "DScan enables you to quickly upload files and folders to IPFS using web3.storage, and provides a \"decentralized QR code\" containing the IPFS CID. This QR code can later be customized and shared with anyone for easy and decentralized file sharing. Users can visit console.web3.storage and log in to manage their accounts.\n\nDScan, leveraging the w3up-client, incorporates DIDs and UCAN to establish a robust framework for decentralized authentication and authorization. The use of DIDs enhances security and promotes digital self-sovereignty, while UCAN facilitates permissioned access and the delegation of capabilities, enabling users to manage access to their content securely.\n\nThanks to web3.storage, the content can be accessed over IPFS without the user installing and setting up a local instance of Kubo."
+  },
+  "primaryCta": {
+    "url": "//chromewebstore.google.com/detail/dscan-own-your-identity-o/idpfgkgogjjgklefnkjdpghkifbjenap",
+    "text": "Project Website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//chromewebstore.google.com/detail/dscan-own-your-identity-o/idpfgkgogjjgklefnkjdpghkifbjenap",
+          "text": "chromewebstore.google.com/detail/dscan-own-your-identity-o/idpfgkgogjjgklefnkjdpghkifbjenap"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/p2plabsxyz/dscan",
+          "text": "github.com/p2plabsxyz/dscan"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2021"
+    }
+  ],
+  "video": "//www.youtube.com/watch?v=LyKjI7NbUAo&ab_channel=P2PLabs",
+  "stats": [
+    {
+      "label": "💻 Chrome web store (last 6 months stats):  👤 Active users: 1000+  📲 Installs: 502  📈 Page Views: 7,000+  📈 Impressions: 60,000+ ⭐️ Rating: 5/5",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {},
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "browsers"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "file-sharing",
+        "storage-pinning"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "couldnt-exist-without-ipfs",
+        "self-sovereign-data"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "Web3.storage"
+      ]
+    }
+  ]
+}
