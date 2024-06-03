@@ -1,0 +1,99 @@
+{
+  "name": "Gateway3",
+  "file": "gateway3",
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2022
+  },
+  "logo": {
+    "icon": "icon-gateway3.png",
+    "full": "logo-gateway3.jpeg"
+  },
+  "org": [
+    "Photon Lab Limited"
+  ],
+  "description": {
+    "short": "Gateway3 is an IPFS SaaS service designed for Dapp developers.",
+    "long": "Gateway3 is a cutting-edge IPFS SaaS platform tailored for Dapp developers, offering an array of sophisticated pinning services through a user-friendly API. With features like advanced DAG assembly and reliable IPNS hosting, Gateway3 streamlines the process of managing IPFS node clusters. This empowers Dapp developers to dedicate more time and resources to refining their business logic and innovation, significantly enhancing their development efficiency and productivity."
+  },
+  "primaryCta": {
+    "url": "//gw3.app",
+    "text": "Project Website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//gw3.app",
+          "text": "gw3.app"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/photon-storage",
+          "text": "github.com/photon-storage"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2022"
+    }
+  ],
+  "stats": [
+    {
+      "label": "Hosted 7 million contents and 13,000 IPNS records.",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {},
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "social-media"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "dev-tools",
+        "infrastructure",
+        "storage-pinning"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "couldnt-exist-without-ipfs"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "js-ipfs",
+        "go-ipfs",
+        "bitswap",
+        "IPFS http-gateway",
+        "ipld",
+        "ipfs-embed",
+        "ipfs-http-client"
+      ]
+    }
+  ]
+}

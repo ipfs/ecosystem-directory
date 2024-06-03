@@ -18,7 +18,7 @@
     "long": "Matters integrates Web3 technologies and services in order to enable writers, journalists, novelists, and other creators to publish and monetize in a decentralized, censorship-resilient way."
   },
   "primaryCta": {
-    "url": "//matters.news/",
+    "url": "//matters.town/",
     "text": "Project Website"
   },
   "links": [
@@ -26,8 +26,8 @@
       "label": "Website",
       "links": [
         {
-          "url": "//matters.news/",
-          "text": "matters.news"
+          "url": "//matters.town/",
+          "text": "matters.town"
         }
       ]
     },
