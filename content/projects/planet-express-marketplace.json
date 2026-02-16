@@ -1,0 +1,109 @@
+{
+  "name": "Planet Express Marketplace",
+  "file": "planet-express-marketplace",
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2025
+  },
+  "logo": {
+    "icon": "icon-planet-express-marketplace.png",
+    "full": "logo-planet-express-marketplace.png"
+  },
+  "org": [
+    "Planet Express"
+  ],
+  "description": {
+    "short": "Decentralized file marketplace on Monad blockchain with IPFS-hosted frontend",
+    "long": "Decentralized file marketplace on Monad blockchain with IPFS-hosted frontend. Buy and sell encrypted files with secure escrow. Multi-chain payments via x402 protocol accepting MON, SOL, and Base USDC."
+  },
+  "primaryCta": {
+    "url": "//planetexpress.dropclaw.cloud",
+    "text": "Project Website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//planetexpress.dropclaw.cloud",
+          "text": "planetexpress.dropclaw.cloud"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/timowhite88",
+          "text": "github.com/timowhite88"
+        }
+      ]
+    },
+    {
+      "label": "IPFS",
+      "links": [
+        {
+          "url": "//ipfs.io/ipfs/QmRQ4dv9uinuBHv7eQqMahkwr1n3irmEpQu5Bt5jdEBQ6w",
+          "text": "IPFS-hosted frontend"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2025"
+    },
+    {
+      "label": "IPFS CID",
+      "value": "QmRQ4dv9uinuBHv7eQqMahkwr1n3irmEpQu5Bt5jdEBQ6w"
+    }
+  ],
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {},
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "marketplaces-ecommerce",
+        "defi"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "file-sharing",
+        "storage-pinning",
+        "web-hosting-publishing"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "corporate-government-independence",
+        "data-integrity",
+        "disaster-resilience"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "http-gateway"
+      ]
+    }
+  ]
+}
