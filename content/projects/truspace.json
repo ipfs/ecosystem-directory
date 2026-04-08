@@ -1,0 +1,103 @@
+{
+  "name": "TruSpace",
+  "file": "truspace",
+  "display": true,
+  "featured": false,
+  "sortNumbers": {
+    "since": 2022
+  },
+  "logo": {
+    "icon": "icon-truspace.svg",
+    "full": "logo-truspace.svg"
+  },
+  "org": [
+    "KfW"
+  ],
+  "description": {
+    "short": "TruSpace is a decentralized, collaborative document management system",
+    "long": "Many document collaboration tools that focus on digital sovereignty are based on centralized systems. As an alternative, we developed TruSpace, a digital public good that implements a decentralized document collaboration system using a private IPFS cluster. It solves the problem of lacking trust when several organisations use a centralized or cloud-based tool to collaborate on documents together.\n\nMoreover, documents are analysed using a (local) LLM of choice via ollama, thus being sovereign of large model cloud providers. The model responses are distributed to the IPFS nodes, resulting in less LLM executions across the network. Our primary use cases are in the field of development cooperation, where several participants from different countries have to rely on a shared sovereign document management system.\n\nThe code is open source and available for everyone on Github!"
+  },
+  "primaryCta": {
+    "url": "//web.truspace.dev/",
+    "text": "Project Website"
+  },
+  "links": [
+    {
+      "label": "Website",
+      "links": [
+        {
+          "url": "//web.truspace.dev/",
+          "text": "web.truspace.dev"
+        }
+      ]
+    },
+    {
+      "label": "Repo",
+      "links": [
+        {
+          "url": "//github.com/openkfw/TruSpace",
+          "text": "github.com/openkfw/TruSpace"
+        }
+      ]
+    }
+  ],
+  "keyInfo": [
+    {
+      "label": "Using IPFS since",
+      "value": "2022"
+    }
+  ],
+  "video": "//www.youtube.com/watch?v=dpo_D3NJpqE",
+  "stats": [
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    },
+    {
+      "label": "",
+      "value": ""
+    }
+  ],
+  "ctaCard": {},
+  "taxonomies": [
+    {
+      "slug": "industry",
+      "tags": [
+        "content-delivery"
+      ]
+    },
+    {
+      "slug": "focus",
+      "tags": [
+        "file-sharing",
+        "infrastructure",
+        "storage-pinning"
+      ]
+    },
+    {
+      "slug": "benefits",
+      "tags": [
+        "corporate-government-independence",
+        "data-integrity",
+        "disaster-resilience",
+        "self-sovereign-data",
+        "couldnt-exist-without-ipfs",
+        "local-first-model",
+        "interoperability"
+      ]
+    },
+    {
+      "slug": "tooling",
+      "tags": [
+        "ipfs-cluster",
+        "go-ipfs",
+        "IPFS http-gateway",
+        "bitswap"
+      ]
+    }
+  ]
+}
